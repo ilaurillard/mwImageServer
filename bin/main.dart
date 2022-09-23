@@ -11,17 +11,18 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 void main(
   List<String> args,
 ) async {
-  var parser = new ArgParser()
-    ..addOption('dataDir', abbr: 'd', defaultsTo: '/data');
-  var arguments = parser.parse(args);
 
-  String dataDir = arguments['dataDir'];
+  final ArgParser _parser = new ArgParser()
+    ..addOption('dataDir', abbr: 'd', defaultsTo: '/data');
+  final ArgResults _arguments = _parser.parse(args);
+
+  final String dataDir = _arguments['dataDir'];
   print('data: ' + dataDir);
 
   // -----------
 
   sqfliteFfiInit();
-  Database db = await databaseFactoryFfi.openDatabase(
+  final Database db = await databaseFactoryFfi.openDatabase(
     dataDir + '/database/system.db',
   );
   print('database: ' + db.toString());
@@ -58,7 +59,7 @@ void main(
     );
   }
 
-  int isolates = 1;
+  final int isolates = 1;
   for (int i = 1; i < isolates; i++) {
     Isolate.spawn(_startServer, [dataDir]);
   }

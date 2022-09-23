@@ -1,0 +1,10 @@
+services:
+  web:
+    image: "mw_image_service"
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./data:/data"
+
+#  redis:
+#    image: "redis:alpine"
