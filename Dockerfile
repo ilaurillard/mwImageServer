@@ -1,8 +1,8 @@
 # Use latest stable channel SDK.
 FROM dart:stable AS build
 
-#RUN apt-get update; \
-#    apt-get install -y sqlite3 libsqlite3-dev
+RUN apt-get update; \
+    apt-get install -y sqlite3 libsqlite3-dev imagemagick
 
 # Resolve app dependencies.
 WORKDIR /app
@@ -18,8 +18,9 @@ RUN dart compile exe bin/main.dart -o bin/main
 FROM scratch
 COPY --from=build /runtime/ /
 COPY --from=build /app/bin/main /app/bin/
+### hmm?Docker from Scratch
 COPY --from=build /app/bin/libsqlite3.so /app/bin/
-
+COPY --from=build /usr/bin/convert /app/bin/
 
 # Start server.
 EXPOSE 8080

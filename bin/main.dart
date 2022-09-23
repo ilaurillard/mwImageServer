@@ -19,7 +19,13 @@ void main(
   final String dataDir = _arguments['dataDir'];
   print('data: ' + dataDir);
 
-  // -----------
+  // ----------- imagemagick
+
+  var result = await Process.run('convert', ['-version']);
+  stdout.write(result.stdout);
+  stderr.write(result.stderr);
+
+  // ----------- sqlite
 
   sqfliteFfiInit();
   final Database db = await databaseFactoryFfi.openDatabase(
@@ -27,41 +33,44 @@ void main(
   );
   print('database: ' + db.toString());
 
-  //------------
+  //------------ server
 
-  Future<Null> _startServer(
-    List args,
-  ) async {
-    final HttpServer server = await HttpServer.bind(
-      InternetAddress.anyIPv4, // 0.0.0.0
-      8080,
-      shared: true, // for isolates
-    );
-
-    shelf_io.serveRequests(
-      server,
-      shelf.Cascade()
-          .add(
-            shelf_static.createStaticHandler(
-              dataDir + '/public',
-              defaultDocument: 'index.html',
-            ),
-          )
-          .add(
-            (shelf.Request request) => shelf.Response.ok(
-                "Dynamic answer - (isolate ${Isolate.current.hashCode})"),
-          )
-          .handler,
-    );
-
-    print(
-      'server at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}',
-    );
-  }
-
-  final int isolates = 1;
+  final int isolates = 3;
   for (int i = 1; i < isolates; i++) {
     Isolate.spawn(_startServer, [dataDir]);
   }
   _startServer([dataDir]);
+}
+
+Future<Null> _startServer(
+    List args,
+    ) async {
+
+  final String dataDir = args[0];
+
+  final HttpServer server = await HttpServer.bind(
+    InternetAddress.anyIPv4, // 0.0.0.0
+    8080,
+    shared: true, // for isolates
+  );
+
+  shelf_io.serveRequests(
+    server,
+    shelf.Cascade()
+        .add(
+      shelf_static.createStaticHandler(
+        dataDir + '/public',
+        defaultDocument: 'index.html',
+      ),
+    )
+        .add(
+          (shelf.Request request) => shelf.Response.ok(
+          "Dynamic answer - (isolate ${Isolate.current.hashCode})"),
+    )
+        .handler,
+  );
+
+  print(
+    'server at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}',
+  );
 }
