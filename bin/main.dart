@@ -16,11 +16,7 @@ void main(
   var arguments = parser.parse(args);
 
   String dataDir = arguments['dataDir'];
-  print('dataDir: ' + dataDir);
-
-  // var result = await Process.run('ls', ['-la']);
-  // stdout.write(result.stdout);
-  // stderr.write(result.stderr);
+  print('data: ' + dataDir);
 
   // -----------
 
@@ -28,45 +24,43 @@ void main(
   Database db = await databaseFactoryFfi.openDatabase(
     dataDir + '/database/system.db',
   );
-  print('SQLITE: ' + db.toString());
+  print('database: ' + db.toString());
 
   //------------
 
-  final _staticHandler = shelf_static.createStaticHandler(
-    dataDir + '/public',
-    // defaultDocument: 'index.html',
-  );
-
-  final _exampleHandler = (shelf.Request request) =>
-      shelf.Response.ok("Hello World - (isolate ${Isolate.current.hashCode})");
-
-  _startShelfServer(
+  Future<Null> _startServer(
     List args,
   ) async {
-    final cascade = shelf.Cascade()
-        .add(
-          _staticHandler,
-        )
-        .add(
-          _exampleHandler,
-        );
-    HttpServer server = await HttpServer.bind(
-      InternetAddress.anyIPv4,
+    final HttpServer server = await HttpServer.bind(
+      InternetAddress.anyIPv4, // 0.0.0.0
       8080,
-      shared: true,
+      shared: true, // for isolates
     );
+
     shelf_io.serveRequests(
       server,
-      cascade.handler,
+      shelf.Cascade()
+          .add(
+            shelf_static.createStaticHandler(
+              dataDir + '/public',
+              defaultDocument: 'index.html',
+            ),
+          )
+          .add(
+            (shelf.Request request) => shelf.Response.ok(
+                "Dynamic answer - (isolate ${Isolate.current.hashCode})"),
+          )
+          .handler,
     );
+
     print(
-      'Serving at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}',
+      'server at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}',
     );
   }
 
   int isolates = 1;
   for (int i = 1; i < isolates; i++) {
-    Isolate.spawn(_startShelfServer, [dataDir]);
+    Isolate.spawn(_startServer, [dataDir]);
   }
-  _startShelfServer([dataDir]);
+  _startServer([dataDir]);
 }
