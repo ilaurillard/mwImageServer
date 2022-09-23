@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:args/args.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_static/shelf_static.dart' as shelf_static;
@@ -10,72 +11,26 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 void main(
   List<String> args,
 ) async {
-  // var parser = new ArgParser()
-  //   ..addOption('address', abbr: 'a', defaultsTo: '0.0.0.0')
-  //   ..addOption('port', abbr: 'p', defaultsTo: '9393')
-  //   ..addOption('isolates', abbr: 'i', defaultsTo: '3');
-  // var arguments = parser.parse(args);
+  var parser = new ArgParser()
+    ..addOption('dataDir', abbr: 'd', defaultsTo: '/data');
+  var arguments = parser.parse(args);
 
-  String dataDir = args.isEmpty ? '/data' : args.first;
+  String dataDir = arguments['dataDir'];
   print('dataDir: ' + dataDir);
 
   // var result = await Process.run('ls', ['-la']);
   // stdout.write(result.stdout);
   // stderr.write(result.stderr);
 
-  // ------------------
+  // -----------
 
   sqfliteFfiInit();
   Database db = await databaseFactoryFfi.openDatabase(
-    dataDir + '/database/test.db',
+    dataDir + '/database/system.db',
   );
   print('SQLITE: ' + db.toString());
 
   //------------
-
-  // final ip = InternetAddress.anyIPv4;
-  //
-  // final handler = Pipeline()
-  //     // .addMiddleware(
-  //     //   logRequests(),
-  //     // )
-  //     .addHandler(
-  //       _router,
-  //     );
-  //
-  // final port = int.parse(Platform.environment['PORT'] ?? '8080');
-  // final server = await shelf_io.serve(
-  //   handler,
-  //   ip,
-  //   port,
-  // );
-  // print(
-  //   'Server listening on port ${server.port}',
-  // );
-
-  // -------------
-
-  // final _staticHandler = shelf_static.createStaticHandler(
-  //   dataDir + '/public',
-  //   defaultDocument: 'index.html',
-  // );
-
-  //
-  // final port = int.parse(Platform.environment['PORT'] ?? '8080');
-  //
-  // final cascade = Cascade().add(_staticHandler).add(_router);
-  //
-  // final server = await shelf_io.serve(
-  //   logRequests().addHandler(cascade.handler),
-  //   InternetAddress.anyIPv4,
-  //   port,
-  // );
-  //
-  // print(
-  //   'Server listening on port ${server.port}',
-  // );
-
-  // -------------------
 
   final _staticHandler = shelf_static.createStaticHandler(
     dataDir + '/public',
@@ -109,9 +64,9 @@ void main(
     );
   }
 
-  // int isolates = 3;
-  // for (int i = 1; i < isolates; i++) {
-  //   Isolate.spawn(_startShelfServer, [dataDir]);
-  // }
+  int isolates = 1;
+  for (int i = 1; i < isolates; i++) {
+    Isolate.spawn(_startShelfServer, [dataDir]);
+  }
   _startShelfServer([dataDir]);
 }

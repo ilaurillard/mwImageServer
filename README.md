@@ -1,5 +1,4 @@
-$ dart run bin/main.dart
-$ dart run bin/main.dart ~/PhpstormProjects/mwImageService/data
+$ dart run bin/main.dart -d ~/PhpstormProjects/mwImageService/data
 
 $ curl http://0.0.0.0:8080
 
