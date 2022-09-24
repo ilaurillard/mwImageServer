@@ -18,6 +18,7 @@ $ docker system prune
 
 ----
 
+
 $ docker-compose up
 
 $ curl http://0.0.0.0:8080
