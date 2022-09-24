@@ -1,0 +1,18 @@
+
+GET http://0.0.0.0:8080/xxx
+
+> {%
+client.test('Not found', () => {
+    client.assert(response.status === 404);
+}); %}
+
+###
+
+GET http://0.0.0.0:8080/public/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
+
+> {%
+client.test('xxx', () => {
+    client.assert(response.status === 200);
+}); %}
+
+###

@@ -22,6 +22,10 @@ $ docker-compose up
 
 $ curl http://0.0.0.0:8080
 
+$ curl http://0.0.0.0:8080/public/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
+
+$ curl http://0.0.0.0:8080/private/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
+
 ----
 
 $ ab -k -n 10000 -c 10 http://0.0.0.0:8080/
