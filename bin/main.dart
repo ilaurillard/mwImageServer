@@ -27,15 +27,24 @@ void main(
 
   //------------ server
 
-  print('>>> starting server with ' + config.isolates.toString() + ' isolates:');
+  print(
+      '>>> starting server with ' + config.isolates.toString() + ' isolates:');
   for (int i = 1; i < config.isolates; i++) {
     Isolate.spawn(
-      Server(config: config).start,
+      Server(
+        config: config,
+        storage: storage,
+        imagick: imagick,
+      ).start,
       [],
     );
   }
 
-  Server(config: config).start(
+  Server(
+    config: config,
+    storage: storage,
+    imagick: imagick,
+  ).start(
     [],
   );
 }

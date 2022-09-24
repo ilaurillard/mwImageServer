@@ -16,3 +16,22 @@ client.test('xxx', () => {
 }); %}
 
 ###
+
+GET http://0.0.0.0:8080/private/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
+
+> {%
+client.test('xxx', () => {
+    client.assert(response.status === 404);
+}); %}
+
+###
+
+GET http://0.0.0.0:8080/api/
+Authorization: zzz
+
+> {%
+client.test('xxx', () => {
+    client.assert(response.status === 401);
+}); %}
+
+###
