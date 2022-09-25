@@ -3,10 +3,10 @@ import 'dart:io';
 import 'Config.dart';
 
 class Imagick {
-  final Config config;
+  final Config cfg;
 
   Imagick({
-    required this.config,
+    required this.cfg,
   });
 
   Future<String> version() async {

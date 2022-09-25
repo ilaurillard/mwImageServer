@@ -4,36 +4,36 @@ import '../src/Args.dart';
 import '../src/Config.dart';
 import '../src/Imagick.dart';
 import '../src/Server.dart';
-import '../src/Storage.dart';
+import '../src/DataStore.dart';
 
 void main(
   List<String> arguments,
 ) async {
-  Config config = Config(
+  Config cfg = Config(
     args: Args(
       arguments,
     ),
   );
 
-  Storage storage = Storage(
-    config: config,
+  DataStore dataStore = DataStore(
+    cfg: cfg,
   );
-  await storage.init();
+  await dataStore.init();
 
   Imagick imagick = Imagick(
-    config: config,
+    cfg: cfg,
   );
   print(await imagick.version());
 
   //------------ server
 
   print(
-      '>>> starting server with ' + config.isolates.toString() + ' isolates:');
-  for (int i = 1; i < config.isolates; i++) {
+      '>>> starting server with ' + cfg.isolates.toString() + ' isolates:');
+  for (int i = 1; i < cfg.isolates; i++) {
     Isolate.spawn(
       Server(
-        config: config,
-        storage: storage,
+        cfg: cfg,
+        dataStore: dataStore,
         imagick: imagick,
       ).start,
       [],
@@ -41,8 +41,8 @@ void main(
   }
 
   Server(
-    config: config,
-    storage: storage,
+    cfg: cfg,
+    dataStore: dataStore,
     imagick: imagick,
   ).start(
     [],

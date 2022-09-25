@@ -23,9 +23,9 @@ $ docker-compose up
 
 $ curl http://0.0.0.0:8080
 
-$ curl http://0.0.0.0:8080/public/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
+$ curl http://0.0.0.0:8080/public/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
 
-$ curl http://0.0.0.0:8080/private/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
+$ curl http://0.0.0.0:8080/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
 
 ----
 

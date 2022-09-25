@@ -1,37 +1,134 @@
+###
 
 GET http://0.0.0.0:8080/xxx
 
 > {%
-client.test('Not found', () => {
+client.test('test', function () {
     client.assert(response.status === 404);
 }); %}
 
-###
+### Full access with rootKey
 
-GET http://0.0.0.0:8080/public/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
+GET http://0.0.0.0:8080/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Authorization: rootKey
 
 > {%
-client.test('xxx', () => {
+client.test('test', function () {
     client.assert(response.status === 200);
 }); %}
 
-###
+### Root creates Customer Admin Token
 
-GET http://0.0.0.0:8080/private/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
+POST http://0.0.0.0:8080/api/token
+Authorization: rootKey
+
+{
+  "users": [],
+  "groups": [],
+  "buckets": [77],
+  "root": true
+}
 
 > {%
-client.test('xxx', () => {
-    client.assert(response.status === 404);
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("admin_token1", response.body.id);
 }); %}
 
 ###
 
-GET http://0.0.0.0:8080/api/
-Authorization: zzz
+GET http://0.0.0.0:8080/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Authorization: {{admin_token1}}
 
 > {%
-client.test('xxx', () => {
-    client.assert(response.status === 401);
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}
+
+### Customer Admin creates Admin Token
+
+POST http://0.0.0.0:8080/api/bucket/77/token
+Authorization: {{admin_token1}}
+
+{
+  "users": [],
+  "groups": [],
+  "buckets": [77, 88],
+  "root": true
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("admin_token2", response.body.id);
 }); %}
 
 ###
+
+GET http://0.0.0.0:8080/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Authorization: {{admin_token2}}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}
+
+### Customer Admin creates User Token
+
+POST http://0.0.0.0:8080/api/bucket/77/token
+Authorization: {{admin_token2}}
+
+{
+  "users": [55]
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("user_token", response.body.id);
+}); %}
+
+###
+
+GET http://0.0.0.0:8080/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Authorization: {{user_token}}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}
+
+### User cannot create tokens
+
+POST http://0.0.0.0:8080/api/bucket/77/token
+Authorization: {{user_token}}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 403);
+}); %}
+
+### Customer Admin creates User Token
+
+POST http://0.0.0.0:8080/api/bucket/77/token
+Authorization: {{admin_token1}}
+
+{
+  "groups": [666]
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("user_token2", response.body.id);
+}); %}
+
+###
+
+GET http://0.0.0.0:8080/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Authorization: {{user_token2}}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}

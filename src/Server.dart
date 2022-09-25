@@ -9,17 +9,18 @@ import 'package:shelf_static/shelf_static.dart';
 import 'Api.dart';
 import 'Authentication.dart';
 import 'Config.dart';
+import 'Converter.dart';
+import 'DataStore.dart';
 import 'Imagick.dart';
-import 'Storage.dart';
 
 class Server {
-  final Config config;
-  final Storage storage;
+  final Config cfg;
+  final DataStore dataStore;
   final Imagick imagick;
 
   Server({
-    required this.config,
-    required this.storage,
+    required this.cfg,
+    required this.dataStore,
     required this.imagick,
   });
 
@@ -27,8 +28,8 @@ class Server {
     List args,
   ) async {
     final HttpServer server = await HttpServer.bind(
-      config.ip,
-      config.port,
+      cfg.ip,
+      cfg.port,
       shared: true, // for isolates
     );
 
@@ -44,43 +45,67 @@ class Server {
   }
 
   Router app() {
+    Converter converter = Converter(
+      cfg: cfg,
+      dataStore: dataStore,
+      imagick: imagick,
+    );
+
     return Router()
       // PUBLIC ----------------------
       ..get(
-        '/public/<i|[a-f0-9]{2}>/<[a-f0-9]{2}>/<resource|[a-f0-9]{32}>/<ignored|.*>',
-        createStaticHandler(
-          config.dataDir,
-        ),
+        // /public/77/ff/ff/ffffaaaaffffaaaa1111222233334444/[file]
+        '/public' +
+            cfg.paramBucket +
+            cfg.paramSeg1 +
+            cfg.paramSeg2 +
+            cfg.paramRes +
+            cfg.paramFile,
+        Cascade()
+            .add(
+              createStaticHandler(
+                cfg.dataDir,
+              ),
+            )
+            .add(
+              converter.onTheFly,
+            )
+            .handler,
       )
       // PRIVATE ----------------------
       ..get(
-        '/private/<i|[a-f0-9]{2}>/<[a-f0-9]{2}>/<resource|[a-f0-9]{32}>/<ignored|.*>',
+        '/private' +
+            cfg.paramBucket +
+            cfg.paramSeg1 +
+            cfg.paramSeg2 +
+            cfg.paramRes +
+            cfg.paramFile,
         Pipeline()
             .addMiddleware(
               Authentication(
-                config: config,
-                storage: storage,
+                cfg: cfg,
+                dataStore: dataStore,
               ).privateAccess(),
             )
             .addHandler(
-              createStaticHandler(
-                config.dataDir,
-              ),
+              Cascade()
+                  .add(
+                    createStaticHandler(
+                      cfg.dataDir,
+                    ),
+                  )
+                  .add(
+                    converter.onTheFly,
+                  )
+                  .handler,
             ),
       )
       // API ----------------------
-      ..get(
-        '/api/<ignored|.*>',
-        Pipeline()
-            .addMiddleware(
-              Authentication(
-                config: config,
-                storage: storage,
-              ).apiAccess(),
-            )
-            .addHandler(
-              Api().create(),
-            ),
-      );
+      ..mount(
+          '/api',
+          Api(
+            cfg: cfg,
+            dataStore: dataStore,
+          ).create());
   }
 }
