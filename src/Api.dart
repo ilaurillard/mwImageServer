@@ -186,7 +186,7 @@ class Api {
     );
     if (resource.empty()) {
       return Response.notFound(
-        'Resource not found (3)',
+        'Resource not found',
       );
     }
 

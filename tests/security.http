@@ -102,6 +102,12 @@ Authorization: {{admin_token77}}
     "visibility": "public"
 }
 
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("resource_token77", response.body.id);
+}); %}
+
 ### Customer Admin creates Resource
 POST {{host}}/api/bucket/88/resource
 Authorization: {{admin_token88}}
@@ -109,3 +115,25 @@ Authorization: {{admin_token88}}
 {
     "visibility": "public"
 }
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("resource_token88", response.body.id);
+}); %}
+
+
+### Show own resource in bucket
+GET {{host}}/api/bucket/77/resource/{{resource_token77}}
+Authorization: {{admin_token77}}
+
+### Show own resource in bucket
+GET {{host}}/api/bucket/88/resource/{{resource_token88}}
+Authorization: {{admin_token88}}
+
+
+### Show foreign resource -> 404
+GET {{host}}/api/bucket/77/resource/{{resource_token88}}
+Authorization: {{admin_token77}}
+
+> {% client.test('test', function () { client.assert(response.status === 404); }); %}

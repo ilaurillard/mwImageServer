@@ -25,11 +25,13 @@ class Converter {
   ) async {
     int bucket = int.parse(request.params['bucket'] ?? '0');
 
-    Resource resource =
-        await dataStore.resource(bucket, request.params['resource'] ?? '');
+    Resource resource = await dataStore.resource(
+      bucket,
+      request.params['resource'] ?? '',
+    );
     if (resource.empty()) {
       return Response.notFound(
-        'Resource not found (4)',
+        'Resource not found',
       );
     }
 

@@ -47,7 +47,7 @@ class Authentication {
           );
           if (resource.empty()) {
             return Response.notFound(
-              'Resource not found (1)',
+              'Resource not found',
             );
           }
 
