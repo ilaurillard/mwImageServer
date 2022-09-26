@@ -58,9 +58,6 @@ class DataStore {
   Future<Token> token(
     String id,
   ) async {
-
-    print('Load token: ' + id);
-
     List<dynamic> data = await db.query(
       'Token',
       where: 'id = ?',
@@ -68,15 +65,19 @@ class DataStore {
       limit: 1,
     );
     if (data.isNotEmpty) {
+      print('Loaded token: ' + id);
       Map<String, dynamic> row = data.first;
       return Token(
         id,
         bucket: row['bucket'],
-        users: intList(row['users'] ?? ''),
-        groups: intList(row['groups'] ?? ''),
-        buckets: intList(row['buckets'] ?? ''),
+        users: _intList(row['users'] ?? ''),
+        groups: _intList(row['groups'] ?? ''),
+        buckets: _intList(row['buckets'] ?? ''),
         root: (row['root'] as int? ?? 0) == 1,
       );
+    }
+    else {
+      print('Token not found: ' + id);
     }
 
     return Token(
@@ -85,25 +86,55 @@ class DataStore {
     );
   }
 
-  List<int> intList(String csv)
-  {
-    if (csv.isEmpty) {
-      return [];
-    }
-    List<String> ls = (List<String>.from(csv.split(';')));
-    return ls.map((String s) => int.parse(s)).toList();
+  Future<Resource> createResource(
+    int bucket, {
+    List<int> users = const [],
+    List<int> groups = const [],
+  }) async {
+    String id = _randMd5();
+
+    Resource resource = Resource(
+      id,
+      bucket: bucket,
+      users: users,
+      groups: groups,
+    );
+
+    await db.insert(
+      'Resource',
+      resource.toDatabase(),
+    );
+
+    return resource;
   }
 
-  Resource resource(
+  Future<Resource> resource(
+    int bucket,
     String id,
-  ) {
-    // TODO
+  ) async {
+    print('Load resource: ' + id);
+
+    if (bucket > 0) {
+      List<dynamic> data = await db.query(
+        'Resource',
+        where: 'id = ? AND bucket = ?',
+        whereArgs: [id, bucket],
+        limit: 1,
+      );
+      if (data.isNotEmpty) {
+        Map<String, dynamic> row = data.first;
+        return Resource(
+          id,
+          bucket: row['bucket'],
+          users: _intList(row['users'] ?? ''),
+          groups: _intList(row['groups'] ?? ''),
+        );
+      }
+    }
 
     return Resource(
       id,
-      77,
-      users: [55],
-      groups: [666],
+      bucket: 0,
     );
   }
 
@@ -132,6 +163,13 @@ class DataStore {
         groups TEXT
     )
   ''');
+
+      await db.insert('Resource', {
+        'id': 'aaaabbbbccccddddaaaabbbbccccdddd',
+        'bucket': 77,
+        'users': '55;66',
+        'groups': '666'
+      });
     }
   }
 
@@ -143,5 +181,13 @@ class DataStore {
           ),
         )
         .toString();
+  }
+
+  List<int> _intList(String csv) {
+    if (csv.isEmpty) {
+      return [];
+    }
+    List<String> ls = (List<String>.from(csv.split(';')));
+    return ls.map((String s) => int.parse(s)).toList();
   }
 }

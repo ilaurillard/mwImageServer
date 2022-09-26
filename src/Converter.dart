@@ -22,18 +22,25 @@ class Converter {
 
   FutureOr<Response> onTheFly(
     Request request,
-  ) {
-    Resource? resource = dataStore.resource(
-        request.params['resource'] ?? ''
-    );
-    if (resource == null) {
-      return Response.notFound('resource not found');
+  ) async {
+    int bucket = int.parse(request.params['bucket'] ?? '0');
+
+    Resource resource =
+        await dataStore.resource(bucket, request.params['resource'] ?? '');
+    if (resource.empty()) {
+      return Response.notFound(
+        'Resource not found (4)',
+      );
     }
 
-    int bucket = int.parse(request.params['bucket'] ?? '0');
     String file = request.params['file'] ?? '';
 
-    print('On the fly - ' + resource.toString() + ' ' + file + ' ' + bucket.toString());
+    print('On the fly - ' +
+        resource.toString() +
+        ' ' +
+        file +
+        ' ' +
+        bucket.toString());
 
     // TODO
 
@@ -42,6 +49,4 @@ class Converter {
     );
     return handler(request);
   }
-
-
 }

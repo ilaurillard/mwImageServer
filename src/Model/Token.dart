@@ -19,7 +19,7 @@ class Token {
   });
 
   bool empty() {
-    return users.isEmpty && groups.isEmpty && buckets.isEmpty && root;
+    return users.isEmpty && groups.isEmpty && buckets.isEmpty && !root;
   }
 
   bool accessResource(

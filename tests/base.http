@@ -1,0 +1,216 @@
+### Not found
+GET {{host}}/xxx
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 404);
+}); %}
+
+### Full access with rootKey
+GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Authorization: rootKey
+Accept: image/*
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}
+
+
+### (Only) Root creates Bucket
+POST {{host}}/api/bucket
+Authorization: rootKey
+Accept: application/json
+Content-Type: application/json
+
+{
+   "id": 99
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}
+
+
+
+### Root creates Customer Admin Token
+POST {{host}}/api/token
+Authorization: rootKey
+Accept: application/json
+Content-Type: application/json
+
+{
+  "users": [],
+  "groups": [],
+  "buckets": [77],
+  "root": false
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("admin_token1", response.body.id);
+}); %}
+
+###
+GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Authorization: {{admin_token1}}
+Accept: image/*
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}
+
+
+
+
+### Customer Admin creates Admin Token
+POST {{host}}/api/bucket/77/token
+Authorization: {{admin_token1}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "users": [],
+  "groups": [],
+  "buckets": [77, 88],
+  "root": true
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("admin_token2", response.body.id);
+}); %}
+
+###
+GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Authorization: {{admin_token2}}
+Accept: image/*
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}
+
+
+
+
+### Customer Admin creates User Token
+POST {{host}}/api/bucket/77/token
+Authorization: {{admin_token2}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "users": [55]
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("user_token1", response.body.id);
+}); %}
+
+###
+GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Authorization: {{user_token1}}
+Accept: image/*
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}
+
+
+
+
+### User cannot create tokens
+POST {{host}}/api/bucket/77/token
+Authorization: {{user_token1}}
+Content-Type: application/json
+Accept: application/json
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 401);
+}); %}
+
+
+
+### Show bucket
+GET {{host}}/api/bucket/77
+Authorization: {{admin_token2}}
+Content-Type: application/json
+Accept: application/json
+
+### Show bucket -> 404
+GET {{host}}/api/bucket/99999
+Authorization: rootKey
+Content-Type: application/json
+Accept: application/json
+
+### Show resource in bucket
+GET {{host}}/api/bucket/77/resource/aaaabbbbccccddddaaaabbbbccccdddd
+Authorization: {{admin_token2}}
+Content-Type: application/json
+Accept: application/json
+
+### Show token in bucket
+GET {{host}}/api/bucket/77/token/{{admin_token2}}
+Authorization: {{admin_token2}}
+Content-Type: application/json
+Accept: application/json
+
+### Show token as root
+GET {{host}}/api/token/{{admin_token2}}
+Authorization: rootKey
+Content-Type: application/json
+Accept: application/json
+
+
+
+### Customer Admin creates User Token
+POST {{host}}/api/bucket/77/token
+Authorization: {{admin_token1}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "groups": [666]
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("user_token2", response.body.id);
+}); %}
+
+###
+GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Authorization: {{user_token2}}
+Accept: image/*
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}
+
+
+
+
+### Customer Admin creates Resource
+POST {{host}}/api/bucket/77/resource
+Authorization: {{admin_token1}}
+Accept: application/json
+
+{
+    "visibility": "public"
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+}); %}

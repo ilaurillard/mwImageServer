@@ -16,41 +16,48 @@ class Authentication {
   });
 
   Middleware privateAccess() {
-    return (Handler innerHandler) {
+    return (Handler handler) {
       return (
         Request request,
       ) async {
         String auth = request.headers['authorization'] ?? '';
         if (auth.isNotEmpty) {
           if (auth == cfg.rootKey) {
-            return innerHandler(request);
+            // static root key has full access
+            return handler(request);
           }
 
           Token token = await dataStore.token(auth);
           if (token.empty()) {
             return Response.unauthorized(
-              'token not found',
+              'Token not found',
             );
           }
 
-          Resource resource =
-              dataStore.resource(request.params['resource'] ?? '');
+          if (token.root) {
+            // special root token -> full access
+            return handler(request);
+          }
+
+          int bucket = int.parse(request.params['bucket'] ?? '0');
+
+          Resource resource = await dataStore.resource(
+            bucket,
+            request.params['resource'] ?? '',
+          );
           if (resource.empty()) {
             return Response.notFound(
-              'resource not found',
+              'Resource not found (1)',
             );
           }
-
-          // print(token.toString());
-          // print(resource.toString());
 
           if (!token.accessResource(resource)) {
             return Response.forbidden(
-              'forbidden',
+              'Forbidden',
             );
           }
 
-          return innerHandler(request);
+          return handler(request);
         }
         return Response.notFound(
           'Not found',
@@ -61,26 +68,30 @@ class Authentication {
 
   Middleware apiAccess() {
     return (
-      Handler innerHandler,
+      Handler handler,
     ) {
       return (
         Request request,
       ) async {
         String auth = request.headers['authorization'] ?? '';
         if (auth.isNotEmpty) {
-          if (auth == cfg.rootKey) { // static root key has full access
-            return innerHandler(request);
+          if (auth == cfg.rootKey) {
+            // static root key has full access
+            return handler(request);
           }
 
           Token token = await dataStore.token(auth);
-          if (token.empty()) { // no token found
+          if (token.empty()) {
+            // no token found
             return Response.unauthorized(
               'Token not found',
+              headers: cfg.jsonHeaders,
             );
           }
 
-          if (token.root) { // special root token -> full access
-            return innerHandler(request);
+          if (token.root) {
+            // special root token -> full access
+            return handler(request);
           }
 
           int bucket = 0;
@@ -90,18 +101,18 @@ class Authentication {
             bucket = tmp.length > 1 ? int.parse(tmp[1]) : 0;
           }
 
-          // print(bucket);
-          // print(token);
-
           if (bucket > 0 && token.accessBucket(bucket)) {
-            return innerHandler(request);
+            return handler(request);
           }
 
-
-
+          return Response.forbidden(
+            'Forbidden',
+            headers: cfg.jsonHeaders,
+          );
         }
         return Response.unauthorized(
           'Unauthorized',
+          headers: cfg.jsonHeaders,
         );
       };
     };

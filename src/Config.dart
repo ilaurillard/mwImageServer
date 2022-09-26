@@ -16,7 +16,10 @@ class Config {
   final String paramSeg1 = '/<any|[a-f0-9]{2}>';
   final String paramSeg2 = '/<any|[a-f0-9]{2}>';
   final String paramRes = '/<resource|[a-f0-9]{32}>';
+  final String paramToken = '/<token|[a-f0-9]{32}>';
   final String paramFile = '/<file|.*>';
+
+  final Map<String, String> jsonHeaders = {'content-type': 'application/json'};
 
   Config({
     required Args args,

@@ -9,7 +9,8 @@ class Resource {
 
   Resource(
     this.id,
-    this.bucket, {
+    {
+      required this.bucket,
     this.users = const [],
     this.groups = const [],
   });
@@ -17,10 +18,28 @@ class Resource {
 
 
   bool empty() {
-    return false;
+    return bucket == 0;
   }
 
   String toString() {
     return 'Resource#' + id + '/' + bucket.toString();
+  }
+
+  Map<String, dynamic> toDatabase() {
+    return {
+      'id': id,
+      'bucket': bucket,
+      'users': users.join(';'),
+      'groups': groups.join(';'),
+    };
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'bucket': bucket,
+      'users': users,
+      'groups': groups,
+    };
   }
 }
