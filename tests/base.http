@@ -1,20 +1,23 @@
 ### Not found
 GET {{host}}/xxx
 
-> {%
-client.test('test', function () {
-    client.assert(response.status === 404);
-}); %}
+> scripts/assert404.js
+
+
+### Public access
+GET {{host}}/public/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+Accept: image/*
+
+> scripts/assert200AndJpg.js
+
+
 
 ### Full access with rootKey
 GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
 Authorization: rootKey
 Accept: image/*
 
-> {%
-client.test('test', function () {
-    client.assert(response.status === 200);
-}); %}
+> scripts/assert200AndJpg.js
 
 
 ### (Only) Root creates Bucket
@@ -27,10 +30,7 @@ Content-Type: application/json
    "id": 99
 }
 
-> {%
-client.test('test', function () {
-    client.assert(response.status === 200);
-}); %}
+> scripts/assert200.js
 
 
 
@@ -58,10 +58,7 @@ GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
 Authorization: {{admin_token1}}
 Accept: image/*
 
-> {%
-client.test('test', function () {
-    client.assert(response.status === 200);
-}); %}
+> scripts/assert200AndJpg.js
 
 
 
@@ -90,10 +87,7 @@ GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
 Authorization: {{admin_token2}}
 Accept: image/*
 
-> {%
-client.test('test', function () {
-    client.assert(response.status === 200);
-}); %}
+> scripts/assert200AndJpg.js
 
 
 
@@ -119,10 +113,7 @@ GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
 Authorization: {{user_token1}}
 Accept: image/*
 
-> {%
-client.test('test', function () {
-    client.assert(response.status === 200);
-}); %}
+> scripts/assert200AndJpg.js
 
 
 
@@ -133,43 +124,45 @@ Authorization: {{user_token1}}
 Content-Type: application/json
 Accept: application/json
 
-> {%
-client.test('test', function () {
-    client.assert(response.status === 403);
-}); %}
+> scripts/assert403AndJson.js
 
 
 
 ### Show bucket
 GET {{host}}/api/bucket/77
 Authorization: {{admin_token2}}
-Content-Type: application/json
-Accept: application/json
+
+> scripts/assert200AndJson.js
 
 ### Show bucket -> 404
 GET {{host}}/api/bucket/99999
 Authorization: rootKey
-Content-Type: application/json
-Accept: application/json
+
+> scripts/assert200AndJson.js
+
+### Show bucket -> 400
+GET {{host}}/api/bucket/0
+Authorization: rootKey
+
+> scripts/assert400.js
 
 ### Show resource in bucket
 GET {{host}}/api/bucket/77/resource/aaaabbbbccccddddaaaabbbbccccdddd
 Authorization: {{admin_token2}}
-Content-Type: application/json
-Accept: application/json
+
+> scripts/assert200AndJson.js
 
 ### Show token in bucket
 GET {{host}}/api/bucket/77/token/{{admin_token2}}
 Authorization: {{admin_token2}}
-Content-Type: application/json
-Accept: application/json
+
+> scripts/assert200AndJson.js
 
 ### Show token as root
 GET {{host}}/api/token/{{admin_token2}}
 Authorization: rootKey
-Content-Type: application/json
-Accept: application/json
 
+> scripts/assert200AndJson.js
 
 
 ### Customer Admin creates User Token
@@ -193,24 +186,4 @@ GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
 Authorization: {{user_token2}}
 Accept: image/*
 
-> {%
-client.test('test', function () {
-    client.assert(response.status === 200);
-}); %}
-
-
-
-
-### Customer Admin creates Resource
-POST {{host}}/api/bucket/77/resource
-Authorization: {{admin_token1}}
-Accept: application/json
-
-{
-    "visibility": "public"
-}
-
-> {%
-client.test('test', function () {
-    client.assert(response.status === 200);
-}); %}
+> scripts/assert200AndJpg.js

@@ -1,0 +1,36 @@
+POST {{host}}/api/bucket/77/resource
+Authorization: rootKey
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Type: application/json
+
+{
+}
+
+--WebAppBoundary
+Content-Disposition: form-data; filename="ffff23.jpg"
+Content-Type: image/jpeg
+
+< ./ffff23.jpg
+--WebAppBoundary--
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("resource_id1", response.body.id);
+    client.global.set("resource_url", response.body.path + '/' + response.body.filename);
+}); %}
+
+
+### Show resource
+GET {{host}}/{{resource_url}}
+
+> scripts/assert200AndJpg.js
+
+
+### Show resource
+GET {{host}}/api/bucket/77/resource/{{resource_id1}}
+Authorization: rootKey
+
+> scripts/assert200AndJson.js

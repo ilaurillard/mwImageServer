@@ -8,6 +8,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'Config.dart';
 import 'Model/Resource.dart';
 import 'Model/Token.dart';
+import 'Types.dart';
 
 class DataStore {
   final Config cfg;
@@ -66,7 +67,7 @@ class DataStore {
     );
     if (data.isNotEmpty) {
       print('Loaded token: ' + id);
-      Map<String, dynamic> row = data.first;
+      Dict row = data.first;
       return Token(
         id,
         bucket: row['bucket'],
@@ -75,8 +76,7 @@ class DataStore {
         buckets: _intList(row['buckets'] ?? ''),
         root: (row['root'] as int? ?? 0) == 1,
       );
-    }
-    else {
+    } else {
       print('Token not found: ' + id);
     }
 
@@ -88,6 +88,7 @@ class DataStore {
 
   Future<Resource> createResource(
     int bucket, {
+    required String filename,
     List<int> users = const [],
     List<int> groups = const [],
   }) async {
@@ -96,6 +97,7 @@ class DataStore {
     Resource resource = Resource(
       id,
       bucket: bucket,
+      filename: filename,
       users: users,
       groups: groups,
     );
@@ -122,10 +124,11 @@ class DataStore {
         limit: 1,
       );
       if (data.isNotEmpty) {
-        Map<String, dynamic> row = data.first;
+        Dict row = data.first;
         return Resource(
           id,
           bucket: row['bucket'],
+          filename: row['filename'],
           users: _intList(row['users'] ?? ''),
           groups: _intList(row['groups'] ?? ''),
         );
@@ -135,6 +138,7 @@ class DataStore {
     return Resource(
       id,
       bucket: 0,
+      filename: '',
     );
   }
 
@@ -159,6 +163,7 @@ class DataStore {
     CREATE TABLE Resource (
         id TEXT PRIMARY KEY,
         bucket INTEGER,
+        filename TEXT,
         users TEXT,
         groups TEXT
     )

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'Args.dart';
+import 'Types.dart';
 
 class Config {
   late final String dataDir;
@@ -19,7 +20,9 @@ class Config {
   final String paramToken = '/<token|[a-f0-9]{32}>';
   final String paramFile = '/<file|.*>';
 
-  final Map<String, String> jsonHeaders = {'content-type': 'application/json'};
+  final KeyValue jsonHeaders = {'content-type': 'application/json'};
+
+  final List<String> acceptedTypes = ['image/jpeg'];
 
   Config({
     required Args args,

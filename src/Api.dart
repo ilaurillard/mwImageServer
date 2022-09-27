@@ -1,15 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:isolate';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:shelf/shelf.dart';
+import 'package:shelf_multipart/multipart.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 import 'Authentication.dart';
 import 'Config.dart';
 import 'DataStore.dart';
+import 'Model/Bucket.dart';
+import 'Model/JsonSerializable.dart';
 import 'Model/Resource.dart';
 import 'Model/Token.dart';
+import 'Types.dart';
+import 'Util.dart';
 
 class Api {
   final Config cfg;
@@ -32,67 +38,60 @@ class Api {
           Router()
             ..post(
               // add new (POST)
-              // /api/bucket
-              '/bucket',
-              addBucket,
+              '/bucket', // /api/bucket
+              createBucket,
             )
-            ..all(
-              // info (GET), remove (DELETE), update?
-              // /api/bucket/77
-              '/bucket' + cfg.paramBucket,
-              bucket,
+            ..get(
+              // info (GET)
+              '/bucket' + cfg.paramBucket, // /api/bucket/77
+              showBucket,
             )
             ..post(
               // /api/bucket/77/resource
               '/bucket' + cfg.paramBucket + '/resource',
-              addResource,
+              createResource,
             )
-            ..all(
+            ..get(
               '/bucket' + cfg.paramBucket + '/resource' + cfg.paramRes,
-              resource,
+              showResource,
             )
             ..post(
-              // /api/bucket/77/token
-              '/bucket' + cfg.paramBucket + '/token',
-              addToken,
+              '/bucket' + cfg.paramBucket + '/token', // /api/bucket/77/token
+              createToken,
             )
-            ..all(
+            ..get(
               '/bucket' + cfg.paramBucket + '/token' + cfg.paramToken,
-              token,
+              showToken,
             )
             ..post(
-              // /api/token
-              '/token',
-              addToken,
+              '/token', // /api/token
+              createToken,
             )
-            ..all(
+            ..get(
               '/token' + cfg.paramToken,
-              token,
+              showToken,
             ),
         );
   }
 
   // -----------------
 
-  FutureOr<Response> addToken(
+  FutureOr<Response> createToken(
     Request request,
   ) async {
-    // fix bucket
     int bucket = int.parse(request.params['bucket'] ?? '0');
 
-    Map<String, dynamic> data = await jsonObject(request);
+    Dict data = await jsonObject(request);
 
     bool root = data['root'] as bool? ?? false;
 
     List<int> buckets = List<int>.from(data['buckets'] ?? []);
 
-    // if (bucket == 0 && !root) {
-    //   print('XXX');
-    // }
-
-    if (bucket > 0) { // only !root tokens in bucket
+    if (bucket > 0) {
+      // only !root tokens in bucket
       root = false;
-      if (buckets.isNotEmpty) { // no access to other buckets
+      if (buckets.isNotEmpty) {
+        // no access to other buckets
         buckets = [bucket];
       }
     }
@@ -105,80 +104,163 @@ class Api {
       root: root,
     );
 
-    return Response.ok(
-      json.encode(
-        token.toJson(),
-      ),
-      headers: cfg.jsonHeaders,
+    return jsonResponse(
+      token,
     );
   }
 
   // -----------------
 
-  FutureOr<Response> addResource(
+  FutureOr<Response> createResource(
     Request request,
   ) async {
     int bucket = int.parse(request.params['bucket'] ?? '0');
+    if (bucket < 1) {
+      return Response.badRequest();
+    }
+    if (!request.isMultipart) {
+      return Response.badRequest();
+    }
 
-    Map<String, dynamic> data = await jsonObject(request);
+    Multipart? mPartMeta;
+    Multipart? mPartFile;
+    await for (Multipart mPart in request.parts) {
+      if (mPartMeta == null) {
+        mPartMeta = mPart;
+      } else if (mPartFile == null) {
+        mPartFile = mPart;
+      }
+    }
+    if (mPartMeta == null || mPartFile == null) {
+      return Response.badRequest();
+    }
 
+    KeyValue headersMeta = mPartMeta.headers;
+    if (headersMeta['content-type'] != 'application/json') {
+      return Response.badRequest();
+    }
+
+    KeyValue headersFile = mPartFile.headers;
+    String mimeType = headersFile['content-type'] ?? '';
+    if (!cfg.acceptedTypes.contains(mimeType)) {
+      return Response.badRequest();
+    }
+
+    KeyValue disp = Util.parseContentDisposition(
+      headersFile['content-disposition'] ?? '',
+    );
+    String filename = disp['filename'] ?? '';
+    if (filename.isEmpty) {
+      return Response.badRequest();
+    }
+
+    // TODO sanitize/check filename suffix fits mimetype
+    // print(mimeType);
+    // print(filename);
+
+    String partData = await mPartMeta.readString();
+    Dict data = json.decode(partData);
     Resource resource = await dataStore.createResource(
       bucket,
+      filename: filename,
       users: List<int>.from(data['users'] ?? []),
       groups: List<int>.from(data['groups'] ?? []),
     );
 
-    return Response.ok(
-      json.encode(
-        resource.toJson(),
-      ),
-      headers: cfg.jsonHeaders,
+    String path = cfg.dataDir + '/' + resource.path();
+
+    // check if folder exists (collisions)
+    if (await Directory(path).exists()) {
+      return Response(409);
+    }
+
+    Uint8List partBytes = await mPartFile.readBytes();
+    if (partBytes.length > 0) {
+      print(
+        'Store ' +
+            partBytes.length.toString() +
+            ' bytes to ' +
+            path +
+            '/' +
+            resource.filename,
+      );
+
+      File f = await File(path + '/' + resource.filename).create(
+        recursive: true,
+      );
+      f.writeAsBytes(partBytes);
+    } else {
+      return Response.badRequest();
+    }
+
+    return jsonResponse(
+      resource,
     );
   }
 
   // -----------------
 
-  FutureOr<Response> addBucket(
+  FutureOr<Response> createBucket(
     Request request,
   ) async {
     // create folder
 
-    Map<String, dynamic> data = await jsonObject(request);
+    Dict data = await jsonObject(request);
 
+    int bucket = data['id'] as int? ?? 0;
+    if (bucket < 1) {
+      return Response.badRequest();
+    }
+
+    // TODO create folders
     // cfg.dataDir
 
     // await Future.delayed(Duration(milliseconds: 100));
 
-    return Response.ok(
-      'OK (addBucket)',
-      headers: cfg.jsonHeaders,
+    return jsonResponse(
+      Bucket(
+        bucket,
+      ),
     );
   }
 
   // -----------------
 
-  FutureOr<Response> bucket(
+  FutureOr<Response> showBucket(
     Request request,
   ) {
     int bucket = int.parse(request.params['bucket'] ?? '0');
+    if (bucket < 1) {
+      return Response.badRequest();
+    }
 
+    // TODO check existance of folders
 
+    String p = cfg.dataDir + '/public/' + bucket.toString();
+    print(p);
 
-    return Response.ok(
-      // "API - (isolate ${Isolate.current.hashCode}) " + request.method,
-      json.encode({
-        'id': bucket
-      }),
-      headers: cfg.jsonHeaders,
+    return jsonResponse(
+      Bucket(
+        bucket,
+      ),
     );
+
+    // return Response.ok(
+    //   // "API - (isolate ${Isolate.current.hashCode}) " + request.method,
+    //   json.encode({'id': bucket}),
+    //   headers: cfg.jsonHeaders,
+    // );
   }
 
   // -----------------
 
-  FutureOr<Response> resource(
+  FutureOr<Response> showResource(
     Request request,
   ) async {
     int bucket = int.parse(request.params['bucket'] ?? '0');
+    if (bucket < 1) {
+      return Response.badRequest();
+    }
 
     Resource resource = await dataStore.resource(
       bucket,
@@ -190,15 +272,14 @@ class Api {
       );
     }
 
-    return Response.ok(
-      json.encode(resource.toJson()),
-      headers: cfg.jsonHeaders,
+    return jsonResponse(
+      resource,
     );
   }
 
   // -----------------
 
-  FutureOr<Response> token(
+  FutureOr<Response> showToken(
     Request request,
   ) async {
     int bucket = int.parse(request.params['bucket'] ?? '0');
@@ -218,15 +299,23 @@ class Api {
       );
     }
 
-    return Response.ok(
-      json.encode(token.toJson()),
-      headers: cfg.jsonHeaders,
+    return jsonResponse(
+      token,
     );
   }
 
   // --------------
 
-  Future<Map<String, dynamic>> jsonObject(
+  Response jsonResponse(
+    JsonSerializable subject,
+  ) {
+    return Response.ok(
+      json.encode(subject.toJson()),
+      headers: cfg.jsonHeaders,
+    );
+  }
+
+  Future<Dict> jsonObject(
     Request request,
   ) async {
     String tmp = await request.readAsString();

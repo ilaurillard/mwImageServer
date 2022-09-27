@@ -1,6 +1,8 @@
+import '../Types.dart';
+import 'JsonSerializable.dart';
 import 'Resource.dart';
 
-class Token {
+class Token extends JsonSerializable {
   final String id;
 
   final bool root;
@@ -48,7 +50,7 @@ class Token {
     return 'Token#' + id + '/' + bucket.toString();
   }
 
-  Map<String, dynamic> toDatabase() {
+  Dict toDatabase() {
     return {
       'id': id,
       'bucket': bucket,
@@ -59,7 +61,7 @@ class Token {
     };
   }
 
-  Map<String, dynamic> toJson() {
+  Dict toJson() {
     return {
       'id': id,
       'bucket': bucket,
@@ -70,3 +72,5 @@ class Token {
     };
   }
 }
+
+

@@ -4,13 +4,15 @@ Authorization: rootKey
 
 {"id": 77}
 
+> scripts/assert200AndJson.js
+
 ### (Only) Root creates Bucket
 POST {{host}}/api/bucket
 Authorization: rootKey
 
 {"id": 88}
 
-
+> scripts/assert200AndJson.js
 
 
 ### Root creates Customer Admin Token
@@ -45,26 +47,26 @@ client.test('test', function () {
 GET {{host}}/api/bucket/77
 Authorization: {{admin_token77}}
 
-> {% client.test('test', function () { client.assert(response.status === 200); }); %}
+> scripts/assert200AndJson.js
 
 ### Show own bucket
 GET {{host}}/api/bucket/88
 Authorization: {{admin_token88}}
 
-> {% client.test('test', function () { client.assert(response.status === 200); }); %}
+> scripts/assert200AndJson.js
 
 
 ### Show foreign bucket
 GET {{host}}/api/bucket/88
 Authorization: {{admin_token77}}
 
-> {% client.test('test', function () { client.assert(response.status === 403); }); %}
+> scripts/assert403AndJson.js
 
 ### Show foreign bucket
 GET {{host}}/api/bucket/77
 Authorization: {{admin_token88}}
 
-> {% client.test('test', function () { client.assert(response.status === 403); }); %}
+> scripts/assert403AndJson.js
 
 
 
@@ -72,68 +74,41 @@ Authorization: {{admin_token88}}
 GET {{host}}/api/bucket/77/token/{{admin_token77}}
 Authorization: {{admin_token77}}
 
-> {% client.test('test', function () { client.assert(response.status === 200); }); %}
+> scripts/assert200AndJson.js
 
 ### Show foreign token in bucket
 GET {{host}}/api/bucket/77/token/{{admin_token88}}
 Authorization: {{admin_token77}}
 
-> {% client.test('test', function () { client.assert(response.status === 403); }); %}
+> scripts/assert403.js
 
 ### Show own token (but is not root)
 GET {{host}}/api/token/{{admin_token77}}
 Authorization: {{admin_token77}}
 
-> {% client.test('test', function () { client.assert(response.status === 403); }); %}
+> scripts/assert403AndJson.js
 
 ### Token 404
 GET {{host}}/api/bucket/77/token/ffffeeeeffffeeeeaaaabbbbccccdddd
 Authorization: {{admin_token77}}
 
-> {% client.test('test', function () { client.assert(response.status === 404); }); %}
+> scripts/assert404.js
 
 
-
-### Customer Admin creates Resource
-POST {{host}}/api/bucket/77/resource
-Authorization: {{admin_token77}}
-
-{
-    "visibility": "public"
-}
-
-> {%
-client.test('test', function () {
-    client.assert(response.status === 200);
-    client.global.set("resource_token77", response.body.id);
-}); %}
-
-### Customer Admin creates Resource
-POST {{host}}/api/bucket/88/resource
-Authorization: {{admin_token88}}
-
-{
-    "visibility": "public"
-}
-
-> {%
-client.test('test', function () {
-    client.assert(response.status === 200);
-    client.global.set("resource_token88", response.body.id);
-}); %}
-
-
-### Show own resource in bucket
-GET {{host}}/api/bucket/77/resource/{{resource_token77}}
-Authorization: {{admin_token77}}
-
-### Show own resource in bucket
-GET {{host}}/api/bucket/88/resource/{{resource_token88}}
-Authorization: {{admin_token88}}
-
-
-### Show foreign resource -> 404
-GET {{host}}/api/bucket/77/resource/{{resource_token88}}
-Authorization: {{admin_token77}}
-
-> {% client.test('test', function () { client.assert(response.status === 404); }); %}
+#### Show own resource in bucket
+#GET {{host}}/api/bucket/77/resource/{{resource_token77}}
+#Authorization: {{admin_token77}}
+#
+#> scripts/assert200AndJson.js
+#
+#### Show own resource in bucket
+#GET {{host}}/api/bucket/88/resource/{{resource_token88}}
+#Authorization: {{admin_token88}}
+#
+#> scripts/assert200AndJson.js
+#
+#### Show foreign resource -> 404
+#GET {{host}}/api/bucket/77/resource/{{resource_token88}}
+#Authorization: {{admin_token77}}
+#
+#> scripts/assert404.js
