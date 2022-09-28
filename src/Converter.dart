@@ -10,12 +10,10 @@ import 'Imagick.dart';
 import 'Model/Resource.dart';
 
 class Converter {
-  final Config cfg;
   final DataStore dataStore;
   final Imagick imagick;
 
   Converter({
-    required this.cfg,
     required this.dataStore,
     required this.imagick,
   });
@@ -47,7 +45,7 @@ class Converter {
     // TODO
 
     Handler handler = createStaticHandler(
-      cfg.dataDir,
+      Config.dataDir,
     );
     return handler(request);
   }

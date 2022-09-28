@@ -14,12 +14,10 @@ import 'DataStore.dart';
 import 'Imagick.dart';
 
 class Server {
-  final Config cfg;
   final DataStore dataStore;
   final Imagick imagick;
 
   Server({
-    required this.cfg,
     required this.dataStore,
     required this.imagick,
   });
@@ -28,8 +26,8 @@ class Server {
     List args,
   ) async {
     final HttpServer server = await HttpServer.bind(
-      cfg.ip,
-      cfg.port,
+      Config.ip,
+      Config.port,
       shared: true, // for isolates
     );
 
@@ -46,7 +44,6 @@ class Server {
 
   Router app() {
     Converter converter = Converter(
-      cfg: cfg,
       dataStore: dataStore,
       imagick: imagick,
     );
@@ -56,15 +53,15 @@ class Server {
       ..get(
         // /public/77/ff/ff/ffffaaaaffffaaaa1111222233334444/[file]
         '/public' +
-            cfg.paramBucket +
-            cfg.paramSeg1 +
-            cfg.paramSeg2 +
-            cfg.paramRes +
-            cfg.paramFile,
+            Config.paramBucket +
+            Config.paramSeg1 +
+            Config.paramSeg2 +
+            Config.paramRes +
+            Config.paramFile,
         Cascade()
             .add(
               createStaticHandler(
-                cfg.dataDir,
+                Config.dataDir,
               ),
             )
             .add(
@@ -75,15 +72,14 @@ class Server {
       // PRIVATE ----------------------
       ..get(
         '/private' +
-            cfg.paramBucket +
-            cfg.paramSeg1 +
-            cfg.paramSeg2 +
-            cfg.paramRes +
-            cfg.paramFile,
+            Config.paramBucket +
+            Config.paramSeg1 +
+            Config.paramSeg2 +
+            Config.paramRes +
+            Config.paramFile,
         Pipeline()
             .addMiddleware(
               Authentication(
-                cfg: cfg,
                 dataStore: dataStore,
               ).privateAccess(),
             )
@@ -91,7 +87,7 @@ class Server {
               Cascade()
                   .add(
                     createStaticHandler(
-                      cfg.dataDir,
+                      Config.dataDir,
                     ),
                   )
                   .add(
@@ -104,7 +100,6 @@ class Server {
       ..mount(
           '/api',
           Api(
-            cfg: cfg,
             dataStore: dataStore,
           ).create());
   }

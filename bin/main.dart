@@ -9,30 +9,25 @@ import '../src/DataStore.dart';
 void main(
   List<String> arguments,
 ) async {
-  Config cfg = Config(
+  Config.init(
     args: Args(
       arguments,
     ),
   );
 
-  DataStore dataStore = DataStore(
-    cfg: cfg,
-  );
+  DataStore dataStore = DataStore();
   await dataStore.init();
 
-  Imagick imagick = Imagick(
-    cfg: cfg,
-  );
+  Imagick imagick = Imagick();
   print(await imagick.version());
 
   //------------ server
 
   print(
-      '>>> starting server with ' + cfg.isolates.toString() + ' isolates:');
-  for (int i = 1; i < cfg.isolates; i++) {
+      '>>> starting server with ' + Config.isolates.toString() + ' isolates:');
+  for (int i = 1; i < Config.isolates; i++) {
     Isolate.spawn(
       Server(
-        cfg: cfg,
         dataStore: dataStore,
         imagick: imagick,
       ).start,
@@ -41,7 +36,6 @@ void main(
   }
 
   Server(
-    cfg: cfg,
     dataStore: dataStore,
     imagick: imagick,
   ).start(

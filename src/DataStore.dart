@@ -11,17 +11,14 @@ import 'Model/Token.dart';
 import 'Types.dart';
 
 class DataStore {
-  final Config cfg;
   late final Database db;
 
-  DataStore({
-    required this.cfg,
-  });
+  DataStore();
 
   Future<void> init() async {
     sqfliteFfiInit();
     db = await databaseFactoryFfi.openDatabase(
-      cfg.dataDir + '/database/system.db',
+      Config.dataDir + '/database/system.db',
       options: OpenDatabaseOptions(
         version: 1,
         onUpgrade: schema,

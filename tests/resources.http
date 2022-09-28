@@ -34,3 +34,85 @@ GET {{host}}/api/bucket/77/resource/{{resource_id1}}
 Authorization: rootKey
 
 > scripts/assert200AndJson.js
+
+
+### private upload
+POST {{host}}/api/bucket/77/resource
+Authorization: rootKey
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Type: application/json
+
+{
+  "users": [2],
+  "groups": [4]
+}
+
+--WebAppBoundary
+Content-Disposition: form-data; filename="ffff23.jpg"
+Content-Type: image/jpeg
+
+< ./ffff23.jpg
+--WebAppBoundary--
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("resource_id1", response.body.id);
+    client.global.set("resource_url", response.body.path + '/' + response.body.filename);
+}); %}
+
+
+
+### Show resource
+GET {{host}}/api/bucket/77/resource/{{resource_id1}}
+Authorization: rootKey
+
+> scripts/assert200AndJson.js
+
+
+
+### Root creates Users Token
+POST {{host}}/api/bucket/77/token
+Authorization: rootKey
+
+{
+  "users": [2]
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("admin_token77", response.body.id);
+}); %}
+
+
+### Show private resource
+GET {{host}}/{{resource_url}}
+Authorization: {{admin_token77}}
+
+> scripts/assert200AndJpg.js
+
+
+
+### Root creates Users Token
+POST {{host}}/api/bucket/77/token
+Authorization: rootKey
+
+{
+  "groups": [4]
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("admin_token77", response.body.id);
+}); %}
+
+
+### Show private resource
+GET {{host}}/{{resource_url}}
+Authorization: {{admin_token77}}
+
+> scripts/assert200AndJpg.js

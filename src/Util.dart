@@ -1,7 +1,14 @@
+import 'dart:convert';
+
+import 'package:path/path.dart';
+import 'package:shelf/shelf.dart';
 import 'package:string_scanner/string_scanner.dart';
 
-class Util {
+import 'Config.dart';
+import 'Model/JsonSerializable.dart';
+import 'Types.dart';
 
+class Util {
   static Map<String, String> parseContentDisposition(
     String header,
   ) {
@@ -44,5 +51,80 @@ class Util {
 
     scanner.expectDone();
     return params;
+  }
+
+  static Response jsonResponse(
+    JsonSerializable subject,
+  ) {
+    return Response.ok(
+      json.encode(subject.toJson()),
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Future<Dict> jsonObject(
+    Request request,
+  ) async {
+    String tmp = await request.readAsString();
+    return json.decode(tmp);
+  }
+
+  static List<int> intListData(
+    Dict data,
+    String key,
+  ) {
+    return List<int>.from(
+      data[key] ?? [],
+    );
+  }
+
+  static bool boolData(
+    Dict data,
+    String key,
+  ) {
+    return data[key] as bool? ?? false;
+  }
+
+  static int intData(
+    Dict data,
+    String key,
+  ) {
+    return data[key] as int? ?? 0;
+  }
+
+  static bool checkFilename(
+    String filename,
+  ) {
+    if (!Config.acceptedSuffixes.contains(
+      Util.suffix(
+        filename,
+      ),
+    )) {
+      return false;
+    }
+
+    String base = basenameWithoutExtension(filename);
+    if (RegExp(r'^[a-zA-Z0-9_-]+$').hasMatch(base)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static bool mimetypeVsSuffix(
+    String filename,
+    String mimeType,
+  ) {
+    return (Config.mimeToSuffix[mimeType] ?? []).contains(
+      Util.suffix(
+        filename,
+      ),
+    );
+  }
+
+  static String suffix(
+    String filename,
+  ) {
+    return extension(filename);
   }
 }

@@ -7,11 +7,9 @@ import 'Model/Resource.dart';
 import 'Model/Token.dart';
 
 class Authentication {
-  final Config cfg;
   final DataStore dataStore;
 
   Authentication({
-    required this.cfg,
     required this.dataStore,
   });
 
@@ -22,7 +20,7 @@ class Authentication {
       ) async {
         String auth = request.headers['authorization'] ?? '';
         if (auth.isNotEmpty) {
-          if (auth == cfg.rootKey) {
+          if (auth == Config.rootKey) {
             // static root key has full access
             return handler(request);
           }
@@ -30,7 +28,7 @@ class Authentication {
           Token token = await dataStore.token(auth);
           if (token.empty()) {
             return Response.unauthorized(
-              'Token not found',
+              'Empty token',
             );
           }
 
@@ -75,7 +73,7 @@ class Authentication {
       ) async {
         String auth = request.headers['authorization'] ?? '';
         if (auth.isNotEmpty) {
-          if (auth == cfg.rootKey) {
+          if (auth == Config.rootKey) {
             // static root key has full access
             return handler(request);
           }
@@ -85,7 +83,7 @@ class Authentication {
             // no token found
             return Response.unauthorized(
               'Token not found',
-              headers: cfg.jsonHeaders,
+              headers: Config.jsonHeaders,
             );
           }
 
@@ -107,12 +105,12 @@ class Authentication {
 
           return Response.forbidden(
             'Forbidden',
-            headers: cfg.jsonHeaders,
+            headers: Config.jsonHeaders,
           );
         }
         return Response.unauthorized(
           'Unauthorized',
-          headers: cfg.jsonHeaders,
+          headers: Config.jsonHeaders,
         );
       };
     };
