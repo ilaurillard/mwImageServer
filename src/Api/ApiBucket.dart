@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -25,13 +26,26 @@ class ApiBucket {
 
     int bucket = Util.intData(data, 'id');
     if (bucket < 1 || bucket > 999999999) {
-      return Response.badRequest(body: 'Invalid bucket');
+      return Util.invalidbucket();
     }
 
-    // TODO create folders
-    // cfg.dataDir
+    String pathPublic = Config.dataDir + '/public/' + bucket.toString();
+    if (await Directory(pathPublic).exists()) {
+      return Response(409,  body: 'Bucket collision');
+    }
 
-    // await Future.delayed(Duration(milliseconds: 100));
+    String pathPrivate = Config.dataDir + '/private/' + bucket.toString();
+    if (await Directory(pathPrivate).exists()) {
+      return Response(409, body: 'Bucket collision');
+    }
+
+    await Directory(pathPublic).create(
+      recursive: true,
+    );
+
+    await Directory(pathPrivate).create(
+      recursive: true,
+    );
 
     return Util.jsonResponse(
       Bucket(
@@ -45,7 +59,7 @@ class ApiBucket {
   ) {
     int bucket = int.parse(request.params['bucket'] ?? '0');
     if (bucket < 1 || bucket > 999999999) {
-      return Response.badRequest(body: 'Invalid bucket');
+      return Util.invalidbucket();
     }
 
     // TODO check existance of folders

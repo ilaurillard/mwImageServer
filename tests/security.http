@@ -4,7 +4,7 @@ Authorization: rootKey
 
 {"id": 77}
 
-> scripts/assert200AndJson.js
+> scripts/assert200Or409.js
 
 ### (Only) Root creates Bucket
 POST {{host}}/api/bucket
@@ -12,7 +12,7 @@ Authorization: rootKey
 
 {"id": 88}
 
-> scripts/assert200AndJson.js
+> scripts/assert200Or409.js
 
 
 ### Root creates Customer Admin Token

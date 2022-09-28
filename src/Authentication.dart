@@ -5,6 +5,7 @@ import 'Config.dart';
 import 'DataStore.dart';
 import 'Model/Resource.dart';
 import 'Model/Token.dart';
+import 'Util.dart';
 
 class Authentication {
   final DataStore dataStore;
@@ -20,8 +21,7 @@ class Authentication {
       ) async {
         String auth = request.headers['authorization'] ?? '';
         if (auth.isNotEmpty) {
-          if (auth == Config.rootKey) {
-            // static root key has full access
+          if (auth == Config.rootKey) { // static root key has full access
             return handler(request);
           }
 
@@ -31,18 +31,20 @@ class Authentication {
               'Empty token',
             );
           }
-
-          if (token.root) {
-            // special root token -> full access
+          if (token.root) {  // special root token -> full access
             return handler(request);
           }
 
           int bucket = int.parse(request.params['bucket'] ?? '0');
+          if (bucket < 1 || bucket > 999999999) {
+            return Util.invalidbucket();
+          }
 
           Resource resource = await dataStore.resource(
             bucket,
             request.params['resource'] ?? '',
           );
+
           if (resource.empty()) {
             return Response.notFound(
               'Resource not found',
@@ -57,6 +59,7 @@ class Authentication {
 
           return handler(request);
         }
+
         return Response.notFound(
           'Not found',
         );

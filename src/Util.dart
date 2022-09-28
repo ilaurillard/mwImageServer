@@ -9,7 +9,7 @@ import 'Model/JsonSerializable.dart';
 import 'Types.dart';
 
 class Util {
-  static Map<String, String> parseContentDisposition(
+  static Map<String, String> dispo(
     String header,
   ) {
     final scanner = StringScanner(header);
@@ -60,6 +60,10 @@ class Util {
       json.encode(subject.toJson()),
       headers: Config.jsonHeaders,
     );
+  }
+
+  static Response invalidbucket() {
+    return Response.badRequest(body: 'Invalid bucket');
   }
 
   static Future<Dict> jsonObject(

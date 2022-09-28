@@ -30,7 +30,7 @@ Content-Type: application/json
    "id": 99
 }
 
-> scripts/assert200.js
+> scripts/assert200Or409.js
 
 
 
@@ -56,7 +56,6 @@ client.test('test', function () {
 ###
 GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
 Authorization: {{admin_token1}}
-Accept: image/*
 
 > scripts/assert200AndJpg.js
 

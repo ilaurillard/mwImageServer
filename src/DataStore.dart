@@ -147,22 +147,22 @@ class DataStore {
     if (newVersion == 1 && oldVersion < 1) {
       await db.execute('''
     CREATE TABLE Token (
-        id TEXT PRIMARY KEY,
-        bucket INTEGER,
-        users TEXT,
-        groups TEXT,
-        buckets TEXT,
+        id TEXT PRIMARY KEY NOT NULL,
+        bucket INTEGER NOT NULL,
+        users TEXT NOT NULL,
+        groups TEXT NOT NULL,
+        buckets TEXT NOT NULL,
         root BOOLEAN DEFAULT 0 NOT NULL CHECK (root IN (0, 1))
     )
   ''');
 
       await db.execute('''
     CREATE TABLE Resource (
-        id TEXT PRIMARY KEY,
-        bucket INTEGER,
-        filename TEXT,
-        users TEXT,
-        groups TEXT
+        id TEXT PRIMARY KEY NOT NULL,
+        bucket INTEGER NOT NULL,
+        filename TEXT NOT NULL,
+        users TEXT NOT NULL,
+        groups TEXT NOT NULL
     )
   ''');
 
@@ -170,7 +170,8 @@ class DataStore {
         'id': 'aaaabbbbccccddddaaaabbbbccccdddd',
         'bucket': 77,
         'users': '55;66',
-        'groups': '666'
+        'groups': '666',
+        'filename': 'original.jpg',
       });
     }
   }

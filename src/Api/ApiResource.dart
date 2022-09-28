@@ -25,7 +25,7 @@ class ApiResource {
   ) async {
     int bucket = int.parse(request.params['bucket'] ?? '0');
     if (bucket < 1 || bucket > 999999999) {
-      return Response.badRequest(body: 'Invalid bucket');
+      return Util.invalidbucket();
     }
 
     Resource resource = await dataStore.resource(
@@ -48,7 +48,7 @@ class ApiResource {
   ) async {
     int bucket = int.parse(request.params['bucket'] ?? '0');
     if (bucket < 1 || bucket > 999999999) {
-      return Response.badRequest(body: 'Invalid bucket');
+      return Util.invalidbucket();
     }
     if (!request.isMultipart) {
       return Response.badRequest(body: 'Must be multipart post');
@@ -83,7 +83,7 @@ class ApiResource {
     if (!Config.acceptedTypes.contains(mimeType)) {
       return Response.badRequest(body: 'Mime type not accepted');
     }
-    KeyValue disp = Util.parseContentDisposition(
+    KeyValue disp = Util.dispo(
       headersFile['content-disposition'] ?? '',
     );
     String filename = disp['filename'] ?? '';
