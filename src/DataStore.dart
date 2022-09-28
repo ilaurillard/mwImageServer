@@ -72,6 +72,7 @@ class DataStore {
         groups: _intList(row['groups'] ?? ''),
         buckets: _intList(row['buckets'] ?? ''),
         root: (row['root'] as int? ?? 0) == 1,
+        stamp: DateTime.parse(row['stamp']),
       );
     } else {
       print('Token not found: ' + id);
@@ -152,7 +153,8 @@ class DataStore {
         users TEXT NOT NULL,
         groups TEXT NOT NULL,
         buckets TEXT NOT NULL,
-        root BOOLEAN DEFAULT 0 NOT NULL CHECK (root IN (0, 1))
+        root BOOLEAN DEFAULT 0 NOT NULL CHECK (root IN (0, 1)),
+        stamp DATETIME DEFAULT current_timestamp
     )
   ''');
 
@@ -162,17 +164,18 @@ class DataStore {
         bucket INTEGER NOT NULL,
         filename TEXT NOT NULL,
         users TEXT NOT NULL,
-        groups TEXT NOT NULL
+        groups TEXT NOT NULL,
+        stamp DATETIME DEFAULT current_timestamp
     )
   ''');
 
-      await db.insert('Resource', {
-        'id': 'aaaabbbbccccddddaaaabbbbccccdddd',
-        'bucket': 77,
-        'users': '55;66',
-        'groups': '666',
-        'filename': 'original.jpg',
-      });
+      // await db.insert('Resource', {
+      //   'id': 'aaaabbbbccccddddaaaabbbbccccdddd',
+      //   'bucket': 77,
+      //   'users': '55;66',
+      //   'groups': '666',
+      //   'filename': 'original.jpg',
+      // });
     }
   }
 

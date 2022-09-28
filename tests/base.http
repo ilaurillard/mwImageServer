@@ -4,8 +4,62 @@ GET {{host}}/xxx
 > scripts/assert404.js
 
 
+### initial resource
+POST {{host}}/api/bucket/77/resource
+Authorization: rootKey
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Type: application/json
+
+{
+  "users": [55,66],
+  "groups": [666]
+}
+
+--WebAppBoundary
+Content-Disposition: form-data; filename="ffff23.jpg"
+Content-Type: image/jpeg
+
+< ./ffff23.jpg
+--WebAppBoundary--
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("priv_resource_id", response.body.id);
+    client.global.set("priv_resource_url", response.body.path + '/' + response.body.filename);
+}); %}
+
+
+### initial resource
+POST {{host}}/api/bucket/77/resource
+Authorization: rootKey
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Type: application/json
+
+{
+}
+
+--WebAppBoundary
+Content-Disposition: form-data; filename="ffff23.jpg"
+Content-Type: image/jpeg
+
+< ./ffff23.jpg
+--WebAppBoundary--
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("pub_resource_id", response.body.id);
+    client.global.set("pub_resource_url", response.body.path + '/' + response.body.filename);
+}); %}
+
+
 ### Public access
-GET {{host}}/public/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+GET {{host}}/{{pub_resource_url}}
 Accept: image/*
 
 > scripts/assert200AndJpg.js
@@ -13,7 +67,7 @@ Accept: image/*
 
 
 ### Full access with rootKey
-GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+GET {{host}}/{{priv_resource_url}}
 Authorization: rootKey
 Accept: image/*
 
@@ -27,7 +81,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-   "id": 99
+   "id": 77
 }
 
 > scripts/assert200Or409.js
@@ -54,7 +108,7 @@ client.test('test', function () {
 }); %}
 
 ###
-GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+GET {{host}}/{{priv_resource_url}}
 Authorization: {{admin_token1}}
 
 > scripts/assert200AndJpg.js
@@ -82,7 +136,7 @@ client.test('test', function () {
 }); %}
 
 ###
-GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+GET {{host}}/{{priv_resource_url}}
 Authorization: {{admin_token2}}
 Accept: image/*
 
@@ -108,7 +162,7 @@ client.test('test', function () {
 }); %}
 
 ###
-GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+GET {{host}}/{{priv_resource_url}}
 Authorization: {{user_token1}}
 Accept: image/*
 
@@ -146,7 +200,7 @@ Authorization: rootKey
 > scripts/assert400.js
 
 ### Show resource in bucket
-GET {{host}}/api/bucket/77/resource/aaaabbbbccccddddaaaabbbbccccdddd
+GET {{host}}/api/bucket/77/resource/{{priv_resource_id}}
 Authorization: {{admin_token2}}
 
 > scripts/assert200AndJson.js
@@ -181,7 +235,7 @@ client.test('test', function () {
 }); %}
 
 ###
-GET {{host}}/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/original.jpg
+GET {{host}}/{{priv_resource_url}}
 Authorization: {{user_token2}}
 Accept: image/*
 

@@ -1,3 +1,4 @@
+import '../DataStore.dart';
 import '../Types.dart';
 import 'JsonSerializable.dart';
 import 'Resource.dart';
@@ -11,6 +12,8 @@ class Token extends JsonSerializable {
   final List<int> groups;
   final List<int> buckets; // bucket api access (admin)
 
+  final DateTime? stamp;
+
   Token(
     this.id, {
     required this.bucket,
@@ -18,6 +21,7 @@ class Token extends JsonSerializable {
     this.groups = const [],
     this.buckets = const [],
     this.root = false,
+    this.stamp,
   });
 
   bool empty() {
@@ -71,6 +75,16 @@ class Token extends JsonSerializable {
       'root': root,
     };
   }
+
+  bool keepLive(
+    DataStore dataStore,
+  ) {
+    // TODO check ttl of token
+    // update if not too old
+    // return false if expired
+
+    // print(stamp);
+
+    return true;
+  }
 }
-
-

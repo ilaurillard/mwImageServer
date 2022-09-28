@@ -31,6 +31,12 @@ class Authentication {
               'Empty token',
             );
           }
+          if (!token.keepLive(dataStore)) {
+            return Response.unauthorized(
+              'Token expired',
+              headers: Config.jsonHeaders,
+            );
+          }
           if (token.root) {  // special root token -> full access
             return handler(request);
           }
@@ -86,6 +92,12 @@ class Authentication {
             // no token found
             return Response.unauthorized(
               'Token not found',
+              headers: Config.jsonHeaders,
+            );
+          }
+          if (!token.keepLive(dataStore)) {
+            return Response.unauthorized(
+              'Token expired',
               headers: Config.jsonHeaders,
             );
           }
