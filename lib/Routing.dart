@@ -1,24 +1,34 @@
-import 'package:shelf/shelf.dart';
-import 'package:shelf_router/shelf_router.dart';
-
 import 'package:mwcdn/Api/ApiBucket.dart';
 import 'package:mwcdn/Api/ApiResource.dart';
 import 'package:mwcdn/Api/ApiToken.dart';
-import 'package:mwcdn/Service/Authentication.dart';
 import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Service/Authentication.dart';
 import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Service/FileStore.dart';
+import 'package:shelf/shelf.dart';
+import 'package:shelf_router/shelf_router.dart';
 
 class Routing {
   final DataStore dataStore;
+  final FileStore fileStore;
 
   Routing({
     required this.dataStore,
+    required this.fileStore,
   });
 
   Handler create() {
-    ApiBucket apiBucket = ApiBucket(dataStore: dataStore);
-    ApiResource apiResource = ApiResource(dataStore: dataStore);
-    ApiToken apiToken = ApiToken(dataStore: dataStore);
+    ApiBucket apiBucket = ApiBucket(
+      dataStore: dataStore,
+      fileStore: fileStore,
+    );
+    ApiResource apiResource = ApiResource(
+      dataStore: dataStore,
+      fileStore: fileStore,
+    );
+    ApiToken apiToken = ApiToken(
+      dataStore: dataStore,
+    );
 
     return Pipeline()
         .addMiddleware(
@@ -43,9 +53,9 @@ class Routing {
               '/bucket' + Config.paramBucket + '/resource',
               apiResource.create,
             )
-            ..get(
+            ..all(
               '/bucket' + Config.paramBucket + '/resource' + Config.paramRes,
-              apiResource.show,
+              apiResource.crud,
             )
             ..post(
               '/bucket' + Config.paramBucket + '/token', // /api/bucket/77/token

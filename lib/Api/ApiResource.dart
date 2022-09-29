@@ -1,26 +1,27 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Model/Resource.dart';
+import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Service/FileStore.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_multipart/multipart.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import 'package:mwcdn/Config.dart';
-import 'package:mwcdn/Service/DataStore.dart';
-import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/Util.dart';
-
 class ApiResource {
   final DataStore dataStore;
+  final FileStore fileStore;
 
   ApiResource({
     required this.dataStore,
+    required this.fileStore,
   });
 
-  FutureOr<Response> show(
+  FutureOr<Response> crud(
     Request request,
   ) async {
     int bucket = int.parse(request.params['bucket'] ?? '0');
@@ -38,8 +39,30 @@ class ApiResource {
       );
     }
 
-    return Util.jsonResponse(
-      resource,
+    if (request.method == 'GET') {
+      // READ
+      return Util.jsonResponse(
+        resource,
+      );
+    } else if (request.method == 'DELETE') {
+      // DELETE
+
+      // delete files
+
+
+      // delete record
+      bool success = await dataStore.delete(resource);
+      if (!success) {
+        return Response.internalServerError(
+          body: 'Remove resource failed',
+        );
+      }
+
+      return Response(204);
+    }
+
+    return Response.badRequest(
+      body: 'Method not available',
     );
   }
 
@@ -108,10 +131,12 @@ class ApiResource {
       groups: Util.intListData(data, 'groups'),
     );
 
-    String path = Config.dataDir + '/' + resource.path();
+    String path = '/' + resource.path();
 
-    if (await Directory(path).exists()) {
-      return Response.internalServerError(body: 'Resource collision');
+    if (await fileStore.dirExists(path)) {
+      return Response.internalServerError(
+        body: 'Resource collision',
+      );
     }
 
     // -------------------
@@ -127,13 +152,14 @@ class ApiResource {
             resource.filename,
       );
 
-      File f = await File(path + '/' + resource.filename).create(
-        recursive: true,
+      fileStore.createFile(
+        path + '/' + resource.filename,
+        partBytes,
       );
-      f.writeAsBytes(partBytes);
-
     } else {
-      return Response.badRequest(body: 'Invalid file size');
+      return Response.badRequest(
+        body: 'Invalid file size',
+      );
     }
 
     return Util.jsonResponse(

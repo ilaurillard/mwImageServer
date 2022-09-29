@@ -2,6 +2,7 @@ import 'dart:isolate';
 
 import 'package:mwcdn/Args.dart';
 import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Service/FileStore.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 import 'package:mwcdn/Server.dart';
 import 'package:mwcdn/Service/DataStore.dart';
@@ -9,6 +10,7 @@ import 'package:mwcdn/Service/DataStore.dart';
 void main(
   List<String> arguments,
 ) async {
+
   Config.init(
     args: Args(
       arguments,
@@ -17,6 +19,9 @@ void main(
 
   DataStore dataStore = DataStore();
   await dataStore.init();
+
+  FileStore fileStore = FileStore();
+  await fileStore.init();
 
   Imagick imagick = Imagick();
   print(await imagick.version());
@@ -29,6 +34,7 @@ void main(
     Isolate.spawn(
       Server(
         dataStore: dataStore,
+        fileStore: fileStore,
         imagick: imagick,
       ).start,
       [],
@@ -37,6 +43,7 @@ void main(
 
   Server(
     dataStore: dataStore,
+    fileStore: fileStore,
     imagick: imagick,
   ).start(
     [],

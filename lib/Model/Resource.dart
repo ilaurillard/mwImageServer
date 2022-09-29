@@ -1,9 +1,10 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 
 class Resource
-    extends JsonSerializable {
-  final String id;
+    implements JsonSerializable, Entity {
+  final String _id;
 
   final int bucket;
   final String filename;
@@ -11,12 +12,14 @@ class Resource
   final List<int> groups;
 
   Resource(
-    this.id, {
+    this._id, {
     required this.bucket,
     required this.filename,
     this.users = const [],
     this.groups = const [],
   });
+
+  String get id => _id;
 
   bool empty() {
     return bucket == 0;

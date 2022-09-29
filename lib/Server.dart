@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:isolate';
 
 import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Service/FileStore.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -15,10 +16,12 @@ import 'package:mwcdn/Service/Imagick.dart';
 
 class Server {
   final DataStore dataStore;
+  final FileStore fileStore;
   final Imagick imagick;
 
   Server({
     required this.dataStore,
+    required this.fileStore,
     required this.imagick,
   });
 
@@ -101,6 +104,7 @@ class Server {
           '/api',
           Routing(
             dataStore: dataStore,
+            fileStore: fileStore,
           ).create());
   }
 }

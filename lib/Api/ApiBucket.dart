@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:mwcdn/Service/FileStore.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -12,9 +13,11 @@ import 'package:mwcdn/Etc/Util.dart';
 
 class ApiBucket {
   final DataStore dataStore;
+  final FileStore fileStore;
 
   ApiBucket({
     required this.dataStore,
+    required this.fileStore,
   });
 
   FutureOr<Response> create(
@@ -29,23 +32,18 @@ class ApiBucket {
       return Util.invalidbucket();
     }
 
-    String pathPublic = Config.dataDir + '/public/' + bucket.toString();
-    if (await Directory(pathPublic).exists()) {
+    String pathPublic = '/public/' + bucket.toString();
+    String pathPrivate = '/private/' + bucket.toString();
+
+    if (await fileStore.dirExists(pathPublic)) {
       return Response(409,  body: 'Bucket collision');
     }
-
-    String pathPrivate = Config.dataDir + '/private/' + bucket.toString();
-    if (await Directory(pathPrivate).exists()) {
+    if (await fileStore.dirExists(pathPrivate)) {
       return Response(409, body: 'Bucket collision');
     }
 
-    await Directory(pathPublic).create(
-      recursive: true,
-    );
-
-    await Directory(pathPrivate).create(
-      recursive: true,
-    );
+    await fileStore.createDir(pathPublic);
+    await fileStore.createDir(pathPrivate);
 
     return Util.jsonResponse(
       Bucket(

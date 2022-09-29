@@ -116,3 +116,16 @@ GET {{host}}/{{resource_url}}
 Authorization: {{admin_token77}}
 
 > scripts/assert200AndJpg.js
+
+
+
+
+###
+GET {{host}}/api/bucket/77/resource/{{resource_id1}}
+Authorization: rootKey
+
+
+###
+DELETE {{host}}/api/bucket/77/resource/{{resource_id1}}
+Authorization: rootKey
+

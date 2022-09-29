@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:crypto/crypto.dart';
-import 'package:sqflite_common/sqlite_api.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-
 import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Model/Token.dart';
+import 'package:sqflite_common/sqlite_api.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DataStore {
   late final Database db;
@@ -197,5 +197,16 @@ class DataStore {
     }
     List<String> ls = (List<String>.from(csv.split(';')));
     return ls.map((String s) => int.parse(s)).toList();
+  }
+
+  Future<bool> delete(
+    Entity entity,
+  ) {
+    print('Delete #' + entity.id + ' --> ' + entity.toString());
+
+
+    // TODO
+
+    return Future<bool>.value(true);
   }
 }

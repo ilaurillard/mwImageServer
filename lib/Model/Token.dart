@@ -1,10 +1,11 @@
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Service/DataStore.dart';
-import 'package:mwcdn/Etc/Types.dart';
 
-class Token extends JsonSerializable {
-  final String id;
+class Token implements JsonSerializable, Entity {
+  final String _id;
 
   final bool root;
   final int bucket; // read resource bucket
@@ -15,7 +16,7 @@ class Token extends JsonSerializable {
   final DateTime? stamp;
 
   Token(
-    this.id, {
+    this._id, {
     required this.bucket,
     this.users = const [],
     this.groups = const [],
@@ -23,6 +24,9 @@ class Token extends JsonSerializable {
     this.root = false,
     this.stamp,
   });
+
+
+  String get id => _id;
 
   bool empty() {
     return users.isEmpty && groups.isEmpty && buckets.isEmpty && !root;

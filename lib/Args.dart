@@ -13,11 +13,8 @@ class Args {
     final ArgResults _arguments = _parser.parse(args);
 
     dataDir = _arguments['dataDir'];
-    print('[data]');
-    print(dataDir);
-    print('');
-
     rootKey = _arguments['rootKey'];
+
     print('[rootKey]');
     print (rootKey);
     print('');
