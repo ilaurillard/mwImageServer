@@ -7,11 +7,11 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_multipart/multipart.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import '../Config.dart';
-import '../DataStore.dart';
-import '../Model/Resource.dart';
-import '../Types.dart';
-import '../Util.dart';
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Model/Resource.dart';
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Etc/Util.dart';
 
 class ApiResource {
   final DataStore dataStore;

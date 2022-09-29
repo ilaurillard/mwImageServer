@@ -4,11 +4,11 @@ import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import '../Config.dart';
-import '../DataStore.dart';
-import '../Model/Bucket.dart';
-import '../Types.dart';
-import '../Util.dart';
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Model/Bucket.dart';
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Etc/Util.dart';
 
 class ApiBucket {
   final DataStore dataStore;

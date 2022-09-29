@@ -1,7 +1,7 @@
-import '../DataStore.dart';
-import '../Types.dart';
-import 'JsonSerializable.dart';
-import 'Resource.dart';
+import 'package:mwcdn/Model/JsonSerializable.dart';
+import 'package:mwcdn/Model/Resource.dart';
+import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Etc/Types.dart';
 
 class Token extends JsonSerializable {
   final String id;

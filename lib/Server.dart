@@ -1,17 +1,17 @@
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:mwcdn/Service/DataStore.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
 
-import 'Api.dart';
-import 'Authentication.dart';
-import 'Config.dart';
-import 'Converter.dart';
-import 'DataStore.dart';
-import 'Imagick.dart';
+import 'package:mwcdn/Routing.dart';
+import 'package:mwcdn/Service/Authentication.dart';
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Service/Converter.dart';
+import 'package:mwcdn/Service/Imagick.dart';
 
 class Server {
   final DataStore dataStore;
@@ -99,7 +99,7 @@ class Server {
       // API ----------------------
       ..mount(
           '/api',
-          Api(
+          Routing(
             dataStore: dataStore,
           ).create());
   }

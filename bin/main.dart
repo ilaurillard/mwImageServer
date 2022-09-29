@@ -1,10 +1,10 @@
 import 'dart:isolate';
 
-import '../src/Args.dart';
-import '../src/Config.dart';
-import '../src/Imagick.dart';
-import '../src/Server.dart';
-import '../src/DataStore.dart';
+import 'package:mwcdn/Args.dart';
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Service/Imagick.dart';
+import 'package:mwcdn/Server.dart';
+import 'package:mwcdn/Service/DataStore.dart';
 
 void main(
   List<String> arguments,
@@ -23,8 +23,8 @@ void main(
 
   //------------ server
 
-  print(
-      '>>> starting server with ' + Config.isolates.toString() + ' isolates:');
+  print('[starting server]');
+  print('with ' + Config.isolates.toString() + ' isolates:');
   for (int i = 1; i < Config.isolates; i++) {
     Isolate.spawn(
       Server(

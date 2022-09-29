@@ -4,9 +4,9 @@ import 'package:path/path.dart';
 import 'package:shelf/shelf.dart';
 import 'package:string_scanner/string_scanner.dart';
 
-import 'Config.dart';
-import 'Model/JsonSerializable.dart';
-import 'Types.dart';
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Model/JsonSerializable.dart';
+import 'package:mwcdn/Etc/Types.dart';
 
 class Util {
   static Map<String, String> dispo(

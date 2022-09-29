@@ -1,11 +1,11 @@
+import 'package:mwcdn/Service/DataStore.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import 'Config.dart';
-import 'DataStore.dart';
-import 'Model/Resource.dart';
-import 'Model/Token.dart';
-import 'Util.dart';
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Model/Resource.dart';
+import 'package:mwcdn/Model/Token.dart';
+import 'package:mwcdn/Etc/Util.dart';
 
 class Authentication {
   final DataStore dataStore;
@@ -14,6 +14,7 @@ class Authentication {
     required this.dataStore,
   });
 
+  // Access to private resources
   Middleware privateAccess() {
     return (Handler handler) {
       return (
@@ -73,6 +74,7 @@ class Authentication {
     };
   }
 
+  // General api access
   Middleware apiAccess() {
     return (
       Handler handler,

@@ -5,10 +5,10 @@ import 'package:crypto/crypto.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import 'Config.dart';
-import 'Model/Resource.dart';
-import 'Model/Token.dart';
-import 'Types.dart';
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/Resource.dart';
+import 'package:mwcdn/Model/Token.dart';
 
 class DataStore {
   late final Database db;
@@ -24,7 +24,9 @@ class DataStore {
         onUpgrade: schema,
       ),
     );
-    print('>>> sqlite db: ' + db.toString() + "\n");
+    print('[sqlite]');
+    print(db.toString());
+    print('');
   }
 
   Future<Token> createToken(

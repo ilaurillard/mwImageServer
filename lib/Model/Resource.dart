@@ -1,5 +1,5 @@
-import '../Types.dart';
-import 'JsonSerializable.dart';
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/JsonSerializable.dart';
 
 class Resource
     extends JsonSerializable {

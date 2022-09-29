@@ -1,18 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:shelf/shelf.dart';
-import 'package:shelf_multipart/multipart.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import '../Config.dart';
-import '../DataStore.dart';
-import '../Model/Resource.dart';
-import '../Model/Token.dart';
-import '../Types.dart';
-import '../Util.dart';
+import 'package:mwcdn/Model/Token.dart';
+import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Etc/Util.dart';
 
 class ApiToken {
   final DataStore dataStore;
@@ -22,8 +16,8 @@ class ApiToken {
   });
 
   FutureOr<Response> create(
-      Request request,
-      ) async {
+    Request request,
+  ) async {
     int bucket = int.parse(request.params['bucket'] ?? '0');
 
     Dict data = await Util.jsonObject(request);
@@ -54,8 +48,8 @@ class ApiToken {
   }
 
   FutureOr<Response> show(
-      Request request,
-      ) async {
+    Request request,
+  ) async {
     int bucket = int.parse(request.params['bucket'] ?? '0');
 
     Token token = await dataStore.token(

@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'Args.dart';
-import 'Types.dart';
+import 'package:mwcdn/Args.dart';
+import 'package:mwcdn/Etc/Types.dart';
 
 class Config {
   static void init({

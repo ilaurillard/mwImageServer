@@ -1,5 +1,6 @@
-name: mwImageService
+name: mwcdn
 description: ...
+
 version: 0.0.1
 
 environment:

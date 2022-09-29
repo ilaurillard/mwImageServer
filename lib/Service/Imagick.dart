@@ -1,13 +1,10 @@
 import 'dart:io';
 
-import 'Config.dart';
-
 class Imagick {
-
   Imagick();
 
   Future<String> version() async {
-    print('>>> imagemagick:');
+    print('[imagemagick]');
     ProcessResult result = await Process.run(
       'convert',
       ['-version'],

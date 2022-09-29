@@ -1,4 +1,4 @@
-import '../Types.dart';
+import 'package:mwcdn/Etc/Types.dart';
 
 class JsonSerializable {
 

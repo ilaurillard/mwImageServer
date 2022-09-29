@@ -1,17 +1,17 @@
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import 'Api/ApiBucket.dart';
-import 'Api/ApiResource.dart';
-import 'Api/ApiToken.dart';
-import 'Authentication.dart';
-import 'Config.dart';
-import 'DataStore.dart';
+import 'package:mwcdn/Api/ApiBucket.dart';
+import 'package:mwcdn/Api/ApiResource.dart';
+import 'package:mwcdn/Api/ApiToken.dart';
+import 'package:mwcdn/Service/Authentication.dart';
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Service/DataStore.dart';
 
-class Api {
+class Routing {
   final DataStore dataStore;
 
-  Api({
+  Routing({
     required this.dataStore,
   });
 

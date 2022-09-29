@@ -4,10 +4,10 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
 
-import 'Config.dart';
-import 'DataStore.dart';
-import 'Imagick.dart';
-import 'Model/Resource.dart';
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Service/Imagick.dart';
+import 'package:mwcdn/Model/Resource.dart';
 
 class Converter {
   final DataStore dataStore;
