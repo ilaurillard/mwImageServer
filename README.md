@@ -1,24 +1,26 @@
 $ dart run bin/main.dart -d ~/PhpstormProjects/mwImageService/data
+$ dart run bin/main.dart -d ~/PhpstormProjects/mwImageService/data -k rootKey
 
 $ curl http://0.0.0.0:8080
 
 ----
 
+$ docker build . -t mwcdn
 
-
-$ docker build . -t mw_image_service
-
-$ docker run --name mw_image_service -v ~/PhpstormProjects/mwImageService/data:/data -it -p 8080:8080 mw_image_service
+$ docker run --name mwcdn -v ~/PhpstormProjects/mwImageService/data:/data -it -p 8080:8080 mwcdn
+$ docker run -e ROOT_KEY=rootKey --name mwcdn -v ~/PhpstormProjects/mwImageService/data:/data -it -p 8080:8080 mwcdn
 
 $ curl http://0.0.0.0:8080
 
-$ docker rm -f mw_image_service
+$ docker rm -f mwcdn
 
 $ docker system prune
 
 ----
 
+$ docker build . -t mwcdn
 
+$ cat .env
 $ docker-compose up
 
 $ curl http://0.0.0.0:8080

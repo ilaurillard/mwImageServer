@@ -9,7 +9,7 @@ class Args {
   ) {
     final ArgParser _parser = ArgParser()
       ..addOption('dataDir', abbr: 'd', defaultsTo: '/data')
-      ..addOption('rootKey', abbr: 'k', defaultsTo: 'xxx');
+      ..addOption('rootKey', abbr: 'k', defaultsTo: '');
     final ArgResults _arguments = _parser.parse(args);
 
     dataDir = _arguments['dataDir'];

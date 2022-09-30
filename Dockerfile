@@ -27,5 +27,4 @@ COPY --from=build /usr/lib/x86_64-linux-gnu/libsqlite3.so /app/bin/
 
 # Start server.
 EXPOSE 8080
-CMD ["/app/bin/main"]
-#ENTRYPOINT ["/app/bin/main"]
+ENTRYPOINT ./app/bin/main -k "$ROOT_KEY"

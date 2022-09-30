@@ -1,10 +1,8 @@
 services:
   web:
-    image: "mw_image_service"
+    image: "mwcdn"
     ports:
       - "8080:8080"
     volumes:
       - "./data:/data"
-
-#  redis:
-#    image: "redis:alpine"
+    env_file: .env
