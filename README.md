@@ -1,5 +1,5 @@
-$ dart run bin/main.dart -d ~/PhpstormProjects/mwImageService/data
-$ dart run bin/main.dart -d ~/PhpstormProjects/mwImageService/data -k rootKey
+$ dart run bin/main.dart -d ~/PhpstormProjects/mwcdn/data
+$ dart run bin/main.dart -d ~/PhpstormProjects/mwcdn/data -k rootKey
 
 $ curl http://0.0.0.0:8080
 
@@ -7,8 +7,8 @@ $ curl http://0.0.0.0:8080
 
 $ docker build . -t mwcdn
 
-$ docker run --name mwcdn -v ~/PhpstormProjects/mwImageService/data:/data -it -p 8080:8080 mwcdn
-$ docker run -e ROOT_KEY=rootKey --name mwcdn -v ~/PhpstormProjects/mwImageService/data:/data -it -p 8080:8080 mwcdn
+$ docker run --name mwcdn -v ~/PhpstormProjects/mwcdn/data:/data -it -p 8080:8080 mwcdn
+$ docker run -e ROOT_KEY=rootKey --name mwcdn -v ~/PhpstormProjects/mwcdn/data:/data -it -p 8080:8080 mwcdn
 
 $ curl http://0.0.0.0:8080
 

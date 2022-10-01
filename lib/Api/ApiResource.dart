@@ -40,21 +40,25 @@ class ApiResource {
     }
 
     if (request.method == 'GET') {
-      // READ
       return Util.jsonResponse(
         resource,
       );
     } else if (request.method == 'DELETE') {
-      // DELETE
 
       // delete files
-
-
-      // delete record
-      bool success = await dataStore.delete(resource);
-      if (!success) {
+      // print('DELETE ALL FILES');
+      bool successFile = await fileStore.delete(resource);
+      if (!successFile) {
         return Response.internalServerError(
-          body: 'Remove resource failed',
+          body: 'Remove resource files failed (' + resource.path() + ')',
+        );
+      }
+
+      //delete record
+      bool successRecord = await dataStore.delete(resource);
+      if (!successRecord) {
+        return Response.internalServerError(
+          body: 'Remove resource record failed',
         );
       }
 

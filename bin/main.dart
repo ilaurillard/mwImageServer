@@ -11,24 +11,28 @@ void main(
   List<String> arguments,
 ) async {
 
+  print('[service]');
+  print('mwcdn 0.1');
+  print('');
+
   Config.init(
     args: Args(
       arguments,
     ),
   );
 
-  DataStore dataStore = DataStore();
-  await dataStore.init();
-
   FileStore fileStore = FileStore();
   await fileStore.init();
+
+  DataStore dataStore = DataStore();
+  await dataStore.init();
 
   Imagick imagick = Imagick();
   print(await imagick.version());
 
   //------------ server
 
-  print('[starting server]');
+  print('[run]');
   print('with ' + Config.isolates.toString() + ' isolates:');
   for (int i = 1; i < Config.isolates; i++) {
     Isolate.spawn(

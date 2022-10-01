@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Model/Resource.dart';
 
 class FileStore {
   FileStore();
@@ -37,5 +38,26 @@ class FileStore {
       recursive: true,
     );
     return f.writeAsBytes(bytes);
+  }
+
+  Future<bool> delete(
+    Resource resource,
+  ) async {
+    // delete all files for resource
+
+    String path = Config.dataDir + '/' + resource.path();
+    print(path);
+
+    if (await dirExists('/' + resource.path())) {
+
+      print('+++');
+
+      await Directory(path).delete(
+        recursive: true,
+      );
+      return true;
+    }
+
+    return false;
   }
 }

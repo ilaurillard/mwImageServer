@@ -59,14 +59,14 @@ Content-Type: image/jpeg
 > {%
 client.test('test', function () {
     client.assert(response.status === 200);
-    client.global.set("resource_id1", response.body.id);
+    client.global.set("resource_id2", response.body.id);
     client.global.set("resource_url", response.body.path + '/' + response.body.filename);
 }); %}
 
 
 
 ### Show resource
-GET {{host}}/api/bucket/77/resource/{{resource_id1}}
+GET {{host}}/api/bucket/77/resource/{{resource_id2}}
 Authorization: rootKey
 
 > scripts/assert200AndJson.js
@@ -124,8 +124,14 @@ Authorization: {{admin_token77}}
 GET {{host}}/api/bucket/77/resource/{{resource_id1}}
 Authorization: rootKey
 
+###
+GET {{host}}/api/bucket/77/resource/{{resource_id2}}
+Authorization: rootKey
 
 ###
 DELETE {{host}}/api/bucket/77/resource/{{resource_id1}}
 Authorization: rootKey
 
+###
+DELETE {{host}}/api/bucket/77/resource/{{resource_id2}}
+Authorization: rootKey
