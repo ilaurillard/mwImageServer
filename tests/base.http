@@ -191,7 +191,7 @@ Authorization: {{admin_token2}}
 GET {{host}}/api/bucket/99999
 Authorization: rootKey
 
-> scripts/assert200AndJson.js
+> scripts/assert404.js
 
 ### Show bucket -> 400
 GET {{host}}/api/bucket/0

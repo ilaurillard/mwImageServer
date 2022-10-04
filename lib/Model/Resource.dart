@@ -1,9 +1,9 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 
-class Resource
-    implements JsonSerializable, Entity {
+class Resource implements JsonSerializable, Entity {
   final String _id;
 
   final int bucket;
@@ -66,5 +66,27 @@ class Resource
       'path': path(),
       'filename': filename,
     };
+  }
+
+  factory Resource.fromDatabase(
+    Dict row,
+  ) {
+    return Resource(
+      row['id'],
+      bucket: row['bucket'],
+      filename: row['filename'],
+      users: Util.intList(row['users'] ?? ''),
+      groups: Util.intList(row['groups'] ?? ''),
+    );
+  }
+
+  factory Resource.empty(
+    String id,
+  ) {
+    return Resource(
+      id,
+      bucket: 0,
+      filename: '',
+    );
   }
 }

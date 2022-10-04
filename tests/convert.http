@@ -1,3 +1,8 @@
+### Show bucket
+GET {{host}}/api/bucket/77
+Authorization: rootKey
+
+###
 POST {{host}}/api/bucket/77/resource
 Authorization: rootKey
 Content-Type: multipart/form-data; boundary=WebAppBoundary
@@ -19,7 +24,27 @@ Content-Type: image/jpeg
 client.test('test', function () {
     client.assert(response.status === 200);
     client.global.set("resource_id1", response.body.id);
+    client.global.set("resource_path", response.body.path);
+    client.global.set("resource_filename", response.body.filename);
     client.global.set("resource_url", response.body.path + '/' + response.body.filename);
 }); %}
 
 
+
+
+
+
+### Show resource
+GET {{host}}/{{resource_url}}
+
+> scripts/assert200AndJpg.js
+
+### Show resource
+GET {{host}}/{{resource_path}}/{{resource_filename}}
+
+> scripts/assert200AndJpg.js
+
+### Show resource
+GET {{host}}/{{resource_path}}/thumb1-{{resource_filename}}
+
+> scripts/assert200AndJpg.js

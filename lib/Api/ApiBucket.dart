@@ -5,7 +5,6 @@ import 'package:mwcdn/Service/FileStore.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Service/DataStore.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Etc/Types.dart';
@@ -23,17 +22,21 @@ class ApiBucket {
   FutureOr<Response> create(
     Request request,
   ) async {
-    // create folder
-
     Dict data = await Util.jsonObject(request);
 
-    int bucket = Util.intData(data, 'id');
-    if (bucket < 1 || bucket > 999999999) {
+    int bucketId = Util.intData(data, 'id');
+    if (bucketId < 1 || bucketId > 999999999) {
       return Util.invalidbucket();
     }
 
-    String pathPublic = '/public/' + bucket.toString();
-    String pathPrivate = '/private/' + bucket.toString();
+    // Load from Database
+    // Bucket bucket = await dataStore.bucket(
+    //   bucketId,
+    // );
+
+    // create folders
+    String pathPublic = '/public/' + bucketId.toString();
+    String pathPrivate = '/private/' + bucketId.toString();
 
     if (await fileStore.dirExists(pathPublic)) {
       return Response(409,  body: 'Bucket collision');
@@ -45,36 +48,37 @@ class ApiBucket {
     await fileStore.createDir(pathPublic);
     await fileStore.createDir(pathPrivate);
 
+    Bucket bucket = await dataStore.createBucket(bucketId);
+
     return Util.jsonResponse(
-      Bucket(
-        bucket,
-      ),
+      bucket,
     );
   }
 
   FutureOr<Response> show(
     Request request,
-  ) {
-    int bucket = int.parse(request.params['bucket'] ?? '0');
-    if (bucket < 1 || bucket > 999999999) {
+  ) async {
+    int bucketId = int.parse(request.params['bucket'] ?? '0');
+    if (bucketId < 1 || bucketId > 999999999) {
       return Util.invalidbucket();
     }
 
-    // TODO check existance of folders
-
-    String p = Config.dataDir + '/public/' + bucket.toString();
-    print(p);
-
-    return Util.jsonResponse(
-      Bucket(
-        bucket,
-      ),
+    // Load from Database
+    Bucket bucket = await dataStore.bucket(
+      bucketId,
     );
 
-    // return Response.ok(
-    //   // "API - (isolate ${Isolate.current.hashCode}) " + request.method,
-    //   json.encode({'id': bucket}),
-    //   headers: cfg.jsonHeaders,
-    // );
+    String pathPublic = '/public/' + bucketId.toString();
+    String pathPrivate = '/private/' + bucketId.toString();
+    if (!await fileStore.dirExists(pathPublic)) {
+      return Response(404,  body: 'Bucket folder missing');
+    }
+    if (!await fileStore.dirExists(pathPrivate)) {
+      return Response(404, body: 'Bucket folder missing');
+    }
+
+    return Util.jsonResponse(
+      bucket,
+    );
   }
 }

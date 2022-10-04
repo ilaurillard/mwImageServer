@@ -48,6 +48,7 @@ class Server {
   Router app() {
     Converter converter = Converter(
       dataStore: dataStore,
+      fileStore: fileStore,
       imagick: imagick,
     );
 

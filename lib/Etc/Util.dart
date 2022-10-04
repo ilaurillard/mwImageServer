@@ -1,12 +1,13 @@
 import 'dart:convert';
+import 'dart:math';
 
+import 'package:crypto/crypto.dart';
+import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/JsonSerializable.dart';
 import 'package:path/path.dart';
 import 'package:shelf/shelf.dart';
 import 'package:string_scanner/string_scanner.dart';
-
-import 'package:mwcdn/Config.dart';
-import 'package:mwcdn/Model/JsonSerializable.dart';
-import 'package:mwcdn/Etc/Types.dart';
 
 class Util {
   static Map<String, String> dispo(
@@ -130,5 +131,25 @@ class Util {
     String filename,
   ) {
     return extension(filename);
+  }
+
+  static List<int> intList(
+    String csv,
+  ) {
+    if (csv.isEmpty) {
+      return [];
+    }
+    List<String> ls = (List<String>.from(csv.split(';')));
+    return ls.map((String s) => int.parse(s)).toList();
+  }
+
+  static String randMd5() {
+    return md5
+        .convert(
+          utf8.encode(
+            Random().nextDouble().toString(),
+          ),
+        )
+        .toString();
   }
 }

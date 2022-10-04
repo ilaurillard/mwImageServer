@@ -1,4 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 import 'package:mwcdn/Model/Resource.dart';
@@ -24,7 +25,6 @@ class Token implements JsonSerializable, Entity {
     this.root = false,
     this.stamp,
   });
-
 
   String get id => _id;
 
@@ -90,5 +90,28 @@ class Token implements JsonSerializable, Entity {
     // print(stamp);
 
     return true;
+  }
+
+  factory Token.fromDatabase(
+    Dict row,
+  ) {
+    return Token(
+      row['id'],
+      bucket: row['bucket'],
+      users: Util.intList(row['users'] ?? ''),
+      groups: Util.intList(row['groups'] ?? ''),
+      buckets: Util.intList(row['buckets'] ?? ''),
+      root: (row['root'] as int? ?? 0) == 1,
+      stamp: DateTime.parse(row['stamp']),
+    );
+  }
+
+  factory Token.empty(
+    String id,
+  ) {
+    return Token(
+      id,
+      bucket: 0,
+    );
   }
 }

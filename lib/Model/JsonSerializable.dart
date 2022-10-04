@@ -5,4 +5,5 @@ class JsonSerializable {
   Dict toJson() {
     return {};
   }
+
 }

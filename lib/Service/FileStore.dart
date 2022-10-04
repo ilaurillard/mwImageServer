@@ -20,9 +20,18 @@ class FileStore {
     return await Directory(path).exists();
   }
 
+  Future<bool> fileExists(
+      String path,
+      ) async {
+    path = Config.dataDir + path;
+    return await File(path).exists();
+  }
+
   Future<Directory> createDir(
     String path,
   ) async {
+    // print('FileStore:createDir');
+
     path = Config.dataDir + path;
     return await Directory(path).create(
       recursive: true,
@@ -33,6 +42,8 @@ class FileStore {
     String path,
     Uint8List bytes,
   ) async {
+    // print('FileStore:createFile');
+
     path = Config.dataDir + path;
     File f = await File(path).create(
       recursive: true,
@@ -43,10 +54,11 @@ class FileStore {
   Future<bool> delete(
     Resource resource,
   ) async {
+    // print('FileStore:delete');
     // delete all files for resource
 
     String path = Config.dataDir + '/' + resource.path();
-    print(path);
+    // print(path);
 
     if (await dirExists('/' + resource.path())) {
 

@@ -1,12 +1,10 @@
-import 'dart:convert';
-import 'dart:math';
-
-import 'package:crypto/crypto.dart';
 import 'package:mwcdn/Config.dart';
-import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Model/Token.dart';
+import 'package:mwcdn/Service/Schema.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -21,13 +19,56 @@ class DataStore {
       Config.dataDir + '/database/system.db',
       options: OpenDatabaseOptions(
         version: 1,
-        onUpgrade: schema,
+        onUpgrade: Schema.schema,
       ),
     );
     print('[sqlite]');
     print(db.toString());
     print('');
   }
+
+  // -------------------------------- BUCKET
+
+  Future<Bucket> createBucket(
+    int id,
+  ) async {
+    // print('DataStore:createBucket');
+
+    Bucket bucket = Bucket.empty(id);
+
+    await db.insert(
+      'Bucket',
+      bucket.toDatabase(),
+    );
+
+    return bucket;
+  }
+
+  Future<Bucket> bucket(
+    int id,
+  ) async {
+    List<dynamic> data = await db.query(
+      'Bucket',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+
+    if (data.isNotEmpty) {
+      print('Loaded bucket: ' + id.toString());
+      return Bucket.fromDatabase(
+        data.first,
+      );
+    } else {
+      print(
+        'Bucket not found: ' + id.toString(),
+      );
+    }
+
+    return Bucket.empty(id);
+  }
+
+  // ----------------- TOKEN
 
   Future<Token> createToken(
     int bucket, {
@@ -36,7 +77,9 @@ class DataStore {
     List<int> buckets = const [],
     bool root = false,
   }) async {
-    String id = _randMd5();
+    String id = Util.randMd5();
+
+    // print('DataStore:createToken ' + id);
 
     Token token = Token(
       id,
@@ -66,25 +109,15 @@ class DataStore {
     );
     if (data.isNotEmpty) {
       print('Loaded token: ' + id);
-      Dict row = data.first;
-      return Token(
-        id,
-        bucket: row['bucket'],
-        users: _intList(row['users'] ?? ''),
-        groups: _intList(row['groups'] ?? ''),
-        buckets: _intList(row['buckets'] ?? ''),
-        root: (row['root'] as int? ?? 0) == 1,
-        stamp: DateTime.parse(row['stamp']),
-      );
+      return Token.fromDatabase(data.first);
     } else {
       print('Token not found: ' + id);
     }
 
-    return Token(
-      id,
-      bucket: 0,
-    );
+    return Token.empty(id);
   }
+
+  // ----------------- RESOURCE
 
   Future<Resource> createResource(
     int bucket, {
@@ -92,7 +125,9 @@ class DataStore {
     List<int> users = const [],
     List<int> groups = const [],
   }) async {
-    String id = _randMd5();
+    String id = Util.randMd5();
+
+    // print('DataStore:createToken ' + id);
 
     Resource resource = Resource(
       id,
@@ -124,86 +159,19 @@ class DataStore {
         limit: 1,
       );
       if (data.isNotEmpty) {
-        Dict row = data.first;
-        return Resource(
-          id,
-          bucket: row['bucket'],
-          filename: row['filename'],
-          users: _intList(row['users'] ?? ''),
-          groups: _intList(row['groups'] ?? ''),
-        );
+        return Resource.fromDatabase(data.first);
       }
     }
 
-    return Resource(
-      id,
-      bucket: 0,
-      filename: '',
-    );
+    return Resource.empty(id);
   }
 
-  Future<void> schema(
-    Database db,
-    int oldVersion,
-    int newVersion,
-  ) async {
-    if (newVersion == 1 && oldVersion < 1) {
-      await db.execute('''
-    CREATE TABLE Token (
-        id TEXT PRIMARY KEY NOT NULL,
-        bucket INTEGER NOT NULL,
-        users TEXT NOT NULL,
-        groups TEXT NOT NULL,
-        buckets TEXT NOT NULL,
-        root BOOLEAN DEFAULT 0 NOT NULL CHECK (root IN (0, 1)),
-        stamp DATETIME DEFAULT current_timestamp
-    )
-  ''');
-
-      await db.execute('''
-    CREATE TABLE Resource (
-        id TEXT PRIMARY KEY NOT NULL,
-        bucket INTEGER NOT NULL,
-        filename TEXT NOT NULL,
-        users TEXT NOT NULL,
-        groups TEXT NOT NULL,
-        stamp DATETIME DEFAULT current_timestamp
-    )
-  ''');
-
-      // await db.insert('Resource', {
-      //   'id': 'aaaabbbbccccddddaaaabbbbccccdddd',
-      //   'bucket': 77,
-      //   'users': '55;66',
-      //   'groups': '666',
-      //   'filename': 'original.jpg',
-      // });
-    }
-  }
-
-  String _randMd5() {
-    return md5
-        .convert(
-          utf8.encode(
-            Random().nextDouble().toString(),
-          ),
-        )
-        .toString();
-  }
-
-  List<int> _intList(String csv) {
-    if (csv.isEmpty) {
-      return [];
-    }
-    List<String> ls = (List<String>.from(csv.split(';')));
-    return ls.map((String s) => int.parse(s)).toList();
-  }
+  // -----------------
 
   Future<bool> delete(
     Entity entity,
   ) {
     print('Delete #' + entity.id + ' --> ' + entity.toString());
-
 
     // TODO
 
