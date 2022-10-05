@@ -43,6 +43,7 @@ class Server {
     print(
       'listening at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}',
     );
+    print('');
   }
 
   Router app() {
@@ -60,7 +61,7 @@ class Server {
             Config.paramBucket +
             Config.paramSeg1 +
             Config.paramSeg2 +
-            Config.paramRes +
+            Config.paramResource +
             Config.paramFile,
         Cascade()
             .add(
@@ -79,7 +80,7 @@ class Server {
             Config.paramBucket +
             Config.paramSeg1 +
             Config.paramSeg2 +
-            Config.paramRes +
+            Config.paramResource +
             Config.paramFile,
         Pipeline()
             .addMiddleware(

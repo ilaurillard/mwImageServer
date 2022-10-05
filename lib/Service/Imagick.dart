@@ -19,6 +19,8 @@ class Imagick {
     return result.stdout;
   }
 
+  // ---------------------
+
   Future<void> convert(
     String sourcePath,
     String targetPath,

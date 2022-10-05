@@ -48,15 +48,22 @@ class Routing {
               '/bucket' + Config.paramBucket, // /api/bucket/77
               apiBucket.show,
             )
+
             ..post(
               // /api/bucket/77/resource
               '/bucket' + Config.paramBucket + '/resource',
               apiResource.create,
             )
+            ..post(
+              '/bucket' + Config.paramBucket + '/resource' + Config.paramResource + '/flush',
+              apiResource.flush,
+            )
             ..all(
-              '/bucket' + Config.paramBucket + '/resource' + Config.paramRes,
+              '/bucket' + Config.paramBucket + '/resource' + Config.paramResource,
               apiResource.crud,
             )
+
+
             ..post(
               '/bucket' + Config.paramBucket + '/token', // /api/bucket/77/token
               apiToken.create,
@@ -65,6 +72,7 @@ class Routing {
               '/bucket' + Config.paramBucket + '/token' + Config.paramToken,
               apiToken.show,
             )
+
             ..post(
               '/token', // /api/token
               apiToken.create,

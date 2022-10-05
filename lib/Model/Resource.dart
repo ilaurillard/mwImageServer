@@ -21,8 +21,8 @@ class Resource implements JsonSerializable, Entity {
 
   String get id => _id;
 
-  bool empty() {
-    return bucket == 0;
+  bool valid() {
+    return bucket != 0;
   }
 
   String toString() {

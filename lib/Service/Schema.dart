@@ -33,7 +33,8 @@ class Schema
 
       await db.execute('''
     CREATE TABLE Bucket (
-        id INTEGER PRIMARY KEY NOT NULL
+        id INTEGER PRIMARY KEY NOT NULL,
+        methods TEXT DEFAULT "[]" NOT NULL
     )
   ''');
 

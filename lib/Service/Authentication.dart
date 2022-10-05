@@ -14,6 +14,8 @@ class Authentication {
     required this.dataStore,
   });
 
+  // ---------------------
+
   // Access to private resources
   Middleware privateAccess() {
     return (Handler handler) {
@@ -27,7 +29,7 @@ class Authentication {
           }
 
           Token token = await dataStore.token(auth);
-          if (token.empty()) {
+          if (!token.valid()) {
             return Response.unauthorized(
               'Empty token',
             );
@@ -52,7 +54,7 @@ class Authentication {
             request.params['resource'] ?? '',
           );
 
-          if (resource.empty()) {
+          if (!resource.valid()) {
             return Response.notFound(
               'Resource not found',
             );
@@ -74,6 +76,8 @@ class Authentication {
     };
   }
 
+  // ---------------------
+
   // General api access
   Middleware apiAccess() {
     return (
@@ -90,7 +94,7 @@ class Authentication {
           }
 
           Token token = await dataStore.token(auth);
-          if (token.empty()) {
+          if (!token.valid()) {
             // no token found
             return Response.unauthorized(
               'Token not found',

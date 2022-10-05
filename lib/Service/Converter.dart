@@ -22,11 +22,12 @@ class Converter {
     required this.imagick,
   });
 
+  // ---------------------
+
   FutureOr<Response> onTheFly(
     Request request,
   ) async {
     int bucketId = int.parse(request.params['bucket'] ?? '0');
-
     Bucket bucket = await dataStore.bucket(
       bucketId,
     );
@@ -35,7 +36,7 @@ class Converter {
       bucketId,
       request.params['resource'] ?? '',
     );
-    if (resource.empty()) {
+    if (!resource.valid()) {
       return Response.notFound(
         'Resource not found',
       );
@@ -45,17 +46,23 @@ class Converter {
 
     String methodName = file.split('-').first;
 
-    print(
-      'On the fly - ' +
-          resource.toString() +
-          ' original: ' +
-          resource.filename +
-          ' file: ' +
-          file +
-          ' bucket: ' +
-          bucketId.toString() +
-          ' method: ' + methodName,
-    );
+    Method method = bucket.method(methodName);
+    if (!method.valid()) {
+      return Response.notFound('Method "' + methodName + '" not exists');
+    }
+
+    // print(
+    //   'OTF - ' +
+    //       resource.toString() +
+    //       ' original: ' +
+    //       resource.filename +
+    //       ' file: ' +
+    //       file +
+    //       ' bucket: ' +
+    //       bucketId.toString() +
+    //       ' method: ' +
+    //       methodName,
+    // );
 
     String path = '/' + resource.path();
     String original = path + '/' + resource.filename;
@@ -69,9 +76,6 @@ class Converter {
       return Response.notFound('File not exists (' + original + ')');
     }
 
-    // TODO from Bucket
-    Method method = Method(methodName);
-
     await imagick.convert(
       original,
       target,
@@ -82,5 +86,22 @@ class Converter {
       Config.dataDir,
     );
     return handler(request);
+  }
+
+  // ---------------------
+
+  static Method builtIn(
+    String methodName,
+  ) {
+    if (methodName == 'thumb1') {
+      return Method(
+        methodName,
+      );
+    }
+
+    return Method(
+      methodName,
+      exists: false,
+    );
   }
 }

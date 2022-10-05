@@ -15,6 +15,8 @@ class ApiToken {
     required this.dataStore,
   });
 
+  // ---------------------
+
   FutureOr<Response> create(
     Request request,
   ) async {
@@ -47,6 +49,8 @@ class ApiToken {
     );
   }
 
+  // ---------------------
+
   FutureOr<Response> show(
     Request request,
   ) async {
@@ -55,7 +59,7 @@ class ApiToken {
     Token token = await dataStore.token(
       request.params['token'] ?? '',
     );
-    if (token.empty()) {
+    if (!token.valid()) {
       return Response.notFound(
         'Token not found',
       );

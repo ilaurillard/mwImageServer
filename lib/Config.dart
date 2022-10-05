@@ -23,7 +23,7 @@ class Config {
   static const String paramBucket = '/<bucket|[0-9]{1,8}>';
   static const String paramSeg1 = '/<any|[a-f0-9]{2}>';
   static const String paramSeg2 = '/<any|[a-f0-9]{2}>';
-  static const String paramRes = '/<resource|[a-f0-9]{32}>';
+  static const String paramResource = '/<resource|[a-f0-9]{32}>';
   static const String paramToken = '/<token|[a-f0-9]{32}>';
   static const String paramFile = '/<file|.*>';
 

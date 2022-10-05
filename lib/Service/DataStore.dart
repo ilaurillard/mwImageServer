@@ -13,6 +13,8 @@ class DataStore {
 
   DataStore();
 
+  // ---------------------
+
   Future<void> init() async {
     sqfliteFfiInit();
     db = await databaseFactoryFfi.openDatabase(
@@ -43,6 +45,8 @@ class DataStore {
 
     return bucket;
   }
+
+  // ---------------------
 
   Future<Bucket> bucket(
     int id,
@@ -98,6 +102,8 @@ class DataStore {
     return token;
   }
 
+  // ---------------------
+
   Future<Token> token(
     String id,
   ) async {
@@ -145,6 +151,8 @@ class DataStore {
     return resource;
   }
 
+  // ---------------------
+
   Future<Resource> resource(
     int bucket,
     String id,
@@ -170,11 +178,41 @@ class DataStore {
 
   Future<bool> delete(
     Entity entity,
-  ) {
+  ) async {
     print('Delete #' + entity.id + ' --> ' + entity.toString());
 
-    // TODO
+    int amountDeleted = 0;
 
-    return Future<bool>.value(true);
+    if (entity is Resource) {
+      amountDeleted = await db.delete(
+        'Resource',
+        where: 'id = ? AND bucket = ?',
+        whereArgs: [
+          entity.id,
+          entity.bucket,
+        ],
+      );
+    }
+    else if (entity is Token) {
+      amountDeleted = await db.delete(
+        'Token',
+        where: 'id = ? AND bucket = ?',
+        whereArgs: [
+          entity.id,
+          entity.bucket,
+        ],
+      );
+    }
+    else if (entity is Bucket) {
+      amountDeleted = await db.delete(
+        'Bucket',
+        where: 'id = ?',
+        whereArgs: [
+          entity.id,
+        ],
+      );
+    }
+
+    return Future<bool>.value(amountDeleted > 0);
   }
 }

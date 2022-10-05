@@ -19,6 +19,8 @@ class ApiBucket {
     required this.fileStore,
   });
 
+  // ---------------------
+
   FutureOr<Response> create(
     Request request,
   ) async {
@@ -54,6 +56,8 @@ class ApiBucket {
       bucket,
     );
   }
+
+  // ---------------------
 
   FutureOr<Response> show(
     Request request,

@@ -21,9 +21,14 @@ class ApiResource {
     required this.fileStore,
   });
 
-  FutureOr<Response> crud(
-    Request request,
-  ) async {
+  // ---------------------
+
+  FutureOr<Response> flush(
+      Request request,
+      ) async {
+
+    print('ApiResource.flush');
+
     int bucket = int.parse(request.params['bucket'] ?? '0');
     if (bucket < 1 || bucket > 999999999) {
       return Util.invalidbucket();
@@ -33,7 +38,40 @@ class ApiResource {
       bucket,
       request.params['resource'] ?? '',
     );
-    if (resource.empty()) {
+    if (!resource.valid()) {
+      return Response.notFound(
+        'Resource not found',
+      );
+    }
+
+    bool successFiles = await fileStore.flush(resource);
+    if (!successFiles) {
+      return Response.internalServerError(
+        body: 'Remove files failed (' + resource.path() + ')',
+      );
+    }
+
+    return Response(200);
+  }
+
+  // ---------------------
+
+  FutureOr<Response> crud(
+    Request request,
+  ) async {
+
+    print('ApiResource.crud');
+
+    int bucket = int.parse(request.params['bucket'] ?? '0');
+    if (bucket < 1 || bucket > 999999999) {
+      return Util.invalidbucket();
+    }
+
+    Resource resource = await dataStore.resource(
+      bucket,
+      request.params['resource'] ?? '',
+    );
+    if (!resource.valid()) {
       return Response.notFound(
         'Resource not found',
       );
@@ -46,9 +84,8 @@ class ApiResource {
     } else if (request.method == 'DELETE') {
 
       // delete files
-      // print('DELETE ALL FILES');
-      bool successFile = await fileStore.delete(resource);
-      if (!successFile) {
+      bool successFiles = await fileStore.delete(resource);
+      if (!successFiles) {
         return Response.internalServerError(
           body: 'Remove resource files failed (' + resource.path() + ')',
         );
@@ -70,13 +107,19 @@ class ApiResource {
     );
   }
 
+  // ---------------------
+
   FutureOr<Response> create(
     Request request,
   ) async {
+
+    print('ApiResource.create');
+
     int bucket = int.parse(request.params['bucket'] ?? '0');
     if (bucket < 1 || bucket > 999999999) {
       return Util.invalidbucket();
     }
+
     if (!request.isMultipart) {
       return Response.badRequest(body: 'Must be multipart post');
     }

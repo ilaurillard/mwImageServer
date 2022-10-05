@@ -28,8 +28,8 @@ class Token implements JsonSerializable, Entity {
 
   String get id => _id;
 
-  bool empty() {
-    return users.isEmpty && groups.isEmpty && buckets.isEmpty && !root;
+  bool valid() {
+    return !(users.isEmpty && groups.isEmpty && buckets.isEmpty && !root);
   }
 
   bool accessResource(
