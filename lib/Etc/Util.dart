@@ -63,7 +63,7 @@ class Util {
     );
   }
 
-  static Response invalidbucket() {
+  static Response invalidBucket() {
     return Response.badRequest(body: 'Invalid bucket');
   }
 
@@ -151,5 +151,9 @@ class Util {
           ),
         )
         .toString();
+  }
+
+  static bool validBucket(int bucketId) {
+    return bucketId > 0 && bucketId < 10000000;
   }
 }

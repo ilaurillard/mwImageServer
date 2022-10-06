@@ -29,8 +29,8 @@ class ApiBucket {
     Dict data = await Util.jsonObject(request);
 
     int bucketId = Util.intData(data, 'id');
-    if (bucketId < 1 || bucketId > 999999999) {
-      return Util.invalidbucket();
+    if (!Util.validBucket(bucketId)) {
+      return Util.invalidBucket();
     }
 
     // Load from Database
@@ -67,8 +67,8 @@ class ApiBucket {
     print('[ApiBucket.show]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
-    if (bucketId < 1 || bucketId > 999999999) {
-      return Util.invalidbucket();
+    if (!Util.validBucket(bucketId)) {
+      return Util.invalidBucket();
     }
 
     // Load from Database

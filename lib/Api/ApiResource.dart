@@ -29,13 +29,13 @@ class ApiResource {
 
     print('[ApiResource.flush]');
 
-    int bucket = int.parse(request.params['bucket'] ?? '0');
-    if (bucket < 1 || bucket > 999999999) {
-      return Util.invalidbucket();
+    int bucketId = int.parse(request.params['bucket'] ?? '0');
+    if (!Util.validBucket(bucketId)) {
+      return Util.invalidBucket();
     }
 
     Resource resource = await dataStorage.loadResource(
-      bucket,
+      bucketId,
       request.params['resource'] ?? '',
     );
     if (!resource.valid()) {
@@ -62,13 +62,13 @@ class ApiResource {
 
     print('[ApiResource.crud]');
 
-    int bucket = int.parse(request.params['bucket'] ?? '0');
-    if (bucket < 1 || bucket > 999999999) {
-      return Util.invalidbucket();
+    int bucketId = int.parse(request.params['bucket'] ?? '0');
+    if (!Util.validBucket(bucketId)) {
+      return Util.invalidBucket();
     }
 
     Resource resource = await dataStorage.loadResource(
-      bucket,
+      bucketId,
       request.params['resource'] ?? '',
     );
     if (!resource.valid()) {
@@ -108,9 +108,9 @@ class ApiResource {
 
     print('[ApiResource.create]');
 
-    int bucket = int.parse(request.params['bucket'] ?? '0');
-    if (bucket < 1 || bucket > 999999999) {
-      return Util.invalidbucket();
+    int bucketId = int.parse(request.params['bucket'] ?? '0');
+    if (!Util.validBucket(bucketId)) {
+      return Util.invalidBucket();
     }
 
     if (!request.isMultipart) {
@@ -165,7 +165,7 @@ class ApiResource {
     String partData = await mPartMeta.readString();
     Dict data = json.decode(partData);
     Resource resource = await dataStorage.createResource(
-      bucket,
+      bucketId,
       filename: filename,
       users: Util.intListData(data, 'users'),
       groups: Util.intListData(data, 'groups'),

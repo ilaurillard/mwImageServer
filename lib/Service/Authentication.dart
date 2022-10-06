@@ -44,13 +44,13 @@ class Authentication {
             return handler(request);
           }
 
-          int bucket = int.parse(request.params['bucket'] ?? '0');
-          if (bucket < 1 || bucket > 999999999) {
-            return Util.invalidbucket();
+          int bucketId = int.parse(request.params['bucket'] ?? '0');
+          if (!Util.validBucket(bucketId)) {
+            return Util.invalidBucket();
           }
 
           Resource resource = await dataStorage.loadResource(
-            bucket,
+            bucketId,
             request.params['resource'] ?? '',
           );
 
