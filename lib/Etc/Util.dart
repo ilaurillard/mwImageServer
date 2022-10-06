@@ -12,7 +12,7 @@ import 'package:string_scanner/string_scanner.dart';
 class Util {
 
   static bool validBucket(int bucketId) {
-    return bucketId > 0 && bucketId < 10000000;
+    return bucketId > 0 && bucketId <= Config.maxBucket;
   }
 
   static Response invalidBucket() {

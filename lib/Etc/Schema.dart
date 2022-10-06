@@ -1,12 +1,11 @@
 import 'package:sqflite_common/sqlite_api.dart';
 
-class Schema
-{
+class Schema {
   static Future<void> schema(
-      Database db,
-      int oldVersion,
-      int newVersion,
-      ) async {
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) async {
     if (newVersion == 1 && oldVersion < 1) {
       await db.execute('''
     CREATE TABLE Token (
@@ -37,14 +36,6 @@ class Schema
         methods TEXT DEFAULT "[]" NOT NULL
     )
   ''');
-
-      // await db.insert('Resource', {
-      //   'id': 'aaaabbbbccccddddaaaabbbbccccdddd',
-      //   'bucket': 77,
-      //   'users': '55;66',
-      //   'groups': '666',
-      //   'filename': 'original.jpg',
-      // });
     }
   }
 }

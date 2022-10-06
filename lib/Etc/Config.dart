@@ -27,7 +27,11 @@ class Config {
   static const String matchToken = '/<token|[a-f0-9]{32}>';
   static const String matchFile = '/<file|.*>';
 
-  static const KeyValue jsonHeaders = {'content-type': 'application/json'};
+  static const KeyValue jsonHeaders = {
+    'content-type': 'application/json',
+  };
+
+  static const int maxBucket = 99999;
 
   static const int maxFileSize = 1000000;
   static const List<String> acceptedTypes = [
@@ -38,6 +42,6 @@ class Config {
     '.jpeg',
   ];
   static const Map<String, List<String>> mimeToSuffix = {
-    'image/jpeg': ['.jpg', '.jpeg'],
+    'image/jpeg': ['.jpg', '.jpeg',],
   };
 }

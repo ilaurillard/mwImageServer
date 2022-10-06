@@ -4,7 +4,7 @@ import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Service/Schema.dart';
+import 'package:mwcdn/Etc/Schema.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
