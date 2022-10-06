@@ -1,7 +1,7 @@
 import 'dart:isolate';
 
-import 'package:mwcdn/Args.dart';
-import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Etc/Args.dart';
+import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 import 'package:mwcdn/Server.dart';

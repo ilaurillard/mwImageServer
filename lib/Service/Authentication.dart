@@ -1,11 +1,10 @@
+import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Model/Resource.dart';
+import 'package:mwcdn/Model/Token.dart';
 import 'package:mwcdn/Service/DataStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-
-import 'package:mwcdn/Config.dart';
-import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Etc/Util.dart';
 
 class Authentication {
   final DataStorage dataStorage;
@@ -24,7 +23,8 @@ class Authentication {
       ) async {
         String auth = request.headers['authorization'] ?? '';
         if (auth.isNotEmpty) {
-          if (auth == Config.rootKey) { // static root key has full access
+          if (auth == Config.rootKey) {
+            // static root key has full access
             return handler(request);
           }
 
@@ -40,7 +40,8 @@ class Authentication {
               headers: Config.jsonHeaders,
             );
           }
-          if (token.root) {  // special root token -> full access
+          if (token.root) {
+            // special root token -> full access
             return handler(request);
           }
 
@@ -55,9 +56,7 @@ class Authentication {
           );
 
           if (!resource.valid()) {
-            return Response.notFound(
-              'Resource not found',
-            );
+            return Response.notFound('Resource not found');
           }
 
           if (!token.accessResource(resource)) {
@@ -86,7 +85,6 @@ class Authentication {
       return (
         Request request,
       ) async {
-
         String auth = request.headers['authorization'] ?? '';
 
         if (auth.isNotEmpty) {

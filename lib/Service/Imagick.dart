@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Model/Method.dart';
 
 class Imagick {

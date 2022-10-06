@@ -64,9 +64,7 @@ class ApiToken {
       request.params['token'] ?? '',
     );
     if (!token.valid()) {
-      return Response.notFound(
-        'Token not found',
-      );
+      return Response.notFound('Token not found');
     }
 
     if (bucket > 0 && token.bucket != bucket) {

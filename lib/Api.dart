@@ -1,7 +1,7 @@
 import 'package:mwcdn/Api/ApiBucket.dart';
 import 'package:mwcdn/Api/ApiResource.dart';
 import 'package:mwcdn/Api/ApiToken.dart';
-import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Service/Authentication.dart';
 import 'package:mwcdn/Service/DataStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
@@ -47,37 +47,37 @@ class Api {
             )
             ..get(
               // info on bucket (GET)
-              '/bucket' + Config.paramBucket, // /api/bucket/77
+              '/bucket' + Config.matchBucket, // /api/bucket/77
               apiBucket.show,
             )
             // ---------------------------- resource
             ..post(
               // /api/bucket/77/resource
-              '/bucket' + Config.paramBucket + '/resource',
+              '/bucket' + Config.matchBucket + '/resource',
               apiResource.create,
             )
             ..post(
               '/bucket' +
-                  Config.paramBucket +
+                  Config.matchBucket +
                   '/resource' +
-                  Config.paramResource +
+                  Config.matchResource +
                   '/flush',
               apiResource.flush,
             )
             ..all(
               '/bucket' +
-                  Config.paramBucket +
+                  Config.matchBucket +
                   '/resource' +
-                  Config.paramResource,
+                  Config.matchResource,
               apiResource.crud,
             )
             // ---------------------------- token (customer/bucket)
             ..post(
-              '/bucket' + Config.paramBucket + '/token', // /api/bucket/77/token
+              '/bucket' + Config.matchBucket + '/token', // /api/bucket/77/token
               apiToken.create,
             )
             ..get( // show bucket meta
-              '/bucket' + Config.paramBucket + '/token' + Config.paramToken,
+              '/bucket' + Config.matchBucket + '/token' + Config.matchToken,
               apiToken.show,
             )
             // ---------------------------- token (root)
@@ -86,7 +86,7 @@ class Api {
               apiToken.create,
             )
             ..get( // show bucket meta
-              '/token' + Config.paramToken,
+              '/token' + Config.matchToken,
               apiToken.show,
             ),
         );

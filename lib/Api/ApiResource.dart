@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Resource.dart';
@@ -39,9 +39,7 @@ class ApiResource {
       request.params['resource'] ?? '',
     );
     if (!resource.valid()) {
-      return Response.notFound(
-        'Resource not found',
-      );
+      return Response.notFound('Resource not found');
     }
 
     bool successFiles = await fileStorage.flushResourceFiles(resource);
@@ -72,9 +70,7 @@ class ApiResource {
       request.params['resource'] ?? '',
     );
     if (!resource.valid()) {
-      return Response.notFound(
-        'Resource not found',
-      );
+      return Response.notFound('Resource not found');
     }
 
     if (request.method == 'GET') {
@@ -146,17 +142,17 @@ class ApiResource {
     if (!Config.acceptedTypes.contains(mimeType)) {
       return Response.badRequest(body: 'Mime type not accepted');
     }
-    KeyValue disp = Util.dispo(
+    KeyValue disp = Util.parseContentDisposition(
       headersFile['content-disposition'] ?? '',
     );
     String filename = disp['filename'] ?? '';
     if (filename.isEmpty) {
       return Response.badRequest(body: 'No filename');
     }
-    if (!Util.checkFilename(filename)) {
+    if (!Util.validFilename(filename)) {
       return Response.badRequest(body: 'Invalid filename');
     }
-    if (!Util.mimetypeVsSuffix(filename, mimeType)) {
+    if (!Util.validMimetype(filename, mimeType)) {
       return Response.badRequest(body: 'Mime type vs suffix error');
     }
 

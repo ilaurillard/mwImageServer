@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:mwcdn/Args.dart';
+import 'package:mwcdn/Etc/Args.dart';
 import 'package:mwcdn/Etc/Types.dart';
 
 class Config {
@@ -20,12 +20,12 @@ class Config {
   static const int port = 8080;
 
   // final String paramVis = '/<vis|public|private>';
-  static const String paramBucket = '/<bucket|[0-9]{1,8}>';
-  static const String paramSeg1 = '/<any|[a-f0-9]{2}>';
-  static const String paramSeg2 = '/<any|[a-f0-9]{2}>';
-  static const String paramResource = '/<resource|[a-f0-9]{32}>';
-  static const String paramToken = '/<token|[a-f0-9]{32}>';
-  static const String paramFile = '/<file|.*>';
+  static const String matchBucket = '/<bucket|[0-9]{1,8}>';
+  static const String matchSeg1 = '/<any|[a-f0-9]{2}>';
+  static const String matchSeg2 = '/<any|[a-f0-9]{2}>';
+  static const String matchResource = '/<resource|[a-f0-9]{32}>';
+  static const String matchToken = '/<token|[a-f0-9]{32}>';
+  static const String matchFile = '/<file|.*>';
 
   static const KeyValue jsonHeaders = {'content-type': 'application/json'};
 

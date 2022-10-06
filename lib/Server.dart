@@ -10,7 +10,7 @@ import 'package:shelf_static/shelf_static.dart';
 
 import 'package:mwcdn/Api.dart';
 import 'package:mwcdn/Service/Authentication.dart';
-import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Service/Converter.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 
@@ -58,11 +58,11 @@ class Server {
       ..get(
         // /public/77/ff/ff/ffffaaaaffffaaaa1111222233334444/[file]
         '/public' +
-            Config.paramBucket +
-            Config.paramSeg1 +
-            Config.paramSeg2 +
-            Config.paramResource +
-            Config.paramFile,
+            Config.matchBucket +
+            Config.matchSeg1 +
+            Config.matchSeg2 +
+            Config.matchResource +
+            Config.matchFile,
         Cascade()
             .add(
               createStaticHandler(
@@ -77,11 +77,11 @@ class Server {
       // PRIVATE ----------------------
       ..get(
         '/private' +
-            Config.paramBucket +
-            Config.paramSeg1 +
-            Config.paramSeg2 +
-            Config.paramResource +
-            Config.paramFile,
+            Config.matchBucket +
+            Config.matchSeg1 +
+            Config.matchSeg2 +
+            Config.matchResource +
+            Config.matchFile,
         Pipeline()
             .addMiddleware(
               Authentication(

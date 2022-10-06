@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Method.dart';
 import 'package:mwcdn/Model/Resource.dart';
@@ -30,6 +31,10 @@ class Converter {
     print('[Converter.onTheFly]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
+    if (!Util.validBucket(bucketId)) {
+      return Util.invalidBucket();
+    }
+
     Bucket bucket = await dataStorage.loadBucket(
       bucketId,
     );
@@ -39,9 +44,7 @@ class Converter {
       request.params['resource'] ?? '',
     );
     if (!resource.valid()) {
-      return Response.notFound(
-        'Resource not found',
-      );
+      return Response.notFound('Resource not found');
     }
 
     String file = request.params['file'] ?? '';

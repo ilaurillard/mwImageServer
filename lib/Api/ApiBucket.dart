@@ -1,14 +1,12 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Model/Bucket.dart';
+import 'package:mwcdn/Service/DataStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-
-import 'package:mwcdn/Service/DataStorage.dart';
-import 'package:mwcdn/Model/Bucket.dart';
-import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/Util.dart';
 
 class ApiBucket {
   final DataStorage dataStorage;
@@ -33,7 +31,7 @@ class ApiBucket {
       return Util.invalidBucket();
     }
 
-    // Load from Database
+    // Load from Database, check exists?
     // Bucket bucket = await dataStorage.bucket(
     //   bucketId,
     // );
@@ -43,7 +41,7 @@ class ApiBucket {
     String pathPrivate = '/private/' + bucketId.toString();
 
     if (await fileStorage.dirExists(pathPublic)) {
-      return Response(409,  body: 'Bucket collision');
+      return Response(409, body: 'Bucket collision');
     }
     if (await fileStorage.dirExists(pathPrivate)) {
       return Response(409, body: 'Bucket collision');
@@ -71,7 +69,6 @@ class ApiBucket {
       return Util.invalidBucket();
     }
 
-    // Load from Database
     Bucket bucket = await dataStorage.loadBucket(
       bucketId,
     );
@@ -79,7 +76,7 @@ class ApiBucket {
     String pathPublic = '/public/' + bucketId.toString();
     String pathPrivate = '/private/' + bucketId.toString();
     if (!await fileStorage.dirExists(pathPublic)) {
-      return Response(404,  body: 'Bucket folder missing');
+      return Response(404, body: 'Bucket folder missing');
     }
     if (!await fileStorage.dirExists(pathPrivate)) {
       return Response(404, body: 'Bucket folder missing');
