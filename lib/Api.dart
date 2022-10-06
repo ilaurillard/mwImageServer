@@ -11,10 +11,12 @@ import 'package:shelf_router/shelf_router.dart';
 class Api {
   final DataStorage dataStorage;
   final FileStorage fileStorage;
+  final String rootKey;
 
   Api({
     required this.dataStorage,
     required this.fileStorage,
+    required this.rootKey,
   });
 
   Handler create() {
@@ -35,6 +37,7 @@ class Api {
         .addMiddleware(
           Authentication(
             dataStorage: dataStorage,
+            rootKey: rootKey,
           ).apiAccess(),
         )
         .addHandler(

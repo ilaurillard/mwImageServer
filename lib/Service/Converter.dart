@@ -75,7 +75,7 @@ class Converter {
     );
 
     Handler handler = createStaticHandler(
-      Config.dataDir,
+      fileStorage.dataDir,
     );
     return handler(request);
   }

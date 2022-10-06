@@ -11,14 +11,18 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 class DataStorage {
   late final Database db;
 
-  DataStorage();
+  final String dataDir;
+
+  DataStorage({
+    required this.dataDir,
+  });
 
   // ---------------------
 
   Future<void> init() async {
     sqfliteFfiInit();
     db = await databaseFactoryFfi.openDatabase(
-      Config.dataDir + '/database/system.db',
+      dataDir + '/database/system.db',
       options: OpenDatabaseOptions(
         version: 1,
         onUpgrade: Schema.schema,

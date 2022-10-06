@@ -1,18 +1,10 @@
 import 'dart:io';
 
-import 'package:mwcdn/Etc/Args.dart';
 import 'package:mwcdn/Etc/Types.dart';
 
 class Config {
-  static void init({
-    required Args args,
-  }) {
-    dataDir = args.dataDir;
-    rootKey = args.rootKey;
-  }
 
-  static late final String dataDir;
-  static late final String rootKey;
+  static final String dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
 
   static const int isolates = 1; // cpu cores ...
 

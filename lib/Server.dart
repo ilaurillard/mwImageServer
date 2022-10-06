@@ -17,11 +17,13 @@ class Server {
   final DataStorage dataStorage;
   final FileStorage fileStorage;
   final Imagick imagick;
+  final String rootKey;
 
   Server({
     required this.dataStorage,
     required this.fileStorage,
     required this.imagick,
+    required this.rootKey,
   });
 
   Future<Null> start(
@@ -43,6 +45,7 @@ class Server {
       '  listening at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}',
     );
     print('');
+
   }
 
   Router app() {
@@ -65,7 +68,7 @@ class Server {
         Cascade()
             .add(
               createStaticHandler(
-                Config.dataDir,
+                fileStorage.dataDir,
               ),
             )
             .add(
@@ -85,13 +88,14 @@ class Server {
             .addMiddleware(
               Authentication(
                 dataStorage: dataStorage,
+                rootKey: rootKey,
               ).privateAccess(),
             )
             .addHandler(
               Cascade()
                   .add(
                     createStaticHandler(
-                      Config.dataDir,
+                      fileStorage.dataDir,
                     ),
                   )
                   .add(
@@ -104,7 +108,7 @@ class Server {
       ..get(
         '/static/<any|.*>',
         createStaticHandler(
-          Config.dataDir,
+          fileStorage.dataDir,
         ),
       )
       // API ----------------------
@@ -113,6 +117,7 @@ class Server {
           Api(
             dataStorage: dataStorage,
             fileStorage: fileStorage,
+            rootKey: rootKey,
           ).create());
   }
 }

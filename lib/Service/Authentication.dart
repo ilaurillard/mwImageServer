@@ -8,9 +8,11 @@ import 'package:shelf_router/shelf_router.dart';
 
 class Authentication {
   final DataStorage dataStorage;
+  final String rootKey;
 
   Authentication({
     required this.dataStorage,
+    required this.rootKey,
   });
 
   // ---------------------
@@ -23,7 +25,7 @@ class Authentication {
       ) async {
         String auth = request.headers['authorization'] ?? '';
         if (auth.isNotEmpty) {
-          if (auth == Config.rootKey) {
+          if (auth == rootKey) {
             // static root key has full access
             return handler(request);
           }
@@ -88,7 +90,7 @@ class Authentication {
         String auth = request.headers['authorization'] ?? '';
 
         if (auth.isNotEmpty) {
-          if (auth == Config.rootKey) {
+          if (auth == rootKey) {
             // static root key has full access
             return handler(request);
           }

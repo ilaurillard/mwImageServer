@@ -4,7 +4,12 @@ import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Model/Method.dart';
 
 class Imagick {
-  Imagick();
+
+  final String dataDir;
+
+  Imagick({
+    required this.dataDir,
+  });
 
   Future<String> version() async {
     print('[imagemagick]');
@@ -26,8 +31,8 @@ class Imagick {
     String targetPath,
     Method method,
   ) async {
-    sourcePath = Config.dataDir + sourcePath;
-    targetPath = Config.dataDir + targetPath;
+    sourcePath = dataDir + sourcePath;
+    targetPath = dataDir + targetPath;
 
     print(
       ' Magic from ' +

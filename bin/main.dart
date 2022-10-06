@@ -2,32 +2,34 @@ import 'dart:isolate';
 
 import 'package:mwcdn/Etc/Args.dart';
 import 'package:mwcdn/Etc/Config.dart';
-import 'package:mwcdn/Service/FileStorage.dart';
-import 'package:mwcdn/Service/Imagick.dart';
 import 'package:mwcdn/Server.dart';
 import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/FileStorage.dart';
+import 'package:mwcdn/Service/Imagick.dart';
 
 void main(
   List<String> arguments,
 ) async {
-
   print('[service]');
   print(' mwcdn 0.1');
   print('');
 
-  Config.init(
-    args: Args(
-      arguments,
-    ),
+  Args args = Args(
+    arguments,
   );
 
-  FileStorage fileStorage = FileStorage();
-  await fileStorage.init();
+  FileStorage fileStorage = FileStorage(
+    dataDir: args.dataDir,
+  );
 
-  DataStorage dataStorage = DataStorage();
+  DataStorage dataStorage = DataStorage(
+    dataDir: args.dataDir,
+  );
   await dataStorage.init();
 
-  Imagick imagick = Imagick();
+  Imagick imagick = Imagick(
+    dataDir: args.dataDir,
+  );
   print(await imagick.version());
 
   //------------ server
@@ -40,6 +42,7 @@ void main(
         dataStorage: dataStorage,
         fileStorage: fileStorage,
         imagick: imagick,
+        rootKey: args.rootKey,
       ).start,
       [],
     );
@@ -49,6 +52,7 @@ void main(
     dataStorage: dataStorage,
     fileStorage: fileStorage,
     imagick: imagick,
+    rootKey: args.rootKey,
   ).start(
     [],
   );
