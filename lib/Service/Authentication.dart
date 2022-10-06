@@ -1,4 +1,4 @@
-import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Service/DataStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -8,10 +8,10 @@ import 'package:mwcdn/Model/Token.dart';
 import 'package:mwcdn/Etc/Util.dart';
 
 class Authentication {
-  final DataStore dataStore;
+  final DataStorage dataStorage;
 
   Authentication({
-    required this.dataStore,
+    required this.dataStorage,
   });
 
   // ---------------------
@@ -28,13 +28,13 @@ class Authentication {
             return handler(request);
           }
 
-          Token token = await dataStore.token(auth);
+          Token token = await dataStorage.loadToken(auth);
           if (!token.valid()) {
             return Response.unauthorized(
               'Empty token',
             );
           }
-          if (!token.keepLive(dataStore)) {
+          if (!token.keepLive(dataStorage)) {
             return Response.unauthorized(
               'Token expired',
               headers: Config.jsonHeaders,
@@ -49,7 +49,7 @@ class Authentication {
             return Util.invalidbucket();
           }
 
-          Resource resource = await dataStore.resource(
+          Resource resource = await dataStorage.loadResource(
             bucket,
             request.params['resource'] ?? '',
           );
@@ -86,14 +86,17 @@ class Authentication {
       return (
         Request request,
       ) async {
+
         String auth = request.headers['authorization'] ?? '';
+
         if (auth.isNotEmpty) {
           if (auth == Config.rootKey) {
             // static root key has full access
             return handler(request);
           }
 
-          Token token = await dataStore.token(auth);
+          // loadToken
+          Token token = await dataStorage.loadToken(auth);
           if (!token.valid()) {
             // no token found
             return Response.unauthorized(
@@ -101,7 +104,7 @@ class Authentication {
               headers: Config.jsonHeaders,
             );
           }
-          if (!token.keepLive(dataStore)) {
+          if (!token.keepLive(dataStorage)) {
             return Response.unauthorized(
               'Token expired',
               headers: Config.jsonHeaders,

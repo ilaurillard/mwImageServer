@@ -16,7 +16,7 @@ class Args {
     rootKey = _arguments['rootKey'];
 
     print('[rootKey]');
-    print (rootKey);
+    print (' ' + rootKey);
     print('');
   }
 }

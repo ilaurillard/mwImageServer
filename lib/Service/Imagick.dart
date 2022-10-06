@@ -16,7 +16,7 @@ class Imagick {
       print(result.stderr);
       throw 'Imagick error';
     }
-    return result.stdout;
+    return ' ' + result.stdout;
   }
 
   // ---------------------
@@ -30,7 +30,7 @@ class Imagick {
     targetPath = Config.dataDir + targetPath;
 
     print(
-      'Convert from ' +
+      ' Magic from ' +
           sourcePath +
           ' to ' +
           targetPath +
@@ -42,6 +42,7 @@ class Imagick {
       'convert',
       [sourcePath, '-thumbnail',  '100x100', targetPath],
     );
+
     if (exitCode == 1) {
       print(result.stderr);
       throw 'Imagick error';
@@ -49,6 +50,5 @@ class Imagick {
     else {
       print(result.stdout);
     }
-    // TODO
   }
 }

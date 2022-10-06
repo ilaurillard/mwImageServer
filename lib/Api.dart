@@ -3,81 +3,89 @@ import 'package:mwcdn/Api/ApiResource.dart';
 import 'package:mwcdn/Api/ApiToken.dart';
 import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Service/Authentication.dart';
-import 'package:mwcdn/Service/DataStore.dart';
-import 'package:mwcdn/Service/FileStore.dart';
+import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-class Routing {
-  final DataStore dataStore;
-  final FileStore fileStore;
+class Api {
+  final DataStorage dataStorage;
+  final FileStorage fileStorage;
 
-  Routing({
-    required this.dataStore,
-    required this.fileStore,
+  Api({
+    required this.dataStorage,
+    required this.fileStorage,
   });
 
   Handler create() {
     ApiBucket apiBucket = ApiBucket(
-      dataStore: dataStore,
-      fileStore: fileStore,
+      dataStorage: dataStorage,
+      fileStorage: fileStorage,
     );
     ApiResource apiResource = ApiResource(
-      dataStore: dataStore,
-      fileStore: fileStore,
+      dataStorage: dataStorage,
+      fileStorage: fileStorage,
     );
     ApiToken apiToken = ApiToken(
-      dataStore: dataStore,
+      dataStorage: dataStorage,
     );
 
     return Pipeline()
+        // --------- auth/security middleware
         .addMiddleware(
           Authentication(
-            dataStore: dataStore,
+            dataStorage: dataStorage,
           ).apiAccess(),
         )
         .addHandler(
           Router()
+            // ---------------------------- bucket
             ..post(
-              // add new (POST)
+              // add new bucket (POST)
               '/bucket', // /api/bucket
               apiBucket.create,
             )
             ..get(
-              // info (GET)
+              // info on bucket (GET)
               '/bucket' + Config.paramBucket, // /api/bucket/77
               apiBucket.show,
             )
-
+            // ---------------------------- resource
             ..post(
               // /api/bucket/77/resource
               '/bucket' + Config.paramBucket + '/resource',
               apiResource.create,
             )
             ..post(
-              '/bucket' + Config.paramBucket + '/resource' + Config.paramResource + '/flush',
+              '/bucket' +
+                  Config.paramBucket +
+                  '/resource' +
+                  Config.paramResource +
+                  '/flush',
               apiResource.flush,
             )
             ..all(
-              '/bucket' + Config.paramBucket + '/resource' + Config.paramResource,
+              '/bucket' +
+                  Config.paramBucket +
+                  '/resource' +
+                  Config.paramResource,
               apiResource.crud,
             )
-
-
+            // ---------------------------- token (customer/bucket)
             ..post(
               '/bucket' + Config.paramBucket + '/token', // /api/bucket/77/token
               apiToken.create,
             )
-            ..get(
+            ..get( // show bucket meta
               '/bucket' + Config.paramBucket + '/token' + Config.paramToken,
               apiToken.show,
             )
-
+            // ---------------------------- token (root)
             ..post(
               '/token', // /api/token
               apiToken.create,
             )
-            ..get(
+            ..get( // show bucket meta
               '/token' + Config.paramToken,
               apiToken.show,
             ),

@@ -5,14 +5,14 @@ import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:path/path.dart';
 
-class FileStore {
-  FileStore();
+class FileStorage {
+  FileStorage();
 
   // ---------------------
 
   Future<void> init() async {
     print('[filesystem]');
-    print(Config.dataDir);
+    print(' ' + Config.dataDir);
     print('');
   }
 
@@ -39,8 +39,6 @@ class FileStore {
   Future<Directory> createDir(
     String path,
   ) async {
-    // print('FileStore:createDir');
-
     path = Config.dataDir + path;
     return await Directory(path).create(
       recursive: true,
@@ -53,7 +51,13 @@ class FileStore {
     String path,
     Uint8List bytes,
   ) async {
-    // print('FileStore:createFile');
+
+    print(
+      ' Store ' +
+          bytes.length.toString() +
+          ' bytes to ' +
+          path,
+    );
 
     path = Config.dataDir + path;
     File f = await File(path).create(
@@ -64,13 +68,12 @@ class FileStore {
 
   // ---------------------
 
-  Future<bool> flush(
+  Future<bool> flushResourceFiles(
     Resource resource,
   ) async {
-    // print('FileStore:flush');
     // delete all files for resource, except original
-    String path = Config.dataDir + '/' + resource.path();
-    if (await dirExists('/' + resource.path())) {
+    String path = Config.dataDir + resource.path();
+    if (await dirExists(resource.path())) {
       await for (FileSystemEntity file in Directory(path).list()) {
         if (file is File) {
           if (basename(file.path) != resource.filename) {
@@ -85,15 +88,13 @@ class FileStore {
 
   // ---------------------
 
-  Future<bool> delete(
+  Future<bool> deleteResourceFiles(
     Resource resource,
   ) async {
-    // print('FileStore:delete');
-    // delete all files for resource
+    // delete all files for resource (including folder)
+    String path = Config.dataDir + resource.path();
 
-    String path = Config.dataDir + '/' + resource.path();
-
-    if (await dirExists('/' + resource.path())) {
+    if (await dirExists(resource.path())) {
       await Directory(path).delete(
         recursive: true,
       );

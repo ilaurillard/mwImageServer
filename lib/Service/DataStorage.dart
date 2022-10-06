@@ -8,10 +8,10 @@ import 'package:mwcdn/Service/Schema.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-class DataStore {
+class DataStorage {
   late final Database db;
 
-  DataStore();
+  DataStorage();
 
   // ---------------------
 
@@ -25,7 +25,7 @@ class DataStore {
       ),
     );
     print('[sqlite]');
-    print(db.toString());
+    print(' ' + db.toString());
     print('');
   }
 
@@ -34,9 +34,9 @@ class DataStore {
   Future<Bucket> createBucket(
     int id,
   ) async {
-    // print('DataStore:createBucket');
+    // print('DataStorage:createBucket');
 
-    Bucket bucket = Bucket.empty(id);
+    Bucket bucket = Bucket.fresh(id);
 
     await db.insert(
       'Bucket',
@@ -48,7 +48,7 @@ class DataStore {
 
   // ---------------------
 
-  Future<Bucket> bucket(
+  Future<Bucket> loadBucket(
     int id,
   ) async {
     List<dynamic> data = await db.query(
@@ -59,17 +59,17 @@ class DataStore {
     );
 
     if (data.isNotEmpty) {
-      print('Loaded bucket: ' + id.toString());
+      print(' Loaded bucket: ' + id.toString());
       return Bucket.fromDatabase(
         data.first,
       );
     } else {
       print(
-        'Bucket not found: ' + id.toString(),
+        ' Bucket not found: ' + id.toString(),
       );
     }
 
-    return Bucket.empty(id);
+    return Bucket.notFound(id);
   }
 
   // ----------------- TOKEN
@@ -83,7 +83,7 @@ class DataStore {
   }) async {
     String id = Util.randMd5();
 
-    // print('DataStore:createToken ' + id);
+    // print('DataStorage:createToken ' + id);
 
     Token token = Token(
       id,
@@ -104,7 +104,7 @@ class DataStore {
 
   // ---------------------
 
-  Future<Token> token(
+  Future<Token> loadToken(
     String id,
   ) async {
     List<dynamic> data = await db.query(
@@ -114,13 +114,13 @@ class DataStore {
       limit: 1,
     );
     if (data.isNotEmpty) {
-      print('Loaded token: ' + id);
+      print(' Loaded token: ' + id);
       return Token.fromDatabase(data.first);
     } else {
-      print('Token not found: ' + id);
+      print(' Token not found: ' + id);
     }
 
-    return Token.empty(id);
+    return Token.notFound(id);
   }
 
   // ----------------- RESOURCE
@@ -133,7 +133,7 @@ class DataStore {
   }) async {
     String id = Util.randMd5();
 
-    // print('DataStore:createToken ' + id);
+    // print('DataStorage:createToken ' + id);
 
     Resource resource = Resource(
       id,
@@ -153,12 +153,10 @@ class DataStore {
 
   // ---------------------
 
-  Future<Resource> resource(
+  Future<Resource> loadResource(
     int bucket,
     String id,
   ) async {
-    print('Load resource: ' + id);
-
     if (bucket > 0) {
       List<dynamic> data = await db.query(
         'Resource',
@@ -167,19 +165,23 @@ class DataStore {
         limit: 1,
       );
       if (data.isNotEmpty) {
+        print(' Loaded resource: ' + id);
         return Resource.fromDatabase(data.first);
+      }
+      else {
+        print(' Resource not found: ' + id);
       }
     }
 
-    return Resource.empty(id);
+    return Resource.notFound(id);
   }
 
   // -----------------
 
-  Future<bool> delete(
+  Future<bool> deleteEntity(
     Entity entity,
   ) async {
-    print('Delete #' + entity.id + ' --> ' + entity.toString());
+    print(' Delete #' + entity.id + ' --> ' + entity.toString());
 
     int amountDeleted = 0;
 

@@ -6,19 +6,19 @@ import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Service/DataStore.dart';
-import 'package:mwcdn/Service/FileStore.dart';
+import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_multipart/multipart.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 class ApiResource {
-  final DataStore dataStore;
-  final FileStore fileStore;
+  final DataStorage dataStorage;
+  final FileStorage fileStorage;
 
   ApiResource({
-    required this.dataStore,
-    required this.fileStore,
+    required this.dataStorage,
+    required this.fileStorage,
   });
 
   // ---------------------
@@ -27,14 +27,14 @@ class ApiResource {
       Request request,
       ) async {
 
-    print('ApiResource.flush');
+    print('[ApiResource.flush]');
 
     int bucket = int.parse(request.params['bucket'] ?? '0');
     if (bucket < 1 || bucket > 999999999) {
       return Util.invalidbucket();
     }
 
-    Resource resource = await dataStore.resource(
+    Resource resource = await dataStorage.loadResource(
       bucket,
       request.params['resource'] ?? '',
     );
@@ -44,7 +44,7 @@ class ApiResource {
       );
     }
 
-    bool successFiles = await fileStore.flush(resource);
+    bool successFiles = await fileStorage.flushResourceFiles(resource);
     if (!successFiles) {
       return Response.internalServerError(
         body: 'Remove files failed (' + resource.path() + ')',
@@ -60,14 +60,14 @@ class ApiResource {
     Request request,
   ) async {
 
-    print('ApiResource.crud');
+    print('[ApiResource.crud]');
 
     int bucket = int.parse(request.params['bucket'] ?? '0');
     if (bucket < 1 || bucket > 999999999) {
       return Util.invalidbucket();
     }
 
-    Resource resource = await dataStore.resource(
+    Resource resource = await dataStorage.loadResource(
       bucket,
       request.params['resource'] ?? '',
     );
@@ -83,19 +83,12 @@ class ApiResource {
       );
     } else if (request.method == 'DELETE') {
 
-      // delete files
-      bool successFiles = await fileStore.delete(resource);
-      if (!successFiles) {
-        return Response.internalServerError(
-          body: 'Remove resource files failed (' + resource.path() + ')',
-        );
-      }
+      bool successFiles = await fileStorage.deleteResourceFiles(resource);
+      bool successRecord = await dataStorage.deleteEntity(resource);
 
-      //delete record
-      bool successRecord = await dataStore.delete(resource);
-      if (!successRecord) {
+      if (!successFiles || !successRecord) {
         return Response.internalServerError(
-          body: 'Remove resource record failed',
+          body: 'Remove resource failed',
         );
       }
 
@@ -113,7 +106,7 @@ class ApiResource {
     Request request,
   ) async {
 
-    print('ApiResource.create');
+    print('[ApiResource.create]');
 
     int bucket = int.parse(request.params['bucket'] ?? '0');
     if (bucket < 1 || bucket > 999999999) {
@@ -167,39 +160,30 @@ class ApiResource {
       return Response.badRequest(body: 'Mime type vs suffix error');
     }
 
-    // -------------------
+    // ------------------- create record
 
     String partData = await mPartMeta.readString();
     Dict data = json.decode(partData);
-    Resource resource = await dataStore.createResource(
+    Resource resource = await dataStorage.createResource(
       bucket,
       filename: filename,
       users: Util.intListData(data, 'users'),
       groups: Util.intListData(data, 'groups'),
     );
 
-    String path = '/' + resource.path();
+    String path = resource.path();
 
-    if (await fileStore.dirExists(path)) {
+    if (await fileStorage.dirExists(path)) {
       return Response.internalServerError(
         body: 'Resource collision',
       );
     }
 
-    // -------------------
+    // ------------------- Store file
 
     Uint8List partBytes = await mPartFile.readBytes();
     if (partBytes.length > 0 && partBytes.length < Config.maxFileSize) {
-      print(
-        'Store ' +
-            partBytes.length.toString() +
-            ' bytes to ' +
-            path +
-            '/' +
-            resource.filename,
-      );
-
-      fileStore.createFile(
+      fileStorage.createFile(
         path + '/' + resource.filename,
         partBytes,
       );

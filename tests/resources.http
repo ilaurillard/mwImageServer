@@ -12,7 +12,7 @@ Content-Type: application/json
 Content-Disposition: form-data; filename="ffff23.jpg"
 Content-Type: image/jpeg
 
-< ./ffff23.jpg
+< ./files/ffff23.jpg
 --WebAppBoundary--
 
 > {%
@@ -53,7 +53,7 @@ Content-Type: application/json
 Content-Disposition: form-data; filename="ffff23.jpg"
 Content-Type: image/jpeg
 
-< ./ffff23.jpg
+< ./files/ffff23.jpg
 --WebAppBoundary--
 
 > {%

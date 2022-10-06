@@ -45,7 +45,16 @@ class Bucket implements JsonSerializable {
     );
   }
 
-  factory Bucket.empty(
+  factory Bucket.notFound(
+    int id,
+  ) {
+    return Bucket(
+      id,
+      methods: [],
+    );
+  }
+
+  factory Bucket.fresh(
     int id,
   ) {
     return Bucket(
@@ -57,28 +66,40 @@ class Bucket implements JsonSerializable {
   void addMethod(
     Method method,
   ) {
-    removeMethod(method);
-    methods.add(method);
+    removeMethod(
+      method,
+    );
+    methods.add(
+      method,
+    );
   }
 
   void removeMethod(
     Method method,
   ) {
-    methods.removeWhere((Method m) => m.name == method.name);
+    methods.removeWhere(
+      (
+        Method m,
+      ) =>
+          m.name == method.name,
+    );
   }
 
   Method method(
     String methodName,
   ) {
-    Method builtIn = Converter.builtIn(methodName);
+    Method builtIn = Converter.builtInMethods(
+      methodName,
+    );
     if (builtIn.valid()) {
       return builtIn;
     }
 
-    return methods.firstWhere((Method m) => m.name == methodName,
-        orElse: () => Method(
-              methodName,
-              exists: false,
-            ));
+    return methods.firstWhere(
+      (Method m) => m.name == methodName,
+      orElse: () => Method.notFound(
+        methodName,
+      ),
+    );
   }
 }

@@ -1,22 +1,22 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:mwcdn/Service/FileStore.dart';
+import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Service/DataStorage.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 
 class ApiBucket {
-  final DataStore dataStore;
-  final FileStore fileStore;
+  final DataStorage dataStorage;
+  final FileStorage fileStorage;
 
   ApiBucket({
-    required this.dataStore,
-    required this.fileStore,
+    required this.dataStorage,
+    required this.fileStorage,
   });
 
   // ---------------------
@@ -24,6 +24,8 @@ class ApiBucket {
   FutureOr<Response> create(
     Request request,
   ) async {
+    print('[ApiBucket.create]');
+
     Dict data = await Util.jsonObject(request);
 
     int bucketId = Util.intData(data, 'id');
@@ -32,7 +34,7 @@ class ApiBucket {
     }
 
     // Load from Database
-    // Bucket bucket = await dataStore.bucket(
+    // Bucket bucket = await dataStorage.bucket(
     //   bucketId,
     // );
 
@@ -40,17 +42,17 @@ class ApiBucket {
     String pathPublic = '/public/' + bucketId.toString();
     String pathPrivate = '/private/' + bucketId.toString();
 
-    if (await fileStore.dirExists(pathPublic)) {
+    if (await fileStorage.dirExists(pathPublic)) {
       return Response(409,  body: 'Bucket collision');
     }
-    if (await fileStore.dirExists(pathPrivate)) {
+    if (await fileStorage.dirExists(pathPrivate)) {
       return Response(409, body: 'Bucket collision');
     }
 
-    await fileStore.createDir(pathPublic);
-    await fileStore.createDir(pathPrivate);
+    await fileStorage.createDir(pathPublic);
+    await fileStorage.createDir(pathPrivate);
 
-    Bucket bucket = await dataStore.createBucket(bucketId);
+    Bucket bucket = await dataStorage.createBucket(bucketId);
 
     return Util.jsonResponse(
       bucket,
@@ -62,22 +64,24 @@ class ApiBucket {
   FutureOr<Response> show(
     Request request,
   ) async {
+    print('[ApiBucket.show]');
+
     int bucketId = int.parse(request.params['bucket'] ?? '0');
     if (bucketId < 1 || bucketId > 999999999) {
       return Util.invalidbucket();
     }
 
     // Load from Database
-    Bucket bucket = await dataStore.bucket(
+    Bucket bucket = await dataStorage.loadBucket(
       bucketId,
     );
 
     String pathPublic = '/public/' + bucketId.toString();
     String pathPrivate = '/private/' + bucketId.toString();
-    if (!await fileStore.dirExists(pathPublic)) {
+    if (!await fileStorage.dirExists(pathPublic)) {
       return Response(404,  body: 'Bucket folder missing');
     }
-    if (!await fileStore.dirExists(pathPrivate)) {
+    if (!await fileStorage.dirExists(pathPrivate)) {
       return Response(404, body: 'Bucket folder missing');
     }
 

@@ -2,17 +2,17 @@ import 'dart:isolate';
 
 import 'package:mwcdn/Args.dart';
 import 'package:mwcdn/Config.dart';
-import 'package:mwcdn/Service/FileStore.dart';
+import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 import 'package:mwcdn/Server.dart';
-import 'package:mwcdn/Service/DataStore.dart';
+import 'package:mwcdn/Service/DataStorage.dart';
 
 void main(
   List<String> arguments,
 ) async {
 
   print('[service]');
-  print('mwcdn 0.1');
+  print(' mwcdn 0.1');
   print('');
 
   Config.init(
@@ -21,11 +21,11 @@ void main(
     ),
   );
 
-  FileStore fileStore = FileStore();
-  await fileStore.init();
+  FileStorage fileStorage = FileStorage();
+  await fileStorage.init();
 
-  DataStore dataStore = DataStore();
-  await dataStore.init();
+  DataStorage dataStorage = DataStorage();
+  await dataStorage.init();
 
   Imagick imagick = Imagick();
   print(await imagick.version());
@@ -33,12 +33,12 @@ void main(
   //------------ server
 
   print('[run]');
-  print('with ' + Config.isolates.toString() + ' isolates:');
+  print(' with ' + Config.isolates.toString() + ' isolates:');
   for (int i = 1; i < Config.isolates; i++) {
     Isolate.spawn(
       Server(
-        dataStore: dataStore,
-        fileStore: fileStore,
+        dataStorage: dataStorage,
+        fileStorage: fileStorage,
         imagick: imagick,
       ).start,
       [],
@@ -46,8 +46,8 @@ void main(
   }
 
   Server(
-    dataStore: dataStore,
-    fileStore: fileStore,
+    dataStorage: dataStorage,
+    fileStorage: fileStorage,
     imagick: imagick,
   ).start(
     [],

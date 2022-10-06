@@ -30,8 +30,9 @@ class Resource implements JsonSerializable, Entity {
   }
 
   // --> public/77/ff/aa/ffaa112233334444ffaa112233334444
-  String path() {
-    return (public() ? 'public' : 'private') +
+  String path({bool absolute = true}) {
+    return (absolute ? '/' : '') +
+        (public() ? 'public' : 'private') +
         '/' +
         bucket.toString() +
         '/' +
@@ -63,7 +64,7 @@ class Resource implements JsonSerializable, Entity {
       'bucket': bucket,
       'users': users,
       'groups': groups,
-      'path': path(),
+      'path': path(absolute: false),
       'filename': filename,
     };
   }
@@ -80,7 +81,7 @@ class Resource implements JsonSerializable, Entity {
     );
   }
 
-  factory Resource.empty(
+  factory Resource.notFound(
     String id,
   ) {
     return Resource(

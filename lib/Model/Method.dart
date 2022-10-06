@@ -28,4 +28,13 @@ class Method implements JsonSerializable {
       row['name'],
     );
   }
+
+  factory Method.notFound(
+    String name,
+  ) {
+    return Method(
+      name,
+      exists: false,
+    );
+  }
 }

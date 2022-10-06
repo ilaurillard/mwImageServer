@@ -1,27 +1,27 @@
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:mwcdn/Service/DataStore.dart';
-import 'package:mwcdn/Service/FileStore.dart';
+import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
 
-import 'package:mwcdn/Routing.dart';
+import 'package:mwcdn/Api.dart';
 import 'package:mwcdn/Service/Authentication.dart';
 import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Service/Converter.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 
 class Server {
-  final DataStore dataStore;
-  final FileStore fileStore;
+  final DataStorage dataStorage;
+  final FileStorage fileStorage;
   final Imagick imagick;
 
   Server({
-    required this.dataStore,
-    required this.fileStore,
+    required this.dataStorage,
+    required this.fileStorage,
     required this.imagick,
   });
 
@@ -41,15 +41,15 @@ class Server {
     );
 
     print(
-      'listening at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}',
+      '  listening at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}',
     );
     print('');
   }
 
   Router app() {
     Converter converter = Converter(
-      dataStore: dataStore,
-      fileStore: fileStore,
+      dataStorage: dataStorage,
+      fileStorage: fileStorage,
       imagick: imagick,
     );
 
@@ -85,7 +85,7 @@ class Server {
         Pipeline()
             .addMiddleware(
               Authentication(
-                dataStore: dataStore,
+                dataStorage: dataStorage,
               ).privateAccess(),
             )
             .addHandler(
@@ -104,9 +104,9 @@ class Server {
       // API ----------------------
       ..mount(
           '/api',
-          Routing(
-            dataStore: dataStore,
-            fileStore: fileStore,
+          Api(
+            dataStorage: dataStorage,
+            fileStorage: fileStorage,
           ).create());
   }
 }

@@ -13,7 +13,7 @@ Content-Type: application/json
 Content-Disposition: form-data; filename="ffff23.jpg"
 Content-Type: image/jpeg
 
-< ./ffff23.jpg
+< ./files/ffff23.jpg
 --WebAppBoundary--
 
 > {%
@@ -28,7 +28,7 @@ client.test('test', function () {
 
 
 
-### Show resource
+### Show resource meta
 GET {{host}}/api/bucket/77/resource/{{resource_id1}}
 Authorization: rootKey
 
@@ -40,8 +40,6 @@ Authorization: rootKey
 GET {{host}}/{{resource_url}}
 
 > scripts/assert200AndJpg.js
-
-
 
 ### Show resource
 GET {{host}}/{{resource_path}}/{{resource_filename}}

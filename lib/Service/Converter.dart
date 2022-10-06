@@ -4,21 +4,21 @@ import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Method.dart';
 import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Service/DataStore.dart';
-import 'package:mwcdn/Service/FileStore.dart';
+import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
 
 class Converter {
-  final DataStore dataStore;
-  final FileStore fileStore;
+  final DataStorage dataStorage;
+  final FileStorage fileStorage;
   final Imagick imagick;
 
   Converter({
-    required this.dataStore,
-    required this.fileStore,
+    required this.dataStorage,
+    required this.fileStorage,
     required this.imagick,
   });
 
@@ -27,12 +27,14 @@ class Converter {
   FutureOr<Response> onTheFly(
     Request request,
   ) async {
+    print('[Converter.onTheFly]');
+
     int bucketId = int.parse(request.params['bucket'] ?? '0');
-    Bucket bucket = await dataStore.bucket(
+    Bucket bucket = await dataStorage.loadBucket(
       bucketId,
     );
 
-    Resource resource = await dataStore.resource(
+    Resource resource = await dataStorage.loadResource(
       bucketId,
       request.params['resource'] ?? '',
     );
@@ -51,28 +53,15 @@ class Converter {
       return Response.notFound('Method "' + methodName + '" not exists');
     }
 
-    // print(
-    //   'OTF - ' +
-    //       resource.toString() +
-    //       ' original: ' +
-    //       resource.filename +
-    //       ' file: ' +
-    //       file +
-    //       ' bucket: ' +
-    //       bucketId.toString() +
-    //       ' method: ' +
-    //       methodName,
-    // );
-
-    String path = '/' + resource.path();
+    String path = resource.path();
     String original = path + '/' + resource.filename;
     String target = path + '/' + file;
 
-    if (!await fileStore.dirExists(path)) {
+    if (!await fileStorage.dirExists(path)) {
       return Response.notFound('Folder not exists (' + path + ')');
     }
 
-    if (!await fileStore.fileExists(original)) {
+    if (!await fileStorage.fileExists(original)) {
       return Response.notFound('File not exists (' + original + ')');
     }
 
@@ -90,7 +79,7 @@ class Converter {
 
   // ---------------------
 
-  static Method builtIn(
+  static Method builtInMethods(
     String methodName,
   ) {
     if (methodName == 'thumb1') {
@@ -99,9 +88,8 @@ class Converter {
       );
     }
 
-    return Method(
+    return Method.notFound(
       methodName,
-      exists: false,
     );
   }
 }
