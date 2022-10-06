@@ -1,10 +1,9 @@
-import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Etc/Schema.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Etc/Schema.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -171,8 +170,7 @@ class DataStorage {
       if (data.isNotEmpty) {
         print(' Loaded resource: ' + id);
         return Resource.fromDatabase(data.first);
-      }
-      else {
+      } else {
         print(' Resource not found: ' + id);
       }
     }
@@ -198,8 +196,7 @@ class DataStorage {
           entity.bucket,
         ],
       );
-    }
-    else if (entity is Token) {
+    } else if (entity is Token) {
       amountDeleted = await db.delete(
         'Token',
         where: 'id = ? AND bucket = ?',
@@ -208,8 +205,7 @@ class DataStorage {
           entity.bucket,
         ],
       );
-    }
-    else if (entity is Bucket) {
+    } else if (entity is Bucket) {
       amountDeleted = await db.delete(
         'Bucket',
         where: 'id = ?',

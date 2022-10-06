@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Method.dart';

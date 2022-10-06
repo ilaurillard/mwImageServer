@@ -30,7 +30,7 @@ void main(
   Imagick imagick = Imagick(
     dataDir: args.dataDir,
   );
-  print(await imagick.version());
+  await imagick.init();
 
   //------------ server
 

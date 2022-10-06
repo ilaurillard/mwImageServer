@@ -1,17 +1,15 @@
 import 'dart:io';
 
-import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Model/Method.dart';
 
 class Imagick {
-
   final String dataDir;
 
   Imagick({
     required this.dataDir,
   });
 
-  Future<String> version() async {
+  Future<void> init() async {
     print('[imagemagick]');
     ProcessResult result = await Process.run(
       'convert',
@@ -21,7 +19,7 @@ class Imagick {
       print(result.stderr);
       throw 'Imagick error';
     }
-    return ' ' + result.stdout;
+    print(result.stdout);
   }
 
   // ---------------------
@@ -45,14 +43,13 @@ class Imagick {
 
     ProcessResult result = await Process.run(
       'convert',
-      [sourcePath, '-thumbnail',  '100x100', targetPath],
+      [sourcePath, '-thumbnail', '100x100', targetPath],
     );
 
     if (exitCode == 1) {
       print(result.stderr);
       throw 'Imagick error';
-    }
-    else {
+    } else {
       print(result.stdout);
     }
   }

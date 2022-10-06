@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:path/path.dart';
 
