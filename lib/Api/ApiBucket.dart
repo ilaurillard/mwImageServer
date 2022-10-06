@@ -31,8 +31,6 @@ class ApiBucket {
     if (!Util.validBucket(bucketId)) {
       return Util.invalidBucket();
     }
-
-    // Load from Database, check exists?
     Bucket bucket = await dataStorage.loadBucket(
       bucketId,
     );
@@ -65,17 +63,13 @@ class ApiBucket {
   ) async {
     print('[ApiBucket.show]');
 
-    int bucketId = int.parse(request.params['bucket'] ?? '0');
-    if (!Util.validBucket(bucketId)) {
-      return Util.invalidBucket();
+    Bucket bucket = await bucketFromRequest(request);
+    if (!bucket.valid()) {
+      return Response.notFound('Bucket not found');
     }
 
-    Bucket bucket = await dataStorage.loadBucket(
-      bucketId,
-    );
-
-    String pathPublic = '/public/' + bucketId.toString();
-    String pathPrivate = '/private/' + bucketId.toString();
+    String pathPublic = '/public/' + bucket.id.toString();
+    String pathPrivate = '/private/' + bucket.id.toString();
     if (!await fileStorage.dirExists(pathPublic)) {
       return Response(404, body: 'Bucket folder missing');
     }
@@ -95,16 +89,9 @@ class ApiBucket {
   ) async {
     print('[ApiBucket.addMethod]');
 
-    int bucketId = int.parse(request.params['bucket'] ?? '0');
-    if (!Util.validBucket(bucketId)) {
-      return Util.invalidBucket();
-    }
-
-    Bucket bucket = await dataStorage.loadBucket(
-      bucketId,
-    );
+    Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Response.notFound('BUcket not found');
+      return Response.notFound('Bucket not found');
     }
 
     Dict data = await Util.jsonObject(request);
@@ -138,16 +125,9 @@ class ApiBucket {
       ) async {
     print('[ApiBucket.deleteMethod]');
 
-    int bucketId = int.parse(request.params['bucket'] ?? '0');
-    if (!Util.validBucket(bucketId)) {
-      return Util.invalidBucket();
-    }
-
-    Bucket bucket = await dataStorage.loadBucket(
-      bucketId,
-    );
+    Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Response.notFound('BUcket not found');
+      return Response.notFound('Bucket not found');
     }
 
     String name = (request.params['method'] ?? '');
@@ -161,5 +141,18 @@ class ApiBucket {
     return Util.jsonResponse(
       bucket,
     );
+  }
+
+  Future<Bucket> bucketFromRequest(
+      Request request,
+      ) async
+  {
+    int bucketId = int.parse(request.params['bucket'] ?? '0');
+    if (Util.validBucket(bucketId)) {
+      return await dataStorage.loadBucket(
+        bucketId,
+      );
+    }
+    return Bucket.notFound(bucketId);
   }
 }

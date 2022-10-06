@@ -193,11 +193,11 @@ Authorization: rootKey
 
 > scripts/assert404.js
 
-### Show bucket -> 400
+### Show bucket -> 404
 GET {{host}}/api/bucket/0
 Authorization: rootKey
 
-> scripts/assert400.js
+> scripts/assert404.js
 
 ### Show resource in bucket
 GET {{host}}/api/bucket/77/resource/{{priv_resource_id}}
