@@ -17,6 +17,7 @@ class Config {
   static const String matchSeg2 = '/<any|[a-f0-9]{2}>';
   static const String matchResource = '/<resource|[a-f0-9]{32}>';
   static const String matchToken = '/<token|[a-f0-9]{32}>';
+  static const String matchMethod = '/<method|[a-z0-9]{1,24}>';
   static const String matchFile = '/<file|.*>';
 
   static const KeyValue jsonHeaders = {

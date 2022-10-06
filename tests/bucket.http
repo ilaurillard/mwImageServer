@@ -1,0 +1,55 @@
+### (Only) Root creates Bucket
+POST {{host}}/api/bucket
+Authorization: rootKey
+
+{"id": 77}
+
+> scripts/assert200.js
+
+
+### Root creates Customer Admin Token
+POST {{host}}/api/token
+Authorization: rootKey
+Accept: application/json
+Content-Type: application/json
+
+{
+  "buckets": [77]
+}
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("admin_token1", response.body.id);
+}); %}
+
+
+###
+POST {{host}}/api/bucket/77/method
+Authorization: {{admin_token1}}
+
+{
+    "name": "thumb2",
+    "tool": "convert",
+    "parameters": [
+          "%source%",
+          "-thumbnail",
+          "100x100",
+          "%target%"
+    ]
+}
+
+> scripts/assert200.js
+
+###
+DELETE {{host}}/api/bucket/77/method/thumb2
+Authorization: {{admin_token1}}
+
+> scripts/assert200.js
+
+
+###
+GET {{host}}/api/bucket/77
+Authorization: {{admin_token1}}
+
+> scripts/assert200.js

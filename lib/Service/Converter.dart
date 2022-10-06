@@ -24,10 +24,10 @@ class Converter {
 
   // ---------------------
 
-  FutureOr<Response> onTheFly(
+  FutureOr<Response> enPassant(
     Request request,
   ) async {
-    print('[Converter.onTheFly]');
+    print('[Converter.enPassant]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
     if (!Util.validBucket(bucketId)) {
@@ -84,9 +84,17 @@ class Converter {
   static Method builtInMethods(
     String methodName,
   ) {
+
     if (methodName == 'thumb1') {
       return Method(
         methodName,
+        tool: 'convert',
+        parameters: [
+          '%source%',
+          '-thumbnail',
+          '100x100',
+          '%target%',
+        ],
       );
     }
 

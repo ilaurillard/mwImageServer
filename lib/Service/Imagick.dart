@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Method.dart';
 
 class Imagick {
@@ -42,8 +43,14 @@ class Imagick {
     );
 
     ProcessResult result = await Process.run(
-      'convert',
-      [sourcePath, '-thumbnail', '100x100', targetPath],
+      method.tool,
+      Util.replaceParameters(
+        method.parameters,
+        {
+          'source': sourcePath,
+          'target': targetPath,
+        },
+      ),
     );
 
     if (exitCode == 1) {

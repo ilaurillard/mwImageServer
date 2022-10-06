@@ -10,14 +10,19 @@ import 'package:shelf/shelf.dart';
 import 'package:string_scanner/string_scanner.dart';
 
 class Util {
+  // ----------------
 
   static bool validBucket(int bucketId) {
     return bucketId > 0 && bucketId <= Config.maxBucket;
   }
 
+  // ----------------
+
   static Response invalidBucket() {
     return Response.badRequest(body: 'Invalid bucket');
   }
+
+  // ----------------
 
   static Response jsonResponse(
     JsonSerializable subject,
@@ -28,12 +33,16 @@ class Util {
     );
   }
 
+  // ----------------
+
   static Future<Dict> jsonObject(
     Request request,
   ) async {
     String tmp = await request.readAsString();
     return json.decode(tmp);
   }
+
+  // ----------------
 
   static List<int> intListData(
     Dict data,
@@ -44,16 +53,30 @@ class Util {
     );
   }
 
+  // ----------------
+
+  static List<String> stringListData(
+      Dict data,
+      String key,
+      ) {
+    return List<String>.from(
+      data[key] ?? [],
+    );
+  }
+
+  // ----------------
 
   static List<int> intList(
-      String csv,
-      ) {
+    String csv,
+  ) {
     if (csv.isEmpty) {
       return [];
     }
     List<String> ls = (List<String>.from(csv.split(';')));
     return ls.map((String s) => int.parse(s)).toList();
   }
+
+  // ----------------
 
   static bool boolData(
     Dict data,
@@ -62,12 +85,25 @@ class Util {
     return data[key] as bool? ?? false;
   }
 
+  // ----------------
+
   static int intData(
     Dict data,
     String key,
   ) {
     return data[key] as int? ?? 0;
   }
+
+  // ----------------
+
+  static String stringData(
+      Dict data,
+      String key,
+      ) {
+    return data[key] as String? ?? '';
+  }
+
+  // ----------------
 
   static bool validFilename(
     String filename,
@@ -88,6 +124,8 @@ class Util {
     return false;
   }
 
+  // ----------------
+
   static bool validMimetype(
     String filename,
     String mimeType,
@@ -99,11 +137,15 @@ class Util {
     );
   }
 
+  // ----------------
+
   static String suffix(
     String filename,
   ) {
     return extension(filename);
   }
+
+  // ----------------
 
   static String randMd5() {
     return md5
@@ -115,9 +157,11 @@ class Util {
         .toString();
   }
 
+  // ----------------
+
   static Map<String, String> parseContentDisposition(
-      String header,
-      ) {
+    String header,
+  ) {
     final scanner = StringScanner(header);
 
     final _token = RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');
@@ -157,5 +201,26 @@ class Util {
 
     scanner.expectDone();
     return params;
+  }
+
+  // ----------------
+
+  static List<String> replaceParameters(
+    List<String> parameters,
+    KeyValue map,
+  ) {
+    List<String> replaced = [];
+    for (String p in parameters) {
+      if (p.contains('%')) {
+        map.forEach((String key, String value) {
+          p = p.replaceAll(
+            '%' + key + '%',
+            value,
+          );
+        });
+      }
+      replaced.add(p);
+    }
+    return replaced;
   }
 }

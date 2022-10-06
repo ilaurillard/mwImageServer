@@ -72,7 +72,7 @@ class Server {
               ),
             )
             .add(
-              converter.onTheFly,
+              converter.enPassant,
             )
             .handler,
       )
@@ -99,7 +99,7 @@ class Server {
                     ),
                   )
                   .add(
-                    converter.onTheFly,
+                    converter.enPassant,
                   )
                   .handler,
             ),

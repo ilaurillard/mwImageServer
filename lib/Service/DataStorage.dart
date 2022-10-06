@@ -51,6 +51,23 @@ class DataStorage {
 
   // ---------------------
 
+  Future<void> updateBucket(
+    Bucket bucket,
+  ) async {
+
+    await db.update(
+      'Bucket',
+      bucket.toDatabase(),
+      where: 'id = ?',
+      whereArgs: [
+        bucket.id,
+      ],
+    );
+
+  }
+
+  // ---------------------
+
   Future<Bucket> loadBucket(
     int id,
   ) async {

@@ -8,14 +8,16 @@ import 'package:mwcdn/Service/Converter.dart';
 class Bucket implements JsonSerializable {
   final int id;
   final List<Method> methods;
+  final bool exists;
 
   Bucket(
     this.id, {
+    this.exists = true,
     this.methods = const [],
   });
 
   bool valid() {
-    return id != 0;
+    return id != 0 && exists;
   }
 
   Dict toJson() {
@@ -50,6 +52,7 @@ class Bucket implements JsonSerializable {
   ) {
     return Bucket(
       id,
+      exists: false,
       methods: [],
     );
   }
@@ -59,6 +62,7 @@ class Bucket implements JsonSerializable {
   ) {
     return Bucket(
       id,
+      exists: false,
       methods: [],
     );
   }

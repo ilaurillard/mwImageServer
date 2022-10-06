@@ -53,6 +53,14 @@ class Api {
               '/bucket' + Config.matchBucket, // /api/bucket/77
               apiBucket.show,
             )
+            ..post(
+              '/bucket' + Config.matchBucket + '/method',
+              apiBucket.addMethod,
+            )
+            ..delete(
+              '/bucket' + Config.matchBucket + '/method' + Config.matchMethod,
+              apiBucket.deleteMethod,
+            )
             // ---------------------------- resource
             ..post(
               // /api/bucket/77/resource
@@ -83,7 +91,7 @@ class Api {
               '/bucket' + Config.matchBucket + '/token' + Config.matchToken,
               apiToken.show,
             )
-            // ---------------------------- token (root)
+            // ---------------------------- token (root only)
             ..post(
               '/token', // /api/token
               apiToken.create,

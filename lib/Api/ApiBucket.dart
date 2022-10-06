@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
+import 'package:mwcdn/Model/Method.dart';
 import 'package:mwcdn/Service/DataStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
@@ -32,25 +33,25 @@ class ApiBucket {
     }
 
     // Load from Database, check exists?
-    // Bucket bucket = await dataStorage.bucket(
-    //   bucketId,
-    // );
+    Bucket bucket = await dataStorage.loadBucket(
+      bucketId,
+    );
+
+    if (!bucket.valid()) {
+      bucket = await dataStorage.createBucket(
+        bucketId,
+      );
+    }
 
     // create folders
     String pathPublic = '/public/' + bucketId.toString();
     String pathPrivate = '/private/' + bucketId.toString();
-
-    if (await fileStorage.dirExists(pathPublic)) {
-      return Response(409, body: 'Bucket collision');
+    if (!await fileStorage.dirExists(pathPublic)) {
+      await fileStorage.createDir(pathPublic);
     }
-    if (await fileStorage.dirExists(pathPrivate)) {
-      return Response(409, body: 'Bucket collision');
+    if (!await fileStorage.dirExists(pathPrivate)) {
+      await fileStorage.createDir(pathPrivate);
     }
-
-    await fileStorage.createDir(pathPublic);
-    await fileStorage.createDir(pathPrivate);
-
-    Bucket bucket = await dataStorage.createBucket(bucketId);
 
     return Util.jsonResponse(
       bucket,
@@ -81,6 +82,81 @@ class ApiBucket {
     if (!await fileStorage.dirExists(pathPrivate)) {
       return Response(404, body: 'Bucket folder missing');
     }
+
+    return Util.jsonResponse(
+      bucket,
+    );
+  }
+
+  // ---------------------
+
+  FutureOr<Response> addMethod(
+    Request request,
+  ) async {
+    print('[ApiBucket.addMethod]');
+
+    int bucketId = int.parse(request.params['bucket'] ?? '0');
+    if (!Util.validBucket(bucketId)) {
+      return Util.invalidBucket();
+    }
+
+    Bucket bucket = await dataStorage.loadBucket(
+      bucketId,
+    );
+    if (!bucket.valid()) {
+      return Response.notFound('BUcket not found');
+    }
+
+    Dict data = await Util.jsonObject(request);
+
+    // TODO check incoming data
+    String name = Util.stringData(data, 'name');
+    String tool = Util.stringData(data, 'tool');
+    List<String> parameters = Util.stringListData(data, 'parameters');
+
+    Method method = Method(
+      name,
+      tool: tool,
+      parameters: parameters,
+    );
+
+    bucket.addMethod(method);
+
+    await dataStorage.updateBucket(
+      bucket,
+    );
+
+    return Util.jsonResponse(
+      bucket,
+    );
+  }
+
+  // ---------------------
+
+  FutureOr<Response> deleteMethod(
+      Request request,
+      ) async {
+    print('[ApiBucket.deleteMethod]');
+
+    int bucketId = int.parse(request.params['bucket'] ?? '0');
+    if (!Util.validBucket(bucketId)) {
+      return Util.invalidBucket();
+    }
+
+    Bucket bucket = await dataStorage.loadBucket(
+      bucketId,
+    );
+    if (!bucket.valid()) {
+      return Response.notFound('BUcket not found');
+    }
+
+    String name = (request.params['method'] ?? '');
+    Method method = Method(name);
+    bucket.removeMethod(method);
+
+    await dataStorage.updateBucket(
+      bucket,
+    );
 
     return Util.jsonResponse(
       bucket,
