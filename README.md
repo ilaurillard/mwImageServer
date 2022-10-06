@@ -1,7 +1,7 @@
 $ dart run bin/main.dart -d ~/PhpstormProjects/mwcdn/data
 $ dart run bin/main.dart -d ~/PhpstormProjects/mwcdn/data -k rootKey
 
-$ curl http://0.0.0.0:8080
+$ curl http://0.0.0.0:8080/static/help.html
 
 ----
 
@@ -31,4 +31,4 @@ $ curl http://0.0.0.0:8080/private/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/met
 
 ----
 
-$ ab -k -n 10000 -c 10 http://0.0.0.0:8080/
+$ ab -k -n 10000 -c 10 http://0.0.0.0:8080/static/help.html

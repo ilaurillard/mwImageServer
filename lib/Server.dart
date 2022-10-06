@@ -1,18 +1,17 @@
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:mwcdn/Api.dart';
+import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Service/Authentication.dart';
+import 'package:mwcdn/Service/Converter.dart';
 import 'package:mwcdn/Service/DataStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
+import 'package:mwcdn/Service/Imagick.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
-
-import 'package:mwcdn/Api.dart';
-import 'package:mwcdn/Service/Authentication.dart';
-import 'package:mwcdn/Etc/Config.dart';
-import 'package:mwcdn/Service/Converter.dart';
-import 'package:mwcdn/Service/Imagick.dart';
 
 class Server {
   final DataStorage dataStorage;
@@ -100,6 +99,13 @@ class Server {
                   )
                   .handler,
             ),
+      )
+      // Public static files ---------
+      ..get(
+        '/static/<any|.*>',
+        createStaticHandler(
+          Config.dataDir,
+        ),
       )
       // API ----------------------
       ..mount(
