@@ -12,9 +12,10 @@ COPY . .
 RUN dart compile exe bin/main.dart -o bin/main
 
 ###########################
-
 # Build minimal serving image from AOT-compiled `/server`
 # and the pre-built AOT-runtime in the `/runtime/` directory of the base image.
+
+# TODO figure out using scratch + imagemagick
 #FROM scratch
 
 FROM alpine:3.3
@@ -23,6 +24,7 @@ RUN apk --update add imagemagick && \
 
 COPY --from=build /runtime/ /
 COPY --from=build /app/bin/main /app/bin/
+
 COPY --from=build /usr/lib/x86_64-linux-gnu/libsqlite3.so /app/bin/
 
 # Start server.
