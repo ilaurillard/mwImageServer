@@ -10,9 +10,7 @@ import 'package:mwcdn/Service/Imagick.dart';
 void main(
   List<String> arguments,
 ) async {
-  print('[service]');
-  print(' mwcdn 0.1');
-  print('');
+  print('[service] mwcdn 0.1');
 
   Args args = Args(
     arguments,
@@ -25,7 +23,7 @@ void main(
   DataStorage dataStorage = DataStorage(
     dataDir: args.dataDir,
   );
-  await dataStorage.init();
+  // await dataStorage.init();
 
   Imagick imagick = Imagick(
     dataDir: args.dataDir,
@@ -34,8 +32,7 @@ void main(
 
   //------------ server
 
-  print('[run]');
-  print(' with ' + Config.isolates.toString() + ' isolates:');
+  print('[run] with ' + Config.isolates.toString() + ' isolates:');
   for (int i = 1; i < Config.isolates; i++) {
     Isolate.spawn(
       Server(

@@ -10,9 +10,7 @@ class FileStorage {
   FileStorage({
     required this.dataDir,
   }) {
-    print('[filesystem]');
-    print(' ' + dataDir);
-    print('');
+    print('[filesystem] ' + dataDir);
   }
 
   // ---------------------

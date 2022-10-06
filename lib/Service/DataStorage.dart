@@ -25,11 +25,10 @@ class DataStorage {
       options: OpenDatabaseOptions(
         version: 1,
         onUpgrade: Schema.schema,
+        singleInstance: false,
       ),
     );
-    print('[sqlite]');
-    print(' ' + db.toString());
-    print('');
+    print('[sqlite] ' + db.toString());
   }
 
   // -------------------------------- BUCKET

@@ -29,6 +29,8 @@ class Server {
   Future<Null> start(
     List args,
   ) async {
+    await dataStorage.init();
+
     final HttpServer server = await HttpServer.bind(
       Config.ip,
       Config.port,

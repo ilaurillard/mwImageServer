@@ -15,8 +15,6 @@ class Args {
     dataDir = _arguments['dataDir'];
     rootKey = _arguments['rootKey'];
 
-    print('[rootKey]');
-    print (' ' + rootKey);
-    print('');
+    print('[rootKey] ' + rootKey);
   }
 }
