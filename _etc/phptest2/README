@@ -1,0 +1,7 @@
+$ docker build . -t phptest
+
+$ docker run --name phptest2 -it -p 8080:8080 phptest2
+
+$ curl http://0.0.0.0:8080/
+
+$ ab -k -n 10000 -c 10 http://0.0.0.0:8080/
