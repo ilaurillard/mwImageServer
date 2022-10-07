@@ -62,7 +62,6 @@ class DataStorage {
         bucket.id,
       ],
     );
-
   }
 
   // ---------------------
