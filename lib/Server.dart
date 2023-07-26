@@ -5,7 +5,7 @@ import 'package:mwcdn/Api.dart';
 import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Service/Authentication.dart';
 import 'package:mwcdn/Service/Converter.dart';
-import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 import 'package:shelf/shelf.dart';
@@ -14,13 +14,13 @@ import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
 
 class Server {
-  final DataStorage dataStorage;
+  final SqliteStorage sqliteStorage;
   final FileStorage fileStorage;
   final Imagick imagick;
   final String rootKey;
 
   Server({
-    required this.dataStorage,
+    required this.sqliteStorage,
     required this.fileStorage,
     required this.imagick,
     required this.rootKey,
@@ -29,7 +29,7 @@ class Server {
   Future<Null> start(
     List<dynamic> args,
   ) async {
-    await dataStorage.init();
+    await sqliteStorage.init();
 
     final HttpServer server = await HttpServer.bind(
       Config.ip,
@@ -52,13 +52,13 @@ class Server {
 
   Router app() {
     Converter converter = Converter(
-      dataStorage: dataStorage,
+      sqliteStorage: sqliteStorage,
       fileStorage: fileStorage,
       imagick: imagick,
     );
 
     return Router()
-      // PUBLIC ----------------------
+      // PUBLIC files ----------------------
       ..get(
         // /public/77/ff/ff/ffffaaaaffffaaaa1111222233334444/[file]
         '/public' +
@@ -78,7 +78,7 @@ class Server {
             )
             .handler,
       )
-      // PRIVATE ----------------------
+      // PRIVATE files (with firewall) ----------------------
       ..get(
         '/private' +
             Config.matchBucket +
@@ -89,7 +89,7 @@ class Server {
         Pipeline()
             .addMiddleware(
               Authentication(
-                dataStorage: dataStorage,
+                sqliteStorage: sqliteStorage,
                 rootKey: rootKey,
               ).privateAccess(),
             )
@@ -117,7 +117,7 @@ class Server {
       ..mount(
           '/api',
           Api(
-            dataStorage: dataStorage,
+            sqliteStorage: sqliteStorage,
             fileStorage: fileStorage,
             rootKey: rootKey,
           ).create());

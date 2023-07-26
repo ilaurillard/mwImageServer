@@ -3,7 +3,7 @@ import 'dart:isolate';
 import 'package:mwcdn/Etc/Args.dart';
 import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Server.dart';
-import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 
@@ -20,10 +20,10 @@ void main(
     dataDir: args.dataDir,
   );
 
-  DataStorage dataStorage = DataStorage(
+  SqliteStorage sqliteStorage = SqliteStorage(
     dataDir: args.dataDir,
   );
-  // await dataStorage.init();
+  // await sqliteStorage.init();
 
   Imagick imagick = Imagick(
     dataDir: args.dataDir,
@@ -36,7 +36,7 @@ void main(
   for (int i = 1; i < Config.isolates; i++) {
     Isolate.spawn(
       Server(
-        dataStorage: dataStorage,
+        sqliteStorage: sqliteStorage,
         fileStorage: fileStorage,
         imagick: imagick,
         rootKey: args.rootKey,
@@ -45,8 +45,9 @@ void main(
     );
   }
 
+  // main process
   Server(
-    dataStorage: dataStorage,
+    sqliteStorage: sqliteStorage,
     fileStorage: fileStorage,
     imagick: imagick,
     rootKey: args.rootKey,

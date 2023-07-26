@@ -4,7 +4,7 @@ import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Method.dart';
 import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 import 'package:shelf/shelf.dart';
@@ -12,12 +12,12 @@ import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
 
 class Converter {
-  final DataStorage dataStorage;
+  final SqliteStorage sqliteStorage;
   final FileStorage fileStorage;
   final Imagick imagick;
 
   Converter({
-    required this.dataStorage,
+    required this.sqliteStorage,
     required this.fileStorage,
     required this.imagick,
   });
@@ -34,11 +34,11 @@ class Converter {
       return Util.invalidBucket();
     }
 
-    Bucket bucket = await dataStorage.loadBucket(
+    Bucket bucket = await sqliteStorage.loadBucket(
       bucketId,
     );
 
-    Resource resource = await dataStorage.loadResource(
+    Resource resource = await sqliteStorage.loadResource(
       bucketId,
       request.params['resource'] ?? '',
     );

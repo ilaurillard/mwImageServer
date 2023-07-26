@@ -2,16 +2,16 @@ import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/SqliteStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 class Authentication {
-  final DataStorage dataStorage;
+  final SqliteStorage sqliteStorage;
   final String rootKey;
 
   Authentication({
-    required this.dataStorage,
+    required this.sqliteStorage,
     required this.rootKey,
   });
 
@@ -30,13 +30,13 @@ class Authentication {
             return handler(request);
           }
 
-          Token token = await dataStorage.loadToken(auth);
+          Token token = await sqliteStorage.loadToken(auth);
           if (!token.valid()) {
             return Response.unauthorized(
               'Empty token',
             );
           }
-          if (!token.keepLive(dataStorage)) {
+          if (!token.keepLive(sqliteStorage)) {
             return Response.unauthorized(
               'Token expired',
               headers: Config.jsonHeaders,
@@ -52,7 +52,7 @@ class Authentication {
             return Util.invalidBucket();
           }
 
-          Resource resource = await dataStorage.loadResource(
+          Resource resource = await sqliteStorage.loadResource(
             bucketId,
             request.params['resource'] ?? '',
           );
@@ -96,7 +96,7 @@ class Authentication {
           }
 
           // loadToken
-          Token token = await dataStorage.loadToken(auth);
+          Token token = await sqliteStorage.loadToken(auth);
           if (!token.valid()) {
             // no token found
             return Response.unauthorized(
@@ -104,7 +104,7 @@ class Authentication {
               headers: Config.jsonHeaders,
             );
           }
-          if (!token.keepLive(dataStorage)) {
+          if (!token.keepLive(sqliteStorage)) {
             return Response.unauthorized(
               'Token expired',
               headers: Config.jsonHeaders,

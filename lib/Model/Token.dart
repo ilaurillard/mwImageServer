@@ -3,7 +3,7 @@ import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/SqliteStorage.dart';
 
 class Token implements JsonSerializable, Entity {
   final String _id;
@@ -81,7 +81,7 @@ class Token implements JsonSerializable, Entity {
   }
 
   bool keepLive(
-    DataStorage dataStorage,
+    SqliteStorage sqliteStorage,
   ) {
     // TODO check ttl of token
     // update if not too old

@@ -4,15 +4,15 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/SqliteStorage.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 
 class ApiToken {
-  final DataStorage dataStorage;
+  final SqliteStorage sqliteStorage;
 
   ApiToken({
-    required this.dataStorage,
+    required this.sqliteStorage,
   });
 
   // ---------------------
@@ -38,7 +38,7 @@ class ApiToken {
       }
     }
 
-    Token token = await dataStorage.createToken(
+    Token token = await sqliteStorage.createToken(
       bucket,
       users: Util.intListData(data, 'users'),
       groups: Util.intListData(data, 'groups'),
@@ -60,7 +60,7 @@ class ApiToken {
 
     int bucket = int.parse(request.params['bucket'] ?? '0');
 
-    Token token = await dataStorage.loadToken(
+    Token token = await sqliteStorage.loadToken(
       request.params['token'] ?? '',
     );
     if (!token.valid()) {

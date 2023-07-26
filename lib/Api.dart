@@ -3,40 +3,40 @@ import 'package:mwcdn/Api/ApiResource.dart';
 import 'package:mwcdn/Api/ApiToken.dart';
 import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Service/Authentication.dart';
-import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 class Api {
-  final DataStorage dataStorage;
+  final SqliteStorage sqliteStorage;
   final FileStorage fileStorage;
   final String rootKey;
 
   Api({
-    required this.dataStorage,
+    required this.sqliteStorage,
     required this.fileStorage,
     required this.rootKey,
   });
 
   Handler create() {
     ApiBucket apiBucket = ApiBucket(
-      dataStorage: dataStorage,
+      sqliteStorage: sqliteStorage,
       fileStorage: fileStorage,
     );
     ApiResource apiResource = ApiResource(
-      dataStorage: dataStorage,
+      sqliteStorage: sqliteStorage,
       fileStorage: fileStorage,
     );
     ApiToken apiToken = ApiToken(
-      dataStorage: dataStorage,
+      sqliteStorage: sqliteStorage,
     );
 
     return Pipeline()
         // --------- auth/security middleware
         .addMiddleware(
           Authentication(
-            dataStorage: dataStorage,
+            sqliteStorage: sqliteStorage,
             rootKey: rootKey,
           ).apiAccess(),
         )

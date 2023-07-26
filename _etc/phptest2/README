@@ -1,9 +1,0 @@
-podman build . -t phptest2
-
-podman run --name phptest2 --rm -it -p 8080:8080 phptest2
-
-curl http://0.0.0.0:8080/
-
-ab -k -n 10000 -c 10 http://0.0.0.0:8080/
-
-wrk -c 20 -d 10 http://0.0.0.0:8080/

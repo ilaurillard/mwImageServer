@@ -6,18 +6,18 @@ import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_multipart/multipart.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 class ApiResource {
-  final DataStorage dataStorage;
+  final SqliteStorage sqliteStorage;
   final FileStorage fileStorage;
 
   ApiResource({
-    required this.dataStorage,
+    required this.sqliteStorage,
     required this.fileStorage,
   });
 
@@ -34,7 +34,7 @@ class ApiResource {
       return Util.invalidBucket();
     }
 
-    Resource resource = await dataStorage.loadResource(
+    Resource resource = await sqliteStorage.loadResource(
       bucketId,
       request.params['resource'] ?? '',
     );
@@ -65,7 +65,7 @@ class ApiResource {
       return Util.invalidBucket();
     }
 
-    Resource resource = await dataStorage.loadResource(
+    Resource resource = await sqliteStorage.loadResource(
       bucketId,
       request.params['resource'] ?? '',
     );
@@ -80,7 +80,7 @@ class ApiResource {
     } else if (request.method == 'DELETE') {
 
       bool successFiles = await fileStorage.deleteResourceFiles(resource);
-      bool successRecord = await dataStorage.deleteEntity(resource);
+      bool successRecord = await sqliteStorage.deleteEntity(resource);
 
       if (!successFiles || !successRecord) {
         return Response.internalServerError(
@@ -160,7 +160,7 @@ class ApiResource {
 
     String partData = await mPartMeta.readString();
     Dict data = json.decode(partData) as Dict;
-    Resource resource = await dataStorage.createResource(
+    Resource resource = await sqliteStorage.createResource(
       bucketId,
       filename: filename,
       users: Util.intListData(data, 'users'),

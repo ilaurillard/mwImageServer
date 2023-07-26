@@ -4,17 +4,17 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Method.dart';
-import 'package:mwcdn/Service/DataStorage.dart';
+import 'package:mwcdn/Service/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 class ApiBucket {
-  final DataStorage dataStorage;
+  final SqliteStorage sqliteStorage;
   final FileStorage fileStorage;
 
   ApiBucket({
-    required this.dataStorage,
+    required this.sqliteStorage,
     required this.fileStorage,
   });
 
@@ -31,12 +31,12 @@ class ApiBucket {
     if (!Util.validBucket(bucketId)) {
       return Util.invalidBucket();
     }
-    Bucket bucket = await dataStorage.loadBucket(
+    Bucket bucket = await sqliteStorage.loadBucket(
       bucketId,
     );
 
     if (!bucket.valid()) {
-      bucket = await dataStorage.createBucket(
+      bucket = await sqliteStorage.createBucket(
         bucketId,
       );
     }
@@ -109,7 +109,7 @@ class ApiBucket {
 
     bucket.addMethod(method);
 
-    await dataStorage.updateBucket(
+    await sqliteStorage.updateBucket(
       bucket,
     );
 
@@ -134,7 +134,7 @@ class ApiBucket {
     Method method = Method(name);
     bucket.removeMethod(method);
 
-    await dataStorage.updateBucket(
+    await sqliteStorage.updateBucket(
       bucket,
     );
 
@@ -149,7 +149,7 @@ class ApiBucket {
   {
     int bucketId = int.parse(request.params['bucket'] ?? '0');
     if (Util.validBucket(bucketId)) {
-      return await dataStorage.loadBucket(
+      return await sqliteStorage.loadBucket(
         bucketId,
       );
     }
