@@ -7,6 +7,8 @@ import 'package:mwcdn/Model/Token.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
+import '../Etc/Types.dart';
+
 class DataStorage {
   late final Database db;
 
@@ -79,7 +81,7 @@ class DataStorage {
     if (data.isNotEmpty) {
       print(' Loaded bucket: ' + id.toString());
       return Bucket.fromDatabase(
-        data.first,
+        data.first as Dict,
       );
     } else {
       print(
@@ -133,7 +135,7 @@ class DataStorage {
     );
     if (data.isNotEmpty) {
       print(' Loaded token: ' + id);
-      return Token.fromDatabase(data.first);
+      return Token.fromDatabase(data.first as Dict);
     } else {
       print(' Token not found: ' + id);
     }
@@ -184,7 +186,7 @@ class DataStorage {
       );
       if (data.isNotEmpty) {
         print(' Loaded resource: ' + id);
-        return Resource.fromDatabase(data.first);
+        return Resource.fromDatabase(data.first as Dict);
       } else {
         print(' Resource not found: ' + id);
       }

@@ -1,4 +1,4 @@
-FROM dart:stable AS build
+FROM docker.io/dart:stable AS build
 
 RUN apt-get update; \
     apt-get install -y sqlite3 libsqlite3-dev

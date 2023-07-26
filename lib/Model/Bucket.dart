@@ -37,12 +37,12 @@ class Bucket implements JsonSerializable {
   factory Bucket.fromDatabase(
     Dict row,
   ) {
-    List<dynamic> temp = json.decode(row['methods'] as String? ?? '[]');
+    List<dynamic> temp = json.decode(row['methods'] as String? ?? '[]') as List<dynamic>;
     List<Method> methods =
-        temp.map((dynamic row) => Method.fromDatabase(row)).toList();
+        temp.map((dynamic row) => Method.fromDatabase(row as Dict)).toList();
 
     return Bucket(
-      row['id'],
+      row['id'] as int? ?? 0,
       methods: methods,
     );
   }

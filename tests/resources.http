@@ -23,20 +23,20 @@ client.test('test', function () {
 }); %}
 
 
-### Show resource
+### Show (public) resource ----------------------------
 GET {{host}}/{{resource_url}}
 
 > scripts/assert200AndJpg.js
 
 
-### Show resource
+### Show resource info ----------------------------
 GET {{host}}/api/bucket/77/resource/{{resource_id1}}
 Authorization: rootKey
 
 > scripts/assert200AndJson.js
 
 
-### private upload
+### private upload ----------------------------
 POST {{host}}/api/bucket/77/resource
 Authorization: rootKey
 Content-Type: multipart/form-data; boundary=WebAppBoundary
@@ -65,7 +65,7 @@ client.test('test', function () {
 
 
 
-### Show resource
+### Show resource ----------------------------
 GET {{host}}/api/bucket/77/resource/{{resource_id2}}
 Authorization: rootKey
 
@@ -73,7 +73,7 @@ Authorization: rootKey
 
 
 
-### Root creates Users Token
+### Root creates Users Token ----------------------------
 POST {{host}}/api/bucket/77/token
 Authorization: rootKey
 
@@ -87,8 +87,7 @@ client.test('test', function () {
     client.global.set("admin_token77", response.body.id);
 }); %}
 
-
-### Show private resource
+### Show private resource ----------------------------
 GET {{host}}/{{resource_url}}
 Authorization: {{admin_token77}}
 
@@ -110,8 +109,7 @@ client.test('test', function () {
     client.global.set("admin_token77", response.body.id);
 }); %}
 
-
-### Show private resource
+### Show private resource (via group access) ----------------------------
 GET {{host}}/{{resource_url}}
 Authorization: {{admin_token77}}
 
@@ -120,18 +118,18 @@ Authorization: {{admin_token77}}
 
 
 
-###
+### ----------------------------
 GET {{host}}/api/bucket/77/resource/{{resource_id1}}
 Authorization: rootKey
 
-###
+### ----------------------------
 GET {{host}}/api/bucket/77/resource/{{resource_id2}}
 Authorization: rootKey
 
-###
+### ----------------------------
 DELETE {{host}}/api/bucket/77/resource/{{resource_id1}}
 Authorization: rootKey
 
-###
+### ----------------------------
 DELETE {{host}}/api/bucket/77/resource/{{resource_id2}}
 Authorization: rootKey

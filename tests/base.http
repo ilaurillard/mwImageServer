@@ -1,10 +1,10 @@
-### Not found
+### Not found -----------------------------------------------
 GET {{host}}/xxx
 
 > scripts/assert404.js
 
 
-### initial resource
+### create private resource (as root) -----------------------------------------------
 POST {{host}}/api/bucket/77/resource
 Authorization: rootKey
 Content-Type: multipart/form-data; boundary=WebAppBoundary
@@ -32,7 +32,7 @@ client.test('test', function () {
 }); %}
 
 
-### initial resource
+### create public resource (as root) -----------------------------------------------
 POST {{host}}/api/bucket/77/resource
 Authorization: rootKey
 Content-Type: multipart/form-data; boundary=WebAppBoundary
@@ -58,7 +58,7 @@ client.test('test', function () {
 }); %}
 
 
-### Public access
+### Public access -----------------------------------------------
 GET {{host}}/{{pub_resource_url}}
 Accept: image/*
 
@@ -66,7 +66,7 @@ Accept: image/*
 
 
 
-### Full access with rootKey
+### Full access with rootKey -----------------------------------------------
 GET {{host}}/{{priv_resource_url}}
 Authorization: rootKey
 Accept: image/*
@@ -74,7 +74,7 @@ Accept: image/*
 > scripts/assert200AndJpg.js
 
 
-### (Only) Root creates Bucket
+### (Only) Root creates Bucket -----------------------------------------------
 POST {{host}}/api/bucket
 Authorization: rootKey
 Accept: application/json
@@ -88,7 +88,7 @@ Content-Type: application/json
 
 
 
-### Root creates Customer Admin Token
+### Root creates Customer Admin Token -----------------------------------------------
 POST {{host}}/api/token
 Authorization: rootKey
 Accept: application/json
@@ -107,16 +107,14 @@ client.test('test', function () {
     client.global.set("admin_token1", response.body.id);
 }); %}
 
-###
+### -----------------------------------------------
 GET {{host}}/{{priv_resource_url}}
 Authorization: {{admin_token1}}
 
 > scripts/assert200AndJpg.js
 
 
-
-
-### Customer Admin creates Admin Token
+### Customer Admin creates Admin Token -----------------------------------------------
 POST {{host}}/api/bucket/77/token
 Authorization: {{admin_token1}}
 Content-Type: application/json
@@ -135,7 +133,7 @@ client.test('test', function () {
     client.global.set("admin_token2", response.body.id);
 }); %}
 
-###
+### -----------------------------------------------
 GET {{host}}/{{priv_resource_url}}
 Authorization: {{admin_token2}}
 Accept: image/*
@@ -143,9 +141,7 @@ Accept: image/*
 > scripts/assert200AndJpg.js
 
 
-
-
-### Customer Admin creates User Token
+### Customer Admin creates User Token -----------------------------------------------
 POST {{host}}/api/bucket/77/token
 Authorization: {{admin_token2}}
 Content-Type: application/json
@@ -161,7 +157,7 @@ client.test('test', function () {
     client.global.set("user_token1", response.body.id);
 }); %}
 
-###
+### -----------------------------------------------
 GET {{host}}/{{priv_resource_url}}
 Authorization: {{user_token1}}
 Accept: image/*
@@ -170,8 +166,7 @@ Accept: image/*
 
 
 
-
-### User cannot create tokens
+### User cannot create tokens -----------------------------------------------
 POST {{host}}/api/bucket/77/token
 Authorization: {{user_token1}}
 Content-Type: application/json
@@ -181,44 +176,44 @@ Accept: application/json
 
 
 
-### Show bucket
+### Show bucket -----------------------------------------------
 GET {{host}}/api/bucket/77
 Authorization: {{admin_token2}}
 
 > scripts/assert200AndJson.js
 
-### Show bucket -> 404
+### Show bucket -> 404 -----------------------------------------------
 GET {{host}}/api/bucket/99999
 Authorization: rootKey
 
 > scripts/assert404.js
 
-### Show bucket -> 404
+### Show bucket -> 404 -----------------------------------------------
 GET {{host}}/api/bucket/0
 Authorization: rootKey
 
 > scripts/assert404.js
 
-### Show resource in bucket
+### Show resource in bucket -----------------------------------------------
 GET {{host}}/api/bucket/77/resource/{{priv_resource_id}}
 Authorization: {{admin_token2}}
 
 > scripts/assert200AndJson.js
 
-### Show token in bucket
+### Show token in bucket -----------------------------------------------
 GET {{host}}/api/bucket/77/token/{{admin_token2}}
 Authorization: {{admin_token2}}
 
 > scripts/assert200AndJson.js
 
-### Show token as root
+### Show token as root -----------------------------------------------
 GET {{host}}/api/token/{{admin_token2}}
 Authorization: rootKey
 
 > scripts/assert200AndJson.js
 
 
-### Customer Admin creates User Token
+### Customer Admin creates User Token -----------------------------------------------
 POST {{host}}/api/bucket/77/token
 Authorization: {{admin_token1}}
 Content-Type: application/json
@@ -234,7 +229,7 @@ client.test('test', function () {
     client.global.set("user_token2", response.body.id);
 }); %}
 
-###
+### -----------------------------------------------
 GET {{host}}/{{priv_resource_url}}
 Authorization: {{user_token2}}
 Accept: image/*

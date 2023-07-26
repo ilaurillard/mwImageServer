@@ -27,7 +27,7 @@ class Server {
   });
 
   Future<Null> start(
-    List args,
+    List<dynamic> args,
   ) async {
     await dataStorage.init();
 

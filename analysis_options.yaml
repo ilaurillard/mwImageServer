@@ -1,0 +1,9 @@
+linter:
+  rules:
+    prefer_single_quotes: true
+    file_names: false
+
+analyzer:
+  language:
+    strict-raw-types: true
+    strict-casts: true

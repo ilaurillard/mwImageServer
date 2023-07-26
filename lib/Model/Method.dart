@@ -33,8 +33,8 @@ class Method implements JsonSerializable {
   ) {
     print(row['parameters']);
     return Method(
-      row['name'],
-      tool: row['tool'],
+      row['name'] as String? ?? '',
+      tool: row['tool'] as String? ?? '',
       parameters: Util.stringListData(
         row,
         'parameters',

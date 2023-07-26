@@ -159,7 +159,7 @@ class ApiResource {
     // ------------------- create record
 
     String partData = await mPartMeta.readString();
-    Dict data = json.decode(partData);
+    Dict data = json.decode(partData) as Dict;
     Resource resource = await dataStorage.createResource(
       bucketId,
       filename: filename,

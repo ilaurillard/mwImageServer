@@ -12,8 +12,8 @@ class Args {
       ..addOption('rootKey', abbr: 'k', defaultsTo: '');
     final ArgResults _arguments = _parser.parse(args);
 
-    dataDir = _arguments['dataDir'];
-    rootKey = _arguments['rootKey'];
+    dataDir = _arguments['dataDir'] as String? ?? '';
+    rootKey = _arguments['rootKey'] as String? ?? '';
 
     print('[rootKey] ' + rootKey);
   }

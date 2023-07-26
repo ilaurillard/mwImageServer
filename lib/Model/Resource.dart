@@ -73,11 +73,11 @@ class Resource implements JsonSerializable, Entity {
     Dict row,
   ) {
     return Resource(
-      row['id'],
-      bucket: row['bucket'],
-      filename: row['filename'],
-      users: Util.intList(row['users'] ?? ''),
-      groups: Util.intList(row['groups'] ?? ''),
+      row['id'] as String? ?? '',
+      bucket: row['bucket'] as int? ?? 0,
+      filename: row['filename'] as String? ?? '',
+      users: Util.intList(row['users'] as String? ?? ''),
+      groups: Util.intList(row['groups'] as String? ?? ''),
     );
   }
 

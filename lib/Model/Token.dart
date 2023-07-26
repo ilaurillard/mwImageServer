@@ -96,13 +96,13 @@ class Token implements JsonSerializable, Entity {
     Dict row,
   ) {
     return Token(
-      row['id'],
-      bucket: row['bucket'],
-      users: Util.intList(row['users'] ?? ''),
-      groups: Util.intList(row['groups'] ?? ''),
-      buckets: Util.intList(row['buckets'] ?? ''),
+      row['id'] as String? ?? '',
+      bucket: row['bucket'] as int? ?? 0,
+      users: Util.intList(row['users'] as String? ?? ''),
+      groups: Util.intList(row['groups'] as String? ?? ''),
+      buckets: Util.intList(row['buckets'] as String? ?? ''),
       root: (row['root'] as int? ?? 0) == 1,
-      stamp: DateTime.parse(row['stamp']),
+      stamp: DateTime.parse(row['stamp'] as String? ?? ''),
     );
   }
 

@@ -39,7 +39,7 @@ class Util {
     Request request,
   ) async {
     String tmp = await request.readAsString();
-    return json.decode(tmp);
+    return json.decode(tmp) as Dict;
   }
 
   // ----------------
@@ -49,7 +49,7 @@ class Util {
     String key,
   ) {
     return List<int>.from(
-      data[key] ?? [],
+      data[key] as List? ?? [],
     );
   }
 
@@ -60,7 +60,7 @@ class Util {
       String key,
       ) {
     return List<String>.from(
-      data[key] ?? [],
+      data[key] as List? ?? [],
     );
   }
 
