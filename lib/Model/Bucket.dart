@@ -112,4 +112,9 @@ class Bucket implements JsonSerializable {
       ),
     );
   }
+
+  @override
+  String toString() {
+    return 'Bucket#$id';
+  }
 }

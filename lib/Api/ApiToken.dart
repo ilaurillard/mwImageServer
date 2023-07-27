@@ -4,7 +4,7 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Service/SqliteStorage.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 
@@ -20,7 +20,7 @@ class ApiToken {
   FutureOr<Response> create(
     Request request,
   ) async {
-    print('[ApiToken.create]');
+    printInfo('[ApiToken.create]');
 
     int bucket = int.parse(request.params['bucket'] ?? '0');
 
@@ -38,7 +38,7 @@ class ApiToken {
       }
     }
 
-    Token token = await sqliteStorage.createToken(
+    Token token = await sqliteStorage.tokens.create(
       bucket,
       users: Util.intListData(data, 'users'),
       groups: Util.intListData(data, 'groups'),
@@ -46,7 +46,9 @@ class ApiToken {
       root: root,
     );
 
-    return Util.jsonResponse(
+    printNotice(token.toString());
+
+    return Util.rJsonOk(
       token,
     );
   }
@@ -56,24 +58,24 @@ class ApiToken {
   FutureOr<Response> show(
     Request request,
   ) async {
-    print('[ApiToken.show]');
+    printInfo('[ApiToken.show]');
 
     int bucket = int.parse(request.params['bucket'] ?? '0');
 
-    Token token = await sqliteStorage.loadToken(
+    Token token = await sqliteStorage.tokens.load(
       request.params['token'] ?? '',
     );
     if (!token.valid()) {
-      return Response.notFound('Token not found');
+      return Util.rNotFound('Token not found');
     }
 
     if (bucket > 0 && token.bucket != bucket) {
-      return Response.forbidden(
+      return Util.rForbidden(
         'Forbidden',
       );
     }
 
-    return Util.jsonResponse(
+    return Util.rJsonOk(
       token,
     );
   }

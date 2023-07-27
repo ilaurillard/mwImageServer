@@ -3,9 +3,10 @@ import 'dart:isolate';
 
 import 'package:mwcdn/Api.dart';
 import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Service/Authentication.dart';
 import 'package:mwcdn/Service/Converter.dart';
-import 'package:mwcdn/Service/SqliteStorage.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 import 'package:shelf/shelf.dart';
@@ -43,10 +44,8 @@ class Server {
       poweredByHeader: 'mw',
     );
 
-    print(
-      ''' .. listening at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}
-      
-'''
+    printNotice(
+      '.. listening at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}'
     );
   }
 

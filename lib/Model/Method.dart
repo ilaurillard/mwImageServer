@@ -31,7 +31,6 @@ class Method implements JsonSerializable {
   factory Method.fromDatabase(
     Dict row,
   ) {
-    // print(row['parameters']);
     return Method(
       row['name'] as String? ?? '',
       tool: row['tool'] as String? ?? '',

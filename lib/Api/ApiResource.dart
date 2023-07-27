@@ -6,7 +6,7 @@ import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Service/SqliteStorage.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_multipart/multipart.dart';
@@ -27,25 +27,25 @@ class ApiResource {
       Request request,
       ) async {
 
-    print('[ApiResource.flush]');
+    printInfo('[ApiResource.flush]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
     if (!Util.validBucket(bucketId)) {
-      return Util.invalidBucket();
+      return Util.rBucketError();
     }
 
-    Resource resource = await sqliteStorage.loadResource(
+    Resource resource = await sqliteStorage.resources.load(
       bucketId,
       request.params['resource'] ?? '',
     );
     if (!resource.valid()) {
-      return Response.notFound('Resource not found');
+      return Util.rNotFound('Resource not found');
     }
 
     bool successFiles = await fileStorage.flushResourceFiles(resource);
     if (!successFiles) {
-      return Response.internalServerError(
-        body: 'Remove files failed (' + resource.path() + ')',
+      return Util.rError(
+        'Remove files failed (' + resource.path() + ')',
       );
     }
 
@@ -58,23 +58,23 @@ class ApiResource {
     Request request,
   ) async {
 
-    print('[ApiResource.crud]');
+    printInfo('[ApiResource.crud]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
     if (!Util.validBucket(bucketId)) {
-      return Util.invalidBucket();
+      return Util.rBucketError();
     }
 
-    Resource resource = await sqliteStorage.loadResource(
+    Resource resource = await sqliteStorage.resources.load(
       bucketId,
       request.params['resource'] ?? '',
     );
     if (!resource.valid()) {
-      return Response.notFound('Resource not found');
+      return Util.rNotFound('Resource not found');
     }
 
     if (request.method == 'GET') {
-      return Util.jsonResponse(
+      return Util.rJsonOk(
         resource,
       );
     } else if (request.method == 'DELETE') {
@@ -83,16 +83,16 @@ class ApiResource {
       bool successRecord = await sqliteStorage.deleteEntity(resource);
 
       if (!successFiles || !successRecord) {
-        return Response.internalServerError(
-          body: 'Remove resource failed',
+        return Util.rError(
+          'Remove resource failed',
         );
       }
 
       return Response(204);
     }
 
-    return Response.badRequest(
-      body: 'Method not available',
+    return Util.rBadRequest(
+      'Method not available',
     );
   }
 
@@ -102,15 +102,15 @@ class ApiResource {
     Request request,
   ) async {
 
-    print('[ApiResource.create]');
+    printInfo('[ApiResource.create]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
     if (!Util.validBucket(bucketId)) {
-      return Util.invalidBucket();
+      return Util.rBucketError();
     }
 
     if (!request.isMultipart) {
-      return Response.badRequest(body: 'Must be multipart post');
+      return Util.rBadRequest('Must be multipart post');
     }
 
     // ------------------- payload
@@ -123,44 +123,44 @@ class ApiResource {
       } else if (mPartFile == null) {
         mPartFile = mPart;
       } else {
-        return Response.badRequest(body: 'Too many parts');
+        return Util.rBadRequest('Too many parts');
       }
     }
     if (mPartMeta == null || mPartFile == null) {
-      return Response.badRequest(body: 'Missing parts');
+      return Util.rBadRequest('Missing parts');
     }
 
     // -------------- check mimetype, filename, ...
 
     KeyValue headersMeta = mPartMeta.headers;
     if (headersMeta['content-type'] != 'application/json') {
-      return Response.badRequest(body: 'First part must be json');
+      return Util.rBadRequest('First part must be json');
     }
 
     KeyValue headersFile = mPartFile.headers;
     String mimeType = headersFile['content-type'] ?? '';
     if (!Config.acceptedTypes.contains(mimeType)) {
-      return Response.badRequest(body: 'Mime type not accepted');
+      return Util.rBadRequest('Mime type not accepted');
     }
     KeyValue disp = Util.parseContentDisposition(
       headersFile['content-disposition'] ?? '',
     );
     String filename = disp['filename'] ?? '';
     if (filename.isEmpty) {
-      return Response.badRequest(body: 'No filename');
+      return Util.rBadRequest('No filename');
     }
     if (!Util.validFilename(filename)) {
-      return Response.badRequest(body: 'Invalid filename');
+      return Util.rBadRequest('Invalid filename');
     }
     if (!Util.validMimetype(filename, mimeType)) {
-      return Response.badRequest(body: 'Mime type vs suffix error');
+      return Util.rBadRequest('Mime type vs suffix error');
     }
 
     // ------------------- create record
 
     String partData = await mPartMeta.readString();
     Dict data = json.decode(partData) as Dict;
-    Resource resource = await sqliteStorage.createResource(
+    Resource resource = await sqliteStorage.resources.create(
       bucketId,
       filename: filename,
       users: Util.intListData(data, 'users'),
@@ -170,8 +170,8 @@ class ApiResource {
     String path = resource.path();
 
     if (await fileStorage.dirExists(path)) {
-      return Response.internalServerError(
-        body: 'Resource collision',
+      return Util.rError(
+        'Resource collision',
       );
     }
 
@@ -184,12 +184,14 @@ class ApiResource {
         partBytes,
       );
     } else {
-      return Response.badRequest(
-        body: 'Invalid file size',
+      return Util.rBadRequest(
+        'Invalid file size',
       );
     }
 
-    return Util.jsonResponse(
+    printNotice(resource.toString());
+
+    return Util.rJsonOk(
       resource,
     );
   }

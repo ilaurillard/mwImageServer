@@ -2,7 +2,7 @@ import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Service/SqliteStorage.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -25,21 +25,23 @@ class Authentication {
       ) async {
         String auth = request.headers['authorization'] ?? '';
         if (auth.isNotEmpty) {
+
+          printInfo('[Auth]');
+
           if (auth == rootKey) {
             // static root key has full access
             return handler(request);
           }
 
-          Token token = await sqliteStorage.loadToken(auth);
+          Token token = await sqliteStorage.tokens.load(auth);
           if (!token.valid()) {
-            return Response.unauthorized(
+            return Util.rUnauthorized(
               'Empty token',
             );
           }
           if (!token.keepLive(sqliteStorage)) {
-            return Response.unauthorized(
+            return Util.rUnauthorized(
               'Token expired',
-              headers: Config.jsonHeaders,
             );
           }
           if (token.root) {
@@ -49,20 +51,20 @@ class Authentication {
 
           int bucketId = int.parse(request.params['bucket'] ?? '0');
           if (!Util.validBucket(bucketId)) {
-            return Util.invalidBucket();
+            return Util.rBucketError();
           }
 
-          Resource resource = await sqliteStorage.loadResource(
+          Resource resource = await sqliteStorage.resources.load(
             bucketId,
             request.params['resource'] ?? '',
           );
 
           if (!resource.valid()) {
-            return Response.notFound('Resource not found');
+            return Util.rNotFound('Resource not found');
           }
 
           if (!token.accessResource(resource)) {
-            return Response.forbidden(
+            return Util.rForbidden(
               'Forbidden',
             );
           }
@@ -70,7 +72,7 @@ class Authentication {
           return handler(request);
         }
 
-        return Response.notFound(
+        return Util.rNotFound(
           'Not found',
         );
       };
@@ -96,18 +98,16 @@ class Authentication {
           }
 
           // loadToken
-          Token token = await sqliteStorage.loadToken(auth);
+          Token token = await sqliteStorage.tokens.load(auth);
           if (!token.valid()) {
             // no token found
-            return Response.unauthorized(
+            return Util.rUnauthorized(
               'Token not found',
-              headers: Config.jsonHeaders,
             );
           }
           if (!token.keepLive(sqliteStorage)) {
-            return Response.unauthorized(
+            return Util.rUnauthorized(
               'Token expired',
-              headers: Config.jsonHeaders,
             );
           }
 
@@ -127,14 +127,12 @@ class Authentication {
             return handler(request);
           }
 
-          return Response.forbidden(
+          return Util.rForbidden(
             'Forbidden',
-            headers: Config.jsonHeaders,
           );
         }
-        return Response.unauthorized(
+        return Util.rUnauthorized(
           'Unauthorized',
-          headers: Config.jsonHeaders,
         );
       };
     };

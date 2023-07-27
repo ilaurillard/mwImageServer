@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:args/args.dart';
+import 'package:mwcdn/Etc/Util.dart';
 
 class Args {
   late final String dataDir;
@@ -23,7 +24,7 @@ class Args {
     }
     rootKey = rk;
 
-    print('[rootKey] ' + rootKey);
+    printInfo('[rootKey] ' + rootKey);
   }
 
   String randString(int len) {

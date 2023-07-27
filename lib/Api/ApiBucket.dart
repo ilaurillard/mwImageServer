@@ -6,7 +6,7 @@ import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/BucketStats.dart';
 import 'package:mwcdn/Model/Method.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
-import 'package:mwcdn/Service/SqliteStorage.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -24,20 +24,20 @@ class ApiBucket {
   FutureOr<Response> create(
     Request request,
   ) async {
-    print('[ApiBucket.create]');
+    printInfo('[ApiBucket.create]');
 
     Dict data = await Util.jsonObject(request);
 
     int bucketId = Util.intData(data, 'id');
     if (!Util.validBucket(bucketId)) {
-      return Util.invalidBucket();
+      return Util.rBucketError();
     }
-    Bucket bucket = await sqliteStorage.loadBucket(
+    Bucket bucket = await sqliteStorage.buckets.load(
       bucketId,
     );
 
     if (!bucket.valid()) {
-      bucket = await sqliteStorage.createBucket(
+      bucket = await sqliteStorage.buckets.create(
         bucketId,
       );
     }
@@ -52,7 +52,9 @@ class ApiBucket {
       await fileStorage.createDir(pathPrivate);
     }
 
-    return Util.jsonResponse(
+    printNotice(bucket.toString());
+
+    return Util.rJsonOk(
       bucket,
     );
   }
@@ -62,23 +64,23 @@ class ApiBucket {
   FutureOr<Response> show(
     Request request,
   ) async {
-    print('[ApiBucket.show]');
+    printInfo('[ApiBucket.show]');
 
     Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Response.notFound('Bucket not found');
+      return Util.rNotFound('Bucket not found');
     }
 
     String pathPublic = '/public/' + bucket.id.toString();
     String pathPrivate = '/private/' + bucket.id.toString();
     if (!await fileStorage.dirExists(pathPublic)) {
-      return Response(404, body: 'Bucket folder missing');
+      return Util.rNotFound('Bucket folder missing');
     }
     if (!await fileStorage.dirExists(pathPrivate)) {
-      return Response(404, body: 'Bucket folder missing');
+      return Util.rNotFound('Bucket folder missing');
     }
 
-    return Util.jsonResponse(
+    return Util.rJsonOk(
       bucket,
     );
   }
@@ -88,22 +90,20 @@ class ApiBucket {
   FutureOr<Response> stats(
     Request request,
   ) async {
-    print('[ApiBucket.stats]');
+    printInfo('[ApiBucket.stats]');
 
     Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Response.notFound('Bucket not found');
+      return Util.rNotFound('Bucket not found');
     }
 
     BucketStats stats = BucketStats(
       bucket,
-      amountResources: await sqliteStorage.countResources(bucket),
-      // lastResource: await sqliteStorage.lastResource(bucket),
-      amountTokens: await sqliteStorage.countTokens(bucket),
-      // lastToken: await sqliteStorage.lastToken(bucket),
+      amountResources: await sqliteStorage.resources.count(bucket),
+      amountTokens: await sqliteStorage.tokens.count(bucket),
     );
 
-    return Util.jsonResponse(
+    return Util.rJsonOk(
       stats,
     );
   }
@@ -113,11 +113,11 @@ class ApiBucket {
   FutureOr<Response> addMethod(
     Request request,
   ) async {
-    print('[ApiBucket.addMethod]');
+    printInfo('[ApiBucket.addMethod]');
 
     Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Response.notFound('Bucket not found');
+      return Util.rNotFound('Bucket not found');
     }
 
     Dict data = await Util.jsonObject(request);
@@ -135,11 +135,11 @@ class ApiBucket {
 
     bucket.addMethod(method);
 
-    await sqliteStorage.updateBucket(
+    await sqliteStorage.buckets.update(
       bucket,
     );
 
-    return Util.jsonResponse(
+    return Util.rJsonOk(
       bucket,
     );
   }
@@ -149,22 +149,22 @@ class ApiBucket {
   FutureOr<Response> deleteMethod(
     Request request,
   ) async {
-    print('[ApiBucket.deleteMethod]');
+    printInfo('[ApiBucket.deleteMethod]');
 
     Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Response.notFound('Bucket not found');
+      return Util.rNotFound('Bucket not found');
     }
 
     String name = (request.params['method'] ?? '');
     Method method = Method(name);
     bucket.removeMethod(method);
 
-    await sqliteStorage.updateBucket(
+    await sqliteStorage.buckets.update(
       bucket,
     );
 
-    return Util.jsonResponse(
+    return Util.rJsonOk(
       bucket,
     );
   }
@@ -174,7 +174,7 @@ class ApiBucket {
   ) async {
     int bucketId = int.parse(request.params['bucket'] ?? '0');
     if (Util.validBucket(bucketId)) {
-      return await sqliteStorage.loadBucket(
+      return await sqliteStorage.buckets.load(
         bucketId,
       );
     }

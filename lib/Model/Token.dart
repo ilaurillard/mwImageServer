@@ -3,7 +3,7 @@ import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Service/SqliteStorage.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 
 class Token implements JsonSerializable, Entity {
   final String _id;
@@ -91,7 +91,7 @@ class Token implements JsonSerializable, Entity {
     // update if not too old
     // return false if expired
 
-    print(stamp);
+    // print(stamp);
 
     return true;
   }

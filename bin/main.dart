@@ -2,15 +2,16 @@ import 'dart:isolate';
 
 import 'package:mwcdn/Etc/Args.dart';
 import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Server.dart';
-import 'package:mwcdn/Service/SqliteStorage.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 
 void main(
   List<String> arguments,
 ) async {
-  print('[service] mwcdn 0.1');
+  printInfo('[service] mwcdn 0.1');
 
   Args args = Args(
     arguments,
@@ -32,11 +33,11 @@ void main(
 
   //------------ server
 
-  print('[run] with ' + Config.isolates.toString() + ' instances');
+  printInfo('[run] with ' + Config.isolates.toString() + ' instances');
 
   for (int i = 1; i < Config.isolates; i++) {
-    print(' .. spawn extra isolate ' + i.toString());
-    Isolate.spawn(
+    printNotice('.. spawn extra isolate ' + i.toString());
+    await Isolate.spawn(
       Server(
         sqliteStorage: sqliteStorage,
         fileStorage: fileStorage,
@@ -48,8 +49,8 @@ void main(
   }
 
   // main process
-  print(' .. spawn main process');
-  Server(
+  printNotice('.. spawn main process');
+  await Server(
     sqliteStorage: sqliteStorage,
     fileStorage: fileStorage,
     imagick: imagick,
@@ -58,3 +59,4 @@ void main(
     [],
   );
 }
+

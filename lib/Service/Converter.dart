@@ -4,7 +4,7 @@ import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Method.dart';
 import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Service/SqliteStorage.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 import 'package:shelf/shelf.dart';
@@ -27,23 +27,23 @@ class Converter {
   FutureOr<Response> enPassant(
     Request request,
   ) async {
-    print('[Converter.enPassant]');
+    printInfo('[Converter.enPassant]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
     if (!Util.validBucket(bucketId)) {
-      return Util.invalidBucket();
+      return Util.rBucketError();
     }
 
-    Bucket bucket = await sqliteStorage.loadBucket(
+    Bucket bucket = await sqliteStorage.buckets.load(
       bucketId,
     );
 
-    Resource resource = await sqliteStorage.loadResource(
+    Resource resource = await sqliteStorage.resources.load(
       bucketId,
       request.params['resource'] ?? '',
     );
     if (!resource.valid()) {
-      return Response.notFound('Resource not found');
+      return Util.rNotFound('Resource not found');
     }
 
     String file = request.params['file'] ?? '';
@@ -52,7 +52,7 @@ class Converter {
 
     Method method = bucket.method(methodName);
     if (!method.valid()) {
-      return Response.notFound('Method "' + methodName + '" not exists');
+      return Util.rNotFound('Method "' + methodName + '" not exists');
     }
 
     String path = resource.path();
@@ -60,11 +60,11 @@ class Converter {
     String target = path + '/' + file;
 
     if (!await fileStorage.dirExists(path)) {
-      return Response.notFound('Folder not exists (' + path + ')');
+      return Util.rNotFound('Folder not exists (' + path + ')');
     }
 
     if (!await fileStorage.fileExists(original)) {
-      return Response.notFound('File not exists (' + original + ')');
+      return Util.rNotFound('File not exists (' + original + ')');
     }
 
     if (method.tool == 'convert') {
@@ -75,7 +75,7 @@ class Converter {
       );
     }
     else {
-      return Response.notFound('Tool not found (' + method.tool + ')');
+      return Util.rNotFound('Tool not found (' + method.tool + ')');
     }
 
     // now try again to serve file after converting took place

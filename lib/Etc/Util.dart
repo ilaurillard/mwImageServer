@@ -18,23 +18,6 @@ class Util {
 
   // ----------------
 
-  static Response invalidBucket() {
-    return Response.badRequest(body: 'Invalid bucket');
-  }
-
-  // ----------------
-
-  static Response jsonResponse(
-    JsonSerializable subject,
-  ) {
-    return Response.ok(
-      json.encode(subject.toJson()),
-      headers: Config.jsonHeaders,
-    );
-  }
-
-  // ----------------
-
   static Future<Dict> jsonObject(
     Request request,
   ) async {
@@ -56,9 +39,9 @@ class Util {
   // ----------------
 
   static List<String> stringListData(
-      Dict data,
-      String key,
-      ) {
+    Dict data,
+    String key,
+  ) {
     return List<String>.from(
       data[key] as List? ?? [],
     );
@@ -97,9 +80,9 @@ class Util {
   // ----------------
 
   static String stringData(
-      Dict data,
-      String key,
-      ) {
+    Dict data,
+    String key,
+  ) {
     return data[key] as String? ?? '';
   }
 
@@ -223,4 +206,76 @@ class Util {
     }
     return replaced;
   }
+
+  // ----------------
+
+  static Response rJsonOk(
+    JsonSerializable subject,
+  ) {
+    return Response.ok(
+      json.encode(subject.toJson()),
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Response rBucketError() {
+    return Util.rBadRequest('Invalid bucket');
+  }
+
+  static Response rNotFound(String message) {
+    printWarning('[404] ' + message);
+    return Response.notFound(
+      message,
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Response rError(String message) {
+    printWarning('[500] ' + message);
+    return Response.internalServerError(
+      body: message,
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Response rBadRequest(String message) {
+    printWarning('[400] ' + message);
+    return Response.badRequest(
+      body: message,
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Response rUnauthorized(String message) {
+    printWarning('[401] ' + message);
+    return Response.unauthorized(
+      message,
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Response rForbidden(String message) {
+    printWarning('[403] ' + message);
+    return Response.forbidden(
+      message,
+      headers: Config.jsonHeaders,
+    );
+  }
+}
+
+void printInfo(String text) {
+  //print('\x1B[36m$text\x1B[0m');
+  print(text);
+}
+
+void printWarning(String text) {
+  print('\x1B[33m$text\x1B[0m');
+}
+
+void printError(String text) {
+  print('\x1B[31m$text\x1B[0m');
+}
+
+void printNotice(String text) {
+  print('\x1B[37m$text\x1B[0m');
 }

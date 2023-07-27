@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:path/path.dart';
 
@@ -10,7 +11,7 @@ class FileStorage {
   FileStorage({
     required this.dataDir,
   }) {
-    print('[filesystem] ' + dataDir);
+    printInfo('[filesystem] ' + dataDir);
   }
 
   // ---------------------
@@ -48,8 +49,8 @@ class FileStorage {
     String path,
     Uint8List bytes,
   ) async {
-    print(
-      ' Store ' + bytes.length.toString() + ' bytes to ' + path,
+    printNotice(
+      'Writing ' + bytes.length.toString() + ' bytes to ' + path,
     );
 
     path = dataDir + path;

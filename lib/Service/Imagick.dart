@@ -11,16 +11,16 @@ class Imagick {
   });
 
   Future<void> init() async {
-    print('[imagemagick]');
+    printInfo('[imagemagick]');
     ProcessResult result = await Process.run(
       'convert',
       ['-version'],
     );
     if (exitCode == 1) {
-      print(result.stderr);
+      printError(result.stderr.toString());
       throw 'Imagick error';
     }
-    print(result.stdout);
+    printNotice(result.stdout.toString());
   }
 
   // ---------------------
@@ -33,8 +33,8 @@ class Imagick {
     sourcePath = dataDir + sourcePath;
     targetPath = dataDir + targetPath;
 
-    print(
-      ' Magic from ' +
+    printNotice(
+      'Magic from ' +
           sourcePath +
           ' to ' +
           targetPath +
@@ -54,10 +54,9 @@ class Imagick {
     );
 
     if (exitCode == 1) {
-      print(result.stderr);
-      throw 'Imagick error';
+      printError(result.stderr.toString());
     } else {
-      print(result.stdout);
+      printNotice(result.stdout.toString());
     }
   }
 }
