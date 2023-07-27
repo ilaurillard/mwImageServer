@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:args/args.dart';
 
 class Args {
@@ -13,8 +16,19 @@ class Args {
     final ArgResults _arguments = _parser.parse(args);
 
     dataDir = _arguments['dataDir'] as String? ?? '';
-    rootKey = _arguments['rootKey'] as String? ?? '';
+
+    String rk = _arguments['rootKey'] as String? ?? '';
+    if (rk.isEmpty) {
+      rk = randString(24);
+    }
+    rootKey = rk;
 
     print('[rootKey] ' + rootKey);
+  }
+
+  String randString(int len) {
+    Random random = Random.secure();
+    List<int> values = List<int>.generate(len, (i) =>  random.nextInt(255));
+    return base64UrlEncode(values).replaceAll('=', '');
   }
 }

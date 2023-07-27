@@ -67,12 +67,18 @@ class Converter {
       return Response.notFound('File not exists (' + original + ')');
     }
 
-    await imagick.convert(
-      original,
-      target,
-      method,
-    );
+    if (method.tool == 'convert') {
+      await imagick.convert(
+        original,
+        target,
+        method,
+      );
+    }
+    else {
+      return Response.notFound('Tool not found (' + method.tool + ')');
+    }
 
+    // now try again to serve file after converting took place
     Handler handler = createStaticHandler(
       fileStorage.dataDir,
     );

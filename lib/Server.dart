@@ -44,10 +44,10 @@ class Server {
     );
 
     print(
-      '  listening at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}',
+      ''' .. listening at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}
+      
+'''
     );
-    print('');
-
   }
 
   Router app() {

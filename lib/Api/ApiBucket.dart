@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
+import 'package:mwcdn/Model/BucketStats.dart';
 import 'package:mwcdn/Model/Method.dart';
-import 'package:mwcdn/Service/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
+import 'package:mwcdn/Service/SqliteStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -84,6 +85,31 @@ class ApiBucket {
 
   // ---------------------
 
+  FutureOr<Response> stats(
+    Request request,
+  ) async {
+    print('[ApiBucket.stats]');
+
+    Bucket bucket = await bucketFromRequest(request);
+    if (!bucket.valid()) {
+      return Response.notFound('Bucket not found');
+    }
+
+    BucketStats stats = BucketStats(
+      bucket,
+      amountResources: await sqliteStorage.countResources(bucket),
+      // lastResource: await sqliteStorage.lastResource(bucket),
+      amountTokens: await sqliteStorage.countTokens(bucket),
+      // lastToken: await sqliteStorage.lastToken(bucket),
+    );
+
+    return Util.jsonResponse(
+      stats,
+    );
+  }
+
+  // ---------------------
+
   FutureOr<Response> addMethod(
     Request request,
   ) async {
@@ -121,8 +147,8 @@ class ApiBucket {
   // ---------------------
 
   FutureOr<Response> deleteMethod(
-      Request request,
-      ) async {
+    Request request,
+  ) async {
     print('[ApiBucket.deleteMethod]');
 
     Bucket bucket = await bucketFromRequest(request);
@@ -144,9 +170,8 @@ class ApiBucket {
   }
 
   Future<Bucket> bucketFromRequest(
-      Request request,
-      ) async
-  {
+    Request request,
+  ) async {
     int bucketId = int.parse(request.params['bucket'] ?? '0');
     if (Util.validBucket(bucketId)) {
       return await sqliteStorage.loadBucket(

@@ -6,7 +6,7 @@ GET {{host}}/xxx
 
 ### create private resource (as root) -----------------------------------------------
 POST {{host}}/api/bucket/77/resource
-Authorization: rootKey
+Authorization: myRootKey
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -34,7 +34,7 @@ client.test('test', function () {
 
 ### create public resource (as root) -----------------------------------------------
 POST {{host}}/api/bucket/77/resource
-Authorization: rootKey
+Authorization: myRootKey
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -68,7 +68,7 @@ Accept: image/*
 
 ### Full access with rootKey -----------------------------------------------
 GET {{host}}/{{priv_resource_url}}
-Authorization: rootKey
+Authorization: myRootKey
 Accept: image/*
 
 > scripts/assert200AndJpg.js
@@ -76,7 +76,7 @@ Accept: image/*
 
 ### (Only) Root creates Bucket -----------------------------------------------
 POST {{host}}/api/bucket
-Authorization: rootKey
+Authorization: myRootKey
 Accept: application/json
 Content-Type: application/json
 
@@ -90,7 +90,7 @@ Content-Type: application/json
 
 ### Root creates Customer Admin Token -----------------------------------------------
 POST {{host}}/api/token
-Authorization: rootKey
+Authorization: myRootKey
 Accept: application/json
 Content-Type: application/json
 
@@ -184,13 +184,13 @@ Authorization: {{admin_token2}}
 
 ### Show bucket -> 404 -----------------------------------------------
 GET {{host}}/api/bucket/99999
-Authorization: rootKey
+Authorization: myRootKey
 
 > scripts/assert404.js
 
 ### Show bucket -> 404 -----------------------------------------------
 GET {{host}}/api/bucket/0
-Authorization: rootKey
+Authorization: myRootKey
 
 > scripts/assert404.js
 
@@ -208,7 +208,7 @@ Authorization: {{admin_token2}}
 
 ### Show token as root -----------------------------------------------
 GET {{host}}/api/token/{{admin_token2}}
-Authorization: rootKey
+Authorization: myRootKey
 
 > scripts/assert200AndJson.js
 

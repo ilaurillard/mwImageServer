@@ -15,7 +15,8 @@ class Schema {
         groups TEXT NOT NULL,
         buckets TEXT NOT NULL,
         root BOOLEAN DEFAULT 0 NOT NULL CHECK (root IN (0, 1)),
-        stamp DATETIME DEFAULT current_timestamp
+        stamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+        created DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   ''');
 
@@ -26,14 +27,15 @@ class Schema {
         filename TEXT NOT NULL,
         users TEXT NOT NULL,
         groups TEXT NOT NULL,
-        stamp DATETIME DEFAULT current_timestamp
+        created DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   ''');
 
       await db.execute('''
     CREATE TABLE Bucket (
         id INTEGER PRIMARY KEY NOT NULL,
-        methods TEXT DEFAULT "[]" NOT NULL
+        methods TEXT DEFAULT "[]" NOT NULL,
+        created DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   ''');
     }

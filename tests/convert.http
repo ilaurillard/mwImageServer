@@ -1,6 +1,6 @@
 ### create a resource
 POST {{host}}/api/bucket/77/resource
-Authorization: rootKey
+Authorization: myRootKey
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -30,7 +30,7 @@ client.test('test', function () {
 
 ### Show resource meta
 GET {{host}}/api/bucket/77/resource/{{resource_id1}}
-Authorization: rootKey
+Authorization: myRootKey
 
 > scripts/assert200AndJson.js
 
@@ -57,10 +57,10 @@ GET {{host}}/{{resource_path}}/thumb1-{{resource_filename}}
 
 ### flush
 POST {{host}}/api/bucket/77/resource/{{resource_id1}}/flush
-Authorization: rootKey
+Authorization: myRootKey
 
 
 
 ### Delete resource
 DELETE {{host}}/api/bucket/77/resource/{{resource_id1}}
-Authorization: rootKey
+Authorization: myRootKey

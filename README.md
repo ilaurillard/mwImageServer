@@ -1,7 +1,7 @@
 ---- start local 
 
 $ dart run bin/main.dart -d ~/PhpstormProjects/mwcdn/data
-$ dart run bin/main.dart -d ~/PhpstormProjects/mwcdn/data -k rootKey
+$ dart run bin/main.dart -d ~/PhpstormProjects/mwcdn/data -k myRootKey
 
 $ curl http://0.0.0.0:8080/static/help.html
 
@@ -12,7 +12,7 @@ $ curl http://0.0.0.0:8080/static/help.html
 $ podman build . -t mwcdn
 
 $ podman run --name mwcdn -v ~/PhpstormProjects/mwcdn/data:/data -it -p 8080:8080 mwcdn
-$ podman run -e ROOT_KEY=rootKey --name mwcdn -v ~/PhpstormProjects/mwcdn/data:/data -it -p 8080:8080 mwcdn
+$ podman run -e ROOT_KEY=myRootKey --name mwcdn -v ~/PhpstormProjects/mwcdn/data:/data -it -p 8080:8080 mwcdn
 
 $ curl http://0.0.0.0:8080
 
@@ -43,3 +43,14 @@ $ ab -k -n 10000 -c 10 http://0.0.0.0:8080/static/help.html
 
 ----
 
+
+
+TODO:
+
+statistics
+token stamping
+token TTL
+garbage collection
+consistency checks
+pdf handling
+rollout

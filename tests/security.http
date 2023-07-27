@@ -1,6 +1,6 @@
 ### (Only) Root creates Bucket
 POST {{host}}/api/bucket
-Authorization: rootKey
+Authorization: myRootKey
 
 {"id": 77}
 
@@ -8,7 +8,7 @@ Authorization: rootKey
 
 ### (Only) Root creates Bucket
 POST {{host}}/api/bucket
-Authorization: rootKey
+Authorization: myRootKey
 
 {"id": 88}
 
@@ -17,7 +17,7 @@ Authorization: rootKey
 
 ### Root creates Customer Admin Token
 POST {{host}}/api/bucket/77/token
-Authorization: rootKey
+Authorization: myRootKey
 
 {"buckets": [77]}
 
@@ -30,7 +30,7 @@ client.test('test', function () {
 
 ### Root creates Customer Admin Token
 POST {{host}}/api/bucket/88/token
-Authorization: rootKey
+Authorization: myRootKey
 
 {"buckets": [88]}
 
@@ -94,3 +94,38 @@ Authorization: {{admin_token77}}
 
 > scripts/assert404.js
 
+
+
+### upload resource as admin
+POST {{host}}/api/bucket/77/resource
+Authorization: {{admin_token77}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Type: application/json
+
+{
+}
+
+--WebAppBoundary
+Content-Disposition: form-data; filename="ffff23.jpg"
+Content-Type: image/jpeg
+
+< ./files/ffff23.jpg
+--WebAppBoundary--
+
+> {%
+client.test('test', function () {
+    client.assert(response.status === 200);
+    client.global.set("resource_id2", response.body.id);
+    client.global.set("resource_url2", response.body.path + '/' + response.body.filename);
+}); %}
+
+
+### flush
+POST {{host}}/api/bucket/77/resource/{{resource_id2}}/flush
+Authorization: {{admin_token77}}
+
+### delete
+DELETE {{host}}/api/bucket/77/resource/{{resource_id2}}
+Authorization: {{admin_token77}}

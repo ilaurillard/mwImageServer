@@ -1,5 +1,5 @@
 POST {{host}}/api/bucket/77/resource
-Authorization: rootKey
+Authorization: myRootKey
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -31,14 +31,14 @@ GET {{host}}/{{resource_url}}
 
 ### Show resource info ----------------------------
 GET {{host}}/api/bucket/77/resource/{{resource_id1}}
-Authorization: rootKey
+Authorization: myRootKey
 
 > scripts/assert200AndJson.js
 
 
 ### private upload ----------------------------
 POST {{host}}/api/bucket/77/resource
-Authorization: rootKey
+Authorization: myRootKey
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -67,7 +67,7 @@ client.test('test', function () {
 
 ### Show resource ----------------------------
 GET {{host}}/api/bucket/77/resource/{{resource_id2}}
-Authorization: rootKey
+Authorization: myRootKey
 
 > scripts/assert200AndJson.js
 
@@ -75,7 +75,7 @@ Authorization: rootKey
 
 ### Root creates Users Token ----------------------------
 POST {{host}}/api/bucket/77/token
-Authorization: rootKey
+Authorization: myRootKey
 
 {
   "users": [2]
@@ -97,7 +97,7 @@ Authorization: {{admin_token77}}
 
 ### Root creates Users Token
 POST {{host}}/api/bucket/77/token
-Authorization: rootKey
+Authorization: myRootKey
 
 {
   "groups": [4]
@@ -120,16 +120,16 @@ Authorization: {{admin_token77}}
 
 ### ----------------------------
 GET {{host}}/api/bucket/77/resource/{{resource_id1}}
-Authorization: rootKey
+Authorization: myRootKey
 
 ### ----------------------------
 GET {{host}}/api/bucket/77/resource/{{resource_id2}}
-Authorization: rootKey
+Authorization: myRootKey
 
 ### ----------------------------
 DELETE {{host}}/api/bucket/77/resource/{{resource_id1}}
-Authorization: rootKey
+Authorization: myRootKey
 
 ### ----------------------------
 DELETE {{host}}/api/bucket/77/resource/{{resource_id2}}
-Authorization: rootKey
+Authorization: myRootKey

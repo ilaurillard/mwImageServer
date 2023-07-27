@@ -15,6 +15,7 @@ class Token implements JsonSerializable, Entity {
   final List<int> buckets; // bucket api access (admin)
 
   final DateTime? stamp;
+  final DateTime? created;
 
   Token(
     this._id, {
@@ -24,6 +25,7 @@ class Token implements JsonSerializable, Entity {
     this.buckets = const [],
     this.root = false,
     this.stamp,
+        this.created,
   });
 
   String get id => _id;
@@ -77,6 +79,8 @@ class Token implements JsonSerializable, Entity {
       'groups': groups,
       'buckets': buckets,
       'root': root,
+      'stamp': stamp?.millisecondsSinceEpoch,
+      'created': created?.millisecondsSinceEpoch,
     };
   }
 
@@ -87,7 +91,7 @@ class Token implements JsonSerializable, Entity {
     // update if not too old
     // return false if expired
 
-    // print(stamp);
+    print(stamp);
 
     return true;
   }
@@ -103,6 +107,7 @@ class Token implements JsonSerializable, Entity {
       buckets: Util.intList(row['buckets'] as String? ?? ''),
       root: (row['root'] as int? ?? 0) == 1,
       stamp: DateTime.parse(row['stamp'] as String? ?? ''),
+      created: DateTime.parse(row['created'] as String? ?? ''),
     );
   }
 

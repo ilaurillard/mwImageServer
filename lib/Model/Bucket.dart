@@ -9,11 +9,13 @@ class Bucket implements JsonSerializable {
   final int id;
   final List<Method> methods;
   final bool exists;
+  final DateTime? created;
 
   Bucket(
     this.id, {
     this.exists = true,
     this.methods = const [],
+    this.created,
   });
 
   bool valid() {
@@ -24,6 +26,7 @@ class Bucket implements JsonSerializable {
     return {
       'id': id,
       'methods': methods,
+      'created': created?.millisecondsSinceEpoch,
     };
   }
 
@@ -37,13 +40,15 @@ class Bucket implements JsonSerializable {
   factory Bucket.fromDatabase(
     Dict row,
   ) {
-    List<dynamic> temp = json.decode(row['methods'] as String? ?? '[]') as List<dynamic>;
+    List<dynamic> temp =
+        json.decode(row['methods'] as String? ?? '[]') as List<dynamic>;
     List<Method> methods =
         temp.map((dynamic row) => Method.fromDatabase(row as Dict)).toList();
 
     return Bucket(
       row['id'] as int? ?? 0,
       methods: methods,
+      created: DateTime.parse(row['created'] as String? ?? ''),
     );
   }
 
@@ -64,6 +69,7 @@ class Bucket implements JsonSerializable {
       id,
       exists: false,
       methods: [],
+      created: DateTime.now(),
     );
   }
 

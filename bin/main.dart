@@ -32,8 +32,10 @@ void main(
 
   //------------ server
 
-  print('[run] with ' + Config.isolates.toString() + ' isolates:');
+  print('[run] with ' + Config.isolates.toString() + ' instances');
+
   for (int i = 1; i < Config.isolates; i++) {
+    print(' .. spawn extra isolate ' + i.toString());
     Isolate.spawn(
       Server(
         sqliteStorage: sqliteStorage,
@@ -46,6 +48,7 @@ void main(
   }
 
   // main process
+  print(' .. spawn main process');
   Server(
     sqliteStorage: sqliteStorage,
     fileStorage: fileStorage,

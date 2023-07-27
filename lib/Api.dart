@@ -53,6 +53,10 @@ class Api {
               '/bucket' + Config.matchBucket, // /api/bucket/77
               apiBucket.show,
             )
+            ..get(
+              '/bucket' + Config.matchBucket + '/stats',
+              apiBucket.stats,
+            )
             ..post(
               '/bucket' + Config.matchBucket + '/method',
               apiBucket.addMethod,

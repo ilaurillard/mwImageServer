@@ -55,7 +55,6 @@ class SqliteStorage {
   Future<void> updateBucket(
     Bucket bucket,
   ) async {
-
     await db.update(
       'Bucket',
       bucket.toDatabase(),
@@ -112,6 +111,8 @@ class SqliteStorage {
       groups: groups,
       buckets: buckets,
       root: root,
+      stamp: DateTime.now(),
+      created: DateTime.now(),
     );
 
     await db.insert(
@@ -127,20 +128,56 @@ class SqliteStorage {
   Future<Token> loadToken(
     String id,
   ) async {
+    if (id.isNotEmpty) {
+      List<dynamic> data = await db.query(
+        'Token',
+        where: 'id = ?',
+        whereArgs: [id],
+        limit: 1,
+      );
+      if (data.isNotEmpty) {
+        print(' Loaded token: ' + id);
+        return Token.fromDatabase(data.first as Dict);
+      } else {
+        print(' Token not found: ' + id);
+      }
+    }
+    return Token.notFound(id);
+  }
+
+  // Future<Token> lastToken(
+  //     Bucket bucket,
+  //     ) async {
+  //   List<dynamic> data = await db.query(
+  //     'Token',
+  //     where: 'bucket = ?',
+  //     whereArgs: [bucket.id],
+  //     orderBy: 'stamp DESC',
+  //     limit: 1,
+  //   );
+  //   if (data.isNotEmpty) {
+  //     return Token.fromDatabase(data.first as Dict);
+  //   }
+  //   return Token.notFound('');
+  // }
+
+  // ----------------
+
+  Future<int> countTokens(
+    Bucket bucket,
+  ) async {
     List<dynamic> data = await db.query(
       'Token',
-      where: 'id = ?',
-      whereArgs: [id],
+      columns: ['COUNT (*) AS amount'],
+      where: 'bucket = ?',
+      whereArgs: [bucket.id],
       limit: 1,
     );
     if (data.isNotEmpty) {
-      print(' Loaded token: ' + id);
-      return Token.fromDatabase(data.first as Dict);
-    } else {
-      print(' Token not found: ' + id);
+      Dict row = data.first as Dict;
+      return row['amount'] as int;
     }
-
-    return Token.notFound(id);
+    return 0;
   }
 
   // ----------------- RESOURCE
@@ -161,6 +198,7 @@ class SqliteStorage {
       filename: filename,
       users: users,
       groups: groups,
+      created: DateTime.now(),
     );
 
     await db.insert(
@@ -177,7 +215,7 @@ class SqliteStorage {
     int bucket,
     String id,
   ) async {
-    if (bucket > 0) {
+    if (bucket > 0 && id.isNotEmpty) {
       List<dynamic> data = await db.query(
         'Resource',
         where: 'id = ? AND bucket = ?',
@@ -195,9 +233,45 @@ class SqliteStorage {
     return Resource.notFound(id);
   }
 
+  // Future<Resource> lastResource(
+  //   Bucket bucket,
+  // ) async {
+  //   List<dynamic> data = await db.query(
+  //     'Resource',
+  //     where: 'bucket = ?',
+  //     whereArgs: [bucket.id],
+  //     orderBy: 'created DESC',
+  //     limit: 1,
+  //   );
+  //   if (data.isNotEmpty) {
+  //     return Resource.fromDatabase(data.first as Dict);
+  //   }
+  //   return Resource.notFound('');
+  // }
+
+  // ---------------------
+
+  Future<int> countResources(
+    Bucket bucket,
+  ) async {
+    List<dynamic> data = await db.query(
+      'Resource',
+      columns: ['COUNT (*) AS amount'],
+      where: 'bucket = ?',
+      whereArgs: [bucket.id],
+      limit: 1,
+    );
+    if (data.isNotEmpty) {
+      Dict row = data.first as Dict;
+      return row['amount'] as int;
+    }
+    return 0;
+  }
+
   // -----------------
 
   Future<bool> deleteEntity(
+    // Token, Resource, ...
     Entity entity,
   ) async {
     print(' Delete #' + entity.id + ' --> ' + entity.toString());
