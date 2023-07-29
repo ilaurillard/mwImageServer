@@ -124,7 +124,7 @@ Accept: application/json
   "users": [],
   "groups": [],
   "buckets": [77, 88],
-  "root": true
+  "root": false
 }
 
 > {%

@@ -39,7 +39,7 @@ class ApiToken {
     }
 
     Token token = await sqliteStorage.tokens.create(
-      bucket,
+      root ? 0 : bucket,
       users: root ? [] : Util.intListData(data, 'users'),
       groups: root ? [] : Util.intListData(data, 'groups'),
       buckets: root ? [] : buckets,

@@ -54,19 +54,23 @@ class Api {
               apiBucket.show,
             )
             ..get(
+              // more info on bucket (GET)
               '/bucket' + Config.matchBucket + '/stats',
               apiBucket.stats,
             )
             ..post(
+              // create a method
               '/bucket' + Config.matchBucket + '/method',
               apiBucket.addMethod,
             )
             ..delete(
+              // remove a method
               '/bucket' + Config.matchBucket + '/method' + Config.matchMethod,
               apiBucket.deleteMethod,
             )
             // ---------------------------- resource
             ..post(
+              // create a resource
               // /api/bucket/77/resource
               '/bucket' + Config.matchBucket + '/resource',
               apiResource.create,
@@ -91,16 +95,18 @@ class Api {
               '/bucket' + Config.matchBucket + '/token', // /api/bucket/77/token
               apiToken.create,
             )
-            ..get( // show token meta
+            ..get(
+              // show token meta
               '/bucket' + Config.matchBucket + '/token' + Config.matchToken,
               apiToken.show,
             )
-            // ---------------------------- token (root only)
+            // ---------------------------- root tokens (root only)
             ..post(
               '/token', // /api/token
               apiToken.create,
             )
-            ..get( // show token meta
+            ..get(
+              // show token meta
               '/token' + Config.matchToken,
               apiToken.show,
             ),
