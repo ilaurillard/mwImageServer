@@ -91,7 +91,7 @@ class Api {
               '/bucket' + Config.matchBucket + '/token', // /api/bucket/77/token
               apiToken.create,
             )
-            ..get( // show bucket meta
+            ..get( // show token meta
               '/bucket' + Config.matchBucket + '/token' + Config.matchToken,
               apiToken.show,
             )
@@ -100,7 +100,7 @@ class Api {
               '/token', // /api/token
               apiToken.create,
             )
-            ..get( // show bucket meta
+            ..get( // show token meta
               '/token' + Config.matchToken,
               apiToken.show,
             ),

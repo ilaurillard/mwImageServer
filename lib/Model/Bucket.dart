@@ -7,12 +7,14 @@ import 'package:mwcdn/Service/Converter.dart';
 
 class Bucket implements JsonSerializable {
   final int id;
+  final String name;
   final List<Method> methods;
   final bool exists;
   final DateTime? created;
 
   Bucket(
     this.id, {
+    this.name = '',
     this.exists = true,
     this.methods = const [],
     this.created,
@@ -25,6 +27,7 @@ class Bucket implements JsonSerializable {
   Dict toJson() {
     return {
       'id': id,
+      'name': name,
       'methods': methods,
       'created': created?.millisecondsSinceEpoch,
     };
@@ -33,6 +36,7 @@ class Bucket implements JsonSerializable {
   Dict toDatabase() {
     return {
       'id': id,
+      'name': name,
       'methods': json.encode(methods),
     };
   }
@@ -47,6 +51,7 @@ class Bucket implements JsonSerializable {
 
     return Bucket(
       row['id'] as int? ?? 0,
+      name: row['name'] as String? ?? '',
       methods: methods,
       created: DateTime.parse(row['created'] as String? ?? ''),
     );
@@ -57,6 +62,7 @@ class Bucket implements JsonSerializable {
   ) {
     return Bucket(
       id,
+      name: '?',
       exists: false,
       methods: [],
     );
@@ -64,9 +70,11 @@ class Bucket implements JsonSerializable {
 
   factory Bucket.fresh(
     int id,
+      String name,
   ) {
     return Bucket(
       id,
+      name: name,
       exists: false,
       methods: [],
       created: DateTime.now(),
@@ -115,6 +123,6 @@ class Bucket implements JsonSerializable {
 
   @override
   String toString() {
-    return 'Bucket#$id';
+    return 'Bucket#$id ($name)';
   }
 }

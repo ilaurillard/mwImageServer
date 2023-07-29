@@ -16,7 +16,7 @@ RUN dart compile exe bin/main.dart -o bin/main
 # and the pre-built AOT-runtime in the `/runtime/` directory of the base image.
 
 # TODO figure out using scratch + imagemagick
-#FROM scratch
+# FROM scratch
 
 FROM alpine:3.3
 RUN apk --update add imagemagick && \

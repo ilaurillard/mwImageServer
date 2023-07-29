@@ -8,6 +8,7 @@ class Resource implements JsonSerializable, Entity {
 
   final int bucket;
   final String filename;
+  int size;
   final List<int> users;
   final List<int> groups;
 
@@ -17,6 +18,7 @@ class Resource implements JsonSerializable, Entity {
     this._id, {
     required this.bucket,
     required this.filename,
+    this.size = 0,
     this.users = const [],
     this.groups = const [],
     this.created,
@@ -57,6 +59,7 @@ class Resource implements JsonSerializable, Entity {
       'users': users.join(';'),
       'groups': groups.join(';'),
       'filename': filename,
+      'size': size,
     };
   }
 
@@ -69,6 +72,7 @@ class Resource implements JsonSerializable, Entity {
       'groups': groups,
       'path': path(absolute: false),
       'filename': filename,
+      'size': size,
       'created': created?.millisecondsSinceEpoch,
     };
   }
@@ -80,6 +84,7 @@ class Resource implements JsonSerializable, Entity {
       row['id'] as String? ?? '',
       bucket: row['bucket'] as int? ?? 0,
       filename: row['filename'] as String? ?? '',
+      size: row['size'] as int? ?? 0,
       users: Util.intList(row['users'] as String? ?? ''),
       groups: Util.intList(row['groups'] as String? ?? ''),
       created: DateTime.parse(row['created'] as String? ?? ''),

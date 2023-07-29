@@ -3,18 +3,21 @@ import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
-class BucketRepository
-{
+class BucketRepository {
   late final Database db;
 
   BucketRepository(this.db);
 
   Future<Bucket> create(
-      int id,
-      ) async {
+    int id,
+    String name,
+  ) async {
     // printNotice('sqliteStorage:createBucket');
 
-    Bucket bucket = Bucket.fresh(id);
+    Bucket bucket = Bucket.fresh(
+      id,
+      name,
+    );
 
     await db.insert(
       'Bucket',
@@ -27,8 +30,8 @@ class BucketRepository
   // ---------------------
 
   Future<void> update(
-      Bucket bucket,
-      ) async {
+    Bucket bucket,
+  ) async {
     await db.update(
       'Bucket',
       bucket.toDatabase(),
@@ -42,8 +45,8 @@ class BucketRepository
   // ---------------------
 
   Future<Bucket> load(
-      int id,
-      ) async {
+    int id,
+  ) async {
     List<dynamic> data = await db.query(
       'Bucket',
       where: 'id = ?',

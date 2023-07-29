@@ -10,8 +10,10 @@ class Token implements JsonSerializable, Entity {
 
   final bool root;
   final int bucket; // read resource bucket
-  final List<int> users;
+
+  final List<int> users; //
   final List<int> groups;
+
   final List<int> buckets; // bucket api access (admin)
 
   final DateTime? stamp;
@@ -25,7 +27,7 @@ class Token implements JsonSerializable, Entity {
     this.buckets = const [],
     this.root = false,
     this.stamp,
-        this.created,
+    this.created,
   });
 
   String get id => _id;
@@ -38,13 +40,24 @@ class Token implements JsonSerializable, Entity {
     Resource resource,
   ) {
     if (root || buckets.contains(resource.bucket)) {
+      // Root token or resource bucket matches one of tokens buckets
       return true;
     }
     if (bucket != resource.bucket) {
+      // Token bucket does not match resource bucket
       return false;
     }
-    return Set.from(users).intersection(Set.from(resource.users)).isNotEmpty ||
-        Set.from(groups).intersection(Set.from(resource.groups)).isNotEmpty;
+    // Access via group id match or via user id match
+    return Set.from(groups)
+            .intersection(
+              Set.from(resource.groups),
+            )
+            .isNotEmpty ||
+        Set.from(users)
+            .intersection(
+              Set.from(resource.users),
+            )
+            .isNotEmpty;
   }
 
   bool accessBucket(

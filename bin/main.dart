@@ -21,10 +21,14 @@ void main(
     dataDir: args.dataDir,
   );
 
+  // start a database for schema upgrades
+  await SqliteStorage(
+    dataDir: args.dataDir,
+  ).init();
+
   SqliteStorage sqliteStorage = SqliteStorage(
     dataDir: args.dataDir,
   );
-  // await sqliteStorage.init();
 
   Imagick imagick = Imagick(
     dataDir: args.dataDir,

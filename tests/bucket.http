@@ -2,7 +2,7 @@
 POST {{host}}/api/bucket
 Authorization: myRootKey
 
-{"id": 77}
+{"id": 77, "name": "Henry"}
 
 > scripts/assert200.js
 
@@ -49,7 +49,7 @@ Authorization: {{admin_token1}}
 
 
 ###
-GET {{host}}/api/bucket/77
+GET {{host}}/api/bucket/88
 Authorization: {{admin_token1}}
 
 > scripts/assert200.js

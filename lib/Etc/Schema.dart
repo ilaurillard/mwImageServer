@@ -25,6 +25,7 @@ class Schema {
         id TEXT PRIMARY KEY NOT NULL,
         bucket INTEGER NOT NULL,
         filename TEXT NOT NULL,
+        size INTEGER DEFAULT 0 NOT NULL,
         users TEXT NOT NULL,
         groups TEXT NOT NULL,
         created DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -34,6 +35,7 @@ class Schema {
       await db.execute('''
     CREATE TABLE Bucket (
         id INTEGER PRIMARY KEY NOT NULL,
+        name TEXT NOT NULL,
         methods TEXT DEFAULT "[]" NOT NULL,
         created DATETIME DEFAULT CURRENT_TIMESTAMP
     )

@@ -57,7 +57,7 @@ class FileStorage {
     File f = await File(path).create(
       recursive: true,
     );
-    return f.writeAsBytes(bytes);
+    return f.writeAsBytes(bytes, flush: true,);
   }
 
   // ---------------------

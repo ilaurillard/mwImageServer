@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mwcdn/Etc/Config.dart';
@@ -24,9 +25,8 @@ class ApiResource {
   // ---------------------
 
   FutureOr<Response> flush(
-      Request request,
-      ) async {
-
+    Request request,
+  ) async {
     printInfo('[ApiResource.flush]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
@@ -57,7 +57,6 @@ class ApiResource {
   FutureOr<Response> crud(
     Request request,
   ) async {
-
     printInfo('[ApiResource.crud]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
@@ -78,7 +77,6 @@ class ApiResource {
         resource,
       );
     } else if (request.method == 'DELETE') {
-
       bool successFiles = await fileStorage.deleteResourceFiles(resource);
       bool successRecord = await sqliteStorage.deleteEntity(resource);
 
@@ -101,7 +99,6 @@ class ApiResource {
   FutureOr<Response> create(
     Request request,
   ) async {
-
     printInfo('[ApiResource.create]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
@@ -156,13 +153,21 @@ class ApiResource {
       return Util.rBadRequest('Mime type vs suffix error');
     }
 
-    // ------------------- create record
+    Uint8List partBytes = await mPartFile.readBytes();
+    if (partBytes.length < 1 || partBytes.length > Config.maxFileSize) {
+      return Util.rBadRequest(
+        'Invalid file size',
+      );
+    }
+
+    // ------------------- Create record
 
     String partData = await mPartMeta.readString();
     Dict data = json.decode(partData) as Dict;
     Resource resource = await sqliteStorage.resources.create(
       bucketId,
       filename: filename,
+      size: partBytes.length,
       users: Util.intListData(data, 'users'),
       groups: Util.intListData(data, 'groups'),
     );
@@ -171,28 +176,45 @@ class ApiResource {
 
     if (await fileStorage.dirExists(path)) {
       return Util.rError(
-        'Resource collision',
+        'Fatal, resource collision',
       );
     }
 
     // ------------------- Store file
 
-    Uint8List partBytes = await mPartFile.readBytes();
-    if (partBytes.length > 0 && partBytes.length < Config.maxFileSize) {
-      fileStorage.createFile(
-        path + '/' + resource.filename,
-        partBytes,
-      );
-    } else {
-      return Util.rBadRequest(
-        'Invalid file size',
-      );
-    }
+    storeFile(
+      // async!!
+      path,
+      resource,
+      partBytes,
+    );
+
+    // -------------------------
 
     printNotice(resource.toString());
 
     return Util.rJsonOk(
       resource,
     );
+  }
+
+  storeFile(
+    String path,
+    Resource resource,
+    Uint8List bytes,
+  ) async {
+    try {
+      File file = await fileStorage.createFile(
+        path + '/' + resource.filename,
+        bytes,
+      );
+      int realSize = await file.lengthSync();
+      if (realSize != bytes.length) {
+        throw 'length check failed ($realSize vs ${bytes.length})';
+      }
+    }
+    catch (e) {
+      Util.rError('File error: ' + e.toString());
+    }
   }
 }

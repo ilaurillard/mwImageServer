@@ -45,7 +45,7 @@ class Authentication {
             );
           }
           if (token.root) {
-            // root token -> full access
+            // root token -> always full access
             return handler(request);
           }
 
@@ -112,7 +112,7 @@ class Authentication {
           }
 
           if (token.root) {
-            // root token -> full access
+            // root token -> always full access
             return handler(request);
           }
 

@@ -5,8 +5,8 @@ import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/BucketStats.dart';
 import 'package:mwcdn/Model/Method.dart';
-import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
+import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -28,23 +28,27 @@ class ApiBucket {
 
     Dict data = await Util.jsonObject(request);
 
-    int bucketId = Util.intData(data, 'id');
-    if (!Util.validBucket(bucketId)) {
+    int id = Util.intData(data, 'id');
+    if (!Util.validBucket(id)) {
       return Util.rBucketError();
     }
     Bucket bucket = await sqliteStorage.buckets.load(
-      bucketId,
+      id,
     );
 
     if (!bucket.valid()) {
+      // TODO validate
+      String name = Util.stringData(data, 'name');
+
       bucket = await sqliteStorage.buckets.create(
-        bucketId,
+        id,
+        name,
       );
     }
 
     // create folders
-    String pathPublic = '/public/' + bucketId.toString();
-    String pathPrivate = '/private/' + bucketId.toString();
+    String pathPublic = '/public/' + id.toString();
+    String pathPrivate = '/private/' + id.toString();
     if (!await fileStorage.dirExists(pathPublic)) {
       await fileStorage.createDir(pathPublic);
     }
@@ -172,12 +176,12 @@ class ApiBucket {
   Future<Bucket> bucketFromRequest(
     Request request,
   ) async {
-    int bucketId = int.parse(request.params['bucket'] ?? '0');
-    if (Util.validBucket(bucketId)) {
+    int id = int.parse(request.params['bucket'] ?? '0');
+    if (Util.validBucket(id)) {
       return await sqliteStorage.buckets.load(
-        bucketId,
+        id,
       );
     }
-    return Bucket.notFound(bucketId);
+    return Bucket.notFound(id);
   }
 }

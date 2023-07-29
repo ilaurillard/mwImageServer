@@ -4,8 +4,7 @@ import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Token.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
-class TokenRepository
-{
+class TokenRepository {
   late final Database db;
 
   TokenRepository(this.db);
@@ -13,12 +12,12 @@ class TokenRepository
 // ----------------- TOKEN
 
   Future<Token> create(
-      int bucket, {
-        List<int> users = const [],
-        List<int> groups = const [],
-        List<int> buckets = const [],
-        bool root = false,
-      }) async {
+    int bucket, {
+    List<int> users = const [],
+    List<int> groups = const [],
+    List<int> buckets = const [],
+    bool root = false,
+  }) async {
     String id = Util.randMd5();
 
     // printNotice('sqliteStorage:createToken ' + id);
@@ -45,8 +44,8 @@ class TokenRepository
   // ---------------------
 
   Future<Token> load(
-      String id,
-      ) async {
+    String id,
+  ) async {
     if (id.isNotEmpty) {
       List<dynamic> data = await db.query(
         'Token',
@@ -83,8 +82,8 @@ class TokenRepository
   // ----------------
 
   Future<int> count(
-      Bucket bucket,
-      ) async {
+    Bucket bucket,
+  ) async {
     List<dynamic> data = await db.query(
       'Token',
       columns: ['COUNT (*) AS amount'],

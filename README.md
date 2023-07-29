@@ -45,7 +45,8 @@ $ ab -k -n 10000 -c 10 http://0.0.0.0:8080/static/help.html
 
 
 
-TODO:
+TODO
+----
 
 statistics
 token stamping
@@ -54,3 +55,65 @@ garbage collection
 consistency checks
 pdf handling
 rollout
+
+
+
+
+
+Hetzner, ilja
+-------------
+
+http://128.140.2.103:8080/static/help.html
+
+
+IDEAS
+-----
+
+Token can be used only n times
+        uses INTEGER DEFAULT 0 NOT NULL,
+
+Token must be accessed every n seconds or dies
+        ttl INTEGER DEFAULT 0 NOT NULL,
+
+Token expires on fix date/uts
+        expires INTEGER DEFAULT 0 NOT NULL
+
+
+Pdf Forms:
+https://stackoverflow.com/questions/9139787/how-to-fill-pdf-form-in-php
+pdftk form.pdf generate_fdf output data.fdf
+pdftk form.pdf fill_form data.fdf output form_with_data.pdf
+
+
+API
+---
+
+POST /api/bucket 
+{"id": 77}
+
+POST /api/token
+{"buckets": [77]}
+
+POST /api/token
+{"root": true}
+
+POST /api/bucket/77/method
+{"name": "thumb2", "tool": "convert", ... }
+
+DELETE /api/bucket/77/method/thumb2
+
+GET /api/bucket/77
+
+GET /api/bucket/77/stats
+
+POST /api/bucket/77/token
+{}
+
+GET /api/bucket/77/token/1f077f5b99634d0c8839a45000692b20
+
+
+
+
+
+
+

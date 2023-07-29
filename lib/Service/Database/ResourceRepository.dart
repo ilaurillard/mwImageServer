@@ -4,8 +4,7 @@ import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
-class ResourceRepository
-{
+class ResourceRepository {
   late final Database db;
 
   ResourceRepository(this.db);
@@ -13,11 +12,12 @@ class ResourceRepository
   // ----------------- RESOURCE
 
   Future<Resource> create(
-      int bucket, {
-        required String filename,
-        List<int> users = const [],
-        List<int> groups = const [],
-      }) async {
+    int bucket, {
+    required String filename,
+    int size: 0,
+    List<int> users = const [],
+    List<int> groups = const [],
+  }) async {
     String id = Util.randMd5();
 
     // printNotice('sqliteStorage:createToken ' + id);
@@ -26,6 +26,7 @@ class ResourceRepository
       id,
       bucket: bucket,
       filename: filename,
+      size: size,
       users: users,
       groups: groups,
       created: DateTime.now(),
@@ -42,9 +43,9 @@ class ResourceRepository
   // ---------------------
 
   Future<Resource> load(
-      int bucket,
-      String id,
-      ) async {
+    int bucket,
+    String id,
+  ) async {
     if (bucket > 0 && id.isNotEmpty) {
       List<dynamic> data = await db.query(
         'Resource',
@@ -82,8 +83,8 @@ class ResourceRepository
   // ---------------------
 
   Future<int> count(
-      Bucket bucket,
-      ) async {
+    Bucket bucket,
+  ) async {
     List<dynamic> data = await db.query(
       'Resource',
       columns: ['COUNT (*) AS amount'],
