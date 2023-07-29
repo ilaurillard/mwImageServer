@@ -59,8 +59,8 @@ class Server {
     return Router()
       // PUBLIC files ----------------------
       ..get(
-        // /public/77/ff/ff/ffffaaaaffffaaaa1111222233334444/[file]
-        '/public' +
+        // /pub/77/ff/ff/ffffaaaaffffaaaa1111222233334444/[file]
+        '/pub' +
             Config.matchBucket +
             Config.matchSeg1 +
             Config.matchSeg2 +
@@ -79,7 +79,7 @@ class Server {
       )
       // PRIVATE files (with firewall) ----------------------
       ..get(
-        '/private' +
+        '/priv' +
             Config.matchBucket +
             Config.matchSeg1 +
             Config.matchSeg2 +

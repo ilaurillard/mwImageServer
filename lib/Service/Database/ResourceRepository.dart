@@ -14,6 +14,7 @@ class ResourceRepository {
   Future<Resource> create(
     int bucket, {
     required String filename,
+        String mimeType = '',
     int size: 0,
     List<int> users = const [],
     List<int> groups = const [],
@@ -26,6 +27,7 @@ class ResourceRepository {
       id,
       bucket: bucket,
       filename: filename,
+      mimeType: mimeType,
       size: size,
       users: users,
       groups: groups,

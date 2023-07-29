@@ -49,7 +49,7 @@ Authorization: {{admin_token1}}
 
 
 ###
-GET {{host}}/api/bucket/88
+GET {{host}}/api/bucket/77
 Authorization: {{admin_token1}}
 
 > scripts/assert200.js

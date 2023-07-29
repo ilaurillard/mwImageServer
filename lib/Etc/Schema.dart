@@ -25,6 +25,7 @@ class Schema {
         id TEXT PRIMARY KEY NOT NULL,
         bucket INTEGER NOT NULL,
         filename TEXT NOT NULL,
+        mimeType TEXT DEFAULT "" NOT NULL,
         size INTEGER DEFAULT 0 NOT NULL,
         users TEXT NOT NULL,
         groups TEXT NOT NULL,

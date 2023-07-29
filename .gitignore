@@ -6,5 +6,5 @@
 build/
 
 /data/database/system.db
-/data/private/*
-/data/public/*
+/data/priv/*
+/data/pub/*

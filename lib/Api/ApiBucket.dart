@@ -47,8 +47,8 @@ class ApiBucket {
     }
 
     // create folders
-    String pathPublic = '/public/' + id.toString();
-    String pathPrivate = '/private/' + id.toString();
+    String pathPublic = '/pub/' + id.toString();
+    String pathPrivate = '/priv/' + id.toString();
     if (!await fileStorage.dirExists(pathPublic)) {
       await fileStorage.createDir(pathPublic);
     }
@@ -75,8 +75,8 @@ class ApiBucket {
       return Util.rNotFound('Bucket not found');
     }
 
-    String pathPublic = '/public/' + bucket.id.toString();
-    String pathPrivate = '/private/' + bucket.id.toString();
+    String pathPublic = '/pub/' + bucket.id.toString();
+    String pathPrivate = '/priv/' + bucket.id.toString();
     if (!await fileStorage.dirExists(pathPublic)) {
       return Util.rNotFound('Bucket folder missing');
     }

@@ -160,38 +160,35 @@ class ApiResource {
       );
     }
 
-    // ------------------- Create record
+    // ------------------- Create record (need sequence/id for path)
 
     String partData = await mPartMeta.readString();
     Dict data = json.decode(partData) as Dict;
     Resource resource = await sqliteStorage.resources.create(
       bucketId,
       filename: filename,
+      mimeType: mimeType,
       size: partBytes.length,
       users: Util.intListData(data, 'users'),
       groups: Util.intListData(data, 'groups'),
     );
 
-    String path = resource.path();
-
-    if (await fileStorage.dirExists(path)) {
+    if (await fileStorage.dirExists(resource.path())) {
       return Util.rError(
         'Fatal, resource collision',
       );
     }
 
-    // ------------------- Store file
+    printNotice(resource.toString());
+
+    // ------------------- Store file (async!)
 
     storeFile(
-      // async!!
-      path,
       resource,
       partBytes,
     );
 
     // -------------------------
-
-    printNotice(resource.toString());
 
     return Util.rJsonOk(
       resource,
@@ -199,22 +196,21 @@ class ApiResource {
   }
 
   storeFile(
-    String path,
     Resource resource,
     Uint8List bytes,
   ) async {
     try {
       File file = await fileStorage.createFile(
-        path + '/' + resource.filename,
+        resource.path() + '/' + resource.filename,
         bytes,
       );
       int realSize = await file.lengthSync();
       if (realSize != bytes.length) {
         throw 'length check failed ($realSize vs ${bytes.length})';
       }
-    }
-    catch (e) {
+    } catch (e) {
       Util.rError('File error: ' + e.toString());
+      // TODO append this error to database record
     }
   }
 }
