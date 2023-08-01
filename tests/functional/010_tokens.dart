@@ -169,4 +169,39 @@ void main() {
       expect(data['buckets'], equals([]));
     },
   );
+
+  test(
+    'Admin 99 creates admin token',
+        () async {
+      http.Response r = await http.post(
+        Uri.parse(host + '/api/bucket/99/token'),
+        headers: {'Authorization': token99},
+        body: jsonEncode({
+          'root': true,
+          'buckets': [77, 66],
+          'users': [33],
+        }),
+      );
+      expect(r.statusCode, equals(200));
+      Dict data = json.decode(r.body) as Dict;
+      expect(data['root'], equals(false));
+      expect(data['bucket'], equals(99));
+      expect(data['buckets'], equals([99]));
+      expect(data['users'], equals([33]));
+    },
+  );
+
+  test(
+    'Admin 99 cannot create root token',
+        () async {
+      http.Response r = await http.post(
+        Uri.parse(host + '/api/token'),
+        headers: {'Authorization': token99},
+        body: jsonEncode({
+          'root': true,
+        }),
+      );
+      expect(r.statusCode, equals(403));
+    },
+  );
 }

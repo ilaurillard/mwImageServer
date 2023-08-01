@@ -9,13 +9,16 @@ import 'package:test/test.dart';
 import '../testConfig.dart';
 
 void main() {
-  const CRLF = '\r\n';
-
   String token98 = '';
   String token99 = '';
 
+  String token777 = '';
+  String token999 = '';
+
   String resourceId1 = '';
   String resourceUrl1 = '';
+
+  String resourceId2 = '';
   String resourceUrl2 = '';
 
   test('Create invalid resource', () async {
@@ -212,6 +215,8 @@ void main() {
     },
   );
 
+  // ------------------------
+
   test('Admin creates a private resource', () async {
     http.Response r = await http.post(
       Uri.parse(host + '/api/bucket/98/resource'),
@@ -221,7 +226,10 @@ void main() {
       },
       body: Util.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
-        {'users': [99]},
+        {
+          'users': [777],
+          'groups': [999]
+        },
         'image/jpeg',
         'ffff23.jpg',
       ),
@@ -258,6 +266,7 @@ void main() {
 
     expect(data['public'], equals(true));
 
+    resourceId2 = data['id'] as String;
     resourceUrl2 = host +
         '/' +
         (data['path'] as String) +
@@ -267,9 +276,105 @@ void main() {
 
   test(
     'Anyone can load public resource',
-        () async {
+    () async {
       http.Response r = await http.get(
         Uri.parse(resourceUrl2),
+      );
+      expect(r.statusCode, equals(200));
+    },
+  );
+
+  test(
+    'Admin 99 cannot delete resource',
+    () async {
+      http.Response r = await http.delete(
+        Uri.parse(host + '/api/bucket/98/resource/' + resourceId2),
+        headers: {'Authorization': token99},
+      );
+      expect(r.statusCode, equals(403));
+    },
+  );
+
+  test(
+    'Admin 98 can delete resource',
+    () async {
+      http.Response r = await http.delete(
+        Uri.parse(host + '/api/bucket/98/resource/' + resourceId2),
+        headers: {'Authorization': token98},
+      );
+      expect(r.statusCode, equals(204));
+    },
+  );
+
+  test(
+    'Private resource is protected',
+        () async {
+      http.Response r = await http.get(
+        Uri.parse(resourceUrl1),
+      );
+      expect(r.statusCode, equals(404));
+    },
+  );
+
+  test(
+    'Public resource is deleted',
+    () async {
+      http.Response r = await http.get(
+        Uri.parse(resourceUrl2),
+      );
+      expect(r.statusCode, equals(404));
+    },
+  );
+
+  test(
+    'Admin 98 creates token for user 777',
+    () async {
+      http.Response r = await http.post(
+        Uri.parse(host + '/api/bucket/98/token'),
+        headers: {'Authorization': token98},
+        body: jsonEncode({
+          'users': [777],
+        }),
+      );
+      expect(r.statusCode, equals(200));
+      Dict data = json.decode(r.body) as Dict;
+      token777 = data['id'] as String;
+    },
+  );
+
+  test(
+    'Private resource is accessible for user 777',
+        () async {
+      http.Response r = await http.get(
+        Uri.parse(resourceUrl1),
+        headers: {'Authorization': token777},
+      );
+      expect(r.statusCode, equals(200));
+    },
+  );
+
+  test(
+    'Admin 98 creates token for group 999',
+        () async {
+      http.Response r = await http.post(
+        Uri.parse(host + '/api/bucket/98/token'),
+        headers: {'Authorization': token98},
+        body: jsonEncode({
+          'groups': [999],
+        }),
+      );
+      expect(r.statusCode, equals(200));
+      Dict data = json.decode(r.body) as Dict;
+      token999 = data['id'] as String;
+    },
+  );
+
+  test(
+    'Private resource is accessible for group 999',
+        () async {
+      http.Response r = await http.get(
+        Uri.parse(resourceUrl1),
+        headers: {'Authorization': token999},
       );
       expect(r.statusCode, equals(200));
     },
