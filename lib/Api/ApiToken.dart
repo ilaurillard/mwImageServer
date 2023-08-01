@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:shelf/shelf.dart';
-import 'package:shelf_router/shelf_router.dart';
-
-import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Model/Token.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
+import 'package:shelf/shelf.dart';
+import 'package:shelf_router/shelf_router.dart';
 
 class ApiToken {
   final SqliteStorage sqliteStorage;
@@ -36,6 +35,8 @@ class ApiToken {
         // no access to other buckets
         buckets = [bucket];
       }
+    } else if (buckets.isNotEmpty) {
+      bucket = buckets.first;
     }
 
     Token token = await sqliteStorage.tokens.create(

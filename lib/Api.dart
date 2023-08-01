@@ -44,9 +44,9 @@ class Api {
           Router()
             // ---------------------------- bucket
             ..post(
-              // add new bucket (POST)
+              // add new bucket or update (POST)
               '/bucket', // /api/bucket
-              apiBucket.create,
+              apiBucket.store,
             )
             ..get(
               // info on bucket (GET)

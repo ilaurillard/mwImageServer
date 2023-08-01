@@ -123,8 +123,11 @@ class ApiResource {
         return Util.rBadRequest('Too many parts');
       }
     }
-    if (mPartMeta == null || mPartFile == null) {
-      return Util.rBadRequest('Missing parts');
+    if (mPartMeta == null) {
+      return Util.rBadRequest('Missing meta part');
+    }
+    if (mPartFile == null) {
+      return Util.rBadRequest('Missing file part');
     }
 
     // -------------- check mimetype, filename, ...

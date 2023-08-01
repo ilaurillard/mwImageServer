@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
@@ -21,10 +22,10 @@ class ApiBucket {
 
   // ---------------------
 
-  FutureOr<Response> create(
+  FutureOr<Response> store(
     Request request,
   ) async {
-    printInfo('[ApiBucket.create]');
+    printInfo('[ApiBucket.store]');
 
     Dict data = await Util.jsonObject(request);
 
@@ -36,10 +37,15 @@ class ApiBucket {
       id,
     );
 
-    if (!bucket.valid()) {
-      // TODO validate
-      String name = Util.stringData(data, 'name');
+    String name = Util.stringData(data, 'name');
+    if (!Config.validBucketName.hasMatch(name)) {
+      return Util.rBadRequest('Invalid bucket name');
+    }
 
+    if (bucket.valid()) {
+      bucket.name = name;
+      await sqliteStorage.buckets.update(bucket);
+    } else {
       bucket = await sqliteStorage.buckets.create(
         id,
         name,
@@ -128,7 +134,14 @@ class ApiBucket {
 
     // TODO check incoming data
     String name = Util.stringData(data, 'name');
+    if (!Config.validMethodName.hasMatch(name)) {
+      return Util.rBadRequest('Invalid method name');
+    }
     String tool = Util.stringData(data, 'tool');
+    if (!Config.validToolName.hasMatch(tool)) {
+      return Util.rBadRequest('Invalid tool name');
+    }
+
     List<String> parameters = Util.stringListData(data, 'parameters');
 
     Method method = Method(

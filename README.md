@@ -39,7 +39,12 @@ $ curl http://0.0.0.0:8080/priv/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.j
 
 ---- tests
 
+http client tests in phpstorm
+
 $ ab -k -n 10000 -c 10 http://0.0.0.0:8080/static/help.html
+
+$ dart test tests/functional/* --reporter=expanded -j1
+
 
 ----
 
@@ -52,10 +57,11 @@ statistics
 token stamping
 token TTL
 garbage collection
+remove buckets
+revoke tokens
 consistency checks
 pdf handling
 rollout
-
 
 
 

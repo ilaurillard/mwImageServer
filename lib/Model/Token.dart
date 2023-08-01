@@ -9,12 +9,12 @@ class Token implements JsonSerializable, Entity {
   final String _id;
 
   final bool root;
-  final int bucket; // read resource bucket
+  final int bucket; // read access to (resource) bucket
 
-  final List<int> users; //
+  final List<int> users;
   final List<int> groups;
 
-  final List<int> buckets; // bucket api access (admin)
+  final List<int> buckets; // write access to buckets (admin)
 
   final DateTime? stamp;
   final DateTime? created;

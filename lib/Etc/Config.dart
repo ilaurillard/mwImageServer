@@ -19,6 +19,10 @@ class Config {
   static const String matchMethod = '/<method|[a-z0-9]{1,24}>';
   static const String matchFile = '/<file|.*>';
 
+  static RegExp validBucketName = RegExp(r'^[a-zA-Z0-9]{0,24}$');
+  static RegExp validMethodName = RegExp(r'^[a-zA-Z0-9]{1,16}$');
+  static RegExp validToolName = RegExp(r'^[a-zA-Z0-9]{1,16}$');
+
   static const KeyValue jsonHeaders = {
     'content-type': 'application/json',
   };

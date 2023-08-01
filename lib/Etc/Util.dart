@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
 import 'package:mwcdn/Etc/Config.dart';
@@ -22,7 +23,16 @@ class Util {
     Request request,
   ) async {
     String tmp = await request.readAsString();
-    return json.decode(tmp) as Dict;
+
+    Dict data;
+    try {
+      data = json.decode(tmp) as Dict;
+    } catch (e) {
+      data = {};
+      printWarning('[500] Json decode: ' + e.toString());
+    }
+
+    return data;
   }
 
   // ----------------
@@ -31,9 +41,11 @@ class Util {
     Dict data,
     String key,
   ) {
-    return List<int>.from(
+    List<int> list = List<int>.from(
       data[key] as List? ?? [],
-    );
+    ).toSet().toList().where((int i) => i > 0).toList();
+    list.sort();
+    return list;
   }
 
   // ----------------
@@ -260,6 +272,42 @@ class Util {
       message,
       headers: Config.jsonHeaders,
     );
+  }
+
+  static Uint8List upload(
+    Uint8List imageData,
+    Dict meta,
+    String mime,
+    String filename,
+  ) {
+    BytesBuilder data = BytesBuilder();
+    data.add(
+      Uint8List.fromList(
+        ('--MyBoundary' +
+                '\r\n' +
+                'Content-Type: application/json' +
+                '\r\n\r\n' +
+                json.encode(meta) +
+                '\r\n' +
+                '--MyBoundary' +
+                '\r\n' +
+                'Content-Disposition: form-data; filename="' +
+                filename +
+                '"' +
+                '\r\n' +
+                'Content-Type: ' +
+                mime +
+                '\r\n\r\n')
+            .codeUnits,
+      ),
+    );
+    data.add(imageData);
+    data.add(
+      Uint8List.fromList(
+        ('\r\n' + '--MyBoundary--' + '\r\n').codeUnits,
+      ),
+    );
+    return data.toBytes();
   }
 }
 

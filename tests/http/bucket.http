@@ -24,6 +24,15 @@ client.test('test', function () {
 }); %}
 
 
+###  Admin creates Bucket -> fail
+POST {{host}}/api/bucket
+Authorization: {{admin_token1}}
+
+{"id": 11}
+
+> scripts/assert403.js
+
+
 ###
 POST {{host}}/api/bucket/77/method
 Authorization: {{admin_token1}}

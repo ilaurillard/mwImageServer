@@ -7,7 +7,7 @@ import 'package:mwcdn/Service/Converter.dart';
 
 class Bucket implements JsonSerializable {
   final int id;
-  final String name;
+  String name;
   final List<Method> methods;
   final bool exists;
   final DateTime? created;
