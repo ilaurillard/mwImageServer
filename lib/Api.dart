@@ -60,7 +60,7 @@ class Api {
             )
             ..get(
               // more info on bucket (GET)
-              '/bucket${Config.matchBucket}/stats',  // /api/bucket/77/stats
+              '/bucket${Config.matchBucket}/stats', // /api/bucket/77/stats
               apiStats.bucket,
             )
             ..post(
@@ -80,21 +80,24 @@ class Api {
               '/bucket${Config.matchBucket}/resource',
               apiResource.create,
             )
-            ..post(
-              '/bucket${Config.matchBucket}/resource${Config.matchResource}/flush',
-              apiResource.flush,
-            )
             ..all(
               '/bucket${Config.matchBucket}/resource${Config.matchResource}',
               apiResource.crud,
             )
+            ..post(
+              // /api/bucket/77/resource/[resource]/flush
+              '/bucket${Config.matchBucket}/resource${Config.matchResource}/flush',
+              apiResource.flush,
+            )
             // ---------------------------- token (customer/bucket)
             ..post(
-              '/bucket${Config.matchBucket}/token', // /api/bucket/77/token
+              // /api/bucket/77/token
+              '/bucket${Config.matchBucket}/token',
               apiToken.create,
             )
             ..get(
               // show token meta
+              // /api/bucket/77/token/[token]
               '/bucket${Config.matchBucket}/token${Config.matchToken}',
               apiToken.show,
             )

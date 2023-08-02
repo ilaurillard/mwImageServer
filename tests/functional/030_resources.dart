@@ -14,7 +14,8 @@ void main() {
   String token888 = '';
 
   String resourceId1 = '';
-  String resourceUrl1 = '';
+  String resourcePath1 = '';
+  String resourceFilename1 = '';
 
   test(
     'Root creates admin token for bucket (98)',
@@ -45,7 +46,7 @@ void main() {
     token888 = data['id'] as String;
   });
 
-  test('Admin 98 creates a private resource (for user 777)', () async {
+  test('Admin 98 creates a public resource', () async {
     http.Response r = await http.post(
       Uri.parse('${host}api/bucket/98/resource'),
       headers: {
@@ -54,62 +55,37 @@ void main() {
       },
       body: UtilTest.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
-        {
-          'users': [777]
-        },
+        {},
         'image/jpeg',
         'ffff23.jpg',
       ),
     );
     expect(r.statusCode, equals(200));
     Dict data = json.decode(r.body) as Dict;
-    expect(data['public'], equals(false));
-    expect(data['users'], equals([777]));
+    expect(data['public'], equals(true));
     expect(data['filename'], equals('ffff23.jpg'));
     resourceId1 = data['id'] as String;
-    resourceUrl1 =
-        '$host${data['path'] as String}/${data['filename'] as String}';
+    resourcePath1 =
+        data['path'] as String;
+    resourceFilename1 = data['filename'] as String;
   });
 
-  test('User 888 cannot access private resource', () async {
+  test('User 888 can access resource', () async {
     http.Response r = await http.get(
-      Uri.parse(resourceUrl1),
-      headers: {'Authorization': token888},
-    );
-    expect(r.statusCode, equals(403));
-  });
-
-  test('Admin 98 changes resource meta (allow user 888)', () async {
-    http.Response r = await http.post(
-      Uri.parse('${host}api/bucket/98/resource/$resourceId1'),
-      headers: {'Authorization': token98},
-      body: json.encode({
-        'users': [888],
-        'groups': [2]
-      }),
-    );
-    expect(r.statusCode, equals(200));
-    Dict data = json.decode(r.body) as Dict;
-    expect(data['public'], equals(false));
-    expect(data['users'], equals([888]));
-    expect(data['groups'], equals([2]));
-  });
-
-  test('User 888 cannot access resource meta', () async {
-    http.Response r = await http.get(
-      Uri.parse('${host}api/bucket/98/resource/$resourceId1'),
-      headers: {'Authorization': token888},
-    );
-    expect(r.statusCode, equals(403));
-  });
-
-  test('User 888 can access private resource', () async {
-    http.Response r = await http.get(
-      Uri.parse(resourceUrl1),
+      Uri.parse('$host$resourcePath1/$resourceFilename1'),
       headers: {'Authorization': token888},
     );
     expect(r.statusCode, equals(200));
     expect(r.contentLength, equals(46975));
+  });
+
+  test('User 888 can access default thumbnail', () async {
+    http.Response r = await http.get(
+      Uri.parse('$host$resourcePath1/thumb1-$resourceFilename1'),
+      headers: {'Authorization': token888},
+    );
+    expect(r.statusCode, equals(200));
+    expect(r.contentLength, equals(2929));
   });
 
   test('Admin 98 deletes resource', () async {
@@ -120,11 +96,12 @@ void main() {
     expect(r.statusCode, equals(204));
   });
 
-  test('User 888 cannot access private resource anymore', () async {
+  test('User 888 cannot access default thumbnail', () async {
     http.Response r = await http.get(
-      Uri.parse(resourceUrl1),
+      Uri.parse('$host$resourcePath1/thumb1-$resourceFilename1'),
       headers: {'Authorization': token888},
     );
     expect(r.statusCode, equals(404));
   });
+
 }

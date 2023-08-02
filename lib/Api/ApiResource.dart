@@ -78,7 +78,7 @@ class ApiResource {
         resource,
       );
     }
-    if (request.method == 'DELETE') {
+    else if (request.method == 'DELETE') {
       bool successFiles = await fileStorage.deleteResourceFiles(resource);
       bool successRecord = await sqliteStorage.deleteEntity(resource);
       if (!successFiles || !successRecord) {
@@ -88,7 +88,7 @@ class ApiResource {
       }
       return Response(204);
     }
-    if (request.method == 'POST') {
+    else if (request.method == 'POST') {
       bool wasPublic = resource.public();
 
       Dict data = await Util.jsonObject(request);

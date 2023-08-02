@@ -47,8 +47,8 @@ void main() {
         headers: {'Authorization': rootKey},
       );
       expect(r.statusCode, equals(200));
-      Dict data = json.decode(r.body) as Dict;
-      print(data);
+      // Dict data = json.decode(r.body) as Dict;
+      // print(data);
     },
   );
 
@@ -71,8 +71,8 @@ void main() {
         headers: {'Authorization': rootKey},
       );
       expect(r.statusCode, equals(200));
-      Dict data = json.decode(r.body) as Dict;
-      print(data);
+      // Dict data = json.decode(r.body) as Dict;
+      // print(data);
     },
   );
 }
