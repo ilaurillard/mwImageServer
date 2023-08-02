@@ -11,6 +11,8 @@ import '../testConfig.dart';
 void main() {
   String token98 = '';
 
+  String token888 = '';
+
   String resourceId1 = '';
   String resourceUrl1 = '';
 
@@ -30,7 +32,20 @@ void main() {
     },
   );
 
-  test('Admin 98 creates a private resource', () async {
+  test('Admin 98 creates token for user 888', () async {
+    http.Response r = await http.post(Uri.parse('${host}api/bucket/98/token'),
+        headers: {
+          'Authorization': token98,
+        },
+        body: json.encode({
+          'users': [888]
+        }));
+    expect(r.statusCode, equals(200));
+    Dict data = json.decode(r.body) as Dict;
+    token888 = data['id'] as String;
+  });
+
+  test('Admin 98 creates a private resource (for user 777)', () async {
     http.Response r = await http.post(
       Uri.parse('${host}api/bucket/98/resource'),
       headers: {
@@ -40,7 +55,7 @@ void main() {
       body: UtilTest.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
         {
-          'users': [6]
+          'users': [777]
         },
         'image/jpeg',
         'ffff23.jpg',
@@ -49,23 +64,51 @@ void main() {
     expect(r.statusCode, equals(200));
     Dict data = json.decode(r.body) as Dict;
     expect(data['public'], equals(false));
-    expect(data['users'], equals([6]));
+    expect(data['users'], equals([777]));
     expect(data['filename'], equals('ffff23.jpg'));
     resourceId1 = data['id'] as String;
     resourceUrl1 =
         '$host${data['path'] as String}/${data['filename'] as String}';
   });
 
-  test('Admin 98 changes resource meta', () async {
+  test('User 888 cannot access private resource', () async {
+    http.Response r = await http.get(
+      Uri.parse(resourceUrl1),
+      headers: {'Authorization': token888},
+    );
+    expect(r.statusCode, equals(403));
+  });
+
+  test('Admin 98 changes resource meta (allow user 888)', () async {
     http.Response r = await http.post(
       Uri.parse('${host}api/bucket/98/resource/$resourceId1'),
       headers: {'Authorization': token98},
-      body: json.encode({'users': [7], 'groups': [2]}),
+      body: json.encode({
+        'users': [888],
+        'groups': [2]
+      }),
     );
     expect(r.statusCode, equals(200));
     Dict data = json.decode(r.body) as Dict;
     expect(data['public'], equals(false));
-    expect(data['users'], equals([7]));
+    expect(data['users'], equals([888]));
     expect(data['groups'], equals([2]));
+  });
+
+  test('User 888 cannot access resource meta', () async {
+    http.Response r = await http.get(
+      Uri.parse('${host}api/bucket/98/resource/$resourceId1'),
+      headers: {'Authorization': token888},
+    );
+    expect(r.statusCode, equals(403));
+  });
+
+  test('User 888 can access private resource', () async {
+    http.Response r = await http.get(
+      Uri.parse(resourceUrl1),
+      headers: {'Authorization': token888},
+    );
+    expect(r.statusCode, equals(200));
+    expect(r.contentLength, equals(46975));
   });
 }
