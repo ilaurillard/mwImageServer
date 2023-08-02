@@ -49,12 +49,12 @@ class Token implements JsonSerializable, Entity {
       return false;
     }
     // Access via group id match or via user id match
-    return Set.from(groups)
+    return Set<int>.from(groups)
             .intersection(
               Set.from(resource.groups),
             )
             .isNotEmpty ||
-        Set.from(users)
+        Set<int>.from(users)
             .intersection(
               Set.from(resource.users),
             )

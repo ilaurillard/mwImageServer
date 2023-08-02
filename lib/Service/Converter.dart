@@ -9,6 +9,7 @@ import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:shelf_static/shelf_static.dart';
 
@@ -16,6 +17,10 @@ class Converter {
   final SqliteStorage sqliteStorage;
   final FileStorage fileStorage;
   final Imagick imagick;
+
+  static List<String> tools = [
+    'convert',
+  ];
 
   Converter({
     required this.sqliteStorage,
@@ -74,8 +79,7 @@ class Converter {
         target,
         method,
       );
-    }
-    else {
+    } else {
       return Util.rNotFound('Tool not found (${method.tool})');
     }
 
@@ -91,7 +95,6 @@ class Converter {
   static Method builtInMethods(
     String methodName,
   ) {
-
     if (methodName == 'thumb1') {
       return Method(
         methodName,

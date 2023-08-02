@@ -9,3 +9,4 @@ analyzer:
   language:
     strict-raw-types: true
     strict-casts: true
+    strict-inference: true

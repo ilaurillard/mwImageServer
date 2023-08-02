@@ -42,6 +42,19 @@ class ResourceRepository {
     return resource;
   }
 
+  Future<void> update(
+      Resource resource,
+      ) async {
+    await db.update(
+      'Resource',
+      resource.toDatabaseUpdate(),
+      where: 'id = ?',
+      whereArgs: [
+        resource.id,
+      ],
+    );
+  }
+
   // ---------------------
 
   Future<Resource> load(

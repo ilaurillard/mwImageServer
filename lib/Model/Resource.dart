@@ -10,8 +10,8 @@ class Resource implements JsonSerializable, Entity {
   final String filename;
   final String mimeType;
   int size;
-  final List<int> users;
-  final List<int> groups;
+  List<int> users;
+  List<int> groups;
 
   final DateTime? created;
 
@@ -56,6 +56,13 @@ class Resource implements JsonSerializable, Entity {
       'filename': filename,
       'mimeType': mimeType,
       'size': size,
+    };
+  }
+
+  Dict toDatabaseUpdate() {
+    return {
+      'users': users.join(';'),
+      'groups': groups.join(';'),
     };
   }
 

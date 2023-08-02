@@ -34,7 +34,7 @@ class BucketRepository {
   ) async {
     await db.update(
       'Bucket',
-      bucket.toDatabase(),
+      bucket.toDatabaseUpdate(),
       where: 'id = ?',
       whereArgs: [
         bucket.id,

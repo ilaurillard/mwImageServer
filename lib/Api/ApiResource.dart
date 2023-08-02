@@ -89,6 +89,20 @@ class ApiResource {
       return Response(204);
     }
     if (request.method == 'POST') {
+      bool wasPublic = resource.public();
+
+      Dict data = await Util.jsonObject(request);
+      resource.users = Util.intListData(data, 'users');
+      resource.groups = Util.intListData(data, 'groups');
+
+      if (resource.public() != wasPublic) {
+        return Util.rError(
+          'Cannot change a resource from pub to priv and vice versa',
+        );
+      }
+
+      await sqliteStorage.resources.update(resource);
+
       return Util.rJsonOk(resource);
     }
 
@@ -201,7 +215,7 @@ class ApiResource {
     );
   }
 
-  _storeFile(
+  void _storeFile(
     Resource resource,
     Uint8List bytes,
   ) async {

@@ -159,7 +159,7 @@ void main() {
         headers: {'Authorization': rootKey},
         body: jsonEncode({
           'root': true,
-          'buckets': [],
+          'buckets': <int>[],
         }),
       );
       expect(r.statusCode, equals(200));

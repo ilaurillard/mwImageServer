@@ -7,6 +7,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 import 'package:path/path.dart';
 import 'package:shelf/shelf.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:string_scanner/string_scanner.dart';
 
@@ -39,12 +40,16 @@ class Util {
 
   static List<int> intListData(
     Dict data,
-    String key,
-  ) {
+    String key, {
+    int max = 100,
+  }) {
     List<int> list = List<int>.from(
       data[key] as List? ?? [],
     ).toSet().toList().where((int i) => i > 0).toList();
     list.sort();
+    if (list.length > max) {
+      return list.sublist(0, max);
+    }
     return list;
   }
 
@@ -54,9 +59,10 @@ class Util {
     Dict data,
     String key,
   ) {
-    return List<String>.from(
+    List<String> list = List<String>.from(
       data[key] as List? ?? [],
     );
+    return list;
   }
 
   // ----------------

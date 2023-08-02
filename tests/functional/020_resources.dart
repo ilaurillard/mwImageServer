@@ -60,13 +60,12 @@ void main() {
     http.Response r = await http.post(
       Uri.parse('${host}api/bucket/98/resource/$resourceId1'),
       headers: {'Authorization': token98},
-      body: json.encode({'users': [7]}),
+      body: json.encode({'users': [7], 'groups': [2]}),
     );
     expect(r.statusCode, equals(200));
     Dict data = json.decode(r.body) as Dict;
     expect(data['public'], equals(false));
     expect(data['users'], equals([7]));
-
-    print(data);
+    expect(data['groups'], equals([2]));
   });
 }

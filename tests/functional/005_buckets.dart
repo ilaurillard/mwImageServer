@@ -188,7 +188,7 @@ void main() {
         body: jsonEncode({
           'name': 'thumb3',
           'tool': 'convert',
-          'parameters': []
+          'parameters': <String>[]
         }),
       );
       expect(r.statusCode, equals(200));

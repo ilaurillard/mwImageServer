@@ -48,7 +48,7 @@ void main(
         imagick: imagick,
         rootKey: args.rootKey,
       ).start,
-      [],
+      <int>[],
     );
   }
 

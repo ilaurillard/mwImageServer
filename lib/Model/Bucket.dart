@@ -42,6 +42,13 @@ class Bucket implements JsonSerializable {
     };
   }
 
+  Dict toDatabaseUpdate() {
+    return {
+      'name': name,
+      'methods': json.encode(methods),
+    };
+  }
+
   factory Bucket.fromDatabase(
     Dict row,
   ) {

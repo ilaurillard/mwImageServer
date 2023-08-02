@@ -6,6 +6,7 @@ import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/BucketStats.dart';
 import 'package:mwcdn/Model/Method.dart';
+import 'package:mwcdn/Service/Converter.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:shelf/shelf.dart';
@@ -140,8 +141,8 @@ class ApiBucket {
       return Util.rBadRequest('Invalid method name');
     }
     String tool = Util.stringData(data, 'tool');
-    if (!Config.validToolName.hasMatch(tool)) {
-      return Util.rBadRequest('Invalid tool name');
+    if (!Converter.tools.contains(tool)) {
+      return Util.rBadRequest('Unknown tool name');
     }
 
     List<String> parameters = Util.stringListData(data, 'parameters');
