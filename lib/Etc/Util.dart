@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
 import 'package:mwcdn/Etc/Config.dart';
@@ -8,6 +7,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 import 'package:path/path.dart';
 import 'package:shelf/shelf.dart';
+// ignore: depend_on_referenced_packages
 import 'package:string_scanner/string_scanner.dart';
 
 class Util {
@@ -29,7 +29,7 @@ class Util {
       data = json.decode(tmp) as Dict;
     } catch (e) {
       data = {};
-      printWarning('[500] Json decode: ' + e.toString());
+      printWarning('[500] Json decode: $e');
     }
 
     return data;
@@ -159,38 +159,38 @@ class Util {
   ) {
     final scanner = StringScanner(header);
 
-    final _token = RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');
-    final _whitespace = RegExp(r'(?:(?:\r\n)?[ \t]+)*');
-    final _quotedString = RegExp(r'"(?:[^"\x00-\x1F\x7F]|\\.)*"');
-    final _quotedPair = RegExp(r'\\(.)');
+    final token = RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');
+    final whitespace = RegExp(r'(?:(?:\r\n)?[ \t]+)*');
+    final quotedString = RegExp(r'"(?:[^"\x00-\x1F\x7F]|\\.)*"');
+    final quotedPair = RegExp(r'\\(.)');
 
     scanner
-      ..scan(_whitespace)
-      ..expect(_token);
+      ..scan(whitespace)
+      ..expect(token);
     if (scanner.lastMatch![0] != 'form-data') return {};
 
     final params = <String, String>{};
 
     while (scanner.scan(';')) {
       scanner
-        ..scan(_whitespace)
-        ..scan(_token);
+        ..scan(whitespace)
+        ..scan(token);
       final key = scanner.lastMatch![0]!;
       scanner.expect('=');
 
       String value;
-      if (scanner.scan(_token)) {
+      if (scanner.scan(token)) {
         value = scanner.lastMatch![0]!;
       } else {
-        scanner.expect(_quotedString, name: 'quoted string');
+        scanner.expect(quotedString, name: 'quoted string');
         final string = scanner.lastMatch![0]!;
 
         value = string
             .substring(1, string.length - 1)
-            .replaceAllMapped(_quotedPair, (match) => match[1]!);
+            .replaceAllMapped(quotedPair, (match) => match[1]!);
       }
 
-      scanner.scan(_whitespace);
+      scanner.scan(whitespace);
       params[key] = value;
     }
 
@@ -209,7 +209,7 @@ class Util {
       if (p.contains('%')) {
         map.forEach((String key, String value) {
           p = p.replaceAll(
-            '%' + key + '%',
+            '%$key%',
             value,
           );
         });
@@ -235,7 +235,7 @@ class Util {
   }
 
   static Response rNotFound(String message) {
-    printWarning('[404] ' + message);
+    printWarning('[404] $message');
     return Response.notFound(
       message,
       headers: Config.jsonHeaders,
@@ -243,7 +243,7 @@ class Util {
   }
 
   static Response rError(String message) {
-    printWarning('[500] ' + message);
+    printWarning('[500] $message');
     return Response.internalServerError(
       body: message,
       headers: Config.jsonHeaders,
@@ -251,7 +251,7 @@ class Util {
   }
 
   static Response rBadRequest(String message) {
-    printWarning('[400] ' + message);
+    printWarning('[400] $message');
     return Response.badRequest(
       body: message,
       headers: Config.jsonHeaders,
@@ -259,7 +259,7 @@ class Util {
   }
 
   static Response rUnauthorized(String message) {
-    printWarning('[401] ' + message);
+    printWarning('[401] $message');
     return Response.unauthorized(
       message,
       headers: Config.jsonHeaders,
@@ -267,47 +267,11 @@ class Util {
   }
 
   static Response rForbidden(String message) {
-    printWarning('[403] ' + message);
+    printWarning('[403] $message');
     return Response.forbidden(
       message,
       headers: Config.jsonHeaders,
     );
-  }
-
-  static Uint8List upload(
-    Uint8List imageData,
-    Dict meta,
-    String mime,
-    String filename,
-  ) {
-    BytesBuilder data = BytesBuilder();
-    data.add(
-      Uint8List.fromList(
-        ('--MyBoundary' +
-                '\r\n' +
-                'Content-Type: application/json' +
-                '\r\n\r\n' +
-                json.encode(meta) +
-                '\r\n' +
-                '--MyBoundary' +
-                '\r\n' +
-                'Content-Disposition: form-data; filename="' +
-                filename +
-                '"' +
-                '\r\n' +
-                'Content-Type: ' +
-                mime +
-                '\r\n\r\n')
-            .codeUnits,
-      ),
-    );
-    data.add(imageData);
-    data.add(
-      Uint8List.fromList(
-        ('\r\n' + '--MyBoundary--' + '\r\n').codeUnits,
-      ),
-    );
-    return data.toBytes();
   }
 }
 

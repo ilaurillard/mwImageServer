@@ -11,20 +11,20 @@ class Args {
   Args(
     List<String> args,
   ) {
-    final ArgParser _parser = ArgParser()
+    final ArgParser parser = ArgParser()
       ..addOption('dataDir', abbr: 'd', defaultsTo: '/data')
       ..addOption('rootKey', abbr: 'k', defaultsTo: '');
-    final ArgResults _arguments = _parser.parse(args);
+    final ArgResults arguments = parser.parse(args);
 
-    dataDir = _arguments['dataDir'] as String? ?? '';
+    dataDir = arguments['dataDir'] as String? ?? '';
 
-    String rk = _arguments['rootKey'] as String? ?? '';
+    String rk = arguments['rootKey'] as String? ?? '';
     if (rk.isEmpty) {
       rk = randString(24);
     }
     rootKey = rk;
 
-    printInfo('[rootKey] ' + rootKey);
+    printInfo('[rootKey] $rootKey');
   }
 
   String randString(int len) {

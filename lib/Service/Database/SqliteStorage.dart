@@ -1,5 +1,4 @@
 import 'package:mwcdn/Etc/Schema.dart';
-import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Entity.dart';
@@ -8,7 +7,6 @@ import 'package:mwcdn/Model/Token.dart';
 import 'package:mwcdn/Service/Database/BucketRepository.dart';
 import 'package:mwcdn/Service/Database/ResourceRepository.dart';
 import 'package:mwcdn/Service/Database/TokenRepository.dart';
-import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class SqliteStorage {
@@ -29,14 +27,14 @@ class SqliteStorage {
   Future<void> init() async {
     sqfliteFfiInit();
     db = await databaseFactoryFfi.openDatabase(
-      dataDir + '/database/system.db',
+      '$dataDir/database/system.db',
       options: OpenDatabaseOptions(
         version: 1,
         onUpgrade: Schema.schema,
         singleInstance: false,
       ),
     );
-    printInfo('[sqlite] ' + db.path);
+    printInfo('[sqlite] ${db.path}');
 
     buckets = BucketRepository(db);
     tokens = TokenRepository(db);
@@ -47,7 +45,7 @@ class SqliteStorage {
     // Token, Resource, ...
     Entity entity,
   ) async {
-    printNotice('Delete #' + entity.id + ' --> ' + entity.toString());
+    printNotice('Delete #${entity.id} --> $entity');
 
     int amountDeleted = 0;
 

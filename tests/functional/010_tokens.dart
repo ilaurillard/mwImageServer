@@ -14,7 +14,7 @@ void main() {
     'Root creates admin token for bucket (98)',
         () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/token'),
+        Uri.parse('${host}api/token'),
         headers: {'Authorization': rootKey},
         body: jsonEncode({
           'buckets': [98],
@@ -32,7 +32,7 @@ void main() {
     'Root creates admin token for bucket (99)',
         () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/token'),
+        Uri.parse('${host}api/token'),
         headers: {'Authorization': rootKey},
         body: jsonEncode({
           'buckets': [99]
@@ -48,7 +48,7 @@ void main() {
     'Admin 98 can access bucket (98)',
         () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/98'),
+        Uri.parse('${host}api/bucket/98'),
         headers: {'Authorization': token98},
       );
       expect(r.statusCode, equals(200));
@@ -59,7 +59,7 @@ void main() {
     'Admin 99 can access bucket (99)',
         () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/99'),
+        Uri.parse('${host}api/bucket/99'),
         headers: {'Authorization': token99},
       );
       expect(r.statusCode, equals(200));
@@ -70,7 +70,7 @@ void main() {
     'Admin 98 cannot access bucket (99)',
         () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/99'),
+        Uri.parse('${host}api/bucket/99'),
         headers: {'Authorization': token98},
       );
       expect(r.statusCode, equals(403));
@@ -81,7 +81,7 @@ void main() {
     'Admin 99 cannot access bucket (98)',
         () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/98'),
+        Uri.parse('${host}api/bucket/98'),
         headers: {'Authorization': token99},
       );
       expect(r.statusCode, equals(403));
@@ -92,7 +92,7 @@ void main() {
     'Root can access token (99)',
         () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/token/' + token99),
+        Uri.parse('${host}api/token/$token99'),
         headers: {'Authorization': rootKey},
       );
       expect(r.statusCode, equals(200));
@@ -103,7 +103,7 @@ void main() {
     'Admin 98 can access token (98)',
         () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/98/token/' + token98),
+        Uri.parse('${host}api/bucket/98/token/$token98'),
         headers: {'Authorization': token98},
       );
       expect(r.statusCode, equals(200));
@@ -114,7 +114,7 @@ void main() {
     'Admin 99 can access token (99)',
         () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/99/token/' + token99),
+        Uri.parse('${host}api/bucket/99/token/$token99'),
         headers: {'Authorization': token99},
       );
       expect(r.statusCode, equals(200));
@@ -125,7 +125,7 @@ void main() {
     'Admin 99 cannot access token (99)',
         () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/token/' + token99),
+        Uri.parse('${host}api/token/$token99'),
         headers: {'Authorization': token99},
       );
       expect(r.statusCode, equals(403));
@@ -136,7 +136,7 @@ void main() {
     'Root creates root token',
         () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/token'),
+        Uri.parse('${host}api/token'),
         headers: {'Authorization': rootKey},
         body: jsonEncode({
           'buckets': [99],
@@ -155,7 +155,7 @@ void main() {
     'Root creates admin token',
         () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket/99/token'),
+        Uri.parse('${host}api/bucket/99/token'),
         headers: {'Authorization': rootKey},
         body: jsonEncode({
           'root': true,
@@ -174,7 +174,7 @@ void main() {
     'Admin 99 creates admin token',
         () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket/99/token'),
+        Uri.parse('${host}api/bucket/99/token'),
         headers: {'Authorization': token99},
         body: jsonEncode({
           'root': true,
@@ -195,7 +195,7 @@ void main() {
     'Admin 99 cannot create root token',
         () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/token'),
+        Uri.parse('${host}api/token'),
         headers: {'Authorization': token99},
         body: jsonEncode({
           'root': true,

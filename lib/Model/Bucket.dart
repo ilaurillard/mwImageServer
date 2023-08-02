@@ -24,6 +24,7 @@ class Bucket implements JsonSerializable {
     return id != 0 && exists;
   }
 
+  @override
   Dict toJson() {
     return {
       'id': id,

@@ -43,9 +43,11 @@ class ApiBucket {
     }
 
     if (bucket.valid()) {
+      // update existing bucket
       bucket.name = name;
       await sqliteStorage.buckets.update(bucket);
     } else {
+      // create new bucket
       bucket = await sqliteStorage.buckets.create(
         id,
         name,
@@ -53,8 +55,8 @@ class ApiBucket {
     }
 
     // create folders
-    String pathPublic = '/pub/' + id.toString();
-    String pathPrivate = '/priv/' + id.toString();
+    String pathPublic = '/pub/$id';
+    String pathPrivate = '/priv/$id';
     if (!await fileStorage.dirExists(pathPublic)) {
       await fileStorage.createDir(pathPublic);
     }
@@ -76,13 +78,13 @@ class ApiBucket {
   ) async {
     printInfo('[ApiBucket.show]');
 
-    Bucket bucket = await bucketFromRequest(request);
+    Bucket bucket = await _bucketFromRequest(request);
     if (!bucket.valid()) {
       return Util.rNotFound('Bucket not found');
     }
 
-    String pathPublic = '/pub/' + bucket.id.toString();
-    String pathPrivate = '/priv/' + bucket.id.toString();
+    String pathPublic = '/pub/${bucket.id}';
+    String pathPrivate = '/priv/${bucket.id}';
     if (!await fileStorage.dirExists(pathPublic)) {
       return Util.rNotFound('Bucket folder missing');
     }
@@ -102,7 +104,7 @@ class ApiBucket {
   ) async {
     printInfo('[ApiBucket.stats]');
 
-    Bucket bucket = await bucketFromRequest(request);
+    Bucket bucket = await _bucketFromRequest(request);
     if (!bucket.valid()) {
       return Util.rNotFound('Bucket not found');
     }
@@ -125,7 +127,7 @@ class ApiBucket {
   ) async {
     printInfo('[ApiBucket.addMethod]');
 
-    Bucket bucket = await bucketFromRequest(request);
+    Bucket bucket = await _bucketFromRequest(request);
     if (!bucket.valid()) {
       return Util.rNotFound('Bucket not found');
     }
@@ -168,7 +170,7 @@ class ApiBucket {
   ) async {
     printInfo('[ApiBucket.deleteMethod]');
 
-    Bucket bucket = await bucketFromRequest(request);
+    Bucket bucket = await _bucketFromRequest(request);
     if (!bucket.valid()) {
       return Util.rNotFound('Bucket not found');
     }
@@ -186,7 +188,7 @@ class ApiBucket {
     );
   }
 
-  Future<Bucket> bucketFromRequest(
+  Future<Bucket> _bucketFromRequest(
     Request request,
   ) async {
     int id = int.parse(request.params['bucket'] ?? '0');

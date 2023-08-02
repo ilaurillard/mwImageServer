@@ -9,6 +9,7 @@ import 'package:mwcdn/Service/FileStorage.dart';
 import 'package:mwcdn/Service/Imagick.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
+// ignore: depend_on_referenced_packages
 import 'package:shelf_static/shelf_static.dart';
 
 class Converter {
@@ -52,19 +53,19 @@ class Converter {
 
     Method method = bucket.method(methodName);
     if (!method.valid()) {
-      return Util.rNotFound('Method "' + methodName + '" not exists');
+      return Util.rNotFound('Method "$methodName" not exists');
     }
 
     String path = resource.path();
-    String original = path + '/' + resource.filename;
-    String target = path + '/' + file;
+    String original = '$path/${resource.filename}';
+    String target = '$path/$file';
 
     if (!await fileStorage.dirExists(path)) {
-      return Util.rNotFound('Folder not exists (' + path + ')');
+      return Util.rNotFound('Folder not exists ($path)');
     }
 
     if (!await fileStorage.fileExists(original)) {
-      return Util.rNotFound('File not exists (' + original + ')');
+      return Util.rNotFound('File not exists ($original)');
     }
 
     if (method.tool == 'convert') {
@@ -75,7 +76,7 @@ class Converter {
       );
     }
     else {
-      return Util.rNotFound('Tool not found (' + method.tool + ')');
+      return Util.rNotFound('Tool not found (${method.tool})');
     }
 
     // now try again to serve file after converting took place

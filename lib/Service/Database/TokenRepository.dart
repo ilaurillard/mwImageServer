@@ -54,10 +54,10 @@ class TokenRepository {
         limit: 1,
       );
       if (data.isNotEmpty) {
-        printNotice('Loaded token: ' + id);
+        printNotice('Loaded token: $id');
         return Token.fromDatabase(data.first as Dict);
       } else {
-        printWarning('Token not found: ' + id);
+        printWarning('Token not found: $id');
       }
     }
     return Token.notFound(id);

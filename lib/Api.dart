@@ -50,54 +50,47 @@ class Api {
             )
             ..get(
               // info on bucket (GET)
-              '/bucket' + Config.matchBucket, // /api/bucket/77
+              '/bucket${Config.matchBucket}', // /api/bucket/77
               apiBucket.show,
             )
             ..get(
               // more info on bucket (GET)
-              '/bucket' + Config.matchBucket + '/stats',
+              '/bucket${Config.matchBucket}/stats',
               apiBucket.stats,
             )
             ..post(
               // create a method
-              '/bucket' + Config.matchBucket + '/method',
+              '/bucket${Config.matchBucket}/method',
               apiBucket.addMethod,
             )
             ..delete(
               // remove a method
-              '/bucket' + Config.matchBucket + '/method' + Config.matchMethod,
+              '/bucket${Config.matchBucket}/method${Config.matchMethod}',
               apiBucket.deleteMethod,
             )
             // ---------------------------- resource
             ..post(
               // create a resource
               // /api/bucket/77/resource
-              '/bucket' + Config.matchBucket + '/resource',
+              '/bucket${Config.matchBucket}/resource',
               apiResource.create,
             )
             ..post(
-              '/bucket' +
-                  Config.matchBucket +
-                  '/resource' +
-                  Config.matchResource +
-                  '/flush',
+              '/bucket${Config.matchBucket}/resource${Config.matchResource}/flush',
               apiResource.flush,
             )
             ..all(
-              '/bucket' +
-                  Config.matchBucket +
-                  '/resource' +
-                  Config.matchResource,
+              '/bucket${Config.matchBucket}/resource${Config.matchResource}',
               apiResource.crud,
             )
             // ---------------------------- token (customer/bucket)
             ..post(
-              '/bucket' + Config.matchBucket + '/token', // /api/bucket/77/token
+              '/bucket${Config.matchBucket}/token', // /api/bucket/77/token
               apiToken.create,
             )
             ..get(
               // show token meta
-              '/bucket' + Config.matchBucket + '/token' + Config.matchToken,
+              '/bucket${Config.matchBucket}/token${Config.matchToken}',
               apiToken.show,
             )
             // ---------------------------- root tokens (root only)
@@ -107,7 +100,7 @@ class Api {
             )
             ..get(
               // show token meta
-              '/token' + Config.matchToken,
+              '/token${Config.matchToken}',
               apiToken.show,
             ),
         );

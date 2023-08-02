@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Etc/UtilTest.dart';
 import 'package:test/test.dart';
 
 import '../testConfig.dart';
@@ -21,22 +21,25 @@ void main() {
   String resourceId2 = '';
   String resourceUrl2 = '';
 
-  test('Create invalid resource', () async {
-    http.Response r = await http.post(
-      Uri.parse(host + '/api/bucket/98/resource'),
-      headers: {'Authorization': rootKey},
-    );
-    expect(r.statusCode, equals(400));
-  });
+  test(
+    'Create invalid resource',
+    () async {
+      http.Response r = await http.post(
+        Uri.parse('${host}api/bucket/98/resource'),
+        headers: {'Authorization': rootKey},
+      );
+      expect(r.statusCode, equals(400));
+    },
+  );
 
   test('Root creates a private resource', () async {
     http.Response r = await http.post(
-      Uri.parse(host + '/api/bucket/98/resource'),
+      Uri.parse('${host}api/bucket/98/resource'),
       headers: {
         'Authorization': rootKey,
-        'Content-Type': 'multipart/form-data; boundary=MyBoundary',
+        'Content-Type': UtilTest.uploadContentType,
       },
-      body: Util.upload(
+      body: UtilTest.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
         {
           'users': [5, 4],
@@ -62,21 +65,17 @@ void main() {
         ));
 
     resourceId1 = data['id'] as String;
-    resourceUrl1 = host +
-        '/' +
-        (data['path'] as String) +
-        '/' +
-        (data['filename'] as String);
+    resourceUrl1 = '$host${data['path'] as String}/${data['filename'] as String}';
   });
 
   test('Root creates a public resource', () async {
     http.Response r = await http.post(
-      Uri.parse(host + '/api/bucket/98/resource'),
+      Uri.parse('${host}api/bucket/98/resource'),
       headers: {
         'Authorization': rootKey,
-        'Content-Type': 'multipart/form-data; boundary=MyBoundary',
+        'Content-Type': UtilTest.uploadContentType,
       },
-      body: Util.upload(
+      body: UtilTest.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
         {},
         'image/jpeg',
@@ -88,18 +87,14 @@ void main() {
 
     expect(data['public'], equals(true));
 
-    resourceUrl2 = host +
-        '/' +
-        (data['path'] as String) +
-        '/' +
-        (data['filename'] as String);
+    resourceUrl2 = '$host${data['path'] as String}/${data['filename'] as String}';
   });
 
   test(
     'Root creates admin token for bucket (98)',
     () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/token'),
+        Uri.parse('${host}api/token'),
         headers: {'Authorization': rootKey},
         body: jsonEncode({
           'buckets': [98]
@@ -115,7 +110,7 @@ void main() {
     'Root creates admin token for bucket (99)',
     () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/token'),
+        Uri.parse('${host}api/token'),
         headers: {'Authorization': rootKey},
         body: jsonEncode({
           'buckets': [99]
@@ -131,7 +126,7 @@ void main() {
     'Admin 98 can access resource',
     () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/98/resource/' + resourceId1),
+        Uri.parse('${host}api/bucket/98/resource/$resourceId1'),
         headers: {'Authorization': token98},
       );
       expect(r.statusCode, equals(200));
@@ -144,7 +139,7 @@ void main() {
     'Admin 99 cannot access resource',
     () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/98/resource/' + resourceId1),
+        Uri.parse('${host}api/bucket/98/resource/$resourceId1'),
         headers: {'Authorization': token99},
       );
       expect(r.statusCode, equals(403));
@@ -219,12 +214,12 @@ void main() {
 
   test('Admin creates a private resource', () async {
     http.Response r = await http.post(
-      Uri.parse(host + '/api/bucket/98/resource'),
+      Uri.parse('${host}api/bucket/98/resource'),
       headers: {
         'Authorization': token98,
-        'Content-Type': 'multipart/form-data; boundary=MyBoundary',
+        'Content-Type': UtilTest.uploadContentType,
       },
-      body: Util.upload(
+      body: UtilTest.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
         {
           'users': [777],
@@ -240,21 +235,17 @@ void main() {
     expect(data['public'], equals(false));
 
     resourceId1 = data['id'] as String;
-    resourceUrl1 = host +
-        '/' +
-        (data['path'] as String) +
-        '/' +
-        (data['filename'] as String);
+    resourceUrl1 = '$host${data['path'] as String}/${data['filename'] as String}';
   });
 
   test('Admin creates a public resource', () async {
     http.Response r = await http.post(
-      Uri.parse(host + '/api/bucket/98/resource'),
+      Uri.parse('${host}api/bucket/98/resource'),
       headers: {
         'Authorization': token98,
         'Content-Type': 'multipart/form-data; boundary=MyBoundary',
       },
-      body: Util.upload(
+      body: UtilTest.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
         {},
         'image/jpeg',
@@ -267,11 +258,7 @@ void main() {
     expect(data['public'], equals(true));
 
     resourceId2 = data['id'] as String;
-    resourceUrl2 = host +
-        '/' +
-        (data['path'] as String) +
-        '/' +
-        (data['filename'] as String);
+    resourceUrl2 = '$host${data['path'] as String}/${data['filename'] as String}';
   });
 
   test(
@@ -288,7 +275,7 @@ void main() {
     'Admin 99 cannot delete resource',
     () async {
       http.Response r = await http.delete(
-        Uri.parse(host + '/api/bucket/98/resource/' + resourceId2),
+        Uri.parse('${host}api/bucket/98/resource/$resourceId2'),
         headers: {'Authorization': token99},
       );
       expect(r.statusCode, equals(403));
@@ -299,7 +286,7 @@ void main() {
     'Admin 98 can delete resource',
     () async {
       http.Response r = await http.delete(
-        Uri.parse(host + '/api/bucket/98/resource/' + resourceId2),
+        Uri.parse('${host}api/bucket/98/resource/$resourceId2'),
         headers: {'Authorization': token98},
       );
       expect(r.statusCode, equals(204));
@@ -308,7 +295,7 @@ void main() {
 
   test(
     'Private resource is protected',
-        () async {
+    () async {
       http.Response r = await http.get(
         Uri.parse(resourceUrl1),
       );
@@ -330,7 +317,7 @@ void main() {
     'Admin 98 creates token for user 777',
     () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket/98/token'),
+        Uri.parse('${host}api/bucket/98/token'),
         headers: {'Authorization': token98},
         body: jsonEncode({
           'users': [777],
@@ -344,7 +331,7 @@ void main() {
 
   test(
     'Private resource is accessible for user 777',
-        () async {
+    () async {
       http.Response r = await http.get(
         Uri.parse(resourceUrl1),
         headers: {'Authorization': token777},
@@ -355,9 +342,9 @@ void main() {
 
   test(
     'Admin 98 creates token for group 999',
-        () async {
+    () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket/98/token'),
+        Uri.parse('${host}api/bucket/98/token'),
         headers: {'Authorization': token98},
         body: jsonEncode({
           'groups': [999],
@@ -371,7 +358,7 @@ void main() {
 
   test(
     'Private resource is accessible for group 999',
-        () async {
+    () async {
       http.Response r = await http.get(
         Uri.parse(resourceUrl1),
         headers: {'Authorization': token999},

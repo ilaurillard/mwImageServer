@@ -26,28 +26,21 @@ class Resource implements JsonSerializable, Entity {
     this.created,
   });
 
+  @override
   String get id => _id;
 
   bool valid() {
     return bucket != 0;
   }
 
+  @override
   String toString() {
-    return 'Resource#' + id + '/' + bucket.toString();
+    return 'Resource#$id/$bucket';
   }
 
   // --> public/77/ff/aa/ffaa112233334444ffaa112233334444
   String path({bool absolute = true}) {
-    return (absolute ? '/' : '') +
-        (public() ? 'pub' : 'priv') +
-        '/' +
-        bucket.toString() +
-        '/' +
-        id.substring(0, 2) +
-        '/' +
-        id.substring(2, 4) +
-        '/' +
-        id.toString();
+    return '${absolute ? '/' : ''}${public() ? 'pub' : 'priv'}/$bucket/${id.substring(0, 2)}/${id.substring(2, 4)}/$id';
   }
 
   bool public() {
@@ -66,6 +59,7 @@ class Resource implements JsonSerializable, Entity {
     };
   }
 
+  @override
   Dict toJson() {
     return {
       'id': id,

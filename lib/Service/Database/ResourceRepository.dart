@@ -15,7 +15,7 @@ class ResourceRepository {
     int bucket, {
     required String filename,
         String mimeType = '',
-    int size: 0,
+    int size = 0,
     List<int> users = const [],
     List<int> groups = const [],
   }) async {
@@ -56,10 +56,10 @@ class ResourceRepository {
         limit: 1,
       );
       if (data.isNotEmpty) {
-        printNotice('Loaded resource: ' + id);
+        printNotice('Loaded resource: $id');
         return Resource.fromDatabase(data.first as Dict);
       } else {
-        printWarning('Resource not found: ' + id);
+        printWarning('Resource not found: $id');
       }
     }
 

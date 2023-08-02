@@ -1,4 +1,3 @@
-import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Model/Token.dart';
@@ -119,7 +118,7 @@ class Authentication {
           int bucket = 0;
           String path = request.params['path'] ?? '';
           List<String> tmp = path.split('/');
-          if (tmp.length > 0 && tmp[0] == 'bucket') {
+          if (tmp.isNotEmpty && tmp[0] == 'bucket') {
             bucket = tmp.length > 1 ? int.parse(tmp[1]) : 0;
           }
 

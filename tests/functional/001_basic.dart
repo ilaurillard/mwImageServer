@@ -8,7 +8,7 @@ void main() {
     'Calling /xxx results in a 404',
     () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/xxx'),
+        Uri.parse('${host}xxx'),
       );
       expect(r.statusCode, equals(404));
     },
@@ -18,7 +18,7 @@ void main() {
     'Calling /static/help.html results in a 200',
     () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/static/help.html'),
+        Uri.parse('${host}static/help.html'),
       );
       expect(r.statusCode, equals(200));
     },

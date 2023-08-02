@@ -45,7 +45,7 @@ class ApiResource {
     bool successFiles = await fileStorage.flushResourceFiles(resource);
     if (!successFiles) {
       return Util.rError(
-        'Remove files failed (' + resource.path() + ')',
+        'Remove files failed (${resource.path()})',
       );
     }
 
@@ -54,6 +54,7 @@ class ApiResource {
 
   // ---------------------
 
+  // Show, update, delete
   FutureOr<Response> crud(
     Request request,
   ) async {
@@ -76,17 +77,19 @@ class ApiResource {
       return Util.rJsonOk(
         resource,
       );
-    } else if (request.method == 'DELETE') {
+    }
+    if (request.method == 'DELETE') {
       bool successFiles = await fileStorage.deleteResourceFiles(resource);
       bool successRecord = await sqliteStorage.deleteEntity(resource);
-
       if (!successFiles || !successRecord) {
         return Util.rError(
-          'Remove resource failed',
+          'Remove resource failed ($successRecord/$successFiles)',
         );
       }
-
       return Response(204);
+    }
+    if (request.method == 'POST') {
+      return Util.rJsonOk(resource);
     }
 
     return Util.rBadRequest(
@@ -157,7 +160,7 @@ class ApiResource {
     }
 
     Uint8List partBytes = await mPartFile.readBytes();
-    if (partBytes.length < 1 || partBytes.length > Config.maxFileSize) {
+    if (partBytes.isEmpty || partBytes.length > Config.maxFileSize) {
       return Util.rBadRequest(
         'Invalid file size',
       );
@@ -186,7 +189,7 @@ class ApiResource {
 
     // ------------------- Store file (async!)
 
-    storeFile(
+    _storeFile(
       resource,
       partBytes,
     );
@@ -198,21 +201,21 @@ class ApiResource {
     );
   }
 
-  storeFile(
+  _storeFile(
     Resource resource,
     Uint8List bytes,
   ) async {
     try {
       File file = await fileStorage.createFile(
-        resource.path() + '/' + resource.filename,
+        '${resource.path()}/${resource.filename}',
         bytes,
       );
-      int realSize = await file.lengthSync();
+      int realSize = file.lengthSync();
       if (realSize != bytes.length) {
         throw 'length check failed ($realSize vs ${bytes.length})';
       }
     } catch (e) {
-      Util.rError('File error: ' + e.toString());
+      Util.rError('File error: $e');
       // TODO append this error to database record
     }
   }

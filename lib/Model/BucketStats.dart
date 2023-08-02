@@ -1,12 +1,7 @@
-import 'dart:convert';
 
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
-import 'package:mwcdn/Model/Method.dart';
-import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Service/Converter.dart';
 
 class BucketStats implements JsonSerializable {
   final Bucket bucket;
@@ -21,6 +16,7 @@ class BucketStats implements JsonSerializable {
       }
   );
 
+  @override
   Dict toJson() {
     return {
       'bucket': bucket.toJson(),

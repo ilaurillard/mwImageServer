@@ -34,12 +34,7 @@ class Imagick {
     targetPath = dataDir + targetPath;
 
     printNotice(
-      'Magic from ' +
-          sourcePath +
-          ' to ' +
-          targetPath +
-          ' method ' +
-          method.name,
+      'Magic from $sourcePath to $targetPath method ${method.name}',
     );
 
     ProcessResult result = await Process.run(

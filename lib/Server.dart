@@ -12,6 +12,7 @@ import 'package:mwcdn/Service/Imagick.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
+// ignore: depend_on_referenced_packages
 import 'package:shelf_static/shelf_static.dart';
 
 class Server {
@@ -27,7 +28,7 @@ class Server {
     required this.rootKey,
   });
 
-  Future<Null> start(
+  Future<void> start(
     List<dynamic> args,
   ) async {
     await sqliteStorage.init();
@@ -60,12 +61,7 @@ class Server {
       // PUBLIC files ----------------------
       ..get(
         // /pub/77/ff/ff/ffffaaaaffffaaaa1111222233334444/[file]
-        '/pub' +
-            Config.matchBucket +
-            Config.matchSeg1 +
-            Config.matchSeg2 +
-            Config.matchResource +
-            Config.matchFile,
+        '/pub${Config.matchBucket}${Config.matchSeg1}${Config.matchSeg2}${Config.matchResource}${Config.matchFile}',
         Cascade()
             .add(
               createStaticHandler(
@@ -79,12 +75,7 @@ class Server {
       )
       // PRIVATE files (with firewall) ----------------------
       ..get(
-        '/priv' +
-            Config.matchBucket +
-            Config.matchSeg1 +
-            Config.matchSeg2 +
-            Config.matchResource +
-            Config.matchFile,
+        '/priv${Config.matchBucket}${Config.matchSeg1}${Config.matchSeg2}${Config.matchResource}${Config.matchFile}',
         Pipeline()
             .addMiddleware(
               Authentication(

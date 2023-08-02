@@ -37,10 +37,10 @@ void main(
 
   //------------ server
 
-  printInfo('[run] with ' + Config.isolates.toString() + ' instances');
+  printInfo('[run] with ${Config.isolates} instances');
 
   for (int i = 1; i < Config.isolates; i++) {
-    printNotice('.. spawn extra isolate ' + i.toString());
+    printNotice('.. spawn extra isolate $i');
     await Isolate.spawn(
       Server(
         sqliteStorage: sqliteStorage,

@@ -30,13 +30,14 @@ class Token implements JsonSerializable, Entity {
     this.created,
   });
 
+  @override
   String get id => _id;
 
   bool valid() {
     return !(users.isEmpty && groups.isEmpty && buckets.isEmpty && !root);
   }
 
-  bool accessResource(
+  bool accessResource( // read
     Resource resource,
   ) {
     if (root || buckets.contains(resource.bucket)) {
@@ -60,7 +61,7 @@ class Token implements JsonSerializable, Entity {
             .isNotEmpty;
   }
 
-  bool accessBucket(
+  bool accessBucket( // api access
     int bucket,
   ) {
     if (root || buckets.contains(bucket)) {
@@ -69,8 +70,9 @@ class Token implements JsonSerializable, Entity {
     return false;
   }
 
+  @override
   String toString() {
-    return 'Token#' + id + '/' + bucket.toString();
+    return 'Token#$id/$bucket';
   }
 
   Dict toDatabase() {
@@ -84,6 +86,7 @@ class Token implements JsonSerializable, Entity {
     };
   }
 
+  @override
   Dict toJson() {
     return {
       'id': id,

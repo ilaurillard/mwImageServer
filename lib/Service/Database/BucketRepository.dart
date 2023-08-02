@@ -55,13 +55,13 @@ class BucketRepository {
     );
 
     if (data.isNotEmpty) {
-      printNotice('Loaded bucket: ' + id.toString());
+      printNotice('Loaded bucket: $id');
       return Bucket.fromDatabase(
         data.first as Dict,
       );
     } else {
       printWarning(
-        ' Bucket not found: ' + id.toString(),
+        ' Bucket not found: $id',
       );
     }
 

@@ -14,7 +14,7 @@ void main() {
     'Root creates a bucket without key must fail',
     () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket'),
+        Uri.parse('${host}api/bucket'),
         body: jsonEncode({'id': 77, 'name': 'Henry'}),
       );
       expect(r.statusCode, equals(401));
@@ -25,7 +25,7 @@ void main() {
     'Root creates a bucket',
     () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket'),
+        Uri.parse('${host}api/bucket'),
         headers: {'Authorization': rootKey},
         body: jsonEncode({'id': 98, 'name': 'TestBucketXXX'}),
       );
@@ -40,7 +40,7 @@ void main() {
     'Root updates bucket (98)',
         () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket'),
+        Uri.parse('${host}api/bucket'),
         headers: {'Authorization': rootKey},
         body: jsonEncode({'id': 98, 'name': 'TestBucket98'}),
       );
@@ -55,7 +55,7 @@ void main() {
     'Root can access bucket (98)',
     () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/98'),
+        Uri.parse('${host}api/bucket/98'),
         headers: {'Authorization': rootKey},
       );
       expect(r.statusCode, equals(200));
@@ -69,7 +69,7 @@ void main() {
     'Root creates another bucket (99)',
     () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket'),
+        Uri.parse('${host}api/bucket'),
         headers: {'Authorization': rootKey},
         body: jsonEncode({'id': 99, 'name': 'TestBucket99'}),
       );
@@ -81,7 +81,7 @@ void main() {
     'Root creates admin token for bucket (98)',
     () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/token'),
+        Uri.parse('${host}api/token'),
         headers: {'Authorization': rootKey},
         body: jsonEncode({
           'buckets': [98]
@@ -101,7 +101,7 @@ void main() {
     'Admin cannot access bucket (97)',
     () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/97'),
+        Uri.parse('${host}api/bucket/97'),
         headers: {'Authorization': token},
       );
       expect(r.statusCode, equals(403));
@@ -112,7 +112,7 @@ void main() {
     'Admin can access bucket (98)',
     () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/98'),
+        Uri.parse('${host}api/bucket/98'),
         headers: {'Authorization': token},
       );
       expect(r.statusCode, equals(200));
@@ -126,7 +126,7 @@ void main() {
     'Admin can access bucket stats (98)',
         () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/98/stats'),
+        Uri.parse('${host}api/bucket/98/stats'),
         headers: {'Authorization': token},
       );
       expect(r.statusCode, equals(200));
@@ -140,7 +140,7 @@ void main() {
     'Admin cannot access bucket (99)',
     () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/99'),
+        Uri.parse('${host}api/bucket/99'),
         headers: {'Authorization': token},
       );
       expect(r.statusCode, equals(403));
@@ -151,7 +151,7 @@ void main() {
     'Admin cannot create buckets',
     () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket'),
+        Uri.parse('${host}api/bucket'),
         headers: {'Authorization': token},
       );
       expect(r.statusCode, equals(403));
@@ -162,7 +162,7 @@ void main() {
     'Admin creates method (thumb2)',
         () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket/98/method'),
+        Uri.parse('${host}api/bucket/98/method'),
         headers: {'Authorization': token},
         body: jsonEncode({
           'name': 'thumb2',
@@ -183,7 +183,7 @@ void main() {
     'Admin creates another method (thumb3)',
         () async {
       http.Response r = await http.post(
-        Uri.parse(host + '/api/bucket/98/method'),
+        Uri.parse('${host}api/bucket/98/method'),
         headers: {'Authorization': token},
         body: jsonEncode({
           'name': 'thumb3',
@@ -199,7 +199,7 @@ void main() {
     'Admin deletes method (thumb3)',
         () async {
       http.Response r = await http.delete(
-        Uri.parse(host + '/api/bucket/98/method/thumb3'),
+        Uri.parse('${host}api/bucket/98/method/thumb3'),
         headers: {'Authorization': token},
       );
       expect(r.statusCode, equals(200));
@@ -210,7 +210,7 @@ void main() {
     'Admin can access bucket (98)',
         () async {
       http.Response r = await http.get(
-        Uri.parse(host + '/api/bucket/98'),
+        Uri.parse('${host}api/bucket/98'),
         headers: {'Authorization': token},
       );
       expect(r.statusCode, equals(200));

@@ -11,7 +11,7 @@ class FileStorage {
   FileStorage({
     required this.dataDir,
   }) {
-    printInfo('[filesystem] ' + dataDir);
+    printInfo('[filesystem] $dataDir');
   }
 
   // ---------------------
@@ -50,7 +50,7 @@ class FileStorage {
     Uint8List bytes,
   ) async {
     printNotice(
-      'Writing ' + bytes.length.toString() + ' bytes to ' + path,
+      'Writing ${bytes.length} bytes to $path',
     );
 
     path = dataDir + path;
