@@ -1,5 +1,6 @@
 import 'package:mwcdn/Api/ApiBucket.dart';
 import 'package:mwcdn/Api/ApiResource.dart';
+import 'package:mwcdn/Api/ApiStats.dart';
 import 'package:mwcdn/Api/ApiToken.dart';
 import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Service/Authentication.dart';
@@ -31,6 +32,10 @@ class Api {
     ApiToken apiToken = ApiToken(
       sqliteStorage: sqliteStorage,
     );
+    ApiStats apiStats = ApiStats(
+      sqliteStorage: sqliteStorage,
+      fileStorage: fileStorage,
+    );
 
     return Pipeline()
         // --------- auth/security middleware
@@ -55,8 +60,8 @@ class Api {
             )
             ..get(
               // more info on bucket (GET)
-              '/bucket${Config.matchBucket}/stats',
-              apiBucket.stats,
+              '/bucket${Config.matchBucket}/stats',  // /api/bucket/77/stats
+              apiStats.bucket,
             )
             ..post(
               // create a method
@@ -102,6 +107,10 @@ class Api {
               // show token meta
               '/token${Config.matchToken}',
               apiToken.show,
+            )
+            ..get(
+              '/stats',
+              apiStats.all,
             ),
         );
   }

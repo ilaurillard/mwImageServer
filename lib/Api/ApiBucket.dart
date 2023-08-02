@@ -4,7 +4,6 @@ import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
-import 'package:mwcdn/Model/BucketStats.dart';
 import 'package:mwcdn/Model/Method.dart';
 import 'package:mwcdn/Service/Converter.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
@@ -79,7 +78,7 @@ class ApiBucket {
   ) async {
     printInfo('[ApiBucket.show]');
 
-    Bucket bucket = await _bucketFromRequest(request);
+    Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
       return Util.rNotFound('Bucket not found');
     }
@@ -100,35 +99,12 @@ class ApiBucket {
 
   // ---------------------
 
-  FutureOr<Response> stats(
-    Request request,
-  ) async {
-    printInfo('[ApiBucket.stats]');
-
-    Bucket bucket = await _bucketFromRequest(request);
-    if (!bucket.valid()) {
-      return Util.rNotFound('Bucket not found');
-    }
-
-    BucketStats stats = BucketStats(
-      bucket,
-      amountResources: await sqliteStorage.resources.count(bucket),
-      amountTokens: await sqliteStorage.tokens.count(bucket),
-    );
-
-    return Util.rJsonOk(
-      stats,
-    );
-  }
-
-  // ---------------------
-
   FutureOr<Response> addMethod(
     Request request,
   ) async {
     printInfo('[ApiBucket.addMethod]');
 
-    Bucket bucket = await _bucketFromRequest(request);
+    Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
       return Util.rNotFound('Bucket not found');
     }
@@ -171,7 +147,7 @@ class ApiBucket {
   ) async {
     printInfo('[ApiBucket.deleteMethod]');
 
-    Bucket bucket = await _bucketFromRequest(request);
+    Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
       return Util.rNotFound('Bucket not found');
     }
@@ -189,7 +165,7 @@ class ApiBucket {
     );
   }
 
-  Future<Bucket> _bucketFromRequest(
+  Future<Bucket> bucketFromRequest(
     Request request,
   ) async {
     int id = int.parse(request.params['bucket'] ?? '0');

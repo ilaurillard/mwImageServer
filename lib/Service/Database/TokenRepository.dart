@@ -81,14 +81,14 @@ class TokenRepository {
 
   // ----------------
 
-  Future<int> count(
-    Bucket bucket,
-  ) async {
+  Future<int> count([
+    Bucket? bucket,
+  ]) async {
     List<dynamic> data = await db.query(
       'Token',
       columns: ['COUNT (*) AS amount'],
-      where: 'bucket = ?',
-      whereArgs: [bucket.id],
+      where: bucket != null ? 'bucket = ?' : null,
+      whereArgs: bucket != null ? [bucket.id] : null,
       limit: 1,
     );
     if (data.isNotEmpty) {

@@ -67,4 +67,20 @@ class BucketRepository {
 
     return Bucket.notFound(id);
   }
+
+  // ---------------------
+
+  Future<int> count(
+      ) async {
+    List<dynamic> data = await db.query(
+      'Bucket',
+      columns: ['COUNT (*) AS amount'],
+      limit: 1,
+    );
+    if (data.isNotEmpty) {
+      Dict row = data.first as Dict;
+      return row['amount'] as int;
+    }
+    return 0;
+  }
 }

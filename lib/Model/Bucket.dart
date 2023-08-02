@@ -78,7 +78,7 @@ class Bucket implements JsonSerializable {
 
   factory Bucket.fresh(
     int id,
-      String name,
+    String name,
   ) {
     return Bucket(
       id,

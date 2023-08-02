@@ -89,6 +89,16 @@ Pdf Forms:
 https://stackoverflow.com/questions/9139787/how-to-fill-pdf-form-in-php
 pdftk form.pdf generate_fdf output data.fdf
 pdftk form.pdf fill_form data.fdf output form_with_data.pdf
+(pdftk is based on java and sowhat sluggy and big)
+
+Native PDF creation
+https://pub.dev/packages/pdf/example
+
+Native Excel creation
+https://pub.dev/packages/excel
+
+Docx
+https://pub.dev/packages/docx_template
 
 
 API

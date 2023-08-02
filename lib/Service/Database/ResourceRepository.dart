@@ -14,7 +14,7 @@ class ResourceRepository {
   Future<Resource> create(
     int bucket, {
     required String filename,
-        String mimeType = '',
+    String mimeType = '',
     int size = 0,
     List<int> users = const [],
     List<int> groups = const [],
@@ -43,8 +43,8 @@ class ResourceRepository {
   }
 
   Future<void> update(
-      Resource resource,
-      ) async {
+    Resource resource,
+  ) async {
     await db.update(
       'Resource',
       resource.toDatabaseUpdate(),
@@ -97,14 +97,14 @@ class ResourceRepository {
 
   // ---------------------
 
-  Future<int> count(
-    Bucket bucket,
-  ) async {
+  Future<int> count([
+    Bucket? bucket,
+  ]) async {
     List<dynamic> data = await db.query(
       'Resource',
       columns: ['COUNT (*) AS amount'],
-      where: 'bucket = ?',
-      whereArgs: [bucket.id],
+      where: bucket != null ? 'bucket = ?' : null,
+      whereArgs: bucket != null ? [bucket.id] : null,
       limit: 1,
     );
     if (data.isNotEmpty) {
