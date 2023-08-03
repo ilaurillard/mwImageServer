@@ -19,16 +19,13 @@ class Config {
   static const String matchMethod = '/<method|[a-z0-9]{1,24}>';
   static const String matchFile = '/<file|.*>';
 
+  static const int maxBucket = 99999;
+
   static RegExp validBucketName = RegExp(r'^[a-zA-Z0-9]{0,24}$');
   static RegExp validMethodName = RegExp(r'^[a-zA-Z0-9]{1,16}$');
 
-  static const KeyValue jsonHeaders = {
-    'content-type': 'application/json',
-  };
-
-  static const int maxBucket = 99999;
-
   static const int maxFileSize = 1000000;
+
   static const List<String> acceptedTypes = [
     'image/jpeg',
     'application/json'
@@ -44,7 +41,8 @@ class Config {
     'application/json': ['.json',],
   };
 
-  static bool validBucket(int id) {
-    return id > 0 && id <= Config.maxBucket;
-  }
+  static const KeyValue jsonHeaders = {
+    'content-type': 'application/json',
+  };
+
 }

@@ -3,7 +3,7 @@ import 'dart:isolate';
 
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Service/Api/Api.dart';
-import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Service/Api/Authentication.dart';
 import 'package:mwcdn/Service/Work/Images/Converter.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';

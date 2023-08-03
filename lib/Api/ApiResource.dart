@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Files.dart';
+import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Service/Api/Api.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
@@ -132,7 +133,7 @@ class ApiResource {
     Console.info('[ApiResource.create]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
-    if (!Config.validBucket(bucketId)) {
+    if (!Bucket.validId(bucketId)) {
       return Api.rBucketError();
     }
 
@@ -251,7 +252,7 @@ class ApiResource {
       Request request,
       ) async {
     int bucketId = int.parse(request.params['bucket'] ?? '0');
-    if (!Config.validBucket(bucketId)) {
+    if (!Bucket.validId(bucketId)) {
       bucketId = 0;
     }
     return await sqliteStorage.resources.load(

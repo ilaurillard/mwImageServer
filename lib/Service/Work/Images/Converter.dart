@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Method.dart';
@@ -38,7 +37,7 @@ class Converter {
     Console.info('[Converter.enPassant]');
 
     int bucketId = int.parse(request.params['bucket'] ?? '0');
-    if (!Config.validBucket(bucketId)) {
+    if (!Bucket.validId(bucketId)) {
       return Api.rBucketError();
     }
 

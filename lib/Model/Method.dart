@@ -1,3 +1,4 @@
+import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 
@@ -47,5 +48,10 @@ class Method implements JsonSerializable {
       name,
       exists: false,
     );
+  }
+
+  static bool validName(String name)
+  {
+    return Config.validMethodName.hasMatch(name);
   }
 }

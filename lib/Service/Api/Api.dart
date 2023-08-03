@@ -4,7 +4,7 @@ import 'package:mwcdn/Api/ApiBucket.dart';
 import 'package:mwcdn/Api/ApiResource.dart';
 import 'package:mwcdn/Api/ApiStats.dart';
 import 'package:mwcdn/Api/ApiToken.dart';
-import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';

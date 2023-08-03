@@ -1,7 +1,7 @@
 import 'dart:isolate';
 
 import 'package:mwcdn/Etc/Args.dart';
-import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Server.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';

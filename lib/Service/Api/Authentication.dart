@@ -1,5 +1,5 @@
-import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Console.dart';
+import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Model/Token.dart';
 import 'package:mwcdn/Service/Api/Api.dart';
@@ -51,7 +51,7 @@ class Authentication {
           }
 
           int bucketId = int.parse(request.params['bucket'] ?? '0');
-          if (!Config.validBucket(bucketId)) {
+          if (!Bucket.validId(bucketId)) {
             return Api.rBucketError();
           }
 

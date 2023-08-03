@@ -1,14 +1,13 @@
 import 'dart:async';
 
-import 'package:mwcdn/Etc/Config.dart';
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Method.dart';
 import 'package:mwcdn/Service/Api/Api.dart';
-import 'package:mwcdn/Service/Work/Images/Converter.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/Service/Work/Images/Converter.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -31,7 +30,7 @@ class ApiBucket {
     Dict data = await Api.incomingJson(request);
 
     int id = Types.intFromDict(data, 'id');
-    if (!Config.validBucket(id)) {
+    if (!Bucket.validId(id)) {
       return Api.rBucketError();
     }
     Bucket bucket = await sqliteStorage.buckets.load(
@@ -39,7 +38,7 @@ class ApiBucket {
     );
 
     String name = Types.stringData(data, 'name');
-    if (!Config.validBucketName.hasMatch(name)) {
+    if (!Bucket.validName(name)) {
       return Api.rBadRequest('Invalid bucket name');
     }
 
@@ -114,7 +113,7 @@ class ApiBucket {
 
     // TODO check incoming data
     String name = Types.stringData(data, 'name');
-    if (!Config.validMethodName.hasMatch(name)) {
+    if (!Method.validName(name)) {
       return Api.rBadRequest('Invalid method name');
     }
     String tool = Types.stringData(data, 'tool');
@@ -170,7 +169,7 @@ class ApiBucket {
     Request request,
   ) async {
     int id = int.parse(request.params['bucket'] ?? '0');
-    if (Config.validBucket(id)) {
+    if (Bucket.validId(id)) {
       return await sqliteStorage.buckets.load(
         id,
       );

@@ -1,5 +1,5 @@
 
-import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Config.dart';
 import 'package:path/path.dart';
 
 // ignore: depend_on_referenced_packages

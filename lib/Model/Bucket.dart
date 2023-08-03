@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 import 'package:mwcdn/Model/Method.dart';
@@ -132,5 +133,13 @@ class Bucket implements JsonSerializable {
   @override
   String toString() {
     return 'Bucket#$id ($name)';
+  }
+
+  static bool validId(int id) {
+    return id > 0 && id <= Config.maxBucket;
+  }
+
+  static bool validName(String name) {
+    return Config.validBucketName.hasMatch(name);
   }
 }
