@@ -1,5 +1,4 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 
 class Stats implements JsonSerializable {

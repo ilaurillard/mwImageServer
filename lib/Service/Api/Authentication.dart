@@ -1,6 +1,8 @@
-import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Etc/Config.dart';
+import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Model/Token.dart';
+import 'package:mwcdn/Service/Api/Api.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -25,7 +27,7 @@ class Authentication {
         String auth = request.headers['authorization'] ?? '';
         if (auth.isNotEmpty) {
 
-          printInfo('[Auth]');
+          Console.info('[Auth]');
 
           if (auth == rootKey) {
             // static root key has full access
@@ -34,12 +36,12 @@ class Authentication {
 
           Token token = await sqliteStorage.tokens.load(auth);
           if (!token.valid()) {
-            return Util.rUnauthorized(
+            return Api.rUnauthorized(
               'Empty token',
             );
           }
           if (!token.keepLive(sqliteStorage)) {
-            return Util.rUnauthorized(
+            return Api.rUnauthorized(
               'Token expired',
             );
           }
@@ -49,8 +51,8 @@ class Authentication {
           }
 
           int bucketId = int.parse(request.params['bucket'] ?? '0');
-          if (!Util.validBucket(bucketId)) {
-            return Util.rBucketError();
+          if (!Config.validBucket(bucketId)) {
+            return Api.rBucketError();
           }
 
           Resource resource = await sqliteStorage.resources.load(
@@ -59,11 +61,11 @@ class Authentication {
           );
 
           if (!resource.valid()) {
-            return Util.rNotFound('Resource not found');
+            return Api.rNotFound('Resource not found');
           }
 
           if (!token.accessResource(resource)) {
-            return Util.rForbidden(
+            return Api.rForbidden(
               'Forbidden',
             );
           }
@@ -71,7 +73,7 @@ class Authentication {
           return handler(request);
         }
 
-        return Util.rNotFound(
+        return Api.rNotFound(
           'Not found',
         );
       };
@@ -100,12 +102,12 @@ class Authentication {
           Token token = await sqliteStorage.tokens.load(auth);
           if (!token.valid()) {
             // no token found
-            return Util.rUnauthorized(
+            return Api.rUnauthorized(
               'Token not found',
             );
           }
           if (!token.keepLive(sqliteStorage)) {
-            return Util.rUnauthorized(
+            return Api.rUnauthorized(
               'Token expired',
             );
           }
@@ -126,11 +128,11 @@ class Authentication {
             return handler(request);
           }
 
-          return Util.rForbidden(
+          return Api.rForbidden(
             'Forbidden',
           );
         }
-        return Util.rUnauthorized(
+        return Api.rUnauthorized(
           'Unauthorized',
         );
       };

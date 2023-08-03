@@ -1,5 +1,5 @@
+import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
@@ -55,12 +55,12 @@ class BucketRepository {
     );
 
     if (data.isNotEmpty) {
-      printNotice('Loaded bucket: $id');
+      Console.notice('Loaded bucket: $id');
       return Bucket.fromDatabase(
         data.first as Dict,
       );
     } else {
-      printWarning(
+      Console.warning(
         ' Bucket not found: $id',
       );
     }

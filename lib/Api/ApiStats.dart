@@ -1,14 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:mwcdn/Api/ApiBucket.dart';
-import 'package:mwcdn/Etc/Config.dart';
-import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/BucketStats.dart';
 import 'package:mwcdn/Model/Stats.dart';
+import 'package:mwcdn/Service/Api/Api.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage.dart';
+import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 
 class ApiStats extends ApiBucket {
@@ -25,11 +24,11 @@ class ApiStats extends ApiBucket {
   FutureOr<Response> bucket(
     Request request,
   ) async {
-    printInfo('[ApiStats.bucket]');
+    Console.info('[ApiStats.bucket]');
 
     Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Util.rNotFound('Bucket not found');
+      return Api.rNotFound('Bucket not found');
     }
 
     BucketStats stats = BucketStats(
@@ -38,7 +37,7 @@ class ApiStats extends ApiBucket {
       amountTokens: await sqliteStorage.tokens.count(bucket),
     );
 
-    return Util.rJsonOk(
+    return Api.rJsonOk(
       stats,
     );
   }
@@ -46,7 +45,7 @@ class ApiStats extends ApiBucket {
   FutureOr<Response> all(
     Request request,
   ) async {
-    printInfo('[ApiStats.all]');
+    Console.info('[ApiStats.all]');
 
     Stats stats = Stats(
       amountBuckets: await sqliteStorage.buckets.count(),
@@ -54,7 +53,7 @@ class ApiStats extends ApiBucket {
       amountTokens: await sqliteStorage.tokens.count(),
     );
 
-    return Util.rJsonOk(
+    return Api.rJsonOk(
       stats,
     );
   }

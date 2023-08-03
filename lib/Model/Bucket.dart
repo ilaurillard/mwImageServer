@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 import 'package:mwcdn/Model/Method.dart';
-import 'package:mwcdn/Service/Converter.dart';
+import 'package:mwcdn/Service/Work/Images/Converter.dart';
 
 class Bucket implements JsonSerializable {
   final int id;

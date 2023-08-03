@@ -1,3 +1,4 @@
+import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
@@ -13,9 +14,9 @@ class TokenRepository {
 
   Future<Token> create(
     int bucket, {
-    List<int> users = const [],
-    List<int> groups = const [],
-    List<int> buckets = const [],
+    Ids users = const [],
+    Ids groups = const [],
+    Ids buckets = const [],
     bool root = false,
   }) async {
     String id = Util.randMd5();
@@ -54,10 +55,10 @@ class TokenRepository {
         limit: 1,
       );
       if (data.isNotEmpty) {
-        printNotice('Loaded token: $id');
+        Console.notice('Loaded token: $id');
         return Token.fromDatabase(data.first as Dict);
       } else {
-        printWarning('Token not found: $id');
+        Console.warning('Token not found: $id');
       }
     }
     return Token.notFound(id);

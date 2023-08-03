@@ -1,5 +1,4 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 
@@ -10,8 +9,8 @@ class Resource implements JsonSerializable, Entity {
   final String filename;
   final String mimeType;
   int size;
-  List<int> users;
-  List<int> groups;
+  Ids users;
+  Ids groups;
 
   final DateTime? created;
 
@@ -91,8 +90,8 @@ class Resource implements JsonSerializable, Entity {
       filename: row['filename'] as String? ?? '',
       mimeType: row['mimeType'] as String? ?? '',
       size: row['size'] as int? ?? 0,
-      users: Util.intList(row['users'] as String? ?? ''),
-      groups: Util.intList(row['groups'] as String? ?? ''),
+      users: Types.idListFromCsv(row['users'] as String? ?? ''),
+      groups: Types.idListFromCsv(row['groups'] as String? ?? ''),
       created: DateTime.parse(row['created'] as String? ?? ''),
     );
   }

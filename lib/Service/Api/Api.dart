@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:mwcdn/Api/ApiBucket.dart';
 import 'package:mwcdn/Api/ApiResource.dart';
 import 'package:mwcdn/Api/ApiStats.dart';
 import 'package:mwcdn/Api/ApiToken.dart';
 import 'package:mwcdn/Etc/Config.dart';
-import 'package:mwcdn/Service/Authentication.dart';
+import 'package:mwcdn/Etc/Console.dart';
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/JsonSerializable.dart';
+import 'package:mwcdn/Service/Api/Authentication.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage.dart';
+import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -47,7 +52,9 @@ class Api {
         )
         .addHandler(
           Router()
+            // ----------------------------
             // ---------------------------- bucket
+            // ----------------------------
             ..post(
               // add new bucket or update (POST)
               '/bucket', // /api/bucket
@@ -73,7 +80,9 @@ class Api {
               '/bucket${Config.matchBucket}/method${Config.matchMethod}',
               apiBucket.deleteMethod,
             )
+            // ----------------------------
             // ---------------------------- resource
+            // ----------------------------
             ..post(
               // create a resource
               // /api/bucket/77/resource
@@ -89,7 +98,13 @@ class Api {
               '/bucket${Config.matchBucket}/resource${Config.matchResource}/flush',
               apiResource.flush,
             )
+            ..post(
+              '/bucket${Config.matchBucket}/resource${Config.matchResource}/generate',
+              apiResource.generate,
+            )
+            // ----------------------------
             // ---------------------------- token (customer/bucket)
+            // ----------------------------
             ..post(
               // /api/bucket/77/token
               '/bucket${Config.matchBucket}/token',
@@ -101,7 +116,9 @@ class Api {
               '/bucket${Config.matchBucket}/token${Config.matchToken}',
               apiToken.show,
             )
+            // ----------------------------
             // ---------------------------- root tokens (root only)
+            // ----------------------------
             ..post(
               '/token', // /api/token
               apiToken.create,
@@ -116,5 +133,78 @@ class Api {
               apiStats.all,
             ),
         );
+  }
+
+  // ----------------
+
+  static Future<Dict> incomingJson(
+      Request request,
+      ) async {
+    String tmp = await request.readAsString();
+
+    Dict data;
+    try {
+      data = json.decode(tmp) as Dict;
+    } catch (e) {
+      data = {};
+      Console.warning('[500] Json decode: $e');
+    }
+
+    return data;
+  }
+
+  // ----------------
+
+  static Response rJsonOk(
+      JsonSerializable subject,
+      ) {
+    return Response.ok(
+      json.encode(subject.toJson()),
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Response rBucketError() {
+    return rBadRequest('Invalid bucket');
+  }
+
+  static Response rNotFound(String message) {
+    Console.warning('[404] $message');
+    return Response.notFound(
+      message,
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Response rError(String message) {
+    Console.warning('[500] $message');
+    return Response.internalServerError(
+      body: message,
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Response rBadRequest(String message) {
+    Console.warning('[400] $message');
+    return Response.badRequest(
+      body: message,
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Response rUnauthorized(String message) {
+    Console.warning('[401] $message');
+    return Response.unauthorized(
+      message,
+      headers: Config.jsonHeaders,
+    );
+  }
+
+  static Response rForbidden(String message) {
+    Console.warning('[403] $message');
+    return Response.forbidden(
+      message,
+      headers: Config.jsonHeaders,
+    );
   }
 }

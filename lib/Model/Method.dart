@@ -1,5 +1,4 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 
 class Method implements JsonSerializable {
@@ -34,7 +33,7 @@ class Method implements JsonSerializable {
     return Method(
       row['name'] as String? ?? '',
       tool: row['tool'] as String? ?? '',
-      parameters: Util.stringListData(
+      parameters: Types.stringListFromDict(
         row,
         'parameters',
       ),

@@ -31,12 +31,20 @@ class Config {
   static const int maxFileSize = 1000000;
   static const List<String> acceptedTypes = [
     'image/jpeg',
+    'application/json'
   ];
   static const List<String> acceptedSuffixes = [
     '.jpg',
     '.jpeg',
+
+    '.json',
   ];
   static const Map<String, List<String>> mimeToSuffix = {
     'image/jpeg': ['.jpg', '.jpeg',],
+    'application/json': ['.json',],
   };
+
+  static bool validBucket(int id) {
+    return id > 0 && id <= Config.maxBucket;
+  }
 }

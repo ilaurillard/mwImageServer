@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Token.dart';
+import 'package:mwcdn/Service/Api/Api.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -19,14 +20,14 @@ class ApiToken {
   FutureOr<Response> create(
     Request request,
   ) async {
-    printInfo('[ApiToken.create]');
+    Console.info('[ApiToken.create]');
 
     int bucket = int.parse(request.params['bucket'] ?? '0');
 
-    Dict data = await Util.jsonObject(request);
+    Dict data = await Api.incomingJson(request);
 
-    bool root = Util.boolData(data, 'root');
-    List<int> buckets = Util.intListData(data, 'buckets');
+    bool root = Types.boolFromDict(data, 'root');
+    Ids buckets = Types.idListFromDict(data, 'buckets');
 
     if (bucket > 0) {
       // only !root tokens in bucket
@@ -41,15 +42,15 @@ class ApiToken {
 
     Token token = await sqliteStorage.tokens.create(
       root ? 0 : bucket,
-      users: root ? [] : Util.intListData(data, 'users'),
-      groups: root ? [] : Util.intListData(data, 'groups'),
+      users: root ? [] : Types.idListFromDict(data, 'users'),
+      groups: root ? [] : Types.idListFromDict(data, 'groups'),
       buckets: root ? [] : buckets,
       root: root,
     );
 
-    printNotice(token.toString());
+    Console.notice(token.toString());
 
-    return Util.rJsonOk(
+    return Api.rJsonOk(
       token,
     );
   }
@@ -59,7 +60,7 @@ class ApiToken {
   FutureOr<Response> show(
     Request request,
   ) async {
-    printInfo('[ApiToken.show]');
+    Console.info('[ApiToken.show]');
 
     int bucket = int.parse(request.params['bucket'] ?? '0');
 
@@ -67,16 +68,16 @@ class ApiToken {
       request.params['token'] ?? '',
     );
     if (!token.valid()) {
-      return Util.rNotFound('Token not found');
+      return Api.rNotFound('Token not found');
     }
 
     if (bucket > 0 && token.bucket != bucket) {
-      return Util.rForbidden(
+      return Api.rForbidden(
         'Forbidden',
       );
     }
 
-    return Util.rJsonOk(
+    return Api.rJsonOk(
       token,
     );
   }

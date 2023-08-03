@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/UtilTest.dart';
+import 'package:mwcdn/Etc/Test.dart';
 import 'package:test/test.dart';
 
 import '../testConfig.dart';
@@ -37,9 +37,9 @@ void main() {
       Uri.parse('${host}api/bucket/98/resource'),
       headers: {
         'Authorization': rootKey,
-        'Content-Type': UtilTest.uploadContentType,
+        'Content-Type': Test.uploadContentType,
       },
-      body: UtilTest.upload(
+      body: Test.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
         {
           'users': [5, 4],
@@ -73,9 +73,9 @@ void main() {
       Uri.parse('${host}api/bucket/98/resource'),
       headers: {
         'Authorization': rootKey,
-        'Content-Type': UtilTest.uploadContentType,
+        'Content-Type': Test.uploadContentType,
       },
-      body: UtilTest.upload(
+      body: Test.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
         {},
         'image/jpeg',
@@ -217,9 +217,9 @@ void main() {
       Uri.parse('${host}api/bucket/98/resource'),
       headers: {
         'Authorization': token98,
-        'Content-Type': UtilTest.uploadContentType,
+        'Content-Type': Test.uploadContentType,
       },
-      body: UtilTest.upload(
+      body: Test.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
         {
           'users': [777],
@@ -245,7 +245,7 @@ void main() {
         'Authorization': token98,
         'Content-Type': 'multipart/form-data; boundary=MyBoundary',
       },
-      body: UtilTest.upload(
+      body: Test.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
         {},
         'image/jpeg',

@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:mwcdn/Etc/Types.dart';
 
-class UtilTest {
+class Test {
   static const uploadContentType = 'multipart/form-data; boundary=MyBoundary';
 
   static Uint8List upload(

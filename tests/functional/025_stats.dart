@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/UtilTest.dart';
 import 'package:test/test.dart';
 
 import '../testConfig.dart';

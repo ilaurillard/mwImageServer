@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:path/path.dart';
 
@@ -11,7 +11,7 @@ class FileStorage {
   FileStorage({
     required this.dataDir,
   }) {
-    printInfo('[filesystem] $dataDir');
+    Console.info('[filesystem] $dataDir');
   }
 
   // ---------------------
@@ -49,7 +49,7 @@ class FileStorage {
     String path,
     Uint8List bytes,
   ) async {
-    printNotice(
+    Console.notice(
       'Writing ${bytes.length} bytes to $path',
     );
 

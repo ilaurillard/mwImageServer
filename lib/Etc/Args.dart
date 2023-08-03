@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:args/args.dart';
-import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Etc/Console.dart';
+
+import 'Types.dart';
 
 class Args {
   late final String dataDir;
@@ -24,12 +26,12 @@ class Args {
     }
     rootKey = rk;
 
-    printInfo('[rootKey] $rootKey');
+    Console.info('[rootKey] $rootKey');
   }
 
   String randString(int len) {
     Random random = Random.secure();
-    List<int> values = List<int>.generate(len, (i) =>  random.nextInt(255));
+    Ids values = Ids.generate(len, (i) =>  random.nextInt(255));
     return base64UrlEncode(values).replaceAll('=', '');
   }
 }

@@ -1,5 +1,4 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
 import 'package:mwcdn/Model/Resource.dart';
@@ -11,10 +10,10 @@ class Token implements JsonSerializable, Entity {
   final bool root;
   final int bucket; // read access to (resource) bucket
 
-  final List<int> users;
-  final List<int> groups;
+  final Ids users;
+  final Ids groups;
 
-  final List<int> buckets; // write access to buckets (admin)
+  final Ids buckets; // write access to buckets (admin)
 
   final DateTime? stamp;
   final DateTime? created;
@@ -118,9 +117,9 @@ class Token implements JsonSerializable, Entity {
     return Token(
       row['id'] as String? ?? '',
       bucket: row['bucket'] as int? ?? 0,
-      users: Util.intList(row['users'] as String? ?? ''),
-      groups: Util.intList(row['groups'] as String? ?? ''),
-      buckets: Util.intList(row['buckets'] as String? ?? ''),
+      users: Types.idListFromCsv(row['users'] as String? ?? ''),
+      groups: Types.idListFromCsv(row['groups'] as String? ?? ''),
+      buckets: Types.idListFromCsv(row['buckets'] as String? ?? ''),
       root: (row['root'] as int? ?? 0) == 1,
       stamp: DateTime.parse(row['stamp'] as String? ?? ''),
       created: DateTime.parse(row['created'] as String? ?? ''),

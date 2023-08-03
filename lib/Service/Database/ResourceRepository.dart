@@ -1,3 +1,4 @@
+import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Util.dart';
 import 'package:mwcdn/Model/Bucket.dart';
@@ -16,8 +17,8 @@ class ResourceRepository {
     required String filename,
     String mimeType = '',
     int size = 0,
-    List<int> users = const [],
-    List<int> groups = const [],
+    Ids users = const [],
+    Ids groups = const [],
   }) async {
     String id = Util.randMd5();
 
@@ -69,13 +70,12 @@ class ResourceRepository {
         limit: 1,
       );
       if (data.isNotEmpty) {
-        printNotice('Loaded resource: $id');
+        Console.notice('Loaded resource: $id');
         return Resource.fromDatabase(data.first as Dict);
       } else {
-        printWarning('Resource not found: $id');
+        Console.warning('Resource not found: $id');
       }
     }
-
     return Resource.notFound(id);
   }
 

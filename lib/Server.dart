@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:mwcdn/Api.dart';
+import 'package:mwcdn/Etc/Console.dart';
+import 'package:mwcdn/Service/Api/Api.dart';
 import 'package:mwcdn/Etc/Config.dart';
-import 'package:mwcdn/Etc/Util.dart';
-import 'package:mwcdn/Service/Authentication.dart';
-import 'package:mwcdn/Service/Converter.dart';
+import 'package:mwcdn/Service/Api/Authentication.dart';
+import 'package:mwcdn/Service/Work/Images/Converter.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage.dart';
-import 'package:mwcdn/Service/Imagick.dart';
+import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/Service/Work/Images/Imagick.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -45,7 +45,7 @@ class Server {
       poweredByHeader: 'mw',
     );
 
-    printNotice(
+    Console.notice(
       '.. listening at http://${server.address.host}:${server.port} - isolate: ${Isolate.current.hashCode}'
     );
   }

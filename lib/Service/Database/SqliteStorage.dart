@@ -1,5 +1,5 @@
-import 'package:mwcdn/Etc/Schema.dart';
-import 'package:mwcdn/Etc/Util.dart';
+import 'package:mwcdn/Etc/Console.dart';
+import 'package:mwcdn/Model/Schema/Schema.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Entity.dart';
 import 'package:mwcdn/Model/Resource.dart';
@@ -34,7 +34,7 @@ class SqliteStorage {
         singleInstance: false,
       ),
     );
-    printInfo('[sqlite] ${db.path}');
+    Console.info('[sqlite] ${db.path}');
 
     buckets = BucketRepository(db);
     tokens = TokenRepository(db);
@@ -45,7 +45,7 @@ class SqliteStorage {
     // Token, Resource, ...
     Entity entity,
   ) async {
-    printNotice('Delete #${entity.id} --> $entity');
+    Console.notice('Delete #${entity.id} --> $entity');
 
     int amountDeleted = 0;
 
