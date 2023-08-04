@@ -1,17 +1,32 @@
-
 import 'package:mwcdn/Config.dart';
+import 'package:mwcdn/Etc/ResponseException.dart';
+import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Service/Api/Api.dart';
 import 'package:path/path.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:string_scanner/string_scanner.dart';
 
 class Files {
+  // ----------------
+
+  static String filenameFromRequest(
+    Dict data,
+  ) {
+    String filename = data['filename'] as String? ?? '';
+    if (!Files.validFilename(filename)) {
+      throw ResponseException(
+        Api.rBadRequest('Invalid filename'),
+      );
+    }
+    return filename;
+  }
 
   // ----------------
 
   static Map<String, String> parseContentDisposition(
-      String header,
-      ) {
+    String header,
+  ) {
     final scanner = StringScanner(header);
 
     final token = RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');

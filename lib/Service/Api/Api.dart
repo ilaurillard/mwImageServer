@@ -99,8 +99,8 @@ class Api {
               apiResource.flush,
             )
             ..post(
-              '/bucket${Config.matchBucket}/resource${Config.matchResource}/generate',
-              apiResource.generate,
+              '/bucket${Config.matchBucket}/resource${Config.matchResource}/pdf',
+              apiResource.pdf,
             )
             // ----------------------------
             // ---------------------------- token (customer/bucket)

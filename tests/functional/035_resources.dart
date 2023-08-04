@@ -41,12 +41,14 @@ void main() {
 
   test('Root generates pdf from resource', () async {
     http.Response r = await http.post(
-      Uri.parse('${host}api/bucket/98/resource/$resourceId1/generate'),
+      Uri.parse('${host}api/bucket/98/resource/$resourceId1/pdf'),
       headers: {
         'Authorization': rootKey,
       },
       body: json.encode({
-        'data': <String, Object>{},
+        'data': <String, Object>{
+          'xxx': 'yyy'
+        },
         'filename': 'xxx.pdf',
         'users': [888],
         'groups': [666],

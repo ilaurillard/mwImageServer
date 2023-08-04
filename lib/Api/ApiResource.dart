@@ -5,13 +5,15 @@ import 'dart:typed_data';
 
 import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Etc/Console.dart';
-import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Etc/Files.dart';
+import 'package:mwcdn/Etc/ResponseException.dart';
+import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:mwcdn/Service/Api/Api.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/Service/Work/Pdf/Pdf.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_multipart/multipart.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -27,7 +29,7 @@ class ApiResource {
 
   // ---------------------
 
-  FutureOr<Response> generate(
+  FutureOr<Response> pdf(
     Request request,
   ) async {
     Console.info('[ApiResource.generate]');
@@ -39,20 +41,19 @@ class ApiResource {
 
     Dict data = await Api.incomingJson(request);
 
-    // resource is template for pdf, xls
-    // incoming data/vars
-
-
-    Resource pdf = await sqliteStorage.resources.create(
-      resource.bucket,
-      filename: data['filename'] as String? ?? '',
-      mimeType: 'application/pdf',
-      size: 12345,
-      users: Types.idListFromDict(data, 'users'),
-      groups: Types.idListFromDict(data, 'groups'),
-    );
-
-    return Api.rJsonOk(pdf);
+    try {
+      Resource pdf = await (Pdf(
+        sqliteStorage: sqliteStorage,
+        fileStorage: fileStorage,
+      )).build(
+        data,
+        resource,
+      );
+      return Api.rJsonOk(pdf);
+    }
+    on ResponseException catch(e) {
+      return e.response;
+    }
   }
 
   // ---------------------
@@ -249,8 +250,8 @@ class ApiResource {
   }
 
   Future<Resource> _resourceFromRequest(
-      Request request,
-      ) async {
+    Request request,
+  ) async {
     int bucketId = int.parse(request.params['bucket'] ?? '0');
     if (!Bucket.validId(bucketId)) {
       bucketId = 0;
@@ -260,5 +261,4 @@ class ApiResource {
       request.params['resource'] ?? '',
     );
   }
-
 }

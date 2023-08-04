@@ -33,12 +33,13 @@ class Config {
   static const List<String> acceptedSuffixes = [
     '.jpg',
     '.jpeg',
-
     '.json',
+    '.pdf',
   ];
   static const Map<String, List<String>> mimeToSuffix = {
     'image/jpeg': ['.jpg', '.jpeg',],
     'application/json': ['.json',],
+    'application/pdf': ['.pdf',],
   };
 
   static const KeyValue jsonHeaders = {
@@ -46,3 +47,4 @@ class Config {
   };
 
 }
+

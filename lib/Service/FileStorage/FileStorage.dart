@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mwcdn/Etc/Console.dart';
+import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/Resource.dart';
 import 'package:path/path.dart';
 
@@ -25,12 +27,6 @@ class FileStorage {
 
   // ---------------------
 
-  Future<bool> fileExists(
-    String path,
-  ) async {
-    path = dataDir + path;
-    return await File(path).exists();
-  }
 
   // ---------------------
 
@@ -62,12 +58,45 @@ class FileStorage {
 
   // ---------------------
 
+  File file(
+      String path,
+      ) {
+    path = dataDir + path;
+    return File(path);
+  }
+
+  Future<bool> fileExists(
+      String path,
+      ) async {
+    path = dataDir + path;
+    return await File(path).exists();
+  }
+
+  Future<Dict> fileData(
+      Resource resource,
+      ) async {
+    if (await dirExists(resource.path())) {
+      String filename = '${resource.path()}/${resource.filename}';
+      if (await fileExists(filename)) {
+        File f = file(filename);
+        String content = await f.readAsString();
+
+        // print(content);
+
+        return json.decode(content) as Dict;
+      }
+    }
+    return {};
+  }
+
+  // ---------------------
+
   Future<bool> flushResourceFiles(
     Resource resource,
   ) async {
     // delete all files for resource, except original
-    String path = dataDir + resource.path();
     if (await dirExists(resource.path())) {
+      String path = dataDir + resource.path();
       await for (FileSystemEntity file in Directory(path).list()) {
         if (file is File) {
           if (basename(file.path) != resource.filename) {
