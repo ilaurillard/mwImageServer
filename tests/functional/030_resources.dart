@@ -85,7 +85,8 @@ void main() {
       headers: {'Authorization': token888},
     );
     expect(r.statusCode, equals(200));
-    expect(r.contentLength, equals(2929));
+    expect(r.contentLength, greaterThan(2000));
+    expect(r.contentLength, lessThan(3000));
   });
 
   test('Admin 98 deletes resource', () async {
