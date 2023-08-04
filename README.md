@@ -71,6 +71,8 @@ Hetzner, ilja
 
 http://128.140.2.103:8080/static/help.html
 
+podman run -e ROOT_KEY=myRootKey --rm --name mwcdn -v ~/mwcdn/data:/data -it -p 8080:8080 mwcdn
+
 
 IDEAS
 -----
