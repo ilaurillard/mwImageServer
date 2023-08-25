@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "theme": {
+      "@default": {
+        "format": {
+          "preset": "a4",
+          "width": 210,
+          "height": 297,
+          "marginTop": 10,
+          "marginBottom": 10,
+          "marginLeft": 10,
+          "marginRight": 10,
+          "marginAll": 10
+        },
+        "orientation": "portrait",
+        "clip": false,
+        "textDirection": "ltr",
+        "styles": {
+          "text": {
+            "color": "FF006600",
+            "font": "courier",
+            "fontNormal": "courier",
+            "fontBold": "courier",
+            "fontItalic": "courier",
+            "fontBoldItalic": "courier",
+            "fontSize": 12.0,
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "letterSpacing": 1.0,
+            "lineSpacing": null,
+            "wordSpacing": 1.0,
+            "height": null,
+            "background": {
+              "color": "FF000000",
+              "border": null,
+              "borderRadius": null,
+              "boxShadow": null,
+              "gradient": null,
+              "image": null,
+              "shape": "rectangle"
+            },
+            "decoration": "none",
+            "decorationColor": "FF000000",
+            "decorationStyle": "solid",
+            "decorationThickness": 1.0,
+            "renderingMode": "fill"
+          },
+          "paragraph": {},
+          "header0": {},
+          "header1": {},
+          "header2": {},
+          "header3": {},
+          "header4": {},
+          "header5": {},
+          "bulletStyle": {},
+          "tableHeader": {},
+          "tableCell": {},
+          "softWrap": true,
+          "textAlign": "left",
+          "overflow": "clip",
+          "maxLines": null,
+          "iconTheme": {
+            "color": "AA445566",
+            "opacity": 1.0,
+            "size": 12.0,
+            "font": "courier"
+          }
+        },
+        "margin": null,
+        "background": null,
+        "foreground": null
+      }
+    },
+    "header": {
+      "@default": {
+        "Container": {
+          "height": 50.0,
+          "child": {
+            "Text": {
+              "text": "HEADER"
+            }
+          }
+        }
+      }
+    },
+    "footer": {
+      "@default": {
+        "Row": {
+          "crossAxisAlignment": "start",
+          "children": [
+            {
+              "Expanded": {
+                "child": {
+                  "Container": {
+                    "height": 50.0,
+                    "child": {
+                      "Text": {
+                        "text": "Page: %pageNumber%/%pagesCount%"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "Expanded": {
+                "child": {
+                  "SizedBox": {}
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "theme": "@default",
+      "header": "@default",
+      "footer": "@default",
+      "content": [
+        {
+          "Container": {
+            "height": 50.0,
+            "child": {
+              "Text": {
+                "text": "HELLO WORLD"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "data": {
+
+  }
+}

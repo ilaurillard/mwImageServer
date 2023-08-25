@@ -1,0 +1,102 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "verticalDirection": "down",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "AAA"
+                }
+              },
+              {
+                "Opacity": {
+                  "opacity": 0.5,
+                  "child": {
+                    "Paragraph": {
+                      "text": "AAA"
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                  "color": "FF8800",
+                  "height": 10,
+                  "thickness": 0.5,
+                  "indent": 50,
+                  "endIndent": 50,
+                  "borderStyle": "dashed"
+                }
+              },
+              {
+                "Container": {
+                  "color": "CC4477",
+                  "width": 80.5,
+                  "height": 35,
+                  "child": {
+                    "Container": {
+                      "margin": [
+                        15, 5, 5, 5
+                      ],
+                      "color": "FFFFFF",
+                      "child": {
+                        "Paragraph": {
+                          "text": "AAA",
+                          "textAlign": "center"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "XXX"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "text": "YYY"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Expanded": {
+                        "child": {
+                          "Text": {
+                            "text": "GGG"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Expanded": {
+                        "child": {
+                          "Text": {
+                            "text": "HHH"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

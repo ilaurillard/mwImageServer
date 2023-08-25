@@ -10,9 +10,7 @@ Future<void> main() async {
 
   // ###########################################
 
-  // print('##0');
-  // final pdf = pw.Document();
-  // print('##1');
+  // pw.Document pdf = pw.Document();
   // pdf.addPage(
   //   pw.Page(
   //     build: (pw.Context context) => pw.Center(
@@ -20,10 +18,8 @@ Future<void> main() async {
   //     ),
   //   ),
   // );
-  // print('##2');
-  // final file = File('example.pdf');
+  // File file = File('example.pdf');
   // await file.writeAsBytes(await pdf.save());
-  // print('##3');
 
   // ###########################################
 
@@ -336,7 +332,7 @@ Future<void> main() async {
     accentColor: PdfColors.blueGrey900,
   );
 
-  // print(DateTime.now());
+  print(DateTime.now());
 
   pw.Document document = await invoice.buildPdf(pageFormat);
 
@@ -836,3 +832,5 @@ class Product {
     return '';
   }
 }
+
+
