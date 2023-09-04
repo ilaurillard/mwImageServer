@@ -4,7 +4,6 @@ import 'package:pdf/widgets.dart' as pw;
 import '../Widget/PdfWidget.dart';
 
 class PdfFooter {
-
   final Dict json;
 
   PdfFooter({
@@ -12,20 +11,19 @@ class PdfFooter {
   });
 
   pw.Widget build(
-      pw.Context context,
-      ) {
+    pw.Context context,
+  ) {
     return PdfWidget(
-      context: context,
       json: json,
+      context: context,
+      pageNumber: context.pageNumber,
+      pagesCount: context.pagesCount,
     ).build();
-    // return pw.Text('FOOTER Page: ${context.pageNumber}');
   }
 
   static PdfFooter fromJson(
     Dict json,
   ) {
-    // print('Footer: $json');
-
     return PdfFooter(
       json: json,
     );

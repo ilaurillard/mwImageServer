@@ -124,6 +124,9 @@ class Invoice {
   pw.Widget _buildHeader(
     pw.Context context,
   ) {
+
+    print('Page ${context.pageNumber}/${context.pagesCount}');
+
     return pw.Column(
       children: [
         pw.Row(
@@ -202,6 +205,9 @@ class Invoice {
   pw.Widget _buildFooter(
     pw.Context context,
   ) {
+
+    print('Page ${context.pageNumber}/${context.pagesCount}');
+
     return pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
       crossAxisAlignment: pw.CrossAxisAlignment.end,

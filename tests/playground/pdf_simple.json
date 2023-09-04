@@ -150,6 +150,19 @@
           }
         }
       ]
+    },
+    {
+      "theme": "@default",
+      "header": "@default",
+      "footer": "@default",
+      "content": [
+        {
+          "LoremParagraph": {
+            "paragraph": 100,
+            "textAlign": "left"
+          }
+        }
+      ]
     }
   ],
   "data": {

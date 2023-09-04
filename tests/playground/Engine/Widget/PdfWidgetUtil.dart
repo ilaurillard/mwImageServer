@@ -1,6 +1,8 @@
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import 'PdfWidget.dart';
+
 class PdfWidgetUtil {
   static PdfColor? color(
     String? json,
@@ -237,5 +239,13 @@ class PdfWidgetUtil {
       }
     }
     return pw.TableWidth.max;
+  }
+
+  static String parameters(
+    String text,
+  ) {
+    return text
+        .replaceAll('%pageNumber%', PdfWidget.pageNumber.toString())
+        .replaceAll('%pagesCount%', PdfWidget.pagesCount.toString());
   }
 }

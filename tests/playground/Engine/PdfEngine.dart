@@ -51,6 +51,9 @@ class PdfEngine {
       pw.Widget headerBuilder(
         pw.Context context,
       ) {
+
+        //print('Header ${context.pageNumber}/${context.pagesCount}');
+
         if (page.header.isNotEmpty) {
           PdfHeader? header = headers[page.header];
           if (header != null) {
@@ -60,10 +63,13 @@ class PdfEngine {
         return pw.SizedBox();
       }
 
-      // footer calback --------------------------
+      // footer callback --------------------------
       pw.Widget footerBuilder(
         pw.Context context,
       ) {
+
+        //print('Footer ${context.pageNumber}/${context.pagesCount}');
+
         if (page.footer.isNotEmpty) {
           PdfFooter? footer = footers[page.footer];
           if (footer != null) {

@@ -11,7 +11,7 @@ class PdfWidgetBasic {
   ) {
     // TODO
     return pw.Text(
-      json['text'] as String? ?? '¿',
+      PdfWidgetUtil.parameters(json['text'] as String? ?? '¿'),
       textAlign: PdfWidgetUtil.textAlign(
         json['textAlign'] as String?,
       ),
@@ -26,7 +26,7 @@ class PdfWidgetBasic {
   ) {
     // TODO
     return pw.Paragraph(
-      text: json['text'] as String? ?? '¿',
+      text: PdfWidgetUtil.parameters(json['text'] as String? ?? '¿'),
       textAlign: PdfWidgetUtil.textAlign(
             json['textAlign'] as String?,
           ) ??

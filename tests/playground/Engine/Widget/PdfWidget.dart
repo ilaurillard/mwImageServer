@@ -8,15 +8,26 @@ import 'PdfWidgetLayout.dart';
 import 'PdfWidgetTable.dart';
 
 class PdfWidget {
-  final pw.Context context;
+  static late pw.Context context;
+  static int pageNumber = 0;
+  static int pagesCount = 0;
+
   final Dict json;
 
   PdfWidget({
-    required this.context,
     required this.json,
-  });
+    required pw.Context context,
+    int pageNumber = 0,
+    int pagesCount = 0,
+  }) {
+    PdfWidget.pageNumber = pageNumber;
+    PdfWidget.pagesCount = pagesCount;
+  }
 
   pw.Widget build() {
+
+    print('XXX ${pageNumber}/${pagesCount}');
+
     return parse(json);
   }
 
@@ -104,5 +115,4 @@ class PdfWidget {
     }
     return pw.SizedBox();
   }
-
 }

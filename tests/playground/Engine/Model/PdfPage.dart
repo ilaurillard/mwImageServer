@@ -23,10 +23,12 @@ class PdfPage {
     pw.Context context,
   ) {
     return content
-        .map((e) => PdfWidget(
-              context: context,
-              json: e as Dict,
-            ).build())
+        .map(
+          (e) => PdfWidget(
+            json: e as Dict,
+            context: context,
+          ).build(),
+        )
         .toList();
   }
 

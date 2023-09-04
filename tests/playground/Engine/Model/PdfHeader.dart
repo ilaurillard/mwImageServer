@@ -14,16 +14,16 @@ class PdfHeader {
     pw.Context context,
   ) {
     return PdfWidget(
-      context: context,
       json: json,
+      context: context,
+      pageNumber: context.pageNumber,
+      pagesCount: context.pagesCount,
     ).build();
   }
 
   static PdfHeader fromJson(
     Dict json,
   ) {
-    // print('Header: $json');
-
     return PdfHeader(
       json: json,
     );
