@@ -21,7 +21,7 @@ Future<void> main() async {
         theme: theme,
         // clip: false,
         // orientation: pw.PageOrientation.landscape,
-        // textDirection: pw.TextDirection.ltr,
+        textDirection: pw.TextDirection.rtl
       ),
       build: (pw.Context context) => pw.Center(
         child: pw.Text(pw.LoremText().paragraph(2000)),

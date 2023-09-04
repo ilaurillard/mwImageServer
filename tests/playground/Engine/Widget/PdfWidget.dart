@@ -17,10 +17,10 @@ class PdfWidget {
   });
 
   pw.Widget build() {
-    return parseWidget(json);
+    return parse(json);
   }
 
-  static pw.Widget parseWidget(
+  static pw.Widget parse(
     Dict json,
   ) {
     if (json.entries.isNotEmpty) {
@@ -29,69 +29,75 @@ class PdfWidget {
       String key = widget.key;
       Dict data = widget.value as Dict;
 
-      print('W: $key');
-      print(widget);
+      // print('W: $key');
+      // print(widget);
 
       switch (key) {
         case 'Container':
-          return PdfWidgetLayout.parseContainer(data);
+          return PdfWidgetLayout.container(data);
 
         case 'SizedBox':
-          return PdfWidgetLayout.parseSizedBox(data);
+          return PdfWidgetLayout.sizedBox(data);
 
         case 'Wrap':
-          return PdfWidgetLayout.parseWrap(data);
+          return PdfWidgetLayout.wrap(data);
 
         case 'Flex':
-          return PdfWidgetLayout.parseFlex(data);
+          return PdfWidgetLayout.flex(data);
         case 'Row':
-          return PdfWidgetLayout.parseRow(data);
+          return PdfWidgetLayout.row(data);
         case 'Column':
-          return PdfWidgetLayout.parseColumn(data);
+          return PdfWidgetLayout.column(data);
         case 'Expanded':
-          return PdfWidgetLayout.parseExpanded(data);
+          return PdfWidgetLayout.expanded(data);
         case 'Flexible':
-          return PdfWidgetLayout.parseFlexible(data);
+          return PdfWidgetLayout.flexible(data);
 
         // ----------
 
         case 'Table':
-          return PdfWidgetTable.parseTable(data);
+          return PdfWidgetTable.table(data);
 
         // ----------
 
         case 'Text':
-          return PdfWidgetBasic.parseText(data);
+          return PdfWidgetBasic.text(data);
 
         case 'Paragraph':
-          return PdfWidgetBasic.parseParagraph(data);
+          return PdfWidgetBasic.paragraph(data);
 
         case 'Spacer':
-          return PdfWidgetBasic.parseSpacer(data);
+          return PdfWidgetBasic.spacer(data);
 
         case 'Placeholder':
-          return PdfWidgetBasic.parsePlaceholder(data);
+          return PdfWidgetBasic.placeholder(data);
 
         case 'Divider':
-          return PdfWidgetBasic.parseDivider(data);
+          return PdfWidgetBasic.divider(data);
 
         case 'Opacity':
-          return PdfWidgetBasic.parseOpacity(data);
+          return PdfWidgetBasic.opacity(data);
+
+        case 'LoremText':
+          return PdfWidgetBasic.loremText(data);
+
+        case 'LoremParagraph':
+          return PdfWidgetBasic.loremParagraph(data);
 
         // ----------
 
         case 'Image':
-          return PdfWidgetImage.parseImage(data);
+          return PdfWidgetImage.image(data);
 
         case 'SvgImage':
-          return PdfWidgetImage.parseSvgImage(data);
+          return PdfWidgetImage.svgImage(data);
 
         // ----------
 
         case 'Chart':
-          return PdfWidgetChart.parseChart(data);
+          return PdfWidgetChart.chart(data);
         case 'ChartLegend':
-          return PdfWidgetChart.parseChartLegend(data);
+          return PdfWidgetChart.chartLegend(data);
       }
 
       print(' !!! widget $key not supported');
@@ -99,5 +105,4 @@ class PdfWidget {
     return pw.SizedBox();
   }
 
-// ----------------
 }

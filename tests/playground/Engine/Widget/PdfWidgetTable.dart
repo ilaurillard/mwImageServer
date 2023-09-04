@@ -2,24 +2,24 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'PdfWidget.dart';
-import 'PdfWidgetEnums.dart';
+import 'PdfWidgetUtil.dart';
 
 class PdfWidgetTable {
-  static pw.Table parseTable(
+  static pw.Table table(
     Dict json,
   ) {
     // TODO
     return pw.Table(
-      tableWidth: PdfWidgetEnums.parseTableWidth(
+      tableWidth: PdfWidgetUtil.tableWidth(
         json['tableWidth'] as String?,
       ),
       children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => parseTableRow(e as Dict))
+          .map((e) => tableRow(e as Dict))
           .toList(),
     );
   }
 
-  static pw.TableRow parseTableRow(
+  static pw.TableRow tableRow(
     Dict json,
   ) {
     print('W: TableRow');
@@ -27,7 +27,7 @@ class PdfWidgetTable {
     // TODO
     return pw.TableRow(
       children: (json['TableRow']['children'] as List<dynamic>? ?? [])
-          .map((e) => PdfWidget.parseWidget(e as Dict))
+          .map((e) => PdfWidget.parse(e as Dict))
           .toList(),
     );
   }

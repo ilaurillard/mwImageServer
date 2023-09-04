@@ -3,38 +3,45 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'PdfWidget.dart';
-import 'PdfWidgetEnums.dart';
+import 'PdfWidgetUtil.dart';
 
 class PdfWidgetBasic {
-  static pw.Text parseText(
+  static pw.Text text(
     Dict json,
   ) {
     // TODO
     return pw.Text(
       json['text'] as String? ?? '¿',
+      textAlign: PdfWidgetUtil.textAlign(
+        json['textAlign'] as String?,
+      ),
+      textDirection: PdfWidgetUtil.textDirection(
+        json['textDirection'] as String?,
+      ),
     );
   }
 
-  static pw.Paragraph parseParagraph(
+  static pw.Paragraph paragraph(
     Dict json,
   ) {
     // TODO
     return pw.Paragraph(
       text: json['text'] as String? ?? '¿',
-      textAlign: PdfWidgetEnums.parseTextAlign(
-        json['textAlign'] as String?,
-      ),
-      padding: PdfWidgetEnums.parseEdgeInsets(
+      textAlign: PdfWidgetUtil.textAlign(
+            json['textAlign'] as String?,
+          ) ??
+          pw.TextAlign.justify,
+      padding: PdfWidgetUtil.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
-      margin: PdfWidgetEnums.parseEdgeInsets(
+      margin: PdfWidgetUtil.edgeInsets(
             json['margin'] as List<dynamic>?,
           ) ??
           const pw.EdgeInsets.only(bottom: 5.0 * PdfPageFormat.mm),
     );
   }
 
-  static pw.Spacer parseSpacer(
+  static pw.Spacer spacer(
     Dict json,
   ) {
     return pw.Spacer(
@@ -42,28 +49,28 @@ class PdfWidgetBasic {
     );
   }
 
-  static pw.Placeholder parsePlaceholder(
+  static pw.Placeholder placeholder(
     Dict json,
   ) {
     // TODO
     return pw.Placeholder(
       fallbackWidth: 20 * PdfPageFormat.mm,
       fallbackHeight: 20 * PdfPageFormat.mm,
-      color: PdfWidgetEnums.parseColor(
+      color: PdfWidgetUtil.color(
             json['color'] as String?,
           ) ??
           PdfColor.fromInt(0xFF455A64),
     );
   }
 
-  static pw.Opacity parseOpacity(Dict json) {
+  static pw.Opacity opacity(Dict json) {
     return pw.Opacity(
       opacity: double.tryParse(json['opacity'].toString()) ?? 1.0,
-      child: PdfWidget.parseWidget(json['child'] as Dict? ?? {}),
+      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
     );
   }
 
-  static pw.Divider parseDivider(
+  static pw.Divider divider(
     Dict json,
   ) {
     double? height = double.tryParse(json['height'].toString());
@@ -75,12 +82,40 @@ class PdfWidgetBasic {
       thickness: thickness != null ? thickness * PdfPageFormat.mm : null,
       indent: indent != null ? indent * PdfPageFormat.mm : null,
       endIndent: endIndent != null ? endIndent * PdfPageFormat.mm : null,
-      color: PdfWidgetEnums.parseColor(
+      color: PdfWidgetUtil.color(
         json['color'] as String?,
       ),
-      borderStyle: PdfWidgetEnums.parseBorderStyle(
+      borderStyle: PdfWidgetUtil.borderStyle(
         json['borderStyle'] as String?,
       ),
     );
+  }
+
+  static pw.Text loremText(
+    Dict json,
+  ) {
+    json['text'] = _loremText(json);
+    return text(json);
+  }
+
+  static pw.Paragraph loremParagraph(
+    Dict json,
+  ) {
+    json['text'] = _loremText(json);
+    return paragraph(json);
+  }
+
+  static String _loremText(
+    Dict json,
+  ) {
+    int? sentence = int.tryParse(json['sentence'].toString());
+    if (sentence != null && sentence > 0) {
+      return pw.LoremText().sentence(sentence);
+    }
+    int? paragraph = int.tryParse(json['paragraph'].toString());
+    if (paragraph != null && paragraph > 0) {
+      return pw.LoremText().paragraph(paragraph);
+    }
+    return '¿';
   }
 }

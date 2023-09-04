@@ -3,10 +3,10 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'PdfWidget.dart';
-import 'PdfWidgetEnums.dart';
+import 'PdfWidgetUtil.dart';
 
 class PdfWidgetLayout {
-  static pw.Container parseContainer(
+  static pw.Container container(
     Dict json,
   ) {
     double? width = double.tryParse(json['width'].toString());
@@ -14,25 +14,25 @@ class PdfWidgetLayout {
 
     // TODO decoration, constraints, foregroundDecoration, transform
     return pw.Container(
-      alignment: PdfWidgetEnums.parseAlignment(
+      alignment: PdfWidgetUtil.alignment(
         json['alignment'] as String?,
       ),
-      padding: PdfWidgetEnums.parseEdgeInsets(
+      padding: PdfWidgetUtil.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
-      margin: PdfWidgetEnums.parseEdgeInsets(
+      margin: PdfWidgetUtil.edgeInsets(
         json['margin'] as List<dynamic>?,
       ),
-      color: PdfWidgetEnums.parseColor(
+      color: PdfWidgetUtil.color(
         json['color'] as String?,
       ),
       width: width != null ? width * PdfPageFormat.mm : null,
       height: height != null ? height * PdfPageFormat.mm : null,
-      child: PdfWidget.parseWidget(json['child'] as Dict? ?? {}),
+      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
     );
   }
 
-  static pw.SizedBox parseSizedBox(
+  static pw.SizedBox sizedBox(
     Dict json,
   ) {
     double? width = double.tryParse(json['width'].toString());
@@ -41,129 +41,129 @@ class PdfWidgetLayout {
     return pw.SizedBox(
       width: width != null ? width * PdfPageFormat.mm : null,
       height: height != null ? height * PdfPageFormat.mm : null,
-      child: PdfWidget.parseWidget(json['child'] as Dict? ?? {}),
+      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
     );
   }
 
-  static pw.Wrap parseWrap(
+  static pw.Wrap wrap(
     Dict json,
   ) {
     double? spacing = double.tryParse(json['spacing'].toString());
     double? runSpacing = double.tryParse(json['runSpacing'].toString());
     return pw.Wrap(
-      direction: PdfWidgetEnums.parseAxis(
+      direction: PdfWidgetUtil.axis(
         json['direction'] as String?,
       ),
-      alignment: PdfWidgetEnums.parseWrapAlignment(
+      alignment: PdfWidgetUtil.wrapAlignment(
         json['alignment'] as String?,
       ),
       spacing: spacing != null ? spacing * PdfPageFormat.mm : 0.0,
-      runAlignment: PdfWidgetEnums.parseWrapAlignment(
+      runAlignment: PdfWidgetUtil.wrapAlignment(
         json['runAlignment'] as String?,
       ),
       runSpacing: runSpacing != null ? runSpacing * PdfPageFormat.mm : 0.0,
-      crossAxisAlignment: PdfWidgetEnums.parseWrapCrossAlignment(
+      crossAxisAlignment: PdfWidgetUtil.wrapCrossAlignment(
         json['crossAxisAlignment'] as String?,
       ),
-      verticalDirection: PdfWidgetEnums.parseVerticalDirection(
+      verticalDirection: PdfWidgetUtil.verticalDirection(
         json['verticalDirection'] as String?,
       ),
       children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => PdfWidget.parseWidget(e as Dict))
+          .map((e) => PdfWidget.parse(e as Dict))
           .toList(),
     );
   }
 
-  static pw.Row parseRow(
+  static pw.Row row(
     Dict json,
   ) {
     return pw.Row(
-      mainAxisAlignment: PdfWidgetEnums.parseMainAxisAlignment(
+      mainAxisAlignment: PdfWidgetUtil.mainAxisAlignment(
         json['mainAxisAlignment'] as String?,
       ),
-      crossAxisAlignment: PdfWidgetEnums.parseCrossAxisAlignment(
+      crossAxisAlignment: PdfWidgetUtil.crossAxisAlignment(
         json['crossAxisAlignment'] as String?,
       ),
-      mainAxisSize: PdfWidgetEnums.parseMainAxisSize(
+      mainAxisSize: PdfWidgetUtil.mainAxisSize(
         json['mainAxisSize'] as String?,
       ),
-      verticalDirection: PdfWidgetEnums.parseVerticalDirection(
+      verticalDirection: PdfWidgetUtil.verticalDirection(
         json['verticalDirection'] as String?,
       ),
       children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => PdfWidget.parseWidget(e as Dict))
+          .map((e) => PdfWidget.parse(e as Dict))
           .toList(),
     );
   }
 
-  static pw.Column parseColumn(
+  static pw.Column column(
     Dict json,
   ) {
     return pw.Column(
-      mainAxisAlignment: PdfWidgetEnums.parseMainAxisAlignment(
+      mainAxisAlignment: PdfWidgetUtil.mainAxisAlignment(
         json['mainAxisAlignment'] as String?,
       ),
-      crossAxisAlignment: PdfWidgetEnums.parseCrossAxisAlignment(
+      crossAxisAlignment: PdfWidgetUtil.crossAxisAlignment(
         json['crossAxisAlignment'] as String?,
       ),
-      mainAxisSize: PdfWidgetEnums.parseMainAxisSize(
+      mainAxisSize: PdfWidgetUtil.mainAxisSize(
         json['mainAxisSize'] as String?,
       ),
-      verticalDirection: PdfWidgetEnums.parseVerticalDirection(
+      verticalDirection: PdfWidgetUtil.verticalDirection(
         json['verticalDirection'] as String?,
       ),
       children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => PdfWidget.parseWidget(e as Dict))
+          .map((e) => PdfWidget.parse(e as Dict))
           .toList(),
     );
   }
 
-  static pw.Flex parseFlex(
+  static pw.Flex flex(
     Dict json,
   ) {
     return pw.Flex(
-      direction: PdfWidgetEnums.parseAxis(
+      direction: PdfWidgetUtil.axis(
         json['direction'] as String?,
       ),
-      mainAxisAlignment: PdfWidgetEnums.parseMainAxisAlignment(
+      mainAxisAlignment: PdfWidgetUtil.mainAxisAlignment(
         json['mainAxisAlignment'] as String?,
       ),
-      crossAxisAlignment: PdfWidgetEnums.parseCrossAxisAlignment(
+      crossAxisAlignment: PdfWidgetUtil.crossAxisAlignment(
         json['crossAxisAlignment'] as String?,
       ),
-      mainAxisSize: PdfWidgetEnums.parseMainAxisSize(
+      mainAxisSize: PdfWidgetUtil.mainAxisSize(
         json['mainAxisSize'] as String?,
       ),
-      verticalDirection: PdfWidgetEnums.parseVerticalDirection(
+      verticalDirection: PdfWidgetUtil.verticalDirection(
         json['verticalDirection'] as String?,
       ),
       children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => PdfWidget.parseWidget(e as Dict))
+          .map((e) => PdfWidget.parse(e as Dict))
           .toList(),
     );
   }
 
-  static pw.Expanded parseExpanded(
+  static pw.Expanded expanded(
     Dict json,
   ) {
     return pw.Expanded(
       flex: int.tryParse(json['flex'].toString()) ?? 1,
-      fit: PdfWidgetEnums.parseFlexFit(
+      fit: PdfWidgetUtil.flexFit(
         json['fit'] as String?,
       ),
-      child: PdfWidget.parseWidget(json['child'] as Dict? ?? {}),
+      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
     );
   }
 
-  static pw.Flexible parseFlexible(
+  static pw.Flexible flexible(
     Dict json,
   ) {
     return pw.Flexible(
       flex: int.tryParse(json['flex'].toString()) ?? 1,
-      fit: PdfWidgetEnums.parseFlexFit(
+      fit: PdfWidgetUtil.flexFit(
         json['fit'] as String? ?? 'loose',
       ),
-      child: PdfWidget.parseWidget(json['child'] as Dict? ?? {}),
+      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
     );
   }
 }

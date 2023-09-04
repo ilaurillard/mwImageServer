@@ -3,7 +3,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../Widget/PdfWidgetEnums.dart';
+import '../Widget/PdfWidgetUtil.dart';
 
 class PdfTheme {
   final pw.PageTheme theme;
@@ -19,10 +19,6 @@ class PdfTheme {
     pw.PageOrientation? orientation =
         pw.PageOrientation.values.firstWhereOrNull((e) => e.name == o);
 
-    String td = json['textDirection'] as String? ?? '';
-    pw.TextDirection? textDirection =
-        pw.TextDirection.values.firstWhereOrNull((e) => e.name == td);
-
     pw.PageTheme theme = pw.PageTheme(
       pageFormat: fromJsonPageFormat((json['format'] as Dict?) ?? {}),
       // TODO
@@ -31,13 +27,14 @@ class PdfTheme {
       buildForeground: null,
       theme: fromJsonStyles((json['styles'] as Dict?) ?? {}),
       orientation: orientation,
-      // TODO EdgeInsets
-      margin: null,
+      margin: PdfWidgetUtil.edgeInsets(
+        json['margin'] as List<dynamic>?,
+      ),
       clip: json['clip'] as bool? ?? false,
-      textDirection: textDirection,
+      textDirection: PdfWidgetUtil.textDirection(
+        json['textDirection'] as String? ?? '',
+      ),
     );
-
-    // print(theme.theme!.iconTheme.size);
 
     return PdfTheme(theme);
   }
@@ -68,7 +65,7 @@ class PdfTheme {
       tableHeader: fromJsonTextStyle((json['tableHeader'] as Dict?) ?? {}),
       tableCell: fromJsonTextStyle((json['tableCell'] as Dict?) ?? {}),
       softWrap: json['softWrap'] as bool?,
-      textAlign: textAlign,
+      textAlign: PdfWidgetUtil.textAlign(json['textAlign'] as String?),
       overflow: overflow,
       maxLines: json['maxLines'] as int?,
       iconTheme: fromJsonIconTheme(
@@ -103,7 +100,7 @@ class PdfTheme {
         PdfTextRenderingMode.values.firstWhereOrNull((e) => e.name == rm);
 
     return pw.TextStyle(
-      color: PdfWidgetEnums.parseColor(json['color'] as String?),
+      color: PdfWidgetUtil.color(json['color'] as String?),
       font: fromJsonFont(json['font'] as String?),
       fontNormal: fromJsonFont(json['fontNormal'] as String?),
       fontBold: fromJsonFont(json['fontBold'] as String?),
@@ -120,7 +117,7 @@ class PdfTheme {
       background: null,
       // TODO decoration none, underline, ...
       decoration: pw.TextDecoration.none,
-      decorationColor: PdfWidgetEnums.parseColor(json['decorationColor'] as String?),
+      decorationColor: PdfWidgetUtil.color(json['decorationColor'] as String?),
       decorationStyle: decStyle,
       decorationThickness:
           double.tryParse(json['decorationThickness'].toString()),
@@ -138,7 +135,7 @@ class PdfTheme {
     }
 
     return pw.IconThemeData(
-      color: PdfWidgetEnums.parseColor(json['color'] as String?),
+      color: PdfWidgetUtil.color(json['color'] as String?),
       opacity: double.tryParse(json['opacity'].toString()),
       size: double.tryParse(json['size'].toString()),
       font: fromJsonFont(json['font'] as String?),

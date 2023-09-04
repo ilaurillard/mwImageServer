@@ -5,11 +5,11 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'PdfWidget.dart';
-import 'PdfWidgetEnums.dart';
+import 'PdfWidgetUtil.dart';
 
 class PdfWidgetChart {
 
-  static pw.Chart parseChart(
+  static pw.Chart chart(
     Dict json,
   ) {
     // TODO
@@ -51,12 +51,12 @@ class PdfWidgetChart {
 
     // TODO
     return pw.Chart(
-      grid: parseChartGrid(json['grid'] as Dict? ?? {}),
-      overlay: PdfWidget.parseWidget(json['overlay'] as Dict? ?? {}),
-      title: PdfWidget.parseWidget(json['title'] as Dict? ?? {}),
-      bottom: PdfWidget.parseWidget(json['bottom'] as Dict? ?? {}),
-      left: PdfWidget.parseWidget(json['left'] as Dict? ?? {}),
-      right: PdfWidget.parseWidget(json['right'] as Dict? ?? {}),
+      grid: chartGrid(json['grid'] as Dict? ?? {}),
+      overlay: PdfWidget.parse(json['overlay'] as Dict? ?? {}),
+      title: PdfWidget.parse(json['title'] as Dict? ?? {}),
+      bottom: PdfWidget.parse(json['bottom'] as Dict? ?? {}),
+      left: PdfWidget.parse(json['left'] as Dict? ?? {}),
+      right: PdfWidget.parse(json['right'] as Dict? ?? {}),
 
       // CartesianGrid
       // datasets: [
@@ -166,7 +166,7 @@ class PdfWidgetChart {
     );
   }
 
-  static pw.ChartGrid parseChartGrid(
+  static pw.ChartGrid chartGrid(
     Dict json,
   ) {
     MapEntry<String, dynamic> widget = json.entries.first;
@@ -178,17 +178,17 @@ class PdfWidgetChart {
 
     switch (key) {
       case 'CartesianGrid':
-        return parseCartesianGrid(data);
+        return cartesianGrid(data);
       case 'PieGrid':
-        return parsePieGrid(data);
+        return pieGrid(data);
       case 'RadialGrid':
-        return parseRadialGrid(data);
+        return radialGrid(data);
     }
 
     throw Exception('Parsing chart grid failed');
   }
 
-  static pw.PieGrid parsePieGrid(
+  static pw.PieGrid pieGrid(
     Dict json,
   ) {
     return pw.PieGrid(
@@ -196,22 +196,22 @@ class PdfWidgetChart {
     );
   }
 
-  static pw.RadialGrid parseRadialGrid(
+  static pw.RadialGrid radialGrid(
     Dict json,
   ) {
     return pw.RadialGrid();
   }
 
-  static pw.CartesianGrid parseCartesianGrid(
+  static pw.CartesianGrid cartesianGrid(
     Dict json,
   ) {
     return pw.CartesianGrid(
-      xAxis: parseGridAxis(json['xAxis'] as List<dynamic>? ?? []),
-      yAxis: parseGridAxis(json['yAxis'] as List<dynamic>? ?? []),
+      xAxis: gridAxis(json['xAxis'] as List<dynamic>? ?? []),
+      yAxis: gridAxis(json['yAxis'] as List<dynamic>? ?? []),
     );
   }
 
-  static pw.FixedAxis parseGridAxis(
+  static pw.FixedAxis gridAxis(
     List<dynamic> json,
   ) {
     // TODO
@@ -230,12 +230,12 @@ class PdfWidgetChart {
     );
   }
 
-  static pw.ChartLegend parseChartLegend(
+  static pw.ChartLegend chartLegend(
       Dict json,
       ) {
     // TODO
     return pw.ChartLegend(
-      position: PdfWidgetEnums.parseAlignment(
+      position: PdfWidgetUtil.alignment(
         json['position'] as String?,
       ) ?? pw.Alignment.topRight,
     );

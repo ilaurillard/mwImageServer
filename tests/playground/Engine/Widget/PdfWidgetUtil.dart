@@ -1,8 +1,19 @@
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class PdfWidgetEnums {
-  static pw.MainAxisAlignment parseMainAxisAlignment(
+class PdfWidgetUtil {
+  static PdfColor? color(
+    String? json,
+  ) {
+    // TODO ???
+    if (json != null && json != '') {
+      // return PdfColor(0.5, 0.5, 0.5, 0.5);
+      return PdfColor.fromInt(int.parse(json, radix: 16));
+    }
+    return null;
+  }
+
+  static pw.MainAxisAlignment mainAxisAlignment(
     String? json,
   ) {
     switch (json) {
@@ -20,7 +31,7 @@ class PdfWidgetEnums {
     return pw.MainAxisAlignment.start;
   }
 
-  static pw.CrossAxisAlignment parseCrossAxisAlignment(
+  static pw.CrossAxisAlignment crossAxisAlignment(
     String? json,
   ) {
     switch (json) {
@@ -34,7 +45,7 @@ class PdfWidgetEnums {
     return pw.CrossAxisAlignment.center;
   }
 
-  static pw.MainAxisSize parseMainAxisSize(
+  static pw.MainAxisSize mainAxisSize(
     String? json,
   ) {
     switch (json) {
@@ -44,7 +55,7 @@ class PdfWidgetEnums {
     return pw.MainAxisSize.max;
   }
 
-  static pw.VerticalDirection parseVerticalDirection(
+  static pw.VerticalDirection verticalDirection(
     String? json,
   ) {
     switch (json) {
@@ -54,18 +65,7 @@ class PdfWidgetEnums {
     return pw.VerticalDirection.down;
   }
 
-  static PdfColor? parseColor(
-    String? json,
-  ) {
-    // TODO ???
-    if (json != null && json != '') {
-      // return PdfColor(0.5, 0.5, 0.5, 0.5);
-      return PdfColor.fromInt(int.parse(json, radix: 16));
-    }
-    return null;
-  }
-
-  static pw.EdgeInsets? parseEdgeInsets(
+  static pw.EdgeInsets? edgeInsets(
     List<dynamic>? json,
   ) {
     if (json != null && json.isNotEmpty) {
@@ -92,10 +92,9 @@ class PdfWidgetEnums {
     return null;
   }
 
-  static pw.Alignment? parseAlignment(
+  static pw.Alignment? alignment(
     String? json,
   ) {
-
     if (json != null && json != '') {
       switch (json) {
         case 'center':
@@ -124,7 +123,7 @@ class PdfWidgetEnums {
     return null;
   }
 
-  static pw.TextAlign parseTextAlign(
+  static pw.TextAlign? textAlign(
     String? json,
   ) {
     if (json != null && json != '') {
@@ -135,12 +134,28 @@ class PdfWidgetEnums {
           return pw.TextAlign.left;
         case 'right':
           return pw.TextAlign.right;
+        case 'justify':
+          return pw.TextAlign.justify;
       }
     }
-    return pw.TextAlign.justify;
+    return null;
   }
 
-  static pw.Axis parseAxis(
+  static pw.TextDirection? textDirection(
+    String? json,
+  ) {
+    if (json != null && json != '') {
+      switch (json) {
+        case 'ltr':
+          return pw.TextDirection.ltr;
+        case 'rtl':
+          return pw.TextDirection.rtl;
+      }
+    }
+    return null;
+  }
+
+  static pw.Axis axis(
     String? json,
   ) {
     if (json != null && json != '') {
@@ -152,7 +167,7 @@ class PdfWidgetEnums {
     return pw.Axis.horizontal;
   }
 
-  static pw.FlexFit parseFlexFit(
+  static pw.FlexFit flexFit(
     String? json,
   ) {
     if (json != null && json != '') {
@@ -164,7 +179,7 @@ class PdfWidgetEnums {
     return pw.FlexFit.tight;
   }
 
-  static pw.BorderStyle parseBorderStyle(
+  static pw.BorderStyle borderStyle(
     String? json,
   ) {
     if (json != null && json != '') {
@@ -180,7 +195,7 @@ class PdfWidgetEnums {
     return pw.BorderStyle.solid;
   }
 
-  static pw.WrapAlignment parseWrapAlignment(
+  static pw.WrapAlignment wrapAlignment(
     String? json,
   ) {
     if (json != null && json != '') {
@@ -200,7 +215,7 @@ class PdfWidgetEnums {
     return pw.WrapAlignment.start;
   }
 
-  static pw.WrapCrossAlignment parseWrapCrossAlignment(
+  static pw.WrapCrossAlignment wrapCrossAlignment(
     String? json,
   ) {
     switch (json) {
@@ -212,7 +227,7 @@ class PdfWidgetEnums {
     return pw.WrapCrossAlignment.start;
   }
 
-  static pw.TableWidth parseTableWidth(
+  static pw.TableWidth tableWidth(
     String? json,
   ) {
     if (json != null && json != '') {

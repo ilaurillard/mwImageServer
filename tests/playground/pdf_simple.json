@@ -124,8 +124,9 @@
           "Container": {
             "height": 50.0,
             "child": {
-              "Text": {
-                "text": "HELLO WORLD 1"
+              "LoremParagraph": {
+                "paragraph": 100,
+                "textAlign": "right"
               }
             }
           }
@@ -142,8 +143,8 @@
           "Container": {
             "height": 50.0,
             "child": {
-              "Text": {
-                "text": "HELLO WORLD 2"
+              "LoremText": {
+                "sentence": 50
               }
             }
           }

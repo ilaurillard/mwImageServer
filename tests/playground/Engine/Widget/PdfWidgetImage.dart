@@ -4,7 +4,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PdfWidgetImage {
-  static pw.Image parseImage(
+  static pw.Image image(
     Dict json,
   ) {
     print(json);
@@ -14,7 +14,7 @@ class PdfWidgetImage {
     );
   }
 
-  static pw.SvgImage parseSvgImage(
+  static pw.SvgImage svgImage(
     Dict json,
   ) {
     print(json);
