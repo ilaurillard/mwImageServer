@@ -1,11 +1,11 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfData.dart';
-import 'PdfFooter.dart';
-import 'PdfHeader.dart';
-import 'PdfPage.dart';
-import 'PdfTheme.dart';
+import 'Model/PdfData.dart';
+import 'Model/PdfFooter.dart';
+import 'Model/PdfHeader.dart';
+import 'Model/PdfPage.dart';
+import 'Theme/PdfTheme.dart';
 
 class PdfEngine {
   List<PdfPage> pages;
@@ -47,6 +47,7 @@ class PdfEngine {
     pw.Document pdf = pw.Document();
 
     for (PdfPage page in pages) {
+      // header callback --------------------------
       pw.Widget headerBuilder(
         pw.Context context,
       ) {
@@ -59,6 +60,7 @@ class PdfEngine {
         return pw.SizedBox();
       }
 
+      // footer calback --------------------------
       pw.Widget footerBuilder(
         pw.Context context,
       ) {
@@ -71,37 +73,42 @@ class PdfEngine {
         return pw.SizedBox();
       }
 
+      // page builder  --------------------------
       List<pw.Widget> pageBuilder(
         pw.Context context,
       ) {
         return page.build(context);
       }
 
-      pdf.addPage(
-        pw.MultiPage(
-          pageTheme: themes[page.theme]?.theme,
-          header: page.header.isNotEmpty ? headerBuilder : null,
-          footer: page.footer.isNotEmpty ? footerBuilder : null,
-          build: (pw.Context context) => pageBuilder(context),
-        ),
-      );
+      // --------------------------
+      // --------------------------
 
-      // pdf.addPage(
-      //   pw.Page(
-      //     pageTheme: themes[page.theme]?.theme,
-      //     build: (pw.Context context) => pw.Column(
-      //       crossAxisAlignment: pw.CrossAxisAlignment.start,
-      //       children: [
-      //         if (page.header.isNotEmpty) headerBuilder(context),
-      //          pw.Expanded(
-      //           //child: pw.Text(pw.LoremText().paragraph(100)),
-      //           child: pageBuilder(context).first,
-      //         ),
-      //         if (page.footer.isNotEmpty) footerBuilder(context),
-      //       ],
-      //     ),
-      //   ),
-      // );
+      if (page.multi) {
+        pdf.addPage(
+          pw.MultiPage(
+            pageTheme: themes[page.theme]?.theme,
+            header: page.header.isNotEmpty ? headerBuilder : null,
+            footer: page.footer.isNotEmpty ? footerBuilder : null,
+            build: (pw.Context context) => pageBuilder(context),
+          ),
+        );
+      } else {
+        pdf.addPage(
+          pw.Page(
+            pageTheme: themes[page.theme]?.theme,
+            build: (pw.Context context) => pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                if (page.header.isNotEmpty) headerBuilder(context),
+                pw.Expanded(
+                  child: pageBuilder(context).first,
+                ),
+                if (page.footer.isNotEmpty) footerBuilder(context),
+              ],
+            ),
+          ),
+        );
+      }
     }
 
     return pdf;

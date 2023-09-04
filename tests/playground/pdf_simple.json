@@ -17,7 +17,7 @@
         "textDirection": "ltr",
         "styles": {
           "text": {
-            "color": "FF006600",
+            "color": "FFFF6600",
             "font": "courier",
             "fontNormal": "courier",
             "fontBold": "courier",
@@ -125,7 +125,25 @@
             "height": 50.0,
             "child": {
               "Text": {
-                "text": "HELLO WORLD"
+                "text": "HELLO WORLD 1"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "multi": true,
+      "theme": "@default",
+      "header": "@default",
+      "footer": "@default",
+      "content": [
+        {
+          "Container": {
+            "height": 50.0,
+            "child": {
+              "Text": {
+                "text": "HELLO WORLD 2"
               }
             }
           }

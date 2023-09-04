@@ -3,6 +3,8 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../Widget/PdfWidgetEnums.dart';
+
 class PdfTheme {
   final pw.PageTheme theme;
 
@@ -22,8 +24,7 @@ class PdfTheme {
         pw.TextDirection.values.firstWhereOrNull((e) => e.name == td);
 
     pw.PageTheme theme = pw.PageTheme(
-      pageFormat:
-          fromJsonPageFormat((json['format'] as Dict?) ?? {}),
+      pageFormat: fromJsonPageFormat((json['format'] as Dict?) ?? {}),
       // TODO
       buildBackground: null,
       // TODO
@@ -55,28 +56,17 @@ class PdfTheme {
         pw.TextOverflow.values.firstWhereOrNull((e) => e.name == to);
 
     return pw.ThemeData(
-      defaultTextStyle:
-          fromJsonTextStyle((json['text'] as Dict?) ?? {}),
-      paragraphStyle:
-          fromJsonTextStyle((json['paragraph'] as Dict?) ?? {}),
-      header0:
-          fromJsonTextStyle((json['header0'] as Dict?) ?? {}),
-      header1:
-          fromJsonTextStyle((json['header1'] as Dict?) ?? {}),
-      header2:
-          fromJsonTextStyle((json['header2'] as Dict?) ?? {}),
-      header3:
-          fromJsonTextStyle((json['header3'] as Dict?) ?? {}),
-      header4:
-          fromJsonTextStyle((json['header4'] as Dict?) ?? {}),
-      header5:
-          fromJsonTextStyle((json['header5'] as Dict?) ?? {}),
-      bulletStyle: fromJsonTextStyle(
-          (json['bulletStyle'] as Dict?) ?? {}),
-      tableHeader: fromJsonTextStyle(
-          (json['tableHeader'] as Dict?) ?? {}),
-      tableCell:
-          fromJsonTextStyle((json['tableCell'] as Dict?) ?? {}),
+      defaultTextStyle: fromJsonTextStyle((json['text'] as Dict?) ?? {}),
+      paragraphStyle: fromJsonTextStyle((json['paragraph'] as Dict?) ?? {}),
+      header0: fromJsonTextStyle((json['header0'] as Dict?) ?? {}),
+      header1: fromJsonTextStyle((json['header1'] as Dict?) ?? {}),
+      header2: fromJsonTextStyle((json['header2'] as Dict?) ?? {}),
+      header3: fromJsonTextStyle((json['header3'] as Dict?) ?? {}),
+      header4: fromJsonTextStyle((json['header4'] as Dict?) ?? {}),
+      header5: fromJsonTextStyle((json['header5'] as Dict?) ?? {}),
+      bulletStyle: fromJsonTextStyle((json['bulletStyle'] as Dict?) ?? {}),
+      tableHeader: fromJsonTextStyle((json['tableHeader'] as Dict?) ?? {}),
+      tableCell: fromJsonTextStyle((json['tableCell'] as Dict?) ?? {}),
       softWrap: json['softWrap'] as bool?,
       textAlign: textAlign,
       overflow: overflow,
@@ -113,7 +103,7 @@ class PdfTheme {
         PdfTextRenderingMode.values.firstWhereOrNull((e) => e.name == rm);
 
     return pw.TextStyle(
-      color: fromJsonColor(json['color'] as String?),
+      color: PdfWidgetEnums.parseColor(json['color'] as String?),
       font: fromJsonFont(json['font'] as String?),
       fontNormal: fromJsonFont(json['fontNormal'] as String?),
       fontBold: fromJsonFont(json['fontBold'] as String?),
@@ -130,7 +120,7 @@ class PdfTheme {
       background: null,
       // TODO decoration none, underline, ...
       decoration: pw.TextDecoration.none,
-      decorationColor: fromJsonColor(json['decorationColor'] as String?),
+      decorationColor: PdfWidgetEnums.parseColor(json['decorationColor'] as String?),
       decorationStyle: decStyle,
       decorationThickness:
           double.tryParse(json['decorationThickness'].toString()),
@@ -148,7 +138,7 @@ class PdfTheme {
     }
 
     return pw.IconThemeData(
-      color: fromJsonColor(json['color'] as String?),
+      color: PdfWidgetEnums.parseColor(json['color'] as String?),
       opacity: double.tryParse(json['opacity'].toString()),
       size: double.tryParse(json['size'].toString()),
       font: fromJsonFont(json['font'] as String?),
@@ -165,14 +155,16 @@ class PdfTheme {
     return null;
   }
 
-  static PdfColor? fromJsonColor(String? json) {
-    // print('PdfColor: $json');
-
-    if (json != null) {
-      return PdfColor.fromInt(int.parse(json, radix: 16));
-    }
-    return null;
-  }
+  // static PdfColor? fromJsonColor(
+  //   String? json,
+  // ) {
+  //   // print('PdfColor: $json');
+  //
+  //   if (json != null) {
+  //     return PdfColor.fromInt(int.parse(json, radix: 16));
+  //   }
+  //   return null;
+  // }
 
   static PdfPageFormat fromJsonPageFormat(
     Dict json,
@@ -197,10 +189,14 @@ class PdfTheme {
     double? height = double.tryParse(json['height'].toString());
 
     double? marginAll = double.tryParse(json['marginAll'].toString());
-    double? marginTop = double.tryParse(json['marginTop'].toString()) ?? marginAll;
-    double? marginBottom = double.tryParse(json['marginBottom'].toString()) ?? marginAll;
-    double? marginLeft = double.tryParse(json['marginLeft'].toString()) ?? marginAll;
-    double? marginRight = double.tryParse(json['marginRight'].toString()) ?? marginAll;
+    double? marginTop =
+        double.tryParse(json['marginTop'].toString()) ?? marginAll;
+    double? marginBottom =
+        double.tryParse(json['marginBottom'].toString()) ?? marginAll;
+    double? marginLeft =
+        double.tryParse(json['marginLeft'].toString()) ?? marginAll;
+    double? marginRight =
+        double.tryParse(json['marginRight'].toString()) ?? marginAll;
 
     format = format.copyWith(
       width: width != null ? width * PdfPageFormat.mm : null,

@@ -1,0 +1,56 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Table": {
+            "children": [
+              {
+                "TableRow": {
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "a"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "text": "b"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "text": "c"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TableRow": {
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "x"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "text": "y"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "text": "z"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

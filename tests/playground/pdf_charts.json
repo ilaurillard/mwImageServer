@@ -1,0 +1,85 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Row": {
+            "children": [
+              {
+                "Expanded": {
+                  "child": {
+                    "Column": {
+                      "children": [
+                        {
+                          "Chartx": {
+                            "grid": {
+                              "CartesianGrid": {
+                                "xAxis": [],
+                                "yAxis": []
+                              }
+                            },
+                            "overlay": {
+                              "ChartLegend": {
+                                "position": "-.7,1"
+                              }
+                            },
+                            "title": {
+                              "Text": {
+                                "text": "title"
+                              }
+                            },
+                            "bottom": {
+                              "Text": {
+                                "text": "bottom"
+                              }
+                            },
+                            "left": {
+                              "Text": {
+                                "text": "left"
+                              }
+                            },
+                            "right": {
+                              "Text": {
+                                "text": "right"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "ChartX": {
+                            "grid": {
+                              "RadialGrid": {
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "Chart": {
+                            "grid": {
+                              "PieGrid": {
+                                "startAngle": 0.0
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "Expanded": {
+                  "child": {
+                    "Text": {
+                      "text": "RITESITE"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

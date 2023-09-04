@@ -7,6 +7,11 @@
             "verticalDirection": "down",
             "children": [
               {
+                "Placeholder": {
+                  "color": "33FF33"
+                }
+              },
+              {
                 "Paragraph": {
                   "text": "AAA"
                 }
@@ -74,6 +79,7 @@
                   "children": [
                     {
                       "Expanded": {
+                        "flex": 1,
                         "child": {
                           "Text": {
                             "text": "GGG"
@@ -82,7 +88,13 @@
                       }
                     },
                     {
+                      "Spacer": {
+                        "flex": 1
+                      }
+                    },
+                    {
                       "Expanded": {
+                        "flex": 1,
                         "child": {
                           "Text": {
                             "text": "HHH"

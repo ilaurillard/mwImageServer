@@ -1,9 +1,10 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidget.dart';
+import '../Widget/PdfWidget.dart';
 
 class PdfPage {
+  final bool multi;
   final String theme;
   final String header;
   final String footer;
@@ -11,6 +12,7 @@ class PdfPage {
   final List<dynamic> content;
 
   PdfPage({
+    this.multi = false,
     this.theme = '',
     this.header = '',
     this.footer = '',
@@ -34,6 +36,7 @@ class PdfPage {
     // print('Page: $json');
 
     return PdfPage(
+      multi: json['multi'] as bool? ?? false,
       theme: json['theme'] as String? ?? '',
       header: json['header'] as String? ?? '',
       footer: json['footer'] as String? ?? '',

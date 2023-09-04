@@ -1,43 +1,41 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidget.dart';
+import '../Widget/PdfWidget.dart';
 
-class PdfFooter {
-
+class PdfHeader {
   final Dict json;
 
-  PdfFooter({
+  PdfHeader({
     required this.json,
   });
 
   pw.Widget build(
-      pw.Context context,
-      ) {
+    pw.Context context,
+  ) {
     return PdfWidget(
       context: context,
       json: json,
     ).build();
-    // return pw.Text('FOOTER Page: ${context.pageNumber}');
   }
 
-  static PdfFooter fromJson(
+  static PdfHeader fromJson(
     Dict json,
   ) {
-    // print('Footer: $json');
+    // print('Header: $json');
 
-    return PdfFooter(
+    return PdfHeader(
       json: json,
     );
   }
 
-  static Map<String, PdfFooter> fromJsonAll(
+  static Map<String, PdfHeader> fromJsonAll(
     Dict json,
   ) {
     return json.map((k, v) {
       return MapEntry(
           k,
-          PdfFooter.fromJson(
+          PdfHeader.fromJson(
             v as Dict,
           ));
     });
