@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "theme": {
+      "@default": {
+        "format": {
+          "preset": "a4"
+
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "multi": true,
+      "theme": "@default",
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "LoremText": {
+                  "paragraph": 50,
+                  "overflow": "clip",
+                  "softWrap": true,
+                  "maxLines": 3,
+                  "textAlign": "justify"
+                }
+              },
+              {
+                "BarcodeWidget": {
+                  "barcode": "CodeEAN13",
+                  "width": 120,
+                  "height": 40,
+                  "color": "FF000000",
+                  "backgroundColor": "FFCCFF88",
+                  "drawText": true,
+                  "textPadding": 0.5,
+                  "textStyle": {
+                    "color": "FF333333",
+                    "fontWeight": "bold"
+                  },
+                  "margin": [
+                    0,
+                    10
+                  ],
+                  "padding": [
+                    3
+                  ]
+                }
+              },
+              {
+                "BarcodeWidget": {
+                  "barcode": "QrCode",
+                  "width": 50,
+                  "height": 50,
+                  "color": "FF000000"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "data": {
+  }
+}

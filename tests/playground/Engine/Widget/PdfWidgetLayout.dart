@@ -12,7 +12,7 @@ class PdfWidgetLayout {
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
 
-    // TODO decoration, constraints, foregroundDecoration, transform
+    // TODO  constraints, transform
     return pw.Container(
       alignment: PdfWidgetUtil.alignment(
         json['alignment'] as String?,
@@ -28,6 +28,9 @@ class PdfWidgetLayout {
       ),
       width: width != null ? width * PdfPageFormat.mm : null,
       height: height != null ? height * PdfPageFormat.mm : null,
+      decoration: PdfWidgetUtil.decoration((json['decoration'] as Dict?) ?? {}),
+      foregroundDecoration: PdfWidgetUtil.decoration(
+          (json['foregroundDecoration'] as Dict?) ?? {}),
       child: PdfWidget.parse(json['child'] as Dict? ?? {}),
     );
   }
@@ -41,6 +44,19 @@ class PdfWidgetLayout {
     return pw.SizedBox(
       width: width != null ? width * PdfPageFormat.mm : null,
       height: height != null ? height * PdfPageFormat.mm : null,
+      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+    );
+  }
+
+  static pw.DecoratedBox decoratedBox(
+    Dict json,
+  ) {
+    return pw.DecoratedBox(
+      decoration:
+          PdfWidgetUtil.decoration((json['decoration'] as Dict?) ?? {}) ??
+              pw.BoxDecoration(),
+      position: PdfWidgetUtil.decorationPosition(
+          json['decorationPosition'] as String?),
       child: PdfWidget.parse(json['child'] as Dict? ?? {}),
     );
   }

@@ -7,10 +7,12 @@ import 'package:pdf/widgets.dart' as pw;
 import 'Engine/PdfEngine.dart';
 
 Future<void> main() async {
-  String data = await File('tests/playground/pdf_simple.json').readAsString();
+  // String data = await File('tests/playground/pdf_simple.json').readAsString();
   // String data = await File('tests/playground/pdf_simple2.json').readAsString();
+  String data = await File('tests/playground/pdf_simple3.json').readAsString();
   // String data = await File('tests/playground/pdf_table.json').readAsString();
   // String data = await File('tests/playground/pdf_charts.json').readAsString();
+  // String data = await File('tests/playground/pdf_barcodes.json').readAsString();
 
   PdfEngine engine = PdfEngine.fromJson(json.decode(data) as Dict);
 

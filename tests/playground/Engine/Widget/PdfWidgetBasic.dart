@@ -9,22 +9,26 @@ class PdfWidgetBasic {
   static pw.Text text(
     Dict json,
   ) {
-    // TODO
     return pw.Text(
       PdfWidgetUtil.parameters(json['text'] as String? ?? '¿'),
+      style: PdfWidgetUtil.textStyle((json['style'] as Dict?) ?? {}),
       textAlign: PdfWidgetUtil.textAlign(
         json['textAlign'] as String?,
       ),
       textDirection: PdfWidgetUtil.textDirection(
         json['textDirection'] as String?,
       ),
+      softWrap: json['softWrap'] as bool?,
+      tightBounds: json['tightBounds'] as bool? ?? false,
+      textScaleFactor: double.tryParse(json['textScaleFactor'].toString()) ?? 1.0,
+      maxLines: int.tryParse(json['maxLines'].toString()),
+      overflow: PdfWidgetUtil.overflow(json['overflow'] as String?),
     );
   }
 
   static pw.Paragraph paragraph(
     Dict json,
   ) {
-    // TODO
     return pw.Paragraph(
       text: PdfWidgetUtil.parameters(json['text'] as String? ?? '¿'),
       textAlign: PdfWidgetUtil.textAlign(
@@ -38,6 +42,7 @@ class PdfWidgetBasic {
             json['margin'] as List<dynamic>?,
           ) ??
           const pw.EdgeInsets.only(bottom: 5.0 * PdfPageFormat.mm),
+      style: PdfWidgetUtil.textStyle(json['style'] as Dict? ?? {}),
     );
   }
 

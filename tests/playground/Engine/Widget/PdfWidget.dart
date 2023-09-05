@@ -1,6 +1,7 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import 'PdfWidgetBarcode.dart';
 import 'PdfWidgetBasic.dart';
 import 'PdfWidgetChart.dart';
 import 'PdfWidgetImage.dart';
@@ -25,9 +26,6 @@ class PdfWidget {
   }
 
   pw.Widget build() {
-
-    print('XXX ${pageNumber}/${pagesCount}');
-
     return parse(json);
   }
 
@@ -46,13 +44,12 @@ class PdfWidget {
       switch (key) {
         case 'Container':
           return PdfWidgetLayout.container(data);
-
         case 'SizedBox':
           return PdfWidgetLayout.sizedBox(data);
-
+        case 'DecoratedBox':
+          return PdfWidgetLayout.decoratedBox(data);
         case 'Wrap':
           return PdfWidgetLayout.wrap(data);
-
         case 'Flex':
           return PdfWidgetLayout.flex(data);
         case 'Row':
@@ -109,6 +106,11 @@ class PdfWidget {
           return PdfWidgetChart.chart(data);
         case 'ChartLegend':
           return PdfWidgetChart.chartLegend(data);
+
+        // ----------
+
+        case 'BarcodeWidget':
+          return PdfWidgetBarcode.barcode(data);
       }
 
       print(' !!! widget $key not supported');

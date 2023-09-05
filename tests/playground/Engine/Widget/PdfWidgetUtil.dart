@@ -1,9 +1,94 @@
+import 'package:collection/collection.dart';
+import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'PdfWidget.dart';
 
 class PdfWidgetUtil {
+  static pw.BoxDecoration? decoration(
+    Dict json,
+  ) {
+    if (json.isEmpty) {
+      return null;
+    }
+
+    // TODO
+
+    return pw.BoxDecoration(
+      color: PdfWidgetUtil.color(json['color'] as String?),
+      border: PdfWidgetUtil.boxBorder(
+        json['border'] as Dict?,
+      ),
+      borderRadius: PdfWidgetUtil.borderRadius(
+        json['borderRadius'] as List<dynamic>?,
+      ),
+      shape: PdfWidgetUtil.boxShape(json['shape'] as String?) ??
+          pw.BoxShape.rectangle,
+    );
+  }
+
+  static pw.TextStyle? textStyle(
+    Dict json,
+  ) {
+    if (json.isEmpty) {
+      return null;
+    }
+    // print('TextStyle: $json');
+
+    String fw = json['fontWeight'] as String? ?? '';
+    pw.FontWeight? fontWeight =
+        pw.FontWeight.values.firstWhereOrNull((e) => e.name == fw);
+
+    String fs = json['fontStyle'] as String? ?? '';
+    pw.FontStyle? fontStyle =
+        pw.FontStyle.values.firstWhereOrNull((e) => e.name == fs);
+
+    String ds = json['decorationStyle'] as String? ?? '';
+    pw.TextDecorationStyle? decStyle =
+        pw.TextDecorationStyle.values.firstWhereOrNull((e) => e.name == ds);
+
+    String rm = json['renderingMode'] as String? ?? '';
+    PdfTextRenderingMode? renderingMode =
+        PdfTextRenderingMode.values.firstWhereOrNull((e) => e.name == rm);
+
+    return pw.TextStyle(
+      color: PdfWidgetUtil.color(json['color'] as String?),
+      font: PdfWidgetUtil.font(json['font'] as String?),
+      fontNormal: PdfWidgetUtil.font(json['fontNormal'] as String?),
+      fontBold: PdfWidgetUtil.font(json['fontBold'] as String?),
+      fontItalic: PdfWidgetUtil.font(json['fontItalic'] as String?),
+      fontBoldItalic: PdfWidgetUtil.font(json['fontBoldItalic'] as String?),
+      fontSize: double.tryParse(json['fontSize'].toString()),
+      fontWeight: fontWeight,
+      fontStyle: fontStyle,
+      letterSpacing: double.tryParse(json['letterSpacing'].toString()),
+      wordSpacing: double.tryParse(json['wordSpacing'].toString()),
+      lineSpacing: double.tryParse(json['lineSpacing'].toString()),
+      height: double.tryParse(json['height'].toString()),
+      // TODO background
+      background: null,
+      decoration: PdfWidgetUtil.textDecoration(json['decoration'] as String?),
+      decorationColor: PdfWidgetUtil.color(json['decorationColor'] as String?),
+      decorationStyle: decStyle,
+      decorationThickness:
+          double.tryParse(json['decorationThickness'].toString()),
+      renderingMode: renderingMode,
+    );
+  }
+
+  static pw.Font? font(
+    String? json,
+  ) {
+    // print('Font: $json');
+
+    // TODO
+
+    return pw.Font.courier();
+
+    return null;
+  }
+
   static PdfColor? color(
     String? json,
   ) {
@@ -11,6 +96,18 @@ class PdfWidgetUtil {
     if (json != null && json != '') {
       // return PdfColor(0.5, 0.5, 0.5, 0.5);
       return PdfColor.fromInt(int.parse(json, radix: 16));
+    }
+    return null;
+  }
+
+  static pw.BoxShape? boxShape(
+    String? json,
+  ) {
+    switch (json) {
+      case 'circle':
+        return pw.BoxShape.circle;
+      case 'rectangle':
+        return pw.BoxShape.rectangle;
     }
     return null;
   }
@@ -65,6 +162,33 @@ class PdfWidgetUtil {
         return pw.VerticalDirection.up;
     }
     return pw.VerticalDirection.down;
+  }
+
+  static pw.BorderRadius? borderRadius(
+    List<dynamic>? json,
+  ) {
+    if (json != null && json.isNotEmpty) {
+      double l = double.tryParse(json.first.toString()) ?? 0;
+      double t = l;
+      double r = l;
+      double b = l;
+      if (json.length > 1) {
+        t = double.tryParse(json[1].toString()) ?? 0;
+        b = t;
+      }
+      if (json.length > 3) {
+        r = double.tryParse(json[2].toString()) ?? 0;
+        b = double.tryParse(json[3].toString()) ?? 0;
+      }
+
+      return pw.BorderRadius.only(
+        topLeft: pw.Radius.circular(l * PdfPageFormat.mm),
+        topRight: pw.Radius.circular(t * PdfPageFormat.mm),
+        bottomLeft: pw.Radius.circular(r * PdfPageFormat.mm),
+        bottomRight: pw.Radius.circular(b * PdfPageFormat.mm),
+      );
+    }
+    return null;
   }
 
   static pw.EdgeInsets? edgeInsets(
@@ -217,6 +341,22 @@ class PdfWidgetUtil {
     return pw.WrapAlignment.start;
   }
 
+  static pw.TextOverflow? overflow(
+    String? json,
+  ) {
+    if (json != null && json != '') {
+      switch (json) {
+        case 'clip':
+          return pw.TextOverflow.clip;
+        case 'visible':
+          return pw.TextOverflow.visible;
+        case 'span':
+          return pw.TextOverflow.span;
+      }
+    }
+    return null;
+  }
+
   static pw.WrapCrossAlignment wrapCrossAlignment(
     String? json,
   ) {
@@ -241,11 +381,77 @@ class PdfWidgetUtil {
     return pw.TableWidth.max;
   }
 
+  static pw.DecorationPosition decorationPosition(
+    String? json,
+  ) {
+    if (json != null && json != '') {
+      switch (json) {
+        case 'foreground':
+          return pw.DecorationPosition.foreground;
+      }
+    }
+    return pw.DecorationPosition.background;
+  }
+
   static String parameters(
     String text,
   ) {
     return text
         .replaceAll('%pageNumber%', PdfWidget.pageNumber.toString())
         .replaceAll('%pagesCount%', PdfWidget.pagesCount.toString());
+  }
+
+  // text decoration is broken .. ?
+  static pw.TextDecoration? textDecoration(
+    String? json,
+  ) {
+    if (json != null && json != '') {
+      switch (json) {
+        case 'none':
+          return pw.TextDecoration.none;
+        case 'underline':
+          return pw.TextDecoration.underline;
+        case 'overline':
+          return pw.TextDecoration.overline;
+        case 'lineThrough':
+          return pw.TextDecoration.lineThrough;
+      }
+    }
+    return null;
+  }
+
+  static pw.Border? boxBorder(
+    Dict? json,
+  ) {
+    if (json != null) {
+      pw.BorderSide fb =
+          PdfWidgetUtil.borderSide(json['all'] as Dict?) ?? pw.BorderSide.none;
+      return pw.Border(
+        top: PdfWidgetUtil.borderSide(json['top'] as Dict?) ?? fb,
+        right: PdfWidgetUtil.borderSide(json['right'] as Dict?) ?? fb,
+        bottom: PdfWidgetUtil.borderSide(json['bottom'] as Dict?) ?? fb,
+        left: PdfWidgetUtil.borderSide(json['left'] as Dict?) ?? fb,
+      );
+    }
+    return null;
+  }
+
+  static pw.BorderSide? borderSide(
+    Dict? json,
+  ) {
+    if (json != null) {
+      double? width = double.tryParse(json['width'].toString());
+      return pw.BorderSide(
+        color: PdfWidgetUtil.color(
+              json['color'] as String?,
+            ) ??
+            PdfColors.black,
+        style: PdfWidgetUtil.borderStyle(
+          json['style'] as String?,
+        ),
+        width: width != null ? width * PdfPageFormat.mm : 1.0,
+      );
+    }
+    return null;
   }
 }

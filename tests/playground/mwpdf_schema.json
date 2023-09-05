@@ -1,0 +1,916 @@
+{
+  "definitions": {
+    "Identifier": {
+      "type": "string",
+      "pattern": "^@[a-z]{1,24}$"
+    },
+    "DoubleZeroToOne": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "Color": {
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 8,
+      "pattern": "^[A-F0-9]{6,8}$"
+    },
+    "Font": {
+      "type": "string",
+      "minLength": 1
+    },
+    "EdgeInsets": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "number"
+      },
+      "minItems": 1,
+      "maxItems": 4
+    },
+    "BorderRadius": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "number"
+      },
+      "minItems": 1,
+      "maxItems": 4
+    },
+    "TextStyle": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/Color"
+        },
+        "font": {
+          "$ref": "#/definitions/Font"
+        },
+        "fontNormal": {
+          "$ref": "#/definitions/Font"
+        },
+        "fontBold": {
+          "$ref": "#/definitions/Font"
+        },
+        "fontItalic": {
+          "$ref": "#/definitions/Font"
+        },
+        "fontBoldItalic": {
+          "$ref": "#/definitions/Font"
+        },
+        "fontWeight": {
+          "enum": [
+            "normal",
+            "bold"
+          ]
+        },
+        "fontStyle": {
+          "enum": [
+            "normal",
+            "italic"
+          ]
+        },
+        "fontSize": {
+          "type": "number"
+        },
+        "height": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "letterSpacing": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "lineSpacing": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "wordSpacing": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "background": {
+          "$ref": "#/definitions/BoxDecoration"
+        },
+        "decorationColor": {
+          "$ref": "#/definitions/Color"
+        },
+        "decorationThickness": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "decoration": {
+          "enum": [
+            "none",
+            "underline",
+            "overline",
+            "lineThrough"
+          ]
+        },
+        "decorationStyle": {
+          "enum": [
+            "solid",
+            "double"
+          ]
+        },
+        "renderingMode": {
+          "enum": [
+            "fill",
+            "stroke",
+            "fillAndStroke",
+            "invisible",
+            "fillAndClip",
+            "strokeAndClip",
+            "fillStrokeAndClip",
+            "clip"
+          ]
+        },
+        "TODO": {}
+      },
+      "additionalProperties": false
+    },
+    "IconTheme": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "number"
+        },
+        "opacity": {
+          "$ref": "#/definitions/DoubleZeroToOne"
+        },
+        "color": {
+          "$ref": "#/definitions/Color"
+        },
+        "font": {
+          "$ref": "#/definitions/Font"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TextAlign": {
+      "enum": [
+        "center",
+        "left",
+        "right",
+        "justify"
+      ]
+    },
+    "MainAxisAlignment": {
+      "enum": [
+        "spaceEvenly",
+        "spaceAround",
+        "spaceBetween",
+        "center",
+        "end"
+      ]
+    },
+    "MainAxisSize": {
+      "enum": [
+        "min",
+        "max"
+      ]
+    },
+    "CrossAxisAlignment": {
+      "enum": [
+        "start",
+        "stretch",
+        "end"
+      ]
+    },
+    "VerticalDirection": {
+      "enum": [
+        "down",
+        "up"
+      ]
+    },
+    "TextOverflow": {
+      "enum": [
+        "clip",
+        "visible",
+        "span"
+      ]
+    },
+    "BorderStyle": {
+      "enum": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted"
+      ]
+    },
+    "Alignment": {
+      "enum": [
+        "center",
+        "topLeft",
+        "topCenter",
+        "topRight",
+        "centerRight",
+        "bottomLeft",
+        "bottomCenter",
+        "bottomRight",
+        "centerLeft"
+      ]
+    },
+    "BoxShape": {
+      "enum": ["circle", "rectangle"]
+    },
+    "BoxSide": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number"
+        },
+        "style": {
+          "$ref": "#/definitions/BorderStyle"
+        },
+        "color": {
+          "$ref": "#/definitions/Color"
+        }
+      },
+      "additionalProperties": false
+    },
+    "BoxDecoration": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/Color"
+        },
+        "border": {
+          "type": "object",
+          "properties": {
+            "all": {
+              "$ref": "#/definitions/BoxSide"
+            },
+            "top": {
+              "$ref": "#/definitions/BoxSide"
+            },
+            "right": {
+              "$ref": "#/definitions/BoxSide"
+            },
+            "bottom": {
+              "$ref": "#/definitions/BoxSide"
+            },
+            "left": {
+              "$ref": "#/definitions/BoxSide"
+            }
+          },
+          "additionalProperties": false
+        },
+        "borderRadius": {
+          "$ref": "#/definitions/BorderRadius"
+        },
+        "shape": {
+          "$ref": "#/definitions/BoxShape"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Widget": {
+      "type": "object",
+      "properties": {
+        "Container": {
+          "$ref": "#/definitions/Container"
+        },
+        "DecoratedBox": {
+          "$ref": "#/definitions/DecoratedBox"
+        },
+        "Row": {
+          "$ref": "#/definitions/Row"
+        },
+        "Column": {
+          "$ref": "#/definitions/Column"
+        },
+        "Table": {
+          "$ref": "#/definitions/Table"
+        },
+        "LoremParagraph": {
+          "$ref": "#/definitions/LoremParagraph"
+        },
+        "LoremText": {
+          "$ref": "#/definitions/LoremText"
+        },
+        "Text": {
+          "$ref": "#/definitions/Text"
+        },
+        "Paragraph": {
+          "$ref": "#/definitions/Paragraph"
+        },
+        "Expanded": {
+          "$ref": "#/definitions/Expanded"
+        },
+        "SizedBox": {
+          "$ref": "#/definitions/SizedBox"
+        },
+        "Placeholder": {
+          "$ref": "#/definitions/Placeholder"
+        },
+        "Opacity": {
+          "$ref": "#/definitions/Opacity"
+        },
+        "Divider": {
+          "$ref": "#/definitions/Divider"
+        },
+        "Spacer": {
+          "$ref": "#/definitions/Spacer"
+        },
+        "Chart": {
+          "$ref": "#/definitions/Chart"
+        },
+        "BarcodeWidget": {
+          "$ref": "#/definitions/BarcodeWidget"
+        },
+        "ChartLegend": {
+          "$ref": "#/definitions/ChartLegend"
+        },
+        "Wrap": {
+          "$ref": "#/definitions/Wrap"
+        },
+        "Flex": {
+          "$ref": "#/definitions/Flex"
+        },
+        "Flexible": {
+          "$ref": "#/definitions/Flexible"
+        }
+      },
+      "maxProperties": 1,
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "Paragraph": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "textAlign": {
+          "$ref": "#/definitions/TextAlign"
+        }
+      },
+      "additionalProperties": false
+    },
+    "LoremParagraph": {
+      "type": "object",
+      "properties": {
+        "textAlign": {
+          "$ref": "#/definitions/TextAlign"
+        },
+        "sentence": {
+          "type": "integer"
+        },
+        "paragraph": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Text": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "textAlign": {
+          "$ref": "#/definitions/TextAlign"
+        },
+        "overflow": {
+          "$ref": "#/definitions/TextOverflow"
+        },
+        "softWrap": {
+          "type": "boolean"
+        },
+        "maxLines": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "LoremText": {
+      "type": "object",
+      "properties": {
+        "sentence": {
+          "type": "integer"
+        },
+        "paragraph": {
+          "type": "integer"
+        },
+        "textAlign": {
+          "$ref": "#/definitions/TextAlign"
+        },
+        "overflow": {
+          "$ref": "#/definitions/TextOverflow"
+        },
+        "softWrap": {
+          "type": "boolean"
+        },
+        "maxLines": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Placeholder": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/Color"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Divider": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/Color"
+        },
+        "height": {
+          "type": "number"
+        },
+        "thickness": {
+          "type": "number"
+        },
+        "indent": {
+          "type": "number"
+        },
+        "endIndent": {
+          "type": "number"
+        },
+        "borderStyle": {
+          "$ref": "#/definitions/BorderStyle"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Spacer": {
+      "type": "object",
+      "properties": {
+        "flex": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Chart": {
+      "type": "object",
+      "properties": {
+        "overlay": {
+          "$ref": "#/definitions/Widget"
+        },
+        "title": {
+          "$ref": "#/definitions/Widget"
+        },
+        "bottom": {
+          "$ref": "#/definitions/Widget"
+        },
+        "left": {
+          "$ref": "#/definitions/Widget"
+        },
+        "right": {
+          "$ref": "#/definitions/Widget"
+        }
+      },
+      "additionalProperties": false
+    },
+    "BarcodeWidget": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/Color"
+        },
+        "backgroundColor": {
+          "$ref": "#/definitions/Color"
+        },
+        "textStyle": {
+          "$ref": "#/definitions/TextStyle"
+        },
+        "margin": {
+          "$ref": "#/definitions/EdgeInsets"
+        },
+        "padding": {
+          "$ref": "#/definitions/EdgeInsets"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Opacity": {
+      "type": "object",
+      "properties": {
+        "child": {
+          "$ref": "#/definitions/Widget"
+        },
+        "opacity": {
+          "color": {
+            "$ref": "#/definitions/DoubleZeroToOne"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "SizedBox": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "child": {
+          "$ref": "#/definitions/Widget"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Container": {
+      "type": "object",
+      "properties": {
+        "child": {
+          "$ref": "#/definitions/Widget"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "alignment": {
+          "$ref": "#/definitions/Alignment"
+        },
+        "color": {
+          "$ref": "#/definitions/Color"
+        },
+        "margin": {
+          "$ref": "#/definitions/EdgeInsets"
+        },
+        "padding": {
+          "$ref": "#/definitions/EdgeInsets"
+        },
+        "decoration": {
+          "$ref": "#/definitions/BoxDecoration"
+        },
+        "foregroundDecoration": {
+          "$ref": "#/definitions/BoxDecoration"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Expanded": {
+      "type": "object",
+      "properties": {
+        "child": {
+          "$ref": "#/definitions/Widget"
+        },
+        "flex": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Row": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Widget"
+          }
+        },
+        "mainAxisAlignment": {
+          "$ref": "#/definitions/MainAxisAlignment"
+        },
+        "mainAxisSize": {
+          "$ref": "#/definitions/MainAxisSize"
+        },
+        "crossAxisAlignment": {
+          "$ref": "#/definitions/CrossAxisAlignment"
+        },
+        "verticalDirection": {
+          "$ref": "#/definitions/VerticalDirection"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Column": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Widget"
+          }
+        },
+        "mainAxisAlignment": {
+          "$ref": "#/definitions/MainAxisAlignment"
+        },
+        "crossAxisAlignment": {
+          "$ref": "#/definitions/CrossAxisAlignment"
+        },
+        "mainAxisSize": {
+          "$ref": "#/definitions/MainAxisSize"
+        },
+        "verticalDirection": {
+          "$ref": "#/definitions/VerticalDirection"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Table": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "TableRow": {
+                "$ref": "#/definitions/TableRow"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "TableRow": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Widget"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ChartLegend": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/Alignment"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DecoratedBox": {
+      "type": "object",
+      "properties": {
+        "child": {
+          "$ref": "#/definitions/Widget"
+        },
+        "position": {
+          "enum": [
+            "background",
+            "foreground"
+          ]
+        },
+        "decoration": {
+          "$ref": "#/definitions/BoxDecoration"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Wrap": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Widget"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Flex": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Widget"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Flexible": {
+      "type": "object",
+      "properties": {
+        "child": {
+          "$ref": "#/definitions/Widget"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "theme": {
+          "type": "object",
+          "patternProperties": {
+            "^@[a-z]{1,24}$": {
+              "type": "object",
+              "properties": {
+                "format": {
+                  "type": "object",
+                  "properties": {
+                    "preset": {
+                      "enum": [
+                        "a5",
+                        "a4",
+                        "a3"
+                      ]
+                    },
+                    "width": {
+                      "type": "number"
+                    },
+                    "height": {
+                      "type": "number"
+                    },
+                    "marginTop": {
+                      "type": "number"
+                    },
+                    "marginBottom": {
+                      "type": "number"
+                    },
+                    "marginLeft": {
+                      "type": "number"
+                    },
+                    "marginRight": {
+                      "type": "number"
+                    },
+                    "marginAll": {
+                      "type": "number"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "orientation": {
+                  "enum": [
+                    "portrait",
+                    "landscape"
+                  ]
+                },
+                "clip": {
+                  "type": "boolean"
+                },
+                "textDirection": {
+                  "enum": [
+                    "ltr",
+                    "rtl"
+                  ]
+                },
+                "styles": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "paragraph": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "header0": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "header1": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "header2": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "header3": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "header4": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "header5": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "bulletStyle": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "tableHeader": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "tableCell": {
+                      "$ref": "#/definitions/TextStyle"
+                    },
+                    "softWrap": {
+                      "type": "boolean"
+                    },
+                    "textAlign": {
+                      "$ref": "#/definitions/TextAlign"
+                    },
+                    "overflow": {
+                      "$ref": "#/definitions/TextOverflow"
+                    },
+                    "maxLines": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "iconTheme": {
+                      "$ref": "#/definitions/IconTheme"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "margin": {
+                  "$ref": "#/definitions/EdgeInsets"
+                },
+                "background": {
+                  "TODO": {}
+                },
+                "foreground": {
+                  "TODO": {}
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "header": {
+          "type": "object",
+          "patternProperties": {
+            "^@[a-z]{1,24}$": {
+              "$ref": "#/definitions/Widget"
+            }
+          },
+          "additionalProperties": false
+        },
+        "footer": {
+          "type": "object",
+          "patternProperties": {
+            "^@[a-z]{1,24}$": {
+              "$ref": "#/definitions/Widget"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "multi": {
+            "type": "boolean"
+          },
+          "theme": {
+            "$ref": "#/definitions/Identifier"
+          },
+          "header": {
+            "$ref": "#/definitions/Identifier"
+          },
+          "footer": {
+            "$ref": "#/definitions/Identifier"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Widget"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

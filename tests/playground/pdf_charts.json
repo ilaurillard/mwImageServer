@@ -11,7 +11,7 @@
                     "Column": {
                       "children": [
                         {
-                          "Chartx": {
+                          "Chart": {
                             "grid": {
                               "CartesianGrid": {
                                 "xAxis": [],
@@ -46,7 +46,7 @@
                           }
                         },
                         {
-                          "ChartX": {
+                          "Chart": {
                             "grid": {
                               "RadialGrid": {
                               }

@@ -280,11 +280,14 @@ class Invoice {
                 margin: const pw.EdgeInsets.only(left: 10, right: 10),
                 height: 70,
                 child: pw.Text(
-                  'Invoice to:',
+                  'xxx xxx',
                   style: pw.TextStyle(
                     color: _darkColor,
                     fontWeight: pw.FontWeight.bold,
                     fontSize: 12,
+                    decoration: pw.TextDecoration.lineThrough,
+                    decorationColor: PdfColors.cyan,
+
                   ),
                 ),
               ),

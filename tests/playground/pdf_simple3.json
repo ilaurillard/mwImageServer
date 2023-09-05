@@ -1,0 +1,45 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "Container": {
+                  "width": 90,
+                  "padding": [2],
+                  "height": 35.5,
+                  "decoration": {
+                    "color": "CCFFCC",
+                    "border": {
+                      "all": {
+                        "color": "006600",
+                        "style": "dashed",
+                        "width": 1.0
+                      }
+                    },
+                    "borderRadius": [
+                      0,
+                      5,
+                      5,
+                      5
+                    ],
+                    "shape": "rectangle"
+                  },
+                  "foregroundDecoration": {
+                  },
+                  "child": {
+                    "LoremText": {
+                      "sentence": 10
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -32,7 +32,6 @@
             "height": null,
             "background": {
               "color": "FF000000",
-              "border": null,
               "borderRadius": null,
               "boxShadow": null,
               "gradient": null,
@@ -66,7 +65,7 @@
             "font": "courier"
           }
         },
-        "margin": null,
+        "margin": [5, 5, 5, 5],
         "background": null,
         "foreground": null
       }
