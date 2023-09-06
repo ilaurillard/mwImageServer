@@ -134,6 +134,7 @@ class PdfWidgetLayout {
     );
   }
 
+  // (obsolete) parent of row/col ..
   static pw.Flex flex(
     Dict json,
   ) {
@@ -167,6 +168,29 @@ class PdfWidgetLayout {
       fit: PdfWidgetUtil.flexFit(
         json['fit'] as String?,
       ),
+      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+    );
+  }
+
+  static pw.Padding padding(
+    Dict json,
+  ) {
+    return pw.Padding(
+      padding: PdfWidgetUtil.edgeInsets(
+        json['padding'] as List<dynamic>?,
+      ) ?? pw.EdgeInsets.zero,
+      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+    );
+  }
+
+  static pw.LimitedBox limitedBox(
+      Dict json,
+      ) {
+    double? maxWidth = double.tryParse(json['maxWidth'].toString());
+    double? maxHeight = double.tryParse(json['maxHeight'].toString());
+    return pw.LimitedBox(
+      maxWidth: maxWidth != null ? maxWidth * PdfPageFormat.mm : double.infinity,
+      maxHeight: maxHeight != null ? maxHeight * PdfPageFormat.mm : double.infinity,
       child: PdfWidget.parse(json['child'] as Dict? ?? {}),
     );
   }

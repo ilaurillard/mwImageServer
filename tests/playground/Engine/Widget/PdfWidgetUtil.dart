@@ -3,6 +3,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../engine.dart';
 import 'PdfWidget.dart';
 
 class PdfWidgetUtil {
@@ -14,6 +15,9 @@ class PdfWidgetUtil {
     }
 
     // TODO
+    // boxShadow,
+    // gradient,
+    // image,
 
     return pw.BoxDecoration(
       color: PdfWidgetUtil.color(json['color'] as String?),
@@ -82,19 +86,53 @@ class PdfWidgetUtil {
   ) {
     // print('Font: $json');
 
-    // TODO
+    if (json != null && json.isNotEmpty) {
+      if (fontRegistry[json] != null) {
+        return fontRegistry[json];
+      }
 
-    return pw.Font.courier();
+      // internal fonts
+      switch (json) {
+        case 'courier':
+          return pw.Font.courier();
+        case 'courierBold':
+          return pw.Font.courierBold();
+        case 'courierBoldOblique':
+          return pw.Font.courierBoldOblique();
+        case 'courierOblique':
+          return pw.Font.courierOblique();
+        case 'helvetica':
+          return pw.Font.helvetica();
+        case 'helveticaBold':
+          return pw.Font.helveticaBold();
+        case 'helveticaBoldOblique':
+          return pw.Font.helveticaBoldOblique();
+        case 'helveticaOblique':
+          return pw.Font.helveticaOblique();
+        case 'times':
+          return pw.Font.times();
+        case 'timesBold':
+          return pw.Font.timesBold();
+        case 'timesBoldItalic':
+          return pw.Font.timesBoldItalic();
+        case 'timesItalic':
+          return pw.Font.timesItalic();
+        case 'symbol':
+          return pw.Font.symbol();
+        case 'zapfDingbats':
+          return pw.Font.zapfDingbats();
+      }
 
+      print('?? Unknown font: $json');
+    }
     return null;
   }
 
   static PdfColor? color(
     String? json,
   ) {
-    // TODO ???
     if (json != null && json != '') {
-      // return PdfColor(0.5, 0.5, 0.5, 0.5);
+      json = json.padLeft(8, 'F');
       return PdfColor.fromInt(int.parse(json, radix: 16));
     }
     return null;

@@ -3,6 +3,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../engine.dart';
 import '../Widget/PdfWidgetUtil.dart';
 
 class PdfTheme {
@@ -78,15 +79,12 @@ class PdfTheme {
   ) {
     // print('IconTheme: $json');
 
-    if (json.isEmpty) {
-      return null;
-    }
-
     return pw.IconThemeData(
       color: PdfWidgetUtil.color(json['color'] as String?),
       opacity: double.tryParse(json['opacity'].toString()),
       size: double.tryParse(json['size'].toString()),
-      font: PdfWidgetUtil.font(json['font'] as String?),
+      font: PdfWidgetUtil.font(json['font'] as String?) ??
+          fontRegistry['material'],
     );
   }
 

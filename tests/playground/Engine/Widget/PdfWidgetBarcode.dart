@@ -13,11 +13,12 @@ class PdfWidgetBarcode {
     double? height = double.tryParse(json['height'].toString());
     double? textPadding = double.tryParse(json['textPadding'].toString());
 
-    // TODO
     return pw.BarcodeWidget(
       // TODO
       data: '1234123412344',
 
+      color: PdfWidgetUtil.color(json['color'] as String?) ?? PdfColors.black,
+      backgroundColor: PdfWidgetUtil.color(json['backgroundColor'] as String?),
       decoration: PdfWidgetUtil.decoration((json['decoration'] as Dict?) ?? {}),
       textStyle: PdfWidgetUtil.textStyle((json['textStyle'] as Dict?) ?? {}),
       barcode: pw.Barcode.fromType(type(json['barcode'] as String?)),
@@ -31,8 +32,6 @@ class PdfWidgetBarcode {
       padding: PdfWidgetUtil.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
-      color: PdfWidgetUtil.color(json['color'] as String?) ?? PdfColors.black,
-      backgroundColor: PdfWidgetUtil.color(json['backgroundColor'] as String?),
     );
   }
 

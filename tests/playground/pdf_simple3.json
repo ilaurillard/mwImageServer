@@ -1,14 +1,187 @@
 {
+  "meta": {
+    "theme": {
+      "@def": {
+        "styles": {
+          "text": {
+            "color": "333333",
+            "font": "helvetica"
+          },
+          "paragraph": {
+            "color": "333333",
+            "font": "openSansRegular"
+          }
+        }
+      }
+    }
+  },
   "pages": [
     {
+      "theme": "@def",
       "content": [
         {
           "Column": {
+            "mainAxisSize": "min",
+            "mainAxisAlignment": "start",
+            "crossAxisAlignment": "start",
             "children": [
+              {
+                "LimitedBox": {
+                  "maxWidth": 30,
+                  "maxHeight": 20,
+                  "child": {
+                    "LoremParagraph": {
+                      "paragraph": 150
+                    }
+                  }
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Padding": {
+                        "padding": [
+                          2
+                        ],
+                        "child": {
+                          "BarcodeWidget": {
+                            "barcode": "QrCode",
+                            "width": 30,
+                            "height": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Icon": {
+                        "icon": "e63e",
+                        "color": "008800",
+                        "size": 20
+                      }
+                    },
+                    {
+                      "Icon": {
+                        "icon": "f07f",
+                        "color": "008800",
+                        "size": 20
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Flexible": {
+                        "flex": 2,
+                        "fit": "tight",
+                        "child": {
+                          "Placeholder": {
+                            "color": "FF8800"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Spacer": {
+                        "flex": 1
+                      }
+                    },
+                    {
+                      "Flexible": {
+                        "flex": 1,
+                        "fit": "tight",
+                        "child": {
+                          "Placeholder": {
+                            "color": "FF8800"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                  "height": 20,
+                  "thickness": 2,
+                  "color": "0088AA",
+                  "indent": 10,
+                  "endIndent": 10,
+                  "borderStyle": "dashed"
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Expanded": {
+                        "child": {
+                          "Container": {
+                            "color": "DDDDDD",
+                            "child": {
+                              "Paragraph": {
+                                "text": "Some text",
+                                "textAlign": "right"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Container": {
+                  "color": "FFEEFF",
+                  "child": {
+                    "Paragraph": {
+                      "text": "asdf asdf asdf"
+                    }
+                  }
+                }
+              },
+              {
+                "Opacity": {
+                  "opacity": 0.5,
+                  "child": {
+                    "Container": {
+                      "color": "FFEEFF",
+                      "child": {
+                        "Paragraph": {
+                          "text": "asdf asdf asdf"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "color": "EEFFFF",
+                  "child": {
+                    "LoremParagraph": {
+                      "paragraph": 20,
+                      "textAlign": "right"
+                    }
+                  }
+                }
+              },
               {
                 "Container": {
                   "width": 90,
-                  "padding": [2],
+                  "margin": [
+                    0,
+                    10,
+                    0,
+                    0
+                  ],
+                  "padding": [
+                    2
+                  ],
                   "height": 35.5,
                   "decoration": {
                     "color": "CCFFCC",

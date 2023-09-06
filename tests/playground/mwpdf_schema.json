@@ -17,6 +17,34 @@
     },
     "Font": {
       "type": "string",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "enum": [
+            "courier",
+            "courierBold",
+            "courierBoldOblique",
+            "courierOblique",
+            "helvetica",
+            "helveticaBold",
+            "helveticaBoldOblique",
+            "helveticaOblique",
+            "times",
+            "timesBold",
+            "timesBoldOblique",
+            "timesOblique",
+            "symbol",
+            "zapfDingbats"
+          ]
+        },
+        {
+          "enum": [
+            "openSansRegular"
+          ]
+        }
+      ],
       "minLength": 1
     },
     "EdgeInsets": {
@@ -139,7 +167,12 @@
             "clip"
           ]
         },
-        "TODO": {}
+        "background": {
+          "type": "object",
+          "properties": {
+            "TODO": {}
+          }
+        }
       },
       "additionalProperties": false
     },
@@ -175,7 +208,8 @@
         "spaceAround",
         "spaceBetween",
         "center",
-        "end"
+        "end",
+        "start"
       ]
     },
     "MainAxisSize": {
@@ -226,7 +260,10 @@
       ]
     },
     "BoxShape": {
-      "enum": ["circle", "rectangle"]
+      "enum": [
+        "circle",
+        "rectangle"
+      ]
     },
     "BoxSide": {
       "type": "object",
@@ -282,6 +319,9 @@
     "Widget": {
       "type": "object",
       "properties": {
+        "Icon": {
+          "$ref": "#/definitions/Icon"
+        },
         "Container": {
           "$ref": "#/definitions/Container"
         },
@@ -290,6 +330,12 @@
         },
         "Row": {
           "$ref": "#/definitions/Row"
+        },
+        "Padding": {
+          "$ref": "#/definitions/Padding"
+        },
+        "LimitedBox": {
+          "$ref": "#/definitions/LimitedBox"
         },
         "Column": {
           "$ref": "#/definitions/Column"
@@ -339,9 +385,6 @@
         "Wrap": {
           "$ref": "#/definitions/Wrap"
         },
-        "Flex": {
-          "$ref": "#/definitions/Flex"
-        },
         "Flexible": {
           "$ref": "#/definitions/Flexible"
         }
@@ -358,6 +401,15 @@
         },
         "textAlign": {
           "$ref": "#/definitions/TextAlign"
+        },
+        "style": {
+          "$ref": "#/definitions/TextStyle"
+        },
+        "margin": {
+          "$ref": "#/definitions/EdgeInsets"
+        },
+        "padding": {
+          "$ref": "#/definitions/EdgeInsets"
         }
       },
       "additionalProperties": false
@@ -365,14 +417,23 @@
     "LoremParagraph": {
       "type": "object",
       "properties": {
-        "textAlign": {
-          "$ref": "#/definitions/TextAlign"
-        },
         "sentence": {
           "type": "integer"
         },
         "paragraph": {
           "type": "integer"
+        },
+        "textAlign": {
+          "$ref": "#/definitions/TextAlign"
+        },
+        "style": {
+          "$ref": "#/definitions/TextStyle"
+        },
+        "margin": {
+          "$ref": "#/definitions/EdgeInsets"
+        },
+        "padding": {
+          "$ref": "#/definitions/EdgeInsets"
         }
       },
       "additionalProperties": false
@@ -383,6 +444,9 @@
         "text": {
           "type": "string"
         },
+        "style": {
+          "$ref": "#/definitions/TextStyle"
+        },
         "textAlign": {
           "$ref": "#/definitions/TextAlign"
         },
@@ -392,8 +456,20 @@
         "softWrap": {
           "type": "boolean"
         },
+        "tightBounds": {
+          "type": "boolean"
+        },
         "maxLines": {
           "type": "integer"
+        },
+        "textScaleFactor": {
+          "type": "number"
+        },
+        "textDirection": {
+          "enum": [
+            "ltr",
+            "rtl"
+          ]
         }
       },
       "additionalProperties": false
@@ -407,6 +483,9 @@
         "paragraph": {
           "type": "integer"
         },
+        "style": {
+          "$ref": "#/definitions/TextStyle"
+        },
         "textAlign": {
           "$ref": "#/definitions/TextAlign"
         },
@@ -416,8 +495,20 @@
         "softWrap": {
           "type": "boolean"
         },
+        "tightBounds": {
+          "type": "boolean"
+        },
         "maxLines": {
           "type": "integer"
+        },
+        "textScaleFactor": {
+          "type": "number"
+        },
+        "textDirection": {
+          "enum": [
+            "ltr",
+            "rtl"
+          ]
         }
       },
       "additionalProperties": false
@@ -508,6 +599,37 @@
         },
         "height": {
           "type": "number"
+        },
+        "textPadding": {
+          "type": "number"
+        },
+        "drawText": {
+          "type": "boolean"
+        },
+        "barcode": {
+          "enum": [
+            "CodeITF16",
+            "CodeITF14",
+            "CodeEAN13",
+            "CodeEAN8",
+            "CodeEAN5",
+            "CodeEAN2",
+            "CodeISBN",
+            "Code39",
+            "Code93",
+            "CodeUPCA",
+            "CodeUPCE",
+            "Code128",
+            "GS128",
+            "Telepen",
+            "QrCode",
+            "Codabar",
+            "PDF417",
+            "DataMatrix",
+            "Aztec",
+            "Rm4scc",
+            "Itf"
+          ]
         }
       },
       "additionalProperties": false
@@ -519,9 +641,34 @@
           "$ref": "#/definitions/Widget"
         },
         "opacity": {
-          "color": {
-            "$ref": "#/definitions/DoubleZeroToOne"
-          }
+          "$ref": "#/definitions/DoubleZeroToOne"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Padding": {
+      "type": "object",
+      "properties": {
+        "child": {
+          "$ref": "#/definitions/Widget"
+        },
+        "padding": {
+          "$ref": "#/definitions/EdgeInsets"
+        }
+      },
+      "additionalProperties": false
+    },
+    "LimitedBox": {
+      "type": "object",
+      "properties": {
+        "child": {
+          "$ref": "#/definitions/Widget"
+        },
+        "maxWidth": {
+          "type": "number"
+        },
+        "maxHeight": {
+          "type": "number"
         }
       },
       "additionalProperties": false
@@ -537,6 +684,21 @@
         },
         "child": {
           "$ref": "#/definitions/Widget"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Icon": {
+      "type": "object",
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "$ref": "#/definitions/Color"
+        },
+        "size": {
+          "type": "number"
         }
       },
       "additionalProperties": false
@@ -570,18 +732,6 @@
         },
         "foregroundDecoration": {
           "$ref": "#/definitions/BoxDecoration"
-        }
-      },
-      "additionalProperties": false
-    },
-    "Expanded": {
-      "type": "object",
-      "properties": {
-        "child": {
-          "$ref": "#/definitions/Widget"
-        },
-        "flex": {
-          "type": "integer"
         }
       },
       "additionalProperties": false
@@ -703,14 +853,20 @@
       },
       "additionalProperties": false
     },
-    "Flex": {
+    "Expanded": {
       "type": "object",
       "properties": {
-        "children": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Widget"
-          }
+        "child": {
+          "$ref": "#/definitions/Widget"
+        },
+        "flex": {
+          "type": "integer"
+        },
+        "fit": {
+          "enum": [
+            "tight",
+            "loose"
+          ]
         }
       },
       "additionalProperties": false
@@ -720,6 +876,15 @@
       "properties": {
         "child": {
           "$ref": "#/definitions/Widget"
+        },
+        "flex": {
+          "type": "integer"
+        },
+        "fit": {
+          "enum": [
+            "tight",
+            "loose"
+          ]
         }
       },
       "additionalProperties": false

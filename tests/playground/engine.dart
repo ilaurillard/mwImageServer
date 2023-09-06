@@ -1,19 +1,38 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Engine/PdfEngine.dart';
 
-Future<void> main() async {
-  // String data = await File('tests/playground/pdf_simple.json').readAsString();
-  // String data = await File('tests/playground/pdf_simple2.json').readAsString();
-  String data = await File('tests/playground/pdf_simple3.json').readAsString();
-  // String data = await File('tests/playground/pdf_table.json').readAsString();
-  // String data = await File('tests/playground/pdf_charts.json').readAsString();
-  // String data = await File('tests/playground/pdf_barcodes.json').readAsString();
+Map<String, pw.Font> fontRegistry = {};
 
+Future<void> main() async {
+
+  fontRegistry['openSansRegular'] = pw.Font.ttf(
+    ByteData.view(
+      (await File('tests/playground/files/Open Sans Regular.ttf').readAsBytes())
+          .buffer,
+    ),
+  );
+
+  fontRegistry['material'] = pw.Font.ttf(
+    ByteData.view(
+      (await File('tests/playground/files/MaterialIcons-Regular.ttf').readAsBytes())
+          .buffer,
+    ),
+  );
+
+  // String jsonFile = 'pdf_simple.json';
+  // String jsonFile = 'pdf_simple2.json';
+  String jsonFile = 'pdf_simple3.json';
+  // String jsonFile = 'pdf_table.json';
+  // String jsonFile = 'pdf_charts.json';
+  // String jsonFile = 'pdf_barcodes.json';
+
+  String data = await File('tests/playground/$jsonFile').readAsString();
   PdfEngine engine = PdfEngine.fromJson(json.decode(data) as Dict);
 
   // print('Themes: ${engine.themes.length}');
@@ -23,7 +42,8 @@ Future<void> main() async {
 
   pw.Document pdf = engine.build();
 
-  final file = File('_test2.pdf');
+  String name = '$jsonFile.pdf';
+  final file = File(name);
   await file.writeAsBytes(await pdf.save());
-  print('Thank you\n\n');
+  print('Thank you, parsed "$jsonFile", wrote "$name" (${engine.pages.length} pages) ... \n\n');
 }

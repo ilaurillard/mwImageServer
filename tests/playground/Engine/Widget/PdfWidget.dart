@@ -58,6 +58,10 @@ class PdfWidget {
           return PdfWidgetLayout.column(data);
         case 'Expanded':
           return PdfWidgetLayout.expanded(data);
+        case 'Padding':
+          return PdfWidgetLayout.padding(data);
+        case 'LimitedBox':
+          return PdfWidgetLayout.limitedBox(data);
         case 'Flexible':
           return PdfWidgetLayout.flexible(data);
 
@@ -70,25 +74,18 @@ class PdfWidget {
 
         case 'Text':
           return PdfWidgetBasic.text(data);
-
         case 'Paragraph':
           return PdfWidgetBasic.paragraph(data);
-
         case 'Spacer':
           return PdfWidgetBasic.spacer(data);
-
         case 'Placeholder':
           return PdfWidgetBasic.placeholder(data);
-
         case 'Divider':
           return PdfWidgetBasic.divider(data);
-
         case 'Opacity':
           return PdfWidgetBasic.opacity(data);
-
         case 'LoremText':
           return PdfWidgetBasic.loremText(data);
-
         case 'LoremParagraph':
           return PdfWidgetBasic.loremParagraph(data);
 
@@ -96,10 +93,10 @@ class PdfWidget {
 
         case 'Image':
           return PdfWidgetImage.image(data);
-
         case 'SvgImage':
           return PdfWidgetImage.svgImage(data);
-
+        case 'Icon':
+          return PdfWidgetImage.icon(data);
         // ----------
 
         case 'Chart':
@@ -111,6 +108,84 @@ class PdfWidget {
 
         case 'BarcodeWidget':
           return PdfWidgetBarcode.barcode(data);
+
+        /*
+
+          TODO
+          ----
+
+          icon:
+            Icon
+
+          annotations:
+            ...
+
+          basic:
+            Transform
+            Align
+            ConstrainedBox
+            Center
+            FittedBox
+            AspectRatio
+            CustomPaint
+            FullPage
+            VerticalDivider
+            OverflowBox
+
+          clip:
+            ClipRect
+            ClipRRect
+            ClipOval
+
+          content:
+            Header
+            Footer
+            TableOfContent
+            Bullet
+            Watermark
+
+          flex:
+            ListView
+
+          forms:
+            ChoiceField
+            Checkbox
+            FlatButton
+            TextField
+            Signature
+
+          grid_paper:
+            GridPaper
+
+          grid_view:
+            GridView
+
+          image:
+            Image
+            Shape
+
+          partitions:
+            Partition
+            Partitions
+
+          shape:
+            Circle
+            Rectangle
+            Polygon
+            Inklist
+
+          stack:
+            Stack
+            Positioned
+
+          text:
+            RichText
+
+
+
+
+
+           */
       }
 
       print(' !!! widget $key not supported');

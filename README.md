@@ -63,6 +63,10 @@ consistency checks
 pdf handling
 rollout
 
+PDF:
+- datasources
+- images
+
 
 
 
