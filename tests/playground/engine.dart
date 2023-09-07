@@ -8,8 +8,11 @@ import 'package:pdf/widgets.dart' as pw;
 import 'Engine/PdfEngine.dart';
 
 Map<String, pw.Font> fontRegistry = {};
+String exampleSvg = '';
 
 Future<void> main() async {
+
+  exampleSvg = await File('tests/playground/files/logo.svg').readAsString();
 
   fontRegistry['openSansRegular'] = pw.Font.ttf(
     ByteData.view(
@@ -25,9 +28,12 @@ Future<void> main() async {
     ),
   );
 
+  // -----------------------
+
   // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
-  String jsonFile = 'pdf_simple3.json';
+  // String jsonFile = 'pdf_simple3.json';
+  String jsonFile = 'pdf_simple4.json';
   // String jsonFile = 'pdf_table.json';
   // String jsonFile = 'pdf_charts.json';
   // String jsonFile = 'pdf_barcodes.json';

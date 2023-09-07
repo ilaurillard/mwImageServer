@@ -46,7 +46,7 @@
                           }
                         },
                         {
-                          "Chart": {
+                          "Chartx": {
                             "grid": {
                               "RadialGrid": {
                               }
@@ -54,7 +54,7 @@
                           }
                         },
                         {
-                          "Chart": {
+                          "Chartx": {
                             "grid": {
                               "PieGrid": {
                                 "startAngle": 0.0

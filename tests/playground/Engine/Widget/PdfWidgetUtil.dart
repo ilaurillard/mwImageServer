@@ -256,6 +256,30 @@ class PdfWidgetUtil {
     return null;
   }
 
+  static pw.BoxFit? boxFit(
+    String? json,
+  ) {
+    if (json != null && json != '') {
+      switch (json) {
+        case 'contain':
+          return pw.BoxFit.contain;
+        case 'fill':
+          return pw.BoxFit.fill;
+        case 'cover':
+          return pw.BoxFit.cover;
+        case 'fitWidth':
+          return pw.BoxFit.fitWidth;
+        case 'fitHeight':
+          return pw.BoxFit.fitHeight;
+        case 'none':
+          return pw.BoxFit.none;
+        case 'scaleDown':
+          return pw.BoxFit.scaleDown;
+      }
+    }
+    return null;
+  }
+
   static pw.Alignment? alignment(
     String? json,
   ) {

@@ -1,0 +1,296 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceEvenly",
+                  "children": [
+                    {
+                      "SvgImage": {
+                        "height": 30,
+                        "width": 30,
+                        "fit": "fitHeight"
+                      }
+                    },
+                    {
+                      "SvgImage": {
+                        "height": 30,
+                        "width": 30,
+                        "fit": "fitWidth",
+                        "alignment": "topCenter"
+                      }
+                    },
+                    {
+                      "SvgImage": {
+                        "height": 30,
+                        "width": 30,
+                        "fit": "contain"
+                      }
+                    },
+                    {
+                      "SvgImage": {
+                        "height": 30,
+                        "width": 30,
+                        "fit": "cover",
+                        "colorFilter": "88BBFF"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                  "height": 5
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceEvenly",
+                  "children": [
+                    {
+                      "Container": {
+                        "color": "DDFFDD",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "FittedBox": {
+                            "fit": "fitHeight",
+                            "child": {
+                              "SvgImage": {
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "CCEECC",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "FittedBox": {
+                            "fit": "fitWidth",
+                            "alignment": "topCenter",
+                            "child": {
+                              "SvgImage": {
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "BBCCBB",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "FittedBox": {
+                            "fit": "contain",
+                            "child": {
+                              "SvgImage": {
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "AABBAA",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "FittedBox": {
+                            "fit": "cover",
+                            "child": {
+                              "SvgImage": {
+                                "colorFilter": "88BBFF"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                  "height": 5
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceEvenly",
+                  "children": [
+                    {
+                      "Container": {
+                        "color": "DDDDDD",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "FittedBox": {
+                            "fit": "none",
+                            "child": {
+                              "Container": {
+                                "width": 10,
+                                "height": 20,
+                                "color": "FF0000"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "CCCCCC",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "FittedBox": {
+                            "fit": "fitHeight",
+                            "child": {
+                              "Container": {
+                                "width": 10,
+                                "height": 20,
+                                "color": "FF0000"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "BBBBBB",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "FittedBox": {
+                            "fit": "none",
+                            "child": {
+                              "Container": {
+                                "width": 20,
+                                "height": 10,
+                                "color": "FF0000"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "AAAAAA",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "FittedBox": {
+                            "fit": "fitWidth",
+                            "child": {
+                              "Container": {
+                                "width": 20,
+                                "height": 10,
+                                "color": "FF0000"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                  "height": 5
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceEvenly",
+                  "children": [
+                    {
+                      "Container": {
+                        "color": "77FFFF",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "Center": {
+                            "child": {
+                              "Text": {
+                                "text": "X"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "66EEEE",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "Align": {
+                            "alignment": "topCenter",
+                            "child": {
+                              "Text": {
+                                "text": "X"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "55DDDD",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "Align": {
+                            "alignment": "bottomRight",
+                            "child": {
+                              "Text": {
+                                "text": "X"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "44CCCC",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "Align": {
+                            "alignment": "bottomLeft",
+                            "child": {
+                              "Text": {
+                                "text": "X"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

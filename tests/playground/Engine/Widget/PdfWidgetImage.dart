@@ -4,6 +4,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../engine.dart';
 import 'PdfWidgetUtil.dart';
 
 class PdfWidgetImage {
@@ -20,10 +21,23 @@ class PdfWidgetImage {
   static pw.SvgImage svgImage(
     Dict json,
   ) {
-    print(json);
     // TODO
+    double? width = double.tryParse(json['width'].toString());
+    double? height = double.tryParse(json['height'].toString());
     return pw.SvgImage(
-      svg: '',
+      svg: exampleSvg,
+      fit: PdfWidgetUtil.boxFit(
+        json['fit'] as String?,
+      ) ?? pw.BoxFit.contain,
+      alignment: PdfWidgetUtil.alignment(
+        json['alignment'] as String?,
+      ) ?? pw.Alignment.center,
+      clip: json['clip'] as bool? ?? true,
+      colorFilter: PdfWidgetUtil.color(
+        json['colorFilter'] as String?,
+      ),
+      width: width != null ? width * PdfPageFormat.mm : null,
+      height: height != null ? height * PdfPageFormat.mm : null,
     );
   }
 

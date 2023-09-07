@@ -29,6 +29,20 @@ class PdfWidget {
     return parse(json);
   }
 
+  static pw.Widget child(
+    Dict json,
+  ) {
+    return PdfWidget.parse(json['child'] as Dict? ?? {});
+  }
+
+  static List<pw.Widget> children(
+    Dict json,
+  ) {
+    return (json['children'] as List<dynamic>? ?? [])
+        .map((e) => PdfWidget.parse(e as Dict))
+        .toList();
+  }
+
   static pw.Widget parse(
     Dict json,
   ) {
@@ -44,6 +58,12 @@ class PdfWidget {
       switch (key) {
         case 'Container':
           return PdfWidgetLayout.container(data);
+        case 'Center':
+          return PdfWidgetLayout.center(data);
+        case 'Align':
+          return PdfWidgetLayout.align(data);
+        case 'FittedBox':
+          return PdfWidgetLayout.fittedBox(data);
         case 'SizedBox':
           return PdfWidgetLayout.sizedBox(data);
         case 'DecoratedBox':
@@ -114,18 +134,12 @@ class PdfWidget {
           TODO
           ----
 
-          icon:
-            Icon
-
           annotations:
             ...
 
           basic:
             Transform
-            Align
             ConstrainedBox
-            Center
-            FittedBox
             AspectRatio
             CustomPaint
             FullPage
@@ -161,7 +175,6 @@ class PdfWidget {
             GridView
 
           image:
-            Image
             Shape
 
           partitions:

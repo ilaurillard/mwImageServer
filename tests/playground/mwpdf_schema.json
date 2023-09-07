@@ -259,6 +259,18 @@
         "centerLeft"
       ]
     },
+    "BoxFit": {
+      "type": "string",
+      "enum": [
+        "contain",
+        "fill",
+        "cover",
+        "fitWidth",
+        "fitHeight",
+        "none",
+        "scaleDown"
+      ]
+    },
     "BoxShape": {
       "enum": [
         "circle",
@@ -325,6 +337,15 @@
         "Container": {
           "$ref": "#/definitions/Container"
         },
+        "Center": {
+          "$ref": "#/definitions/Center"
+        },
+        "Align": {
+          "$ref": "#/definitions/Align"
+        },
+        "FittedBox": {
+          "$ref": "#/definitions/FittedBox"
+        },
         "DecoratedBox": {
           "$ref": "#/definitions/DecoratedBox"
         },
@@ -387,6 +408,9 @@
         },
         "Flexible": {
           "$ref": "#/definitions/Flexible"
+        },
+        "SvgImage": {
+          "$ref": "#/definitions/SvgImage"
         }
       },
       "maxProperties": 1,
@@ -658,6 +682,42 @@
       },
       "additionalProperties": false
     },
+    "Center": {
+      "type": "object",
+      "properties": {
+        "child": {
+          "$ref": "#/definitions/Widget"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Align": {
+      "type": "object",
+      "properties": {
+        "child": {
+          "$ref": "#/definitions/Widget"
+        },
+        "alignment": {
+          "$ref": "#/definitions/Alignment"
+        }
+      },
+      "additionalProperties": false
+    },
+    "FittedBox": {
+      "type": "object",
+      "properties": {
+        "child": {
+          "$ref": "#/definitions/Widget"
+        },
+        "alignment": {
+          "$ref": "#/definitions/Alignment"
+        },
+        "fit": {
+          "$ref": "#/definitions/BoxFit"
+        }
+      },
+      "additionalProperties": false
+    },
     "LimitedBox": {
       "type": "object",
       "properties": {
@@ -885,6 +945,30 @@
             "tight",
             "loose"
           ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SvgImage": {
+      "type": "object",
+      "properties": {
+        "colorFilter": {
+          "$ref": "#/definitions/Color"
+        },
+        "fit": {
+          "$ref": "#/definitions/BoxFit"
+        },
+        "clip": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "$ref": "#/definitions/Alignment"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
         }
       },
       "additionalProperties": false

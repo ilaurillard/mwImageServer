@@ -6,6 +6,43 @@ import 'PdfWidget.dart';
 import 'PdfWidgetUtil.dart';
 
 class PdfWidgetLayout {
+  static pw.Center center(
+    Dict json,
+  ) {
+    return pw.Center(
+      child: PdfWidget.child(json),
+    );
+  }
+
+  static pw.Align align(
+    Dict json,
+  ) {
+    // TODO
+    return pw.Align(
+      alignment: PdfWidgetUtil.alignment(
+            json['alignment'] as String?,
+          ) ??
+          pw.Alignment.center,
+      child: PdfWidget.child(json),
+    );
+  }
+
+  static pw.FittedBox fittedBox(
+    Dict json,
+  ) {
+    return pw.FittedBox(
+      fit: PdfWidgetUtil.boxFit(
+            json['fit'] as String?,
+          ) ??
+          pw.BoxFit.contain,
+      alignment: PdfWidgetUtil.alignment(
+            json['alignment'] as String?,
+          ) ??
+          pw.Alignment.center,
+      child: PdfWidget.child(json),
+    );
+  }
+
   static pw.Container container(
     Dict json,
   ) {
@@ -31,7 +68,7 @@ class PdfWidgetLayout {
       decoration: PdfWidgetUtil.decoration((json['decoration'] as Dict?) ?? {}),
       foregroundDecoration: PdfWidgetUtil.decoration(
           (json['foregroundDecoration'] as Dict?) ?? {}),
-      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+      child: PdfWidget.child(json),
     );
   }
 
@@ -44,7 +81,7 @@ class PdfWidgetLayout {
     return pw.SizedBox(
       width: width != null ? width * PdfPageFormat.mm : null,
       height: height != null ? height * PdfPageFormat.mm : null,
-      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+      child: PdfWidget.child(json),
     );
   }
 
@@ -57,7 +94,7 @@ class PdfWidgetLayout {
               pw.BoxDecoration(),
       position: PdfWidgetUtil.decorationPosition(
           json['decorationPosition'] as String?),
-      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+      child: PdfWidget.child(json),
     );
   }
 
@@ -84,9 +121,7 @@ class PdfWidgetLayout {
       verticalDirection: PdfWidgetUtil.verticalDirection(
         json['verticalDirection'] as String?,
       ),
-      children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => PdfWidget.parse(e as Dict))
-          .toList(),
+      children: PdfWidget.children(json),
     );
   }
 
@@ -106,9 +141,7 @@ class PdfWidgetLayout {
       verticalDirection: PdfWidgetUtil.verticalDirection(
         json['verticalDirection'] as String?,
       ),
-      children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => PdfWidget.parse(e as Dict))
-          .toList(),
+      children: PdfWidget.children(json),
     );
   }
 
@@ -128,9 +161,7 @@ class PdfWidgetLayout {
       verticalDirection: PdfWidgetUtil.verticalDirection(
         json['verticalDirection'] as String?,
       ),
-      children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => PdfWidget.parse(e as Dict))
-          .toList(),
+      children: PdfWidget.children(json),
     );
   }
 
@@ -154,9 +185,7 @@ class PdfWidgetLayout {
       verticalDirection: PdfWidgetUtil.verticalDirection(
         json['verticalDirection'] as String?,
       ),
-      children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => PdfWidget.parse(e as Dict))
-          .toList(),
+      children: PdfWidget.children(json),
     );
   }
 
@@ -168,7 +197,7 @@ class PdfWidgetLayout {
       fit: PdfWidgetUtil.flexFit(
         json['fit'] as String?,
       ),
-      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+      child: PdfWidget.child(json),
     );
   }
 
@@ -177,21 +206,24 @@ class PdfWidgetLayout {
   ) {
     return pw.Padding(
       padding: PdfWidgetUtil.edgeInsets(
-        json['padding'] as List<dynamic>?,
-      ) ?? pw.EdgeInsets.zero,
-      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+            json['padding'] as List<dynamic>?,
+          ) ??
+          pw.EdgeInsets.zero,
+      child: PdfWidget.child(json),
     );
   }
 
   static pw.LimitedBox limitedBox(
-      Dict json,
-      ) {
+    Dict json,
+  ) {
     double? maxWidth = double.tryParse(json['maxWidth'].toString());
     double? maxHeight = double.tryParse(json['maxHeight'].toString());
     return pw.LimitedBox(
-      maxWidth: maxWidth != null ? maxWidth * PdfPageFormat.mm : double.infinity,
-      maxHeight: maxHeight != null ? maxHeight * PdfPageFormat.mm : double.infinity,
-      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+      maxWidth:
+          maxWidth != null ? maxWidth * PdfPageFormat.mm : double.infinity,
+      maxHeight:
+          maxHeight != null ? maxHeight * PdfPageFormat.mm : double.infinity,
+      child: PdfWidget.child(json),
     );
   }
 
@@ -203,7 +235,7 @@ class PdfWidgetLayout {
       fit: PdfWidgetUtil.flexFit(
         json['fit'] as String? ?? 'loose',
       ),
-      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+      child: PdfWidget.child(json),
     );
   }
 }

@@ -72,7 +72,7 @@ class PdfWidgetBasic {
   static pw.Opacity opacity(Dict json) {
     return pw.Opacity(
       opacity: double.tryParse(json['opacity'].toString()) ?? 1.0,
-      child: PdfWidget.parse(json['child'] as Dict? ?? {}),
+      child: PdfWidget.child(json),
     );
   }
 

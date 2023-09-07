@@ -59,84 +59,84 @@ class PdfWidgetChart {
       right: PdfWidget.parse(json['right'] as Dict? ?? {}),
 
       // CartesianGrid
-      // datasets: [
-        // pw.BarDataSet(
-        //   color: PdfColors.blue200,
-        //   legend: 'Xxx',
-        //   width: 10,
-        //   offset: 10,
-        //   borderColor: PdfColors.green300,
-        //   data: List<pw.PointChartValue>.generate(
-        //     dataTable.length,
-        //     (int index) {
-        //       final double value =
-        //           double.tryParse((dataTable[index][3] as num).toString()) ??
-        //               0.0;
-        //       return pw.PointChartValue(
-        //         index.toDouble(),
-        //         value + 2,
-        //       );
-        //     },
-        //   ),
-        // ),
-      //   pw.LineDataSet(
-      //     legend: 'Expense',
-      //     drawSurface: true,
-      //     isCurved: true,
-      //     drawPoints: false,
-      //     color: PdfColors.blue300,
-      //     data: List<pw.PointChartValue>.generate(
-      //       dataTable.length,
-      //       (int index) {
-      //         final double value =
-      //             double.tryParse((dataTable[index][3] as num).toString()) ??
-      //                 0.0;
-      //         return pw.PointChartValue(
-      //           index.toDouble(),
-      //           value,
-      //         );
-      //       },
-      //     ),
-      //   ),
-      //   pw.LineDataSet(
-      //     legend: 'yyy',
-      //     drawSurface: false,
-      //     isCurved: false,
-      //     drawPoints: true,
-      //     color: PdfColors.red300,
-      //     data: List<pw.PointChartValue>.generate(
-      //       dataTable.length,
-      //       (int index) {
-      //         final double value =
-      //             double.tryParse((dataTable[index][4] as num).toString()) ??
-      //                 0.0;
-      //         return pw.PointChartValue(
-      //           index.toDouble(),
-      //           value,
-      //         );
-      //       },
-      //     ),
-      //   ),
-      // ],
+      datasets: [
+        pw.BarDataSet(
+          color: PdfColors.blue200,
+          legend: 'Xxx',
+          width: 10,
+          offset: 10,
+          borderColor: PdfColors.green300,
+          data: List<pw.PointChartValue>.generate(
+            dataTable.length,
+            (int index) {
+              final double value =
+                  double.tryParse((dataTable[index][3] as num).toString()) ??
+                      0.0;
+              return pw.PointChartValue(
+                index.toDouble(),
+                value + 2,
+              );
+            },
+          ),
+        ),
+        pw.LineDataSet(
+          legend: 'Expense',
+          drawSurface: true,
+          isCurved: true,
+          drawPoints: false,
+          color: PdfColors.blue300,
+          data: List<pw.PointChartValue>.generate(
+            dataTable.length,
+            (int index) {
+              final double value =
+                  double.tryParse((dataTable[index][3] as num).toString()) ??
+                      0.0;
+              return pw.PointChartValue(
+                index.toDouble(),
+                value,
+              );
+            },
+          ),
+        ),
+        pw.LineDataSet(
+          legend: 'yyy',
+          drawSurface: false,
+          isCurved: false,
+          drawPoints: true,
+          color: PdfColors.red300,
+          data: List<pw.PointChartValue>.generate(
+            dataTable.length,
+            (int index) {
+              final double value =
+                  double.tryParse((dataTable[index][4] as num).toString()) ??
+                      0.0;
+              return pw.PointChartValue(
+                index.toDouble(),
+                value,
+              );
+            },
+          ),
+        ),
+      ],
 
       // -------------
 
       // PieGrid
-      datasets: List<pw.Dataset>.generate(
-        dataTable.length,
-        (int index) {
-          final List<Object> data = dataTable[index];
-          final PdfColor color = chartColors[index % chartColors.length];
-          final double value = (data[2] as num).toDouble();
-          final int pct = (value / expense * 100).round();
-          return pw.PieDataSet(
-            legend: '${data[0]}\n$pct%',
-            value: value,
-            color: color,
-            legendStyle: const pw.TextStyle(fontSize: 10),
-          );
-        },
-      ),
+      // datasets: List<pw.Dataset>.generate(
+      //   dataTable.length,
+      //   (int index) {
+      //     final List<Object> data = dataTable[index];
+      //     final PdfColor color = chartColors[index % chartColors.length];
+      //     final double value = (data[2] as num).toDouble();
+      //     final int pct = (value / expense * 100).round();
+      //     return pw.PieDataSet(
+      //       legend: '${data[0]}\n$pct%',
+      //       value: value,
+      //       color: color,
+      //       legendStyle: const pw.TextStyle(fontSize: 10),
+      //     );
+      //   },
+      // ),
 
       // ----
 
