@@ -65,8 +65,8 @@ class PdfWidgetLayout {
       ),
       width: width != null ? width * PdfPageFormat.mm : null,
       height: height != null ? height * PdfPageFormat.mm : null,
-      decoration: PdfWidgetUtil.decoration((json['decoration'] as Dict?) ?? {}),
-      foregroundDecoration: PdfWidgetUtil.decoration(
+      decoration: PdfWidgetUtil.boxDecoration((json['decoration'] as Dict?) ?? {}),
+      foregroundDecoration: PdfWidgetUtil.boxDecoration(
           (json['foregroundDecoration'] as Dict?) ?? {}),
       child: PdfWidget.child(json),
     );
@@ -90,7 +90,7 @@ class PdfWidgetLayout {
   ) {
     return pw.DecoratedBox(
       decoration:
-          PdfWidgetUtil.decoration((json['decoration'] as Dict?) ?? {}) ??
+          PdfWidgetUtil.boxDecoration((json['decoration'] as Dict?) ?? {}) ??
               pw.BoxDecoration(),
       position: PdfWidgetUtil.decorationPosition(
           json['decorationPosition'] as String?),

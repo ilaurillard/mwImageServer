@@ -7,7 +7,7 @@ import '../../engine.dart';
 import 'PdfWidget.dart';
 
 class PdfWidgetUtil {
-  static pw.BoxDecoration? decoration(
+  static pw.BoxDecoration? boxDecoration(
     Dict json,
   ) {
     if (json.isEmpty) {
@@ -429,18 +429,6 @@ class PdfWidgetUtil {
         return pw.WrapCrossAlignment.end;
     }
     return pw.WrapCrossAlignment.start;
-  }
-
-  static pw.TableWidth tableWidth(
-    String? json,
-  ) {
-    if (json != null && json != '') {
-      switch (json) {
-        case 'min':
-          return pw.TableWidth.min;
-      }
-    }
-    return pw.TableWidth.max;
   }
 
   static pw.DecorationPosition decorationPosition(

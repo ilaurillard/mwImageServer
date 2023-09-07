@@ -1,0 +1,260 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Table": {
+                  "tableWidth": "min",
+                  "defaultColumnWidth": {
+                    "FixedColumnWidth": {
+                      "width": 80
+                    }
+                  },
+                  "border": {
+                    "all": {
+                      "style": "none"
+                    },
+                    "bottom": {
+                      "style": "solid",
+                      "color": "0000FF"
+                    },
+                    "verticalInside": {
+                      "style": "none"
+                    },
+                    "horizontalInside": {
+                      "style": "dotted",
+                      "color": "0000FF"
+                    }
+                  },
+                  "children": [
+                    {
+                      "TableRow": {
+                        "verticalAlignment": "middle",
+                        "repeat": false,
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "aaa"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "bbb"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "ccc"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "TableRow": {
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "xxx"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "yyy"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "zzz"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Table": {
+                  "tableWidth": "min",
+                  "columnWidths": {
+                    "0": {
+                      "FixedColumnWidth": {
+                        "width": 40
+                      }
+                    },
+                    "1": {
+                      "FixedColumnWidth": {
+                        "width": 30
+                      }
+                    },
+                    "2": {
+                      "FixedColumnWidth": {
+                        "width": 20
+                      }
+                    }
+                  },
+                  "defaultVerticalAlignment": "bottom",
+                  "border": {
+                    "all": {
+                      "style": "solid",
+                      "color": "000000"
+                    }
+                  },
+                  "children": [
+                    {
+                      "TableRow": {
+                        "decoration": {
+                          "color": "FFCCCC"
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "AAA"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "bbb"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "ccc"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "TableRow": {
+                        "decoration": {
+                          "color": "FFAAAA"
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "xxx"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "yyy"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "zzz"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Table": {
+                  "tableWidth": "max",
+                  "columnWidths": {
+                    "0": {
+                      "FlexColumnWidth": {
+                        "flex": 3
+                      }
+                    },
+                    "1": {
+                      "FlexColumnWidth": {
+                        "flex": 2
+                      }
+                    },
+                    "2": {
+                      "FlexColumnWidth": {
+                        "flex": 1
+                      }
+                    }
+                  },
+                  "defaultVerticalAlignment": "bottom",
+                  "border": {
+                    "all": {
+                      "style": "solid",
+                      "color": "000000"
+                    },
+                    "verticalInside": {
+                      "style": "none"
+                    }
+                  },
+                  "children": [
+                    {
+                      "TableRow": {
+                        "decoration": {
+                          "color": "CCFFCC"
+                        },
+                        "children": [
+                          {
+                            "Container": {
+                              "height": 15
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "bbb"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "ccc"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "TableRow": {
+                        "decoration": {
+                          "color": "AAFFAA"
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "xxx"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "yyy"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "zzz"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

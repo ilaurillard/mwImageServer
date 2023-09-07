@@ -19,7 +19,7 @@ class PdfWidgetBarcode {
 
       color: PdfWidgetUtil.color(json['color'] as String?) ?? PdfColors.black,
       backgroundColor: PdfWidgetUtil.color(json['backgroundColor'] as String?),
-      decoration: PdfWidgetUtil.decoration((json['decoration'] as Dict?) ?? {}),
+      decoration: PdfWidgetUtil.boxDecoration((json['decoration'] as Dict?) ?? {}),
       textStyle: PdfWidgetUtil.textStyle((json['textStyle'] as Dict?) ?? {}),
       barcode: pw.Barcode.fromType(type(json['barcode'] as String?)),
       drawText: json['drawText'] as bool? ?? true,

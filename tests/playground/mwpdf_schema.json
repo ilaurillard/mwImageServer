@@ -246,6 +246,14 @@
         "dotted"
       ]
     },
+    "VerticalAlignment": {
+      "enum": [
+        "bottom",
+        "middle",
+        "top",
+        "full"
+      ]
+    },
     "Alignment": {
       "enum": [
         "center",
@@ -290,6 +298,50 @@
           "$ref": "#/definitions/Color"
         }
       },
+      "additionalProperties": false
+    },
+    "ColumnWidth": {
+      "type": "object",
+      "properties": {
+        "IntrinsicColumnWidth": {
+          "type": "object",
+          "properties": {
+            "flex": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "FixedColumnWidth": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "FlexColumnWidth": {
+          "type": "object",
+          "properties": {
+            "flex": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "FractionColumnWidth": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "minProperties": 1,
+      "maxProperties": 1,
       "additionalProperties": false
     },
     "BoxDecoration": {
@@ -934,6 +986,54 @@
     "Table": {
       "type": "object",
       "properties": {
+        "columnWidths": {
+          "type": "object",
+          "patternProperties": {
+            "^[0-9]+$": {
+              "$ref": "#/definitions/ColumnWidth"
+            }
+          },
+          "additionalProperties": false,
+        },
+        "defaultColumnWidth": {
+          "$ref": "#/definitions/ColumnWidth"
+        },
+        "defaultVerticalAlignment": {
+          "$ref": "#/definitions/VerticalAlignment"
+        },
+        "tableWidth": {
+          "enum": [
+            "min",
+            "max"
+          ]
+        },
+        "border": {
+          "type": "object",
+          "properties": {
+            "all": {
+              "$ref": "#/definitions/BoxSide"
+            },
+            "top": {
+              "$ref": "#/definitions/BoxSide"
+            },
+            "right": {
+              "$ref": "#/definitions/BoxSide"
+            },
+            "bottom": {
+              "$ref": "#/definitions/BoxSide"
+            },
+            "left": {
+              "$ref": "#/definitions/BoxSide"
+            },
+            "horizontalInside": {
+              "$ref": "#/definitions/BoxSide"
+            },
+            "verticalInside": {
+              "$ref": "#/definitions/BoxSide"
+            }
+          },
+          "additionalProperties": false
+        },
         "children": {
           "type": "array",
           "items": {
@@ -952,6 +1052,15 @@
     "TableRow": {
       "type": "object",
       "properties": {
+        "decoration": {
+          "$ref": "#/definitions/BoxDecoration"
+        },
+        "repeat": {
+          "type": "boolean"
+        },
+        "verticalAlignment": {
+          "$ref": "#/definitions/VerticalAlignment"
+        },
         "children": {
           "type": "array",
           "items": {
