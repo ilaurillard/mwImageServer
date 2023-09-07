@@ -504,4 +504,22 @@ class PdfWidgetUtil {
     }
     return null;
   }
+
+  static pw.BoxConstraints? boxConstraints(
+    Dict? json,
+  ) {
+    if (json != null && json.isNotEmpty) {
+      double? minWidth = double.tryParse(json['minWidth'].toString());
+      double? maxWidth = double.tryParse(json['maxWidth'].toString());
+      double? minHeight = double.tryParse(json['minHeight'].toString());
+      double? maxHeight = double.tryParse(json['maxHeight'].toString());
+      return pw.BoxConstraints(
+        minWidth: minWidth != null ? minWidth * PdfPageFormat.mm : 0.0,
+        minHeight: minHeight != null ? minHeight * PdfPageFormat.mm : 0.0,
+        maxWidth: maxWidth != null ? maxWidth * PdfPageFormat.mm : double.infinity,
+        maxHeight: maxHeight != null ? maxHeight * PdfPageFormat.mm : double.infinity,
+      );
+    }
+    return null;
+  }
 }

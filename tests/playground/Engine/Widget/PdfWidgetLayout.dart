@@ -49,8 +49,11 @@ class PdfWidgetLayout {
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
 
-    // TODO  constraints, transform
+    // TODO  transform
     return pw.Container(
+      constraints: PdfWidgetUtil.boxConstraints(
+        json['constraints'] as Dict?,
+      ),
       alignment: PdfWidgetUtil.alignment(
         json['alignment'] as String?,
       ),

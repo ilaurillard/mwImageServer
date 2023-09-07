@@ -231,18 +231,26 @@
                         },
                         "children": [
                           {
-                            "Text": {
-                              "text": "xxx"
+                            "Container": {
+                              "color": "99EE99",
+                              "constraints": {
+                                "minHeight": 15
+                              },
+                              "child": {
+                                "Text": {
+                                  "text": "xxx1"
+                                }
+                              }
                             }
                           },
                           {
                             "Text": {
-                              "text": "yyy"
+                              "text": "yyy1"
                             }
                           },
                           {
                             "Text": {
-                              "text": "zzz"
+                              "text": "zzz1"
                             }
                           }
                         ]

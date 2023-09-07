@@ -279,6 +279,24 @@
         "scaleDown"
       ]
     },
+    "BoxConstraints": {
+      "type": "object",
+      "properties": {
+        "minWidth": {
+          "type": "number"
+        },
+        "minHeight": {
+          "type": "number"
+        },
+        "maxWidth": {
+          "type": "number"
+        },
+        "maxHeight": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
     "BoxShape": {
       "enum": [
         "circle",
@@ -854,6 +872,9 @@
     "Container": {
       "type": "object",
       "properties": {
+        "constraints": {
+          "$ref": "#/definitions/BoxConstraints"
+        },
         "child": {
           "$ref": "#/definitions/Widget"
         },
