@@ -6,6 +6,7 @@ import 'PdfWidgetBasic.dart';
 import 'PdfWidgetChart.dart';
 import 'PdfWidgetImage.dart';
 import 'PdfWidgetLayout.dart';
+import 'PdfWidgetShape.dart';
 import 'PdfWidgetTable.dart';
 
 class PdfWidget {
@@ -21,7 +22,9 @@ class PdfWidget {
     int pageNumber = 0,
     int pagesCount = 0,
   }) {
+    // ignore: prefer_initializing_formals
     PdfWidget.pageNumber = pageNumber;
+    // ignore: prefer_initializing_formals
     PdfWidget.pagesCount = pagesCount;
   }
 
@@ -102,6 +105,8 @@ class PdfWidget {
           return PdfWidgetBasic.placeholder(data);
         case 'Divider':
           return PdfWidgetBasic.divider(data);
+        case 'VerticalDivider':
+          return PdfWidgetBasic.verticalDivider(data);
         case 'Opacity':
           return PdfWidgetBasic.opacity(data);
         case 'LoremText':
@@ -129,6 +134,14 @@ class PdfWidget {
         case 'BarcodeWidget':
           return PdfWidgetBarcode.barcode(data);
 
+        // -----------
+
+        case 'Circle':
+          return PdfWidgetShape.circle(data);
+        case 'Polygon':
+          return PdfWidgetShape.polygon(data);
+        case 'Rectangle':
+          return PdfWidgetShape.rectangle(data);
         /*
 
           TODO
@@ -143,7 +156,6 @@ class PdfWidget {
             AspectRatio
             CustomPaint
             FullPage
-            VerticalDivider
             OverflowBox
 
           clip:
@@ -182,9 +194,6 @@ class PdfWidget {
             Partitions
 
           shape:
-            Circle
-            Rectangle
-            Polygon
             Inklist
 
           stack:

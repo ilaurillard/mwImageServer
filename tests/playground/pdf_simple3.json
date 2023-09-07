@@ -130,6 +130,34 @@
                           }
                         }
                       }
+                    },
+                    {
+                      "Container": {
+                        "height": 20,
+                        "child": {
+                          "VerticalDivider": {
+                            "thickness": 1,
+                            "color": "0088AA",
+                            "borderStyle": "dotted",
+                            "width": 10
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Expanded": {
+                        "child": {
+                          "Container": {
+                            "color": "DDDDDD",
+                            "child": {
+                              "Paragraph": {
+                                "text": "Some text",
+                                "textAlign": "right"
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   ]
                 }

@@ -38,7 +38,7 @@ class PdfPage {
     // print('Page: $json');
 
     return PdfPage(
-      multi: json['multi'] as bool? ?? false,
+      multi: Types.boolFromDict(json, 'multi'),
       theme: json['theme'] as String? ?? '',
       header: json['header'] as String? ?? '',
       footer: json['footer'] as String? ?? '',

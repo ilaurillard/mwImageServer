@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';

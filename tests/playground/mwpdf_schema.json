@@ -343,6 +343,15 @@
         "Align": {
           "$ref": "#/definitions/Align"
         },
+        "Circle": {
+          "$ref": "#/definitions/Circle"
+        },
+        "Polygon": {
+          "$ref": "#/definitions/Polygon"
+        },
+        "Rectangle": {
+          "$ref": "#/definitions/Rectangle"
+        },
         "FittedBox": {
           "$ref": "#/definitions/FittedBox"
         },
@@ -390,6 +399,9 @@
         },
         "Divider": {
           "$ref": "#/definitions/Divider"
+        },
+        "VerticalDivider": {
+          "$ref": "#/definitions/VerticalDivider"
         },
         "Spacer": {
           "$ref": "#/definitions/Spacer"
@@ -553,6 +565,30 @@
           "$ref": "#/definitions/Color"
         },
         "height": {
+          "type": "number"
+        },
+        "thickness": {
+          "type": "number"
+        },
+        "indent": {
+          "type": "number"
+        },
+        "endIndent": {
+          "type": "number"
+        },
+        "borderStyle": {
+          "$ref": "#/definitions/BorderStyle"
+        }
+      },
+      "additionalProperties": false
+    },
+    "VerticalDivider": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/Color"
+        },
+        "width": {
           "type": "number"
         },
         "thickness": {
@@ -792,6 +828,57 @@
         },
         "foregroundDecoration": {
           "$ref": "#/definitions/BoxDecoration"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Shape": {
+      "type": "object",
+      "properties": {
+        "strokeWidth": {
+          "type": "number"
+        },
+        "fillColor": {
+          "$ref": "#/definitions/Color"
+        },
+        "strokeColor": {
+          "$ref": "#/definitions/Color"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Circle": {
+      "$ref": "#/definitions/Shape"
+    },
+    "Rectangle": {
+      "$ref": "#/definitions/Shape"
+    },
+    "Polygon": {
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 3
+        },
+        "close": {
+          "type": "boolean"
+        },
+        "strokeWidth": {
+          "type": "number"
+        },
+        "fillColor": {
+          "$ref": "#/definitions/Color"
+        },
+        "strokeColor": {
+          "$ref": "#/definitions/Color"
         }
       },
       "additionalProperties": false

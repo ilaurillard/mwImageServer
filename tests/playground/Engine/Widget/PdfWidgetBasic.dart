@@ -19,7 +19,7 @@ class PdfWidgetBasic {
         json['textDirection'] as String?,
       ),
       softWrap: json['softWrap'] as bool?,
-      tightBounds: json['tightBounds'] as bool? ?? false,
+      tightBounds: Types.boolFromDict(json, 'tightBounds'),
       textScaleFactor: double.tryParse(json['textScaleFactor'].toString()) ?? 1.0,
       maxLines: int.tryParse(json['maxLines'].toString()),
       overflow: PdfWidgetUtil.overflow(json['overflow'] as String?),
@@ -85,6 +85,27 @@ class PdfWidgetBasic {
     double? endIndent = double.tryParse(json['endIndent'].toString());
     return pw.Divider(
       height: height != null ? height * PdfPageFormat.mm : null,
+      thickness: thickness != null ? thickness * PdfPageFormat.mm : null,
+      indent: indent != null ? indent * PdfPageFormat.mm : null,
+      endIndent: endIndent != null ? endIndent * PdfPageFormat.mm : null,
+      color: PdfWidgetUtil.color(
+        json['color'] as String?,
+      ),
+      borderStyle: PdfWidgetUtil.borderStyle(
+        json['borderStyle'] as String?,
+      ),
+    );
+  }
+
+  static pw.VerticalDivider verticalDivider(
+      Dict json,
+      ) {
+    double? width = double.tryParse(json['width'].toString());
+    double? thickness = double.tryParse(json['thickness'].toString());
+    double? indent = double.tryParse(json['indent'].toString());
+    double? endIndent = double.tryParse(json['endIndent'].toString());
+    return pw.VerticalDivider(
+      width: width != null ? width * PdfPageFormat.mm : null,
       thickness: thickness != null ? thickness * PdfPageFormat.mm : null,
       indent: indent != null ? indent * PdfPageFormat.mm : null,
       endIndent: endIndent != null ? endIndent * PdfPageFormat.mm : null,

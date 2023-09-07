@@ -31,7 +31,7 @@ class PdfTheme {
       margin: PdfWidgetUtil.edgeInsets(
         json['margin'] as List<dynamic>?,
       ),
-      clip: json['clip'] as bool? ?? false,
+      clip: Types.boolFromDict(json, 'clip'),
       textDirection: PdfWidgetUtil.textDirection(
         json['textDirection'] as String? ?? '',
       ),
