@@ -151,12 +151,12 @@ class PdfWidget {
             ...
 
           basic:
-            Transform
             ConstrainedBox
+            OverflowBox
             AspectRatio
+            Transform
             CustomPaint
             FullPage
-            OverflowBox
 
           clip:
             ClipRect
@@ -202,11 +202,6 @@ class PdfWidget {
 
           text:
             RichText
-
-
-
-
-
            */
       }
 
