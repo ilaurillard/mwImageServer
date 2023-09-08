@@ -12,18 +12,18 @@ String exampleSvg = '';
 
 Future<void> main() async {
 
-  exampleSvg = await File('tests/playground/files/logo.svg').readAsString();
+  exampleSvg = await File('tests/mwpdf/files/logo.svg').readAsString();
 
   fontRegistry['openSansRegular'] = pw.Font.ttf(
     ByteData.view(
-      (await File('tests/playground/files/Open Sans Regular.ttf').readAsBytes())
+      (await File('tests/mwpdf/files/Open Sans Regular.ttf').readAsBytes())
           .buffer,
     ),
   );
 
   fontRegistry['material'] = pw.Font.ttf(
     ByteData.view(
-      (await File('tests/playground/files/MaterialIcons-Regular.ttf').readAsBytes())
+      (await File('tests/mwpdf/files/MaterialIcons-Regular.ttf').readAsBytes())
           .buffer,
     ),
   );
@@ -33,20 +33,16 @@ Future<void> main() async {
   // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
   // String jsonFile = 'pdf_simple3.json';
-  // String jsonFile = 'pdf_simple4.json';
-  // String jsonFile = 'pdf_simple5.json';
+  // String jsonFile = 'pdf_layout.json';
+  // String jsonFile = 'pdf_shapes.json';
   // String jsonFile = 'pdf_table.json';
-   String jsonFile = 'pdf_table2.json';
+  //  String jsonFile = 'pdf_table2.json';
   // String jsonFile = 'pdf_charts.json';
   // String jsonFile = 'pdf_barcodes.json';
+  String jsonFile = 'pdf_grid.json';
 
-  String data = await File('tests/playground/$jsonFile').readAsString();
+  String data = await File('tests/mwpdf/$jsonFile').readAsString();
   PdfEngine engine = PdfEngine.fromJson(json.decode(data) as Dict);
-
-  // print('Themes: ${engine.themes.length}');
-  // print('Headers: ${engine.headers.length}');
-  // print('Footers: ${engine.footers.length}');
-  // print('Pages: ${engine.pages.length}');
 
   pw.Document pdf = engine.build();
 
