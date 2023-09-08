@@ -405,7 +405,7 @@ class PdfWidgetUtil {
     return pw.WrapAlignment.start;
   }
 
-  static pw.TextOverflow? overflow(
+  static pw.TextOverflow? textOverflow(
     String? json,
   ) {
     if (json != null && json != '') {
@@ -431,6 +431,32 @@ class PdfWidgetUtil {
         return pw.WrapCrossAlignment.end;
     }
     return pw.WrapCrossAlignment.start;
+  }
+
+  static pw.StackFit? stackFit(
+      String? json,
+      ) {
+    switch (json) {
+      case 'loose':
+        return pw.StackFit.loose;
+      case 'expand':
+        return pw.StackFit.expand;
+      case 'passthrough':
+        return pw.StackFit.passthrough;
+    }
+    return null;
+  }
+
+  static pw.Overflow? overflow(
+      String? json,
+      ) {
+    switch (json) {
+      case 'clip':
+        return pw.Overflow.clip;
+      case 'visible':
+        return pw.Overflow.visible;
+    }
+    return null;
   }
 
   static pw.DecorationPosition decorationPosition(

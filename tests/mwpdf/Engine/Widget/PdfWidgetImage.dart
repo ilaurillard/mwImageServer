@@ -11,17 +11,27 @@ class PdfWidgetImage {
   static pw.Image image(
     Dict json,
   ) {
-    print(json);
-    // TODO
+    // TODO image data
+    double? width = double.tryParse(json['width'].toString());
+    double? height = double.tryParse(json['height'].toString());
     return pw.Image(
-      pw.MemoryImage(Uint8List(0)),
+      exampleImage,
+      fit: PdfWidgetUtil.boxFit(
+        json['fit'] as String?,
+      ) ?? pw.BoxFit.contain,
+      alignment: PdfWidgetUtil.alignment(
+        json['alignment'] as String?,
+      ) ?? pw.Alignment.center,
+      dpi: double.tryParse(json['dpi'].toString()),
+      width: width != null ? width * PdfPageFormat.mm : null,
+      height: height != null ? height * PdfPageFormat.mm : null,
     );
   }
 
   static pw.SvgImage svgImage(
     Dict json,
   ) {
-    // TODO
+    // TODO svg data
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
     return pw.SvgImage(

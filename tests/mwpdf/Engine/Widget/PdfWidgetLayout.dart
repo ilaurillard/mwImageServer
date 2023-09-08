@@ -273,6 +273,15 @@ class PdfWidgetLayout {
     );
   }
 
+  static pw.AspectRatio aspectRatio(
+    Dict json,
+  ) {
+    return pw.AspectRatio(
+      aspectRatio: double.tryParse(json['aspectRatio'].toString()) ?? 1,
+      child: PdfWidget.child(json),
+    );
+  }
+
   static pw.ListView listView(
     Dict json,
   ) {
@@ -311,6 +320,21 @@ class PdfWidgetLayout {
           crossAxisSpacing != null ? crossAxisSpacing * PdfPageFormat.mm : 0.0,
       childAspectRatio: double.tryParse(json['childAspectRatio'].toString()) ??
           double.infinity,
+    );
+  }
+
+  static pw.Stack stack(
+    Dict json,
+  ) {
+    return pw.Stack(
+      alignment: PdfWidgetUtil.alignment(
+            json['alignment'] as String?,
+          ) ??
+          pw.Alignment.topLeft,
+      children: PdfWidget.children(json),
+      overflow: PdfWidgetUtil.overflow(json['overflow'] as String?) ??
+          pw.Overflow.clip,
+      fit: PdfWidgetUtil.stackFit(json['fit'] as String?) ?? pw.StackFit.loose,
     );
   }
 }

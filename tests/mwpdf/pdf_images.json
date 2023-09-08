@@ -1,0 +1,78 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "ListView": {
+            "spacing": 2,
+            "children": [
+              {
+                "Container": {
+                  "height": 10,
+                  "child": {
+                    "SvgImage": {
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "child": {
+                    "SvgImage": {
+                    }
+                  }
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Container": {
+                        "height": 30,
+                        "child": {
+                          "Image": {
+                            "dpi": 90
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "height": 30,
+                        "child": {
+                          "Image": {
+                            "dpi": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "height": 30,
+                        "child": {
+                          "Image": {
+                            "dpi": 30
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "height": 30,
+                        "child": {
+                          "Image": {
+                            "dpi": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

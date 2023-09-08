@@ -9,10 +9,13 @@ import 'Engine/PdfEngine.dart';
 
 Map<String, pw.Font> fontRegistry = {};
 String exampleSvg = '';
+pw.MemoryImage exampleImage = pw.MemoryImage(Uint8List(1));
 
 Future<void> main() async {
-
   exampleSvg = await File('tests/mwpdf/files/logo.svg').readAsString();
+  exampleImage = pw.MemoryImage(
+    await File('tests/mwpdf/files/profile.jpg').readAsBytes(),
+  );
 
   fontRegistry['openSansRegular'] = pw.Font.ttf(
     ByteData.view(
@@ -41,7 +44,8 @@ Future<void> main() async {
   // String jsonFile = 'pdf_barcodes.json';
   // String jsonFile = 'pdf_grid.json';
   // String jsonFile = 'pdf_gridView.json';
-  String jsonFile = 'pdf_listView.json';
+  // String jsonFile = 'pdf_listView.json';
+  String jsonFile = 'pdf_images.json';
 
   String data = await File('tests/mwpdf/$jsonFile').readAsString();
   PdfEngine engine = PdfEngine.fromJson(json.decode(data) as Dict);
@@ -51,5 +55,6 @@ Future<void> main() async {
   String name = '$jsonFile.pdf';
   final file = File(name);
   await file.writeAsBytes(await pdf.save());
-  print('Thank you, parsed "$jsonFile", wrote "$name" (${engine.pages.length} pages) ... \n\n');
+  print(
+      'Thank you, parsed "$jsonFile", wrote "$name" (${engine.pages.length} pages) ... \n\n');
 }

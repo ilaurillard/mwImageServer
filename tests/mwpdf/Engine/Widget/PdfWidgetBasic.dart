@@ -22,7 +22,7 @@ class PdfWidgetBasic {
       tightBounds: Types.boolFromDict(json, 'tightBounds'),
       textScaleFactor: double.tryParse(json['textScaleFactor'].toString()) ?? 1.0,
       maxLines: int.tryParse(json['maxLines'].toString()),
-      overflow: PdfWidgetUtil.overflow(json['overflow'] as String?),
+      overflow: PdfWidgetUtil.textOverflow(json['overflow'] as String?),
     );
   }
 

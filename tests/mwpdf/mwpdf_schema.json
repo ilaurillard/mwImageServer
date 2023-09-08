@@ -1,4 +1,5 @@
 {
+  "description": "mwpdf",
   "additionalProperties": false,
   "properties": {
     "data": {
@@ -209,6 +210,19 @@
           "solid"
         ]
       },
+      "Overflow": {
+        "enum": [
+          "clip",
+          "visible"
+        ]
+      },
+      "StackFit": {
+        "enum": [
+          "passthrough",
+          "expand",
+          "passthrough"
+        ]
+      },
       "Axis": {
         "enum": [
           "vertical",
@@ -370,7 +384,8 @@
         "maxLength": 8,
         "minLength": 6,
         "pattern": "^[A-F0-9]{6,8}$",
-        "type": "string"
+        "type": "string",
+        "description": "Hex Colors: [AA]RRGGBB"
       },
       "ColumnWidth": {
         "additionalProperties": false,
@@ -425,7 +440,8 @@
         "type": [
           "array",
           "null"
-        ]
+        ],
+        "description": "[n] all, [n,n] horizontal/vertical, [n,n,n,n] left/top/right/bottom"
       },
       "Font": {
         "anyOf": [
@@ -586,11 +602,13 @@
       "DoubleZeroToOne": {
         "maximum": 1,
         "minimum": 0,
-        "type": "number"
+        "type": "number",
+        "description": "A number between 0 and 1"
       },
       "Identifier": {
         "pattern": "^@[a-z]{1,24}$",
-        "type": "string"
+        "type": "string",
+        "description": "@identifier (1 to 24 characters)"
       }
     },
     "Widget": {
@@ -598,6 +616,9 @@
       "maxProperties": 1,
       "minProperties": 1,
       "properties": {
+        "Stack": {
+          "$ref": "#/definitions/Widgets/Stack"
+        },
         "GridView": {
           "$ref": "#/definitions/Widgets/GridView"
         },
@@ -612,6 +633,9 @@
         },
         "Center": {
           "$ref": "#/definitions/Widgets/Center"
+        },
+        "AspectRatio": {
+          "$ref": "#/definitions/Widgets/AspectRatio"
         },
         "Chart": {
           "$ref": "#/definitions/Widgets/Chart"
@@ -648,6 +672,9 @@
         },
         "Icon": {
           "$ref": "#/definitions/Widgets/Icon"
+        },
+        "Image": {
+          "$ref": "#/definitions/Widgets/Image"
         },
         "LimitedBox": {
           "$ref": "#/definitions/Widgets/LimitedBox"
@@ -786,6 +813,18 @@
         },
         "type": "object"
       },
+      "AspectRatio": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "aspectRatio": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
       "Chart": {
         "additionalProperties": false,
         "properties": {
@@ -893,6 +932,27 @@
               "$ref": "#/definitions/Widget"
             },
             "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "Stack": {
+        "additionalProperties": false,
+        "properties": {
+          "children": {
+            "items": {
+              "$ref": "#/definitions/Widget"
+            },
+            "type": "array"
+          },
+          "alignment": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "overflow": {
+            "$ref": "#/definitions/Enum/Overflow"
+          },
+          "fit": {
+            "$ref": "#/definitions/Enum/StackFit"
           }
         },
         "type": "object"
@@ -1354,6 +1414,27 @@
             "type": "number"
           },
           "width": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "Image": {
+        "additionalProperties": false,
+        "properties": {
+          "alignment": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "fit": {
+            "$ref": "#/definitions/Enum/BoxFit"
+          },
+          "height": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "dpi": {
             "type": "number"
           }
         },

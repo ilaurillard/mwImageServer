@@ -84,13 +84,16 @@ class PdfWidget {
           return PdfWidgetLayout.constrainedBox(data);
         case 'OverflowBox':
           return PdfWidgetLayout.overflowBox(data);
+        case 'AspectRatio':
+          return PdfWidgetLayout.aspectRatio(data);
         case 'Flexible':
           return PdfWidgetLayout.flexible(data);
         case 'GridView':
           return PdfWidgetLayout.gridView(data);
         case 'ListView':
           return PdfWidgetLayout.listView(data);
-
+        case 'Stack':
+          return PdfWidgetLayout.stack(data);
 
       // ----------
 
@@ -152,6 +155,10 @@ class PdfWidget {
         case 'GridPaper':
           return PdfWidgetGrid.gridPaper(data);
 
+      // -----------
+
+
+
       /*
 
           TODO
@@ -161,7 +168,6 @@ class PdfWidget {
             ...
 
           basic:
-            AspectRatio
             Transform
             CustomPaint
             FullPage
@@ -177,7 +183,6 @@ class PdfWidget {
             TableOfContent
             Bullet
             Watermark
-
 
           forms:
             ChoiceField
@@ -202,7 +207,8 @@ class PdfWidget {
 
           text:
             RichText
-           */
+
+        */
       }
 
       print(' !!! widget $key not supported');
