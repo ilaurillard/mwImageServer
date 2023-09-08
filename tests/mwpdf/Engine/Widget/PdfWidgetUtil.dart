@@ -343,16 +343,18 @@ class PdfWidgetUtil {
     return null;
   }
 
-  static pw.Axis axis(
+  static pw.Axis? axis(
     String? json,
   ) {
     if (json != null && json != '') {
       switch (json) {
         case 'vertical':
           return pw.Axis.vertical;
+        case 'horizontal':
+          return pw.Axis.horizontal;
       }
     }
-    return pw.Axis.horizontal;
+    return null;
   }
 
   static pw.FlexFit flexFit(

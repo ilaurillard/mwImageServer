@@ -68,7 +68,8 @@ class PdfWidgetLayout {
       ),
       width: width != null ? width * PdfPageFormat.mm : null,
       height: height != null ? height * PdfPageFormat.mm : null,
-      decoration: PdfWidgetUtil.boxDecoration((json['decoration'] as Dict?) ?? {}),
+      decoration:
+          PdfWidgetUtil.boxDecoration((json['decoration'] as Dict?) ?? {}),
       foregroundDecoration: PdfWidgetUtil.boxDecoration(
           (json['foregroundDecoration'] as Dict?) ?? {}),
       child: PdfWidget.child(json),
@@ -108,8 +109,9 @@ class PdfWidgetLayout {
     double? runSpacing = double.tryParse(json['runSpacing'].toString());
     return pw.Wrap(
       direction: PdfWidgetUtil.axis(
-        json['direction'] as String?,
-      ),
+            json['direction'] as String?,
+          ) ??
+          pw.Axis.horizontal,
       alignment: PdfWidgetUtil.wrapAlignment(
         json['alignment'] as String?,
       ),
@@ -174,8 +176,9 @@ class PdfWidgetLayout {
   ) {
     return pw.Flex(
       direction: PdfWidgetUtil.axis(
-        json['direction'] as String?,
-      ),
+            json['direction'] as String?,
+          ) ??
+          pw.Axis.horizontal,
       mainAxisAlignment: PdfWidgetUtil.mainAxisAlignment(
         json['mainAxisAlignment'] as String?,
       ),
@@ -230,6 +233,34 @@ class PdfWidgetLayout {
     );
   }
 
+  static pw.ConstrainedBox constrainedBox(
+    Dict json,
+  ) {
+    return pw.ConstrainedBox(
+      constraints: PdfWidgetUtil.boxConstraints(
+            json['constraints'] as Dict?,
+          ) ??
+          pw.BoxConstraints(),
+      child: PdfWidget.child(json),
+    );
+  }
+
+  static pw.OverflowBox overflowBox(
+    Dict json,
+  ) {
+    return pw.OverflowBox(
+      alignment: PdfWidgetUtil.alignment(
+            json['alignment'] as String?,
+          ) ??
+          pw.Alignment.center,
+      minWidth: double.tryParse(json['minWidth'].toString()),
+      maxWidth: double.tryParse(json['maxWidth'].toString()),
+      minHeight: double.tryParse(json['minHeight'].toString()),
+      maxHeight: double.tryParse(json['maxHeight'].toString()),
+      child: PdfWidget.child(json),
+    );
+  }
+
   static pw.Flexible flexible(
     Dict json,
   ) {
@@ -239,6 +270,47 @@ class PdfWidgetLayout {
         json['fit'] as String? ?? 'loose',
       ),
       child: PdfWidget.child(json),
+    );
+  }
+
+  static pw.ListView listView(
+    Dict json,
+  ) {
+    double? spacing = double.tryParse(json['spacing'].toString());
+    return pw.ListView(
+      direction:
+          PdfWidgetUtil.axis(json['direction'] as String?) ?? pw.Axis.vertical,
+      children: PdfWidget.children(json),
+      padding: PdfWidgetUtil.edgeInsets(
+        json['padding'] as List<dynamic>?,
+      ),
+      spacing: spacing != null ? spacing * PdfPageFormat.mm : 0,
+      reverse: json['reverse'] as bool? ?? false,
+    );
+  }
+
+  static pw.GridView gridView(
+    Dict json,
+  ) {
+    double? mainAxisSpacing =
+        double.tryParse(json['mainAxisSpacing'].toString());
+    double? crossAxisSpacing =
+        double.tryParse(json['crossAxisSpacing'].toString());
+    return pw.GridView(
+      direction:
+          PdfWidgetUtil.axis(json['direction'] as String?) ?? pw.Axis.vertical,
+      crossAxisCount: int.tryParse(json['crossAxisCount'].toString()) ?? 3,
+      children: PdfWidget.children(json),
+      padding: PdfWidgetUtil.edgeInsets(
+            json['padding'] as List<dynamic>?,
+          ) ??
+          pw.EdgeInsets.zero,
+      mainAxisSpacing:
+          mainAxisSpacing != null ? mainAxisSpacing * PdfPageFormat.mm : 0.0,
+      crossAxisSpacing:
+          crossAxisSpacing != null ? crossAxisSpacing * PdfPageFormat.mm : 0.0,
+      childAspectRatio: double.tryParse(json['childAspectRatio'].toString()) ??
+          double.infinity,
     );
   }
 }

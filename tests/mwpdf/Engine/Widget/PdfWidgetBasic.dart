@@ -58,10 +58,12 @@ class PdfWidgetBasic {
     Dict json,
   ) {
     double? strokeWidth = double.tryParse(json['strokeWidth'].toString());
+    double? fallbackWidth = double.tryParse(json['fallbackWidth'].toString());
+    double? fallbackHeight = double.tryParse(json['fallbackHeight'].toString());
     return pw.Placeholder(
       strokeWidth: strokeWidth != null ? strokeWidth * PdfPageFormat.mm : 2.0,
-      fallbackWidth: 20 * PdfPageFormat.mm,
-      fallbackHeight: 20 * PdfPageFormat.mm,
+      fallbackWidth: fallbackWidth != null ? fallbackWidth * PdfPageFormat.mm : 400.0,
+      fallbackHeight: fallbackHeight != null ? fallbackHeight * PdfPageFormat.mm : 400.0,
       color: PdfWidgetUtil.color(
             json['color'] as String?,
           ) ??

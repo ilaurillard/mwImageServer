@@ -1,0 +1,58 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "LimitedBox": {
+                  "maxHeight": 100,
+                  "child": {
+                    "GridView": {
+                      "direction": "horizontal",
+                      "padding": [2],
+                      "mainAxisSpacing": 2,
+                      "crossAxisSpacing": 2,
+                      "crossAxisCount": 2,
+                      "children": [
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

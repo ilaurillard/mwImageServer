@@ -4,6 +4,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'PdfWidgetBarcode.dart';
 import 'PdfWidgetBasic.dart';
 import 'PdfWidgetChart.dart';
+import 'PdfWidgetGrid.dart';
 import 'PdfWidgetImage.dart';
 import 'PdfWidgetLayout.dart';
 import 'PdfWidgetShape.dart';
@@ -32,23 +33,17 @@ class PdfWidget {
     return parse(json);
   }
 
-  static pw.Widget child(
-    Dict json,
-  ) {
+  static pw.Widget child(Dict json,) {
     return PdfWidget.parse(json['child'] as Dict? ?? {});
   }
 
-  static List<pw.Widget> children(
-    Dict json,
-  ) {
+  static List<pw.Widget> children(Dict json,) {
     return (json['children'] as List<dynamic>? ?? [])
         .map((e) => PdfWidget.parse(e as Dict))
         .toList();
   }
 
-  static pw.Widget parse(
-    Dict json,
-  ) {
+  static pw.Widget parse(Dict json,) {
     if (json.entries.isNotEmpty) {
       MapEntry<String, dynamic> widget = json.entries.first;
 
@@ -85,15 +80,24 @@ class PdfWidget {
           return PdfWidgetLayout.padding(data);
         case 'LimitedBox':
           return PdfWidgetLayout.limitedBox(data);
+        case 'ConstrainedBox':
+          return PdfWidgetLayout.constrainedBox(data);
+        case 'OverflowBox':
+          return PdfWidgetLayout.overflowBox(data);
         case 'Flexible':
           return PdfWidgetLayout.flexible(data);
+        case 'GridView':
+          return PdfWidgetLayout.gridView(data);
+        case 'ListView':
+          return PdfWidgetLayout.listView(data);
 
-        // ----------
+
+      // ----------
 
         case 'Table':
           return PdfWidgetTable.table(data);
 
-        // ----------
+      // ----------
 
         case 'Text':
           return PdfWidgetBasic.text(data);
@@ -114,7 +118,7 @@ class PdfWidget {
         case 'LoremParagraph':
           return PdfWidgetBasic.loremParagraph(data);
 
-        // ----------
+      // ----------
 
         case 'Image':
           return PdfWidgetImage.image(data);
@@ -122,19 +126,19 @@ class PdfWidget {
           return PdfWidgetImage.svgImage(data);
         case 'Icon':
           return PdfWidgetImage.icon(data);
-        // ----------
+      // ----------
 
         case 'Chart':
           return PdfWidgetChart.chart(data);
         case 'ChartLegend':
           return PdfWidgetChart.chartLegend(data);
 
-        // ----------
+      // ----------
 
         case 'BarcodeWidget':
           return PdfWidgetBarcode.barcode(data);
 
-        // -----------
+      // -----------
 
         case 'Circle':
           return PdfWidgetShape.circle(data);
@@ -142,7 +146,13 @@ class PdfWidget {
           return PdfWidgetShape.polygon(data);
         case 'Rectangle':
           return PdfWidgetShape.rectangle(data);
-        /*
+
+      // -----------
+
+        case 'GridPaper':
+          return PdfWidgetGrid.gridPaper(data);
+
+      /*
 
           TODO
           ----
@@ -151,8 +161,6 @@ class PdfWidget {
             ...
 
           basic:
-            ConstrainedBox
-            OverflowBox
             AspectRatio
             Transform
             CustomPaint
@@ -170,8 +178,6 @@ class PdfWidget {
             Bullet
             Watermark
 
-          flex:
-            ListView
 
           forms:
             ChoiceField
@@ -179,12 +185,6 @@ class PdfWidget {
             FlatButton
             TextField
             Signature
-
-          grid_paper:
-            GridPaper
-
-          grid_view:
-            GridView
 
           image:
             Shape
