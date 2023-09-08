@@ -56,6 +56,8 @@ class PdfWidgetUtil {
     PdfTextRenderingMode? renderingMode =
         PdfTextRenderingMode.values.firstWhereOrNull((e) => e.name == rm);
 
+    double? fontSize = double.tryParse(json['fontSize'].toString());
+
     return pw.TextStyle(
       color: PdfWidgetUtil.color(json['color'] as String?),
       font: PdfWidgetUtil.font(json['font'] as String?),
@@ -63,7 +65,7 @@ class PdfWidgetUtil {
       fontBold: PdfWidgetUtil.font(json['fontBold'] as String?),
       fontItalic: PdfWidgetUtil.font(json['fontItalic'] as String?),
       fontBoldItalic: PdfWidgetUtil.font(json['fontBoldItalic'] as String?),
-      fontSize: double.tryParse(json['fontSize'].toString()),
+      fontSize: fontSize != null ? fontSize * PdfPageFormat.mm : null,
       fontWeight: fontWeight,
       fontStyle: fontStyle,
       letterSpacing: double.tryParse(json['letterSpacing'].toString()),

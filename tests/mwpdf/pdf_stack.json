@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "theme": {
+      "@def": {
+        "styles": {
+          "text": {
+            "color": "FF8800",
+            "fontSize": 8
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "theme": "@def",
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Stack": {
+                  "children": [
+                    {
+                      "Container": {
+                        "color": "77AAFF",
+                        "height": 30,
+                        "width": 80
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "5588DD",
+                        "height": 20,
+                        "width": 70
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "3366BB",
+                        "height": 10,
+                        "width": 60,
+                        "child": {
+                          "Text": {
+                            "text": "STACK"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

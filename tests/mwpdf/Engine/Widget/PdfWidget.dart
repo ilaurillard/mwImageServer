@@ -202,7 +202,6 @@ class PdfWidget {
             Inklist
 
           stack:
-            Stack
             Positioned
 
           text:
