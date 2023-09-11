@@ -619,6 +619,9 @@
         "Stack": {
           "$ref": "#/definitions/Widgets/Stack"
         },
+        "Partitions": {
+          "$ref": "#/definitions/Widgets/Partitions"
+        },
         "GridView": {
           "$ref": "#/definitions/Widgets/GridView"
         },
@@ -1523,6 +1526,42 @@
           },
           "verticalAlignment": {
             "$ref": "#/definitions/Enum/VerticalAlignment"
+          }
+        },
+        "type": "object"
+      },
+      "Partitions": {
+        "additionalProperties": false,
+        "properties": {
+          "children": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "Partition": {
+                  "$ref": "#/definitions/Widgets/Partition"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "mainAxisSize": {
+            "$ref": "#/definitions/Enum/MainAxisSize"
+          }
+        },
+        "type": "object"
+      },
+      "Partition": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget",
+          },
+          "flex": {
+            "type": "integer"
+          },
+          "width": {
+            "type": "number"
           }
         },
         "type": "object"

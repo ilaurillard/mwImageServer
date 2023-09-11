@@ -1,0 +1,62 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Partitions": {
+            "children": [
+              {
+                "Partition": {
+                  "flex": 1,
+                  "child": {
+                    "Column": {
+                      "children": [
+                        {
+                          "Placeholder": {
+                            "fallbackHeight": 40
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "Partition": {
+                  "flex": 4,
+                  "child": {
+                    "Column": {
+                      "children": [
+                        {
+                          "Placeholder": {
+                            "fallbackHeight": 40
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "Partition": {
+                  "flex": 1,
+                  "child": {
+                    "Column": {
+                      "children": [
+                        {
+                          "Placeholder": {
+                            "fallbackHeight": 40
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

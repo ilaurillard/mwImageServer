@@ -46,7 +46,8 @@ Future<void> main() async {
   // String jsonFile = 'pdf_gridView.json';
   // String jsonFile = 'pdf_listView.json';
   // String jsonFile = 'pdf_images.json';
-  String jsonFile = 'pdf_stack.json';
+  // String jsonFile = 'pdf_stack.json';
+  String jsonFile = 'pdf_partitions.json';
 
   String data = await File('tests/mwpdf/$jsonFile').readAsString();
   PdfEngine engine = PdfEngine.fromJson(json.decode(data) as Dict);

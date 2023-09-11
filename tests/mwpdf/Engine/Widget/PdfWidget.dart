@@ -7,6 +7,7 @@ import 'PdfWidgetChart.dart';
 import 'PdfWidgetGrid.dart';
 import 'PdfWidgetImage.dart';
 import 'PdfWidgetLayout.dart';
+import 'PdfWidgetPartition.dart';
 import 'PdfWidgetShape.dart';
 import 'PdfWidgetTable.dart';
 
@@ -33,17 +34,23 @@ class PdfWidget {
     return parse(json);
   }
 
-  static pw.Widget child(Dict json,) {
+  static pw.Widget child(
+    Dict json,
+  ) {
     return PdfWidget.parse(json['child'] as Dict? ?? {});
   }
 
-  static List<pw.Widget> children(Dict json,) {
+  static List<pw.Widget> children(
+    Dict json,
+  ) {
     return (json['children'] as List<dynamic>? ?? [])
         .map((e) => PdfWidget.parse(e as Dict))
         .toList();
   }
 
-  static pw.Widget parse(Dict json,) {
+  static pw.Widget parse(
+    Dict json,
+  ) {
     if (json.entries.isNotEmpty) {
       MapEntry<String, dynamic> widget = json.entries.first;
 
@@ -74,6 +81,7 @@ class PdfWidget {
           return PdfWidgetLayout.row(data);
         case 'Column':
           return PdfWidgetLayout.column(data);
+
         case 'Expanded':
           return PdfWidgetLayout.expanded(data);
         case 'Padding':
@@ -95,12 +103,14 @@ class PdfWidget {
         case 'Stack':
           return PdfWidgetLayout.stack(data);
 
-      // ----------
-
+        // ----------
+        case 'Partitions':
+          return PdfWidgetPartition.partitions(data);
+        // ----------
         case 'Table':
           return PdfWidgetTable.table(data);
 
-      // ----------
+        // ----------
 
         case 'Text':
           return PdfWidgetBasic.text(data);
@@ -121,7 +131,7 @@ class PdfWidget {
         case 'LoremParagraph':
           return PdfWidgetBasic.loremParagraph(data);
 
-      // ----------
+        // ----------
 
         case 'Image':
           return PdfWidgetImage.image(data);
@@ -129,19 +139,19 @@ class PdfWidget {
           return PdfWidgetImage.svgImage(data);
         case 'Icon':
           return PdfWidgetImage.icon(data);
-      // ----------
+        // ----------
 
         case 'Chart':
           return PdfWidgetChart.chart(data);
         case 'ChartLegend':
           return PdfWidgetChart.chartLegend(data);
 
-      // ----------
+        // ----------
 
         case 'BarcodeWidget':
           return PdfWidgetBarcode.barcode(data);
 
-      // -----------
+        // -----------
 
         case 'Circle':
           return PdfWidgetShape.circle(data);
@@ -150,16 +160,14 @@ class PdfWidget {
         case 'Rectangle':
           return PdfWidgetShape.rectangle(data);
 
-      // -----------
+        // -----------
 
         case 'GridPaper':
           return PdfWidgetGrid.gridPaper(data);
 
-      // -----------
+        // -----------
 
-
-
-      /*
+        /*
 
           TODO
           ----
@@ -194,10 +202,6 @@ class PdfWidget {
           image:
             Shape
 
-          partitions:
-            Partition
-            Partitions
-
           shape:
             Inklist
 
@@ -212,6 +216,6 @@ class PdfWidget {
 
       print(' !!! widget $key not supported');
     }
-    return pw.SizedBox();
+    return pw.Placeholder();
   }
 }
