@@ -54,10 +54,14 @@ class PdfWidgetImage {
   static pw.Icon icon(
     Dict json,
   ) {
+    String icon = json['icon'].toString();
+    int? code = int.tryParse(icon, radix: 16);
+    code ??= int.parse(fontMaterialMap[icon] ?? 'EB8B', radix: 16);
+
     double? size = double.tryParse(json['size'].toString());
     return pw.Icon(
       pw.IconData(
-        int.parse(json['icon'].toString(), radix: 16),
+        code,
       ),
       size: size != null ? size * PdfPageFormat.mm : null,
       color: PdfWidgetUtil.color(

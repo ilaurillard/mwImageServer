@@ -7,6 +7,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'Engine/PdfEngine.dart';
 
+Map<String, String> fontMaterialMap = {};
 Map<String, pw.Font> fontRegistry = {};
 String exampleSvg = '';
 pw.MemoryImage exampleImage = pw.MemoryImage(Uint8List(1));
@@ -31,11 +32,18 @@ Future<void> main() async {
     ),
   );
 
+
+  List<String> lines = File('tests/mwpdf/files/MaterialIcons-Regular.codepoints').readAsLinesSync();
+  for (String line in lines) {
+    List<String> splitted = line.split(' ');
+    fontMaterialMap[splitted[0]] = splitted[1];
+  }
+
   // -----------------------
 
   // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
-  // String jsonFile = 'pdf_simple3.json';
+  String jsonFile = 'pdf_simple3.json';
   // String jsonFile = 'pdf_layout.json';
   // String jsonFile = 'pdf_shapes.json';
   // String jsonFile = 'pdf_table.json';
@@ -47,7 +55,7 @@ Future<void> main() async {
   // String jsonFile = 'pdf_listView.json';
   // String jsonFile = 'pdf_images.json';
   // String jsonFile = 'pdf_stack.json';
-  String jsonFile = 'pdf_partitions.json';
+  // String jsonFile = 'pdf_partitions.json';
 
   String data = await File('tests/mwpdf/$jsonFile').readAsString();
   PdfEngine engine = PdfEngine.fromJson(json.decode(data) as Dict);

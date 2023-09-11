@@ -619,6 +619,9 @@
         "Stack": {
           "$ref": "#/definitions/Widgets/Stack"
         },
+        "Positioned": {
+          "$ref": "#/definitions/Widgets/Positioned"
+        },
         "Partitions": {
           "$ref": "#/definitions/Widgets/Partitions"
         },
@@ -960,6 +963,27 @@
         },
         "type": "object"
       },
+      "Positioned": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "left": {
+            "type": "number"
+          },
+          "top": {
+            "type": "number"
+          },
+          "right": {
+            "type": "number"
+          },
+          "bottom": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
       "Container": {
         "additionalProperties": false,
         "properties": {
@@ -1117,7 +1141,8 @@
             "$ref": "#/definitions/Style/Color"
           },
           "icon": {
-            "type": "string"
+            "type": "string",
+            "description": "see MaterialIcons-Regular.codepoints (key or hex code, f.e. E63E)"
           },
           "size": {
             "type": "number"
@@ -1555,7 +1580,7 @@
         "additionalProperties": false,
         "properties": {
           "child": {
-            "$ref": "#/definitions/Widget",
+            "$ref": "#/definitions/Widget"
           },
           "flex": {
             "type": "integer"

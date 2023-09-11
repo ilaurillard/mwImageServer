@@ -47,8 +47,119 @@
                           }
                         }
                       }
+                    },
+                    {
+                      "Positioned": {
+                        "bottom": 5,
+                        "right": 5,
+                        "child": {
+                          "Container": {
+                            "color": "000000",
+                            "height": 10,
+                            "width": 10,
+                            "child": {
+                              "Text": {
+                                "text": "P"
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Container": {
+                  "color": "FFFF00",
+                  "height": 50,
+                  "width": 50,
+                  "child": {
+                    "Stack": {
+                      "children": [
+                        {
+                          "Positioned": {
+                            "bottom": 5,
+                            "left": 5,
+                            "child": {
+                              "Container": {
+                                "color": "000000",
+                                "height": 10,
+                                "width": 10,
+                                "child": {
+                                  "Text": {
+                                    "text": "P"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "Positioned": {
+                            "bottom": 5,
+                            "right": 5,
+                            "child": {
+                              "Container": {
+                                "color": "000000",
+                                "height": 10,
+                                "width": 10,
+                                "child": {
+                                  "Text": {
+                                    "text": "P"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "Positioned": {
+                            "top": 5,
+                            "left": 5,
+                            "child": {
+                              "Container": {
+                                "color": "000000",
+                                "height": 10,
+                                "width": 10,
+                                "child": {
+                                  "Text": {
+                                    "text": "P"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "Positioned": {
+                            "top": 5,
+                            "right": 5,
+                            "child": {
+                              "Container": {
+                                "color": "000000",
+                                "height": 10,
+                                "width": 10,
+                                "child": {
+                                  "Text": {
+                                    "text": "P"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
                 }
               }
             ]

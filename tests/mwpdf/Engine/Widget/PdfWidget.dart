@@ -102,6 +102,8 @@ class PdfWidget {
           return PdfWidgetLayout.listView(data);
         case 'Stack':
           return PdfWidgetLayout.stack(data);
+        case 'Positioned':
+          return PdfWidgetLayout.positioned(data);
 
         // ----------
         case 'Partitions':
@@ -205,9 +207,6 @@ class PdfWidget {
           shape:
             Inklist
 
-          stack:
-            Positioned
-
           text:
             RichText
 
@@ -216,6 +215,6 @@ class PdfWidget {
 
       print(' !!! widget $key not supported');
     }
-    return pw.Placeholder();
+    return pw.SizedBox();
   }
 }

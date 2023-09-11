@@ -66,6 +66,13 @@
                         "color": "008800",
                         "size": 20
                       }
+                    },
+                    {
+                      "Icon": {
+                        "icon": "dangerous",
+                        "color": "FF0000",
+                        "size": 20
+                      }
                     }
                   ]
                 }
