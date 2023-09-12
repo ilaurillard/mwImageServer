@@ -63,10 +63,13 @@ consistency checks
 pdf handling
 rollout
 
-PDF:
-- datasources
+------
+
+TODO PDF:
+- datasources (svg, image, tables, ...)
 - images
 - https://github.com/google/material-design-icons/blob/master/font/MaterialIcons-Regular.codepoints
+- json template inheritance
 
 
 

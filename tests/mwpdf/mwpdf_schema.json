@@ -1,192 +1,5 @@
 {
-  "description": "mwpdf",
   "additionalProperties": false,
-  "properties": {
-    "data": {
-      "additionalProperties": false,
-      "properties": {},
-      "type": "object"
-    },
-    "meta": {
-      "additionalProperties": false,
-      "properties": {
-        "footer": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^@[a-z]{1,24}$": {
-              "$ref": "#/definitions/Widget"
-            }
-          },
-          "type": "object"
-        },
-        "header": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^@[a-z]{1,24}$": {
-              "$ref": "#/definitions/Widget"
-            }
-          },
-          "type": "object"
-        },
-        "theme": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^@[a-z]{1,24}$": {
-              "additionalProperties": false,
-              "properties": {
-                "background": {
-                  "TODO": {}
-                },
-                "clip": {
-                  "type": "boolean"
-                },
-                "foreground": {
-                  "TODO": {}
-                },
-                "format": {
-                  "additionalProperties": false,
-                  "properties": {
-                    "height": {
-                      "type": "number"
-                    },
-                    "marginAll": {
-                      "type": "number"
-                    },
-                    "marginBottom": {
-                      "type": "number"
-                    },
-                    "marginLeft": {
-                      "type": "number"
-                    },
-                    "marginRight": {
-                      "type": "number"
-                    },
-                    "marginTop": {
-                      "type": "number"
-                    },
-                    "preset": {
-                      "enum": [
-                        "a3",
-                        "a4",
-                        "a5"
-                      ]
-                    },
-                    "width": {
-                      "type": "number"
-                    }
-                  },
-                  "type": "object"
-                },
-                "margin": {
-                  "$ref": "#/definitions/Style/EdgeInsets"
-                },
-                "orientation": {
-                  "enum": [
-                    "landscape",
-                    "portrait"
-                  ]
-                },
-                "styles": {
-                  "additionalProperties": false,
-                  "properties": {
-                    "bulletStyle": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "header0": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "header1": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "header2": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "header3": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "header4": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "header5": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "iconTheme": {
-                      "$ref": "#/definitions/Style/IconTheme"
-                    },
-                    "maxLines": {
-                      "type": [
-                        "integer",
-                        "null"
-                      ]
-                    },
-                    "overflow": {
-                      "$ref": "#/definitions/Enum/TextOverflow"
-                    },
-                    "paragraph": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "softWrap": {
-                      "type": "boolean"
-                    },
-                    "tableCell": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "tableHeader": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "text": {
-                      "$ref": "#/definitions/Style/TextStyle"
-                    },
-                    "textAlign": {
-                      "$ref": "#/definitions/Enum/TextAlign"
-                    }
-                  },
-                  "type": "object"
-                },
-                "textDirection": {
-                  "enum": [
-                    "ltr",
-                    "rtl"
-                  ]
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "pages": {
-      "items": {
-        "additionalProperties": false,
-        "properties": {
-          "content": {
-            "items": {
-              "$ref": "#/definitions/Widget"
-            },
-            "type": "array"
-          },
-          "footer": {
-            "$ref": "#/definitions/Util/Identifier"
-          },
-          "header": {
-            "$ref": "#/definitions/Util/Identifier"
-          },
-          "multi": {
-            "type": "boolean"
-          },
-          "theme": {
-            "$ref": "#/definitions/Util/Identifier"
-          }
-        },
-        "type": "object"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object",
   "definitions": {
     "Enum": {
       "OutlineStyle": {
@@ -614,7 +427,7 @@
         "description": "A number between 0 and 1"
       },
       "Identifier": {
-        "pattern": "^@[a-z]{1,24}$",
+        "pattern": "^@[a-z]{1}[a-z0-9]{1,23}$",
         "type": "string",
         "description": "@identifier (1 to 24 characters)"
       }
@@ -1488,6 +1301,9 @@
       "SvgImage": {
         "additionalProperties": false,
         "properties": {
+          "svg": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
           "alignment": {
             "$ref": "#/definitions/Enum/Alignment"
           },
@@ -1512,6 +1328,9 @@
       "Image": {
         "additionalProperties": false,
         "properties": {
+          "image": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
           "alignment": {
             "$ref": "#/definitions/Enum/Alignment"
           },
@@ -1533,6 +1352,9 @@
       "Table": {
         "additionalProperties": false,
         "properties": {
+          "resource": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
           "border": {
             "additionalProperties": false,
             "properties": {
@@ -1726,5 +1548,225 @@
         "type": "object"
       }
     }
-  }
+  },
+  "description": "mwpdf",
+  "properties": {
+    "resources": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^@[a-z]{1}[a-z0-9]{1,23}$": {
+          "additionalProperties": false,
+          "properties": {
+            "url": {
+              "type": "string",
+              "comment": "Remote file will get downloaded and cached"
+            },
+            "file": {
+              "type": "string",
+              "comment": "Local file via bucket access (mwcdn)"
+            },
+            "binary": {
+              "type": "string"
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "string",
+                    "integer",
+                    "number",
+                    "null",
+                    "boolean"
+                  ]
+                }
+              }
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "meta": {
+      "additionalProperties": false,
+      "properties": {
+        "footer": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^@[a-z]{1,24}$": {
+              "$ref": "#/definitions/Widget"
+            }
+          },
+          "type": "object"
+        },
+        "header": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^@[a-z]{1,24}$": {
+              "$ref": "#/definitions/Widget"
+            }
+          },
+          "type": "object"
+        },
+        "theme": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^@[a-z]{1,24}$": {
+              "additionalProperties": false,
+              "properties": {
+                "background": {
+                  "TODO": {}
+                },
+                "clip": {
+                  "type": "boolean"
+                },
+                "foreground": {
+                  "TODO": {}
+                },
+                "format": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "height": {
+                      "type": "number"
+                    },
+                    "marginAll": {
+                      "type": "number"
+                    },
+                    "marginBottom": {
+                      "type": "number"
+                    },
+                    "marginLeft": {
+                      "type": "number"
+                    },
+                    "marginRight": {
+                      "type": "number"
+                    },
+                    "marginTop": {
+                      "type": "number"
+                    },
+                    "preset": {
+                      "enum": [
+                        "a3",
+                        "a4",
+                        "a5"
+                      ]
+                    },
+                    "width": {
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                },
+                "margin": {
+                  "$ref": "#/definitions/Style/EdgeInsets"
+                },
+                "orientation": {
+                  "enum": [
+                    "landscape",
+                    "portrait"
+                  ]
+                },
+                "styles": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "bulletStyle": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "header0": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "header1": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "header2": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "header3": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "header4": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "header5": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "iconTheme": {
+                      "$ref": "#/definitions/Style/IconTheme"
+                    },
+                    "maxLines": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "overflow": {
+                      "$ref": "#/definitions/Enum/TextOverflow"
+                    },
+                    "paragraph": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "softWrap": {
+                      "type": "boolean"
+                    },
+                    "tableCell": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "tableHeader": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "text": {
+                      "$ref": "#/definitions/Style/TextStyle"
+                    },
+                    "textAlign": {
+                      "$ref": "#/definitions/Enum/TextAlign"
+                    }
+                  },
+                  "type": "object"
+                },
+                "textDirection": {
+                  "enum": [
+                    "ltr",
+                    "rtl"
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "pages": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "items": {
+              "$ref": "#/definitions/Widget"
+            },
+            "type": "array"
+          },
+          "footer": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
+          "header": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
+          "multi": {
+            "type": "boolean"
+          },
+          "theme": {
+            "$ref": "#/definitions/Util/Identifier"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
 }

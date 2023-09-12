@@ -4,6 +4,7 @@
       "content": [
         {
           "Table": {
+            "resource": "@source1",
             "children": [
               {
                 "TableRow": {
@@ -52,5 +53,23 @@
         }
       ]
     }
-  ]
+  ],
+  "resources": {
+    "@source1": {
+      "values": [
+        [
+          "x",
+          1,
+          true,
+          7.5
+        ],
+        [
+          "x",
+          2,
+          false,
+          1.5
+        ]
+      ]
+    }
+  }
 }
