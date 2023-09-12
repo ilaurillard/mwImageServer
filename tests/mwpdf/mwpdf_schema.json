@@ -189,6 +189,14 @@
   "type": "object",
   "definitions": {
     "Enum": {
+      "OutlineStyle": {
+        "enum": [
+          "normal",
+          "bold",
+          "italic",
+          "italicBold"
+        ]
+      },
       "Alignment": {
         "enum": [
           "bottomCenter",
@@ -381,10 +389,10 @@
         "type": "object"
       },
       "Color": {
+        "type": "string",
         "maxLength": 8,
         "minLength": 6,
         "pattern": "^[A-F0-9]{6,8}$",
-        "type": "string",
         "description": "Hex Colors: [AA]RRGGBB"
       },
       "ColumnWidth": {
@@ -616,6 +624,12 @@
       "maxProperties": 1,
       "minProperties": 1,
       "properties": {
+        "Header": {
+          "$ref": "#/definitions/Widgets/Header"
+        },
+        "PdfLogo": {
+          "$ref": "#/definitions/Widgets/PdfLogo"
+        },
         "Stack": {
           "$ref": "#/definitions/Widgets/Stack"
         },
@@ -959,6 +973,54 @@
           },
           "fit": {
             "$ref": "#/definitions/Enum/StackFit"
+          }
+        },
+        "type": "object"
+      },
+      "Header": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "level": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "decoration": {
+            "$ref": "#/definitions/Style/BoxDecoration"
+          },
+          "outlineColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "outlineStyle": {
+            "$ref": "#/definitions/Enum/OutlineStyle"
+          },
+          "margin": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "padding": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "textStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          }
+        },
+        "type": "object"
+      },
+      "PdfLogo": {
+        "additionalProperties": false,
+        "properties": {
+          "fit": {
+            "$ref": "#/definitions/Enum/BoxFit"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
           }
         },
         "type": "object"

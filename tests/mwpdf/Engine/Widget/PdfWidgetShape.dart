@@ -68,4 +68,19 @@ class PdfWidgetShape {
       return PdfPoint(p1 * PdfPageFormat.mm, p2 * PdfPageFormat.mm);
     }).toList();
   }
+
+  static pw.PdfLogo pdfLogo(
+    Dict json,
+  ) {
+    return pw.PdfLogo(
+      color: PdfWidgetUtil.color(
+            json['color'] as String?,
+          ) ??
+          PdfColors.red,
+      fit: PdfWidgetUtil.boxFit(
+            json['fit'] as String?,
+          ) ??
+          pw.BoxFit.contain,
+    );
+  }
 }

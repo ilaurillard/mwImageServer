@@ -5,6 +5,7 @@ import 'PdfWidgetBarcode.dart';
 import 'PdfWidgetBasic.dart';
 import 'PdfWidgetChart.dart';
 import 'PdfWidgetGrid.dart';
+import 'PdfWidgetAnnotation.dart';
 import 'PdfWidgetImage.dart';
 import 'PdfWidgetLayout.dart';
 import 'PdfWidgetPartition.dart';
@@ -106,6 +107,10 @@ class PdfWidget {
           return PdfWidgetLayout.positioned(data);
 
         // ----------
+        case 'Header':
+          return PdfWidgetAnnotation.header(data);
+
+        // ----------
         case 'Partitions':
           return PdfWidgetPartition.partitions(data);
         // ----------
@@ -161,6 +166,8 @@ class PdfWidget {
           return PdfWidgetShape.polygon(data);
         case 'Rectangle':
           return PdfWidgetShape.rectangle(data);
+        case 'PdfLogo':
+          return PdfWidgetShape.pdfLogo(data);
 
         // -----------
 
@@ -188,7 +195,6 @@ class PdfWidget {
             ClipOval
 
           content:
-            Header
             Footer
             TableOfContent
             Bullet

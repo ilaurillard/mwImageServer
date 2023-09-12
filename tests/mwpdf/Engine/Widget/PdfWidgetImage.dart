@@ -57,7 +57,6 @@ class PdfWidgetImage {
     String icon = json['icon'].toString();
     int? code = int.tryParse(icon, radix: 16);
     code ??= int.parse(fontMaterialMap[icon] ?? 'EB8B', radix: 16);
-
     double? size = double.tryParse(json['size'].toString());
     return pw.Icon(
       pw.IconData(
@@ -67,7 +66,6 @@ class PdfWidgetImage {
       color: PdfWidgetUtil.color(
         json['color'] as String?,
       ),
-      // color: PdfColors.black
     );
   }
 }

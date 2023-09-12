@@ -43,7 +43,7 @@ Future<void> main() async {
 
   // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
-  String jsonFile = 'pdf_simple3.json';
+  // String jsonFile = 'pdf_simple3.json';
   // String jsonFile = 'pdf_layout.json';
   // String jsonFile = 'pdf_shapes.json';
   // String jsonFile = 'pdf_table.json';
@@ -56,6 +56,7 @@ Future<void> main() async {
   // String jsonFile = 'pdf_images.json';
   // String jsonFile = 'pdf_stack.json';
   // String jsonFile = 'pdf_partitions.json';
+  String jsonFile = 'pdf_header.json';
 
   String data = await File('tests/mwpdf/$jsonFile').readAsString();
   PdfEngine engine = PdfEngine.fromJson(json.decode(data) as Dict);

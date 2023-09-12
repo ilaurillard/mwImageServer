@@ -17,13 +17,17 @@ class PdfWidgetLayout {
   static pw.Align align(
     Dict json,
   ) {
-    // TODO
+    double? widthFactor = double.tryParse(json['widthFactor'].toString());
+    double? heightFactor = double.tryParse(json['heightFactor'].toString());
     return pw.Align(
       alignment: PdfWidgetUtil.alignment(
             json['alignment'] as String?,
           ) ??
           pw.Alignment.center,
       child: PdfWidget.child(json),
+      widthFactor: widthFactor != null ? widthFactor * PdfPageFormat.mm : null,
+      heightFactor:
+          heightFactor != null ? heightFactor * PdfPageFormat.mm : null,
     );
   }
 

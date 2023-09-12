@@ -7,7 +7,7 @@ $ curl http://0.0.0.0:8080/static/help.html
 
 
 
----- Build via podman
+---- Build container via podman
 
 $ podman build . -t mwcdn
 
