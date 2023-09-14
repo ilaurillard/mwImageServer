@@ -11,24 +11,27 @@ import 'Layout.dart';
 import 'Partition.dart';
 import 'Shape.dart';
 import 'Table.dart';
+import 'Etc.dart';
 
-class PdfWidget {
+class Widget {
   static late pw.Context context;
+
   static int pageNumber = 0;
   static int pagesCount = 0;
+  static Map<String, String> parameters = {};
 
   final Dict json;
 
-  PdfWidget({
+  Widget({
     required this.json,
     required pw.Context context,
     int pageNumber = 0,
     int pagesCount = 0,
   }) {
     // ignore: prefer_initializing_formals
-    PdfWidget.pageNumber = pageNumber;
+    Widget.pageNumber = pageNumber;
     // ignore: prefer_initializing_formals
-    PdfWidget.pagesCount = pagesCount;
+    Widget.pagesCount = pagesCount;
   }
 
   pw.Widget build() {
@@ -38,14 +41,14 @@ class PdfWidget {
   static pw.Widget child(
     Dict json,
   ) {
-    return PdfWidget.parse(json['child'] as Dict? ?? {});
+    return Widget.parse(json['child'] as Dict? ?? {});
   }
 
   static List<pw.Widget> children(
     Dict json,
   ) {
     return (json['children'] as List<dynamic>? ?? [])
-        .map((e) => PdfWidget.parse(e as Dict))
+        .map((e) => Widget.parse(e as Dict))
         .toList();
   }
 
@@ -62,6 +65,10 @@ class PdfWidget {
       // print(widget);
 
       switch (key) {
+
+        case 'Switch':
+          return Etc.switchCases(data);
+
         case 'Container':
           return Layout.container(data);
         case 'Center':

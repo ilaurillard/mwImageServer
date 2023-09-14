@@ -2,7 +2,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidget.dart';
+import 'Widget.dart';
 import 'Etc.dart';
 
 class Content {
@@ -10,7 +10,7 @@ class Content {
     Dict json,
   ) {
     return pw.Text(
-      Etc.parameters(json['text'] as String? ?? '¿'),
+      Etc.replaceParameters(json['text'] as String? ?? '¿'),
       style: Etc.textStyle((json['style'] as Dict?) ?? {}),
       textAlign: Etc.textAlign(
         json['textAlign'] as String?,
@@ -30,7 +30,7 @@ class Content {
     Dict json,
   ) {
     return pw.Paragraph(
-      text: Etc.parameters(json['text'] as String? ?? '¿'),
+      text: Etc.replaceParameters(json['text'] as String? ?? '¿'),
       textAlign: Etc.textAlign(
             json['textAlign'] as String?,
           ) ??
@@ -74,7 +74,7 @@ class Content {
   static pw.Opacity opacity(Dict json) {
     return pw.Opacity(
       opacity: double.tryParse(json['opacity'].toString()) ?? 1.0,
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 

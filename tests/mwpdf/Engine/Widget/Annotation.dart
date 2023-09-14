@@ -2,7 +2,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidget.dart';
+import 'Widget.dart';
 import 'Etc.dart';
 
 class Annotation {
@@ -12,7 +12,7 @@ class Annotation {
     return pw.Header(
       title: json['title'] as String?,
       text: json['text'] as String?,
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
       level: json['level'] as int? ?? 0,
       decoration:
           Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),

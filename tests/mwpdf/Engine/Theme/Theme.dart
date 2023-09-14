@@ -43,7 +43,7 @@ class Theme {
   static pw.ThemeData styles(
     Dict json,
   ) {
-    // print('Styles: $json');
+    print('Styles: $json');
 
     String to = json['overflow'] as String? ?? '';
     pw.TextOverflow? overflow =
@@ -84,7 +84,7 @@ class Theme {
       opacity: double.tryParse(json['opacity'].toString()),
       size: double.tryParse(json['size'].toString()),
       font: Etc.font(json['font'] as String?) ??
-          Engine.res.materialFont(),
+          Engine.resources.materialFont(),
     );
   }
 
@@ -143,5 +143,13 @@ class Theme {
             v as Dict,
           ));
     });
+  }
+
+  static pw.PageTheme defaultTheme() {
+    return pw.PageTheme(
+      theme: pw.ThemeData(
+        iconTheme: iconTheme({}),
+      ),
+    );
   }
 }

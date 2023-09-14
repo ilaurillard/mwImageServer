@@ -2,7 +2,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidget.dart';
+import 'Widget.dart';
 import 'Etc.dart';
 
 class Partition {
@@ -32,7 +32,7 @@ class Partition {
   static pw.SpanningWidget childSpanning(
     Dict json,
   ) {
-    pw.Widget widget = PdfWidget.parse(json);
+    pw.Widget widget = Widget.parse(json);
     if (widget is pw.SpanningWidget) {
       return widget;
     }

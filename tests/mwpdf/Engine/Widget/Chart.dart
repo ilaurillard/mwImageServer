@@ -3,7 +3,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidget.dart';
+import 'Widget.dart';
 import 'Etc.dart';
 
 class Chart {
@@ -51,11 +51,11 @@ class Chart {
     // TODO
     return pw.Chart(
       grid: chartGrid(json['grid'] as Dict? ?? {}),
-      overlay: PdfWidget.parse(json['overlay'] as Dict? ?? {}),
-      title: PdfWidget.parse(json['title'] as Dict? ?? {}),
-      bottom: PdfWidget.parse(json['bottom'] as Dict? ?? {}),
-      left: PdfWidget.parse(json['left'] as Dict? ?? {}),
-      right: PdfWidget.parse(json['right'] as Dict? ?? {}),
+      overlay: Widget.parse(json['overlay'] as Dict? ?? {}),
+      title: Widget.parse(json['title'] as Dict? ?? {}),
+      bottom: Widget.parse(json['bottom'] as Dict? ?? {}),
+      left: Widget.parse(json['left'] as Dict? ?? {}),
+      right: Widget.parse(json['right'] as Dict? ?? {}),
 
       // CartesianGrid
       datasets: [

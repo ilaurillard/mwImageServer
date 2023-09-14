@@ -10,14 +10,14 @@ class Image {
   static pw.Image image(
     Dict json,
   ) {
-    Resource resource = Engine.res.get(json['resource'] as String?);
+    Resource resource = Engine.resources.get(json['resource'] as String?);
     // print(resource);
 
     // TODO image data
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
     return pw.Image(
-      Engine.res.exampleImage,
+      Engine.resources.exampleImage,
       fit: Etc.boxFit(
         json['fit'] as String?,
       ) ?? pw.BoxFit.contain,
@@ -33,7 +33,7 @@ class Image {
   static pw.SvgImage svgImage(
     Dict json,
   ) {
-    Resource resource = Engine.res.get(json['resource'] as String?);
+    Resource resource = Engine.resources.get(json['resource'] as String?);
     // print(resource);
 
     // TODO svg data
@@ -41,7 +41,7 @@ class Image {
     double? height = double.tryParse(json['height'].toString());
     return pw.SvgImage(
 
-      svg: Engine.res.exampleSvg,
+      svg: Engine.resources.exampleSvg,
 
       fit: Etc.boxFit(
         json['fit'] as String?,
@@ -63,7 +63,7 @@ class Image {
   ) {
     String icon = json['icon'].toString();
     int? code = int.tryParse(icon, radix: 16);
-    code ??= int.parse(Engine.res.materialCodes[icon] ?? 'EB8B', radix: 16);
+    code ??= int.parse(Engine.resources.materialCodes[icon] ?? 'EB8B', radix: 16);
     double? size = double.tryParse(json['size'].toString());
     return pw.Icon(
       pw.IconData(

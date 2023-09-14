@@ -2,7 +2,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidget.dart';
+import 'Widget.dart';
 import 'Etc.dart';
 
 class Grid {
@@ -21,7 +21,7 @@ class Grid {
       interval: interval != null ? interval * PdfPageFormat.mm : 100.0,
       divisions: int.tryParse(json['divisions'].toString()) ?? 5,
       subdivisions: int.tryParse(json['subdivisions'].toString()) ?? 2,
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 

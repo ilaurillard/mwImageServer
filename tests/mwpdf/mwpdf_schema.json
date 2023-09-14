@@ -437,6 +437,9 @@
       "maxProperties": 1,
       "minProperties": 1,
       "properties": {
+        "Switch": {
+          "$ref": "#/definitions/Widgets/Switch"
+        },
         "Align": {
           "$ref": "#/definitions/Widgets/Align"
         },
@@ -567,6 +570,27 @@
       "type": "object"
     },
     "Widgets": {
+      "Switch": {
+        "additionalProperties": false,
+        "properties": {
+          "cases": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^.*$": {
+                "$ref": "#/definitions/Widget"
+              }
+            },
+            "type": "object"
+          },
+          "default": {
+            "$ref": "#/definitions/Widget"
+          },
+          "subject": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "Align": {
         "additionalProperties": false,
         "properties": {

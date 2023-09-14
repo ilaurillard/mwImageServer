@@ -7,7 +7,7 @@ class Resource {
   final String file;
 
   final String binary;
-  final List<List<dynamic>> values;
+  final List<Map<String, String>> values;
 
   Resource({
     this.binary = '',
@@ -20,8 +20,8 @@ class Resource {
     Dict json,
   ) {
     List<dynamic> temp = json['values'] as List<dynamic>? ?? [];
-    List<List<dynamic>> values =
-        temp.map((dynamic row) => row as List<dynamic>).toList();
+    List<Map<String, String>> values =
+        temp.map((dynamic row) => stringRow(row as List<dynamic>)).toList();
 
     // print(values);
 
@@ -43,12 +43,22 @@ class Resource {
     }
     if (url.isNotEmpty) {
       // TODO cachekey, load from remote, cache, file
-
-
     }
     if (file.isNotEmpty) {
       // TODO a bucket resource
-
     }
+  }
+
+  static Map<String, String> stringRow(
+    List<dynamic> row,
+  ) {
+    Map<String, String> map = {};
+    int k = 0;
+    for (dynamic d in row) {
+      // TODO map
+      map['values.$k'] = d.toString();
+      k++;
+    }
+    return map;
   }
 }

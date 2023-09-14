@@ -28,11 +28,10 @@ Future<void> main() async {
   // String jsonFile = 'pdf_header.json';
 
   String data = await File('${basedir}tests/mwpdf/examples/$jsonFile').readAsString();
-  Engine engine = Engine.fromJson(
+
+  Engine engine = await Engine.fromJson(
     json.decode(data) as Dict,
   );
-
-  await engine.resources.init();
 
   pw.Document pdf = engine.buildPdf();
 

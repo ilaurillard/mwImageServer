@@ -4,7 +4,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Engine.dart';
-import 'PdfWidget.dart';
+import 'Widget.dart';
 
 class Etc {
   static pw.BoxDecoration? boxDecoration(
@@ -27,8 +27,7 @@ class Etc {
       borderRadius: Etc.borderRadius(
         json['borderRadius'] as List<dynamic>?,
       ),
-      shape: Etc.boxShape(json['shape'] as String?) ??
-          pw.BoxShape.rectangle,
+      shape: Etc.boxShape(json['shape'] as String?) ?? pw.BoxShape.rectangle,
     );
   }
 
@@ -89,8 +88,9 @@ class Etc {
     // print('Font: $json');
 
     if (json != null && json.isNotEmpty) {
-      if (Engine.res.fonts[json] != null) {
-        return Engine.res.fonts[json];
+
+      if (Engine.resources.fonts[json] != null) {
+        return Engine.resources.fonts[json];
       }
 
       // internal fonts
@@ -436,8 +436,8 @@ class Etc {
   }
 
   static pw.StackFit? stackFit(
-      String? json,
-      ) {
+    String? json,
+  ) {
     switch (json) {
       case 'loose':
         return pw.StackFit.loose;
@@ -450,8 +450,8 @@ class Etc {
   }
 
   static pw.Overflow? overflow(
-      String? json,
-      ) {
+    String? json,
+  ) {
     switch (json) {
       case 'clip':
         return pw.Overflow.clip;
@@ -473,12 +473,15 @@ class Etc {
     return pw.DecorationPosition.background;
   }
 
-  static String parameters(
+  static String replaceParameters(
     String text,
   ) {
+    for (String key in Widget.parameters.keys) {
+      text = text.replaceAll('%$key%', Widget.parameters[key] ?? '');
+    }
     return text
-        .replaceAll('%pageNumber%', PdfWidget.pageNumber.toString())
-        .replaceAll('%pagesCount%', PdfWidget.pagesCount.toString());
+        .replaceAll('%pageNumber%', Widget.pageNumber.toString())
+        .replaceAll('%pagesCount%', Widget.pagesCount.toString());
   }
 
   // text decoration is broken .. ?
@@ -546,10 +549,26 @@ class Etc {
       return pw.BoxConstraints(
         minWidth: minWidth != null ? minWidth * PdfPageFormat.mm : 0.0,
         minHeight: minHeight != null ? minHeight * PdfPageFormat.mm : 0.0,
-        maxWidth: maxWidth != null ? maxWidth * PdfPageFormat.mm : double.infinity,
-        maxHeight: maxHeight != null ? maxHeight * PdfPageFormat.mm : double.infinity,
+        maxWidth:
+            maxWidth != null ? maxWidth * PdfPageFormat.mm : double.infinity,
+        maxHeight:
+            maxHeight != null ? maxHeight * PdfPageFormat.mm : double.infinity,
       );
     }
     return null;
+  }
+
+  static pw.Widget switchCases(
+    Dict json,
+  ) {
+    String subject = json['subject'] as String? ?? '';
+    String value = replaceParameters(subject);
+
+    Dict cases = (json['cases'] as Dict? ?? {});
+    if (cases[value] != null) {
+      return Widget.parse(cases[value] as Dict? ?? {});
+    }
+
+    return Widget.parse(json['default'] as Dict? ?? {});
   }
 }

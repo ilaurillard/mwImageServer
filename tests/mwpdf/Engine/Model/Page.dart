@@ -1,7 +1,7 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../Widget/PdfWidget.dart';
+import '../Widget/Widget.dart';
 
 class Page {
   final bool multi;
@@ -24,7 +24,7 @@ class Page {
   ) {
     return content
         .map(
-          (e) => PdfWidget(
+          (e) => Widget(
             json: e as Dict,
             context: context,
           ).build(),

@@ -2,7 +2,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidget.dart';
+import 'Widget.dart';
 import 'Etc.dart';
 
 class Layout {
@@ -10,7 +10,7 @@ class Layout {
     Dict json,
   ) {
     return pw.Center(
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -24,7 +24,7 @@ class Layout {
             json['alignment'] as String?,
           ) ??
           pw.Alignment.center,
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
       widthFactor: widthFactor != null ? widthFactor * PdfPageFormat.mm : null,
       heightFactor:
           heightFactor != null ? heightFactor * PdfPageFormat.mm : null,
@@ -43,7 +43,7 @@ class Layout {
             json['alignment'] as String?,
           ) ??
           pw.Alignment.center,
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -76,7 +76,7 @@ class Layout {
           Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
       foregroundDecoration: Etc.boxDecoration(
           (json['foregroundDecoration'] as Dict?) ?? {}),
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -89,7 +89,7 @@ class Layout {
     return pw.SizedBox(
       width: width != null ? width * PdfPageFormat.mm : null,
       height: height != null ? height * PdfPageFormat.mm : null,
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -102,7 +102,7 @@ class Layout {
               pw.BoxDecoration(),
       position: Etc.decorationPosition(
           json['decorationPosition'] as String?),
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -130,7 +130,7 @@ class Layout {
       verticalDirection: Etc.verticalDirection(
         json['verticalDirection'] as String?,
       ),
-      children: PdfWidget.children(json),
+      children: Widget.children(json),
     );
   }
 
@@ -150,7 +150,7 @@ class Layout {
       verticalDirection: Etc.verticalDirection(
         json['verticalDirection'] as String?,
       ),
-      children: PdfWidget.children(json),
+      children: Widget.children(json),
     );
   }
 
@@ -170,7 +170,7 @@ class Layout {
       verticalDirection: Etc.verticalDirection(
         json['verticalDirection'] as String?,
       ),
-      children: PdfWidget.children(json),
+      children: Widget.children(json),
     );
   }
 
@@ -195,7 +195,7 @@ class Layout {
       verticalDirection: Etc.verticalDirection(
         json['verticalDirection'] as String?,
       ),
-      children: PdfWidget.children(json),
+      children: Widget.children(json),
     );
   }
 
@@ -207,7 +207,7 @@ class Layout {
       fit: Etc.flexFit(
         json['fit'] as String?,
       ),
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -219,7 +219,7 @@ class Layout {
             json['padding'] as List<dynamic>?,
           ) ??
           pw.EdgeInsets.zero,
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -233,7 +233,7 @@ class Layout {
           maxWidth != null ? maxWidth * PdfPageFormat.mm : double.infinity,
       maxHeight:
           maxHeight != null ? maxHeight * PdfPageFormat.mm : double.infinity,
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -245,7 +245,7 @@ class Layout {
             json['constraints'] as Dict?,
           ) ??
           pw.BoxConstraints(),
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -261,7 +261,7 @@ class Layout {
       maxWidth: double.tryParse(json['maxWidth'].toString()),
       minHeight: double.tryParse(json['minHeight'].toString()),
       maxHeight: double.tryParse(json['maxHeight'].toString()),
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -273,7 +273,7 @@ class Layout {
       fit: Etc.flexFit(
         json['fit'] as String? ?? 'loose',
       ),
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -282,7 +282,7 @@ class Layout {
   ) {
     return pw.AspectRatio(
       aspectRatio: double.tryParse(json['aspectRatio'].toString()) ?? 1,
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
     );
   }
 
@@ -293,7 +293,7 @@ class Layout {
     return pw.ListView(
       direction:
           Etc.axis(json['direction'] as String?) ?? pw.Axis.vertical,
-      children: PdfWidget.children(json),
+      children: Widget.children(json),
       padding: Etc.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
@@ -313,7 +313,7 @@ class Layout {
       direction:
           Etc.axis(json['direction'] as String?) ?? pw.Axis.vertical,
       crossAxisCount: int.tryParse(json['crossAxisCount'].toString()) ?? 3,
-      children: PdfWidget.children(json),
+      children: Widget.children(json),
       padding: Etc.edgeInsets(
             json['padding'] as List<dynamic>?,
           ) ??
@@ -335,7 +335,7 @@ class Layout {
             json['alignment'] as String?,
           ) ??
           pw.Alignment.topLeft,
-      children: PdfWidget.children(json),
+      children: Widget.children(json),
       overflow: Etc.overflow(json['overflow'] as String?) ??
           pw.Overflow.clip,
       fit: Etc.stackFit(json['fit'] as String?) ?? pw.StackFit.loose,
@@ -350,7 +350,7 @@ class Layout {
     double? right = double.tryParse(json['right'].toString());
     double? bottom = double.tryParse(json['bottom'].toString());
     return pw.Positioned(
-      child: PdfWidget.child(json),
+      child: Widget.child(json),
       left: left != null ? left * PdfPageFormat.mm : null,
       top: top != null ? top * PdfPageFormat.mm : null,
       right: right != null ? right * PdfPageFormat.mm : null,

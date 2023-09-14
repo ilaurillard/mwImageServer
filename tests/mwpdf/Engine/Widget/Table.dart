@@ -2,10 +2,10 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../Model/Resource.dart';
 import '../Engine.dart';
-import 'PdfWidget.dart';
+import '../Model/Resource.dart';
 import 'Etc.dart';
+import 'Widget.dart';
 
 class Table {
   static pw.Table table(
@@ -31,12 +31,19 @@ class Table {
       );
     }
 
+    List<pw.TableRow> rows = [];
+
+    for (dynamic e in json['children'] as List<dynamic>? ?? []) {
+      Dict d = e as Dict;
+      rows.addAll(tableRows(d));
+    }
 
     return pw.Table(
       columnWidths: columnWidths,
       defaultVerticalAlignment: tableCellVerticalAlignment(
-        json['defaultVerticalAlignment'] as String?,
-      ) ?? pw.TableCellVerticalAlignment.top,
+            json['defaultVerticalAlignment'] as String?,
+          ) ??
+          pw.TableCellVerticalAlignment.top,
       defaultColumnWidth: columnWidth(
         json['defaultColumnWidth'] as Dict?,
       ),
@@ -46,34 +53,49 @@ class Table {
       tableWidth: tableWidth(
         json['tableWidth'] as String?,
       ),
-      children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => tableRow(e as Dict))
-          .toList(),
+      children: rows,
     );
   }
 
-  static pw.TableRow tableRow(
+  static List<pw.TableRow> tableRows(
     Dict json,
   ) {
-    Resource resource = Engine.res.get(json['resource'] as String?);
-    // print(resource);
-
-
     // print('W: TableRow');
     Dict data = json['TableRow'] as Dict? ?? {};
 
-    return pw.TableRow(
-      decoration: Etc.boxDecoration(
-        data['decoration'] as Dict? ?? {},
-      ),
-      repeat: data['repeat'] as bool? ?? false,
-      verticalAlignment: tableCellVerticalAlignment(
-        data['verticalAlignment'] as String?,
-      ),
-      children: (data['children'] as List<dynamic>? ?? [])
-          .map((e) => PdfWidget.parse(e as Dict))
-          .toList(),
+    Resource resource = Engine.resources.get(data['resource'] as String?);
+    // print(resource);
+
+    pw.BoxDecoration? decoration = Etc.boxDecoration(
+      data['decoration'] as Dict? ?? {},
     );
+    bool? repeat = data['repeat'] as bool? ?? false;
+    pw.TableCellVerticalAlignment? verticalAlignment =
+        tableCellVerticalAlignment(
+      data['verticalAlignment'] as String?,
+    );
+
+    List<pw.TableRow> rows = [];
+
+    List<Map<String, String>> values = resource.values;
+    if (values.isEmpty) {
+      values = [{}];
+    }
+    for (Map<String, String> v in values) {
+      Widget.parameters = v;
+      List<pw.Widget> children = [];
+      for (dynamic d in data['children'] as List<dynamic>? ?? []) {
+        children.add(Widget.parse(d as Dict));
+      }
+      rows.add(pw.TableRow(
+        decoration: decoration,
+        repeat: repeat,
+        verticalAlignment: verticalAlignment,
+        children: children,
+      ));
+    }
+
+    return rows;
   }
 
   static pw.TableBorder? tableBorder(
@@ -89,8 +111,7 @@ class Table {
         left: Etc.borderSide(json['left'] as Dict?) ?? fb,
         horizontalInside:
             Etc.borderSide(json['horizontalInside'] as Dict?) ?? fb,
-        verticalInside:
-            Etc.borderSide(json['verticalInside'] as Dict?) ?? fb,
+        verticalInside: Etc.borderSide(json['verticalInside'] as Dict?) ?? fb,
       );
     }
     return null;

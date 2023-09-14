@@ -1,7 +1,7 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../Widget/PdfWidget.dart';
+import '../Widget/Widget.dart';
 
 class Footer {
   final Dict json;
@@ -13,7 +13,7 @@ class Footer {
   pw.Widget build(
     pw.Context context,
   ) {
-    return PdfWidget(
+    return Widget(
       json: json,
       context: context,
       pageNumber: context.pageNumber,

@@ -4,23 +4,69 @@
       "content": [
         {
           "Table": {
+
+            "tableWidth": "max",
+            "columnWidths": {
+              "0": {
+                "FlexColumnWidth": {
+                  "flex": 2
+                }
+              },
+              "1": {
+                "FlexColumnWidth": {
+                  "flex": 1
+                }
+              },
+              "2": {
+                "FlexColumnWidth": {
+                  "flex": 1
+                }
+              },
+              "3": {
+                "FlexColumnWidth": {
+                  "flex": 1
+                }
+              }
+            },
+            "border": {
+              "all": {
+                "style": "solid"
+              }
+            },
             "children": [
               {
                 "TableRow": {
                   "children": [
                     {
                       "Text": {
-                        "text": "a"
+                        "text": "Pet",
+                        "style": {
+                          "fontWeight": "bold"
+                        }
                       }
                     },
                     {
                       "Text": {
-                        "text": "b"
+                        "text": "Amount",
+                        "style": {
+                          "fontWeight": "bold"
+                        }
                       }
                     },
                     {
                       "Text": {
-                        "text": "c"
+                        "text": "Crazy",
+                        "style": {
+                          "fontWeight": "bold"
+                        }
+                      }
+                    },
+                    {
+                      "Text": {
+                        "text": "Weight",
+                        "style": {
+                          "fontWeight": "bold"
+                        }
                       }
                     }
                   ]
@@ -32,17 +78,50 @@
                   "children": [
                     {
                       "Text": {
-                        "text": "dummy"
+                        "text": "%values.0%"
                       }
                     },
                     {
                       "Text": {
-                        "text": "dummy"
+                        "text": "%values.1%"
+                      }
+                    },
+                    {
+                      "Switch": {
+                        "subject": "%values.2%",
+                        "default": {
+                          "Text": {
+                            "text": "%values.2%"
+                          }
+                        },
+                        "cases": {
+                          "false": {
+                            "Align": {
+                              "child": {
+                                "Icon": {
+                                  "icon": "close",
+                                  "color": "660000"
+                                }
+                              }
+                            }
+                          },
+                          "true": {
+                            "Align": {
+                              "child": {
+                                "Icon": {
+                                  "icon": "check_circle",
+                                  "color": "006600"
+                                }
+                              }
+                            }
+                          }
+                        }
                       }
                     },
                     {
                       "Text": {
-                        "text": "dummy"
+                        "textAlign": "right",
+                        "text": "%values.3%"
                       }
                     }
                   ]
@@ -58,13 +137,25 @@
     "@source1": {
       "values": [
         [
-          "x",
+          "Katze",
           1,
           true,
           7.5
         ],
         [
-          "x",
+          "Hund",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Vogel",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Frosch",
           2,
           false,
           1.5
