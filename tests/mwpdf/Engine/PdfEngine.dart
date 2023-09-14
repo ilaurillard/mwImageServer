@@ -1,32 +1,35 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Model/PdfData.dart';
+import 'Model/PdfResources.dart';
 import 'Model/PdfFooter.dart';
 import 'Model/PdfHeader.dart';
 import 'Model/PdfPage.dart';
 import 'Theme/PdfTheme.dart';
 
 class PdfEngine {
-  List<PdfPage> pages;
-  Map<String, PdfData> data;
-  Map<String, PdfTheme> themes;
-  Map<String, PdfHeader> headers;
-  Map<String, PdfFooter> footers;
+  final List<PdfPage> pages;
+  final Map<String, PdfTheme> themes;
+  final Map<String, PdfHeader> headers;
+  final Map<String, PdfFooter> footers;
+  final PdfResources resources;
+
+  static late PdfResources res;
 
   PdfEngine({
-    this.pages = const [],
-    this.data = const {},
-    this.themes = const {},
-    this.headers = const {},
-    this.footers = const {},
-  });
+  required this.pages,
+    required this.themes,
+    required this.headers,
+    required this.footers,
+    required this.resources,
+  }) {
+    PdfEngine.res = resources;
+  }
 
   static PdfEngine fromJson(
     Dict json,
   ) {
     Dict meta = (json['meta'] as Dict?) ?? {};
-
     return PdfEngine(
       pages: PdfPage.fromJsonAll(
         (json['pages'] as List?) ?? [],
@@ -40,10 +43,13 @@ class PdfEngine {
       footers: PdfFooter.fromJsonAll(
         (meta['footer'] as Dict?) ?? {},
       ),
+      resources: PdfResources.fromJson(
+        (json['resources'] as Dict?) ?? {},
+      ),
     );
   }
 
-  pw.Document build() {
+  pw.Document buildPdf() {
     pw.Document pdf = pw.Document();
 
     for (PdfPage page in pages) {

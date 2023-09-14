@@ -2,6 +2,8 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../Model/Resource.dart';
+import '../PdfEngine.dart';
 import 'PdfWidget.dart';
 import 'PdfWidgetUtil.dart';
 
@@ -29,6 +31,7 @@ class PdfWidgetTable {
       );
     }
 
+
     return pw.Table(
       columnWidths: columnWidths,
       defaultVerticalAlignment: tableCellVerticalAlignment(
@@ -52,6 +55,10 @@ class PdfWidgetTable {
   static pw.TableRow tableRow(
     Dict json,
   ) {
+    Resource resource = PdfEngine.res.get(json['resource'] as String?);
+    // print(resource);
+
+
     // print('W: TableRow');
     Dict data = json['TableRow'] as Dict? ?? {};
 

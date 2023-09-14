@@ -3,7 +3,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../engine.dart';
+import '../PdfEngine.dart';
 import 'PdfWidget.dart';
 
 class PdfWidgetUtil {
@@ -89,8 +89,8 @@ class PdfWidgetUtil {
     // print('Font: $json');
 
     if (json != null && json.isNotEmpty) {
-      if (fontRegistry[json] != null) {
-        return fontRegistry[json];
+      if (PdfEngine.res.fonts[json] != null) {
+        return PdfEngine.res.fonts[json];
       }
 
       // internal fonts

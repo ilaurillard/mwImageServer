@@ -4,7 +4,6 @@
       "content": [
         {
           "Table": {
-            "resource": "@source1",
             "children": [
               {
                 "TableRow": {
@@ -29,20 +28,21 @@
               },
               {
                 "TableRow": {
+                  "resource": "@source1",
                   "children": [
                     {
                       "Text": {
-                        "text": "x"
+                        "text": "dummy"
                       }
                     },
                     {
                       "Text": {
-                        "text": "y"
+                        "text": "dummy"
                       }
                     },
                     {
                       "Text": {
-                        "text": "z"
+                        "text": "dummy"
                       }
                     }
                   ]

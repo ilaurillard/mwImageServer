@@ -21,7 +21,6 @@ $ podman rm -f mwcdn
 $ podman system prune
 
 
-
 ---- Build via docker compose
 
 $ docker build . -t mwcdn

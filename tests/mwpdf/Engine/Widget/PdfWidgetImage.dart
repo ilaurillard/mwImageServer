@@ -1,21 +1,23 @@
-import 'dart:typed_data';
-
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../engine.dart';
+import '../Model/Resource.dart';
+import '../PdfEngine.dart';
 import 'PdfWidgetUtil.dart';
 
 class PdfWidgetImage {
   static pw.Image image(
     Dict json,
   ) {
+    Resource resource = PdfEngine.res.get(json['resource'] as String?);
+    // print(resource);
+
     // TODO image data
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
     return pw.Image(
-      exampleImage,
+      PdfEngine.res.exampleImage,
       fit: PdfWidgetUtil.boxFit(
         json['fit'] as String?,
       ) ?? pw.BoxFit.contain,
@@ -31,11 +33,16 @@ class PdfWidgetImage {
   static pw.SvgImage svgImage(
     Dict json,
   ) {
+    Resource resource = PdfEngine.res.get(json['resource'] as String?);
+    // print(resource);
+
     // TODO svg data
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
     return pw.SvgImage(
-      svg: exampleSvg,
+
+      svg: PdfEngine.res.exampleSvg,
+
       fit: PdfWidgetUtil.boxFit(
         json['fit'] as String?,
       ) ?? pw.BoxFit.contain,
@@ -56,7 +63,7 @@ class PdfWidgetImage {
   ) {
     String icon = json['icon'].toString();
     int? code = int.tryParse(icon, radix: 16);
-    code ??= int.parse(fontMaterialMap[icon] ?? 'EB8B', radix: 16);
+    code ??= int.parse(PdfEngine.res.materialCodes[icon] ?? 'EB8B', radix: 16);
     double? size = double.tryParse(json['size'].toString());
     return pw.Icon(
       pw.IconData(

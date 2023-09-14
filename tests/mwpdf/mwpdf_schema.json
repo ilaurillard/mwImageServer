@@ -1442,9 +1442,6 @@
           "defaultVerticalAlignment": {
             "$ref": "#/definitions/Enum/VerticalAlignment"
           },
-          "resource": {
-            "$ref": "#/definitions/Util/Identifier"
-          },
           "tableWidth": {
             "enum": [
               "max",
@@ -1471,6 +1468,9 @@
           },
           "verticalAlignment": {
             "$ref": "#/definitions/Enum/VerticalAlignment"
+          },
+          "resource": {
+            "$ref": "#/definitions/Util/Identifier"
           }
         },
         "type": "object"
@@ -1700,7 +1700,8 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "comment": "footers, header, themes"
     },
     "pages": {
       "items": {
@@ -1719,10 +1720,12 @@
             "$ref": "#/definitions/Util/Identifier"
           },
           "multi": {
-            "type": "boolean"
+            "type": "boolean",
+            "comment": "multi page (tables, ...) or not"
           },
           "theme": {
-            "$ref": "#/definitions/Util/Identifier"
+            "$ref": "#/definitions/Util/Identifier",
+            "comment": "see meta/theme"
           }
         },
         "type": "object"
@@ -1765,7 +1768,8 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "comment": "resources like image, svg, .. also table data, etc"
     }
   },
   "type": "object"

@@ -3,7 +3,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../engine.dart';
+import '../PdfEngine.dart';
 import '../Widget/PdfWidgetUtil.dart';
 
 class PdfTheme {
@@ -84,7 +84,7 @@ class PdfTheme {
       opacity: double.tryParse(json['opacity'].toString()),
       size: double.tryParse(json['size'].toString()),
       font: PdfWidgetUtil.font(json['font'] as String?) ??
-          fontRegistry['material'],
+          PdfEngine.res.materialFont(),
     );
   }
 

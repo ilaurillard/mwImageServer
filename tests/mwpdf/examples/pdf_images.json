@@ -11,7 +11,7 @@
                   "height": 10,
                   "child": {
                     "SvgImage": {
-                      "svg": "@svg1"
+                      "resource": "@svg1"
                     }
                   }
                 }
@@ -20,7 +20,7 @@
                 "Container": {
                   "child": {
                     "SvgImage": {
-                      "svg": "@svg1"
+                      "resource": "@svg1"
                     }
                   }
                 }
@@ -34,7 +34,7 @@
                         "child": {
                           "Image": {
                             "dpi": 90,
-                            "image": "@image1"
+                            "resource": "@image1"
                           }
                         }
                       }
@@ -45,7 +45,7 @@
                         "child": {
                           "Image": {
                             "dpi": 60,
-                            "image": "@image1"
+                            "resource": "@image1"
                           }
                         }
                       }
@@ -56,7 +56,7 @@
                         "child": {
                           "Image": {
                             "dpi": 30,
-                            "image": "@image1"
+                            "resource": "@image1"
                           }
                         }
                       }
@@ -66,8 +66,8 @@
                         "height": 30,
                         "child": {
                           "Image": {
-                            "dpi": 10,"image": "@image1"
-
+                            "dpi": 10,
+                            "resource": "@image1"
                           }
                         }
                       }
