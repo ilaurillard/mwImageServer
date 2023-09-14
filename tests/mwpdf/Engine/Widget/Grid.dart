@@ -3,9 +3,9 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'PdfWidget.dart';
-import 'PdfWidgetUtil.dart';
+import 'Etc.dart';
 
-class PdfWidgetGrid {
+class Grid {
   static const lineColor = PdfColor.fromInt(0xffc3e8f3);
 
   static pw.GridPaper gridPaper(
@@ -14,7 +14,7 @@ class PdfWidgetGrid {
     double? interval = double.tryParse(json['interval'].toString());
 
     return pw.GridPaper(
-      color: PdfWidgetUtil.color(
+      color: Etc.color(
             json['color'] as String?,
           ) ??
           lineColor,

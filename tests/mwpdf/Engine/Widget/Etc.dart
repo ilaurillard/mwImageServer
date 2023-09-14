@@ -3,10 +3,10 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../PdfEngine.dart';
+import '../Engine.dart';
 import 'PdfWidget.dart';
 
-class PdfWidgetUtil {
+class Etc {
   static pw.BoxDecoration? boxDecoration(
     Dict json,
   ) {
@@ -20,14 +20,14 @@ class PdfWidgetUtil {
     // image,
 
     return pw.BoxDecoration(
-      color: PdfWidgetUtil.color(json['color'] as String?),
-      border: PdfWidgetUtil.boxBorder(
+      color: Etc.color(json['color'] as String?),
+      border: Etc.boxBorder(
         json['border'] as Dict?,
       ),
-      borderRadius: PdfWidgetUtil.borderRadius(
+      borderRadius: Etc.borderRadius(
         json['borderRadius'] as List<dynamic>?,
       ),
-      shape: PdfWidgetUtil.boxShape(json['shape'] as String?) ??
+      shape: Etc.boxShape(json['shape'] as String?) ??
           pw.BoxShape.rectangle,
     );
   }
@@ -59,12 +59,12 @@ class PdfWidgetUtil {
     double? fontSize = double.tryParse(json['fontSize'].toString());
 
     return pw.TextStyle(
-      color: PdfWidgetUtil.color(json['color'] as String?),
-      font: PdfWidgetUtil.font(json['font'] as String?),
-      fontNormal: PdfWidgetUtil.font(json['fontNormal'] as String?),
-      fontBold: PdfWidgetUtil.font(json['fontBold'] as String?),
-      fontItalic: PdfWidgetUtil.font(json['fontItalic'] as String?),
-      fontBoldItalic: PdfWidgetUtil.font(json['fontBoldItalic'] as String?),
+      color: Etc.color(json['color'] as String?),
+      font: Etc.font(json['font'] as String?),
+      fontNormal: Etc.font(json['fontNormal'] as String?),
+      fontBold: Etc.font(json['fontBold'] as String?),
+      fontItalic: Etc.font(json['fontItalic'] as String?),
+      fontBoldItalic: Etc.font(json['fontBoldItalic'] as String?),
       fontSize: fontSize != null ? fontSize * PdfPageFormat.mm : null,
       fontWeight: fontWeight,
       fontStyle: fontStyle,
@@ -74,8 +74,8 @@ class PdfWidgetUtil {
       height: double.tryParse(json['height'].toString()),
       // TODO background
       background: null,
-      decoration: PdfWidgetUtil.textDecoration(json['decoration'] as String?),
-      decorationColor: PdfWidgetUtil.color(json['decorationColor'] as String?),
+      decoration: Etc.textDecoration(json['decoration'] as String?),
+      decorationColor: Etc.color(json['decorationColor'] as String?),
       decorationStyle: decStyle,
       decorationThickness:
           double.tryParse(json['decorationThickness'].toString()),
@@ -89,8 +89,8 @@ class PdfWidgetUtil {
     // print('Font: $json');
 
     if (json != null && json.isNotEmpty) {
-      if (PdfEngine.res.fonts[json] != null) {
-        return PdfEngine.res.fonts[json];
+      if (Engine.res.fonts[json] != null) {
+        return Engine.res.fonts[json];
       }
 
       // internal fonts
@@ -505,12 +505,12 @@ class PdfWidgetUtil {
   ) {
     if (json != null) {
       pw.BorderSide fb =
-          PdfWidgetUtil.borderSide(json['all'] as Dict?) ?? pw.BorderSide.none;
+          Etc.borderSide(json['all'] as Dict?) ?? pw.BorderSide.none;
       return pw.Border(
-        top: PdfWidgetUtil.borderSide(json['top'] as Dict?) ?? fb,
-        right: PdfWidgetUtil.borderSide(json['right'] as Dict?) ?? fb,
-        bottom: PdfWidgetUtil.borderSide(json['bottom'] as Dict?) ?? fb,
-        left: PdfWidgetUtil.borderSide(json['left'] as Dict?) ?? fb,
+        top: Etc.borderSide(json['top'] as Dict?) ?? fb,
+        right: Etc.borderSide(json['right'] as Dict?) ?? fb,
+        bottom: Etc.borderSide(json['bottom'] as Dict?) ?? fb,
+        left: Etc.borderSide(json['left'] as Dict?) ?? fb,
       );
     }
     return null;
@@ -522,11 +522,11 @@ class PdfWidgetUtil {
     if (json != null) {
       double? width = double.tryParse(json['width'].toString());
       return pw.BorderSide(
-        color: PdfWidgetUtil.color(
+        color: Etc.color(
               json['color'] as String?,
             ) ??
             PdfColors.black,
-        style: PdfWidgetUtil.borderStyle(
+        style: Etc.borderStyle(
           json['style'] as String?,
         ),
         width: width != null ? width * PdfPageFormat.mm : 1.0,

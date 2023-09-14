@@ -3,7 +3,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 import '../Widget/PdfWidget.dart';
 
-class PdfPage {
+class Page {
   final bool multi;
   final String theme;
   final String header;
@@ -11,7 +11,7 @@ class PdfPage {
 
   final List<dynamic> content;
 
-  PdfPage({
+  Page({
     this.multi = false,
     this.theme = '',
     this.header = '',
@@ -32,12 +32,12 @@ class PdfPage {
         .toList();
   }
 
-  static PdfPage fromJson(
+  static Page fromJson(
     Dict json,
   ) {
     // print('Page: $json');
 
-    return PdfPage(
+    return Page(
       multi: Types.boolFromDict(json, 'multi'),
       theme: json['theme'] as String? ?? '',
       header: json['header'] as String? ?? '',
@@ -46,11 +46,11 @@ class PdfPage {
     );
   }
 
-  static List<PdfPage> fromJsonAll(
+  static List<Page> fromJsonAll(
     List<dynamic> json,
   ) {
     return json
-        .map((i) => PdfPage.fromJson(
+        .map((i) => Page.fromJson(
               i as Dict,
             ))
         .toList();

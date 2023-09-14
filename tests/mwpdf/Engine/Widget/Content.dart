@@ -3,26 +3,26 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'PdfWidget.dart';
-import 'PdfWidgetUtil.dart';
+import 'Etc.dart';
 
-class PdfWidgetBasic {
+class Content {
   static pw.Text text(
     Dict json,
   ) {
     return pw.Text(
-      PdfWidgetUtil.parameters(json['text'] as String? ?? '¿'),
-      style: PdfWidgetUtil.textStyle((json['style'] as Dict?) ?? {}),
-      textAlign: PdfWidgetUtil.textAlign(
+      Etc.parameters(json['text'] as String? ?? '¿'),
+      style: Etc.textStyle((json['style'] as Dict?) ?? {}),
+      textAlign: Etc.textAlign(
         json['textAlign'] as String?,
       ),
-      textDirection: PdfWidgetUtil.textDirection(
+      textDirection: Etc.textDirection(
         json['textDirection'] as String?,
       ),
       softWrap: json['softWrap'] as bool?,
       tightBounds: Types.boolFromDict(json, 'tightBounds'),
       textScaleFactor: double.tryParse(json['textScaleFactor'].toString()) ?? 1.0,
       maxLines: int.tryParse(json['maxLines'].toString()),
-      overflow: PdfWidgetUtil.textOverflow(json['overflow'] as String?),
+      overflow: Etc.textOverflow(json['overflow'] as String?),
     );
   }
 
@@ -30,19 +30,19 @@ class PdfWidgetBasic {
     Dict json,
   ) {
     return pw.Paragraph(
-      text: PdfWidgetUtil.parameters(json['text'] as String? ?? '¿'),
-      textAlign: PdfWidgetUtil.textAlign(
+      text: Etc.parameters(json['text'] as String? ?? '¿'),
+      textAlign: Etc.textAlign(
             json['textAlign'] as String?,
           ) ??
           pw.TextAlign.justify,
-      padding: PdfWidgetUtil.edgeInsets(
+      padding: Etc.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
-      margin: PdfWidgetUtil.edgeInsets(
+      margin: Etc.edgeInsets(
             json['margin'] as List<dynamic>?,
           ) ??
           const pw.EdgeInsets.only(bottom: 5.0 * PdfPageFormat.mm),
-      style: PdfWidgetUtil.textStyle(json['style'] as Dict? ?? {}),
+      style: Etc.textStyle(json['style'] as Dict? ?? {}),
     );
   }
 
@@ -64,7 +64,7 @@ class PdfWidgetBasic {
       strokeWidth: strokeWidth != null ? strokeWidth * PdfPageFormat.mm : 2.0,
       fallbackWidth: fallbackWidth != null ? fallbackWidth * PdfPageFormat.mm : 400.0,
       fallbackHeight: fallbackHeight != null ? fallbackHeight * PdfPageFormat.mm : 400.0,
-      color: PdfWidgetUtil.color(
+      color: Etc.color(
             json['color'] as String?,
           ) ??
           PdfColor.fromInt(0xFF455A64),
@@ -90,10 +90,10 @@ class PdfWidgetBasic {
       thickness: thickness != null ? thickness * PdfPageFormat.mm : null,
       indent: indent != null ? indent * PdfPageFormat.mm : null,
       endIndent: endIndent != null ? endIndent * PdfPageFormat.mm : null,
-      color: PdfWidgetUtil.color(
+      color: Etc.color(
         json['color'] as String?,
       ),
-      borderStyle: PdfWidgetUtil.borderStyle(
+      borderStyle: Etc.borderStyle(
         json['borderStyle'] as String?,
       ),
     );
@@ -111,10 +111,10 @@ class PdfWidgetBasic {
       thickness: thickness != null ? thickness * PdfPageFormat.mm : null,
       indent: indent != null ? indent * PdfPageFormat.mm : null,
       endIndent: endIndent != null ? endIndent * PdfPageFormat.mm : null,
-      color: PdfWidgetUtil.color(
+      color: Etc.color(
         json['color'] as String?,
       ),
-      borderStyle: PdfWidgetUtil.borderStyle(
+      borderStyle: Etc.borderStyle(
         json['borderStyle'] as String?,
       ),
     );

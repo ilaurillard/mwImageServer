@@ -1,49 +1,49 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Model/PdfResources.dart';
-import 'Model/PdfFooter.dart';
-import 'Model/PdfHeader.dart';
-import 'Model/PdfPage.dart';
-import 'Theme/PdfTheme.dart';
+import 'Model/Resources.dart';
+import 'Model/Footer.dart';
+import 'Model/Header.dart';
+import 'Model/Page.dart';
+import 'Theme/Theme.dart';
 
-class PdfEngine {
-  final List<PdfPage> pages;
-  final Map<String, PdfTheme> themes;
-  final Map<String, PdfHeader> headers;
-  final Map<String, PdfFooter> footers;
-  final PdfResources resources;
+class Engine {
+  final List<Page> pages;
+  final Map<String, Theme> themes;
+  final Map<String, Header> headers;
+  final Map<String, Footer> footers;
+  final Resources resources;
 
-  static late PdfResources res;
+  static late Resources res;
 
-  PdfEngine({
+  Engine({
   required this.pages,
     required this.themes,
     required this.headers,
     required this.footers,
     required this.resources,
   }) {
-    PdfEngine.res = resources;
+    Engine.res = resources;
   }
 
-  static PdfEngine fromJson(
+  static Engine fromJson(
     Dict json,
   ) {
     Dict meta = (json['meta'] as Dict?) ?? {};
-    return PdfEngine(
-      pages: PdfPage.fromJsonAll(
+    return Engine(
+      pages: Page.fromJsonAll(
         (json['pages'] as List?) ?? [],
       ),
-      themes: PdfTheme.fromJsonAll(
+      themes: Theme.fromJsonAll(
         (meta['theme'] as Dict?) ?? {},
       ),
-      headers: PdfHeader.fromJsonAll(
+      headers: Header.fromJsonAll(
         (meta['header'] as Dict?) ?? {},
       ),
-      footers: PdfFooter.fromJsonAll(
+      footers: Footer.fromJsonAll(
         (meta['footer'] as Dict?) ?? {},
       ),
-      resources: PdfResources.fromJson(
+      resources: Resources.fromJson(
         (json['resources'] as Dict?) ?? {},
       ),
     );
@@ -52,13 +52,13 @@ class PdfEngine {
   pw.Document buildPdf() {
     pw.Document pdf = pw.Document();
 
-    for (PdfPage page in pages) {
+    for (Page page in pages) {
       // header callback --------------------------
       pw.Widget headerBuilder(
         pw.Context context,
       ) {
         if (page.header.isNotEmpty) {
-          PdfHeader? header = headers[page.header];
+          Header? header = headers[page.header];
           if (header != null) {
             return header.build(context);
           }
@@ -71,7 +71,7 @@ class PdfEngine {
         pw.Context context,
       ) {
         if (page.footer.isNotEmpty) {
-          PdfFooter? footer = footers[page.footer];
+          Footer? footer = footers[page.footer];
           if (footer != null) {
             return footer.build(context);
           }

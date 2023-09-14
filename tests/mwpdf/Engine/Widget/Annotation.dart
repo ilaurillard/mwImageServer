@@ -3,9 +3,9 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'PdfWidget.dart';
-import 'PdfWidgetUtil.dart';
+import 'Etc.dart';
 
-class PdfWidgetAnnotation {
+class Annotation {
   static pw.Header header(
     Dict json,
   ) {
@@ -15,21 +15,21 @@ class PdfWidgetAnnotation {
       child: PdfWidget.child(json),
       level: json['level'] as int? ?? 0,
       decoration:
-          PdfWidgetUtil.boxDecoration((json['decoration'] as Dict?) ?? {}),
-      outlineColor: PdfWidgetUtil.color(
+          Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
+      outlineColor: Etc.color(
         json['outlineColor'] as String?,
       ),
-      outlineStyle: PdfWidgetAnnotation.pdfOutlineStyle(
+      outlineStyle: Annotation.pdfOutlineStyle(
             json['outlineStyle'] as String?,
           ) ??
           PdfOutlineStyle.normal,
-      margin: PdfWidgetUtil.edgeInsets(
+      margin: Etc.edgeInsets(
         json['margin'] as List<dynamic>?,
       ),
-      padding: PdfWidgetUtil.edgeInsets(
+      padding: Etc.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
-      textStyle: PdfWidgetUtil.textStyle(
+      textStyle: Etc.textStyle(
         (json['textStyle'] as Dict?) ?? {},
       ),
     );

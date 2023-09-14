@@ -3,10 +3,10 @@ import 'package:pdf/widgets.dart' as pw;
 
 import '../Widget/PdfWidget.dart';
 
-class PdfFooter {
+class Header {
   final Dict json;
 
-  PdfFooter({
+  Header({
     required this.json,
   });
 
@@ -21,21 +21,21 @@ class PdfFooter {
     ).build();
   }
 
-  static PdfFooter fromJson(
+  static Header fromJson(
     Dict json,
   ) {
-    return PdfFooter(
+    return Header(
       json: json,
     );
   }
 
-  static Map<String, PdfFooter> fromJsonAll(
+  static Map<String, Header> fromJsonAll(
     Dict json,
   ) {
     return json.map((k, v) {
       return MapEntry(
           k,
-          PdfFooter.fromJson(
+          Header.fromJson(
             v as Dict,
           ));
     });

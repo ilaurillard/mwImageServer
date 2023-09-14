@@ -3,15 +3,15 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../PdfEngine.dart';
-import '../Widget/PdfWidgetUtil.dart';
+import '../Engine.dart';
+import '../Widget/Etc.dart';
 
-class PdfTheme {
+class Theme {
   final pw.PageTheme theme;
 
-  PdfTheme(this.theme);
+  Theme(this.theme);
 
-  static PdfTheme fromJson(
+  static Theme fromJson(
     Dict json,
   ) {
     // print('Theme: $json');
@@ -28,16 +28,16 @@ class PdfTheme {
       buildForeground: null,
       theme: styles((json['styles'] as Dict?) ?? {}),
       orientation: orientation,
-      margin: PdfWidgetUtil.edgeInsets(
+      margin: Etc.edgeInsets(
         json['margin'] as List<dynamic>?,
       ),
       clip: Types.boolFromDict(json, 'clip'),
-      textDirection: PdfWidgetUtil.textDirection(
+      textDirection: Etc.textDirection(
         json['textDirection'] as String? ?? '',
       ),
     );
 
-    return PdfTheme(theme);
+    return Theme(theme);
   }
 
   static pw.ThemeData styles(
@@ -50,22 +50,22 @@ class PdfTheme {
         pw.TextOverflow.values.firstWhereOrNull((e) => e.name == to);
 
     return pw.ThemeData(
-      defaultTextStyle: PdfWidgetUtil.textStyle((json['text'] as Dict?) ?? {}),
+      defaultTextStyle: Etc.textStyle((json['text'] as Dict?) ?? {}),
       paragraphStyle:
-          PdfWidgetUtil.textStyle((json['paragraph'] as Dict?) ?? {}),
-      header0: PdfWidgetUtil.textStyle((json['header0'] as Dict?) ?? {}),
-      header1: PdfWidgetUtil.textStyle((json['header1'] as Dict?) ?? {}),
-      header2: PdfWidgetUtil.textStyle((json['header2'] as Dict?) ?? {}),
-      header3: PdfWidgetUtil.textStyle((json['header3'] as Dict?) ?? {}),
-      header4: PdfWidgetUtil.textStyle((json['header4'] as Dict?) ?? {}),
-      header5: PdfWidgetUtil.textStyle((json['header5'] as Dict?) ?? {}),
+          Etc.textStyle((json['paragraph'] as Dict?) ?? {}),
+      header0: Etc.textStyle((json['header0'] as Dict?) ?? {}),
+      header1: Etc.textStyle((json['header1'] as Dict?) ?? {}),
+      header2: Etc.textStyle((json['header2'] as Dict?) ?? {}),
+      header3: Etc.textStyle((json['header3'] as Dict?) ?? {}),
+      header4: Etc.textStyle((json['header4'] as Dict?) ?? {}),
+      header5: Etc.textStyle((json['header5'] as Dict?) ?? {}),
       bulletStyle:
-          PdfWidgetUtil.textStyle((json['bulletStyle'] as Dict?) ?? {}),
+          Etc.textStyle((json['bulletStyle'] as Dict?) ?? {}),
       tableHeader:
-          PdfWidgetUtil.textStyle((json['tableHeader'] as Dict?) ?? {}),
-      tableCell: PdfWidgetUtil.textStyle((json['tableCell'] as Dict?) ?? {}),
+          Etc.textStyle((json['tableHeader'] as Dict?) ?? {}),
+      tableCell: Etc.textStyle((json['tableCell'] as Dict?) ?? {}),
       softWrap: json['softWrap'] as bool?,
-      textAlign: PdfWidgetUtil.textAlign(json['textAlign'] as String?),
+      textAlign: Etc.textAlign(json['textAlign'] as String?),
       overflow: overflow,
       maxLines: json['maxLines'] as int?,
       iconTheme: iconTheme(
@@ -80,11 +80,11 @@ class PdfTheme {
     // print('IconTheme: $json');
 
     return pw.IconThemeData(
-      color: PdfWidgetUtil.color(json['color'] as String?),
+      color: Etc.color(json['color'] as String?),
       opacity: double.tryParse(json['opacity'].toString()),
       size: double.tryParse(json['size'].toString()),
-      font: PdfWidgetUtil.font(json['font'] as String?) ??
-          PdfEngine.res.materialFont(),
+      font: Etc.font(json['font'] as String?) ??
+          Engine.res.materialFont(),
     );
   }
 
@@ -133,13 +133,13 @@ class PdfTheme {
     return format;
   }
 
-  static Map<String, PdfTheme> fromJsonAll(
+  static Map<String, Theme> fromJsonAll(
     Dict json,
   ) {
     return json.map((k, v) {
       return MapEntry(
           k,
-          PdfTheme.fromJson(
+          Theme.fromJson(
             v as Dict,
           ));
     });

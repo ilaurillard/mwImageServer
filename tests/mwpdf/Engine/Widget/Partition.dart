@@ -3,14 +3,14 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'PdfWidget.dart';
-import 'PdfWidgetUtil.dart';
+import 'Etc.dart';
 
-class PdfWidgetPartition {
+class Partition {
   static pw.Partitions partitions(
     Dict json,
   ) {
     return pw.Partitions(
-      mainAxisSize: PdfWidgetUtil.mainAxisSize(json['mainAxisSize'] as String?),
+      mainAxisSize: Etc.mainAxisSize(json['mainAxisSize'] as String?),
       children: (json['children'] as List<dynamic>? ?? [])
           .map((e) => partition(e as Dict))
           .toList(),
@@ -23,7 +23,7 @@ class PdfWidgetPartition {
     Dict data = json['Partition'] as Dict? ?? {};
     double? width = double.tryParse(data['width'].toString());
     return pw.Partition(
-      child: PdfWidgetPartition.childSpanning(data['child'] as Dict? ?? {}),
+      child: Partition.childSpanning(data['child'] as Dict? ?? {}),
       flex: data['flex'] as int? ?? 1,
       width: width != null ? width * PdfPageFormat.mm : null,
     );

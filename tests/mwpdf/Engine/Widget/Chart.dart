@@ -4,9 +4,9 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'PdfWidget.dart';
-import 'PdfWidgetUtil.dart';
+import 'Etc.dart';
 
-class PdfWidgetChart {
+class Chart {
 
   static pw.Chart chart(
     Dict json,
@@ -234,7 +234,7 @@ class PdfWidgetChart {
       ) {
     // TODO
     return pw.ChartLegend(
-      position: PdfWidgetUtil.alignment(
+      position: Etc.alignment(
         json['position'] as String?,
       ) ?? pw.Alignment.topRight,
     );

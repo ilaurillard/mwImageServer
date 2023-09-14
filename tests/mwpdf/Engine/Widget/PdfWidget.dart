@@ -1,16 +1,16 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidgetBarcode.dart';
-import 'PdfWidgetBasic.dart';
-import 'PdfWidgetChart.dart';
-import 'PdfWidgetGrid.dart';
-import 'PdfWidgetAnnotation.dart';
-import 'PdfWidgetImage.dart';
-import 'PdfWidgetLayout.dart';
-import 'PdfWidgetPartition.dart';
-import 'PdfWidgetShape.dart';
-import 'PdfWidgetTable.dart';
+import 'Barcode.dart';
+import 'Content.dart';
+import 'Chart.dart';
+import 'Grid.dart';
+import 'Annotation.dart';
+import 'Image.dart';
+import 'Layout.dart';
+import 'Partition.dart';
+import 'Shape.dart';
+import 'Table.dart';
 
 class PdfWidget {
   static late pw.Context context;
@@ -63,116 +63,116 @@ class PdfWidget {
 
       switch (key) {
         case 'Container':
-          return PdfWidgetLayout.container(data);
+          return Layout.container(data);
         case 'Center':
-          return PdfWidgetLayout.center(data);
+          return Layout.center(data);
         case 'Align':
-          return PdfWidgetLayout.align(data);
+          return Layout.align(data);
         case 'FittedBox':
-          return PdfWidgetLayout.fittedBox(data);
+          return Layout.fittedBox(data);
         case 'SizedBox':
-          return PdfWidgetLayout.sizedBox(data);
+          return Layout.sizedBox(data);
         case 'DecoratedBox':
-          return PdfWidgetLayout.decoratedBox(data);
+          return Layout.decoratedBox(data);
         case 'Wrap':
-          return PdfWidgetLayout.wrap(data);
+          return Layout.wrap(data);
         case 'Flex':
-          return PdfWidgetLayout.flex(data);
+          return Layout.flex(data);
         case 'Row':
-          return PdfWidgetLayout.row(data);
+          return Layout.row(data);
         case 'Column':
-          return PdfWidgetLayout.column(data);
+          return Layout.column(data);
 
         case 'Expanded':
-          return PdfWidgetLayout.expanded(data);
+          return Layout.expanded(data);
         case 'Padding':
-          return PdfWidgetLayout.padding(data);
+          return Layout.padding(data);
         case 'LimitedBox':
-          return PdfWidgetLayout.limitedBox(data);
+          return Layout.limitedBox(data);
         case 'ConstrainedBox':
-          return PdfWidgetLayout.constrainedBox(data);
+          return Layout.constrainedBox(data);
         case 'OverflowBox':
-          return PdfWidgetLayout.overflowBox(data);
+          return Layout.overflowBox(data);
         case 'AspectRatio':
-          return PdfWidgetLayout.aspectRatio(data);
+          return Layout.aspectRatio(data);
         case 'Flexible':
-          return PdfWidgetLayout.flexible(data);
+          return Layout.flexible(data);
         case 'GridView':
-          return PdfWidgetLayout.gridView(data);
+          return Layout.gridView(data);
         case 'ListView':
-          return PdfWidgetLayout.listView(data);
+          return Layout.listView(data);
         case 'Stack':
-          return PdfWidgetLayout.stack(data);
+          return Layout.stack(data);
         case 'Positioned':
-          return PdfWidgetLayout.positioned(data);
+          return Layout.positioned(data);
 
         // ----------
         case 'Header':
-          return PdfWidgetAnnotation.header(data);
+          return Annotation.header(data);
 
         // ----------
         case 'Partitions':
-          return PdfWidgetPartition.partitions(data);
+          return Partition.partitions(data);
         // ----------
         case 'Table':
-          return PdfWidgetTable.table(data);
+          return Table.table(data);
 
         // ----------
 
         case 'Text':
-          return PdfWidgetBasic.text(data);
+          return Content.text(data);
         case 'Paragraph':
-          return PdfWidgetBasic.paragraph(data);
+          return Content.paragraph(data);
         case 'Spacer':
-          return PdfWidgetBasic.spacer(data);
+          return Content.spacer(data);
         case 'Placeholder':
-          return PdfWidgetBasic.placeholder(data);
+          return Content.placeholder(data);
         case 'Divider':
-          return PdfWidgetBasic.divider(data);
+          return Content.divider(data);
         case 'VerticalDivider':
-          return PdfWidgetBasic.verticalDivider(data);
+          return Content.verticalDivider(data);
         case 'Opacity':
-          return PdfWidgetBasic.opacity(data);
+          return Content.opacity(data);
         case 'LoremText':
-          return PdfWidgetBasic.loremText(data);
+          return Content.loremText(data);
         case 'LoremParagraph':
-          return PdfWidgetBasic.loremParagraph(data);
+          return Content.loremParagraph(data);
 
         // ----------
 
         case 'Image':
-          return PdfWidgetImage.image(data);
+          return Image.image(data);
         case 'SvgImage':
-          return PdfWidgetImage.svgImage(data);
+          return Image.svgImage(data);
         case 'Icon':
-          return PdfWidgetImage.icon(data);
+          return Image.icon(data);
         // ----------
 
         case 'Chart':
-          return PdfWidgetChart.chart(data);
+          return Chart.chart(data);
         case 'ChartLegend':
-          return PdfWidgetChart.chartLegend(data);
+          return Chart.chartLegend(data);
 
         // ----------
 
         case 'BarcodeWidget':
-          return PdfWidgetBarcode.barcode(data);
+          return Barcode.barcode(data);
 
         // -----------
 
         case 'Circle':
-          return PdfWidgetShape.circle(data);
+          return Shape.circle(data);
         case 'Polygon':
-          return PdfWidgetShape.polygon(data);
+          return Shape.polygon(data);
         case 'Rectangle':
-          return PdfWidgetShape.rectangle(data);
+          return Shape.rectangle(data);
         case 'PdfLogo':
-          return PdfWidgetShape.pdfLogo(data);
+          return Shape.pdfLogo(data);
 
         // -----------
 
         case 'GridPaper':
-          return PdfWidgetGrid.gridPaper(data);
+          return Grid.gridPaper(data);
 
         // -----------
 

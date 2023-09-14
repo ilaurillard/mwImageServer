@@ -3,9 +3,9 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidgetUtil.dart';
+import 'Etc.dart';
 
-class PdfWidgetBarcode {
+class Barcode {
   static pw.BarcodeWidget barcode(
     Dict json,
   ) {
@@ -17,19 +17,19 @@ class PdfWidgetBarcode {
       // TODO
       data: '1234123412344',
 
-      color: PdfWidgetUtil.color(json['color'] as String?) ?? PdfColors.black,
-      backgroundColor: PdfWidgetUtil.color(json['backgroundColor'] as String?),
-      decoration: PdfWidgetUtil.boxDecoration((json['decoration'] as Dict?) ?? {}),
-      textStyle: PdfWidgetUtil.textStyle((json['textStyle'] as Dict?) ?? {}),
+      color: Etc.color(json['color'] as String?) ?? PdfColors.black,
+      backgroundColor: Etc.color(json['backgroundColor'] as String?),
+      decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
+      textStyle: Etc.textStyle((json['textStyle'] as Dict?) ?? {}),
       barcode: pw.Barcode.fromType(type(json['barcode'] as String?)),
       drawText: json['drawText'] as bool? ?? true,
       textPadding: textPadding != null ? textPadding * PdfPageFormat.mm : 0,
       width: width != null ? width * PdfPageFormat.mm : null,
       height: height != null ? height * PdfPageFormat.mm : null,
-      margin: PdfWidgetUtil.edgeInsets(
+      margin: Etc.edgeInsets(
         json['margin'] as List<dynamic>?,
       ),
-      padding: PdfWidgetUtil.edgeInsets(
+      padding: Etc.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
     );

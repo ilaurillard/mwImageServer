@@ -3,11 +3,11 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Model/Resource.dart';
-import '../PdfEngine.dart';
+import '../Engine.dart';
 import 'PdfWidget.dart';
-import 'PdfWidgetUtil.dart';
+import 'Etc.dart';
 
-class PdfWidgetTable {
+class Table {
   static pw.Table table(
     Dict json,
   ) {
@@ -55,7 +55,7 @@ class PdfWidgetTable {
   static pw.TableRow tableRow(
     Dict json,
   ) {
-    Resource resource = PdfEngine.res.get(json['resource'] as String?);
+    Resource resource = Engine.res.get(json['resource'] as String?);
     // print(resource);
 
 
@@ -63,7 +63,7 @@ class PdfWidgetTable {
     Dict data = json['TableRow'] as Dict? ?? {};
 
     return pw.TableRow(
-      decoration: PdfWidgetUtil.boxDecoration(
+      decoration: Etc.boxDecoration(
         data['decoration'] as Dict? ?? {},
       ),
       repeat: data['repeat'] as bool? ?? false,
@@ -81,16 +81,16 @@ class PdfWidgetTable {
   ) {
     if (json != null) {
       pw.BorderSide fb =
-          PdfWidgetUtil.borderSide(json['all'] as Dict?) ?? pw.BorderSide.none;
+          Etc.borderSide(json['all'] as Dict?) ?? pw.BorderSide.none;
       return pw.TableBorder(
-        top: PdfWidgetUtil.borderSide(json['top'] as Dict?) ?? fb,
-        right: PdfWidgetUtil.borderSide(json['right'] as Dict?) ?? fb,
-        bottom: PdfWidgetUtil.borderSide(json['bottom'] as Dict?) ?? fb,
-        left: PdfWidgetUtil.borderSide(json['left'] as Dict?) ?? fb,
+        top: Etc.borderSide(json['top'] as Dict?) ?? fb,
+        right: Etc.borderSide(json['right'] as Dict?) ?? fb,
+        bottom: Etc.borderSide(json['bottom'] as Dict?) ?? fb,
+        left: Etc.borderSide(json['left'] as Dict?) ?? fb,
         horizontalInside:
-            PdfWidgetUtil.borderSide(json['horizontalInside'] as Dict?) ?? fb,
+            Etc.borderSide(json['horizontalInside'] as Dict?) ?? fb,
         verticalInside:
-            PdfWidgetUtil.borderSide(json['verticalInside'] as Dict?) ?? fb,
+            Etc.borderSide(json['verticalInside'] as Dict?) ?? fb,
       );
     }
     return null;

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Engine/PdfEngine.dart';
+import 'Engine/Engine.dart';
 
 const basedir = '/home/ilja/PhpstormProjects/mwcdn/';
 
@@ -28,7 +28,7 @@ Future<void> main() async {
   // String jsonFile = 'pdf_header.json';
 
   String data = await File('${basedir}tests/mwpdf/examples/$jsonFile').readAsString();
-  PdfEngine engine = PdfEngine.fromJson(
+  Engine engine = Engine.fromJson(
     json.decode(data) as Dict,
   );
 

@@ -2,18 +2,18 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'PdfWidgetUtil.dart';
+import 'Etc.dart';
 
-class PdfWidgetShape {
+class Shape {
   static pw.Circle circle(
     Dict json,
   ) {
     double? strokeWidth = double.tryParse(json['strokeWidth'].toString());
     return pw.Circle(
-      fillColor: PdfWidgetUtil.color(
+      fillColor: Etc.color(
         json['fillColor'] as String?,
       ),
-      strokeColor: PdfWidgetUtil.color(
+      strokeColor: Etc.color(
         json['strokeColor'] as String?,
       ),
       strokeWidth: strokeWidth != null ? strokeWidth * PdfPageFormat.mm : 1.0,
@@ -25,10 +25,10 @@ class PdfWidgetShape {
   ) {
     double? strokeWidth = double.tryParse(json['strokeWidth'].toString());
     return pw.Rectangle(
-      fillColor: PdfWidgetUtil.color(
+      fillColor: Etc.color(
         json['fillColor'] as String?,
       ),
-      strokeColor: PdfWidgetUtil.color(
+      strokeColor: Etc.color(
         json['strokeColor'] as String?,
       ),
       strokeWidth: strokeWidth != null ? strokeWidth * PdfPageFormat.mm : 1.0,
@@ -42,10 +42,10 @@ class PdfWidgetShape {
     return pw.Polygon(
       points: _points(json['points'] as List<dynamic>? ?? []),
       close: json['close'] as bool? ?? true,
-      fillColor: PdfWidgetUtil.color(
+      fillColor: Etc.color(
         json['fillColor'] as String?,
       ),
-      strokeColor: PdfWidgetUtil.color(
+      strokeColor: Etc.color(
         json['strokeColor'] as String?,
       ),
       strokeWidth: strokeWidth != null ? strokeWidth * PdfPageFormat.mm : 1.0,
@@ -73,11 +73,11 @@ class PdfWidgetShape {
     Dict json,
   ) {
     return pw.PdfLogo(
-      color: PdfWidgetUtil.color(
+      color: Etc.color(
             json['color'] as String?,
           ) ??
           PdfColors.red,
-      fit: PdfWidgetUtil.boxFit(
+      fit: Etc.boxFit(
             json['fit'] as String?,
           ) ??
           pw.BoxFit.contain,

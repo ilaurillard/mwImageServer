@@ -8,7 +8,7 @@ import 'package:pdf/widgets.dart' as pw;
 import '../../engine.dart';
 import 'Resource.dart';
 
-class PdfResources {
+class Resources {
   static const material = 'material';
 
   Map<String, pw.Font> fonts = {};
@@ -19,7 +19,7 @@ class PdfResources {
 
   final Map<String, Resource> map;
 
-  PdfResources({
+  Resources({
     required this.map,
   });
 
@@ -82,10 +82,10 @@ class PdfResources {
     }
   }
 
-  static PdfResources fromJson(
+  static Resources fromJson(
     Dict json,
   ) {
-    return PdfResources(
+    return Resources(
       map: json.map(
         (k, v) {
           return MapEntry(
