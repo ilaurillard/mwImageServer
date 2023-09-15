@@ -25,7 +25,7 @@ class Table {
       for (List<dynamic> row in data) {
         for (int nr in cells.keys) {
           if (row.length > nr) {
-            Widget.value = 'true';
+            Widget.value = row[nr]!.toString();
             row[nr] = Widget.parse(cells[nr]!);
           }
         }
