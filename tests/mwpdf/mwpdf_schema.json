@@ -596,8 +596,8 @@
         "Table": {
           "$ref": "#/definitions/Widgets/Table"
         },
-        "Table3": {
-          "$ref": "#/definitions/Widgets/Table3"
+        "TableAuto": {
+          "$ref": "#/definitions/Widgets/TableAuto"
         },
         "Text": {
           "$ref": "#/definitions/Widgets/Text"
@@ -1448,11 +1448,21 @@
         },
         "type": "object"
       },
-      "Table3": {
+      "TableAuto": {
         "additionalProperties": false,
         "properties": {
           "resource": {
             "$ref": "#/definitions/Util/Identifier"
+          },
+          "cells": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[0-9]+$": {
+                "$ref": "#/definitions/Widget"
+              }
+            },
+            "type": "object",
+            "description": "Cell widgets by cell number, use %value% placeholder"
           },
           "cellPadding": {
             "$ref": "#/definitions/Style/EdgeInsets"
@@ -1470,7 +1480,8 @@
                 "$ref": "#/definitions/Enum/Alignment"
               }
             },
-            "type": "object"
+            "type": "object",
+            "description": "Alignment by cell number"
           },
           "cellStyle": {
             "$ref": "#/definitions/Style/TextStyle"
@@ -1878,6 +1889,20 @@
             "url": {
               "description": "Remote file will get downloaded and cached",
               "type": "string"
+            },
+            "valuesLocale": {
+              "type": "string",
+              "description": "f.e. de_DE, en_US"
+            },
+            "valuesFormats": {
+              "type": "object",
+              "patternProperties": {
+                "^[0-9]+$": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "description": "Numberformats"
             },
             "values": {
               "items": {

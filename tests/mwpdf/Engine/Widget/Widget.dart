@@ -19,6 +19,7 @@ class Widget {
   static int pageNumber = 0;
   static int pagesCount = 0;
   static Map<String, String> parameters = {};
+  static String value = '';
 
   final Dict json;
 
@@ -123,8 +124,8 @@ class Widget {
         // ----------
         case 'Table':
           return Table.table(data);
-        case 'Table3':
-          return Table.table3(data);
+        case 'TableAuto':
+          return Table.tableAuto(data);
         // ----------
 
         case 'Text':

@@ -21,7 +21,7 @@
           }
         },
         {
-          "Table3": {
+          "TableAuto": {
             "resource": "@source1",
             "cellPadding": [
               1.5

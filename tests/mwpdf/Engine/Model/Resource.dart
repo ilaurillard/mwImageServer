@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:mwcdn/Etc/Types.dart';
 
 class Resource {
@@ -21,12 +22,18 @@ class Resource {
     Dict json,
   ) {
     List<dynamic> temp = json['values'] as List<dynamic>? ?? [];
+    String locale = json['valuesLocale'] as String? ?? 'de_DE';
     return Resource(
       binary: json['binary'] as String? ?? '',
       url: json['url'] as String? ?? '',
       file: json['file'] as String? ?? '',
       values: temp
-          .map((dynamic row) => row as List<dynamic>)
+          .map(
+            (dynamic row) => applyFormats(
+              _valuesFormats(json, locale),
+              row as List<dynamic>,
+            ),
+          )
           .toList(),
     );
   }
@@ -47,22 +54,50 @@ class Resource {
     }
   }
 
-  static Map<String, String> stringRow(
+  static List<dynamic> applyFormats(
+    Map<int, NumberFormat?> formats,
     List<dynamic> row,
   ) {
-    Map<String, String> map = {};
-    int k = 0;
-    for (dynamic d in row) {
-      // TODO map, formats
-      map['values.$k'] = d.toString();
-      k++;
+    List<dynamic> res = [];
+    int nr = 0;
+    for (dynamic value in row) {
+      NumberFormat? f = formats[nr];
+      if (value == null) {
+        res.add('');
+      } else {
+        try {
+          res.add(f != null ? f.format(value) : value.toString());
+        } catch (e) {
+          res.add('?');
+        }
+      }
+      nr++;
     }
-    return map;
+    return res;
   }
 
-  List<Map<String, String>> valuesMap() {
-    return values
-        .map((dynamic row) => stringRow(row as List<dynamic>))
-        .toList();
+  static Map<int, NumberFormat?> _valuesFormats(
+    Dict json,
+    String locale,
+  ) {
+    Map<int, NumberFormat?>? formats = {};
+    Map<String, dynamic> temp =
+        json['valuesFormats'] as Map<String, dynamic>? ?? {};
+    if (json['valuesFormats'] != null) {
+      formats = Map.fromEntries(
+        temp.entries.map(
+          (
+            MapEntry<String, dynamic> entry,
+          ) {
+            String? f = entry.value as String?;
+            return MapEntry(
+              int.tryParse(entry.key) ?? 0,
+              f != null ? NumberFormat(f, locale) : null,
+            );
+          },
+        ),
+      );
+    }
+    return formats;
   }
 }

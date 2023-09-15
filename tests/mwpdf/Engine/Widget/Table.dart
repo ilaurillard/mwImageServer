@@ -8,7 +8,7 @@ import 'Etc.dart';
 import 'Widget.dart';
 
 class Table {
-  static pw.Table table3(
+  static pw.Table tableAuto(
     Dict json,
   ) {
     double? cellHeight = double.tryParse(json['cellHeight'].toString());
@@ -16,49 +16,24 @@ class Table {
 
     Resource resource = Engine.resources.get(json['resource'] as String?);
 
-    // List<List<dynamic>> data = [
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 5],
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 5],
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 5],
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 5],
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 5],
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 5],
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 5],
-    //   [7, 8, 9, 5],
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 5],
-    //   [7, 8, 9, 5],
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 5],
-    //   [7, 8, 9, 5],
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 5],
-    //   [1, 2, 4, 2],
-    //   [3, 4, 5, 3],
-    //   [7, 8, 9, 666],
-    // ];
+    List<List<dynamic>> data = resource.values;
+
+    Map<int, Dict> cells =
+        _cells(json['cells'] as Map<String, dynamic>? ?? {});
+
+    if (cells.isNotEmpty) {
+      for (List<dynamic> row in data) {
+        for (int nr in cells.keys) {
+          if (row.length > nr) {
+            Widget.value = 'true';
+            row[nr] = Widget.parse(cells[nr]!);
+          }
+        }
+      }
+    }
 
     return pw.TableHelper.fromTextArray(
-      // data: data,
-      data: resource.values,
-
+      data: data,
       cellPadding: Etc.edgeInsets(
             json['cellPadding'] as List<dynamic>?,
           ) ??
@@ -116,7 +91,9 @@ class Table {
 
     for (dynamic e in json['children'] as List<dynamic>? ?? []) {
       Dict d = e as Dict;
-      rows.addAll(tableRows(d));
+      rows.addAll(
+        tableRows(d),
+      );
     }
 
     return pw.Table(
@@ -158,15 +135,18 @@ class Table {
 
     List<pw.TableRow> rows = [];
 
-    List<Map<String, String>> values = resource.valuesMap();
+    List<List<dynamic>> values = resource.values;
     if (values.isEmpty) {
-      values = [{}];
+      values = [[]];
     }
-    for (Map<String, String> v in values) {
-      Widget.parameters = v;
+
+    for (List<dynamic> v in values) {
       List<pw.Widget> children = [];
+      int nr = 0;
       for (dynamic d in data['children'] as List<dynamic>? ?? []) {
+        Widget.value = v.length > nr ? v[nr].toString() : '?';
         children.add(Widget.parse(d as Dict));
+        nr++;
       }
       rows.add(pw.TableRow(
         decoration: decoration,
@@ -304,5 +284,23 @@ class Table {
       );
     }
     return columnWidths;
+  }
+
+  static Map<int, Dict> _cells(
+    Dict json,
+  ) {
+    Map<int, Dict> cells = Map.fromEntries(
+      json.entries.map(
+        (
+          MapEntry<String, dynamic> entry,
+        ) {
+          return MapEntry(
+            int.tryParse(entry.key) ?? 0,
+            entry.value as Dict? ?? {},
+          );
+        },
+      ),
+    );
+    return cells;
   }
 }

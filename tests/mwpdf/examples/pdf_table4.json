@@ -1,0 +1,103 @@
+{
+  "pages": [
+    {
+      "multi": true,
+      "content": [
+        {
+          "TableAuto": {
+            "headerCount": 1,
+            "resource": "@source1",
+            "cells": {
+              "2": {
+                "Switch": {
+                  "subject": "%value%",
+                  "default": {
+                    "Text": {
+                      "text": "%value%"
+                    }
+                  },
+                  "cases": {
+                    "false": {
+                      "Align": {
+                        "child": {
+                          "Icon": {
+                            "icon": "close",
+                            "color": "660000"
+                          }
+                        }
+                      }
+                    },
+                    "true": {
+                      "Align": {
+                        "child": {
+                          "Icon": {
+                            "icon": "check_circle",
+                            "color": "006600"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "cellAlignments": {
+              "1": "centerRight",
+              "3": "centerRight"
+            },
+            "headerStyle": {
+              "fontWeight": "bold"
+            },
+            "headerAlignments": {
+              "0": "centerLeft",
+              "1": "centerRight",
+              "2": "center",
+              "3": "centerRight"
+            },
+            "headers": [
+              "Animal",
+              "Amount",
+              "Wild",
+              "Weight"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "resources": {
+    "@source1": {
+      "valuesLocale": "en_US",
+      "valuesFormats": {
+        "1": "#,##0",
+        "3": "#,##0.00"
+      },
+      "values": [
+        [
+          "Katze",
+          1.5,
+          true,
+          7.5
+        ],
+        [
+          "Hund",
+          null,
+          false,
+          333441275.25
+        ],
+        [
+          "Seehund",
+          33,
+          false,
+          375.25
+        ],
+        [
+          "Hase",
+          4,
+          false,
+          0
+        ]
+      ]
+    }
+  }
+}

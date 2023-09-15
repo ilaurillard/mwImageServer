@@ -88,7 +88,6 @@ class Etc {
     // print('Font: $json');
 
     if (json != null && json.isNotEmpty) {
-
       if (Engine.resources.fonts[json] != null) {
         return Engine.resources.fonts[json];
       }
@@ -476,10 +475,11 @@ class Etc {
   static String replaceParameters(
     String text,
   ) {
-    for (String key in Widget.parameters.keys) {
-      text = text.replaceAll('%$key%', Widget.parameters[key] ?? '');
-    }
+    // for (String key in Widget.parameters.keys) {
+    //   text = text.replaceAll('%$key%', Widget.parameters[key] ?? '');
+    // }
     return text
+        .replaceAll('%value%', Widget.value)
         .replaceAll('%pageNumber%', Widget.pageNumber.toString())
         .replaceAll('%pagesCount%', Widget.pagesCount.toString());
   }

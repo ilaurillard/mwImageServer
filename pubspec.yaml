@@ -18,6 +18,7 @@ dependencies:
   pdf: ^3.10.4
   collection: ^1.18.0
   intl: ^0.18.1
+  sprintf: ^7.0.0
 
 dev_dependencies:
   http: ^1.1.0
