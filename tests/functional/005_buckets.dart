@@ -11,7 +11,7 @@ void main() {
   String token = '';
 
   test(
-    'Root creates a bucket without key must fail',
+    'Root creates a bucket without key -> fails',
     () async {
       http.Response r = await http.post(
         Uri.parse('${host}api/bucket'),
@@ -22,7 +22,7 @@ void main() {
   );
 
   test(
-    'Root creates a bucket',
+    'Root creates a bucket, yeah',
     () async {
       http.Response r = await http.post(
         Uri.parse('${host}api/bucket'),

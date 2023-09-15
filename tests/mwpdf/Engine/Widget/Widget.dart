@@ -123,7 +123,8 @@ class Widget {
         // ----------
         case 'Table':
           return Table.table(data);
-
+        case 'Table3':
+          return Table.table3(data);
         // ----------
 
         case 'Text':

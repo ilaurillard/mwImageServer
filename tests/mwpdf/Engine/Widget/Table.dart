@@ -8,29 +8,110 @@ import 'Etc.dart';
 import 'Widget.dart';
 
 class Table {
+  static pw.Table table3(
+    Dict json,
+  ) {
+    double? cellHeight = double.tryParse(json['cellHeight'].toString());
+    double? headerHeight = double.tryParse(json['headerHeight'].toString());
+
+    Resource resource = Engine.resources.get(json['resource'] as String?);
+
+    // List<List<dynamic>> data = [
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 5],
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 5],
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 5],
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 5],
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 5],
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 5],
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 5],
+    //   [7, 8, 9, 5],
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 5],
+    //   [7, 8, 9, 5],
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 5],
+    //   [7, 8, 9, 5],
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 5],
+    //   [1, 2, 4, 2],
+    //   [3, 4, 5, 3],
+    //   [7, 8, 9, 666],
+    // ];
+
+    return pw.TableHelper.fromTextArray(
+      // data: data,
+      data: resource.values,
+
+      cellPadding: Etc.edgeInsets(
+            json['cellPadding'] as List<dynamic>?,
+          ) ??
+          const pw.EdgeInsets.all(5),
+      cellHeight: cellHeight != null ? cellHeight * PdfPageFormat.mm : 0,
+      cellAlignment: Etc.alignment(json['cellAlignment'] as String?) ??
+          pw.Alignment.topLeft,
+      cellAlignments: _cellAlignments('cellAlignments', json),
+      cellStyle: Etc.textStyle(json['cellStyle'] as Dict? ?? {}),
+      oddCellStyle: Etc.textStyle(json['oddCellStyle'] as Dict? ?? {}),
+      // cellFormat: TODO callbacks??
+      // cellDecoration: TODO callbacks??
+      headerCount: int.tryParse(json['headerCount'].toString()) ?? 1,
+      headers: json['headers'] as List<dynamic>?,
+      headerPadding: Etc.edgeInsets(
+        json['headerPadding'] as List<dynamic>?,
+      ),
+      headerHeight:
+          headerHeight != null ? headerHeight * PdfPageFormat.mm : null,
+      headerAlignment: Etc.alignment(json['headerAlignment'] as String?) ??
+          pw.Alignment.center,
+      headerAlignments: _cellAlignments('headerAlignments', json),
+      headerStyle: Etc.textStyle(json['headerStyle'] as Dict? ?? {}),
+      // headerFormat: TODO callbacks??
+      border: tableBorder(
+        json['border'] as Dict?,
+      ),
+      columnWidths: _columnWidths(json),
+      defaultColumnWidth: columnWidth(
+        json['defaultColumnWidth'] as Dict?,
+      ),
+      tableWidth: tableWidth(
+        json['tableWidth'] as String?,
+      ),
+      headerDecoration:
+          Etc.boxDecoration((json['headerDecoration'] as Dict?) ?? {}),
+      headerCellDecoration:
+          Etc.boxDecoration((json['headerCellDecoration'] as Dict?) ?? {}),
+      rowDecoration: Etc.boxDecoration((json['rowDecoration'] as Dict?) ?? {}),
+      oddRowDecoration:
+          Etc.boxDecoration((json['oddRowDecoration'] as Dict?) ?? {}),
+      headerDirection: Etc.textDirection(
+        json['headerDirection'] as String?,
+      ),
+      tableDirection: Etc.textDirection(
+        json['tableDirection'] as String?,
+      ),
+    );
+  }
+
   static pw.Table table(
     Dict json,
   ) {
-    Map<int, pw.TableColumnWidth>? columnWidths = {};
-    Map<String, dynamic> temp =
-        json['columnWidths'] as Map<String, dynamic>? ?? {};
-    if (temp.isNotEmpty) {
-      columnWidths = Map.fromEntries(
-        temp.entries.map(
-          (
-            MapEntry<String, dynamic> entry,
-          ) {
-            return MapEntry(
-              int.tryParse(entry.key) ?? 0,
-              columnWidth(
-                entry.value as Dict?,
-              ),
-            );
-          },
-        ),
-      );
-    }
-
     List<pw.TableRow> rows = [];
 
     for (dynamic e in json['children'] as List<dynamic>? ?? []) {
@@ -39,7 +120,7 @@ class Table {
     }
 
     return pw.Table(
-      columnWidths: columnWidths,
+      columnWidths: _columnWidths(json),
       defaultVerticalAlignment: tableCellVerticalAlignment(
             json['defaultVerticalAlignment'] as String?,
           ) ??
@@ -77,7 +158,7 @@ class Table {
 
     List<pw.TableRow> rows = [];
 
-    List<Map<String, String>> values = resource.values;
+    List<Map<String, String>> values = resource.valuesMap();
     if (values.isEmpty) {
       values = [{}];
     }
@@ -172,5 +253,56 @@ class Table {
       }
     }
     return pw.IntrinsicColumnWidth();
+  }
+
+  static Map<int, pw.Alignment>? _cellAlignments(
+    String key,
+    Dict json,
+  ) {
+    Map<int, pw.Alignment>? cellAlignments;
+    Map<String, dynamic> temp = json[key] as Map<String, dynamic>? ?? {};
+    if (json[key] != null) {
+      cellAlignments = Map.fromEntries(
+        temp.entries.map(
+          (
+            MapEntry<String, dynamic> entry,
+          ) {
+            return MapEntry(
+              int.tryParse(entry.key) ?? 0,
+              Etc.alignment(
+                    entry.value as String?,
+                  ) ??
+                  pw.Alignment.topLeft,
+            );
+          },
+        ),
+      );
+    }
+    return cellAlignments;
+  }
+
+  static Map<int, pw.TableColumnWidth>? _columnWidths(
+    Dict json,
+  ) {
+    Map<int, pw.TableColumnWidth>? columnWidths;
+    Map<String, dynamic> temp =
+        json['columnWidths'] as Map<String, dynamic>? ?? {};
+    if (json['columnWidths'] != null) {
+      columnWidths = Map.fromEntries(
+        temp.entries.map(
+          (
+            MapEntry<String, dynamic> entry,
+          ) {
+            return MapEntry(
+              int.tryParse(entry.key) ?? 0,
+              columnWidth(
+                entry.value as Dict?,
+              ),
+            );
+          },
+        ),
+      );
+    }
+    return columnWidths;
   }
 }

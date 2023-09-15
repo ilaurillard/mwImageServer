@@ -4,7 +4,6 @@
       "content": [
         {
           "Table": {
-
             "tableWidth": "max",
             "columnWidths": {
               "0": {
@@ -159,6 +158,12 @@
           2,
           false,
           1.5
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
         ]
       ]
     }

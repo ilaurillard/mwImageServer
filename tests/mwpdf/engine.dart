@@ -15,8 +15,9 @@ Future<void> main() async {
   // String jsonFile = 'pdf_simple3.json';
   // String jsonFile = 'pdf_layout.json';
   // String jsonFile = 'pdf_shapes.json';
-  String jsonFile = 'pdf_table.json';
-  //  String jsonFile = 'pdf_table2.json';
+  // String jsonFile = 'pdf_table.json';
+  // String jsonFile = 'pdf_table2.json';
+  String jsonFile = 'pdf_table3.json';
   // String jsonFile = 'pdf_charts.json';
   // String jsonFile = 'pdf_barcodes.json';
   // String jsonFile = 'pdf_grid.json';

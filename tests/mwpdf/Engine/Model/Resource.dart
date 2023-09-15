@@ -7,7 +7,8 @@ class Resource {
   final String file;
 
   final String binary;
-  final List<Map<String, String>> values;
+
+  final List<List<dynamic>> values;
 
   Resource({
     this.binary = '',
@@ -20,16 +21,13 @@ class Resource {
     Dict json,
   ) {
     List<dynamic> temp = json['values'] as List<dynamic>? ?? [];
-    List<Map<String, String>> values =
-        temp.map((dynamic row) => stringRow(row as List<dynamic>)).toList();
-
-    // print(values);
-
     return Resource(
       binary: json['binary'] as String? ?? '',
       url: json['url'] as String? ?? '',
       file: json['file'] as String? ?? '',
-      values: values,
+      values: temp
+          .map((dynamic row) => row as List<dynamic>)
+          .toList(),
     );
   }
 
@@ -55,10 +53,16 @@ class Resource {
     Map<String, String> map = {};
     int k = 0;
     for (dynamic d in row) {
-      // TODO map
+      // TODO map, formats
       map['values.$k'] = d.toString();
       k++;
     }
     return map;
+  }
+
+  List<Map<String, String>> valuesMap() {
+    return values
+        .map((dynamic row) => stringRow(row as List<dynamic>))
+        .toList();
   }
 }

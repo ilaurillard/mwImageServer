@@ -2,6 +2,12 @@
   "additionalProperties": false,
   "definitions": {
     "Enum": {
+      "TextDirection": {
+        "enum": [
+          "ltr",
+          "rtl"
+        ]
+      },
       "Alignment": {
         "enum": [
           "bottomCenter",
@@ -69,6 +75,12 @@
           "min"
         ]
       },
+      "TableWidth": {
+        "enum": [
+          "max",
+          "min"
+        ]
+      },
       "OutlineStyle": {
         "enum": [
           "bold",
@@ -121,6 +133,33 @@
       }
     },
     "Style": {
+      "TableBorder": {
+        "additionalProperties": false,
+        "properties": {
+          "all": {
+            "$ref": "#/definitions/Style/BoxSide"
+          },
+          "bottom": {
+            "$ref": "#/definitions/Style/BoxSide"
+          },
+          "horizontalInside": {
+            "$ref": "#/definitions/Style/BoxSide"
+          },
+          "left": {
+            "$ref": "#/definitions/Style/BoxSide"
+          },
+          "right": {
+            "$ref": "#/definitions/Style/BoxSide"
+          },
+          "top": {
+            "$ref": "#/definitions/Style/BoxSide"
+          },
+          "verticalInside": {
+            "$ref": "#/definitions/Style/BoxSide"
+          }
+        },
+        "type": "object"
+      },
       "BorderRadius": {
         "items": {
           "type": "number"
@@ -428,7 +467,7 @@
       },
       "Identifier": {
         "description": "@identifier (1 to 24 characters)",
-        "pattern": "^@[a-z]{1}[a-z0-9]{1,23}$",
+        "pattern": "^@[a-z][a-z0-9]{1,23}$",
         "type": "string"
       }
     },
@@ -556,6 +595,9 @@
         },
         "Table": {
           "$ref": "#/definitions/Widgets/Table"
+        },
+        "Table3": {
+          "$ref": "#/definitions/Widgets/Table3"
         },
         "Text": {
           "$ref": "#/definitions/Widgets/Text"
@@ -1095,10 +1137,7 @@
             "$ref": "#/definitions/Enum/TextAlign"
           },
           "textDirection": {
-            "enum": [
-              "ltr",
-              "rtl"
-            ]
+            "$ref": "#/definitions/Enum/TextDirection"
           },
           "textScaleFactor": {
             "type": "number"
@@ -1409,35 +1448,111 @@
         },
         "type": "object"
       },
+      "Table3": {
+        "additionalProperties": false,
+        "properties": {
+          "resource": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
+          "cellPadding": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "cellHeight": {
+            "type": "number"
+          },
+          "cellAlignment": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "cellAlignments": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[0-9]+$": {
+                "$ref": "#/definitions/Enum/Alignment"
+              }
+            },
+            "type": "object"
+          },
+          "cellStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "oddCellStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "headerCount": {
+            "type": "integer"
+          },
+          "headerPadding": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "headerHeight": {
+            "type": "number"
+          },
+          "headerAlignment": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "headerAlignments": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[0-9]+$": {
+                "$ref": "#/definitions/Enum/Alignment"
+              }
+            },
+            "type": "object"
+          },
+          "headerStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "border": {
+            "$ref": "#/definitions/Style/TableBorder"
+          },
+          "columnWidths": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[0-9]+$": {
+                "$ref": "#/definitions/Style/ColumnWidth"
+              }
+            },
+            "type": "object"
+          },
+          "defaultColumnWidth": {
+            "$ref": "#/definitions/Style/ColumnWidth"
+          },
+          "tableWidth": {
+            "$ref": "#/definitions/Enum/TableWidth"
+          },
+          "headerDecoration": {
+            "$ref": "#/definitions/Style/BoxDecoration"
+          },
+          "headerCellDecoration": {
+            "$ref": "#/definitions/Style/BoxDecoration"
+          },
+          "rowDecoration": {
+            "$ref": "#/definitions/Style/BoxDecoration"
+          },
+          "oddRowDecoration": {
+            "$ref": "#/definitions/Style/BoxDecoration"
+          },
+          "headerDirection": {
+            "$ref": "#/definitions/Enum/TextDirection"
+          },
+          "tableDirection": {
+            "$ref": "#/definitions/Enum/TextDirection"
+          },
+          "headers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of strings"
+          }
+        },
+        "type": "object"
+      },
       "Table": {
         "additionalProperties": false,
         "properties": {
           "border": {
-            "additionalProperties": false,
-            "properties": {
-              "all": {
-                "$ref": "#/definitions/Style/BoxSide"
-              },
-              "bottom": {
-                "$ref": "#/definitions/Style/BoxSide"
-              },
-              "horizontalInside": {
-                "$ref": "#/definitions/Style/BoxSide"
-              },
-              "left": {
-                "$ref": "#/definitions/Style/BoxSide"
-              },
-              "right": {
-                "$ref": "#/definitions/Style/BoxSide"
-              },
-              "top": {
-                "$ref": "#/definitions/Style/BoxSide"
-              },
-              "verticalInside": {
-                "$ref": "#/definitions/Style/BoxSide"
-              }
-            },
-            "type": "object"
+            "$ref": "#/definitions/Style/TableBorder"
           },
           "children": {
             "items": {
@@ -1467,10 +1582,7 @@
             "$ref": "#/definitions/Enum/VerticalAlignment"
           },
           "tableWidth": {
-            "enum": [
-              "max",
-              "min"
-            ]
+            "$ref": "#/definitions/Enum/TableWidth"
           }
         },
         "type": "object"
@@ -1521,10 +1633,7 @@
             "$ref": "#/definitions/Enum/TextAlign"
           },
           "textDirection": {
-            "enum": [
-              "ltr",
-              "rtl"
-            ]
+            "$ref": "#/definitions/Enum/TextDirection"
           },
           "textScaleFactor": {
             "type": "number"
@@ -1712,10 +1821,7 @@
                   "type": "object"
                 },
                 "textDirection": {
-                  "enum": [
-                    "ltr",
-                    "rtl"
-                  ]
+                  "$ref": "#/definitions/Enum/TextDirection"
                 }
               },
               "type": "object"
@@ -1725,7 +1831,7 @@
         }
       },
       "type": "object",
-      "comment": "footers, header, themes"
+      "description": "footers, header, themes"
     },
     "pages": {
       "items": {
@@ -1745,11 +1851,11 @@
           },
           "multi": {
             "type": "boolean",
-            "comment": "multi page (tables, ...) or not"
+            "description": "multi page (tables, ...) or not"
           },
           "theme": {
             "$ref": "#/definitions/Util/Identifier",
-            "comment": "see meta/theme"
+            "description": "see meta/theme"
           }
         },
         "type": "object"
@@ -1759,18 +1865,18 @@
     "resources": {
       "additionalProperties": false,
       "patternProperties": {
-        "^@[a-z]{1}[a-z0-9]{1,23}$": {
+        "^@[a-z][a-z0-9]{1,23}$": {
           "additionalProperties": false,
           "properties": {
             "binary": {
               "type": "string"
             },
             "file": {
-              "comment": "Local file via bucket access (mwcdn)",
+              "description": "Local file via bucket access (mwcdn)",
               "type": "string"
             },
             "url": {
-              "comment": "Remote file will get downloaded and cached",
+              "description": "Remote file will get downloaded and cached",
               "type": "string"
             },
             "values": {
@@ -1793,7 +1899,7 @@
         }
       },
       "type": "object",
-      "comment": "resources like image, svg, .. also table data, etc"
+      "description": "resources like image, svg, .. also table data, etc"
     }
   },
   "type": "object"
