@@ -135,6 +135,8 @@ class Widget {
           return Content.header(data);
         case 'Footer':
           return Content.footer(data);
+        case 'Bullet':
+          return Content.bullet(data);
         // ----------
         case 'Partitions':
           return Partition.partitions(data);

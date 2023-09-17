@@ -476,6 +476,9 @@
       "maxProperties": 1,
       "minProperties": 1,
       "properties": {
+        "Bullet": {
+          "$ref": "#/definitions/Widgets/Bullet"
+        },
         "Switch": {
           "$ref": "#/definitions/Widgets/Switch"
         },
@@ -644,6 +647,39 @@
           },
           "child": {
             "$ref": "#/definitions/Widget"
+          }
+        },
+        "type": "object"
+      },
+      "Bullet": {
+        "additionalProperties": false,
+        "properties": {
+          "margin": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "padding": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "style": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "text": {
+            "type": "string"
+          },
+          "textAlign": {
+            "$ref": "#/definitions/Enum/TextAlign"
+          },
+          "bulletMargin": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "bulletSize": {
+            "type": "number"
+          },
+          "bulletShape": {
+            "$ref": "#/definitions/Enum/BoxShape"
+          },
+          "bulletColor": {
+            "$ref": "#/definitions/Style/Color"
           }
         },
         "type": "object"

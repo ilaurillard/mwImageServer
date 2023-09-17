@@ -1,0 +1,36 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "Bullet": {
+                  "text": "Somewhere over",
+                  "bulletColor": "FF8800"
+                }
+              },
+              {
+                "Bullet": {
+                  "text": "the Rainbirds the Rainbirds the Rainbirds the Rainbirds the Rainbirds the Rainbirds the Rainbirds the Rainbirds",
+                  "bulletColor": "00FF88",
+                  "bulletShape": "rectangle"
+                }
+              },
+              {
+                "Bullet": {
+                  "text": "Shoeprint\nShoeprint",
+                  "bulletSize": 3,
+                  "style": {
+                    "color": "FF8800"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -77,4 +77,41 @@ class Content {
       decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
     );
   }
+
+  static pw.Bullet bullet(
+    Dict json,
+  ) {
+    double? bulletSize = double.tryParse(json['bulletSize'].toString());
+
+    return pw.Bullet(
+        text: Etc.replaceParameters(json['text'] as String? ?? '¿'),
+        textAlign: Etc.textAlign(
+              json['textAlign'] as String?,
+            ) ??
+            pw.TextAlign.left,
+        padding: Etc.edgeInsets(
+          json['padding'] as List<dynamic>?,
+        ),
+        margin: Etc.edgeInsets(
+              json['margin'] as List<dynamic>?,
+            ) ??
+            const pw.EdgeInsets.only(bottom: 2.0 * PdfPageFormat.mm),
+        style: Etc.textStyle(json['style'] as Dict? ?? {}),
+
+        bulletMargin: Etc.edgeInsets(
+              json['bulletMargin'] as List<dynamic>?,
+            ) ??
+            const pw.EdgeInsets.only(
+              top: 1.5 * PdfPageFormat.mm,
+              left: 5.0 * PdfPageFormat.mm,
+              right: 2.0 * PdfPageFormat.mm,
+            ),
+        bulletSize: bulletSize != null
+            ? bulletSize * PdfPageFormat.mm
+            : 2.0 * PdfPageFormat.mm,
+        bulletShape:
+            Etc.boxShape(json['bulletShape'] as String?) ?? pw.BoxShape.circle,
+        bulletColor:
+            Etc.color(json['bulletColor'] as String?) ?? PdfColors.black);
+  }
 }
