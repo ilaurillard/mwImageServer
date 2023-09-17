@@ -5,7 +5,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'Widget.dart';
 import 'Etc.dart';
 
-class Grid {
+class GridPaper {
   static const lineColor = PdfColor.fromInt(0xffc3e8f3);
 
   static pw.GridPaper gridPaper(

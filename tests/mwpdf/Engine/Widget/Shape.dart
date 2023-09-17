@@ -69,18 +69,4 @@ class Shape {
     }).toList();
   }
 
-  static pw.PdfLogo pdfLogo(
-    Dict json,
-  ) {
-    return pw.PdfLogo(
-      color: Etc.color(
-            json['color'] as String?,
-          ) ??
-          PdfColors.red,
-      fit: Etc.boxFit(
-            json['fit'] as String?,
-          ) ??
-          pw.BoxFit.contain,
-    );
-  }
 }

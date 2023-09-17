@@ -2,30 +2,11 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Widget.dart';
+import 'Annotation.dart';
 import 'Etc.dart';
+import 'Widget.dart';
 
 class Content {
-  static pw.Text text(
-    Dict json,
-  ) {
-    return pw.Text(
-      Etc.replaceParameters(json['text'] as String? ?? '¿'),
-      style: Etc.textStyle((json['style'] as Dict?) ?? {}),
-      textAlign: Etc.textAlign(
-        json['textAlign'] as String?,
-      ),
-      textDirection: Etc.textDirection(
-        json['textDirection'] as String?,
-      ),
-      softWrap: json['softWrap'] as bool?,
-      tightBounds: Types.boolFromDict(json, 'tightBounds'),
-      textScaleFactor: double.tryParse(json['textScaleFactor'].toString()) ?? 1.0,
-      maxLines: int.tryParse(json['maxLines'].toString()),
-      overflow: Etc.textOverflow(json['overflow'] as String?),
-    );
-  }
-
   static pw.Paragraph paragraph(
     Dict json,
   ) {
@@ -46,105 +27,54 @@ class Content {
     );
   }
 
-  static pw.Spacer spacer(
+  static pw.Header header(
     Dict json,
   ) {
-    return pw.Spacer(
-      flex: int.tryParse(json['flex'].toString()) ?? 1,
-    );
-  }
-
-  static pw.Placeholder placeholder(
-    Dict json,
-  ) {
-    double? strokeWidth = double.tryParse(json['strokeWidth'].toString());
-    double? fallbackWidth = double.tryParse(json['fallbackWidth'].toString());
-    double? fallbackHeight = double.tryParse(json['fallbackHeight'].toString());
-    return pw.Placeholder(
-      strokeWidth: strokeWidth != null ? strokeWidth * PdfPageFormat.mm : 2.0,
-      fallbackWidth: fallbackWidth != null ? fallbackWidth * PdfPageFormat.mm : 400.0,
-      fallbackHeight: fallbackHeight != null ? fallbackHeight * PdfPageFormat.mm : 400.0,
-      color: Etc.color(
-            json['color'] as String?,
-          ) ??
-          PdfColor.fromInt(0xFF455A64),
-    );
-  }
-
-  static pw.Opacity opacity(Dict json) {
-    return pw.Opacity(
-      opacity: double.tryParse(json['opacity'].toString()) ?? 1.0,
+    return pw.Header(
+      title: json['title'] as String?,
+      text: json['text'] as String?,
       child: Widget.child(json),
-    );
-  }
-
-  static pw.Divider divider(
-    Dict json,
-  ) {
-    double? height = double.tryParse(json['height'].toString());
-    double? thickness = double.tryParse(json['thickness'].toString());
-    double? indent = double.tryParse(json['indent'].toString());
-    double? endIndent = double.tryParse(json['endIndent'].toString());
-    return pw.Divider(
-      height: height != null ? height * PdfPageFormat.mm : null,
-      thickness: thickness != null ? thickness * PdfPageFormat.mm : null,
-      indent: indent != null ? indent * PdfPageFormat.mm : null,
-      endIndent: endIndent != null ? endIndent * PdfPageFormat.mm : null,
-      color: Etc.color(
-        json['color'] as String?,
+      level: json['level'] as int? ?? 0,
+      decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
+      outlineColor: Etc.color(
+        json['outlineColor'] as String?,
       ),
-      borderStyle: Etc.borderStyle(
-        json['borderStyle'] as String?,
+      outlineStyle: Annotation.pdfOutlineStyle(
+            json['outlineStyle'] as String?,
+          ) ??
+          PdfOutlineStyle.normal,
+      margin: Etc.edgeInsets(
+        json['margin'] as List<dynamic>?,
+      ),
+      padding: Etc.edgeInsets(
+        json['padding'] as List<dynamic>?,
+      ),
+      textStyle: Etc.textStyle(
+        (json['textStyle'] as Dict?) ?? {},
       ),
     );
   }
 
-  static pw.VerticalDivider verticalDivider(
-      Dict json,
-      ) {
-    double? width = double.tryParse(json['width'].toString());
-    double? thickness = double.tryParse(json['thickness'].toString());
-    double? indent = double.tryParse(json['indent'].toString());
-    double? endIndent = double.tryParse(json['endIndent'].toString());
-    return pw.VerticalDivider(
-      width: width != null ? width * PdfPageFormat.mm : null,
-      thickness: thickness != null ? thickness * PdfPageFormat.mm : null,
-      indent: indent != null ? indent * PdfPageFormat.mm : null,
-      endIndent: endIndent != null ? endIndent * PdfPageFormat.mm : null,
-      color: Etc.color(
-        json['color'] as String?,
+  static pw.Footer footer(
+    Dict json,
+  ) {
+    return pw.Footer(
+      leading: json['leading'] != null
+          ? Widget.parse(json['leading'] as Dict? ?? {})
+          : null,
+      title: json['title'] != null
+          ? Widget.parse(json['title'] as Dict? ?? {})
+          : null,
+      trailing: json['trailing'] != null
+          ? Widget.parse(json['trailing'] as Dict? ?? {})
+          : null,
+      margin: Etc.edgeInsets(
+        json['margin'] as List<dynamic>?,
       ),
-      borderStyle: Etc.borderStyle(
-        json['borderStyle'] as String?,
+      padding: Etc.edgeInsets(
+        json['padding'] as List<dynamic>?,
       ),
+      decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
     );
-  }
-
-  static pw.Text loremText(
-    Dict json,
-  ) {
-    json['text'] = _loremText(json);
-    return text(json);
-  }
-
-  static pw.Paragraph loremParagraph(
-    Dict json,
-  ) {
-    json['text'] = _loremText(json);
-    return paragraph(json);
-  }
-
-  static String _loremText(
-    Dict json,
-  ) {
-    int? sentence = int.tryParse(json['sentence'].toString());
-    if (sentence != null && sentence > 0) {
-      return pw.LoremText().sentence(sentence);
-    }
-    int? paragraph = int.tryParse(json['paragraph'].toString());
-    if (paragraph != null && paragraph > 0) {
-      return pw.LoremText().paragraph(paragraph);
-    }
-    return '¿';
   }
 }

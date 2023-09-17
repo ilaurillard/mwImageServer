@@ -27,6 +27,7 @@
               },
               {
                 "BarcodeWidget": {
+                  "value": "1234123412344",
                   "barcode": "CodeEAN13",
                   "width": 120,
                   "height": 40,
@@ -40,7 +41,7 @@
                   },
                   "margin": [
                     0,
-                    10
+                    2
                   ],
                   "padding": [
                     3
@@ -48,11 +49,53 @@
                 }
               },
               {
+                "Divider": {
+                }
+              },
+              {
                 "BarcodeWidget": {
+                  "value": "http://www.google.de",
                   "barcode": "QrCode",
                   "width": 50,
-                  "height": 50,
-                  "color": "FF000000"
+                  "height": 50
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "BarcodeWidget": {
+                  "value": "1234123412344",
+                  "barcode": "Aztec",
+                  "width": 50,
+                  "height": 50
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "BarcodeWidget": {
+                  "value": "1234567",
+                  "barcode": "Telepen",
+                  "drawText": true,
+                  "width": 50,
+                  "height": 20
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "BarcodeWidget": {
+                  "value": "9783161484100",
+                  "barcode": "CodeISBN",
+                  "drawText": true,
+                  "width": 50,
+                  "height": 20
                 }
               }
             ]

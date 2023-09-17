@@ -533,6 +533,9 @@
         "Header": {
           "$ref": "#/definitions/Widgets/Header"
         },
+        "Footer": {
+          "$ref": "#/definitions/Widgets/Footer"
+        },
         "Icon": {
           "$ref": "#/definitions/Widgets/Icon"
         },
@@ -662,6 +665,9 @@
         "properties": {
           "backgroundColor": {
             "$ref": "#/definitions/Style/Color"
+          },
+          "value": {
+            "type": "string"
           },
           "barcode": {
             "enum": [
@@ -1005,6 +1011,30 @@
           },
           "title": {
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Footer": {
+        "additionalProperties": false,
+        "properties": {
+          "leading": {
+            "$ref": "#/definitions/Widget"
+          },
+          "title": {
+            "$ref": "#/definitions/Widget"
+          },
+          "trailing": {
+            "$ref": "#/definitions/Widget"
+          },
+          "decoration": {
+            "$ref": "#/definitions/Style/BoxDecoration"
+          },
+          "margin": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "padding": {
+            "$ref": "#/definitions/Style/EdgeInsets"
           }
         },
         "type": "object"

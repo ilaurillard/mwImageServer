@@ -5,7 +5,9 @@
         {
           "Header": {
             "level": 0,
-            "margin": [10],
+            "margin": [
+              10
+            ],
             "title": "Portable Document Format",
             "child": {
               "Container": {
@@ -27,6 +29,29 @@
                     ]
                   }
                 }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "Footer": {
+            "leading": {
+              "Text": {
+                "text": "aaa"
+              }
+            },
+            "title": {
+              "Text": {
+                "text": "bbb"
+              }
+            },
+            "trailing": {
+              "Text": {
+                "text": "ccc"
               }
             }
           }
