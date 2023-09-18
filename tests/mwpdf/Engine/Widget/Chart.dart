@@ -1,13 +1,11 @@
-
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Widget.dart';
 import 'Etc.dart';
+import 'Widget.dart';
 
 class Chart {
-
   static pw.Chart chart(
     Dict json,
   ) {
@@ -56,67 +54,68 @@ class Chart {
       bottom: Widget.parse(json['bottom'] as Dict? ?? {}),
       left: Widget.parse(json['left'] as Dict? ?? {}),
       right: Widget.parse(json['right'] as Dict? ?? {}),
+      datasets: datasets(json['datasets'] as List<dynamic>? ?? []),
 
       // CartesianGrid
-      datasets: [
-        pw.BarDataSet(
-          color: PdfColors.blue200,
-          legend: 'Xxx',
-          width: 10,
-          offset: 10,
-          borderColor: PdfColors.green300,
-          data: List<pw.PointChartValue>.generate(
-            dataTable.length,
-            (int index) {
-              final double value =
-                  double.tryParse((dataTable[index][3] as num).toString()) ??
-                      0.0;
-              return pw.PointChartValue(
-                index.toDouble(),
-                value + 2,
-              );
-            },
-          ),
-        ),
-        pw.LineDataSet(
-          legend: 'Expense',
-          drawSurface: true,
-          isCurved: true,
-          drawPoints: false,
-          color: PdfColors.blue300,
-          data: List<pw.PointChartValue>.generate(
-            dataTable.length,
-            (int index) {
-              final double value =
-                  double.tryParse((dataTable[index][3] as num).toString()) ??
-                      0.0;
-              return pw.PointChartValue(
-                index.toDouble(),
-                value,
-              );
-            },
-          ),
-        ),
-        pw.LineDataSet(
-          legend: 'yyy',
-          drawSurface: false,
-          isCurved: false,
-          drawPoints: true,
-          color: PdfColors.red300,
-          data: List<pw.PointChartValue>.generate(
-            dataTable.length,
-            (int index) {
-              final double value =
-                  double.tryParse((dataTable[index][4] as num).toString()) ??
-                      0.0;
-              return pw.PointChartValue(
-                index.toDouble(),
-                value,
-              );
-            },
-          ),
-        ),
-      ],
+      // datasets: [
+      //   pw.BarDataSet(
+      //     color: PdfColors.blue200,
+      //     legend: 'Legend',
+      //     width: 15,
+      //     offset: 0,
+      //     borderColor: PdfColors.black,
+      //     data: List<pw.PointChartValue>.generate(
+      //       dataTable.length,
+      //       (int index) {
+      //         final double value =
+      //             double.tryParse((dataTable[index][3] as num).toString()) ??
+      //                 0.0;
+      //         return pw.PointChartValue(
+      //           index.toDouble(),
+      //           value,
+      //         );
+      //       },
+      //     ),
+      //   ),
+      //   pw.LineDataSet(
+      //     legend: 'Expense',
+      //     drawSurface: true,
+      //     isCurved: true,
+      //     drawPoints: false,
+      //     color: PdfColors.blue400,
+      //     data: List<pw.PointChartValue>.generate(
+      //       dataTable.length,
+      //       (int index) {
+      //         final double value =
+      //             double.tryParse((dataTable[index][3] as num).toString()) ??
+      //                 0.0;
+      //         return pw.PointChartValue(
+      //           index.toDouble(),
+      //           value,
+      //         );
+      //       },
+      //     ),
+      //   ),
+      //   pw.LineDataSet(
+      //     legend: 'Animals',
+      //     drawSurface: false,
+      //     isCurved: false,
+      //     drawPoints: true,
+      //     color: PdfColors.red300,
+      //     data: List<pw.PointChartValue>.generate(
+      //       dataTable.length,
+      //       (int index) {
+      //         final double value =
+      //             double.tryParse((dataTable[index][4] as num).toString()) ??
+      //                 0.0;
+      //         return pw.PointChartValue(
+      //           index.toDouble(),
+      //           value,
+      //         );
+      //       },
+      //     ),
+      //   ),
+      // ],
 
       // -------------
 
@@ -160,8 +159,6 @@ class Chart {
       //       ),
       //     ),
       // ],
-
-
     );
   }
 
@@ -173,7 +170,7 @@ class Chart {
     String key = widget.key;
     Dict data = widget.value as Dict;
 
-    print('W: $key');
+    // print('W: $key');
 
     switch (key) {
       case 'CartesianGrid':
@@ -187,6 +184,72 @@ class Chart {
     throw Exception('Parsing chart grid failed');
   }
 
+  static pw.CartesianGrid cartesianGrid(
+    Dict json,
+  ) {
+    return pw.CartesianGrid(
+      xAxis: gridAxis(json['xAxis'] as Dict? ?? {}),
+      yAxis: gridAxis(json['yAxis'] as Dict? ?? {}),
+
+      // xAxis: gridAxis(json['xAxis'] as List<dynamic>? ?? []),
+      // yAxis: gridAxis(json['yAxis'] as List<dynamic>? ?? []),
+
+      // yAxis: pw.FixedAxis(
+      //   [0, 1, 2, 3, 4, 5],
+      //   ticks: true,
+      // ),
+      // xAxis: pw.FixedAxis.fromStrings(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']),
+    );
+  }
+
+  static pw.GridAxis gridAxis(
+    Dict json,
+  ) {
+    MapEntry<String, dynamic> widget = json.entries.first;
+
+    String key = widget.key;
+    Dict data = widget.value as Dict;
+
+    // print('W: $key');
+
+    switch (key) {
+      case 'FixedAxis':
+        return fixedAxis(data);
+    }
+
+    throw Exception('Parsing chart axis failed');
+  }
+
+  static pw.FixedAxis fixedAxis(
+    Dict json,
+  ) {
+    // print(json);
+
+    // TODO
+
+    return pw.FixedAxis([0, 1, 2, 3, 4, 5, 6], ticks: true);
+  }
+
+  static pw.ChartLegend chartLegend(
+    Dict json,
+  ) {
+    return pw.ChartLegend(
+      textStyle: Etc.textStyle(json['textStyle'] as Dict? ?? {}),
+      position: Etc.alignment(
+            json['position'] as String?,
+          ) ??
+          pw.Alignment.topRight,
+      direction: Etc.axis(json['direction'] as String?) ?? pw.Axis.vertical,
+      padding: Etc.edgeInsets(
+            json['padding'] as List<dynamic>?,
+          ) ??
+          pw.EdgeInsets.all(5),
+      decoration: Etc.boxDecoration(
+        (json['decoration'] as Dict?) ?? {},
+      ),
+    );
+  }
+
   static pw.PieGrid pieGrid(
     Dict json,
   ) {
@@ -195,48 +258,87 @@ class Chart {
     );
   }
 
+  // experimental
   static pw.RadialGrid radialGrid(
     Dict json,
   ) {
     return pw.RadialGrid();
   }
 
-  static pw.CartesianGrid cartesianGrid(
-    Dict json,
-  ) {
-    return pw.CartesianGrid(
-      xAxis: gridAxis(json['xAxis'] as List<dynamic>? ?? []),
-      yAxis: gridAxis(json['yAxis'] as List<dynamic>? ?? []),
-    );
-  }
-
-  static pw.FixedAxis gridAxis(
+  static List<pw.PointDataSet> datasets(
     List<dynamic> json,
   ) {
-    // TODO
-    return pw.FixedAxis(
-      [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-      ],
-    );
-  }
+    List<pw.PointDataSet> dataSets = [];
 
-  static pw.ChartLegend chartLegend(
-      Dict json,
-      ) {
-    // TODO
-    return pw.ChartLegend(
-      position: Etc.alignment(
-        json['position'] as String?,
-      ) ?? pw.Alignment.topRight,
-    );
+    const dataTable = [
+      [1.3],
+      [2.8],
+      [4],
+      [4],
+      [1],
+      [0.6],
+      [1.4],
+    ];
+
+    for (dynamic temp in json) {
+      MapEntry<String, dynamic> temp2 = (temp as Dict? ?? {}).entries.first;
+      String key = temp2.key;
+      Dict data = temp2.value as Dict;
+
+      print(data);
+
+      switch (key) {
+        case 'LineDataSet':
+          dataSets.add(
+            pw.LineDataSet(
+              legend: 'Animals',
+              drawSurface: false,
+              isCurved: false,
+              drawPoints: true,
+              color: PdfColors.red300,
+              data: List<pw.PointChartValue>.generate(
+                dataTable.length,
+                (int index) {
+                  final double value =
+                      double.tryParse((dataTable[index][0]).toString()) ?? 0.0;
+                  return pw.PointChartValue(
+                    index.toDouble(),
+                    value,
+                  );
+                },
+              ),
+            ),
+          );
+          break;
+        case 'BarDataSet':
+          dataSets.add(
+            pw.BarDataSet(
+              color: PdfColors.blue200,
+              legend: 'Legend',
+              width: 15,
+              offset: 0,
+              borderColor: PdfColors.black,
+              data: List<pw.PointChartValue>.generate(
+                dataTable.length,
+                (int index) {
+                  final double value =
+                      double.tryParse((dataTable[index][0]).toString()) ?? 0.0;
+                  return pw.PointChartValue(
+                    index.toDouble(),
+                    value,
+                  );
+                },
+              ),
+            ),
+          );
+          break;
+
+        default:
+          print('Unknown dataset "$key"');
+          break;
+      }
+    }
+
+    return dataSets;
   }
 }

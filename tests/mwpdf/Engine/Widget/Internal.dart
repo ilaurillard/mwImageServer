@@ -1,6 +1,6 @@
 import 'package:pdf/pdf.dart';
 
-class Annotation {
+class Internal {
   static PdfOutlineStyle? pdfOutlineStyle(
     String? json,
   ) {

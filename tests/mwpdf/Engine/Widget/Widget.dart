@@ -4,10 +4,12 @@ import 'package:pdf/widgets.dart' as pw;
 import 'Barcode.dart';
 import 'Basic.dart';
 import 'Chart.dart';
+import 'Clip.dart';
 import 'Container.dart';
 import 'Content.dart';
 import 'Etc.dart';
 import 'Flex.dart';
+import 'Form.dart';
 import 'GridPaper.dart';
 import 'GridView.dart';
 import 'Image.dart';
@@ -148,6 +150,8 @@ class Widget {
         // ----------
         case 'Text':
           return Text.text(data);
+        // case 'RichText':
+        //   return Text.richText(data);
         case 'Paragraph':
           return Content.paragraph(data);
         // ----------
@@ -185,36 +189,42 @@ class Widget {
         case 'GridPaper':
           return GridPaper.gridPaper(data);
         // -----------
+        case 'ClipRect':
+          return Clip.clipRect(data);
+        case 'ClipRRect':
+          return Clip.clipRRect(data);
+        case 'ClipOval':
+          return Clip.clipOval(data);
+      // -----------
+        case 'TextField':
+          return Form.textField(data);
+
         /*
 
           TODO
           ----
-          annotations:
-            ...
+
           basic:
             Transform
             CustomPaint
             FullPage
-          clip:
-            ClipRect
-            ClipRRect
-            ClipOval
           content:
             TableOfContent
-            Bullet
             Watermark
-          forms:
-            ChoiceField
-            Checkbox
-            FlatButton
-            TextField
-            Signature
           image:
             Shape
           shape:
             Inklist
           text:
             RichText
+          forms:
+            ChoiceField
+            Checkbox
+            FlatButton
+            TextField
+            Signature
+          annotations:
+            ...
 
         */
       }

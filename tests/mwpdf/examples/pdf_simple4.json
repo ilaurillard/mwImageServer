@@ -26,6 +26,35 @@
                     "color": "FF8800"
                   }
                 }
+              },
+              {
+                "Divider": {
+
+                }
+              },
+              {
+                "ClipOval": {
+                  "child": {
+                    "Container": {
+                      "height": 50,
+                      "width": 80,
+                      "color": "000000",
+                      "child": {
+                        "LoremParagraph": {
+                          "sentence": 200,
+                          "style": {
+                            "color": "FFFFFF"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+
+                }
               }
             ]
           }

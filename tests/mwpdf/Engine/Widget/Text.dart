@@ -4,6 +4,29 @@ import 'package:pdf/widgets.dart' as pw;
 import 'Etc.dart';
 
 class Text {
+  // static pw.RichText richText(
+  //   Dict json,
+  // ) {
+  //   // TODO
+  //   // build a markdown parser?
+  //   return pw.RichText(
+  //     text: pw.TextSpan(
+  //       text: 'test',
+  //       children: [
+  //         pw.TextSpan(
+  //           text: 'xxx',
+  //         ),
+  //         pw.TextSpan(
+  //           text: 'yyy',
+  //         ),
+  //         pw.TextSpan(
+  //           text: 'zzz',
+  //         ),
+  //       ]
+  //     ),
+  //   );
+  // }
+
   static pw.Text text(
     Dict json,
   ) {

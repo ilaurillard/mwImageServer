@@ -7,6 +7,7 @@
             "children": [
               {
                 "Expanded": {
+                  "flex": 2,
                   "child": {
                     "Column": {
                       "children": [
@@ -14,13 +15,36 @@
                           "Chart": {
                             "grid": {
                               "CartesianGrid": {
-                                "xAxis": [],
-                                "yAxis": []
+                                "xAxis": {
+                                  "FixedAxis": {
+
+                                  }
+                                },
+                                "yAxis": {
+                                  "FixedAxis": {
+
+                                  }
+                                }
                               }
                             },
+                            "datasets": [
+                              {
+                                "BarDataSet": {
+                                  "resource": "@source2",
+                                  "legend": "b"
+                                }
+                              },
+                              {
+                                "LineDataSet": {
+                                  "resource": "@source1",
+                                  "legend": "a"
+                                }
+                              }
+                            ],
                             "overlay": {
                               "ChartLegend": {
-                                "position": "-.7,1"
+                                "position": "-.8,2",
+                                "direction": "vertical"
                               }
                             },
                             "title": {
@@ -46,18 +70,18 @@
                           }
                         },
                         {
-                          "Chartx": {
+                          "Chart": {
                             "grid": {
-                              "RadialGrid": {
+                              "PieGrid": {
+                                "startAngle": 0.0
                               }
                             }
                           }
                         },
                         {
-                          "Chartx": {
+                          "Chart": {
                             "grid": {
-                              "PieGrid": {
-                                "startAngle": 0.0
+                              "RadialGrid": {
                               }
                             }
                           }
@@ -68,7 +92,13 @@
                 }
               },
               {
+                "VerticalDivider": {
+
+                }
+              },
+              {
                 "Expanded": {
+                  "flex": 1,
                   "child": {
                     "Text": {
                       "text": "RITESITE"

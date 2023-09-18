@@ -1,14 +1,12 @@
 // import 'package:test/test.dart';
 
 import 'dart:io';
-import 'dart:math';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 Future<void> main() async {
   PdfPageFormat pageFormat = PdfPageFormat.a4;
-
 
   final lorem = pw.LoremText();
 
@@ -124,7 +122,6 @@ class Invoice {
   pw.Widget _buildHeader(
     pw.Context context,
   ) {
-
     print('Page ${context.pageNumber}/${context.pagesCount}');
 
     return pw.Column(
@@ -205,7 +202,6 @@ class Invoice {
   pw.Widget _buildFooter(
     pw.Context context,
   ) {
-
     print('Page ${context.pageNumber}/${context.pagesCount}');
 
     return pw.Row(
@@ -287,7 +283,6 @@ class Invoice {
                     fontSize: 12,
                     decoration: pw.TextDecoration.lineThrough,
                     decorationColor: PdfColors.cyan,
-
                   ),
                 ),
               ),
@@ -550,5 +545,3 @@ class Product {
     return '';
   }
 }
-
-

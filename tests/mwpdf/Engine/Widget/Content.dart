@@ -2,7 +2,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Annotation.dart';
+import 'Internal.dart';
 import 'Etc.dart';
 import 'Widget.dart';
 
@@ -39,7 +39,7 @@ class Content {
       outlineColor: Etc.color(
         json['outlineColor'] as String?,
       ),
-      outlineStyle: Annotation.pdfOutlineStyle(
+      outlineStyle: Internal.pdfOutlineStyle(
             json['outlineStyle'] as String?,
           ) ??
           PdfOutlineStyle.normal,
@@ -114,4 +114,5 @@ class Content {
         bulletColor:
             Etc.color(json['bulletColor'] as String?) ?? PdfColors.black);
   }
+
 }

@@ -476,6 +476,15 @@
       "maxProperties": 1,
       "minProperties": 1,
       "properties": {
+        "ClipRect": {
+          "$ref": "#/definitions/Widgets/ClipRect"
+        },
+        "ClipRRect": {
+          "$ref": "#/definitions/Widgets/ClipRRect"
+        },
+        "ClipOval": {
+          "$ref": "#/definitions/Widgets/ClipOval"
+        },
         "Bullet": {
           "$ref": "#/definitions/Widgets/Bullet"
         },
@@ -651,6 +660,39 @@
         },
         "type": "object"
       },
+      "ClipRect": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          }
+        },
+        "type": "object"
+      },
+      "ClipRRect": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "horizontalRadius": {
+            "type": "number"
+          },
+          "verticalRadius": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "ClipOval": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          }
+        },
+        "type": "object"
+      },
       "Bullet": {
         "additionalProperties": false,
         "properties": {
@@ -769,6 +811,66 @@
       "Chart": {
         "additionalProperties": false,
         "properties": {
+          "grid": {
+            "additionalProperties": false,
+            "properties": {
+              "CartesianGrid": {
+                "additionalProperties": false,
+                "properties": {
+                  "xAxis": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "FixedAxis": {
+                        "$ref": "#/definitions/Other/FixedAxis"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "yAxis": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "FixedAxis": {
+                        "$ref": "#/definitions/Other/FixedAxis"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "PieGrid": {
+                "additionalProperties": false,
+                "properties": {
+                  "startAngle": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "RadialGrid": {
+                "additionalProperties": false,
+                "properties": {
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "datasets": {
+            "type": "array",
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "BarDataSet": {
+                  "$ref": "#/definitions/Other/BarDataSet"
+                },
+                "LineDataSet": {
+                  "$ref": "#/definitions/Other/LineDataSet"
+                }
+              },
+              "type": "object"
+            }
+          },
           "bottom": {
             "$ref": "#/definitions/Widget"
           },
@@ -792,6 +894,18 @@
         "properties": {
           "position": {
             "$ref": "#/definitions/Enum/Alignment"
+          },
+          "textStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "direction": {
+            "$ref": "#/definitions/Enum/Axis"
+          },
+          "padding": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "decoration": {
+            "$ref": "#/definitions/Style/BoxDecoration"
           }
         },
         "type": "object"
@@ -1283,21 +1397,6 @@
         },
         "type": "object"
       },
-      "Partition": {
-        "additionalProperties": false,
-        "properties": {
-          "child": {
-            "$ref": "#/definitions/Widget"
-          },
-          "flex": {
-            "type": "integer"
-          },
-          "width": {
-            "type": "number"
-          }
-        },
-        "type": "object"
-      },
       "Partitions": {
         "additionalProperties": false,
         "properties": {
@@ -1306,7 +1405,7 @@
               "additionalProperties": false,
               "properties": {
                 "Partition": {
-                  "$ref": "#/definitions/Widgets/Partition"
+                  "$ref": "#/definitions/Other/Partition"
                 }
               },
               "type": "object"
@@ -1636,7 +1735,7 @@
               "additionalProperties": false,
               "properties": {
                 "TableRow": {
-                  "$ref": "#/definitions/Widgets/TableRow"
+                  "$ref": "#/definitions/Other/TableRow"
                 }
               },
               "type": "object"
@@ -1660,30 +1759,6 @@
           },
           "tableWidth": {
             "$ref": "#/definitions/Enum/TableWidth"
-          }
-        },
-        "type": "object"
-      },
-      "TableRow": {
-        "additionalProperties": false,
-        "properties": {
-          "children": {
-            "items": {
-              "$ref": "#/definitions/Widget"
-            },
-            "type": "array"
-          },
-          "decoration": {
-            "$ref": "#/definitions/Style/BoxDecoration"
-          },
-          "repeat": {
-            "type": "boolean"
-          },
-          "verticalAlignment": {
-            "$ref": "#/definitions/Enum/VerticalAlignment"
-          },
-          "resource": {
-            "$ref": "#/definitions/Util/Identifier"
           }
         },
         "type": "object"
@@ -1753,6 +1828,77 @@
               "$ref": "#/definitions/Widget"
             },
             "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "Other": {
+      "Partition": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "flex": {
+            "type": "integer"
+          },
+          "width": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "TableRow": {
+        "additionalProperties": false,
+        "properties": {
+          "children": {
+            "items": {
+              "$ref": "#/definitions/Widget"
+            },
+            "type": "array"
+          },
+          "decoration": {
+            "$ref": "#/definitions/Style/BoxDecoration"
+          },
+          "repeat": {
+            "type": "boolean"
+          },
+          "verticalAlignment": {
+            "$ref": "#/definitions/Enum/VerticalAlignment"
+          },
+          "resource": {
+            "$ref": "#/definitions/Util/Identifier"
+          }
+        },
+        "type": "object"
+      },
+      "FixedAxis": {
+        "additionalProperties": false,
+        "properties": {
+        },
+        "type": "object"
+      },
+      "BarDataSet": {
+        "additionalProperties": false,
+        "properties": {
+          "legend": {
+            "type": "string"
+          },
+          "resource": {
+            "$ref": "#/definitions/Util/Identifier"
+          }
+        },
+        "type": "object"
+      },
+      "LineDataSet": {
+        "additionalProperties": false,
+        "properties": {
+          "legend": {
+            "type": "string"
+          },
+          "resource": {
+            "$ref": "#/definitions/Util/Identifier"
           }
         },
         "type": "object"
