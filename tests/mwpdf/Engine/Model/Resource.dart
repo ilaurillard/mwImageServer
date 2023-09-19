@@ -10,24 +10,27 @@ class Resource {
   final String binary;
 
   final List<List<dynamic>> values;
+  final List<Map<String, dynamic>> data;
 
   Resource({
     this.binary = '',
     this.file = '',
     this.url = '',
     this.values = const [],
+    this.data = const [],
   });
 
   static Resource fromJson(
     Dict json,
   ) {
-    List<dynamic> temp = json['values'] as List<dynamic>? ?? [];
+    List<dynamic> tempValues = json['values'] as List<dynamic>? ?? [];
+    List<dynamic> tempData = json['data'] as List<dynamic>? ?? [];
     String locale = json['valuesLocale'] as String? ?? 'de_DE';
     return Resource(
       binary: json['binary'] as String? ?? '',
       url: json['url'] as String? ?? '',
       file: json['file'] as String? ?? '',
-      values: temp
+      values: tempValues
           .map(
             (dynamic row) => applyFormats(
               _valuesFormats(json, locale),
@@ -35,6 +38,7 @@ class Resource {
             ),
           )
           .toList(),
+      data: tempData.map((dynamic row) => row as Dict).toList(),
     );
   }
 

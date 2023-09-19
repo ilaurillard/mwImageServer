@@ -15,7 +15,8 @@ class Resources {
   Map<String, String> materialCodes = {};
 
   String exampleSvg = '';
-  pw.MemoryImage exampleImage = pw.MemoryImage(base64.decode('R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='));
+  pw.MemoryImage exampleImage =
+      pw.MemoryImage(base64.decode('R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='));
 
   final Map<String, Resource> map;
 
@@ -106,6 +107,9 @@ class Resources {
   Resource get(
     String? source,
   ) {
+    if (source != null && source.isNotEmpty && map[source] == null) {
+      print('No resource available for "$source"');
+    }
     return map[source ?? ''] ?? Resource();
   }
 }

@@ -1,7 +1,10 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:vector_math/vector_math.dart';
 
+import '../Engine.dart';
+import '../Model/Resource.dart';
 import 'Etc.dart';
 import 'Widget.dart';
 
@@ -21,30 +24,30 @@ class Chart {
       ['Insurance', 250, 310, 1.4, 1.5],
     ];
 
-    const dataTable2 = [
-      [12],
-      [12],
-      [17],
-      [22],
-      [17],
-      [12],
-      [17],
-      [12],
-    ];
+    // const dataTable2 = [
+    //   [12],
+    //   [12],
+    //   [17],
+    //   [22],
+    //   [17],
+    //   [12],
+    //   [17],
+    //   [12],
+    // ];
+    //
+    // const chartColors = [
+    //   PdfColors.blue300,
+    //   PdfColors.green300,
+    //   PdfColors.amber300,
+    //   PdfColors.pink300,
+    //   PdfColors.cyan300,
+    //   PdfColors.purple300,
+    //   PdfColors.lime300,
+    // ];
 
-    const chartColors = [
-      PdfColors.blue300,
-      PdfColors.green300,
-      PdfColors.amber300,
-      PdfColors.pink300,
-      PdfColors.cyan300,
-      PdfColors.purple300,
-      PdfColors.lime300,
-    ];
-
-    final expense = dataTable
-        .map((e) => e[2] as num)
-        .reduce((value, element) => value + element);
+    // final expense = dataTable
+    //     .map((e) => e[2] as num)
+    //     .reduce((value, element) => value + element);
 
     // TODO
     return pw.Chart(
@@ -54,7 +57,10 @@ class Chart {
       bottom: Widget.parse(json['bottom'] as Dict? ?? {}),
       left: Widget.parse(json['left'] as Dict? ?? {}),
       right: Widget.parse(json['right'] as Dict? ?? {}),
-      datasets: datasets(json['datasets'] as List<dynamic>? ?? []),
+      datasets: datasets(
+        json['datasets'] as List<dynamic>? ?? [],
+
+      ),
 
       // CartesianGrid
       // datasets: [
@@ -253,8 +259,9 @@ class Chart {
   static pw.PieGrid pieGrid(
     Dict json,
   ) {
+    double a = double.tryParse(json['startAngle'].toString()) ?? 0.0;
     return pw.PieGrid(
-      startAngle: double.tryParse(json['startAngle'].toString()) ?? 0.0,
+      startAngle: radians(a),
     );
   }
 
@@ -265,72 +272,48 @@ class Chart {
     return pw.RadialGrid();
   }
 
-  static List<pw.PointDataSet> datasets(
+  static List<pw.Dataset> datasets(
     List<dynamic> json,
   ) {
-    List<pw.PointDataSet> dataSets = [];
-
-    const dataTable = [
-      [1.3],
-      [2.8],
-      [4],
-      [4],
-      [1],
-      [0.6],
-      [1.4],
-    ];
+    List<pw.Dataset> dataSets = [];
 
     for (dynamic temp in json) {
       MapEntry<String, dynamic> temp2 = (temp as Dict? ?? {}).entries.first;
       String key = temp2.key;
       Dict data = temp2.value as Dict;
 
-      print(data);
+      // print(data);
 
       switch (key) {
-        case 'LineDataSet':
-          dataSets.add(
-            pw.LineDataSet(
-              legend: 'Animals',
-              drawSurface: false,
-              isCurved: false,
-              drawPoints: true,
-              color: PdfColors.red300,
-              data: List<pw.PointChartValue>.generate(
-                dataTable.length,
-                (int index) {
-                  final double value =
-                      double.tryParse((dataTable[index][0]).toString()) ?? 0.0;
-                  return pw.PointChartValue(
-                    index.toDouble(),
-                    value,
-                  );
-                },
-              ),
-            ),
-          );
-          break;
         case 'BarDataSet':
           dataSets.add(
-            pw.BarDataSet(
-              color: PdfColors.blue200,
-              legend: 'Legend',
-              width: 15,
-              offset: 0,
-              borderColor: PdfColors.black,
-              data: List<pw.PointChartValue>.generate(
-                dataTable.length,
-                (int index) {
-                  final double value =
-                      double.tryParse((dataTable[index][0]).toString()) ?? 0.0;
-                  return pw.PointChartValue(
-                    index.toDouble(),
-                    value,
-                  );
-                },
-              ),
-            ),
+            barDataSet(data),
           );
+          break;
+        case 'LineDataSet':
+          dataSets.add(
+            lineDataSet(data),
+          );
+          break;
+        case 'PieDataSet':
+          Resource resource = Engine.resources.get(data['resource'] as String?);
+
+          if (resource.data.isNotEmpty) {
+            for (Map<String, dynamic> i in resource.data) {
+              data['value'] = double.tryParse(i['value'].toString()) ?? 0;
+              data['color'] = i['color'] as String?;
+              data['legend'] = i['legend'] as String?;
+              dataSets.add(
+                pieDataSet(data),
+              );
+            }
+          }
+          else {
+            dataSets.add(
+              pieDataSet(data),
+            );
+          }
+
           break;
 
         default:
@@ -340,5 +323,155 @@ class Chart {
     }
 
     return dataSets;
+  }
+
+  static pw.BarDataSet barDataSet(
+    Dict json,
+  ) {
+    // const dataTable = [1.3, 2.8, 4, 4, 1, 0.6, 1.4];
+    Resource resource = Engine.resources.get(json['resource'] as String?);
+
+    // print(resource.values);
+
+    double? surfaceOpacity = double.tryParse(json['surfaceOpacity'].toString());
+    double? width = double.tryParse(json['width'].toString());
+    double? offset = double.tryParse(json['offset'].toString());
+    double? pointSize = double.tryParse(json['pointSize'].toString());
+    return pw.BarDataSet(
+      width: width != null ? width * PdfPageFormat.mm : 10,
+      offset: offset != null ? offset * PdfPageFormat.mm : 0,
+      surfaceOpacity: surfaceOpacity ?? 1,
+      drawSurface: json['drawSurface'] as bool? ?? true,
+      drawBorder: json['drawBorder'] as bool?,
+      drawPoints: json['drawPoints'] as bool? ?? false,
+      color: Etc.color(json['color'] as String?) ?? PdfColors.blue,
+      legend: json['legend'] as String?,
+      borderColor: Etc.color(json['borderColor'] as String?),
+      pointColor: Etc.color(json['pointColor'] as String?),
+      axis: Etc.axis(json['axis'] as String?) ?? pw.Axis.horizontal,
+      pointSize: pointSize != null ? pointSize * PdfPageFormat.mm : 3,
+      valuePosition: valuePosition(json['valuePosition'] as String?) ??
+          pw.ValuePosition.auto,
+      data: List<pw.PointChartValue>.generate(
+        resource.values.length,
+        (int index) {
+          final double value =
+              double.tryParse((resource.values[index][0]).toString()) ?? 0.0;
+          return pw.PointChartValue(
+            index.toDouble(),
+            value,
+          );
+        },
+      ),
+    );
+  }
+
+  static pw.PieDataSet pieDataSet(
+    Dict json,
+  ) {
+    double? offset = double.tryParse(json['offset'].toString());
+    double? borderWidth = double.tryParse(json['borderWidth'].toString());
+    double? surfaceOpacity = double.tryParse(json['surfaceOpacity'].toString());
+    double? value = double.tryParse(json['value'].toString());
+    double? legendOffset = double.tryParse(json['legendOffset'].toString());
+    double? innerRadius = double.tryParse(json['innerRadius'].toString());
+    double? legendLineWidth =
+        double.tryParse(json['legendLineWidth'].toString());
+    return pw.PieDataSet(
+      value: value ?? 0,
+      color: Etc.color(json['color'] as String?) ?? PdfColors.amber,
+      legend: json['legend'] as String?,
+      borderColor: Etc.color(json['borderColor'] as String?) ?? PdfColors.white,
+      borderWidth: borderWidth != null ? borderWidth * PdfPageFormat.mm : 1.5,
+      drawBorder: json['drawBorder'] as bool?,
+      drawSurface: json['drawSurface'] as bool? ?? true,
+      surfaceOpacity: surfaceOpacity ?? 1,
+      offset: offset != null ? offset * PdfPageFormat.mm : 0,
+      legendStyle: Etc.textStyle((json['legendStyle'] as Dict?) ?? {}),
+      legendAlign: Etc.textAlign(json['legendAlign'] as String?),
+      legendPosition: pieLegendPosition(json['legendPosition'] as String?) ??
+          pw.PieLegendPosition.auto,
+      legendLineWidth:
+          legendLineWidth != null ? legendLineWidth * PdfPageFormat.mm : 1.0,
+      legendLineColor: Etc.color(json['legendLineColor'] as String?),
+      legendWidget: json['legendWidget'] != null
+          ? Widget.parse(json['legendWidget'] as Dict? ?? {})
+          : null,
+      legendOffset: legendOffset != null ? legendOffset * PdfPageFormat.mm : 20,
+      innerRadius: innerRadius != null ? innerRadius * PdfPageFormat.mm : 0,
+    );
+  }
+
+  static pw.LineDataSet lineDataSet(
+    Dict json,
+  ) {
+    // const dataTable = [1.3, 2.8, 4, 4, 1, 0.6, 1.4];
+    Resource resource = Engine.resources.get(json['resource'] as String?);
+    double? smoothness = double.tryParse(json['smoothness'].toString());
+    double? pointSize = double.tryParse(json['pointSize'].toString());
+    double? lineWidth = double.tryParse(json['lineWidth'].toString());
+    double? surfaceOpacity = double.tryParse(json['surfaceOpacity'].toString());
+    return pw.LineDataSet(
+      legend: json['legend'] as String?,
+      color: Etc.color(json['color'] as String?) ?? PdfColors.blue,
+      pointColor: Etc.color(json['pointColor'] as String?),
+      pointSize: pointSize != null ? pointSize * PdfPageFormat.mm : 3,
+      lineWidth: lineWidth != null ? lineWidth * PdfPageFormat.mm : 2,
+      drawLine: json['drawLine'] as bool? ?? true,
+      lineColor: Etc.color(json['lineColor'] as String?),
+      drawPoints: json['drawPoints'] as bool? ?? true,
+      valuePosition: valuePosition(json['valuePosition'] as String?) ??
+          pw.ValuePosition.auto,
+      drawSurface: json['drawSurface'] as bool? ?? false,
+      surfaceOpacity: surfaceOpacity ?? .2,
+      surfaceColor: Etc.color(json['surfaceColor'] as String?),
+      isCurved: json['isCurved'] as bool? ?? false,
+      smoothness: smoothness ?? 0.35,
+      data: List<pw.PointChartValue>.generate(
+        resource.values.length,
+        (int index) {
+          final double value =
+              double.tryParse((resource.values[index][0]).toString()) ?? 0.0;
+          return pw.PointChartValue(
+            index.toDouble(),
+            value,
+          );
+        },
+      ),
+    );
+  }
+
+  static pw.ValuePosition? valuePosition(
+    String? json,
+  ) {
+    switch (json) {
+      case 'left':
+        return pw.ValuePosition.left;
+      case 'top':
+        return pw.ValuePosition.top;
+      case 'right':
+        return pw.ValuePosition.right;
+      case 'bottom':
+        return pw.ValuePosition.bottom;
+      case 'auto':
+        return pw.ValuePosition.auto;
+    }
+    return null;
+  }
+
+  static pw.PieLegendPosition? pieLegendPosition(
+    String? json,
+  ) {
+    switch (json) {
+      case 'left':
+        return pw.PieLegendPosition.none;
+      case 'auto':
+        return pw.PieLegendPosition.auto;
+      case 'inside':
+        return pw.PieLegendPosition.inside;
+      case 'outside':
+        return pw.PieLegendPosition.outside;
+    }
+    return null;
   }
 }

@@ -19,6 +19,7 @@ dependencies:
   collection: ^1.18.0
   intl: ^0.18.1
   sprintf: ^7.0.0
+  vector_math: any
 
 dev_dependencies:
   http: ^1.1.0
