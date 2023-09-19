@@ -305,7 +305,13 @@ class Etc {
         case 'centerLeft':
           return pw.Alignment.centerLeft;
         default:
-          // TODO allow "double,double"
+          // allow "double,double"
+          List<String> segments = json.split(',');
+          if (segments.length == 2) {
+            double? x = double.tryParse(segments[0]);
+            double? y = double.tryParse(segments[1]);
+            return pw.Alignment(x ?? 1, y ?? 1);
+          }
           return pw.Alignment(1, 1);
       }
     }

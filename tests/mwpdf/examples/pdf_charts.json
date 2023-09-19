@@ -7,7 +7,7 @@
             "children": [
               {
                 "Expanded": {
-                  "flex": 2,
+                  "flex": 3,
                   "child": {
                     "Column": {
                       "children": [
@@ -59,7 +59,7 @@
                             ],
                             "overlay": {
                               "ChartLegend": {
-                                "position": "-.8,2",
+                                "position": "-0.75,1",
                                 "direction": "vertical"
                               }
                             },
@@ -83,6 +83,11 @@
                                 "text": "right"
                               }
                             }
+                          }
+                        },
+                        {
+                          "Divider": {
+
                           }
                         },
                         {
@@ -137,7 +142,7 @@
               },
               {
                 "Expanded": {
-                  "flex": 1,
+                  "flex": 2,
                   "child": {
                     "Column": {
                       "children": [
@@ -160,6 +165,44 @@
                               }
                             ]
                           }
+                        },
+                        {
+                          "Divider": {
+
+                          }
+                        },
+                        {
+                          "Chart": {
+                            "grid": {
+                              "CartesianGrid": {
+                                "xAxis": {
+                                  "FixedAxis": {
+                                  }
+                                },
+                                "yAxis": {
+                                  "FixedAxis": {
+                                  }
+                                }
+                              }
+                            },
+                            "datasets": [
+                              {
+                                "LineDataSet": {
+                                  "resource": "@source1",
+                                  "legend": "ccc",
+                                  "color": "FF8800",
+                                  "surfaceColor": "CCCCCC",
+                                  "drawSurface": true,
+                                  "surfaceOpacity": 0.3,
+                                  "isCurved": true
+                                }
+                              }
+                            ],
+                            "overlay": {
+                              "ChartLegend": {
+                              }
+                            }
+                          }
                         }
                       ]
                     }
@@ -176,22 +219,22 @@
     "@source1": {
       "values": [
         [
-          0.4
-        ],
-        [
-          2.9
-        ],
-        [
           3.9
         ],
         [
-          4
+          4.9
         ],
         [
-          2.5
+          5
         ],
         [
-          6.0
+          3.5
+        ],
+        [
+          4.0
+        ],
+        [
+          1.4
         ]
       ]
     },

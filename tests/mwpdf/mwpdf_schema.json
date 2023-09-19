@@ -3,16 +3,26 @@
   "definitions": {
     "Enum": {
       "Alignment": {
-        "enum": [
-          "bottomCenter",
-          "bottomLeft",
-          "bottomRight",
-          "center",
-          "centerLeft",
-          "centerRight",
-          "topCenter",
-          "topLeft",
-          "topRight"
+        "anyOf": [
+          {
+            "enum": [
+              "bottomCenter",
+              "bottomLeft",
+              "bottomRight",
+              "center",
+              "centerLeft",
+              "centerRight",
+              "topCenter",
+              "topLeft",
+              "topRight"
+            ]
+          },
+          {
+            "description": "enum or double,double (-1.0..1.0,-1.0..1.0)",
+            "maxLength": 24,
+            "minLength": 3,
+            "type": "string"
+          }
         ]
       },
       "Axis": {

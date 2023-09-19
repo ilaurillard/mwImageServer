@@ -282,8 +282,6 @@ class Chart {
       String key = temp2.key;
       Dict data = temp2.value as Dict;
 
-      // print(data);
-
       switch (key) {
         case 'BarDataSet':
           dataSets.add(
@@ -328,11 +326,7 @@ class Chart {
   static pw.BarDataSet barDataSet(
     Dict json,
   ) {
-    // const dataTable = [1.3, 2.8, 4, 4, 1, 0.6, 1.4];
     Resource resource = Engine.resources.get(json['resource'] as String?);
-
-    // print(resource.values);
-
     double? surfaceOpacity = double.tryParse(json['surfaceOpacity'].toString());
     double? width = double.tryParse(json['width'].toString());
     double? offset = double.tryParse(json['offset'].toString());
@@ -405,7 +399,6 @@ class Chart {
   static pw.LineDataSet lineDataSet(
     Dict json,
   ) {
-    // const dataTable = [1.3, 2.8, 4, 4, 1, 0.6, 1.4];
     Resource resource = Engine.resources.get(json['resource'] as String?);
     double? smoothness = double.tryParse(json['smoothness'].toString());
     double? pointSize = double.tryParse(json['pointSize'].toString());
