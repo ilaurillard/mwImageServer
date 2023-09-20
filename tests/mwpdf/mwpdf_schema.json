@@ -25,6 +25,11 @@
           }
         ]
       },
+      "TileMode": {
+        "enum": [
+          "clamp"
+        ]
+      },
       "Axis": {
         "enum": [
           "horizontal",
@@ -213,7 +218,44 @@
       },
       "FixedAxis": {
         "additionalProperties": false,
-        "properties": {},
+        "properties": {
+          "ticks": {
+            "type": "boolean"
+          },
+          "divisions": {
+            "type": "boolean"
+          },
+          "axisTick": {
+            "type": "boolean"
+          },
+          "divisionsDashed": {
+            "type": "boolean"
+          },
+          "angle": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "divisionsWidth": {
+            "type": "number"
+          },
+          "margin": {
+            "type": "number"
+          },
+          "marginStart": {
+            "type": "number"
+          },
+          "marginEnd": {
+            "type": "number"
+          },
+          "textStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          }
+        },
         "type": "object"
       },
       "PieDataSet": {
@@ -365,6 +407,70 @@
           }
         },
         "type": "object"
+      },
+      "LinearGradient": {
+        "additionalProperties": false,
+        "properties": {
+          "colors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Style/Color"
+            }
+          },
+          "stops": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "usually 0..1"
+          },
+          "begin": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "end": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "tileMode": {
+            "$ref": "#/definitions/Enum/TileMode"
+          }
+        },
+        "type": "object"
+      },
+      "RadialGradient": {
+        "additionalProperties": false,
+        "properties": {
+          "colors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Style/Color"
+            }
+          },
+          "stops": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "usually 0..1"
+          },
+          "center": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "tileMode": {
+            "$ref": "#/definitions/Enum/TileMode"
+          },
+          "focal": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "radius": {
+            "type": "number",
+            "description": "usually 0..1"
+          },
+          "focalRadius": {
+            "type": "number",
+            "description": "usually 0..1"
+          }
+        },
+        "type": "object"
       }
     },
     "Style": {
@@ -429,9 +535,47 @@
           },
           "shape": {
             "$ref": "#/definitions/Enum/BoxShape"
+          },
+          "boxShadow": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Style/BoxShadow"
+            }
+          },
+          "gradient": {
+            "additionalProperties": false,
+            "type": "object",
+            "properties": {
+              "LinearGradient": {
+                "$ref": "#/definitions/Other/LinearGradient",
+              },
+              "RadialGradient": {
+                "$ref": "#/definitions/Other/RadialGradient"
+              }
+            },
+            "maxProperties": 1,
+            "minProperties": 1
           }
         },
         "type": "object"
+      },
+      "BoxShadow": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "blurRadius": {
+            "type": "number"
+          },
+          "offset": {
+            "$ref": "#/definitions/Style/PdfPoint",
+          },
+          "spreadRadius": {
+            "type": "number"
+          }
+        }
       },
       "BoxSide": {
         "additionalProperties": false,
@@ -510,6 +654,14 @@
           "array",
           "null"
         ]
+      },
+      "PdfPoint": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 2,
+        "minItems": 2,
+        "type": "array"
       },
       "Font": {
         "anyOf": [
@@ -592,10 +744,7 @@
         "additionalProperties": false,
         "properties": {
           "background": {
-            "properties": {
-              "TODO": {}
-            },
-            "type": "object"
+            "$ref": "#/definitions/Style/BoxDecoration"
           },
           "color": {
             "$ref": "#/definitions/Style/Color"
@@ -2101,14 +2250,8 @@
             "^@[a-z]{1,24}$": {
               "additionalProperties": false,
               "properties": {
-                "background": {
-                  "TODO": {}
-                },
                 "clip": {
                   "type": "boolean"
-                },
-                "foreground": {
-                  "TODO": {}
                 },
                 "format": {
                   "additionalProperties": false,

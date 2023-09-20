@@ -22,10 +22,6 @@ class Theme {
 
     pw.PageTheme theme = pw.PageTheme(
       pageFormat: pageFormat((json['format'] as Dict?) ?? {}),
-      // TODO
-      buildBackground: null,
-      // TODO
-      buildForeground: null,
       theme: styles((json['styles'] as Dict?) ?? {}),
       orientation: orientation,
       margin: Etc.edgeInsets(

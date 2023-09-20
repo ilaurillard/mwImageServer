@@ -15,9 +15,9 @@ class Etc {
     }
 
     // TODO
-    // boxShadow,
-    // gradient,
     // image,
+
+    List<dynamic> temp = json['boxShadow'] as List<dynamic>? ?? [];
 
     return pw.BoxDecoration(
       color: Etc.color(json['color'] as String?),
@@ -28,6 +28,8 @@ class Etc {
         json['borderRadius'] as List<dynamic>?,
       ),
       shape: Etc.boxShape(json['shape'] as String?) ?? pw.BoxShape.rectangle,
+      boxShadow: temp.map((e) => Etc.boxShadow(e as Dict? ?? {})).toList(),
+      gradient: Etc.gradient(json['gradient'] as Dict? ?? {}),
     );
   }
 
@@ -71,8 +73,7 @@ class Etc {
       wordSpacing: double.tryParse(json['wordSpacing'].toString()),
       lineSpacing: double.tryParse(json['lineSpacing'].toString()),
       height: double.tryParse(json['height'].toString()),
-      // TODO background
-      background: null,
+      background: Etc.boxDecoration(json['background'] as Dict? ?? {}),
       decoration: Etc.textDecoration(json['decoration'] as String?),
       decorationColor: Etc.color(json['decorationColor'] as String?),
       decorationStyle: decStyle,
@@ -149,6 +150,18 @@ class Etc {
         return pw.BoxShape.rectangle;
     }
     return null;
+  }
+
+  static pw.BoxShadow boxShadow(
+    Dict json,
+  ) {
+    return pw.BoxShadow(
+      color: Etc.color(json['color'] as String?) ?? PdfColors.black,
+      offset:
+          Etc.pdfPoint(json['offset'] as List<dynamic>? ?? []) ?? PdfPoint.zero,
+      blurRadius: double.tryParse(json['blurRadius'].toString()) ?? 0.0,
+      spreadRadius: double.tryParse(json['spreadRadius'].toString()) ?? 0.0,
+    );
   }
 
   static pw.MainAxisAlignment mainAxisAlignment(
@@ -230,6 +243,23 @@ class Etc {
     return null;
   }
 
+  static PdfPoint? pdfPoint(
+    List<dynamic>? json,
+  ) {
+    if (json != null && json.isNotEmpty) {
+      double x = double.tryParse(json.first.toString()) ?? 0.0;
+      double y = 0.0;
+      if (json.length > 1) {
+        y = double.tryParse(json[1].toString()) ?? 0.0;
+      }
+      return PdfPoint(
+        x * PdfPageFormat.mm,
+        y * PdfPageFormat.mm,
+      );
+    }
+    return null;
+  }
+
   static pw.EdgeInsets? edgeInsets(
     List<dynamic>? json,
   ) {
@@ -276,6 +306,18 @@ class Etc {
           return pw.BoxFit.none;
         case 'scaleDown':
           return pw.BoxFit.scaleDown;
+      }
+    }
+    return null;
+  }
+
+  static pw.TileMode? tileMode(
+    String? json,
+  ) {
+    if (json != null && json != '') {
+      switch (json) {
+        case 'clamp':
+          return pw.TileMode.clamp;
       }
     }
     return null;
@@ -576,5 +618,59 @@ class Etc {
     }
 
     return Widget.parse(json['default'] as Dict? ?? {});
+  }
+
+  static pw.Gradient? gradient(
+    Dict json,
+  ) {
+    if (json.isNotEmpty) {
+      // print(json);
+
+      MapEntry<String, dynamic> widget = json.entries.first;
+      String key = widget.key;
+      Dict data = widget.value as Dict;
+
+      List<PdfColor> colors = (data['colors'] as List<dynamic>)
+          .map((e) => Etc.color(e as String?) ?? PdfColors.black)
+          .toList();
+
+      List<double>? stops = data['stops'] != null
+          ? (data['stops'] as List<dynamic>)
+              .map((e) => double.tryParse(e.toString()) ?? 0.0)
+              .toList()
+          : null;
+
+      switch (key) {
+        case 'LinearGradient':
+          return pw.LinearGradient(
+            colors: colors,
+            stops: stops,
+            begin: Etc.alignment(data['begin'] as String?) ??
+                pw.Alignment.centerLeft,
+            end: Etc.alignment(data['end'] as String?) ??
+                pw.Alignment.centerRight,
+            tileMode:
+                Etc.tileMode(data['tileMode'] as String?) ?? pw.TileMode.clamp,
+          );
+        case 'RadialGradient':
+          double? radius = double.tryParse(data['radius'].toString());
+          double? focalRadius = double.tryParse(data['focalRadius'].toString());
+
+          return pw.RadialGradient(
+            colors: colors,
+            stops: stops,
+            center:
+                Etc.alignment(data['center'] as String?) ?? pw.Alignment.center,
+            radius: radius ?? 0.5,
+            tileMode:
+                Etc.tileMode(data['tileMode'] as String?) ?? pw.TileMode.clamp,
+            focalRadius:
+                focalRadius ?? 0.0,
+            focal: Etc.alignment(data['center'] as String?)
+          );
+      }
+      throw Exception('Parsing gradient failed');
+    }
+    return null;
   }
 }

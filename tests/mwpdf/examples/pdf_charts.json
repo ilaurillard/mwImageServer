@@ -17,10 +17,33 @@
                               "CartesianGrid": {
                                 "xAxis": {
                                   "FixedAxis": {
+                                    "values": [0, 1, 2, 3, 4, 5, 6],
+                                    "ticks": true,
+                                    "divisions": true,
+                                    "axisTick": true,
+                                    "divisionsDashed": true,
+                                    "angle": 0,
+                                    "width": 0.2,
+                                    "divisionsWidth": 0.2,
+                                    "margin": 0,
+                                    "marginStart": 10,
+                                    "marginEnd": 10,
+                                    "textStyle": {
+                                      "color": "FF0000"
+                                    },
+                                    "color": "006688"
                                   }
                                 },
                                 "yAxis": {
                                   "FixedAxis": {
+                                    "values": [0, 1, 2, 3, 4, 5, 6],
+                                    "ticks": true,
+                                    "divisions": true,
+                                    "axisTick": true,
+                                    "divisionsDashed": true,
+                                    "angle": 0,
+                                    "width": 0.2,
+                                    "divisionsWidth": 0.2
                                   }
                                 }
                               }
@@ -37,7 +60,7 @@
                                   "drawPoints": false,
                                   "drawSurface": true,
                                   "surfaceOpacity": 0.3,
-                                  "width": 12,
+                                  "width": 8,
                                   "drawBorder": true,
                                   "valuePosition": "auto"
                                 }
@@ -59,7 +82,7 @@
                             ],
                             "overlay": {
                               "ChartLegend": {
-                                "position": "-0.75,1",
+                                "position": "0.9,1",
                                 "direction": "vertical"
                               }
                             },
@@ -70,17 +93,17 @@
                             },
                             "bottom": {
                               "Text": {
-                                "text": "bottom"
+                                "text": "B"
                               }
                             },
                             "left": {
                               "Text": {
-                                "text": "left"
+                                "text": "L"
                               }
                             },
                             "right": {
                               "Text": {
-                                "text": "right"
+                                "text": "R"
                               }
                             }
                           }
@@ -177,10 +200,12 @@
                               "CartesianGrid": {
                                 "xAxis": {
                                   "FixedAxis": {
+                                    "values": [0, 1, 2, 3, 4, 5, 6]
                                   }
                                 },
                                 "yAxis": {
                                   "FixedAxis": {
+                                    "values": [0, 1, 2, 3, 4, 5, 6]
                                   }
                                 }
                               }

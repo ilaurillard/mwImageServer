@@ -1,0 +1,100 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Container": {
+                  "padding": [
+                    10,
+                    3
+                  ],
+                  "width": 150,
+                  "height": 50,
+                  "decoration": {
+                    "color": "FFFFFF",
+                    "border": {
+                      "all": {
+                        "color": "FF8800"
+                      }
+                    },
+                    "boxShadow": [
+                      {
+                        "color": "000000",
+                        "blurRadius": 5,
+                        "offset": [
+                          5,
+                          5
+                        ],
+                        "spreadRadius": 10
+                      }
+                    ]
+                  },
+                  "child": {
+                    "LoremText": {
+                      "paragraph": 100
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                  "height": 20
+                }
+              },
+              {
+                "Container": {
+                  "width": 150,
+                  "height": 50,
+                  "decoration": {
+                    "gradient": {
+                      "LinearGradient": {
+                        "colors": [
+                          "000000",
+                          "FF8800",
+                          "000000"
+                        ],
+                        "stops": [
+                          0.0,
+                          0.4,
+                          1.0
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                  "height": 20
+                }
+              },
+              {
+                "Container": {
+                  "width": 150,
+                  "height": 50,
+                  "decoration": {
+                    "gradient": {
+                      "RadialGradient": {
+                        "center": "bottomCenter",
+                        "colors": [
+                          "000000",
+                          "CCCCCC",
+                          "FF0000"
+                        ],
+                        "radius": 1.0
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
