@@ -13,7 +13,7 @@
                     3
                   ],
                   "width": 150,
-                  "height": 50,
+                  "height": 30,
                   "decoration": {
                     "color": "FFFFFF",
                     "border": {
@@ -35,20 +35,20 @@
                   },
                   "child": {
                     "LoremText": {
-                      "paragraph": 100
+                      "paragraph": 70
                     }
                   }
                 }
               },
               {
                 "Divider": {
-                  "height": 20
+                  "height": 10
                 }
               },
               {
                 "Container": {
                   "width": 150,
-                  "height": 50,
+                  "height": 20,
                   "decoration": {
                     "gradient": {
                       "LinearGradient": {
@@ -69,13 +69,13 @@
               },
               {
                 "Divider": {
-                  "height": 20
+                  "height": 10
                 }
               },
               {
                 "Container": {
                   "width": 150,
-                  "height": 50,
+                  "height": 30,
                   "decoration": {
                     "gradient": {
                       "RadialGradient": {
@@ -85,10 +85,175 @@
                           "CCCCCC",
                           "FF0000"
                         ],
-                        "radius": 1.0
+                        "stops": [
+                          0.0,
+                          0.4,
+                          1.0
+                        ],
+                        "radius": 2.0
                       }
                     }
                   }
+                }
+              },
+              {
+                "Divider": {
+                  "height": 10
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceEvenly",
+                  "children": [
+                    {
+                      "Container": {
+                        "width": 20,
+                        "height": 20,
+                        "color": "667788",
+                        "transform": {
+                          "RotateZ": {
+                            "angle": 10
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "width": 20,
+                        "height": 20,
+                        "color": "667777",
+                        "transform": {
+                          "Scale": {
+                            "scale": 1.1
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "width": 20,
+                        "height": 20,
+                        "color": "667766",
+                        "transform": {
+                          "Translate": {
+                            "offset": [
+                              -5,
+                              -5
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                  "height": 10
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceEvenly",
+                  "children": [
+                    {
+                      "Transform": {
+                        "adjustLayout": true,
+                        "unconstrained": false,
+                        "alignment": "center",
+                        "origin": [
+                          0,
+                          0
+                        ],
+                        "transform": {
+                          "RotateZ": {
+                            "angle": 10
+                          }
+                        },
+                        "child": {
+                          "Container": {
+                            "width": 20,
+                            "height": 20,
+                            "color": "444488"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Transform": {
+                        "adjustLayout": true,
+                        "unconstrained": false,
+                        "alignment": "center",
+                        "origin": [
+                          10,
+                          0
+                        ],
+                        "transform": {
+                          "RotateZ": {
+                            "angle": 20
+                          }
+                        },
+                        "child": {
+                          "Container": {
+                            "width": 20,
+                            "height": 20,
+                            "color": "444477"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Transform": {
+                        "adjustLayout": true,
+                        "unconstrained": false,
+                        "alignment": "center",
+                        "origin": [
+                          20,
+                          0
+                        ],
+                        "transform": {
+                          "RotateZ": {
+                            "angle": 30
+                          }
+                        },
+                        "child": {
+                          "Container": {
+                            "width": 20,
+                            "height": 20,
+                            "color": "444466"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Transform": {
+                        "adjustLayout": true,
+                        "unconstrained": false,
+                        "alignment": "center",
+                        "origin": [
+                          30,
+                          0
+                        ],
+                        "transform": {
+                          "RotateZ": {
+                            "angle": 40
+                          }
+                        },
+                        "child": {
+                          "Container": {
+                            "width": 20,
+                            "height": 20,
+                            "color": "444455"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                  "height": 10
                 }
               }
             ]

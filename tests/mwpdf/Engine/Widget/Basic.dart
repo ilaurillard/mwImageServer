@@ -1,6 +1,7 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:vector_math/vector_math_64.dart';
 
 import 'Etc.dart';
 import 'Widget.dart';
@@ -118,6 +119,21 @@ class Basic {
     );
   }
 
+  static pw.Transform transform(
+    Dict json,
+  ) {
+    // return pw.Transform.rotateBox(angle: radians(45), child: Widget.child(json));
+    // print(json);
+    return pw.Transform(
+      origin: Etc.pdfPoint(json['origin'] as List<dynamic>?),
+      adjustLayout: json['adjustLayout'] as bool? ?? false,
+      unconstrained: json['unconstrained'] as bool? ?? false,
+      alignment: Etc.alignment(json['alignment'] as String?),
+      transform: Etc.transform(json['transform'] as Dict? ?? {}) ?? Matrix4.zero(),
+      child: Widget.child(json),
+    );
+  }
+
   static pw.Divider divider(
     Dict json,
   ) {
@@ -160,3 +176,4 @@ class Basic {
     );
   }
 }
+

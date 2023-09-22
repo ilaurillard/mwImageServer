@@ -99,6 +99,8 @@ class Widget {
           return Basic.verticalDivider(data);
         case 'Opacity':
           return Basic.opacity(data);
+        case 'Transform':
+          return Basic.transform(data);
         // ----------
         case 'Container':
           return Container.container(data);
@@ -201,11 +203,10 @@ class Widget {
 
         /*
 
-          TODO
+          TODO widgets
           ----
 
           basic:
-            Transform
             CustomPaint
             FullPage
           content:

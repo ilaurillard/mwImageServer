@@ -7,7 +7,7 @@ class Text {
   // static pw.RichText richText(
   //   Dict json,
   // ) {
-  //   // TODO
+  //   // TODO richtext/markdown
   //   // build a markdown parser?
   //   return pw.RichText(
   //     text: pw.TextSpan(

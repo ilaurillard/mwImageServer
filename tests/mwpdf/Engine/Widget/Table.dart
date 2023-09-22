@@ -44,8 +44,8 @@ class Table {
       cellAlignments: _cellAlignments('cellAlignments', json),
       cellStyle: Etc.textStyle(json['cellStyle'] as Dict? ?? {}),
       oddCellStyle: Etc.textStyle(json['oddCellStyle'] as Dict? ?? {}),
-      // cellFormat: TODO callbacks??
-      // cellDecoration: TODO callbacks??
+      // cellFormat: TODO support callbacks??
+      // cellDecoration: TODO support callbacks somehow??
       headerCount: int.tryParse(json['headerCount'].toString()) ?? 1,
       headers: json['headers'] as List<dynamic>?,
       headerPadding: Etc.edgeInsets(

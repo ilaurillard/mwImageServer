@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:vector_math/vector_math_64.dart';
 
 import '../Engine.dart';
 import 'Widget.dart';
@@ -14,8 +15,7 @@ class Etc {
       return null;
     }
 
-    // TODO
-    // image,
+    // TODO image
 
     List<dynamic> temp = json['boxShadow'] as List<dynamic>? ?? [];
 
@@ -657,19 +657,62 @@ class Etc {
           double? focalRadius = double.tryParse(data['focalRadius'].toString());
 
           return pw.RadialGradient(
-            colors: colors,
-            stops: stops,
-            center:
-                Etc.alignment(data['center'] as String?) ?? pw.Alignment.center,
-            radius: radius ?? 0.5,
-            tileMode:
-                Etc.tileMode(data['tileMode'] as String?) ?? pw.TileMode.clamp,
-            focalRadius:
-                focalRadius ?? 0.0,
-            focal: Etc.alignment(data['center'] as String?)
-          );
+              colors: colors,
+              stops: stops,
+              center: Etc.alignment(data['center'] as String?) ??
+                  pw.Alignment.center,
+              radius: radius ?? 0.5,
+              tileMode: Etc.tileMode(data['tileMode'] as String?) ??
+                  pw.TileMode.clamp,
+              focalRadius: focalRadius ?? 0.0,
+              focal: Etc.alignment(data['center'] as String?));
       }
       throw Exception('Parsing gradient failed');
+    }
+    return null;
+  }
+
+  static Matrix4? transform(
+    Map<String, dynamic> json,
+  ) {
+    if (json.isNotEmpty) {
+      MapEntry<String, dynamic> widget = json.entries.first;
+      String key = widget.key;
+      Dict data = widget.value as Dict;
+
+      Matrix4 matrix = Matrix4.identity();
+      switch (key) {
+        case 'RotateZ':
+          double? angle = double.tryParse(data['angle'].toString());
+          matrix.multiply(
+            Matrix4.rotationZ(
+              radians(angle ?? 0.0),
+            ),
+          );
+          return matrix;
+        case 'Scale':
+          double? scale = double.tryParse(data['scale'].toString());
+          matrix.multiply(
+            Matrix4.diagonal3Values(
+              scale ?? 0,
+              scale ?? 0,
+              0,
+            ),
+          );
+          return matrix;
+        case 'Translate':
+          PdfPoint p = Etc.pdfPoint(data['offset'] as List<dynamic>? ?? []) ??
+              PdfPoint.zero;
+          matrix.multiply(
+            Matrix4.translationValues(
+              p.x,
+              p.y,
+              0,
+            ),
+          );
+
+          return matrix;
+      }
     }
     return null;
   }

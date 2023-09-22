@@ -471,6 +471,41 @@
           }
         },
         "type": "object"
+      },
+      "Transform": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "Translate": {
+            "additionalProperties": false,
+            "type": "object",
+            "properties": {
+              "offset": {
+                "$ref": "#/definitions/Style/PdfPoint"
+              }
+            }
+          },
+          "Scale": {
+            "additionalProperties": false,
+            "type": "object",
+            "properties": {
+              "scale": {
+                "type": "number"
+              }
+            }
+          },
+          "RotateZ": {
+            "additionalProperties": false,
+            "type": "object",
+            "properties": {
+              "angle": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "maxProperties": 1,
+        "minProperties": 1
       }
     },
     "Style": {
@@ -547,7 +582,7 @@
             "type": "object",
             "properties": {
               "LinearGradient": {
-                "$ref": "#/definitions/Other/LinearGradient",
+                "$ref": "#/definitions/Other/LinearGradient"
               },
               "RadialGradient": {
                 "$ref": "#/definitions/Other/RadialGradient"
@@ -570,7 +605,7 @@
             "type": "number"
           },
           "offset": {
-            "$ref": "#/definitions/Style/PdfPoint",
+            "$ref": "#/definitions/Style/PdfPoint"
           },
           "spreadRadius": {
             "type": "number"
@@ -860,6 +895,9 @@
       "maxProperties": 1,
       "minProperties": 1,
       "properties": {
+        "Transform": {
+          "$ref": "#/definitions/Widgets/Transform"
+        },
         "Align": {
           "$ref": "#/definitions/Widgets/Align"
         },
@@ -1019,6 +1057,30 @@
           },
           "child": {
             "$ref": "#/definitions/Widget"
+          }
+        },
+        "type": "object"
+      },
+      "Transform": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "transform": {
+            "$ref": "#/definitions/Other/Transform"
+          },
+          "adjustLayout": {
+            "type": "boolean"
+          },
+          unconstrained: {
+            "type": "boolean"
+          },
+          "alignment": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "origin": {
+            "$ref": "#/definitions/Style/PdfPoint"
           }
         },
         "type": "object"
@@ -1346,6 +1408,9 @@
           },
           "width": {
             "type": "number"
+          },
+          "transform": {
+            "$ref": "#/definitions/Other/Transform"
           }
         },
         "type": "object"
