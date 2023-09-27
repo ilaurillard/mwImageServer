@@ -101,6 +101,8 @@ class Widget {
           return Basic.opacity(data);
         case 'Transform':
           return Basic.transform(data);
+        case 'FullPage':
+          return Basic.fullPage(data);
         // ----------
         case 'Container':
           return Container.container(data);
@@ -208,7 +210,6 @@ class Widget {
 
           basic:
             CustomPaint
-            FullPage
           content:
             TableOfContent
             Watermark

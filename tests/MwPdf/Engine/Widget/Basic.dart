@@ -119,6 +119,15 @@ class Basic {
     );
   }
 
+  static pw.FullPage fullPage(
+    Dict json,
+  ) {
+    return pw.FullPage(
+      ignoreMargins: json['ignoreMargins'] as bool? ?? false,
+      child: Widget.child(json),
+    );
+  }
+
   static pw.Transform transform(
     Dict json,
   ) {
@@ -129,7 +138,8 @@ class Basic {
       adjustLayout: json['adjustLayout'] as bool? ?? false,
       unconstrained: json['unconstrained'] as bool? ?? false,
       alignment: Etc.alignment(json['alignment'] as String?),
-      transform: Etc.transform(json['transform'] as Dict? ?? {}) ?? Matrix4.zero(),
+      transform:
+          Etc.transform(json['transform'] as Dict? ?? {}) ?? Matrix4.zero(),
       child: Widget.child(json),
     );
   }
@@ -176,4 +186,3 @@ class Basic {
     );
   }
 }
-

@@ -168,7 +168,7 @@ Future<pw.PageTheme> _myPageTheme(
 ) async {
   pw.Font openSansRegular = pw.Font.ttf(
     ByteData.view(
-      (await File('tests/mwpdf/files/Open Sans Regular.ttf').readAsBytes())
+      (await File('tests/MwPdf/assets/Open Sans Regular.ttf').readAsBytes())
           .buffer,
     ),
   );

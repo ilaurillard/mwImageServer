@@ -110,7 +110,7 @@
       "StackFit": {
         "enum": [
           "expand",
-          "passthrough",
+          "loose",
           "passthrough"
         ]
       },
@@ -218,7 +218,33 @@
       },
       "FixedAxis": {
         "additionalProperties": false,
+        "required": [
+          "values"
+        ],
         "properties": {
+          "values": {
+            "description": "array of numbers OR number indexed dict (use %value% placeholder), null for automatic",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            ]
+          },
           "ticks": {
             "type": "boolean"
           },
@@ -475,6 +501,8 @@
       "Transform": {
         "additionalProperties": false,
         "type": "object",
+        "minProperties": 1,
+        "maxProperties": 1,
         "properties": {
           "Translate": {
             "additionalProperties": false,
@@ -895,6 +923,9 @@
       "maxProperties": 1,
       "minProperties": 1,
       "properties": {
+        "FullPage": {
+          "$ref": "#/definitions/Widgets/FullPage"
+        },
         "Transform": {
           "$ref": "#/definitions/Widgets/Transform"
         },
@@ -1073,7 +1104,7 @@
           "adjustLayout": {
             "type": "boolean"
           },
-          unconstrained: {
+          "unconstrained": {
             "type": "boolean"
           },
           "alignment": {
@@ -1081,6 +1112,18 @@
           },
           "origin": {
             "$ref": "#/definitions/Style/PdfPoint"
+          }
+        },
+        "type": "object"
+      },
+      "FullPage": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "ignoreMargins": {
+            "type": "boolean"
           }
         },
         "type": "object"
@@ -1226,12 +1269,15 @@
           },
           "grid": {
             "additionalProperties": false,
+            "minProperties": 1,
             "properties": {
               "CartesianGrid": {
                 "additionalProperties": false,
+                "minProperties": 2,
                 "properties": {
                   "xAxis": {
                     "additionalProperties": false,
+                    "minProperties": 1,
                     "properties": {
                       "FixedAxis": {
                         "$ref": "#/definitions/Other/FixedAxis"
@@ -1241,6 +1287,7 @@
                   },
                   "yAxis": {
                     "additionalProperties": false,
+                    "minProperties": 1,
                     "properties": {
                       "FixedAxis": {
                         "$ref": "#/definitions/Other/FixedAxis"
@@ -1650,7 +1697,7 @@
           "height": {
             "type": "number"
           },
-          "image": {
+          "resource": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "width": {
@@ -2034,7 +2081,7 @@
           "height": {
             "type": "number"
           },
-          "svg": {
+          "resource": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "width": {
@@ -2420,6 +2467,12 @@
                 },
                 "textDirection": {
                   "$ref": "#/definitions/Enum/TextDirection"
+                },
+                "foreground": {
+                  "$ref": "#/definitions/Widget"
+                },
+                "background": {
+                  "$ref": "#/definitions/Widget"
                 }
               },
               "type": "object"
@@ -2474,6 +2527,7 @@
               "description": "list of maps",
               "items": {
                 "type": "object",
+                "required": ["value"],
                 "patternProperties": {
                   "^[a-z][a-zA-Z0-9]{1,31}$": {
                     "type": [
@@ -2500,6 +2554,7 @@
             "values": {
               "description": "2d values for tables, etc",
               "items": {
+                "minItems": 1,
                 "items": {
                   "type": [
                     "boolean",

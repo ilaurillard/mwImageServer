@@ -12,32 +12,36 @@ class Chart {
   static pw.Chart chart(
     Dict json,
   ) {
+    List<pw.Dataset> sets = datasets(
+      json['datasets'] as List<dynamic>? ?? [],
+    );
     return pw.Chart(
-      grid: chartGrid(json['grid'] as Dict? ?? {}),
+      grid: chartGrid(
+        json['grid'] as Dict? ?? {},
+        sets,
+      ),
       overlay: Widget.parse(json['overlay'] as Dict? ?? {}),
       title: Widget.parse(json['title'] as Dict? ?? {}),
       bottom: Widget.parse(json['bottom'] as Dict? ?? {}),
       left: Widget.parse(json['left'] as Dict? ?? {}),
       right: Widget.parse(json['right'] as Dict? ?? {}),
-      datasets: datasets(
-        json['datasets'] as List<dynamic>? ?? [],
-      ),
+      datasets: sets,
     );
   }
 
   static pw.ChartGrid chartGrid(
     Dict json,
+    List<pw.Dataset> datasets,
   ) {
     MapEntry<String, dynamic> widget = json.entries.first;
-
     String key = widget.key;
     Dict data = widget.value as Dict;
-
-    // print('W: $key');
-
     switch (key) {
       case 'CartesianGrid':
-        return cartesianGrid(data);
+        return cartesianGrid(
+          data,
+          datasets,
+        );
       case 'PieGrid':
         return pieGrid(data);
       case 'RadialGrid':
@@ -49,10 +53,19 @@ class Chart {
 
   static pw.CartesianGrid cartesianGrid(
     Dict json,
+    List<pw.Dataset> datasets,
   ) {
     return pw.CartesianGrid(
-      xAxis: gridAxis(json['xAxis'] as Dict? ?? {}),
-      yAxis: gridAxis(json['yAxis'] as Dict? ?? {}),
+      xAxis: gridAxis(
+        json['xAxis'] as Dict? ?? {},
+        datasets,
+        axis: pw.Axis.horizontal,
+      ),
+      yAxis: gridAxis(
+        json['yAxis'] as Dict? ?? {},
+        datasets,
+        axis: pw.Axis.vertical,
+      ),
     );
   }
 
@@ -74,31 +87,47 @@ class Chart {
 
   static pw.GridAxis gridAxis(
     Dict json,
-  ) {
+    List<pw.Dataset> datasets, {
+    pw.Axis axis = pw.Axis.horizontal,
+  }) {
     MapEntry<String, dynamic> widget = json.entries.first;
     String key = widget.key;
     Dict data = widget.value as Dict;
-    // print('W: $key');
     switch (key) {
       case 'FixedAxis':
-        return fixedAxis(data);
+        return fixedAxis(
+          data,
+          datasets,
+          axis: axis,
+        );
     }
     throw Exception('Parsing chart axis failed');
   }
 
   static pw.FixedAxis fixedAxis(
     Dict json,
-  ) {
-    // yAxis: pw.FixedAxis(
-    //   [0, 1, 2, 3, 4, 5],
-    //   ticks: true,
-    // ),
-    // xAxis: pw.FixedAxis.fromStrings(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']),
-
-    // return pw.FixedAxis.fromStrings(['a','b', 'c','d', 'e','f', 'g']);
-
-    // TODO values, numbers, strings
-    // automatic axis from datasets?
+    List<pw.Dataset> datasets, {
+    pw.Axis axis = pw.Axis.horizontal,
+  }) {
+    Map<num, String> values = {};
+    dynamic temp = json['values'];
+    if (temp == null) {
+      values = automaticAxisFromDataSets(
+        datasets,
+        axis: axis,
+      );
+    } else {
+      if (temp.runtimeType == List<dynamic>) {
+        values = {
+          for (var v in temp as List<dynamic>)
+            num.tryParse(v.toString()) ?? 0: v.toString()
+        };
+      } else {
+        values = (json['values'] as Map<String, dynamic>? ?? {}).map(
+            (dynamic key, dynamic value) =>
+                MapEntry(num.tryParse(key.toString()) ?? 0, value.toString()));
+      }
+    }
 
     double? width = double.tryParse(json['width'].toString());
     double? margin = double.tryParse(json['margin'].toString());
@@ -107,7 +136,9 @@ class Chart {
     double? divisionsWidth = double.tryParse(json['divisionsWidth'].toString());
     double angle = double.tryParse(json['angle'].toString()) ?? 0.0;
     return pw.FixedAxis(
-      [0, 1, 2, 3, 4, 5, 6],
+      values.keys.toList(),
+      format: (num v) =>
+          (values[v] ?? '?').toString().replaceAll('%value%', v.toString()),
       margin: margin != null ? margin * PdfPageFormat.mm : null,
       marginStart: marginStart != null ? marginStart * PdfPageFormat.mm : null,
       marginEnd: marginEnd != null ? marginEnd * PdfPageFormat.mm : null,
@@ -217,17 +248,51 @@ class Chart {
       pointSize: pointSize != null ? pointSize * PdfPageFormat.mm : 3,
       valuePosition: valuePosition(json['valuePosition'] as String?) ??
           pw.ValuePosition.auto,
-      data: List<pw.PointChartValue>.generate(
-        resource.values.length,
-        (int index) {
-          final double value =
-              double.tryParse((resource.values[index][0]).toString()) ?? 0.0;
-          return pw.PointChartValue(
-            index.toDouble(),
-            value,
-          );
-        },
-      ),
+      data: values(resource),
+    );
+  }
+
+  static pw.LineDataSet lineDataSet(
+    Dict json,
+  ) {
+    Resource resource = Engine.resources.get(json['resource'] as String?);
+    double? smoothness = double.tryParse(json['smoothness'].toString());
+    double? pointSize = double.tryParse(json['pointSize'].toString());
+    double? lineWidth = double.tryParse(json['lineWidth'].toString());
+    double? surfaceOpacity = double.tryParse(json['surfaceOpacity'].toString());
+    return pw.LineDataSet(
+      legend: json['legend'] as String?,
+      color: Etc.color(json['color'] as String?) ?? PdfColors.blue,
+      pointColor: Etc.color(json['pointColor'] as String?),
+      pointSize: pointSize != null ? pointSize * PdfPageFormat.mm : 3,
+      lineWidth: lineWidth != null ? lineWidth * PdfPageFormat.mm : 2,
+      drawLine: json['drawLine'] as bool? ?? true,
+      lineColor: Etc.color(json['lineColor'] as String?),
+      drawPoints: json['drawPoints'] as bool? ?? true,
+      valuePosition: valuePosition(json['valuePosition'] as String?) ??
+          pw.ValuePosition.auto,
+      drawSurface: json['drawSurface'] as bool? ?? false,
+      surfaceOpacity: surfaceOpacity ?? .2,
+      surfaceColor: Etc.color(json['surfaceColor'] as String?),
+      isCurved: json['isCurved'] as bool? ?? false,
+      smoothness: smoothness ?? 0.35,
+      data: values(resource),
+    );
+  }
+
+  static List<pw.PointChartValue> values(
+    Resource resource,
+  ) {
+    return List<pw.PointChartValue>.generate(
+      resource.values.length,
+      (int index) {
+        final double value =
+            double.tryParse((resource.values[index][0]).toString()) ?? 0.0;
+        return pw.PointChartValue(
+          index.toDouble(),
+          value,
+        );
+      },
     );
   }
 
@@ -267,44 +332,6 @@ class Chart {
     );
   }
 
-  static pw.LineDataSet lineDataSet(
-    Dict json,
-  ) {
-    Resource resource = Engine.resources.get(json['resource'] as String?);
-    double? smoothness = double.tryParse(json['smoothness'].toString());
-    double? pointSize = double.tryParse(json['pointSize'].toString());
-    double? lineWidth = double.tryParse(json['lineWidth'].toString());
-    double? surfaceOpacity = double.tryParse(json['surfaceOpacity'].toString());
-    return pw.LineDataSet(
-      legend: json['legend'] as String?,
-      color: Etc.color(json['color'] as String?) ?? PdfColors.blue,
-      pointColor: Etc.color(json['pointColor'] as String?),
-      pointSize: pointSize != null ? pointSize * PdfPageFormat.mm : 3,
-      lineWidth: lineWidth != null ? lineWidth * PdfPageFormat.mm : 2,
-      drawLine: json['drawLine'] as bool? ?? true,
-      lineColor: Etc.color(json['lineColor'] as String?),
-      drawPoints: json['drawPoints'] as bool? ?? true,
-      valuePosition: valuePosition(json['valuePosition'] as String?) ??
-          pw.ValuePosition.auto,
-      drawSurface: json['drawSurface'] as bool? ?? false,
-      surfaceOpacity: surfaceOpacity ?? .2,
-      surfaceColor: Etc.color(json['surfaceColor'] as String?),
-      isCurved: json['isCurved'] as bool? ?? false,
-      smoothness: smoothness ?? 0.35,
-      data: List<pw.PointChartValue>.generate(
-        resource.values.length,
-        (int index) {
-          final double value =
-              double.tryParse((resource.values[index][0]).toString()) ?? 0.0;
-          return pw.PointChartValue(
-            index.toDouble(),
-            value,
-          );
-        },
-      ),
-    );
-  }
-
   static pw.ValuePosition? valuePosition(
     String? json,
   ) {
@@ -337,5 +364,31 @@ class Chart {
         return pw.PieLegendPosition.outside;
     }
     return null;
+  }
+
+  static Map<double, String> automaticAxisFromDataSets(
+    List<pw.Dataset> datasets, {
+    pw.Axis axis = pw.Axis.horizontal,
+  }) {
+    Map<double, String> values = {};
+    if (axis == pw.Axis.horizontal) {
+      for (pw.Dataset set in datasets.whereType<pw.PointDataSet>()) {
+        pw.PointDataSet s2 = set as pw.PointDataSet;
+        for (pw.PointChartValue e in s2.data) {
+          values[e.x] = e.x.toString();
+        }
+      }
+    } else {
+      values = {0: '0.0', 5: '5.0',  10: '10.0'};
+
+      for (pw.Dataset set in datasets.whereType<pw.PointDataSet>()) {
+        pw.PointDataSet s2 = set as pw.PointDataSet;
+        for (pw.PointChartValue e in s2.data) {
+          //values[e.x] = e.x.toString();
+        }
+      }
+    }
+
+    return values;
   }
 }

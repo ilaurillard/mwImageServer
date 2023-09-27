@@ -1,0 +1,80 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "Chart": {
+                  "grid": {
+                    "CartesianGrid": {
+                      "xAxis": {
+                        "FixedAxis": {
+                          "values": null
+                        }
+                      },
+                      "yAxis": {
+                        "FixedAxis": {
+                          "values": null
+                        }
+                      }
+                    }
+                  },
+                  "datasets": [
+                    {
+                      "LineDataSet": {
+                        "resource": "@source2",
+                        "color": "FF8800",
+                        "lineWidth": 0.2,
+                        "pointColor": "000000",
+                        "surfaceColor": "88FF88",
+                        "drawSurface": true,
+                        "drawPoints": true,
+                        "surfaceOpacity": 0.3,
+                        "isCurved": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "resources": {
+    "@source2": {
+      "values": [
+        [
+          2.9
+        ],
+        [
+          3.9
+        ],
+        [
+          4
+        ],
+        [
+          2.5
+        ],
+        [
+          6.0
+        ],
+        [
+          3.4
+        ],
+        [
+          1.4
+        ],
+        [
+          0.4
+        ],
+        [
+          3.4
+        ]
+      ]
+    }
+  }
+}

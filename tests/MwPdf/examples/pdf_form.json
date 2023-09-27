@@ -5,11 +5,7 @@
         {
           "Column": {
             "children": [
-              {
-                "TextField": {
 
-                }
-              }
             ]
           }
         }

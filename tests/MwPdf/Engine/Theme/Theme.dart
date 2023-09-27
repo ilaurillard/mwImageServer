@@ -5,6 +5,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 import '../Engine.dart';
 import '../Widget/Etc.dart';
+import '../Widget/Widget.dart';
 
 class Theme {
   final pw.PageTheme theme;
@@ -20,6 +21,13 @@ class Theme {
     pw.PageOrientation? orientation =
         pw.PageOrientation.values.firstWhereOrNull((e) => e.name == o);
 
+    pw.Widget? foreground = json['foreground'] != null
+        ? Widget.parse(json['foreground'] as Dict? ?? {})
+        : null;
+    pw.Widget? background = json['background'] != null
+        ? Widget.parse(json['background'] as Dict? ?? {})
+        : null;
+
     pw.PageTheme theme = pw.PageTheme(
       pageFormat: pageFormat((json['format'] as Dict?) ?? {}),
       theme: styles((json['styles'] as Dict?) ?? {}),
@@ -31,6 +39,8 @@ class Theme {
       textDirection: Etc.textDirection(
         json['textDirection'] as String? ?? '',
       ),
+      buildBackground: background != null ? (context) => background : null,
+      buildForeground: foreground != null ? (context) => foreground : null,
     );
 
     return Theme(theme);
@@ -47,18 +57,15 @@ class Theme {
 
     return pw.ThemeData(
       defaultTextStyle: Etc.textStyle((json['text'] as Dict?) ?? {}),
-      paragraphStyle:
-          Etc.textStyle((json['paragraph'] as Dict?) ?? {}),
+      paragraphStyle: Etc.textStyle((json['paragraph'] as Dict?) ?? {}),
       header0: Etc.textStyle((json['header0'] as Dict?) ?? {}),
       header1: Etc.textStyle((json['header1'] as Dict?) ?? {}),
       header2: Etc.textStyle((json['header2'] as Dict?) ?? {}),
       header3: Etc.textStyle((json['header3'] as Dict?) ?? {}),
       header4: Etc.textStyle((json['header4'] as Dict?) ?? {}),
       header5: Etc.textStyle((json['header5'] as Dict?) ?? {}),
-      bulletStyle:
-          Etc.textStyle((json['bulletStyle'] as Dict?) ?? {}),
-      tableHeader:
-          Etc.textStyle((json['tableHeader'] as Dict?) ?? {}),
+      bulletStyle: Etc.textStyle((json['bulletStyle'] as Dict?) ?? {}),
+      tableHeader: Etc.textStyle((json['tableHeader'] as Dict?) ?? {}),
       tableCell: Etc.textStyle((json['tableCell'] as Dict?) ?? {}),
       softWrap: json['softWrap'] as bool?,
       textAlign: Etc.textAlign(json['textAlign'] as String?),
@@ -79,8 +86,8 @@ class Theme {
       color: Etc.color(json['color'] as String?),
       opacity: double.tryParse(json['opacity'].toString()),
       size: double.tryParse(json['size'].toString()),
-      font: Etc.font(json['font'] as String?) ??
-          Engine.resources.materialFont(),
+      font:
+          Etc.font(json['font'] as String?) ?? Engine.resources.materialFont(),
     );
   }
 

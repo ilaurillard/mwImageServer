@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "theme": {
+      "@default": {
+        "format": {
+          "preset": "a4"
+        },
+        "background": {
+          "FullPage": {
+            "ignoreMargins": true,
+            "child": {
+              "Container": {
+                "color": "BBCCDD",
+                "child": {
+                  "Text": {
+                    "text": "background"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "theme": "@default",
+      "content": [
+        {
+          "Container": {
+            "child": {
+              "LoremParagraph": {
+                "paragraph": 100
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

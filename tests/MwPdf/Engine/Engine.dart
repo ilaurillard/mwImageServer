@@ -12,25 +12,32 @@ class Engine {
   final Map<String, Theme> themes;
   final Map<String, Header> headers;
   final Map<String, Footer> footers;
+  final String basedir;
 
   static late Resources resources;
 
-  Engine(
-      {required this.pages,
-      required this.themes,
-      required this.headers,
-      required this.footers});
+  Engine({
+    required this.basedir,
+    required this.pages,
+    required this.themes,
+    required this.headers,
+    required this.footers,
+  });
 
-  static Future<Engine> fromJson(
-    Dict json,
-  ) async {
+  static Future<Engine> run(
+    Dict json, {
+    required String basedir,
+  }) async {
     Engine.resources = Resources.fromJson(
       (json['resources'] as Dict?) ?? {},
+      basedir: basedir,
     );
     await Engine.resources.init();
+    await Engine.resources.examples();
 
     Dict meta = (json['meta'] as Dict?) ?? {};
     return Engine(
+      basedir: basedir,
       themes: Theme.fromJsonAll(
         (meta['theme'] as Dict?) ?? {},
       ),

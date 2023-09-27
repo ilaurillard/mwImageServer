@@ -36,7 +36,21 @@
                                 },
                                 "yAxis": {
                                   "FixedAxis": {
-                                    "values": [0, 1, 2, 3, 4, 5, 6],
+                                    "values": {
+                                      "0.0": "a %value%",
+                                      "0.5": "b %value%",
+                                      "1.0": "c %value%",
+                                      "1.5": "d %value%",
+                                      "2.0": "e %value%",
+                                      "2.5": "f %value%",
+                                      "3.0": "g %value%",
+                                      "3.5": "h %value%",
+                                      "4.0": "i %value%",
+                                      "4.5": "j %value%",
+                                      "5.0": "k %value%",
+                                      "5.5": "l %value%",
+                                      "6.0": "m %value%"
+                                    },
                                     "ticks": true,
                                     "divisions": true,
                                     "axisTick": true,
@@ -200,12 +214,20 @@
                               "CartesianGrid": {
                                 "xAxis": {
                                   "FixedAxis": {
-                                    "values": [0, 1, 2, 3, 4, 5, 6]
+                                    "values": [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
                                   }
                                 },
                                 "yAxis": {
                                   "FixedAxis": {
-                                    "values": [0, 1, 2, 3, 4, 5, 6]
+                                    "values": {
+                                      "0": "a",
+                                      "1": "b",
+                                      "2": "c",
+                                      "3": "d",
+                                      "4": "e",
+                                      "5": "f",
+                                      "6": "g"
+                                    }
                                   }
                                 }
                               }

@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../engine.dart';
 import 'Resource.dart';
 
 class Resources {
@@ -19,13 +18,14 @@ class Resources {
       pw.MemoryImage(base64.decode('R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='));
 
   final Map<String, Resource> map;
+  final String basedir;
 
   Resources({
     required this.map,
+    required this.basedir,
   });
 
   Future<void> init() async {
-    await examples();
     await loadMaterialFont();
     await loadBuiltinFonts();
     await loadResources();
@@ -34,9 +34,9 @@ class Resources {
   Future<void> examples() async {
     print('load examples');
     exampleSvg =
-        await File('${basedir}tests/mwpdf/files/example.svg').readAsString();
+        await File('${basedir}examples/assets/example.svg').readAsString();
     exampleImage = pw.MemoryImage(
-      await File('${basedir}tests/mwpdf/files/example.jpg').readAsBytes(),
+      await File('${basedir}examples/assets/example.jpg').readAsBytes(),
     );
   }
 
@@ -44,7 +44,7 @@ class Resources {
     print('load builtin fonts');
     fonts['openSansRegular'] = pw.Font.ttf(
       ByteData.view(
-        (await File('${basedir}tests/mwpdf/files/Open Sans Regular.ttf')
+        (await File('${basedir}assets/Open Sans Regular.ttf')
                 .readAsBytes())
             .buffer,
       ),
@@ -55,14 +55,14 @@ class Resources {
     print('load material font');
     fonts[material] = pw.Font.ttf(
       ByteData.view(
-        (await File('${basedir}tests/mwpdf/files/MaterialIcons-Regular.ttf')
+        (await File('${basedir}assets/MaterialIcons-Regular.ttf')
                 .readAsBytes())
             .buffer,
       ),
     );
 
     List<String> lines =
-        File('${basedir}tests/mwpdf/files/MaterialIcons-Regular.codepoints')
+        File('${basedir}assets/MaterialIcons-Regular.codepoints')
             .readAsLinesSync();
     for (String line in lines) {
       List<String> splitted = line.split(' ');
@@ -84,8 +84,9 @@ class Resources {
   }
 
   static Resources fromJson(
-    Dict json,
-  ) {
+    Dict json, {
+    required String basedir,
+  }) {
     return Resources(
       map: json.map(
         (k, v) {
@@ -97,6 +98,7 @@ class Resources {
           );
         },
       ),
+      basedir: basedir,
     );
   }
 

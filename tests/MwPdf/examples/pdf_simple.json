@@ -30,16 +30,8 @@
             "lineSpacing": null,
             "wordSpacing": 1.0,
             "height": null,
-            "background": {
-              "color": "FF000000",
-              "borderRadius": null,
-              "boxShadow": null,
-              "gradient": null,
-              "image": null,
-              "shape": "rectangle"
-            },
             "decoration": "none",
-            "decorationColor": "FF000000",
+            "decorationColor": "FF0000",
             "decorationStyle": "solid",
             "decorationThickness": 1.0,
             "renderingMode": "fill"
@@ -65,9 +57,7 @@
             "font": "courier"
           }
         },
-        "margin": [5, 5, 5, 5],
-        "background": null,
-        "foreground": null
+        "margin": [5, 5, 5, 5]
       }
     },
     "header": {
