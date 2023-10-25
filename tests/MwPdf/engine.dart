@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'Engine/Engine.dart';
 
@@ -27,7 +28,7 @@ Future<void> main() async {
   // String jsonFile = 'pdf_table3.json';
   // String jsonFile = 'pdf_table4.json';
   // String jsonFile = 'pdf_charts.json';
-  String jsonFile = 'pdf_charts2.json';
+  // String jsonFile = 'pdf_charts2.json';
   // String jsonFile = 'pdf_barcodes.json';
   // String jsonFile = 'pdf_grid.json';
   // String jsonFile = 'pdf_gridView.json';
@@ -37,20 +38,47 @@ Future<void> main() async {
   // String jsonFile = 'pdf_partitions.json';
   // String jsonFile = 'pdf_header.json';
   // String jsonFile = 'pdf_form.json';
+  // String jsonFile = 'pdf_invoice.json';
+  String jsonFile = 'pdf_multiCol.json';
 
   String pdfJson = await File('${basedir}examples/$jsonFile').readAsString();
 
-  bool valid = schema.validate(pdfJson);
+  Results results = schema.validate(pdfJson);
 
-  if (valid) {
-    Engine engine = await Engine.run(
-      json.decode(pdfJson) as Dict,
-      basedir: basedir,
-    );
+  if (results.valid) {
 
-    String name = '${basedir}examples/output/$jsonFile.pdf';
-    await File(name).writeAsBytes(await engine.buildPdf().save());
-    print(
-        '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n');
+    try {
+      Engine engine = await Engine.run(
+        json.decode(pdfJson) as Dict,
+        basedir: basedir,
+      );
+
+      String name = '${basedir}examples/output/$jsonFile.pdf';
+      await File(name).writeAsBytes(await engine.buildPdf().save());
+      Console.info(
+          '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n');
+    }
+    catch (e) {
+      print('Fatal error: $e');
+    }
+
+  }
+  else {
+
+    print('Document does not validate!');
+    if (results.errors.isNotEmpty) {
+      print('Errors: ');
+      for (String e in results.errors) {
+        print('>> $e');
+      }
+    }
+    if (results.warnings.isNotEmpty) {
+      print('Warnings: ');
+      for (String w in results.warnings) {
+        print('>> $w');
+      }
+    }
+
+
   }
 }

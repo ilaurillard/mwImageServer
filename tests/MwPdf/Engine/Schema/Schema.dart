@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:json_schema/json_schema.dart';
 import 'package:json_schema/src/json_schema/models/validation_results.dart';
 
-
 class Schema {
   final String basedir;
 
@@ -28,7 +27,7 @@ class Schema {
     schema = JsonSchema.create(schemaData);
   }
 
-  bool validate(
+  Results validate(
     String json,
   ) {
     print('Validating data (${json.length})');
@@ -39,20 +38,36 @@ class Schema {
       validateFormats: true,
     );
 
-    if (results.errors.isNotEmpty) {
-      print('Oh no, document does not validate!');
-      print('Errors: ');
-      print(results.errors.map((e) => print("$e\n")));
-    }
-    else {
-      print('Fine! Document is valid.');
-    }
+    // if (results.errors.isNotEmpty) {
+    //   print('Oh no, document does not validate!');
+    //   print('Errors: ');
+    //   print(results.errors.map((e) => print("$e\n")));
+    // }
+    // else {
+    //   print('Fine! Document is valid.');
+    // }
 
-    if (results.warnings.isNotEmpty) {
-      print('Warnings: ');
-      print(results.warnings.map((e) => print("$e\n")));
-    }
+    // if (results.warnings.isNotEmpty) {
+    //   print('Warnings: ');
+    //   print(results.warnings.map((e) => print("$e\n")));
+    // }
 
-    return results.errors.isEmpty;
+    return Results(
+      valid: results.errors.isEmpty,
+      errors: results.errors.map((e) => e.toString()).toList(),
+      warnings: results.warnings.map((e) => e.toString()).toList(),
+    );
   }
+}
+
+class Results {
+  bool valid;
+  List<String> errors;
+  List<String> warnings;
+
+  Results({
+    required this.valid,
+    required this.errors,
+    required this.warnings,
+  });
 }

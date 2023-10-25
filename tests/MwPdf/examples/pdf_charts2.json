@@ -6,6 +6,52 @@
           "Column": {
             "children": [
               {
+                "Text": {
+                  "text": "Whoomp, there it is"
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Link": {
+                  "destination": "xxx",
+                  "child": {
+                    "Text": {
+                      "text": "Link (links to anchor below)"
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "UrlLink": {
+                  "destination": "https://www.google.de",
+                  "child": {
+                    "Text": {
+                      "text": "UrlLink (links to google)"
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Text": {
+                  "text": "Whoomp, there it is"
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
                 "Chart": {
                   "grid": {
                     "CartesianGrid": {
@@ -36,6 +82,33 @@
                       }
                     }
                   ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Text": {
+                  "text": "Whoomp, there it is"
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Anchor": {
+                  "name": "xxx",
+                  "child": {
+                    "Text": {
+                      "text": "Anchor (xxx)"
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
                 }
               }
             ]

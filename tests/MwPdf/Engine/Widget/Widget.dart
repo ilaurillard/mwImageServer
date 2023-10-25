@@ -1,6 +1,7 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import 'Annotation.dart';
 import 'Barcode.dart';
 import 'Basic.dart';
 import 'Chart.dart';
@@ -158,6 +159,8 @@ class Widget {
         //   return Text.richText(data);
         case 'Paragraph':
           return Content.paragraph(data);
+        case 'Watermark':
+          return Content.watermark(data);
         // ----------
         case 'Placeholder':
           return Placeholders.placeholder(data);
@@ -199,20 +202,27 @@ class Widget {
           return Clip.clipRRect(data);
         case 'ClipOval':
           return Clip.clipOval(data);
-      // -----------
+        // -----------
         case 'TextField':
           return Form.textField(data);
-
+        // -----------
+        case 'Anchor':
+          return Annotation.anchor(data);
+        case 'Link':
+          return Annotation.link(data);
+        case 'UrlLink':
+          return Annotation.urlLink(data);
         /*
 
           TODO widgets
           ----
 
+          multi_page:
+            NewPage
           basic:
             CustomPaint
           content:
             TableOfContent
-            Watermark
           image:
             Shape
           shape:
@@ -226,7 +236,12 @@ class Widget {
             TextField
             Signature
           annotations:
-            ...
+            SquareAnnotation
+            CircleAnnotation
+            PolygonAnnotation
+            PolyLineAnnotation
+            InkAnnotation
+            Outline
 
         */
       }

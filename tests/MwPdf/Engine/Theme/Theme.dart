@@ -83,7 +83,7 @@ class Theme {
     // print('IconTheme: $json');
 
     return pw.IconThemeData(
-      color: Etc.color(json['color'] as String?),
+      color: Etc.color(json['color'] as String?) ?? PdfColors.black,
       opacity: double.tryParse(json['opacity'].toString()),
       size: double.tryParse(json['size'].toString()),
       font:

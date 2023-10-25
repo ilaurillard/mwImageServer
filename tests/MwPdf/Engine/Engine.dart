@@ -1,6 +1,8 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import 'Etc/ColPage.dart';
 import 'Model/Footer.dart';
 import 'Model/Header.dart';
 import 'Model/Page.dart';
@@ -94,14 +96,30 @@ class Engine {
       // --------------------------
 
       if (page.multi) {
-        pdf.addPage(
-          pw.MultiPage(
-            pageTheme: themes[page.theme]?.theme ?? Theme.defaultTheme(),
-            header: page.header.isNotEmpty ? headerBuilder : null,
-            footer: page.footer.isNotEmpty ? footerBuilder : null,
-            build: (pw.Context context) => pageBuilder(context),
-          ),
-        );
+
+        if (page.amountColumns > 1) {
+          pdf.addPage(
+            ColPage(
+              pageTheme: themes[page.theme]?.theme ?? Theme.defaultTheme(),
+              header: page.header.isNotEmpty ? headerBuilder : null,
+              footer: page.footer.isNotEmpty ? footerBuilder : null,
+              build: (pw.Context context) => pageBuilder(context),
+              amountColumns: page.amountColumns,
+              gapWidth: page.gapWidth,
+            ),
+          );
+        }
+        else {
+          pdf.addPage(
+            pw.MultiPage(
+              pageTheme: themes[page.theme]?.theme ?? Theme.defaultTheme(),
+              header: page.header.isNotEmpty ? headerBuilder : null,
+              footer: page.footer.isNotEmpty ? footerBuilder : null,
+              build: (pw.Context context) => pageBuilder(context),
+            ),
+          );
+        }
+
       } else {
         pdf.addPage(
           pw.Page(

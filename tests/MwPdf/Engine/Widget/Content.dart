@@ -1,12 +1,23 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:vector_math/vector_math_64.dart';
 
-import 'Internal.dart';
 import 'Etc.dart';
+import 'Internal.dart';
 import 'Widget.dart';
 
 class Content {
+  static pw.Watermark watermark(
+    Dict json,
+  ) {
+    return pw.Watermark(
+      fit: Etc.boxFit(json['fit'] as String?) ?? pw.BoxFit.contain,
+      angle: radians(double.tryParse(json['angle'].toString()) ?? 0),
+      child: Widget.child(json),
+    );
+  }
+
   static pw.Paragraph paragraph(
     Dict json,
   ) {
@@ -97,7 +108,6 @@ class Content {
             ) ??
             const pw.EdgeInsets.only(bottom: 2.0 * PdfPageFormat.mm),
         style: Etc.textStyle(json['style'] as Dict? ?? {}),
-
         bulletMargin: Etc.edgeInsets(
               json['bulletMargin'] as List<dynamic>?,
             ) ??
@@ -114,5 +124,4 @@ class Content {
         bulletColor:
             Etc.color(json['bulletColor'] as String?) ?? PdfColors.black);
   }
-
 }

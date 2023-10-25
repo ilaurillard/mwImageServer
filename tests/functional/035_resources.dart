@@ -39,24 +39,24 @@ void main() {
     resourceFilename1 = data['filename'] as String;
   });
 
-  // test('Root generates pdf from resource', () async {
-  //   http.Response r = await http.post(
-  //     Uri.parse('${host}api/bucket/98/resource/$resourceId1/pdf'),
-  //     headers: {
-  //       'Authorization': rootKey,
-  //     },
-  //     body: json.encode({
-  //       'data': <String, Object>{
-  //         'xxx': 'yyy'
-  //       },
-  //       'filename': 'xxx.pdf',
-  //       'users': [888],
-  //       'groups': [666],
-  //     }),
-  //   );
-  //   expect(r.statusCode, equals(200));
-  //   // print(r.body);
-  //   Dict data = json.decode(r.body) as Dict;
-  //   print(data);
-  // });
+  test('Root generates pdf from resource', () async {
+    http.Response r = await http.post(
+      Uri.parse('${host}api/bucket/98/resource/$resourceId1/pdf'),
+      headers: {
+        'Authorization': rootKey,
+      },
+      body: json.encode({
+        'data': <String, Object>{
+          'xxx': 'yyy'
+        },
+        'filename': 'xxx.pdf',
+        'users': [888],
+        'groups': [666],
+      }),
+    );
+    expect(r.statusCode, equals(200));
+    // print(r.body);
+    Dict data = json.decode(r.body) as Dict;
+    print(data);
+  });
 }

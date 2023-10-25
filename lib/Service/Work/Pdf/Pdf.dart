@@ -1,4 +1,5 @@
 
+import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Files.dart';
 import 'package:mwcdn/Etc/ResponseException.dart';
 import 'package:mwcdn/Etc/Types.dart';
@@ -29,9 +30,8 @@ class Pdf {
       );
     }
 
-    print(data);
-    print(template);
-
+    Console.warning('Data: ' + data.toString());
+    Console.warning('Template: ' + template.toString());
 
 
 

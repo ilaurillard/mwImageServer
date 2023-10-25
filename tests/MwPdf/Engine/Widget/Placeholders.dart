@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -45,27 +47,32 @@ class Placeholders {
   ) {
     int? sentence = int.tryParse(json['sentence'].toString());
     if (sentence != null && sentence > 0) {
-      return pw.LoremText().sentence(sentence);
+      return pw.LoremText(
+              random:
+                  math.Random(int.tryParse(json['random'].toString()) ?? 987))
+          .sentence(sentence);
     }
     int? paragraph = int.tryParse(json['paragraph'].toString());
     if (paragraph != null && paragraph > 0) {
-      return pw.LoremText().paragraph(paragraph);
+      return pw.LoremText(
+              random:
+                  math.Random(int.tryParse(json['random'].toString()) ?? 987))
+          .paragraph(paragraph);
     }
     return '¿';
   }
 
-
   static pw.PdfLogo pdfLogo(
-      Dict json,
-      ) {
+    Dict json,
+  ) {
     return pw.PdfLogo(
       color: Etc.color(
-        json['color'] as String?,
-      ) ??
+            json['color'] as String?,
+          ) ??
           PdfColors.red,
       fit: Etc.boxFit(
-        json['fit'] as String?,
-      ) ??
+            json['fit'] as String?,
+          ) ??
           pw.BoxFit.contain,
     );
   }

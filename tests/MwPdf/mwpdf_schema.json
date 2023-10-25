@@ -914,7 +914,7 @@
       },
       "Identifier": {
         "description": "@identifier (1 to 24 characters)",
-        "pattern": "^@[a-z][a-z0-9]{1,23}$",
+        "pattern": "^@[a-zA-Z][a-zA-Z0-9]{1,23}$",
         "type": "string"
       }
     },
@@ -923,6 +923,15 @@
       "maxProperties": 1,
       "minProperties": 1,
       "properties": {
+        "Anchor": {
+          "$ref": "#/definitions/Widgets/Anchor"
+        },
+        "Link": {
+          "$ref": "#/definitions/Widgets/Link"
+        },
+        "UrlLink": {
+          "$ref": "#/definitions/Widgets/UrlLink"
+        },
         "FullPage": {
           "$ref": "#/definitions/Widgets/FullPage"
         },
@@ -976,6 +985,9 @@
         },
         "Divider": {
           "$ref": "#/definitions/Widgets/Divider"
+        },
+        "Watermark": {
+          "$ref": "#/definitions/Widgets/Watermark"
         },
         "Expanded": {
           "$ref": "#/definitions/Widgets/Expanded"
@@ -1124,6 +1136,50 @@
           },
           "ignoreMargins": {
             "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "Anchor": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "zoom": {
+            "type": "number"
+          },
+          "setX": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "Link": {
+        "additionalProperties": false,
+        "properties": {
+          "destination": {
+            "type": "string",
+            "description": "An anchor name"
+          },
+          "child": {
+            "$ref": "#/definitions/Widget"
+          }
+        },
+        "type": "object"
+      },
+      "UrlLink": {
+        "additionalProperties": false,
+        "properties": {
+          "destination": {
+            "type": "string",
+            "description": "An url"
+          },
+          "child": {
+            "$ref": "#/definitions/Widget"
           }
         },
         "type": "object"
@@ -1504,6 +1560,21 @@
         },
         "type": "object"
       },
+      "Watermark": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "angle": {
+            "type": "number"
+          },
+          "fit": {
+            "$ref": "#/definitions/Enum/BoxFit"
+          }
+        },
+        "type": "object"
+      },
       "Expanded": {
         "additionalProperties": false,
         "properties": {
@@ -1748,6 +1819,9 @@
       "LoremParagraph": {
         "additionalProperties": false,
         "properties": {
+          "random": {
+            "type": "integer"
+          },
           "margin": {
             "$ref": "#/definitions/Style/EdgeInsets"
           },
@@ -1772,6 +1846,9 @@
       "LoremText": {
         "additionalProperties": false,
         "properties": {
+          "random": {
+            "type": "integer"
+          },
           "maxLines": {
             "type": "integer"
           },
@@ -2341,7 +2418,7 @@
         "footer": {
           "additionalProperties": false,
           "patternProperties": {
-            "^@[a-z]{1,24}$": {
+            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
               "$ref": "#/definitions/Widget"
             }
           },
@@ -2350,7 +2427,7 @@
         "header": {
           "additionalProperties": false,
           "patternProperties": {
-            "^@[a-z]{1,24}$": {
+            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
               "$ref": "#/definitions/Widget"
             }
           },
@@ -2359,7 +2436,7 @@
         "theme": {
           "additionalProperties": false,
           "patternProperties": {
-            "^@[a-z]{1,24}$": {
+            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
               "additionalProperties": false,
               "properties": {
                 "clip": {
@@ -2503,6 +2580,14 @@
             "description": "multi page (tables, ...) or not",
             "type": "boolean"
           },
+          "amountColumns": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 8
+          },
+          "gapWidth": {
+            "type": "number"
+          },
           "theme": {
             "$ref": "#/definitions/Util/Identifier",
             "description": "see meta/theme"
@@ -2516,7 +2601,7 @@
       "additionalProperties": false,
       "description": "resources like image, svg, .. also table data, etc",
       "patternProperties": {
-        "^@[a-z][a-z0-9]{1,23}$": {
+        "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
           "additionalProperties": false,
           "properties": {
             "binary": {

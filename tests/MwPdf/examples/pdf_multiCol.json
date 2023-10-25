@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "theme": {
+      "@default": {
+        "format": {
+          "preset": "a5",
+          "marginAll": 10
+        },
+        "styles": {
+          "text": {
+            "color": "FF000033",
+            "font": "courier"
+          }
+        }
+      }
+    },
+    "header": {
+      "@myHead": {
+        "Container": {
+          "height": 15.0,
+          "child": {
+            "Text": {
+              "text": "HEADER"
+            }
+          }
+        }
+      }
+    },
+    "footer": {
+      "@myFoot": {
+        "Container": {
+          "height": 15.0,
+          "child": {
+            "Text": {
+              "text": "FOOTER %pageNumber%/%pagesCount%"
+            }
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "multi": true,
+      "amountColumns": 3,
+      "gapWidth": 10,
+      "theme": "@default",
+      "header": "@myHead",
+      "footer": "@myFoot",
+      "content": [
+        {
+          "LoremParagraph": {
+            "textAlign": "left",
+            "sentence": 40,
+            "random": 123
+          }
+        },
+        {
+          "Icon": {
+            "icon": "f07f",
+            "color": "0088FF",
+            "size": 10
+          }
+        },
+        {
+          "LoremParagraph": {
+            "textAlign": "left",
+            "sentence": 50,
+            "random": 124
+          }
+        },
+        {
+          "Icon": {
+            "icon": "f07f",
+            "size": 10
+          }
+        },
+        {
+          "LoremParagraph": {
+            "textAlign": "left",
+            "sentence": 60,
+            "random": 125
+          }
+        }
+      ]
+    }
+  ]
+}
