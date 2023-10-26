@@ -41,15 +41,32 @@ class ApiResource {
 
     Dict data = await Api.incomingJson(request);
 
+    // try {
+    //   Uint8List binary = await (Pdf(
+    //     sqliteStorage: sqliteStorage,
+    //     fileStorage: fileStorage,
+    //   )).build(
+    //     data,
+    //     resource,
+    //   );
+    //   return Response.ok(
+    //     binary,
+    //     headers: Config.pdfHeaders,
+    //   );
+    // }
+    // on ResponseException catch(e) {
+    //   return e.response;
+    // }
+
     try {
-      Resource pdf = await (Pdf(
+      Resource pdfResource = await (Pdf(
         sqliteStorage: sqliteStorage,
         fileStorage: fileStorage,
-      )).build(
+      )).buildResource(
         data,
         resource,
       );
-      return Api.rJsonOk(pdf);
+      return Api.rJsonOk(pdfResource);
     }
     on ResponseException catch(e) {
       return e.response;

@@ -34,9 +34,9 @@ class Resources {
   Future<void> examples() async {
     print('load examples');
     exampleSvg =
-        await File('${basedir}examples/assets/example.svg').readAsString();
+        await File('$basedir/assets/example.svg').readAsString();
     exampleImage = pw.MemoryImage(
-      await File('${basedir}examples/assets/example.jpg').readAsBytes(),
+      await File('$basedir/assets/example.jpg').readAsBytes(),
     );
   }
 
@@ -44,8 +44,7 @@ class Resources {
     print('load builtin fonts');
     fonts['openSansRegular'] = pw.Font.ttf(
       ByteData.view(
-        (await File('${basedir}assets/Open Sans Regular.ttf')
-                .readAsBytes())
+        (await File('${basedir}/assets/Open Sans Regular.ttf').readAsBytes())
             .buffer,
       ),
     );
@@ -55,14 +54,13 @@ class Resources {
     print('load material font');
     fonts[material] = pw.Font.ttf(
       ByteData.view(
-        (await File('${basedir}assets/MaterialIcons-Regular.ttf')
-                .readAsBytes())
+        (await File('${basedir}/assets/MaterialIcons-Regular.ttf').readAsBytes())
             .buffer,
       ),
     );
 
     List<String> lines =
-        File('${basedir}assets/MaterialIcons-Regular.codepoints')
+        File('${basedir}/assets/MaterialIcons-Regular.codepoints')
             .readAsLinesSync();
     for (String line in lines) {
       List<String> splitted = line.split(' ');
@@ -89,11 +87,12 @@ class Resources {
   }) {
     return Resources(
       map: json.map(
-        (k, v) {
+        (key, value) {
           return MapEntry(
-            k,
+            key,
             Resource.fromJson(
-              v as Dict,
+              key,
+              value as Dict,
             ),
           );
         },
@@ -107,11 +106,11 @@ class Resources {
   }
 
   Resource get(
-    String? source,
+    String? key,
   ) {
-    if (source != null && source.isNotEmpty && map[source] == null) {
-      print('No resource available for "$source"');
+    if (key != null && key.isNotEmpty && map[key] == null) {
+      print('No resource available for "$key"');
     }
-    return map[source ?? ''] ?? Resource();
+    return map[key ?? ''] ?? Resource(key ?? '');
   }
 }

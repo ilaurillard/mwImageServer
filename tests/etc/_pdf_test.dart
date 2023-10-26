@@ -3,10 +3,9 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:typed_data';
 
+import 'package:mwcdn/MwPdf/Engine/Etc/ColPage.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-
-import '../MwPdf/Engine/Etc/ColPage.dart';
 
 Future<void> main() async {
   Uint8List pdf = await generate(
@@ -98,7 +97,7 @@ Future<Uint8List> generate(
   doc.addPage(
     ColPage(
         pageFormat: format,
-        amountColumns: 3,
+        columns: 3,
         gapWidth: 7 * PdfPageFormat.mm,
         header: _buildHeader,
         footer: _buildFooter,

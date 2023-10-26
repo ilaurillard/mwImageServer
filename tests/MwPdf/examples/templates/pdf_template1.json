@@ -1,0 +1,100 @@
+{
+  "pages": [
+    {
+      "multi": true,
+      "content": [
+        {
+          "Widget": {
+            "resource": "@source2"
+          }
+        },
+        {
+          "Divider": {}
+        },
+        {
+          "Widget": {
+            "resource": "@source2"
+          }
+        },
+        {
+          "Divider": {}
+        },
+        {
+          "Paragraph": {
+            "resource": "@source3"
+          }
+        },
+        {
+          "Divider": {}
+        },
+        {
+          "Text": {
+            "resource": "@source3"
+          }
+        },
+        {
+          "Divider": {}
+        },
+        {
+          "TableAuto": {
+            "headerCount": 1,
+            "resource": "@source1",
+            "cells": {
+              "2": {
+                "Switch": {
+                  "subject": "%value%",
+                  "default": {
+                    "Text": {
+                      "text": "%value%"
+                    }
+                  },
+                  "cases": {
+                    "false": {
+                      "Align": {
+                        "child": {
+                          "Icon": {
+                            "icon": "close",
+                            "color": "660000"
+                          }
+                        }
+                      }
+                    },
+                    "true": {
+                      "Align": {
+                        "child": {
+                          "Icon": {
+                            "icon": "check_circle",
+                            "color": "006600"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "cellAlignments": {
+              "1": "centerRight",
+              "3": "centerRight"
+            },
+            "headerStyle": {
+              "fontWeight": "bold"
+            },
+            "headerAlignments": {
+              "0": "centerLeft",
+              "1": "centerRight",
+              "2": "center",
+              "3": "centerRight"
+            },
+            "headers": [
+              "Animal",
+              "Amount",
+              "Wild",
+              "Weight"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

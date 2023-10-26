@@ -1,19 +1,23 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:merge_map_null_safety/merge_map.dart';
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
-import 'Engine/Engine.dart';
+import 'package:mwcdn/MwPdf/Engine/Engine.dart';
+import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 
-import 'Engine/Schema/Schema.dart';
+const basedir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwPdf';
 
-const basedir = '/home/ilja/PhpstormProjects/mwcdn/tests/MwPdf/';
+const examplesDir = '/home/ilja/PhpstormProjects/mwcdn/tests/MwPdf/examples';
 
 Future<void> main() async {
-
   Schema schema = await Schema.create(
     basedir: basedir,
   );
+
+  //String templateFile = '';
+  String templateFile = 'templates/pdf_template1.json';
 
   // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
@@ -39,46 +43,53 @@ Future<void> main() async {
   // String jsonFile = 'pdf_header.json';
   // String jsonFile = 'pdf_form.json';
   // String jsonFile = 'pdf_invoice.json';
-  String jsonFile = 'pdf_multiCol.json';
+  // String jsonFile = 'pdf_multiCol.json';
+  String jsonFile = 'pdf_template_test1.json';
 
-  String pdfJson = await File('${basedir}examples/$jsonFile').readAsString();
-
-  Results results = schema.validate(pdfJson);
-
-  if (results.valid) {
-
-    try {
-      Engine engine = await Engine.run(
-        json.decode(pdfJson) as Dict,
-        basedir: basedir,
-      );
-
-      String name = '${basedir}examples/output/$jsonFile.pdf';
-      await File(name).writeAsBytes(await engine.buildPdf().save());
-      Console.info(
-          '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n');
-    }
-    catch (e) {
-      print('Fatal error: $e');
-    }
-
+  String pdfBase = '{}';
+  if (templateFile.isNotEmpty) {
+    pdfBase = await File('$examplesDir/$templateFile').readAsString();
   }
-  else {
 
-    print('Document does not validate!');
-    if (results.errors.isNotEmpty) {
-      print('Errors: ');
-      for (String e in results.errors) {
-        print('>> $e');
+  String pdfJson = await File('$examplesDir/$jsonFile').readAsString();
+
+  try {
+    Dict pdfBaseDict = json.decode(pdfBase) as Dict;
+    Dict pdfJsonDict = json.decode(pdfJson) as Dict;
+    pdfJsonDict = mergeMap([pdfBaseDict, pdfJsonDict]);
+    pdfJson = json.encode(pdfJsonDict);
+    Results results = schema.validate(pdfJson);
+
+    if (results.valid) {
+      try {
+        Engine engine = await Engine.run(
+          pdfJsonDict,
+          basedir: basedir,
+        );
+
+        String name = '$examplesDir/output/$jsonFile.pdf';
+        await File(name).writeAsBytes(await engine.buildPdf().save());
+        Console.info(
+            '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n');
+      } catch (e) {
+        print('Fatal error: $e');
+      }
+    } else {
+      print('Document does not validate!');
+      if (results.errors.isNotEmpty) {
+        print('Errors: ');
+        for (String e in results.errors) {
+          print('>> $e');
+        }
+      }
+      if (results.warnings.isNotEmpty) {
+        print('Warnings: ');
+        for (String w in results.warnings) {
+          print('>> $w');
+        }
       }
     }
-    if (results.warnings.isNotEmpty) {
-      print('Warnings: ');
-      for (String w in results.warnings) {
-        print('>> $w');
-      }
-    }
-
-
+  } catch (e) {
+    print('Fatal error: $e');
   }
 }

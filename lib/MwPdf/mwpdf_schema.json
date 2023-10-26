@@ -986,6 +986,9 @@
         "Divider": {
           "$ref": "#/definitions/Widgets/Divider"
         },
+        "Widget": {
+          "$ref": "#/definitions/Widgets/Widget"
+        },
         "Watermark": {
           "$ref": "#/definitions/Widgets/Watermark"
         },
@@ -1945,6 +1948,9 @@
           "text": {
             "type": "string"
           },
+          "resource": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
           "textAlign": {
             "$ref": "#/definitions/Enum/TextAlign"
           }
@@ -2338,6 +2344,15 @@
         },
         "type": "object"
       },
+      "Widget": {
+        "additionalProperties": false,
+        "properties": {
+          "resource": {
+            "$ref": "#/definitions/Util/Identifier"
+          }
+        },
+        "type": "object"
+      },
       "Text": {
         "additionalProperties": false,
         "properties": {
@@ -2355,6 +2370,9 @@
           },
           "text": {
             "type": "string"
+          },
+          "resource": {
+            "$ref": "#/definitions/Util/Identifier"
           },
           "textAlign": {
             "$ref": "#/definitions/Enum/TextAlign"
@@ -2580,7 +2598,7 @@
             "description": "multi page (tables, ...) or not",
             "type": "boolean"
           },
-          "amountColumns": {
+          "columns": {
             "type": "integer",
             "minimum": 2,
             "maximum": 8
@@ -2604,15 +2622,34 @@
         "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
           "additionalProperties": false,
           "properties": {
+            "file": {
+              "description": "Local file via bucket access (mwcdn)",
+              "type": "string"
+            },
+            "url": {
+              "description": "Remote file will get downloaded and cached",
+              "type": "string"
+            },
+
+            "text": {
+              "description": "reusable text",
+              "type": "string"
+            },
+            "widget": {
+              "description": "a predefined widget for reuse",
+              "$ref": "#/definitions/Widget"
+            },
             "binary": {
               "description": "inline data, f.e. for svg, ...",
               "type": "string"
             },
             "data": {
-              "description": "list of maps",
+              "description": "list of maps (for charts, ..)",
               "items": {
                 "type": "object",
-                "required": ["value"],
+                "required": [
+                  "value"
+                ],
                 "patternProperties": {
                   "^[a-z][a-zA-Z0-9]{1,31}$": {
                     "type": [
@@ -2628,16 +2665,8 @@
               },
               "type": "array"
             },
-            "file": {
-              "description": "Local file via bucket access (mwcdn)",
-              "type": "string"
-            },
-            "url": {
-              "description": "Remote file will get downloaded and cached",
-              "type": "string"
-            },
             "values": {
-              "description": "2d values for tables, etc",
+              "description": "2d values for tables, charts, etc",
               "items": {
                 "minItems": 1,
                 "items": {

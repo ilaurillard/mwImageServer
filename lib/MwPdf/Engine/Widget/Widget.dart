@@ -1,6 +1,8 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../Model/Resource.dart';
 import 'Annotation.dart';
 import 'Barcode.dart';
 import 'Basic.dart';
@@ -212,9 +214,12 @@ class Widget {
           return Annotation.link(data);
         case 'UrlLink':
           return Annotation.urlLink(data);
+        // -----------
+        case 'Widget':
+          return Widget.reference(data);
         /*
 
-          TODO widgets
+          TODO implement widgets
           ----
 
           multi_page:
@@ -249,5 +254,13 @@ class Widget {
       print(' !!! widget $key not supported');
     }
     return pw.SizedBox();
+  }
+
+  // referring/importing a widget from resourcesv ("@identifier")
+  static pw.Widget reference(
+    Dict json,
+  ) {
+    Resource resource = Engine.resources.get(json['resource'] as String?);
+    return resource.widget ?? pw.SizedBox();
   }
 }

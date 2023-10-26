@@ -1,32 +1,52 @@
 import 'package:intl/intl.dart';
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class Resource {
+  final String key;
+
+  // image/svg
   final String url;
 
   // api/bucket/98/resource/$resourceId1
   final String file;
 
+  // svg/...
   final String binary;
 
+  // charts/tables
   final List<List<dynamic>> values;
+
+  // chart data
   final List<Map<String, dynamic>> data;
 
-  Resource({
+  // reusable widget
+  final pw.Widget? widget;
+
+  // placeholder text
+  final String text;
+
+  Resource(
+    this.key, {
     this.binary = '',
     this.file = '',
     this.url = '',
     this.values = const [],
     this.data = const [],
+    this.widget,
+    this.text = '',
   });
 
   static Resource fromJson(
+    String key,
     Dict json,
   ) {
     List<dynamic> tempValues = json['values'] as List<dynamic>? ?? [];
     List<dynamic> tempData = json['data'] as List<dynamic>? ?? [];
     String locale = json['valuesLocale'] as String? ?? 'de_DE';
     return Resource(
+      key,
       binary: json['binary'] as String? ?? '',
       url: json['url'] as String? ?? '',
       file: json['file'] as String? ?? '',
@@ -39,6 +59,8 @@ class Resource {
           )
           .toList(),
       data: tempData.map((dynamic row) => row as Dict).toList(),
+      widget: Widget.parse(json['widget'] as Dict? ?? {}),
+      text: json['text'] as String? ?? '',
     );
   }
 

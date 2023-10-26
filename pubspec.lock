@@ -233,6 +233,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.12.16"
+  merge_map_null_safety:
+    dependency: "direct main"
+    description:
+      name: merge_map_null_safety
+      sha256: a8f98c432090702701850eb12df6318c4b7351acf19f67d7025c09c46274e5a1
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   meta:
     dependency: "direct main"
     description:

@@ -42,7 +42,7 @@
   "pages": [
     {
       "multi": true,
-      "amountColumns": 3,
+      "columns": 3,
       "gapWidth": 10,
       "theme": "@default",
       "header": "@myHead",

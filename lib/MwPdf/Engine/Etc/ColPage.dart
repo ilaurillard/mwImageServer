@@ -9,7 +9,7 @@ class ColPage extends MultiPage {
 
   final List<_ColPageInstance> _pages = [];
 
-  final int amountColumns;
+  final int columns;
   final double gapWidth;
 
   late final EdgeInsets _margin;
@@ -25,7 +25,7 @@ class ColPage extends MultiPage {
     PageOrientation? orientation,
     EdgeInsets? margin,
     TextDirection? textDirection,
-    this.amountColumns = 2,
+    this.columns = 2,
     this.gapWidth = 20,
   })  : _buildList = build,
         super(
@@ -194,7 +194,7 @@ class ColPage extends MultiPage {
           idx++;
         }
 
-        if (column == amountColumns - 1) {
+        if (column == columns - 1) {
           pageContext = null;
           column = 0;
         } else {
@@ -269,7 +269,7 @@ class ColPage extends MultiPage {
         );
       }
 
-      for (int col = 0; col < amountColumns; col++) {
+      for (int col = 0; col < columns; col++) {
         for (_ColPageWidget widget in page.widgets) {
           if (widget.column == col) {
             Widget child = widget.child;
@@ -381,11 +381,11 @@ class ColPage extends MultiPage {
   }
 
   double _calcColumnWidth() {
-    double gapWidths = (amountColumns - 1) * gapWidth;
+    double gapWidths = (columns - 1) * gapWidth;
     double availableWidth = mustRotate
         ? (pageFormat.height - _margin.vertical - gapWidths)
         : (pageFormat.width - _margin.horizontal - gapWidths);
-    return availableWidth / amountColumns;
+    return availableWidth / columns;
   }
 
   Context _baseContext(

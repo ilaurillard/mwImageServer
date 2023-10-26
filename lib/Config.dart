@@ -45,6 +45,8 @@ class Config {
   static const KeyValue jsonHeaders = {
     'content-type': 'application/json',
   };
-
+  static const KeyValue pdfHeaders = {
+    'content-type': 'application/pdf',
+  };
 }
 

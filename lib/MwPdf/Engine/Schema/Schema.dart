@@ -22,7 +22,7 @@ class Schema {
 
   Future<void> load() async {
     String schemaData =
-        await File('${basedir}mwpdf_schema.json').readAsString();
+        await File('${basedir}/mwpdf_schema.json').readAsString();
     print('Loaded schema (${schemaData.length})');
     schema = JsonSchema.create(schemaData);
   }

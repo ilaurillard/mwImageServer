@@ -1,5 +1,4 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Widget/Widget.dart';
@@ -10,7 +9,7 @@ class Page {
   final String header;
   final String footer;
 
-  final int amountColumns;
+  final int columns;
   final double gapWidth;
 
   final List<dynamic> content;
@@ -21,7 +20,7 @@ class Page {
     this.header = '',
     this.footer = '',
     required this.content,
-    this.amountColumns = 1,
+    this.columns = 1,
     this.gapWidth = 10,
   });
 
@@ -44,8 +43,8 @@ class Page {
     // print('Page: $json');
 
     bool multi = Types.boolFromDict(json, 'multi');
-    int amountColumns = int.tryParse(json['amountColumns'].toString()) ?? 1;
-    if (amountColumns > 1) {
+    int columns = int.tryParse(json['columns'].toString()) ?? 1;
+    if (columns > 1) {
       multi = true;
     }
     return Page(
@@ -55,7 +54,7 @@ class Page {
       footer: json['footer'] as String? ?? '',
       content: json['content'] as List<dynamic>? ?? [],
       gapWidth: double.tryParse(json['gapWidth'].toString()) ?? 10,
-      amountColumns: amountColumns,
+      columns: columns,
     );
   }
 

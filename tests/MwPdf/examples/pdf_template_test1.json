@@ -1,0 +1,47 @@
+{
+  "resources": {
+    "@source3": {
+      "text": "some text"
+    },
+    "@source2": {
+      "widget": {
+        "LoremParagraph": {
+          "sentence": 20
+        }
+      }
+    },
+    "@source1": {
+      "valuesLocale": "en_US",
+      "valuesFormats": {
+        "1": "#,##0",
+        "3": "#,##0.00"
+      },
+      "values": [
+        [
+          "Katze",
+          1.5,
+          true,
+          7.5
+        ],
+        [
+          "Hund",
+          null,
+          false,
+          333441275.25
+        ],
+        [
+          "Seehund",
+          33,
+          false,
+          375.25
+        ],
+        [
+          "Hase",
+          4,
+          true,
+          0
+        ]
+      ]
+    }
+  }
+}

@@ -1,7 +1,6 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:vector_math/vector_math_64.dart';
 
 import 'Etc.dart';
 import 'Widget.dart';

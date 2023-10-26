@@ -1,4 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Etc.dart';
@@ -30,8 +31,12 @@ class Text {
   static pw.Text text(
     Dict json,
   ) {
+    String text = Etc.replaceParameters(json['text'] as String? ?? '');
+    if (text.isEmpty) {
+      text = Engine.resources.get(json['resource'] as String?).text;
+    }
     return pw.Text(
-      Etc.replaceParameters(json['text'] as String? ?? '¿'),
+      text,
       style: Etc.textStyle((json['style'] as Dict?) ?? {}),
       textAlign: Etc.textAlign(
         json['textAlign'] as String?,

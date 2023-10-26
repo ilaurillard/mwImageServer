@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Files.dart';
@@ -17,7 +18,7 @@ class Pdf {
     required this.fileStorage,
   });
 
-  Future<Resource> build(
+  Future<Resource> buildResource(
     Dict data,
     Resource templateResource,
   ) async {
@@ -48,4 +49,17 @@ class Pdf {
 
     return pdf;
   }
+
+  // Future<Uint8List> build(
+  //   Dict data,
+  //   Resource resource,
+  // ) async {
+  //
+  //   // Engine engine = await Engine.run(
+  //   //   json.decode(pdfJson) as Dict,
+  //   //   basedir: basedir,
+  //   // );
+  //
+  //   // return await engine.buildPdf().save();
+  // }
 }

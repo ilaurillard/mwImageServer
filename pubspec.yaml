@@ -22,6 +22,7 @@ dependencies:
   json_schema: ^5.1.3
   pdf: ^3.10.4
   meta: ^1.10.0
+  merge_map_null_safety: ^2.0.0
 
 dev_dependencies:
   http: ^1.1.0

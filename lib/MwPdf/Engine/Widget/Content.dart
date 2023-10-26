@@ -1,4 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math_64.dart';
@@ -21,8 +22,12 @@ class Content {
   static pw.Paragraph paragraph(
     Dict json,
   ) {
+    String text = Etc.replaceParameters(json['text'] as String? ?? '');
+    if (text.isEmpty) {
+      text = Engine.resources.get(json['resource'] as String?).text;
+    }
     return pw.Paragraph(
-      text: Etc.replaceParameters(json['text'] as String? ?? '¿'),
+      text: text,
       textAlign: Etc.textAlign(
             json['textAlign'] as String?,
           ) ??
