@@ -1,9 +1,9 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math.dart';
 
-import '../Engine.dart';
 import '../Model/Resource.dart';
 import 'Etc.dart';
 import 'Widget.dart';
@@ -11,20 +11,38 @@ import 'Widget.dart';
 class Chart {
   static pw.Chart chart(
     Dict json,
+    Resources resources,
   ) {
     List<pw.Dataset> sets = datasets(
       json['datasets'] as List<dynamic>? ?? [],
+      resources,
     );
     return pw.Chart(
       grid: chartGrid(
         json['grid'] as Dict? ?? {},
         sets,
+        resources,
       ),
-      overlay: Widget.parse(json['overlay'] as Dict? ?? {}),
-      title: Widget.parse(json['title'] as Dict? ?? {}),
-      bottom: Widget.parse(json['bottom'] as Dict? ?? {}),
-      left: Widget.parse(json['left'] as Dict? ?? {}),
-      right: Widget.parse(json['right'] as Dict? ?? {}),
+      overlay: Widget.parse(
+        json['overlay'] as Dict? ?? {},
+        resources,
+      ),
+      title: Widget.parse(
+        json['title'] as Dict? ?? {},
+        resources,
+      ),
+      bottom: Widget.parse(
+        json['bottom'] as Dict? ?? {},
+        resources,
+      ),
+      left: Widget.parse(
+        json['left'] as Dict? ?? {},
+        resources,
+      ),
+      right: Widget.parse(
+        json['right'] as Dict? ?? {},
+        resources,
+      ),
       datasets: sets,
     );
   }
@@ -32,6 +50,7 @@ class Chart {
   static pw.ChartGrid chartGrid(
     Dict json,
     List<pw.Dataset> datasets,
+    Resources resources,
   ) {
     MapEntry<String, dynamic> widget = json.entries.first;
     String key = widget.key;
@@ -41,6 +60,7 @@ class Chart {
         return cartesianGrid(
           data,
           datasets,
+          resources,
         );
       case 'PieGrid':
         return pieGrid(data);
@@ -54,16 +74,19 @@ class Chart {
   static pw.CartesianGrid cartesianGrid(
     Dict json,
     List<pw.Dataset> datasets,
+    Resources resources,
   ) {
     return pw.CartesianGrid(
       xAxis: gridAxis(
         json['xAxis'] as Dict? ?? {},
         datasets,
+        resources,
         axis: pw.Axis.horizontal,
       ),
       yAxis: gridAxis(
         json['yAxis'] as Dict? ?? {},
         datasets,
+        resources,
         axis: pw.Axis.vertical,
       ),
     );
@@ -87,7 +110,8 @@ class Chart {
 
   static pw.GridAxis gridAxis(
     Dict json,
-    List<pw.Dataset> datasets, {
+    List<pw.Dataset> datasets,
+    Resources resources, {
     pw.Axis axis = pw.Axis.horizontal,
   }) {
     MapEntry<String, dynamic> widget = json.entries.first;
@@ -98,6 +122,7 @@ class Chart {
         return fixedAxis(
           data,
           datasets,
+          resources,
           axis: axis,
         );
     }
@@ -106,7 +131,8 @@ class Chart {
 
   static pw.FixedAxis fixedAxis(
     Dict json,
-    List<pw.Dataset> datasets, {
+    List<pw.Dataset> datasets,
+    Resources resources, {
     pw.Axis axis = pw.Axis.horizontal,
   }) {
     Map<num, String> values = {};
@@ -151,15 +177,22 @@ class Chart {
       axisTick: json['axisTick'] as bool?,
       divisionsDashed: json['divisionsDashed'] as bool?,
       color: Etc.color(json['color'] as String?),
-      textStyle: Etc.textStyle(json['textStyle'] as Dict? ?? {}),
+      textStyle: Etc.textStyle(
+        json['textStyle'] as Dict? ?? {},
+        resources,
+      ),
     );
   }
 
   static pw.ChartLegend chartLegend(
     Dict json,
+    Resources resources,
   ) {
     return pw.ChartLegend(
-      textStyle: Etc.textStyle(json['textStyle'] as Dict? ?? {}),
+      textStyle: Etc.textStyle(
+        json['textStyle'] as Dict? ?? {},
+        resources,
+      ),
       position: Etc.alignment(
             json['position'] as String?,
           ) ??
@@ -177,6 +210,7 @@ class Chart {
 
   static List<pw.Dataset> datasets(
     List<dynamic> json,
+    Resources resources,
   ) {
     List<pw.Dataset> dataSets = [];
 
@@ -188,16 +222,22 @@ class Chart {
       switch (key) {
         case 'BarDataSet':
           dataSets.add(
-            barDataSet(data),
+            barDataSet(
+              data,
+              resources,
+            ),
           );
           break;
         case 'LineDataSet':
           dataSets.add(
-            lineDataSet(data),
+            lineDataSet(
+              data,
+              resources,
+            ),
           );
           break;
         case 'PieDataSet':
-          Resource resource = Engine.resources.get(data['resource'] as String?);
+          Resource resource = resources.resource(data['resource'] as String?);
 
           if (resource.data.isNotEmpty) {
             for (Map<String, dynamic> i in resource.data) {
@@ -205,12 +245,18 @@ class Chart {
               data['color'] = i['color'] as String?;
               data['legend'] = i['legend'] as String?;
               dataSets.add(
-                pieDataSet(data),
+                pieDataSet(
+                  data,
+                  resources,
+                ),
               );
             }
           } else {
             dataSets.add(
-              pieDataSet(data),
+              pieDataSet(
+                data,
+                resources,
+              ),
             );
           }
 
@@ -227,8 +273,9 @@ class Chart {
 
   static pw.BarDataSet barDataSet(
     Dict json,
+    Resources resources,
   ) {
-    Resource resource = Engine.resources.get(json['resource'] as String?);
+    Resource resource = resources.resource(json['resource'] as String?);
     double? surfaceOpacity = double.tryParse(json['surfaceOpacity'].toString());
     double? width = double.tryParse(json['width'].toString());
     double? offset = double.tryParse(json['offset'].toString());
@@ -254,8 +301,9 @@ class Chart {
 
   static pw.LineDataSet lineDataSet(
     Dict json,
+    Resources resources,
   ) {
-    Resource resource = Engine.resources.get(json['resource'] as String?);
+    Resource resource = resources.resource(json['resource'] as String?);
     double? smoothness = double.tryParse(json['smoothness'].toString());
     double? pointSize = double.tryParse(json['pointSize'].toString());
     double? lineWidth = double.tryParse(json['lineWidth'].toString());
@@ -298,6 +346,7 @@ class Chart {
 
   static pw.PieDataSet pieDataSet(
     Dict json,
+    Resources resources,
   ) {
     double? offset = double.tryParse(json['offset'].toString());
     double? borderWidth = double.tryParse(json['borderWidth'].toString());
@@ -317,7 +366,10 @@ class Chart {
       drawSurface: json['drawSurface'] as bool? ?? true,
       surfaceOpacity: surfaceOpacity ?? 1,
       offset: offset != null ? offset * PdfPageFormat.mm : 0,
-      legendStyle: Etc.textStyle((json['legendStyle'] as Dict?) ?? {}),
+      legendStyle: Etc.textStyle(
+        (json['legendStyle'] as Dict?) ?? {},
+        resources,
+      ),
       legendAlign: Etc.textAlign(json['legendAlign'] as String?),
       legendPosition: pieLegendPosition(json['legendPosition'] as String?) ??
           pw.PieLegendPosition.auto,
@@ -325,7 +377,10 @@ class Chart {
           legendLineWidth != null ? legendLineWidth * PdfPageFormat.mm : 1.0,
       legendLineColor: Etc.color(json['legendLineColor'] as String?),
       legendWidget: json['legendWidget'] != null
-          ? Widget.parse(json['legendWidget'] as Dict? ?? {})
+          ? Widget.parse(
+              json['legendWidget'] as Dict? ?? {},
+              resources,
+            )
           : null,
       legendOffset: legendOffset != null ? legendOffset * PdfPageFormat.mm : 20,
       innerRadius: innerRadius != null ? innerRadius * PdfPageFormat.mm : 0,
@@ -379,7 +434,7 @@ class Chart {
         }
       }
     } else {
-      values = {0: '0.0', 5: '5.0',  10: '10.0'};
+      values = {0: '0.0', 5: '5.0', 10: '10.0'};
 
       for (pw.Dataset set in datasets.whereType<pw.PointDataSet>()) {
         pw.PointDataSet s2 = set as pw.PointDataSet;

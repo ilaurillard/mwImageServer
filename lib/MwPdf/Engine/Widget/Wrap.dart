@@ -1,4 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -8,6 +9,7 @@ import 'Widget.dart';
 class Wrap {
   static pw.Wrap wrap(
     Dict json,
+    Resources resources,
   ) {
     double? spacing = double.tryParse(json['spacing'].toString());
     double? runSpacing = double.tryParse(json['runSpacing'].toString());
@@ -30,7 +32,10 @@ class Wrap {
       verticalDirection: Etc.verticalDirection(
         json['verticalDirection'] as String?,
       ),
-      children: Widget.children(json),
+      children: Widget.children(
+        json,
+        resources,
+      ),
     );
   }
 }

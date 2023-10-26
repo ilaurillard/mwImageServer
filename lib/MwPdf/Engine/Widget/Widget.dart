@@ -1,5 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Engine.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Model/Resource.dart';
@@ -25,47 +25,48 @@ import 'Text.dart';
 import 'Wrap.dart';
 
 class Widget {
-  static late pw.Context context;
-
-  static int pageNumber = 0;
-  static int pagesCount = 0;
-  static Map<String, String> parameters = {};
-  static String value = '';
+  // static String value = '';
 
   final Dict json;
 
   Widget({
     required this.json,
-    required pw.Context context,
-    int pageNumber = 0,
-    int pagesCount = 0,
-  }) {
-    // ignore: prefer_initializing_formals
-    Widget.pageNumber = pageNumber;
-    // ignore: prefer_initializing_formals
-    Widget.pagesCount = pagesCount;
-  }
+  });
 
-  pw.Widget build() {
-    return parse(json);
+  pw.Widget build(
+    Resources resources,
+  ) {
+    return parse(
+      json,
+      resources,
+    );
   }
 
   static pw.Widget child(
     Dict json,
+    Resources resources,
   ) {
-    return Widget.parse(json['child'] as Dict? ?? {});
+    return Widget.parse(
+      json['child'] as Dict? ?? {},
+      resources,
+    );
   }
 
   static List<pw.Widget> children(
     Dict json,
+    Resources resources,
   ) {
     return (json['children'] as List<dynamic>? ?? [])
-        .map((e) => Widget.parse(e as Dict))
+        .map((e) => Widget.parse(
+              e as Dict,
+              resources,
+            ))
         .toList();
   }
 
   static pw.Widget parse(
     Dict json,
+    Resources resources,
   ) {
     if (json.entries.isNotEmpty) {
       MapEntry<String, dynamic> widget = json.entries.first;
@@ -78,115 +79,244 @@ class Widget {
 
       switch (key) {
         case 'Switch':
-          return Etc.switchCases(data);
+          return Etc.switchCases(
+            data,
+            resources,
+          );
         // ----------
         case 'Center':
-          return Basic.center(data);
+          return Basic.center(
+            data,
+            resources,
+          );
         case 'Align':
-          return Basic.align(data);
+          return Basic.align(
+            data,
+            resources,
+          );
         case 'FittedBox':
-          return Basic.fittedBox(data);
+          return Basic.fittedBox(
+            data,
+            resources,
+          );
         case 'SizedBox':
-          return Basic.sizedBox(data);
+          return Basic.sizedBox(
+            data,
+            resources,
+          );
         case 'LimitedBox':
-          return Basic.limitedBox(data);
+          return Basic.limitedBox(
+            data,
+            resources,
+          );
         case 'ConstrainedBox':
-          return Basic.constrainedBox(data);
+          return Basic.constrainedBox(
+            data,
+            resources,
+          );
         case 'OverflowBox':
-          return Basic.overflowBox(data);
+          return Basic.overflowBox(
+            data,
+            resources,
+          );
         case 'AspectRatio':
-          return Basic.aspectRatio(data);
+          return Basic.aspectRatio(
+            data,
+            resources,
+          );
         case 'Divider':
-          return Basic.divider(data);
+          return Basic.divider(
+            data,
+            resources,
+          );
         case 'VerticalDivider':
           return Basic.verticalDivider(data);
         case 'Opacity':
-          return Basic.opacity(data);
+          return Basic.opacity(
+            data,
+            resources,
+          );
         case 'Transform':
-          return Basic.transform(data);
+          return Basic.transform(
+            data,
+            resources,
+          );
         case 'FullPage':
-          return Basic.fullPage(data);
+          return Basic.fullPage(
+            data,
+            resources,
+          );
         // ----------
         case 'Container':
-          return Container.container(data);
+          return Container.container(
+            data,
+            resources,
+          );
         case 'DecoratedBox':
-          return Container.decoratedBox(data);
+          return Container.decoratedBox(
+            data,
+            resources,
+          );
         case 'Padding':
-          return Container.padding(data);
+          return Container.padding(
+            data,
+            resources,
+          );
         // ----------
         case 'Spacer':
           return Flex.spacer(data);
         case 'Flex':
-          return Flex.flex(data);
+          return Flex.flex(
+            data,
+            resources,
+          );
         case 'Row':
-          return Flex.row(data);
+          return Flex.row(
+            data,
+            resources,
+          );
         case 'Column':
-          return Flex.column(data);
+          return Flex.column(
+            data,
+            resources,
+          );
         case 'Expanded':
-          return Flex.expanded(data);
+          return Flex.expanded(
+            data,
+            resources,
+          );
         case 'Flexible':
-          return Flex.flexible(data);
+          return Flex.flexible(
+            data,
+            resources,
+          );
         case 'ListView':
-          return Flex.listView(data);
+          return Flex.listView(
+            data,
+            resources,
+          );
         // ----------
         case 'Stack':
-          return Stack.stack(data);
+          return Stack.stack(
+            data,
+            resources,
+          );
         case 'Positioned':
-          return Stack.positioned(data);
+          return Stack.positioned(
+            data,
+            resources,
+          );
         // ----------
         case 'Wrap':
-          return Wrap.wrap(data);
+          return Wrap.wrap(
+            data,
+            resources,
+          );
         // ----------
         case 'GridView':
-          return GridView.gridView(data);
+          return GridView.gridView(
+            data,
+            resources,
+          );
         // ----------
         case 'Header':
-          return Content.header(data);
+          return Content.header(
+            data,
+            resources,
+          );
         case 'Footer':
-          return Content.footer(data);
+          return Content.footer(
+            data,
+            resources,
+          );
         case 'Bullet':
-          return Content.bullet(data);
+          return Content.bullet(
+            data,
+            resources,
+          );
         // ----------
         case 'Partitions':
-          return Partition.partitions(data);
+          return Partition.partitions(
+            data,
+            resources,
+          );
         // ----------
         case 'Table':
-          return Table.table(data);
+          return Table.table(
+            data,
+            resources,
+          );
         case 'TableAuto':
-          return Table.tableAuto(data);
+          return Table.tableAuto(
+            data,
+            resources,
+          );
         // ----------
         case 'Text':
-          return Text.text(data);
+          return Text.text(
+            data,
+            resources,
+          );
         // case 'RichText':
         //   return Text.richText(data);
         case 'Paragraph':
-          return Content.paragraph(data);
+          return Content.paragraph(
+            data,
+            resources,
+          );
         case 'Watermark':
-          return Content.watermark(data);
+          return Content.watermark(
+            data,
+            resources,
+          );
         // ----------
         case 'Placeholder':
           return Placeholders.placeholder(data);
         case 'LoremText':
-          return Placeholders.loremText(data);
+          return Placeholders.loremText(
+            data,
+            resources,
+          );
         case 'LoremParagraph':
-          return Placeholders.loremParagraph(data);
+          return Placeholders.loremParagraph(
+            data,
+            resources,
+          );
         case 'PdfLogo':
           return Placeholders.pdfLogo(data);
         // ----------
         case 'Image':
-          return Image.image(data);
+          return Image.image(
+            data,
+            resources,
+          );
         case 'SvgImage':
-          return Image.svgImage(data);
+          return Image.svgImage(
+            data,
+            resources,
+          );
         case 'Icon':
-          return Image.icon(data);
+          return Image.icon(
+            data,
+            resources,
+          );
         // ----------
         case 'Chart':
-          return Chart.chart(data);
+          return Chart.chart(
+            data,
+            resources,
+          );
         case 'ChartLegend':
-          return Chart.chartLegend(data);
+          return Chart.chartLegend(
+            data,
+            resources,
+          );
         // ----------
         case 'BarcodeWidget':
-          return Barcode.barcode(data);
+          return Barcode.barcode(
+            data,
+            resources,
+          );
         // -----------
         case 'Circle':
           return Shape.circle(data);
@@ -196,27 +326,51 @@ class Widget {
           return Shape.rectangle(data);
         // ----------
         case 'GridPaper':
-          return GridPaper.gridPaper(data);
+          return GridPaper.gridPaper(
+            data,
+            resources,
+          );
         // -----------
         case 'ClipRect':
-          return Clip.clipRect(data);
+          return Clip.clipRect(
+            data,
+            resources,
+          );
         case 'ClipRRect':
-          return Clip.clipRRect(data);
+          return Clip.clipRRect(
+            data,
+            resources,
+          );
         case 'ClipOval':
-          return Clip.clipOval(data);
+          return Clip.clipOval(
+            data,
+            resources,
+          );
         // -----------
         case 'TextField':
           return Form.textField(data);
         // -----------
         case 'Anchor':
-          return Annotation.anchor(data);
+          return Annotation.anchor(
+            data,
+            resources,
+          );
         case 'Link':
-          return Annotation.link(data);
+          return Annotation.link(
+            data,
+            resources,
+          );
         case 'UrlLink':
-          return Annotation.urlLink(data);
+          return Annotation.urlLink(
+            data,
+            resources,
+          );
         // -----------
         case 'Widget':
-          return Widget.reference(data);
+          return Widget.widget(
+            data,
+            resources,
+          );
         /*
 
           TODO implement widgets
@@ -256,11 +410,12 @@ class Widget {
     return pw.SizedBox();
   }
 
-  // referring/importing a widget from resourcesv ("@identifier")
-  static pw.Widget reference(
+  // referring/importing a widget from resources ("@identifier")
+  static pw.Widget widget(
     Dict json,
+    Resources resources,
   ) {
-    Resource resource = Engine.resources.get(json['resource'] as String?);
+    Resource resource = resources.resource(json['resource'] as String?);
     return resource.widget ?? pw.SizedBox();
   }
 }

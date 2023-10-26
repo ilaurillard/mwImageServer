@@ -3,33 +3,96 @@
     {
       "multi": true,
       "content": [
+
         {
-          "Widget": {
-            "resource": "@source2"
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "Image": {
+                      "resource": "@img1"
+                    }
+                  }
+                }
+              }
+            ]
           }
         },
         {
           "Divider": {}
         },
         {
-          "Widget": {
-            "resource": "@source2"
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "Image": {
+                  "resource": "@img1"
+                }
+              },
+              {
+                "SvgImage": {
+                  "resource": "@svg1"
+                }
+              },
+              {
+                "SvgImage": {
+                  "resource": "@svg2"
+                }
+              }
+            ]
           }
         },
         {
           "Divider": {}
         },
         {
-          "Paragraph": {
-            "resource": "@source3"
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "Expanded": {
+                  "child": {
+                    "Widget": {
+                      "resource": "@source2"
+                    }
+                  }
+                }
+              },
+              {
+                "Expanded": {
+                  "child": {
+                    "Widget": {
+                      "resource": "@source2"
+                    }
+                  }
+                }
+              }
+            ]
           }
         },
         {
           "Divider": {}
         },
         {
-          "Text": {
-            "resource": "@source3"
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "Paragraph": {
+                  "resource": "@source3"
+                }
+              },
+              {
+                "Text": {
+                  "resource": "@source3"
+                }
+              }
+            ]
           }
         },
         {

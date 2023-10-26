@@ -1,4 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Widget/Widget.dart';
@@ -25,14 +26,15 @@ class Page {
   });
 
   List<pw.Widget> build(
-    pw.Context context,
+    Resources resources,
   ) {
     return content
         .map(
           (e) => Widget(
             json: e as Dict,
-            context: context,
-          ).build(),
+          ).build(
+            resources,
+          ),
         )
         .toList();
   }

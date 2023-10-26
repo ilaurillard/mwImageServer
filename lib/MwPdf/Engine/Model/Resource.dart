@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:intl/intl.dart';
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -12,13 +15,13 @@ class Resource {
   // api/bucket/98/resource/$resourceId1
   final String file;
 
-  // svg/...
+  // svg/image... (base64)
   final String binary;
 
   // charts/tables
   final List<List<dynamic>> values;
 
-  // chart data
+  // chart data (pie!)
   final List<Map<String, dynamic>> data;
 
   // reusable widget
@@ -41,42 +44,87 @@ class Resource {
   static Resource fromJson(
     String key,
     Dict json,
+    Resources resources,
   ) {
-    List<dynamic> tempValues = json['values'] as List<dynamic>? ?? [];
-    List<dynamic> tempData = json['data'] as List<dynamic>? ?? [];
-    String locale = json['valuesLocale'] as String? ?? 'de_DE';
     return Resource(
       key,
       binary: json['binary'] as String? ?? '',
       url: json['url'] as String? ?? '',
       file: json['file'] as String? ?? '',
-      values: tempValues
+      values: (json['values'] as List<dynamic>? ?? [])
           .map(
             (dynamic row) => applyFormats(
-              _valuesFormats(json, locale),
+              _valuesFormats(
+                json,
+                json['valuesLocale'] as String? ?? 'de_DE',
+              ),
               row as List<dynamic>,
             ),
           )
           .toList(),
-      data: tempData.map((dynamic row) => row as Dict).toList(),
-      widget: Widget.parse(json['widget'] as Dict? ?? {}),
+      data: (json['data'] as List<dynamic>? ?? [])
+          .map((dynamic row) => row as Dict)
+          .toList(),
+      widget: Widget.parse(
+        json['widget'] as Dict? ?? {},
+        resources,
+      ),
       text: json['text'] as String? ?? '',
     );
   }
 
   Future<void> load() async {
-    print('load resource');
-    if (binary.isNotEmpty) {
-      return;
-    }
-    if (values.isNotEmpty) {
-      return;
-    }
-    if (url.isNotEmpty) {
-      // TODO cachekey, load from remote, cache, file
-    }
     if (file.isNotEmpty) {
+      print('load resource "$key" from file: $file');
       // TODO a bucket resource
+      // ---> put into binary
+    } else if (url.isNotEmpty) {
+      print('load resource "$key" from url: $url');
+      // TODO cachekey, load from remote, cache, file
+      // ---> put into binary
+
+      // http.Response response = await http.get(
+      //   Uri.parse(url),
+      // );
+      // if (response.statusCode < 400) {
+      // binary = response.body;
+      // print(response.body);
+      // }
+    }
+  }
+
+  String svgFromBinary() {
+    String binary = this.binary;
+    if (binary.isEmpty) {
+      throw Exception('Resource "$key" has no data');
+    }
+    if (binary.startsWith('<')) {
+      return binary;
+    } else {
+      try {
+        return utf8.decode(
+          base64.decode(
+            binary,
+          ),
+        );
+      } catch (e) {
+        throw Exception('Resource "$key": $e');
+      }
+    }
+  }
+
+  pw.ImageProvider imageFromBinary() {
+    if (binary.isEmpty) {
+      throw Exception('Resource "$key" has no data');
+    }
+    try {
+      return pw.MemoryImage(
+        base64.decode(
+          binary,
+        ),
+      );
+    } catch (e) {
+      throw Exception('Resource "$key": $e');
     }
   }
 
@@ -125,5 +173,10 @@ class Resource {
       );
     }
     return formats;
+  }
+
+  @override
+  String toString() {
+    return 'Resource{key: $key}';
   }
 }

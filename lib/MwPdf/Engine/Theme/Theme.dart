@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../Engine.dart';
 import '../Widget/Etc.dart';
 import '../Widget/Widget.dart';
 
@@ -14,6 +14,7 @@ class Theme {
 
   static Theme fromJson(
     Dict json,
+    Resources resources,
   ) {
     // print('Theme: $json');
 
@@ -22,15 +23,24 @@ class Theme {
         pw.PageOrientation.values.firstWhereOrNull((e) => e.name == o);
 
     pw.Widget? foreground = json['foreground'] != null
-        ? Widget.parse(json['foreground'] as Dict? ?? {})
+        ? Widget.parse(
+            json['foreground'] as Dict? ?? {},
+            resources,
+          )
         : null;
     pw.Widget? background = json['background'] != null
-        ? Widget.parse(json['background'] as Dict? ?? {})
+        ? Widget.parse(
+            json['background'] as Dict? ?? {},
+            resources,
+          )
         : null;
 
     pw.PageTheme theme = pw.PageTheme(
       pageFormat: pageFormat((json['format'] as Dict?) ?? {}),
-      theme: styles((json['styles'] as Dict?) ?? {}),
+      theme: styles(
+        (json['styles'] as Dict?) ?? {},
+        resources,
+      ),
       orientation: orientation,
       margin: Etc.edgeInsets(
         json['margin'] as List<dynamic>?,
@@ -48,6 +58,7 @@ class Theme {
 
   static pw.ThemeData styles(
     Dict json,
+    Resources resources,
   ) {
     // print('Styles: $json');
 
@@ -56,29 +67,64 @@ class Theme {
         pw.TextOverflow.values.firstWhereOrNull((e) => e.name == to);
 
     return pw.ThemeData(
-      defaultTextStyle: Etc.textStyle((json['text'] as Dict?) ?? {}),
-      paragraphStyle: Etc.textStyle((json['paragraph'] as Dict?) ?? {}),
-      header0: Etc.textStyle((json['header0'] as Dict?) ?? {}),
-      header1: Etc.textStyle((json['header1'] as Dict?) ?? {}),
-      header2: Etc.textStyle((json['header2'] as Dict?) ?? {}),
-      header3: Etc.textStyle((json['header3'] as Dict?) ?? {}),
-      header4: Etc.textStyle((json['header4'] as Dict?) ?? {}),
-      header5: Etc.textStyle((json['header5'] as Dict?) ?? {}),
-      bulletStyle: Etc.textStyle((json['bulletStyle'] as Dict?) ?? {}),
-      tableHeader: Etc.textStyle((json['tableHeader'] as Dict?) ?? {}),
-      tableCell: Etc.textStyle((json['tableCell'] as Dict?) ?? {}),
+      defaultTextStyle: Etc.textStyle(
+        (json['text'] as Dict?) ?? {},
+        resources,
+      ),
+      paragraphStyle: Etc.textStyle(
+        (json['paragraph'] as Dict?) ?? {},
+        resources,
+      ),
+      header0: Etc.textStyle(
+        (json['header0'] as Dict?) ?? {},
+        resources,
+      ),
+      header1: Etc.textStyle(
+        (json['header1'] as Dict?) ?? {},
+        resources,
+      ),
+      header2: Etc.textStyle(
+        (json['header2'] as Dict?) ?? {},
+        resources,
+      ),
+      header3: Etc.textStyle(
+        (json['header3'] as Dict?) ?? {},
+        resources,
+      ),
+      header4: Etc.textStyle(
+        (json['header4'] as Dict?) ?? {},
+        resources,
+      ),
+      header5: Etc.textStyle(
+        (json['header5'] as Dict?) ?? {},
+        resources,
+      ),
+      bulletStyle: Etc.textStyle(
+        (json['bulletStyle'] as Dict?) ?? {},
+        resources,
+      ),
+      tableHeader: Etc.textStyle(
+        (json['tableHeader'] as Dict?) ?? {},
+        resources,
+      ),
+      tableCell: Etc.textStyle(
+        (json['tableCell'] as Dict?) ?? {},
+        resources,
+      ),
       softWrap: json['softWrap'] as bool?,
       textAlign: Etc.textAlign(json['textAlign'] as String?),
       overflow: overflow,
       maxLines: json['maxLines'] as int?,
       iconTheme: iconTheme(
         (json['iconTheme'] as Dict?) ?? {},
+        resources,
       ),
     );
   }
 
   static pw.IconThemeData? iconTheme(
     Dict json,
+    Resources resources,
   ) {
     // print('IconTheme: $json');
 
@@ -86,8 +132,11 @@ class Theme {
       color: Etc.color(json['color'] as String?) ?? PdfColors.black,
       opacity: double.tryParse(json['opacity'].toString()),
       size: double.tryParse(json['size'].toString()),
-      font:
-          Etc.font(json['font'] as String?) ?? Engine.resources.materialFont(),
+      font: Etc.font(
+            json['font'] as String?,
+            resources,
+          ) ??
+          resources.materialFont(),
     );
   }
 
@@ -138,20 +187,27 @@ class Theme {
 
   static Map<String, Theme> fromJsonAll(
     Dict json,
+    Resources resources,
   ) {
     return json.map((k, v) {
       return MapEntry(
           k,
           Theme.fromJson(
             v as Dict,
+            resources,
           ));
     });
   }
 
-  static pw.PageTheme defaultTheme() {
+  static pw.PageTheme defaultTheme(
+    Resources resources,
+  ) {
     return pw.PageTheme(
       theme: pw.ThemeData(
-        iconTheme: iconTheme({}),
+        iconTheme: iconTheme(
+          {},
+          resources,
+        ),
       ),
     );
   }

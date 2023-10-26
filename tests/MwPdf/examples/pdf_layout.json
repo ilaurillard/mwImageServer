@@ -13,7 +13,8 @@
                       "SvgImage": {
                         "height": 30,
                         "width": 30,
-                        "fit": "fitHeight"
+                        "fit": "fitHeight",
+                        "resource": "@svg1"
                       }
                     },
                     {
@@ -21,14 +22,16 @@
                         "height": 30,
                         "width": 30,
                         "fit": "fitWidth",
-                        "alignment": "topCenter"
+                        "alignment": "topCenter",
+                        "resource": "@svg1"
                       }
                     },
                     {
                       "SvgImage": {
                         "height": 30,
                         "width": 30,
-                        "fit": "contain"
+                        "fit": "contain",
+                        "resource": "@svg1"
                       }
                     },
                     {
@@ -36,7 +39,8 @@
                         "height": 30,
                         "width": 30,
                         "fit": "cover",
-                        "colorFilter": "88BBFF"
+                        "colorFilter": "88BBFF",
+                        "resource": "@svg1"
                       }
                     }
                   ]
@@ -61,6 +65,7 @@
                             "fit": "fitHeight",
                             "child": {
                               "SvgImage": {
+                                "resource": "@svg1"
                               }
                             }
                           }
@@ -78,6 +83,7 @@
                             "alignment": "topCenter",
                             "child": {
                               "SvgImage": {
+                                "resource": "@svg1"
                               }
                             }
                           }
@@ -94,6 +100,7 @@
                             "fit": "contain",
                             "child": {
                               "SvgImage": {
+                                "resource": "@svg1"
                               }
                             }
                           }
@@ -110,7 +117,8 @@
                             "fit": "cover",
                             "child": {
                               "SvgImage": {
-                                "colorFilter": "88BBFF"
+                                "colorFilter": "88BBAA",
+                                "resource": "@svg1"
                               }
                             }
                           }
@@ -292,5 +300,10 @@
         }
       ]
     }
-  ]
+  ],
+  "resources": {
+    "@svg1": {
+      "binary": "<svg height=\"50\" width=\"200\"><circle cx=\"100\" cy=\"25\" r=\"20\" stroke=\"black\" stroke-width=\"3\" fill=\"yellow\" /></svg>"
+    }
+  }
 }

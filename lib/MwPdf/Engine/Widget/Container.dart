@@ -1,4 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -8,6 +9,7 @@ import 'Widget.dart';
 class Container {
   static pw.Widget container(
     Dict json,
+      Resources resources,
   ) {
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
@@ -33,31 +35,33 @@ class Container {
       decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
       foregroundDecoration:
           Etc.boxDecoration((json['foregroundDecoration'] as Dict?) ?? {}),
-      child: Widget.child(json),
+      child: Widget.child(json, resources, ),
       transform: Etc.transform(json['transform'] as Dict? ?? {}),
     );
   }
 
   static pw.DecoratedBox decoratedBox(
     Dict json,
+      Resources resources,
   ) {
     return pw.DecoratedBox(
       decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}) ??
           pw.BoxDecoration(),
       position: Etc.decorationPosition(json['decorationPosition'] as String?),
-      child: Widget.child(json),
+      child: Widget.child(json, resources,),
     );
   }
 
   static pw.Padding padding(
     Dict json,
+      Resources resources,
   ) {
     return pw.Padding(
       padding: Etc.edgeInsets(
             json['padding'] as List<dynamic>?,
           ) ??
           pw.EdgeInsets.zero,
-      child: Widget.child(json),
+      child: Widget.child(json, resources,),
     );
   }
 }

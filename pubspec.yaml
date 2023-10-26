@@ -23,8 +23,8 @@ dependencies:
   pdf: ^3.10.4
   meta: ^1.10.0
   merge_map_null_safety: ^2.0.0
+  http: ^1.1.0
 
 dev_dependencies:
-  http: ^1.1.0
   lints: ^2.0.0
   test: ^1.15.0

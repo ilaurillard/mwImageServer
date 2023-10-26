@@ -16,8 +16,8 @@ Future<void> main() async {
     basedir: basedir,
   );
 
-  //String templateFile = '';
-  String templateFile = 'templates/pdf_template1.json';
+  String templateFile = '';
+  // String templateFile = 'templates/pdf_template1.json';
 
   // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
@@ -27,7 +27,7 @@ Future<void> main() async {
   // String jsonFile = 'pdf_simple6.json';
   // String jsonFile = 'pdf_layout.json';
   // String jsonFile = 'pdf_shapes.json';
-  // String jsonFile = 'pdf_table.json';
+  String jsonFile = 'pdf_table.json';
   // String jsonFile = 'pdf_table2.json';
   // String jsonFile = 'pdf_table3.json';
   // String jsonFile = 'pdf_table4.json';
@@ -44,7 +44,7 @@ Future<void> main() async {
   // String jsonFile = 'pdf_form.json';
   // String jsonFile = 'pdf_invoice.json';
   // String jsonFile = 'pdf_multiCol.json';
-  String jsonFile = 'pdf_template_test1.json';
+  // String jsonFile = 'pdf_template_test1.json';
 
   String pdfBase = '{}';
   if (templateFile.isNotEmpty) {
@@ -53,7 +53,7 @@ Future<void> main() async {
 
   String pdfJson = await File('$examplesDir/$jsonFile').readAsString();
 
-  try {
+  // try {
     Dict pdfBaseDict = json.decode(pdfBase) as Dict;
     Dict pdfJsonDict = json.decode(pdfJson) as Dict;
     pdfJsonDict = mergeMap([pdfBaseDict, pdfJsonDict]);
@@ -61,7 +61,7 @@ Future<void> main() async {
     Results results = schema.validate(pdfJson);
 
     if (results.valid) {
-      try {
+      // try {
         Engine engine = await Engine.run(
           pdfJsonDict,
           basedir: basedir,
@@ -71,9 +71,10 @@ Future<void> main() async {
         await File(name).writeAsBytes(await engine.buildPdf().save());
         Console.info(
             '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n');
-      } catch (e) {
-        print('Fatal error: $e');
-      }
+      // } catch (e) {
+      //   print('Fatal error: $e');
+      //   // throw e;
+      // }
     } else {
       print('Document does not validate!');
       if (results.errors.isNotEmpty) {
@@ -89,7 +90,8 @@ Future<void> main() async {
         }
       }
     }
-  } catch (e) {
-    print('Fatal error: $e');
-  }
+  // } catch (e) {
+  //   print('Parse error: $e');
+  //   // throw e;
+  // }
 }

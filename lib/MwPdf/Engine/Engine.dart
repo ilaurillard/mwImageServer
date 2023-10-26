@@ -15,7 +15,7 @@ class Engine {
   final Map<String, Footer> footers;
   final String basedir;
 
-  static late Resources resources;
+  final Resources resources;
 
   Engine({
     required this.basedir,
@@ -23,24 +23,26 @@ class Engine {
     required this.themes,
     required this.headers,
     required this.footers,
+    required this.resources,
   });
 
   static Future<Engine> run(
     Dict json, {
     required String basedir,
   }) async {
-    Engine.resources = Resources.fromJson(
+    Resources resources = Resources.fromJson(
       (json['resources'] as Dict?) ?? {},
       basedir: basedir,
     );
-    await Engine.resources.init();
-    await Engine.resources.examples();
+    await resources.init();
+    // await resources.examples();
 
     Dict meta = (json['meta'] as Dict?) ?? {};
     return Engine(
       basedir: basedir,
       themes: Theme.fromJsonAll(
         (meta['theme'] as Dict?) ?? {},
+        resources,
       ),
       headers: Header.fromJsonAll(
         (meta['header'] as Dict?) ?? {},
@@ -51,6 +53,7 @@ class Engine {
       pages: Page.fromJsonAll(
         (json['pages'] as List?) ?? [],
       ),
+      resources: resources,
     );
   }
 
@@ -65,7 +68,10 @@ class Engine {
         if (page.header.isNotEmpty) {
           Header? header = headers[page.header];
           if (header != null) {
-            return header.build(context);
+            return header.build(
+              context,
+              resources,
+            );
           }
         }
         return pw.SizedBox();
@@ -78,7 +84,10 @@ class Engine {
         if (page.footer.isNotEmpty) {
           Footer? footer = footers[page.footer];
           if (footer != null) {
-            return footer.build(context);
+            return footer.build(
+              context,
+              resources,
+            );
           }
         }
         return pw.SizedBox();
@@ -88,7 +97,9 @@ class Engine {
       List<pw.Widget> pageBuilder(
         pw.Context context,
       ) {
-        return page.build(context);
+        return page.build(
+          resources,
+        );
       }
 
       // --------------------------
@@ -98,7 +109,10 @@ class Engine {
         if (page.columns > 1) {
           pdf.addPage(
             ColPage(
-              pageTheme: themes[page.theme]?.theme ?? Theme.defaultTheme(),
+              pageTheme: themes[page.theme]?.theme ??
+                  Theme.defaultTheme(
+                    resources,
+                  ),
               header: page.header.isNotEmpty ? headerBuilder : null,
               footer: page.footer.isNotEmpty ? footerBuilder : null,
               build: (pw.Context context) => pageBuilder(context),
@@ -109,7 +123,10 @@ class Engine {
         } else {
           pdf.addPage(
             pw.MultiPage(
-              pageTheme: themes[page.theme]?.theme ?? Theme.defaultTheme(),
+              pageTheme: themes[page.theme]?.theme ??
+                  Theme.defaultTheme(
+                    resources,
+                  ),
               header: page.header.isNotEmpty ? headerBuilder : null,
               footer: page.footer.isNotEmpty ? footerBuilder : null,
               build: (pw.Context context) => pageBuilder(context),
@@ -119,7 +136,10 @@ class Engine {
       } else {
         pdf.addPage(
           pw.Page(
-            pageTheme: themes[page.theme]?.theme ?? Theme.defaultTheme(),
+            pageTheme: themes[page.theme]?.theme ??
+                Theme.defaultTheme(
+                  resources,
+                ),
             build: (pw.Context context) => pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [

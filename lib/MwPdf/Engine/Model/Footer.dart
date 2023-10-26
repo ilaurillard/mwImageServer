@@ -1,4 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Widget/Widget.dart';
@@ -12,13 +13,13 @@ class Footer {
 
   pw.Widget build(
     pw.Context context,
+    Resources resources,
   ) {
+    resources.pageNumber = context.pageNumber;
+    resources.pagesCount = context.pagesCount;
     return Widget(
       json: json,
-      context: context,
-      pageNumber: context.pageNumber,
-      pagesCount: context.pagesCount,
-    ).build();
+    ).build(resources);
   }
 
   static Footer fromJson(

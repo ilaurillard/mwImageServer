@@ -31,8 +31,8 @@ class Pdf {
       );
     }
 
-    Console.warning('Data: ' + data.toString());
-    Console.warning('Template: ' + template.toString());
+    Console.warning('Data: $data');
+    Console.warning('Template: $template');
 
 
 

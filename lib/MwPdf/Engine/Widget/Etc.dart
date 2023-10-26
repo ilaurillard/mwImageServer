@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math_64.dart';
 
-import '../Engine.dart';
 import 'Widget.dart';
 
 class Etc {
@@ -35,6 +35,7 @@ class Etc {
 
   static pw.TextStyle? textStyle(
     Dict json,
+    Resources resources,
   ) {
     if (json.isEmpty) {
       return null;
@@ -61,11 +62,26 @@ class Etc {
 
     return pw.TextStyle(
       color: Etc.color(json['color'] as String?),
-      font: Etc.font(json['font'] as String?),
-      fontNormal: Etc.font(json['fontNormal'] as String?),
-      fontBold: Etc.font(json['fontBold'] as String?),
-      fontItalic: Etc.font(json['fontItalic'] as String?),
-      fontBoldItalic: Etc.font(json['fontBoldItalic'] as String?),
+      font: Etc.font(
+        json['font'] as String?,
+        resources,
+      ),
+      fontNormal: Etc.font(
+        json['fontNormal'] as String?,
+        resources,
+      ),
+      fontBold: Etc.font(
+        json['fontBold'] as String?,
+        resources,
+      ),
+      fontItalic: Etc.font(
+        json['fontItalic'] as String?,
+        resources,
+      ),
+      fontBoldItalic: Etc.font(
+        json['fontBoldItalic'] as String?,
+        resources,
+      ),
       fontSize: fontSize != null ? fontSize * PdfPageFormat.mm : null,
       fontWeight: fontWeight,
       fontStyle: fontStyle,
@@ -85,12 +101,13 @@ class Etc {
 
   static pw.Font? font(
     String? json,
+    Resources resources,
   ) {
     // print('Font: $json');
 
     if (json != null && json.isNotEmpty) {
-      if (Engine.resources.fonts[json] != null) {
-        return Engine.resources.fonts[json];
+      if (Resources.fonts[json] != null) {
+        return Resources.fonts[json];
       }
 
       // internal fonts
@@ -522,14 +539,15 @@ class Etc {
 
   static String replaceParameters(
     String text,
+    Resources resources,
   ) {
     // for (String key in Widget.parameters.keys) {
     //   text = text.replaceAll('%$key%', Widget.parameters[key] ?? '');
     // }
     return text
-        .replaceAll('%value%', Widget.value)
-        .replaceAll('%pageNumber%', Widget.pageNumber.toString())
-        .replaceAll('%pagesCount%', Widget.pagesCount.toString());
+        .replaceAll('%value%', resources.value)
+        .replaceAll('%pageNumber%', resources.pageNumber.toString())
+        .replaceAll('%pagesCount%', resources.pagesCount.toString());
   }
 
   // text decoration is broken .. ?
@@ -608,16 +626,26 @@ class Etc {
 
   static pw.Widget switchCases(
     Dict json,
+    Resources resources,
   ) {
     String subject = json['subject'] as String? ?? '';
-    String value = replaceParameters(subject);
+    String value = replaceParameters(
+      subject,
+      resources,
+    );
 
     Dict cases = (json['cases'] as Dict? ?? {});
     if (cases[value] != null) {
-      return Widget.parse(cases[value] as Dict? ?? {});
+      return Widget.parse(
+        cases[value] as Dict? ?? {},
+        resources,
+      );
     }
 
-    return Widget.parse(json['default'] as Dict? ?? {});
+    return Widget.parse(
+      json['default'] as Dict? ?? {},
+      resources,
+    );
   }
 
   static pw.Gradient? gradient(

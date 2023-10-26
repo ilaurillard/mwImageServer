@@ -1,8 +1,8 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../Engine.dart';
 import '../Model/Resource.dart';
 import 'Etc.dart';
 import 'Widget.dart';
@@ -10,23 +10,26 @@ import 'Widget.dart';
 class Table {
   static pw.Table tableAuto(
     Dict json,
+    Resources resources,
   ) {
     double? cellHeight = double.tryParse(json['cellHeight'].toString());
     double? headerHeight = double.tryParse(json['headerHeight'].toString());
 
-    Resource resource = Engine.resources.get(json['resource'] as String?);
+    Resource resource = resources.resource(json['resource'] as String?);
 
     List<List<dynamic>> data = resource.values;
 
-    Map<int, Dict> cells =
-        _cells(json['cells'] as Map<String, dynamic>? ?? {});
+    Map<int, Dict> cells = _cells(json['cells'] as Map<String, dynamic>? ?? {});
 
     if (cells.isNotEmpty) {
       for (List<dynamic> row in data) {
         for (int nr in cells.keys) {
           if (row.length > nr) {
-            Widget.value = row[nr]!.toString();
-            row[nr] = Widget.parse(cells[nr]!);
+            resources.value = row[nr]!.toString();
+            row[nr] = Widget.parse(
+              cells[nr]!,
+              resources,
+            );
           }
         }
       }
@@ -42,8 +45,14 @@ class Table {
       cellAlignment: Etc.alignment(json['cellAlignment'] as String?) ??
           pw.Alignment.topLeft,
       cellAlignments: _cellAlignments('cellAlignments', json),
-      cellStyle: Etc.textStyle(json['cellStyle'] as Dict? ?? {}),
-      oddCellStyle: Etc.textStyle(json['oddCellStyle'] as Dict? ?? {}),
+      cellStyle: Etc.textStyle(
+        json['cellStyle'] as Dict? ?? {},
+        resources,
+      ),
+      oddCellStyle: Etc.textStyle(
+        json['oddCellStyle'] as Dict? ?? {},
+        resources,
+      ),
       // cellFormat: TODO support callbacks??
       // cellDecoration: TODO support callbacks somehow??
       headerCount: int.tryParse(json['headerCount'].toString()) ?? 1,
@@ -56,7 +65,10 @@ class Table {
       headerAlignment: Etc.alignment(json['headerAlignment'] as String?) ??
           pw.Alignment.center,
       headerAlignments: _cellAlignments('headerAlignments', json),
-      headerStyle: Etc.textStyle(json['headerStyle'] as Dict? ?? {}),
+      headerStyle: Etc.textStyle(
+        json['headerStyle'] as Dict? ?? {},
+        resources,
+      ),
       // headerFormat: TODO callbacks??
       border: tableBorder(
         json['border'] as Dict?,
@@ -86,13 +98,17 @@ class Table {
 
   static pw.Table table(
     Dict json,
+    Resources resources,
   ) {
     List<pw.TableRow> rows = [];
 
     for (dynamic e in json['children'] as List<dynamic>? ?? []) {
       Dict d = e as Dict;
       rows.addAll(
-        tableRows(d),
+        tableRows(
+          d,
+          resources,
+        ),
       );
     }
 
@@ -117,11 +133,12 @@ class Table {
 
   static List<pw.TableRow> tableRows(
     Dict json,
+    Resources resources,
   ) {
     // print('W: TableRow');
     Dict data = json['TableRow'] as Dict? ?? {};
 
-    Resource resource = Engine.resources.get(data['resource'] as String?);
+    Resource resource = resources.resource(data['resource'] as String?);
     // print(resource);
 
     pw.BoxDecoration? decoration = Etc.boxDecoration(
@@ -144,8 +161,11 @@ class Table {
       List<pw.Widget> children = [];
       int nr = 0;
       for (dynamic d in data['children'] as List<dynamic>? ?? []) {
-        Widget.value = v.length > nr ? v[nr].toString() : '?';
-        children.add(Widget.parse(d as Dict));
+        resources.value = v.length > nr ? v[nr].toString() : '?';
+        children.add(Widget.parse(
+          d as Dict,
+          resources,
+        ));
         nr++;
       }
       rows.add(pw.TableRow(
