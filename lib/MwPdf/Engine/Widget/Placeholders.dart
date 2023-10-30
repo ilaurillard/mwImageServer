@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -31,23 +31,23 @@ class Placeholders {
 
   static pw.Text loremText(
     Dict json,
-      Resources resources,
+    State state,
   ) {
     json['text'] = _loremText(json);
     return Text.text(
       json,
-      resources,
+      state,
     );
   }
 
   static pw.Paragraph loremParagraph(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     json['text'] = _loremText(json);
     return Content.paragraph(
       json,
-      resources,
+      state,
     );
   }
 

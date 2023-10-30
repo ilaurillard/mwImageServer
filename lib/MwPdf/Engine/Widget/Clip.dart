@@ -1,5 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -8,19 +8,19 @@ import 'Widget.dart';
 class Clip {
   static pw.ClipRect clipRect(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     return pw.ClipRect(
       child: Widget.child(
         json,
-        resources,
+        state,
       ),
     );
   }
 
   static pw.ClipRRect clipRRect(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     double? horizontalRadius =
         double.tryParse(json['horizontalRadius'].toString());
@@ -30,7 +30,7 @@ class Clip {
     return pw.ClipRRect(
       child: Widget.child(
         json,
-        resources,
+        state,
       ),
       horizontalRadius:
           horizontalRadius != null ? horizontalRadius * PdfPageFormat.mm : 0,
@@ -41,12 +41,12 @@ class Clip {
 
   static pw.ClipOval clipOval(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     return pw.ClipOval(
       child: Widget.child(
         json,
-        resources,
+        state,
       ),
     );
   }

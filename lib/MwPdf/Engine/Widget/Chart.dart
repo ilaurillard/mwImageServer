@@ -1,5 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math.dart';
@@ -11,37 +11,37 @@ import 'Widget.dart';
 class Chart {
   static pw.Chart chart(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     List<pw.Dataset> sets = datasets(
       json['datasets'] as List<dynamic>? ?? [],
-      resources,
+      state,
     );
     return pw.Chart(
       grid: chartGrid(
         json['grid'] as Dict? ?? {},
         sets,
-        resources,
+        state,
       ),
       overlay: Widget.parse(
         json['overlay'] as Dict? ?? {},
-        resources,
+        state,
       ),
       title: Widget.parse(
         json['title'] as Dict? ?? {},
-        resources,
+        state,
       ),
       bottom: Widget.parse(
         json['bottom'] as Dict? ?? {},
-        resources,
+        state,
       ),
       left: Widget.parse(
         json['left'] as Dict? ?? {},
-        resources,
+        state,
       ),
       right: Widget.parse(
         json['right'] as Dict? ?? {},
-        resources,
+        state,
       ),
       datasets: sets,
     );
@@ -50,7 +50,7 @@ class Chart {
   static pw.ChartGrid chartGrid(
     Dict json,
     List<pw.Dataset> datasets,
-    Resources resources,
+    State state,
   ) {
     MapEntry<String, dynamic> widget = json.entries.first;
     String key = widget.key;
@@ -60,7 +60,7 @@ class Chart {
         return cartesianGrid(
           data,
           datasets,
-          resources,
+          state,
         );
       case 'PieGrid':
         return pieGrid(data);
@@ -74,19 +74,19 @@ class Chart {
   static pw.CartesianGrid cartesianGrid(
     Dict json,
     List<pw.Dataset> datasets,
-    Resources resources,
+    State state,
   ) {
     return pw.CartesianGrid(
       xAxis: gridAxis(
         json['xAxis'] as Dict? ?? {},
         datasets,
-        resources,
+        state,
         axis: pw.Axis.horizontal,
       ),
       yAxis: gridAxis(
         json['yAxis'] as Dict? ?? {},
         datasets,
-        resources,
+        state,
         axis: pw.Axis.vertical,
       ),
     );
@@ -111,7 +111,7 @@ class Chart {
   static pw.GridAxis gridAxis(
     Dict json,
     List<pw.Dataset> datasets,
-    Resources resources, {
+    State state, {
     pw.Axis axis = pw.Axis.horizontal,
   }) {
     MapEntry<String, dynamic> widget = json.entries.first;
@@ -122,7 +122,7 @@ class Chart {
         return fixedAxis(
           data,
           datasets,
-          resources,
+          state,
           axis: axis,
         );
     }
@@ -132,7 +132,7 @@ class Chart {
   static pw.FixedAxis fixedAxis(
     Dict json,
     List<pw.Dataset> datasets,
-    Resources resources, {
+    State state, {
     pw.Axis axis = pw.Axis.horizontal,
   }) {
     Map<num, String> values = {};
@@ -179,19 +179,19 @@ class Chart {
       color: Etc.color(json['color'] as String?),
       textStyle: Etc.textStyle(
         json['textStyle'] as Dict? ?? {},
-        resources,
+        state,
       ),
     );
   }
 
   static pw.ChartLegend chartLegend(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     return pw.ChartLegend(
       textStyle: Etc.textStyle(
         json['textStyle'] as Dict? ?? {},
-        resources,
+        state,
       ),
       position: Etc.alignment(
             json['position'] as String?,
@@ -210,7 +210,7 @@ class Chart {
 
   static List<pw.Dataset> datasets(
     List<dynamic> json,
-    Resources resources,
+    State state,
   ) {
     List<pw.Dataset> dataSets = [];
 
@@ -224,7 +224,7 @@ class Chart {
           dataSets.add(
             barDataSet(
               data,
-              resources,
+              state,
             ),
           );
           break;
@@ -232,12 +232,12 @@ class Chart {
           dataSets.add(
             lineDataSet(
               data,
-              resources,
+              state,
             ),
           );
           break;
         case 'PieDataSet':
-          Resource resource = resources.resource(data['resource'] as String?);
+          Resource resource = state.resource(data['resource'] as String?);
 
           if (resource.data.isNotEmpty) {
             for (Map<String, dynamic> i in resource.data) {
@@ -247,7 +247,7 @@ class Chart {
               dataSets.add(
                 pieDataSet(
                   data,
-                  resources,
+                  state,
                 ),
               );
             }
@@ -255,7 +255,7 @@ class Chart {
             dataSets.add(
               pieDataSet(
                 data,
-                resources,
+                state,
               ),
             );
           }
@@ -273,9 +273,9 @@ class Chart {
 
   static pw.BarDataSet barDataSet(
     Dict json,
-    Resources resources,
+    State state,
   ) {
-    Resource resource = resources.resource(json['resource'] as String?);
+    Resource resource = state.resource(json['resource'] as String?);
     double? surfaceOpacity = double.tryParse(json['surfaceOpacity'].toString());
     double? width = double.tryParse(json['width'].toString());
     double? offset = double.tryParse(json['offset'].toString());
@@ -301,9 +301,9 @@ class Chart {
 
   static pw.LineDataSet lineDataSet(
     Dict json,
-    Resources resources,
+    State state,
   ) {
-    Resource resource = resources.resource(json['resource'] as String?);
+    Resource resource = state.resource(json['resource'] as String?);
     double? smoothness = double.tryParse(json['smoothness'].toString());
     double? pointSize = double.tryParse(json['pointSize'].toString());
     double? lineWidth = double.tryParse(json['lineWidth'].toString());
@@ -346,7 +346,7 @@ class Chart {
 
   static pw.PieDataSet pieDataSet(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     double? offset = double.tryParse(json['offset'].toString());
     double? borderWidth = double.tryParse(json['borderWidth'].toString());
@@ -368,7 +368,7 @@ class Chart {
       offset: offset != null ? offset * PdfPageFormat.mm : 0,
       legendStyle: Etc.textStyle(
         (json['legendStyle'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       legendAlign: Etc.textAlign(json['legendAlign'] as String?),
       legendPosition: pieLegendPosition(json['legendPosition'] as String?) ??
@@ -379,7 +379,7 @@ class Chart {
       legendWidget: json['legendWidget'] != null
           ? Widget.parse(
               json['legendWidget'] as Dict? ?? {},
-              resources,
+              state,
             )
           : null,
       legendOffset: legendOffset != null ? legendOffset * PdfPageFormat.mm : 20,

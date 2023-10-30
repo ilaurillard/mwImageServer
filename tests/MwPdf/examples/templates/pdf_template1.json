@@ -3,7 +3,27 @@
     {
       "multi": true,
       "content": [
-
+        {
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "SvgImage": {
+                      "resource": "@svg4"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Divider": {}
+        },
         {
           "Row": {
             "mainAxisAlignment": "spaceBetween",
@@ -14,7 +34,29 @@
                   "height": 20,
                   "child": {
                     "Image": {
-                      "resource": "@img1"
+                      "resource": "@img2"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "Image": {
+                      "resource": "@img3"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "SvgImage": {
+                      "resource": "@svg3"
                     }
                   }
                 }

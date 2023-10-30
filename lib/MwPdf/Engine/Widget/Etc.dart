@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math_64.dart';
@@ -35,7 +35,7 @@ class Etc {
 
   static pw.TextStyle? textStyle(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     if (json.isEmpty) {
       return null;
@@ -64,23 +64,23 @@ class Etc {
       color: Etc.color(json['color'] as String?),
       font: Etc.font(
         json['font'] as String?,
-        resources,
+        state,
       ),
       fontNormal: Etc.font(
         json['fontNormal'] as String?,
-        resources,
+        state,
       ),
       fontBold: Etc.font(
         json['fontBold'] as String?,
-        resources,
+        state,
       ),
       fontItalic: Etc.font(
         json['fontItalic'] as String?,
-        resources,
+        state,
       ),
       fontBoldItalic: Etc.font(
         json['fontBoldItalic'] as String?,
-        resources,
+        state,
       ),
       fontSize: fontSize != null ? fontSize * PdfPageFormat.mm : null,
       fontWeight: fontWeight,
@@ -101,13 +101,13 @@ class Etc {
 
   static pw.Font? font(
     String? json,
-    Resources resources,
+    State state,
   ) {
     // print('Font: $json');
 
     if (json != null && json.isNotEmpty) {
-      if (Resources.fonts[json] != null) {
-        return Resources.fonts[json];
+      if (State.fonts[json] != null) {
+        return State.fonts[json];
       }
 
       // internal fonts
@@ -539,15 +539,15 @@ class Etc {
 
   static String replaceParameters(
     String text,
-    Resources resources,
+    State state,
   ) {
     // for (String key in Widget.parameters.keys) {
     //   text = text.replaceAll('%$key%', Widget.parameters[key] ?? '');
     // }
     return text
-        .replaceAll('%value%', resources.value)
-        .replaceAll('%pageNumber%', resources.pageNumber.toString())
-        .replaceAll('%pagesCount%', resources.pagesCount.toString());
+        .replaceAll('%value%', state.value)
+        .replaceAll('%pageNumber%', state.pageNumber.toString())
+        .replaceAll('%pagesCount%', state.pagesCount.toString());
   }
 
   // text decoration is broken .. ?
@@ -626,25 +626,25 @@ class Etc {
 
   static pw.Widget switchCases(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     String subject = json['subject'] as String? ?? '';
     String value = replaceParameters(
       subject,
-      resources,
+      state,
     );
 
     Dict cases = (json['cases'] as Dict? ?? {});
     if (cases[value] != null) {
       return Widget.parse(
         cases[value] as Dict? ?? {},
-        resources,
+        state,
       );
     }
 
     return Widget.parse(
       json['default'] as Dict? ?? {},
-      resources,
+      state,
     );
   }
 

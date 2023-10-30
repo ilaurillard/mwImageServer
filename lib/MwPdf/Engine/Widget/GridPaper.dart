@@ -1,5 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -11,7 +11,7 @@ class GridPaper {
 
   static pw.GridPaper gridPaper(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     double? interval = double.tryParse(json['interval'].toString());
 
@@ -25,7 +25,7 @@ class GridPaper {
       subdivisions: int.tryParse(json['subdivisions'].toString()) ?? 2,
       child: Widget.child(
         json,
-        resources,
+        state,
       ),
     );
   }

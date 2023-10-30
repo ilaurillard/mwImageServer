@@ -1,5 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Widget/Widget.dart';
@@ -26,14 +26,14 @@ class Page {
   });
 
   List<pw.Widget> build(
-    Resources resources,
+    State state,
   ) {
     return content
         .map(
           (e) => Widget(
             json: e as Dict,
           ).build(
-            resources,
+            state,
           ),
         )
         .toList();

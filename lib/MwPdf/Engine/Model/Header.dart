@@ -1,5 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Widget/Widget.dart';
@@ -13,13 +13,15 @@ class Header {
 
   pw.Widget build(
     pw.Context context,
-    Resources resources,
+    State state,
   ) {
-    resources.pageNumber = context.pageNumber;
-    resources.pagesCount = context.pagesCount;
+    state.pageNumber = context.pageNumber;
+    state.pagesCount = context.pagesCount;
     return Widget(
       json: json,
-    ).build(resources);
+    ).build(
+      state,
+    );
   }
 
   static Header fromJson(

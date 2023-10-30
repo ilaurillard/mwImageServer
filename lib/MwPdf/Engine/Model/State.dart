@@ -2,18 +2,19 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/ResourceCache.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Resource.dart';
 
-class Resources {
-
+class State {
   static const material = 'material';
 
   static Map<String, pw.Font> fonts = {};
   static Map<String, String> materialCodes = {};
 
-  final String basedir;
+  final String baseDir;
+  final String cacheDir;
 
   String value = '';
   int pageNumber = 0;
@@ -32,13 +33,18 @@ class Resources {
   //   base64.decode('R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='),
   // );
 
+  late final ResourceCache resourceCache;
 
-
-  Resources({
-    required this.basedir,
+  State({
+    required this.baseDir,
+    required this.cacheDir,
   });
 
   Future<void> init() async {
+    resourceCache = ResourceCache(
+        cacheDir: cacheDir
+    );
+
     if (fonts.isEmpty) {
       await loadBuiltinFonts();
       await loadMaterialFont();
@@ -50,10 +56,10 @@ class Resources {
   // Future<void> examples() async {
   //   print('load examples');
   //   exampleSvg = await File(
-  //     '$basedir/assets/example.svg',
+  //     '$baseDir/assets/example.svg',
   //   ).readAsString();
   //   exampleImage = pw.MemoryImage(
-  //     await File('$basedir/assets/example.jpg').readAsBytes(),
+  //     await File('$baseDir/assets/example.jpg').readAsBytes(),
   //   );
   // }
 
@@ -61,7 +67,7 @@ class Resources {
     print('load builtin fonts');
     fonts['openSansRegular'] = pw.Font.ttf(
       ByteData.view(
-        (await File('$basedir/assets/Open Sans Regular.ttf').readAsBytes())
+        (await File('$baseDir/assets/Open Sans Regular.ttf').readAsBytes())
             .buffer,
       ),
     );
@@ -71,13 +77,13 @@ class Resources {
     print('load material font');
     fonts[material] = pw.Font.ttf(
       ByteData.view(
-        (await File('$basedir/assets/MaterialIcons-Regular.ttf').readAsBytes())
+        (await File('$baseDir/assets/MaterialIcons-Regular.ttf').readAsBytes())
             .buffer,
       ),
     );
 
     List<String> lines =
-        File('$basedir/assets/MaterialIcons-Regular.codepoints')
+        File('$baseDir/assets/MaterialIcons-Regular.codepoints')
             .readAsLinesSync();
     for (String line in lines) {
       List<String> splitted = line.split(' ');
@@ -87,37 +93,37 @@ class Resources {
 
   Future<void> loadResources() async {
     print('load resources (${resources.length})');
-
-    // url -> load from remote, put into cachefile
-    // file -> load file
-
     for (String key in resources.keys) {
-      await resources[key]!.load();
+      await resources[key]!.load(
+        resourceCache,
+      );
     }
   }
 
-  static Resources fromJson(
+  static State fromJson(
     Dict json, {
-    required String basedir,
+    required String baseDir,
+    required String cacheDir,
   }) {
-    Resources resources = Resources(
-      basedir: basedir,
+    State state = State(
+      baseDir: baseDir,
+      cacheDir: cacheDir,
     );
 
-    resources.resources = json.map(
+    state.resources = json.map(
       (key, value) {
         return MapEntry(
           key,
           Resource.fromJson(
             key,
             value as Dict,
-            resources,
+            state,
           ),
         );
       },
     );
 
-    return resources;
+    return state;
   }
 
   pw.Font materialFont() {

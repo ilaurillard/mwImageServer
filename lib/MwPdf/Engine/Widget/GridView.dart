@@ -1,5 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -9,7 +9,7 @@ import 'Widget.dart';
 class GridView {
   static pw.GridView gridView(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     double? mainAxisSpacing =
         double.tryParse(json['mainAxisSpacing'].toString());
@@ -20,7 +20,7 @@ class GridView {
       crossAxisCount: int.tryParse(json['crossAxisCount'].toString()) ?? 3,
       children: Widget.children(
         json,
-        resources,
+        state,
       ),
       padding: Etc.edgeInsets(
             json['padding'] as List<dynamic>?,

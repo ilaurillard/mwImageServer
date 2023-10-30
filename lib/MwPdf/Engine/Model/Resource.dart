@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/ResourceCache.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -15,8 +18,8 @@ class Resource {
   // api/bucket/98/resource/$resourceId1
   final String file;
 
-  // svg/image... (base64)
-  final String binary;
+  // svg/image... (xml,base64)
+  String binary;
 
   // charts/tables
   final List<List<dynamic>> values;
@@ -44,11 +47,21 @@ class Resource {
   static Resource fromJson(
     String key,
     Dict json,
-    Resources resources,
+    State state,
   ) {
+    String binary = '';
+    try {
+      binary = json['binary'] as String? ?? '';
+      if (binary.isNotEmpty && !binary.startsWith('<')) {
+        binary = String.fromCharCodes(base64.decode(binary));
+      }
+    } catch (e) {
+      throw Exception('Resource "$key": $e');
+    }
+
     return Resource(
       key,
-      binary: json['binary'] as String? ?? '',
+      binary: binary,
       url: json['url'] as String? ?? '',
       file: json['file'] as String? ?? '',
       values: (json['values'] as List<dynamic>? ?? [])
@@ -67,29 +80,58 @@ class Resource {
           .toList(),
       widget: Widget.parse(
         json['widget'] as Dict? ?? {},
-        resources,
+        state,
       ),
       text: json['text'] as String? ?? '',
     );
   }
 
-  Future<void> load() async {
+  Future<void> load(
+    ResourceCache resourceCache,
+  ) async {
+
     if (file.isNotEmpty) {
+      binary = '';
       print('load resource "$key" from file: $file');
       // TODO a bucket resource
+
+
+
       // ---> put into binary
     } else if (url.isNotEmpty) {
       print('load resource "$key" from url: $url');
-      // TODO cachekey, load from remote, cache, file
-      // ---> put into binary
 
-      // http.Response response = await http.get(
-      //   Uri.parse(url),
-      // );
-      // if (response.statusCode < 400) {
-      // binary = response.body;
-      // print(response.body);
-      // }
+      binary = '';
+
+      // cacheKey, load from remote, cache, file
+      String cacheKey = resourceCache.cacheKey(url);
+
+      if (await resourceCache.has(cacheKey)) {
+        binary = await resourceCache.get(cacheKey);
+      }
+      print(
+        'loaded ${binary.length} bytes from cache ($cacheKey)',
+      );
+
+      if (binary.isEmpty) {
+        http.Response response = await http.get(
+          Uri.parse(url),
+        );
+        print(
+          'received ${response.bodyBytes.length} bytes, status ${response
+              .statusCode}',
+        );
+        if (response.statusCode < 400) {
+          binary = response.body;
+          print(
+            'put ${binary.length} bytes to cache ($cacheKey)',
+          );
+          resourceCache.put(
+            cacheKey,
+            binary,
+          );
+        }
+      }
     }
   }
 
@@ -98,19 +140,10 @@ class Resource {
     if (binary.isEmpty) {
       throw Exception('Resource "$key" has no data');
     }
-    if (binary.startsWith('<')) {
-      return binary;
-    } else {
-      try {
-        return utf8.decode(
-          base64.decode(
-            binary,
-          ),
-        );
-      } catch (e) {
-        throw Exception('Resource "$key": $e');
-      }
+    if (!binary.startsWith('<')) {
+      throw Exception('Resource "$key" data does not start with "<"');
     }
+    return binary;
   }
 
   pw.ImageProvider imageFromBinary() {
@@ -119,9 +152,7 @@ class Resource {
     }
     try {
       return pw.MemoryImage(
-        base64.decode(
-          binary,
-        ),
+        Uint8List.fromList(binary.codeUnits),
       );
     } catch (e) {
       throw Exception('Resource "$key": $e');

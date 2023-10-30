@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -14,7 +14,7 @@ class Theme {
 
   static Theme fromJson(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     // print('Theme: $json');
 
@@ -25,13 +25,13 @@ class Theme {
     pw.Widget? foreground = json['foreground'] != null
         ? Widget.parse(
             json['foreground'] as Dict? ?? {},
-            resources,
+            state,
           )
         : null;
     pw.Widget? background = json['background'] != null
         ? Widget.parse(
             json['background'] as Dict? ?? {},
-            resources,
+            state,
           )
         : null;
 
@@ -39,7 +39,7 @@ class Theme {
       pageFormat: pageFormat((json['format'] as Dict?) ?? {}),
       theme: styles(
         (json['styles'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       orientation: orientation,
       margin: Etc.edgeInsets(
@@ -58,7 +58,7 @@ class Theme {
 
   static pw.ThemeData styles(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     // print('Styles: $json');
 
@@ -69,47 +69,47 @@ class Theme {
     return pw.ThemeData(
       defaultTextStyle: Etc.textStyle(
         (json['text'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       paragraphStyle: Etc.textStyle(
         (json['paragraph'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       header0: Etc.textStyle(
         (json['header0'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       header1: Etc.textStyle(
         (json['header1'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       header2: Etc.textStyle(
         (json['header2'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       header3: Etc.textStyle(
         (json['header3'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       header4: Etc.textStyle(
         (json['header4'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       header5: Etc.textStyle(
         (json['header5'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       bulletStyle: Etc.textStyle(
         (json['bulletStyle'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       tableHeader: Etc.textStyle(
         (json['tableHeader'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       tableCell: Etc.textStyle(
         (json['tableCell'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       softWrap: json['softWrap'] as bool?,
       textAlign: Etc.textAlign(json['textAlign'] as String?),
@@ -117,14 +117,14 @@ class Theme {
       maxLines: json['maxLines'] as int?,
       iconTheme: iconTheme(
         (json['iconTheme'] as Dict?) ?? {},
-        resources,
+        state,
       ),
     );
   }
 
   static pw.IconThemeData? iconTheme(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     // print('IconTheme: $json');
 
@@ -134,9 +134,9 @@ class Theme {
       size: double.tryParse(json['size'].toString()),
       font: Etc.font(
             json['font'] as String?,
-            resources,
+            state,
           ) ??
-          resources.materialFont(),
+          state.materialFont(),
     );
   }
 
@@ -187,26 +187,26 @@ class Theme {
 
   static Map<String, Theme> fromJsonAll(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     return json.map((k, v) {
       return MapEntry(
           k,
           Theme.fromJson(
             v as Dict,
-            resources,
+            state,
           ));
     });
   }
 
   static pw.PageTheme defaultTheme(
-    Resources resources,
+    State state,
   ) {
     return pw.PageTheme(
       theme: pw.ThemeData(
         iconTheme: iconTheme(
           {},
-          resources,
+          state,
         ),
       ),
     );

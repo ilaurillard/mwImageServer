@@ -1,5 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -10,12 +10,12 @@ import 'Widget.dart';
 class Table {
   static pw.Table tableAuto(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     double? cellHeight = double.tryParse(json['cellHeight'].toString());
     double? headerHeight = double.tryParse(json['headerHeight'].toString());
 
-    Resource resource = resources.resource(json['resource'] as String?);
+    Resource resource = state.resource(json['resource'] as String?);
 
     List<List<dynamic>> data = resource.values;
 
@@ -25,10 +25,10 @@ class Table {
       for (List<dynamic> row in data) {
         for (int nr in cells.keys) {
           if (row.length > nr) {
-            resources.value = row[nr]!.toString();
+            state.value = row[nr]!.toString();
             row[nr] = Widget.parse(
               cells[nr]!,
-              resources,
+              state,
             );
           }
         }
@@ -47,11 +47,11 @@ class Table {
       cellAlignments: _cellAlignments('cellAlignments', json),
       cellStyle: Etc.textStyle(
         json['cellStyle'] as Dict? ?? {},
-        resources,
+        state,
       ),
       oddCellStyle: Etc.textStyle(
         json['oddCellStyle'] as Dict? ?? {},
-        resources,
+        state,
       ),
       // cellFormat: TODO support callbacks??
       // cellDecoration: TODO support callbacks somehow??
@@ -67,7 +67,7 @@ class Table {
       headerAlignments: _cellAlignments('headerAlignments', json),
       headerStyle: Etc.textStyle(
         json['headerStyle'] as Dict? ?? {},
-        resources,
+        state,
       ),
       // headerFormat: TODO callbacks??
       border: tableBorder(
@@ -98,7 +98,7 @@ class Table {
 
   static pw.Table table(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     List<pw.TableRow> rows = [];
 
@@ -107,7 +107,7 @@ class Table {
       rows.addAll(
         tableRows(
           d,
-          resources,
+          state,
         ),
       );
     }
@@ -133,12 +133,12 @@ class Table {
 
   static List<pw.TableRow> tableRows(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     // print('W: TableRow');
     Dict data = json['TableRow'] as Dict? ?? {};
 
-    Resource resource = resources.resource(data['resource'] as String?);
+    Resource resource = state.resource(data['resource'] as String?);
     // print(resource);
 
     pw.BoxDecoration? decoration = Etc.boxDecoration(
@@ -161,10 +161,10 @@ class Table {
       List<pw.Widget> children = [];
       int nr = 0;
       for (dynamic d in data['children'] as List<dynamic>? ?? []) {
-        resources.value = v.length > nr ? v[nr].toString() : '?';
+        state.value = v.length > nr ? v[nr].toString() : '?';
         children.add(Widget.parse(
           d as Dict,
-          resources,
+          state,
         ));
         nr++;
       }

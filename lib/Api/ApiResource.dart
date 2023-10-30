@@ -32,7 +32,7 @@ class ApiResource {
   FutureOr<Response> pdf(
     Request request,
   ) async {
-    Console.info('[ApiResource.generate]');
+    Console.info('[ApiResource.pdf]');
 
     Resource resource = await _resourceFromRequest(request);
     if (!resource.valid()) {

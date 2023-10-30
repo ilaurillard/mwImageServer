@@ -5,44 +5,48 @@ import 'Etc/ColPage.dart';
 import 'Model/Footer.dart';
 import 'Model/Header.dart';
 import 'Model/Page.dart';
-import 'Model/Resources.dart';
+import 'Model/State.dart';
 import 'Theme/Theme.dart';
 
 class Engine {
   final List<Page> pages;
+
   final Map<String, Theme> themes;
   final Map<String, Header> headers;
   final Map<String, Footer> footers;
-  final String basedir;
 
-  final Resources resources;
+  final String baseDir;
+
+  final State state;
 
   Engine({
-    required this.basedir,
+    required this.baseDir,
     required this.pages,
     required this.themes,
     required this.headers,
     required this.footers,
-    required this.resources,
+    required this.state,
   });
 
   static Future<Engine> run(
     Dict json, {
-    required String basedir,
+    required String baseDir,
+    required String cacheDir,
   }) async {
-    Resources resources = Resources.fromJson(
+    State state = State.fromJson(
       (json['resources'] as Dict?) ?? {},
-      basedir: basedir,
+      baseDir: baseDir,
+      cacheDir: cacheDir,
     );
-    await resources.init();
+    await state.init();
     // await resources.examples();
 
     Dict meta = (json['meta'] as Dict?) ?? {};
     return Engine(
-      basedir: basedir,
+      baseDir: baseDir,
       themes: Theme.fromJsonAll(
         (meta['theme'] as Dict?) ?? {},
-        resources,
+        state,
       ),
       headers: Header.fromJsonAll(
         (meta['header'] as Dict?) ?? {},
@@ -53,7 +57,7 @@ class Engine {
       pages: Page.fromJsonAll(
         (json['pages'] as List?) ?? [],
       ),
-      resources: resources,
+      state: state,
     );
   }
 
@@ -70,7 +74,7 @@ class Engine {
           if (header != null) {
             return header.build(
               context,
-              resources,
+              state,
             );
           }
         }
@@ -86,7 +90,7 @@ class Engine {
           if (footer != null) {
             return footer.build(
               context,
-              resources,
+              state,
             );
           }
         }
@@ -98,7 +102,7 @@ class Engine {
         pw.Context context,
       ) {
         return page.build(
-          resources,
+          state,
         );
       }
 
@@ -111,7 +115,7 @@ class Engine {
             ColPage(
               pageTheme: themes[page.theme]?.theme ??
                   Theme.defaultTheme(
-                    resources,
+                    state,
                   ),
               header: page.header.isNotEmpty ? headerBuilder : null,
               footer: page.footer.isNotEmpty ? footerBuilder : null,
@@ -125,7 +129,7 @@ class Engine {
             pw.MultiPage(
               pageTheme: themes[page.theme]?.theme ??
                   Theme.defaultTheme(
-                    resources,
+                    state,
                   ),
               header: page.header.isNotEmpty ? headerBuilder : null,
               footer: page.footer.isNotEmpty ? footerBuilder : null,
@@ -138,7 +142,7 @@ class Engine {
           pw.Page(
             pageTheme: themes[page.theme]?.theme ??
                 Theme.defaultTheme(
-                  resources,
+                  state,
                 ),
             build: (pw.Context context) => pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,

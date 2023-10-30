@@ -8,5 +8,6 @@ build/
 /data/database/system.db
 /data/priv/*
 /data/pub/*
+/data/cache/*
 
 .idea/

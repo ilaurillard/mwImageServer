@@ -1,5 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Model/Resource.dart';
@@ -25,8 +25,6 @@ import 'Text.dart';
 import 'Wrap.dart';
 
 class Widget {
-  // static String value = '';
-
   final Dict json;
 
   Widget({
@@ -34,39 +32,39 @@ class Widget {
   });
 
   pw.Widget build(
-    Resources resources,
+    State state,
   ) {
     return parse(
       json,
-      resources,
+      state,
     );
   }
 
   static pw.Widget child(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     return Widget.parse(
       json['child'] as Dict? ?? {},
-      resources,
+      state,
     );
   }
 
   static List<pw.Widget> children(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     return (json['children'] as List<dynamic>? ?? [])
         .map((e) => Widget.parse(
               e as Dict,
-              resources,
+              state,
             ))
         .toList();
   }
 
   static pw.Widget parse(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     if (json.entries.isNotEmpty) {
       MapEntry<String, dynamic> widget = json.entries.first;
@@ -81,86 +79,86 @@ class Widget {
         case 'Switch':
           return Etc.switchCases(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Center':
           return Basic.center(
             data,
-            resources,
+            state,
           );
         case 'Align':
           return Basic.align(
             data,
-            resources,
+            state,
           );
         case 'FittedBox':
           return Basic.fittedBox(
             data,
-            resources,
+            state,
           );
         case 'SizedBox':
           return Basic.sizedBox(
             data,
-            resources,
+            state,
           );
         case 'LimitedBox':
           return Basic.limitedBox(
             data,
-            resources,
+            state,
           );
         case 'ConstrainedBox':
           return Basic.constrainedBox(
             data,
-            resources,
+            state,
           );
         case 'OverflowBox':
           return Basic.overflowBox(
             data,
-            resources,
+            state,
           );
         case 'AspectRatio':
           return Basic.aspectRatio(
             data,
-            resources,
+            state,
           );
         case 'Divider':
           return Basic.divider(
             data,
-            resources,
+            state,
           );
         case 'VerticalDivider':
           return Basic.verticalDivider(data);
         case 'Opacity':
           return Basic.opacity(
             data,
-            resources,
+            state,
           );
         case 'Transform':
           return Basic.transform(
             data,
-            resources,
+            state,
           );
         case 'FullPage':
           return Basic.fullPage(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Container':
           return Container.container(
             data,
-            resources,
+            state,
           );
         case 'DecoratedBox':
           return Container.decoratedBox(
             data,
-            resources,
+            state,
           );
         case 'Padding':
           return Container.padding(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Spacer':
@@ -168,106 +166,106 @@ class Widget {
         case 'Flex':
           return Flex.flex(
             data,
-            resources,
+            state,
           );
         case 'Row':
           return Flex.row(
             data,
-            resources,
+            state,
           );
         case 'Column':
           return Flex.column(
             data,
-            resources,
+            state,
           );
         case 'Expanded':
           return Flex.expanded(
             data,
-            resources,
+            state,
           );
         case 'Flexible':
           return Flex.flexible(
             data,
-            resources,
+            state,
           );
         case 'ListView':
           return Flex.listView(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Stack':
           return Stack.stack(
             data,
-            resources,
+            state,
           );
         case 'Positioned':
           return Stack.positioned(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Wrap':
           return Wrap.wrap(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'GridView':
           return GridView.gridView(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Header':
           return Content.header(
             data,
-            resources,
+            state,
           );
         case 'Footer':
           return Content.footer(
             data,
-            resources,
+            state,
           );
         case 'Bullet':
           return Content.bullet(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Partitions':
           return Partition.partitions(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Table':
           return Table.table(
             data,
-            resources,
+            state,
           );
         case 'TableAuto':
           return Table.tableAuto(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Text':
           return Text.text(
             data,
-            resources,
+            state,
           );
         // case 'RichText':
         //   return Text.richText(data);
         case 'Paragraph':
           return Content.paragraph(
             data,
-            resources,
+            state,
           );
         case 'Watermark':
           return Content.watermark(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Placeholder':
@@ -275,12 +273,12 @@ class Widget {
         case 'LoremText':
           return Placeholders.loremText(
             data,
-            resources,
+            state,
           );
         case 'LoremParagraph':
           return Placeholders.loremParagraph(
             data,
-            resources,
+            state,
           );
         case 'PdfLogo':
           return Placeholders.pdfLogo(data);
@@ -288,34 +286,34 @@ class Widget {
         case 'Image':
           return Image.image(
             data,
-            resources,
+            state,
           );
         case 'SvgImage':
           return Image.svgImage(
             data,
-            resources,
+            state,
           );
         case 'Icon':
           return Image.icon(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'Chart':
           return Chart.chart(
             data,
-            resources,
+            state,
           );
         case 'ChartLegend':
           return Chart.chartLegend(
             data,
-            resources,
+            state,
           );
         // ----------
         case 'BarcodeWidget':
           return Barcode.barcode(
             data,
-            resources,
+            state,
           );
         // -----------
         case 'Circle':
@@ -328,23 +326,23 @@ class Widget {
         case 'GridPaper':
           return GridPaper.gridPaper(
             data,
-            resources,
+            state,
           );
         // -----------
         case 'ClipRect':
           return Clip.clipRect(
             data,
-            resources,
+            state,
           );
         case 'ClipRRect':
           return Clip.clipRRect(
             data,
-            resources,
+            state,
           );
         case 'ClipOval':
           return Clip.clipOval(
             data,
-            resources,
+            state,
           );
         // -----------
         case 'TextField':
@@ -353,23 +351,23 @@ class Widget {
         case 'Anchor':
           return Annotation.anchor(
             data,
-            resources,
+            state,
           );
         case 'Link':
           return Annotation.link(
             data,
-            resources,
+            state,
           );
         case 'UrlLink':
           return Annotation.urlLink(
             data,
-            resources,
+            state,
           );
         // -----------
         case 'Widget':
           return Widget.widget(
             data,
-            resources,
+            state,
           );
         /*
 
@@ -413,9 +411,9 @@ class Widget {
   // referring/importing a widget from resources ("@identifier")
   static pw.Widget widget(
     Dict json,
-    Resources resources,
+    State state,
   ) {
-    Resource resource = resources.resource(json['resource'] as String?);
+    Resource resource = state.resource(json['resource'] as String?);
     return resource.widget ?? pw.SizedBox();
   }
 }

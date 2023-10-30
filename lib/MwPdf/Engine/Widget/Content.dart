@@ -1,5 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/Resources.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math_64.dart';
@@ -11,28 +11,28 @@ import 'Widget.dart';
 class Content {
   static pw.Watermark watermark(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     return pw.Watermark(
       fit: Etc.boxFit(json['fit'] as String?) ?? pw.BoxFit.contain,
       angle: radians(double.tryParse(json['angle'].toString()) ?? 0),
       child: Widget.child(
         json,
-        resources,
+        state,
       ),
     );
   }
 
   static pw.Paragraph paragraph(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     String text = Etc.replaceParameters(
       json['text'] as String? ?? '',
-      resources,
+      state,
     );
     if (text.isEmpty) {
-      text = resources.resource(json['resource'] as String?).text;
+      text = state.resource(json['resource'] as String?).text;
     }
     return pw.Paragraph(
       text: text,
@@ -49,21 +49,21 @@ class Content {
           const pw.EdgeInsets.only(bottom: 5.0 * PdfPageFormat.mm),
       style: Etc.textStyle(
         json['style'] as Dict? ?? {},
-        resources,
+        state,
       ),
     );
   }
 
   static pw.Header header(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     return pw.Header(
       title: json['title'] as String?,
       text: json['text'] as String?,
       child: Widget.child(
         json,
-        resources,
+        state,
       ),
       level: json['level'] as int? ?? 0,
       decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
@@ -82,32 +82,32 @@ class Content {
       ),
       textStyle: Etc.textStyle(
         (json['textStyle'] as Dict?) ?? {},
-        resources,
+        state,
       ),
     );
   }
 
   static pw.Footer footer(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     return pw.Footer(
       leading: json['leading'] != null
           ? Widget.parse(
               json['leading'] as Dict? ?? {},
-              resources,
+              state,
             )
           : null,
       title: json['title'] != null
           ? Widget.parse(
               json['title'] as Dict? ?? {},
-              resources,
+              state,
             )
           : null,
       trailing: json['trailing'] != null
           ? Widget.parse(
               json['trailing'] as Dict? ?? {},
-              resources,
+              state,
             )
           : null,
       margin: Etc.edgeInsets(
@@ -122,14 +122,14 @@ class Content {
 
   static pw.Bullet bullet(
     Dict json,
-    Resources resources,
+    State state,
   ) {
     double? bulletSize = double.tryParse(json['bulletSize'].toString());
 
     return pw.Bullet(
         text: Etc.replaceParameters(
           json['text'] as String? ?? '',
-          resources,
+          state,
         ),
         textAlign: Etc.textAlign(
               json['textAlign'] as String?,
@@ -144,7 +144,7 @@ class Content {
             const pw.EdgeInsets.only(bottom: 2.0 * PdfPageFormat.mm),
         style: Etc.textStyle(
           json['style'] as Dict? ?? {},
-          resources,
+          state,
         ),
         bulletMargin: Etc.edgeInsets(
               json['bulletMargin'] as List<dynamic>?,
