@@ -70,7 +70,7 @@
                   "datasets": [
                     {
                       "LineDataSet": {
-                        "resource": "@source2",
+                        "source": "@source2",
                         "color": "FF8800",
                         "lineWidth": 0.2,
                         "pointColor": "000000",
@@ -117,7 +117,7 @@
       ]
     }
   ],
-  "resources": {
+  "sources": {
     "@source2": {
       "values": [
         [

@@ -252,7 +252,7 @@ class ApiResource {
     Uint8List bytes,
   ) async {
     try {
-      File file = await fileStorage.createFile(
+      File file = await fileStorage.createFileFromBytes(
         '${resource.path()}/${resource.filename}',
         bytes,
       );

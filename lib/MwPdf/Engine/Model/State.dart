@@ -2,10 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/ResourceCache.dart';
+import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Resource.dart';
+import 'Datasource.dart';
 
 class State {
   static const material = 'material';
@@ -14,13 +14,13 @@ class State {
   static Map<String, String> materialCodes = {};
 
   final String baseDir;
-  final String cacheDir;
+  final String dataDir;
 
   String value = '';
   int pageNumber = 0;
   int pagesCount = 0;
 
-  Map<String, Resource> resources = {};
+  Map<String, Datasource> sources = {};
 
   // String exampleSvg = utf8.decode(
   //   // red circle
@@ -33,16 +33,17 @@ class State {
   //   base64.decode('R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='),
   // );
 
-  late final ResourceCache resourceCache;
+  late final FileStorage fileStorage;
 
   State({
     required this.baseDir,
-    required this.cacheDir,
+    required this.dataDir,
   });
 
   Future<void> init() async {
-    resourceCache = ResourceCache(
-        cacheDir: cacheDir
+
+    fileStorage = FileStorage(
+      dataDir: dataDir,
     );
 
     if (fonts.isEmpty) {
@@ -92,10 +93,10 @@ class State {
   }
 
   Future<void> loadResources() async {
-    print('load resources (${resources.length})');
-    for (String key in resources.keys) {
-      await resources[key]!.load(
-        resourceCache,
+    print('load resources (${sources.length})');
+    for (String key in sources.keys) {
+      await sources[key]!.load(
+        fileStorage,
       );
     }
   }
@@ -103,18 +104,18 @@ class State {
   static State fromJson(
     Dict json, {
     required String baseDir,
-    required String cacheDir,
+    required String dataDir,
   }) {
     State state = State(
       baseDir: baseDir,
-      cacheDir: cacheDir,
+      dataDir: dataDir,
     );
 
-    state.resources = json.map(
+    state.sources = json.map(
       (key, value) {
         return MapEntry(
           key,
-          Resource.fromJson(
+          Datasource.fromJson(
             key,
             value as Dict,
             state,
@@ -130,12 +131,12 @@ class State {
     return fonts[material]!;
   }
 
-  Resource resource(
+  Datasource source(
     String? key,
   ) {
-    if (key != null && key.isNotEmpty && resources[key] == null) {
+    if (key != null && key.isNotEmpty && sources[key] == null) {
       print('No resource available for "$key"');
     }
-    return resources[key ?? ''] ?? Resource(key ?? '');
+    return sources[key ?? ''] ?? Datasource(key ?? '');
   }
 }

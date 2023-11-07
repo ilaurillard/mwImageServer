@@ -22,7 +22,7 @@
         },
         {
           "TableAuto": {
-            "resource": "@source1",
+            "source": "@source1",
             "cellPadding": [
               1.5
             ],
@@ -80,7 +80,7 @@
       ]
     }
   ],
-  "resources": {
+  "sources": {
     "@source1": {
       "values": [
         [

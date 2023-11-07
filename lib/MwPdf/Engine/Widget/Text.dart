@@ -37,7 +37,11 @@ class Text {
       state,
     );
     if (text.isEmpty) {
-      text = state.resource(json['resource'] as String?).text;
+      text = state
+          .source(
+            json['source'] as String?,
+          )
+          .text;
     }
     return pw.Text(
       text,

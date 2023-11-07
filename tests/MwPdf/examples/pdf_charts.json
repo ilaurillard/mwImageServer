@@ -65,7 +65,7 @@
                             "datasets": [
                               {
                                 "BarDataSet": {
-                                  "resource": "@source1",
+                                  "source": "@source1",
                                   "legend": "aaa",
                                   "color": "FF8800",
                                   "borderColor": "000000",
@@ -81,7 +81,7 @@
                               },
                               {
                                 "LineDataSet": {
-                                  "resource": "@source2",
+                                  "source": "@source2",
                                   "legend": "bbb",
                                   "color": "FF8800",
                                   "pointColor": "000000",
@@ -193,7 +193,7 @@
                             "datasets": [
                               {
                                 "PieDataSet": {
-                                  "resource": "@source3",
+                                  "source": "@source3",
                                   "legend": "Piece1",
                                   "color": "6666FF",
                                   "value": 100,
@@ -235,7 +235,7 @@
                             "datasets": [
                               {
                                 "LineDataSet": {
-                                  "resource": "@source1",
+                                  "source": "@source1",
                                   "legend": "ccc",
                                   "color": "FF8800",
                                   "surfaceColor": "CCCCCC",
@@ -262,7 +262,7 @@
       ]
     }
   ],
-  "resources": {
+  "sources": {
     "@source1": {
       "values": [
         [

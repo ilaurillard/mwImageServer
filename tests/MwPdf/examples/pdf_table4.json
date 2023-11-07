@@ -6,7 +6,7 @@
         {
           "TableAuto": {
             "headerCount": 1,
-            "resource": "@source1",
+            "source": "@source1",
             "cells": {
               "2": {
                 "Switch": {
@@ -65,7 +65,7 @@
       ]
     }
   ],
-  "resources": {
+  "sources": {
     "@source1": {
       "valuesLocale": "en_US",
       "valuesFormats": {

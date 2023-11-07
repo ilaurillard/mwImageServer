@@ -4,7 +4,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math.dart';
 
-import '../Model/Resource.dart';
+import '../Model/Datasource.dart';
 import 'Etc.dart';
 import 'Widget.dart';
 
@@ -237,10 +237,12 @@ class Chart {
           );
           break;
         case 'PieDataSet':
-          Resource resource = state.resource(data['resource'] as String?);
+          Datasource source = state.source(
+            data['source'] as String?,
+          );
 
-          if (resource.data.isNotEmpty) {
-            for (Map<String, dynamic> i in resource.data) {
+          if (source.data.isNotEmpty) {
+            for (Map<String, dynamic> i in source.data) {
               data['value'] = double.tryParse(i['value'].toString()) ?? 0;
               data['color'] = i['color'] as String?;
               data['legend'] = i['legend'] as String?;
@@ -275,7 +277,9 @@ class Chart {
     Dict json,
     State state,
   ) {
-    Resource resource = state.resource(json['resource'] as String?);
+    Datasource source = state.source(
+      json['source'] as String?,
+    );
     double? surfaceOpacity = double.tryParse(json['surfaceOpacity'].toString());
     double? width = double.tryParse(json['width'].toString());
     double? offset = double.tryParse(json['offset'].toString());
@@ -295,7 +299,7 @@ class Chart {
       pointSize: pointSize != null ? pointSize * PdfPageFormat.mm : 3,
       valuePosition: valuePosition(json['valuePosition'] as String?) ??
           pw.ValuePosition.auto,
-      data: values(resource),
+      data: values(source),
     );
   }
 
@@ -303,7 +307,9 @@ class Chart {
     Dict json,
     State state,
   ) {
-    Resource resource = state.resource(json['resource'] as String?);
+    Datasource source = state.source(
+      json['source'] as String?,
+    );
     double? smoothness = double.tryParse(json['smoothness'].toString());
     double? pointSize = double.tryParse(json['pointSize'].toString());
     double? lineWidth = double.tryParse(json['lineWidth'].toString());
@@ -324,18 +330,18 @@ class Chart {
       surfaceColor: Etc.color(json['surfaceColor'] as String?),
       isCurved: json['isCurved'] as bool? ?? false,
       smoothness: smoothness ?? 0.35,
-      data: values(resource),
+      data: values(source),
     );
   }
 
   static List<pw.PointChartValue> values(
-    Resource resource,
+    Datasource source,
   ) {
     return List<pw.PointChartValue>.generate(
-      resource.values.length,
+      source.values.length,
       (int index) {
         final double value =
-            double.tryParse((resource.values[index][0]).toString()) ?? 0.0;
+            double.tryParse((source.values[index][0]).toString()) ?? 0.0;
         return pw.PointChartValue(
           index.toDouble(),
           value,

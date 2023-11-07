@@ -73,7 +73,7 @@
               },
               {
                 "TableRow": {
-                  "resource": "@source1",
+                  "source": "@source1",
                   "children": [
                     {
                       "Text": {
@@ -132,7 +132,7 @@
       ]
     }
   ],
-  "resources": {
+  "sources": {
     "@source1": {
       "valuesFormats": {
         "1": "#,##0",

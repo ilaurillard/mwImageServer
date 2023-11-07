@@ -7,7 +7,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 
-const cacheDir = '/home/ilja/PhpstormProjects/mwcdn/data/cache';
+const dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
 const baseDir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwPdf';
 const examplesDir = '/home/ilja/PhpstormProjects/mwcdn/tests/MwPdf/examples';
 
@@ -67,7 +67,7 @@ Future<void> main() async {
         Engine engine = await Engine.run(
           pdfJsonDict,
           baseDir: baseDir,
-          cacheDir: cacheDir,
+          dataDir: dataDir,
         );
 
         String name = '$examplesDir/output/$jsonFile.pdf';

@@ -31,15 +31,14 @@ class Engine {
   static Future<Engine> run(
     Dict json, {
     required String baseDir,
-    required String cacheDir,
+    required String dataDir,
   }) async {
     State state = State.fromJson(
-      (json['resources'] as Dict?) ?? {},
+      (json['sources'] as Dict?) ?? {},
       baseDir: baseDir,
-      cacheDir: cacheDir,
+      dataDir: dataDir,
     );
     await state.init();
-    // await resources.examples();
 
     Dict meta = (json['meta'] as Dict?) ?? {};
     return Engine(

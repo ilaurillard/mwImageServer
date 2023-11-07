@@ -171,7 +171,7 @@
           "legend": {
             "type": "string"
           },
-          "resource": {
+          "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "drawPoints": {
@@ -287,7 +287,7 @@
       "PieDataSet": {
         "additionalProperties": false,
         "properties": {
-          "resource": {
+          "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "value": {
@@ -350,7 +350,7 @@
           "legend": {
             "type": "string"
           },
-          "resource": {
+          "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "drawPoints": {
@@ -425,7 +425,7 @@
           "repeat": {
             "type": "boolean"
           },
-          "resource": {
+          "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "verticalAlignment": {
@@ -1771,7 +1771,7 @@
           "height": {
             "type": "number"
           },
-          "resource": {
+          "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "width": {
@@ -1948,7 +1948,7 @@
           "text": {
             "type": "string"
           },
-          "resource": {
+          "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "textAlign": {
@@ -2164,7 +2164,7 @@
           "height": {
             "type": "number"
           },
-          "resource": {
+          "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "width": {
@@ -2329,7 +2329,7 @@
           "oddRowDecoration": {
             "$ref": "#/definitions/Style/BoxDecoration"
           },
-          "resource": {
+          "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "rowDecoration": {
@@ -2347,7 +2347,7 @@
       "Widget": {
         "additionalProperties": false,
         "properties": {
-          "resource": {
+          "source": {
             "$ref": "#/definitions/Util/Identifier"
           }
         },
@@ -2371,7 +2371,7 @@
           "text": {
             "type": "string"
           },
-          "resource": {
+          "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
           "textAlign": {
@@ -2615,7 +2615,7 @@
       },
       "type": "array"
     },
-    "resources": {
+    "sources": {
       "additionalProperties": false,
       "description": "resources like image, svg, .. also table data, etc",
       "patternProperties": {

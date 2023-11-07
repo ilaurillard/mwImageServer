@@ -11,7 +11,7 @@
                   "height": 10,
                   "child": {
                     "SvgImage": {
-                      "resource": "@svg1"
+                      "source": "@svg1"
                     }
                   }
                 }
@@ -20,7 +20,7 @@
                 "Container": {
                   "child": {
                     "SvgImage": {
-                      "resource": "@svg1"
+                      "source": "@svg1"
                     }
                   }
                 }
@@ -34,7 +34,7 @@
                         "child": {
                           "Image": {
                             "dpi": 90,
-                            "resource": "@image1"
+                            "source": "@image1"
                           }
                         }
                       }
@@ -45,7 +45,7 @@
                         "child": {
                           "Image": {
                             "dpi": 60,
-                            "resource": "@image1"
+                            "source": "@image1"
                           }
                         }
                       }
@@ -56,7 +56,7 @@
                         "child": {
                           "Image": {
                             "dpi": 30,
-                            "resource": "@image1"
+                            "source": "@image1"
                           }
                         }
                       }
@@ -67,7 +67,7 @@
                         "child": {
                           "Image": {
                             "dpi": 10,
-                            "resource": "@image1"
+                            "source": "@image1"
                           }
                         }
                       }
@@ -81,7 +81,7 @@
       ]
     }
   ],
-  "resources": {
+  "sources": {
     "@image1": {
       "binary": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAAA3NCSVQICAjb4U/gAAAAsUlEQVRoQ+3S0Q2AIBTFUHFHB2Io9zPMcD7MS8p/b6BlPfu9Jp978uXP3XvA3wUrUAE00BdCgYxXgBXiQAVQIOMVYIU4UAEUyHgFWCEOVAAFMl4BVogDFUCBjFeAFeJABVAg4xVghThQARTIeAVYIQ5UAAUyXgFWiAMVQIGMV4AV4kAFUCDjFWCFOFABFMh4BVghDlQABTJeAVaIAxVAgYxXgBXiQAVQIOMVYIU4ML7AB7SUAgsNFnJkAAAAAElFTkSuQmCC"
     },

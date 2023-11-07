@@ -2,7 +2,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../Model/Resource.dart';
+import '../Model/Datasource.dart';
 import 'Annotation.dart';
 import 'Barcode.dart';
 import 'Basic.dart';
@@ -413,7 +413,9 @@ class Widget {
     Dict json,
     State state,
   ) {
-    Resource resource = state.resource(json['resource'] as String?);
-    return resource.widget ?? pw.SizedBox();
+    Datasource source = state.source(
+      json['source'] as String?,
+    );
+    return source.widget ?? pw.SizedBox();
   }
 }

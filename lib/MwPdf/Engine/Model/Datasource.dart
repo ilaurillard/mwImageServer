@@ -4,12 +4,12 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/ResourceCache.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
+import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class Resource {
+class Datasource {
   final String key;
 
   // image/svg
@@ -33,7 +33,7 @@ class Resource {
   // placeholder text
   final String text;
 
-  Resource(
+  Datasource(
     this.key, {
     this.binary = '',
     this.file = '',
@@ -44,7 +44,7 @@ class Resource {
     this.text = '',
   });
 
-  static Resource fromJson(
+  static Datasource fromJson(
     String key,
     Dict json,
     State state,
@@ -56,10 +56,10 @@ class Resource {
         binary = String.fromCharCodes(base64.decode(binary));
       }
     } catch (e) {
-      throw Exception('Resource "$key": $e');
+      throw Exception('Datasource "$key": $e');
     }
 
-    return Resource(
+    return Datasource(
       key,
       binary: binary,
       url: json['url'] as String? ?? '',
@@ -87,7 +87,7 @@ class Resource {
   }
 
   Future<void> load(
-    ResourceCache resourceCache,
+    FileStorage fileStorage,
   ) async {
 
     if (file.isNotEmpty) {
@@ -99,15 +99,15 @@ class Resource {
 
       // ---> put into binary
     } else if (url.isNotEmpty) {
-      print('load resource "$key" from url: $url');
+      print('load source "$key" from url: $url');
 
       binary = '';
 
       // cacheKey, load from remote, cache, file
-      String cacheKey = resourceCache.cacheKey(url);
+      String cacheKey = fileStorage.cacheKey(url);
 
-      if (await resourceCache.has(cacheKey)) {
-        binary = await resourceCache.get(cacheKey);
+      if (await fileStorage.hasCache(cacheKey)) {
+        binary = await fileStorage.loadCache(cacheKey);
       }
       print(
         'loaded ${binary.length} bytes from cache ($cacheKey)',
@@ -123,10 +123,10 @@ class Resource {
         );
         if (response.statusCode < 400) {
           binary = response.body;
-          print(
-            'put ${binary.length} bytes to cache ($cacheKey)',
-          );
-          resourceCache.put(
+          // print(
+          //   'put ${binary.length} bytes to cache ($cacheKey)',
+          // );
+          fileStorage.putCache(
             cacheKey,
             binary,
           );
@@ -138,24 +138,24 @@ class Resource {
   String svgFromBinary() {
     String binary = this.binary;
     if (binary.isEmpty) {
-      throw Exception('Resource "$key" has no data');
+      throw Exception('Source "$key" has no data (svg)');
     }
     if (!binary.startsWith('<')) {
-      throw Exception('Resource "$key" data does not start with "<"');
+      throw Exception('Source "$key" data does not start with "<" (svg)');
     }
     return binary;
   }
 
   pw.ImageProvider imageFromBinary() {
     if (binary.isEmpty) {
-      throw Exception('Resource "$key" has no data');
+      throw Exception('Source "$key" has no data (image)');
     }
     try {
       return pw.MemoryImage(
         Uint8List.fromList(binary.codeUnits),
       );
     } catch (e) {
-      throw Exception('Resource "$key": $e');
+      throw Exception('Source "$key": $e');
     }
   }
 

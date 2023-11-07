@@ -3,7 +3,7 @@ import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../Model/Resource.dart';
+import '../Model/Datasource.dart';
 import 'Etc.dart';
 import 'Widget.dart';
 
@@ -15,9 +15,11 @@ class Table {
     double? cellHeight = double.tryParse(json['cellHeight'].toString());
     double? headerHeight = double.tryParse(json['headerHeight'].toString());
 
-    Resource resource = state.resource(json['resource'] as String?);
+    Datasource source = state.source(
+      json['source'] as String?,
+    );
 
-    List<List<dynamic>> data = resource.values;
+    List<List<dynamic>> data = source.values;
 
     Map<int, Dict> cells = _cells(json['cells'] as Map<String, dynamic>? ?? {});
 
@@ -138,7 +140,9 @@ class Table {
     // print('W: TableRow');
     Dict data = json['TableRow'] as Dict? ?? {};
 
-    Resource resource = state.resource(data['resource'] as String?);
+    Datasource source = state.source(
+      data['source'] as String?,
+    );
     // print(resource);
 
     pw.BoxDecoration? decoration = Etc.boxDecoration(
@@ -152,7 +156,7 @@ class Table {
 
     List<pw.TableRow> rows = [];
 
-    List<List<dynamic>> values = resource.values;
+    List<List<dynamic>> values = source.values;
     if (values.isEmpty) {
       values = [[]];
     }

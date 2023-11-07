@@ -3,8 +3,7 @@ import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../Engine.dart';
-import '../Model/Resource.dart';
+import '../Model/Datasource.dart';
 import 'Etc.dart';
 
 class Image {
@@ -12,11 +11,13 @@ class Image {
     Dict json,
     State state,
   ) {
-    Resource resource = state.resource(json['resource'] as String?);
+    Datasource source = state.source(
+      json['source'] as String?,
+    );
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
     return pw.Image(
-      resource.imageFromBinary(),
+      source.imageFromBinary(),
       fit: Etc.boxFit(
             json['fit'] as String?,
           ) ??
@@ -35,13 +36,15 @@ class Image {
     Dict json,
     State state,
   ) {
-    Resource resource = state.resource(json['resource'] as String?);
+    Datasource source = state.source(
+      json['source'] as String?,
+    );
     // print(resource);
     // String data = resources.exampleSvg;
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
     return pw.SvgImage(
-      svg: resource.svgFromBinary(),
+      svg: source.svgFromBinary(),
       // svg: resources.exampleSvg,
       fit: Etc.boxFit(
             json['fit'] as String?,
