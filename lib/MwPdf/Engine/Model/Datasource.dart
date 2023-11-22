@@ -5,10 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/Resource.dart';
-import 'package:mwcdn/Model/Token.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
+import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
-import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -35,8 +34,6 @@ class Datasource {
 
   // api/bucket/98/resource/$resourceId1
   final String resourceId;
-  final int bucketId;
-  final Token? token;
 
   Datasource(
     this.key, {
@@ -47,18 +44,13 @@ class Datasource {
     this.widget,
     this.text = '',
     this.resourceId = '',
-
-    this.bucketId = -1,
-    this.token,
   });
 
   static Datasource fromJson(
     String key,
     Dict json,
-    State state, {
-    int bucketId = -1,
-    Token? token,
-  }) {
+    State state,
+  ) {
     String binary = '';
     try {
       binary = json['binary'] as String? ?? '';
@@ -93,57 +85,57 @@ class Datasource {
         state,
       ),
       text: json['text'] as String? ?? '',
-      bucketId: bucketId,
-      token: token,
+      // bucketId: bucketId,
+      // token: token,
     );
   }
 
   Future<void> load(
-    FileStorage fileStorage,
-    SqliteStorage? sqliteStorage,
+    Storage storage,
   ) async {
     if (url.isNotEmpty) {
       await _loadUrl(
-        fileStorage,
+        storage.fileStorage,
       );
     } else if (resourceId.isNotEmpty) {
       await _loadResource(
-        fileStorage,
-        sqliteStorage,
+        storage,
       );
     }
   }
 
   Future<void> _loadResource(
-    FileStorage fileStorage,
-    SqliteStorage? sqliteStorage,
+    Storage storage,
   ) async {
     binary = '';
 
-    print('source "$key" from resource: $resourceId');
+    print('Source "$key" from resource: $resourceId');
 
-    if (sqliteStorage == null) {
+    if (storage.sqliteStorage == null) {
       throw Exception('Have no database');
     }
 
-    Resource res = await sqliteStorage.resources.load(
-      bucketId,
+    Resource res = await storage.sqliteStorage!.resources.load(
+      storage.bucketId,
       resourceId,
     );
 
-    if (token == null || !token!.accessResource(res)) {
-      throw Exception('Token has no access to resource');
+    if (!storage.token.accessResource(res)) {
+      throw Exception(
+        'Given token has no access to resource',
+      );
     }
 
     // ---> put into binary
     binary = String.fromCharCodes(
-      await fileStorage.fileData(res),
+      await storage.fileStorage.fileData(res),
     );
   }
+
   Future<void> _loadUrl(
     FileStorage fileStorage,
   ) async {
-    print('source "$key" from url: $url');
+    print('Source "$key" from url: $url');
 
     binary = '';
 
@@ -154,7 +146,7 @@ class Datasource {
       binary = await fileStorage.loadCache(cacheKey);
     }
     print(
-      'loaded ${binary.length} bytes from cache ($cacheKey)',
+      'Loaded ${binary.length} bytes from cache ($cacheKey)',
     );
 
     if (binary.isEmpty) {
@@ -162,7 +154,7 @@ class Datasource {
         Uri.parse(url),
       );
       print(
-        'received ${response.bodyBytes.length} bytes, status ${response.statusCode}',
+        'Received ${response.bodyBytes.length} bytes, status ${response.statusCode}',
       );
       if (response.statusCode < 400) {
         binary = response.body;

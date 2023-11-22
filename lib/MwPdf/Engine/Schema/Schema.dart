@@ -15,17 +15,13 @@ class Schema {
   static Future<Schema> create({
     required String baseDir,
   }) async {
-
-
-
     Schema schema = Schema._(baseDir: baseDir);
     await schema.load();
     return schema;
   }
 
   Future<void> load() async {
-    String schemaData =
-        await File('$baseDir/mwpdf_schema.json').readAsString();
+    String schemaData = await File('$baseDir/mwpdf_schema.json').readAsString();
     print('Loaded schema (${schemaData.length})');
     schema = JsonSchema.create(schemaData);
   }

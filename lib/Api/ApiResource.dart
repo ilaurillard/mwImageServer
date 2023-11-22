@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mwcdn/Config.dart';
@@ -83,6 +82,7 @@ class ApiResource {
         data,
         resource,
       );
+
       return Api.rJsonOk(pdfResource);
     } on ResponseException catch (e) {
       return e.response;
@@ -244,6 +244,7 @@ class ApiResource {
       users: Types.idListFromDict(data, 'users'),
       groups: Types.idListFromDict(data, 'groups'),
     );
+    Console.notice(resource.toString());
 
     if (await fileStorage.dirExists(resource.path())) {
       return Api.rError(
@@ -251,39 +252,21 @@ class ApiResource {
       );
     }
 
-    Console.notice(resource.toString());
-
     // ------------------- Store file (async!)
-
-    _storeFile(
-      resource,
-      partBytes,
-    );
-
-    // -------------------------
-
-    return Api.rJsonOk(
-      resource,
-    );
-  }
-
-  void _storeFile(
-    Resource resource,
-    Uint8List bytes,
-  ) async {
     try {
-      File file = await fileStorage.createFileFromBytes(
-        '${resource.path()}/${resource.filename}',
-        bytes,
+      fileStorage.storeResource(
+        resource,
+        partBytes,
       );
-      int realSize = file.lengthSync();
-      if (realSize != bytes.length) {
-        throw 'length check failed ($realSize vs ${bytes.length})';
-      }
     } catch (e) {
       Api.rError(message: 'File error: $e');
       // TODO append this error to database record
     }
+
+    // -------------------------
+    return Api.rJsonOk(
+      resource,
+    );
   }
 
   Future<Resource> _resourceFromRequest(

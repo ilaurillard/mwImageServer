@@ -2,9 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Datasource.dart';
@@ -23,13 +21,11 @@ class State {
 
   Map<String, Datasource> sources = {};
 
-  final FileStorage fileStorage;
-  final SqliteStorage? sqliteStorage;
+  final Storage storage;
 
   State({
     required this.baseDir,
-    required this.fileStorage,
-    this.sqliteStorage,
+    required this.storage,
   });
 
   Future<void> init() async {
@@ -73,8 +69,7 @@ class State {
     print('load sources (${sources.length})');
     for (String key in sources.keys) {
       await sources[key]!.load(
-        fileStorage,
-        sqliteStorage,
+        storage,
       );
     }
   }
@@ -82,17 +77,11 @@ class State {
   static State fromJson(
     Dict json, {
     required String baseDir,
-    required FileStorage fileStorage,
-    SqliteStorage? sqliteStorage,
-    int bucketId = -1,
-    required Token token,
+    required Storage storage,
   }) {
     State state = State(
       baseDir: baseDir,
-      fileStorage: fileStorage,
-      sqliteStorage: sqliteStorage,
-
-
+      storage: storage,
     );
 
     state.sources = json.map(
@@ -103,8 +92,6 @@ class State {
             key,
             value as Dict,
             state,
-            bucketId: bucketId,
-            token: token,
           ),
         );
       },

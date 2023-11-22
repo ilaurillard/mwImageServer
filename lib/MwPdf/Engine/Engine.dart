@@ -1,7 +1,5 @@
 import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Etc/ColPage.dart';
@@ -31,21 +29,15 @@ class Engine {
     required this.state,
   });
 
-  static Future<Engine> run(
+  static Future<Engine> create(
     Dict json, {
     required String baseDir,
-    required FileStorage fileStorage,
-    SqliteStorage? sqliteStorage,
-    int bucketId = -1,
-    required Token token,
+    required Storage storage,
   }) async {
     State state = State.fromJson(
       (json['sources'] as Dict?) ?? {},
       baseDir: baseDir,
-      fileStorage: fileStorage,
-      sqliteStorage: sqliteStorage,
-      bucketId: bucketId,
-      token: token,
+      storage: storage,
     );
     await state.init();
 
@@ -69,7 +61,7 @@ class Engine {
     );
   }
 
-  pw.Document buildPdf() {
+  pw.Document pdf() {
     pw.Document pdf = pw.Document();
 
     for (Page page in pages) {

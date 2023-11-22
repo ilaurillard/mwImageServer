@@ -7,6 +7,7 @@ import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/Token.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
+import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 
@@ -19,8 +20,8 @@ Future<void> main() async {
     baseDir: baseDir,
   );
 
-  String templateFile = '';
-  // String templateFile = 'templates/pdf_template1.json';
+  // String templateFile = '';
+  String templateFile = 'templates/pdf_template1.json';
 
   // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
@@ -68,25 +69,31 @@ Future<void> main() async {
 
     if (results.valid) {
       try {
-        FileStorage fileStorage = FileStorage(
-          dataDir: dataDir,
-        );
         SqliteStorage sqliteStorage = SqliteStorage(
           dataDir: dataDir,
         );
         await sqliteStorage.init();
 
-        Engine engine = await Engine.run(
+        Engine engine = await Engine.create(
           pdfJsonDict,
           baseDir: baseDir,
-          fileStorage: fileStorage,
-          sqliteStorage: sqliteStorage,
-          bucketId: 77,
-          token: Token.root(),
+          storage: Storage(
+            fileStorage: FileStorage(
+              dataDir: dataDir,
+            ),
+            sqliteStorage: sqliteStorage,
+            bucketId: 98,
+            token: Token.root(),
+          ),
         );
 
         String name = '$examplesDir/output/$jsonFile.pdf';
-        await File(name).writeAsBytes(await engine.buildPdf().save());
+        await File(name).writeAsBytes(
+          await engine.pdf().save(),
+        );
+
+
+
         Console.info(
             '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n');
       } catch (e) {

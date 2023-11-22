@@ -12,14 +12,10 @@ import '../testConfig.dart';
 
 void main() {
   String token98 = '';
-
-  String token888 = '';
-
   String resourceId1 = '';
-  String resourcePath1 = '';
-  String resourceFilename1 = '';
+  String resourceId2 = '';
 
-  test('Root creates a private resource', () async {
+  test('Root creates pdf template (private resource)', () async {
     http.Response r = await http.post(
       Uri.parse('${host}api/bucket/98/resource'),
       headers: {
@@ -27,25 +23,57 @@ void main() {
         'Content-Type': Test.uploadContentType,
       },
       body: Test.upload(
-        await File('tests/functional/files/invoice_pdf_template.json').readAsBytes(),
-        {'users': [888]},
+        await File('tests/functional/files/example_template.json').readAsBytes(),
+        {},
         'application/json',
-        'invoice_pdf_template.json',
+        'example_template.json',
       ),
     );
     expect(r.statusCode, equals(200));
     Dict data = json.decode(r.body) as Dict;
     resourceId1 = data['id'] as String;
-    resourcePath1 =
-        data['path'] as String;
-    resourceFilename1 = data['filename'] as String;
   });
 
-  test('Root generates pdf from resource', () async {
+  test('Root creates an image (private resource)', () async {
+    http.Response r = await http.post(
+      Uri.parse('${host}api/bucket/98/resource'),
+      headers: {
+        'Authorization': rootKey,
+        'Content-Type': Test.uploadContentType,
+      },
+      body: Test.upload(
+        await File('tests/functional/files/ffff23.jpg').readAsBytes(),
+        {},
+        'image/jpeg',
+        'ffff23.jpg',
+      ),
+    );
+    expect(r.statusCode, equals(200));
+    Dict data = json.decode(r.body) as Dict;
+    resourceId2 = data['id'] as String;
+  });
+
+  test(
+    'Root creates admin token for bucket (98)',
+        () async {
+      http.Response r = await http.post(
+        Uri.parse('${host}api/token'),
+        headers: {'Authorization': rootKey},
+        body: jsonEncode({
+          'buckets': [98]
+        }),
+      );
+      expect(r.statusCode, equals(200));
+      Dict data = json.decode(r.body) as Dict;
+      token98 = data['id'] as String;
+    },
+  );
+
+  test('Admin 98 generates pdf from resource', () async {
     http.Response r = await http.post(
       Uri.parse('${host}api/bucket/98/resource/$resourceId1/pdf'),
       headers: {
-        'Authorization': rootKey,
+        'Authorization': token98,
       },
       body: json.encode({
         'data': <String, Object>{
@@ -59,6 +87,17 @@ void main() {
             '@img3': {
               'url': 'https://placehold.co/200x100/jpg?text=HurrFurr'
             },
+            '@img4': {
+              'resource': resourceId2
+            },
+
+            '@widget1': {
+              'widget': {
+                'LoremParagraph': {
+                  'sentence': 5
+                }
+              }
+            },
 
             '@svg1': {
               'binary': 'PHN2ZyBoZWlnaHQ9IjEwMCIgd2lkdGg9IjEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0icmVkIiAvPgogIFNvcnJ5LCB5b3VyIGJyb3dzZXIgZG9lcyBub3Qgc3VwcG9ydCBpbmxpbmUgU1ZHLiAgCjwvc3ZnPiA='
@@ -70,7 +109,7 @@ void main() {
               'url': 'https://placehold.co/200x100/svg?text=FlinsenSuppe'
             },
             '@svg4': {
-              'binary': '<svg width="200" height="100"><rect width="100%" height="100%" fill="#DDDDDD"/></svg>'
+              'binary': '<svg width="100" height="100"><rect width="100" height="100" fill="blue"/></svg>'
             },
 
             '@source3': {
@@ -118,14 +157,17 @@ void main() {
             }
           }
         },
-        'filename': 'xxx.pdf',
+        'filename': 'myPdf.pdf',
         'users': [888],
         'groups': [666],
       }),
     );
     expect(r.statusCode, equals(200));
-    // print(r.body);
     Dict data = json.decode(r.body) as Dict;
-    print(data);
+    expect(data['public'], equals(false));
+    expect(data['users'], equals([888]));
+    expect(data['groups'], equals([666]));
+    expect(data['mimeType'], equals('application/pdf'));
+    expect(data['filename'], equals('myPdf.pdf'));
   });
 }

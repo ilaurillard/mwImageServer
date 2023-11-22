@@ -56,9 +56,9 @@ class FileStorage {
   }
 
   Future<File> createFileFromString(
-      String path,
-      String binary,
-      ) async {
+    String path,
+    String binary,
+  ) async {
     Console.notice(
       'Writing ${binary.length} bytes to $path',
     );
@@ -102,8 +102,8 @@ class FileStorage {
   }
 
   Future<Uint8List> fileData(
-      Resource resource,
-      ) async {
+    Resource resource,
+  ) async {
     if (await dirExists(resource.path())) {
       String filename = '${resource.path()}/${resource.filename}';
       if (await fileExists(filename)) {
@@ -114,12 +114,11 @@ class FileStorage {
     return Uint8List(0);
   }
 
-
   // ---------------------
 
   String cacheKey(
-      String url,
-      ) {
+    String url,
+  ) {
     return md5.convert(url.codeUnits).toString();
   }
 
@@ -200,5 +199,19 @@ class FileStorage {
     }
 
     return false;
+  }
+
+  void storeResource(
+    Resource resource,
+    Uint8List bytes,
+  ) async {
+    File file = await createFileFromBytes(
+      '${resource.path()}/${resource.filename}',
+      bytes,
+    );
+    int realSize = file.lengthSync();
+    if (realSize != bytes.length) {
+      throw 'length check failed ($realSize vs ${bytes.length})';
+    }
   }
 }
