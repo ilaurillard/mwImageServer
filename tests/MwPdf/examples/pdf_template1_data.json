@@ -9,6 +9,15 @@
     "@img3": {
       "url": "https://placehold.co/200x100/jpg?text=HurrFurr"
     },
+    "@img4": {
+      "url": "https://placekitten.com/300/200"
+    },
+
+    "@widget1": {
+      "widget": {
+        "LoremParagraph": {"sentence": 5}
+      }
+    },
 
     "@svg1": {
       "binary": "PHN2ZyBoZWlnaHQ9IjEwMCIgd2lkdGg9IjEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0icmVkIiAvPgogIFNvcnJ5LCB5b3VyIGJyb3dzZXIgZG9lcyBub3Qgc3VwcG9ydCBpbmxpbmUgU1ZHLiAgCjwvc3ZnPiA="
@@ -20,7 +29,7 @@
       "url": "https://placehold.co/200x100/svg?text=FlinsenSuppe"
     },
     "@svg4": {
-      "binary": "<svg width=\"200\" height=\"100\"><rect width=\"100%\" height=\"100%\" fill=\"#DDDDDD\"/></svg>"
+      "binary": "<svg width=\"100\" height=\"100\"><rect width=\"100\" height=\"100\" fill=\"#DDDDDD\"/></svg>"
     },
 
     "@source3": {

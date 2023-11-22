@@ -17,6 +17,28 @@
                     }
                   }
                 }
+              },
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "Widget": {
+                      "source": "@widget1"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "Image": {
+                      "source": "@img4"
+                    }
+                  }
+                }
               }
             ]
           }

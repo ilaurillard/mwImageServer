@@ -48,6 +48,55 @@
                     }
                   }
                 }
+              },
+              {
+                "Divider": {
+
+                }
+              },
+              {
+                "LimitedBox": {
+                  "maxHeight": 100,
+                  "child": {
+                    "GridView": {
+                      "direction": "vertical",
+                      "padding": [3],
+                      "mainAxisSpacing": 3,
+                      "crossAxisSpacing": 3,
+                      "crossAxisCount": 3,
+                      "children": [
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        },
+                        {
+                          "Placeholder": {
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
               }
             ]
           }
