@@ -1,5 +1,6 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/MultiPage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Model/Datasource.dart';
@@ -369,13 +370,17 @@ class Widget {
             data,
             state,
           );
-        /*
+        // -----------
+        case 'NewPage':
+          return MultiPage.newPage(
+            data,
+            state,
+          );
 
+        /*
           TODO implement widgets
           ----
 
-          multi_page:
-            NewPage
           basic:
             CustomPaint
           content:

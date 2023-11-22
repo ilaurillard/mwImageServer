@@ -932,6 +932,9 @@
         "UrlLink": {
           "$ref": "#/definitions/Widgets/UrlLink"
         },
+        "NewPage": {
+          "$ref": "#/definitions/Widgets/NewPage"
+        },
         "FullPage": {
           "$ref": "#/definitions/Widgets/FullPage"
         },
@@ -1185,6 +1188,10 @@
             "$ref": "#/definitions/Widget"
           }
         },
+        "type": "object"
+      },
+      "NewPage": {
+        "additionalProperties": false,
         "type": "object"
       },
       "AspectRatio": {
