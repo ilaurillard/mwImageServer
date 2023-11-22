@@ -2622,8 +2622,8 @@
         "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
           "additionalProperties": false,
           "properties": {
-            "file": {
-              "description": "Local file via bucket access (mwcdn)",
+            "resource": {
+              "description": "Local resource via bucket access (mwcdn)",
               "type": "string"
             },
             "url": {

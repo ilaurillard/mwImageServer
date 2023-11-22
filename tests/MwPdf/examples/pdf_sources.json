@@ -1,0 +1,38 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "LoremParagraph": {
+                  "textAlign": "left",
+                  "sentence": 20,
+                  "random": 123
+                }
+              },
+              {
+                "Image": {
+                  "source": "@source1"
+                }
+              },
+              {
+                "LoremParagraph": {
+                  "textAlign": "left",
+                  "sentence": 20,
+                  "random": 223
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@source1": {
+      "resource": "366d883e59a6ea2721b446ad30d51be5"
+    }
+  }
+}

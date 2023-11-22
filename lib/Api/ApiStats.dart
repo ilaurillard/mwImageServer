@@ -28,7 +28,7 @@ class ApiStats extends ApiBucket {
 
     Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Api.rNotFound('Bucket not found');
+      return Api.rNotFound(message: 'Bucket not found');
     }
 
     BucketStats stats = BucketStats(

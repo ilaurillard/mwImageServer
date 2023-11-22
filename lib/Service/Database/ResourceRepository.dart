@@ -71,7 +71,10 @@ class ResourceRepository {
       );
       if (data.isNotEmpty) {
         Console.notice('Loaded resource: $id');
-        return Resource.fromDatabase(data.first as Dict);
+        // Console.notice(data.toString());
+        return Resource.fromDatabase(
+          data.first as Dict,
+        );
       } else {
         Console.warning('Resource not found: $id');
       }

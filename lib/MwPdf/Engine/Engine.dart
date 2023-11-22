@@ -1,4 +1,7 @@
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/Token.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
+import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Etc/ColPage.dart';
@@ -31,12 +34,18 @@ class Engine {
   static Future<Engine> run(
     Dict json, {
     required String baseDir,
-    required String dataDir,
+    required FileStorage fileStorage,
+    SqliteStorage? sqliteStorage,
+    int bucketId = -1,
+    required Token token,
   }) async {
     State state = State.fromJson(
       (json['sources'] as Dict?) ?? {},
       baseDir: baseDir,
-      dataDir: dataDir,
+      fileStorage: fileStorage,
+      sqliteStorage: sqliteStorage,
+      bucketId: bucketId,
+      token: token,
     );
     await state.init();
 

@@ -18,7 +18,7 @@ class Token implements JsonSerializable, Entity {
   final DateTime? stamp;
   final DateTime? created;
 
-  Token(
+  const Token(
     this._id, {
     required this.bucket,
     this.users = const [],
@@ -36,7 +36,8 @@ class Token implements JsonSerializable, Entity {
     return !(users.isEmpty && groups.isEmpty && buckets.isEmpty && !root);
   }
 
-  bool accessResource( // read
+  bool accessResource(
+    // read
     Resource resource,
   ) {
     if (root || buckets.contains(resource.bucket)) {
@@ -60,7 +61,8 @@ class Token implements JsonSerializable, Entity {
             .isNotEmpty;
   }
 
-  bool accessBucket( // api access
+  bool accessBucket(
+    // api access
     int bucket,
   ) {
     if (root || buckets.contains(bucket)) {
@@ -126,6 +128,13 @@ class Token implements JsonSerializable, Entity {
     );
   }
 
+  factory Token.empty() {
+    return const Token(
+      '',
+      bucket: 0,
+    );
+  }
+
   factory Token.notFound(
     String id,
   ) {
@@ -133,5 +142,9 @@ class Token implements JsonSerializable, Entity {
       id,
       bucket: 0,
     );
+  }
+
+  factory Token.root() {
+    return Token('', bucket: 0, root: true);
   }
 }

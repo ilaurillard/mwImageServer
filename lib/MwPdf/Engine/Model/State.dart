@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/Token.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -14,7 +16,6 @@ class State {
   static Map<String, String> materialCodes = {};
 
   final String baseDir;
-  final String dataDir;
 
   String value = '';
   int pageNumber = 0;
@@ -22,47 +23,23 @@ class State {
 
   Map<String, Datasource> sources = {};
 
-  // String exampleSvg = utf8.decode(
-  //   // red circle
-  //   base64.decode(
-  //     'PHN2ZyBoZWlnaHQ9IjEwMCIgd2lkdGg9IjEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0icmVkIiAvPgogIFNvcnJ5LCB5b3VyIGJyb3dzZXIgZG9lcyBub3Qgc3VwcG9ydCBpbmxpbmUgU1ZHLiAgCjwvc3ZnPiA=',
-  //   ),
-  // );
-  // pw.MemoryImage exampleImage = pw.MemoryImage(
-  //   // black pixel
-  //   base64.decode('R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='),
-  // );
-
-  late final FileStorage fileStorage;
+  final FileStorage fileStorage;
+  final SqliteStorage? sqliteStorage;
 
   State({
     required this.baseDir,
-    required this.dataDir,
+    required this.fileStorage,
+    this.sqliteStorage,
   });
 
   Future<void> init() async {
-
-    fileStorage = FileStorage(
-      dataDir: dataDir,
-    );
-
     if (fonts.isEmpty) {
       await loadBuiltinFonts();
       await loadMaterialFont();
     }
 
-    await loadResources();
+    await loadSources();
   }
-
-  // Future<void> examples() async {
-  //   print('load examples');
-  //   exampleSvg = await File(
-  //     '$baseDir/assets/example.svg',
-  //   ).readAsString();
-  //   exampleImage = pw.MemoryImage(
-  //     await File('$baseDir/assets/example.jpg').readAsBytes(),
-  //   );
-  // }
 
   Future<void> loadBuiltinFonts() async {
     print('load builtin fonts');
@@ -92,11 +69,12 @@ class State {
     }
   }
 
-  Future<void> loadResources() async {
-    print('load resources (${sources.length})');
+  Future<void> loadSources() async {
+    print('load sources (${sources.length})');
     for (String key in sources.keys) {
       await sources[key]!.load(
         fileStorage,
+        sqliteStorage,
       );
     }
   }
@@ -104,11 +82,17 @@ class State {
   static State fromJson(
     Dict json, {
     required String baseDir,
-    required String dataDir,
+    required FileStorage fileStorage,
+    SqliteStorage? sqliteStorage,
+    int bucketId = -1,
+    required Token token,
   }) {
     State state = State(
       baseDir: baseDir,
-      dataDir: dataDir,
+      fileStorage: fileStorage,
+      sqliteStorage: sqliteStorage,
+
+
     );
 
     state.sources = json.map(
@@ -119,6 +103,8 @@ class State {
             key,
             value as Dict,
             state,
+            bucketId: bucketId,
+            token: token,
           ),
         );
       },

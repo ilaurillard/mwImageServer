@@ -68,13 +68,11 @@ class ApiToken {
       request.params['token'] ?? '',
     );
     if (!token.valid()) {
-      return Api.rNotFound('Token not found');
+      return Api.rNotFound(message: 'Token not found');
     }
 
     if (bucket > 0 && token.bucket != bucket) {
-      return Api.rForbidden(
-        'Forbidden',
-      );
+      return Api.rForbidden();
     }
 
     return Api.rJsonOk(

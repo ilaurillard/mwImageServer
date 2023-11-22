@@ -39,13 +39,10 @@ class Image {
     Datasource source = state.source(
       json['source'] as String?,
     );
-    // print(resource);
-    // String data = resources.exampleSvg;
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
     return pw.SvgImage(
       svg: source.svgFromBinary(),
-      // svg: resources.exampleSvg,
       fit: Etc.boxFit(
             json['fit'] as String?,
           ) ??

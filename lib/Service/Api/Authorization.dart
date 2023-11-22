@@ -7,11 +7,11 @@ import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-class Authentication {
+class Authorization {
   final SqliteStorage sqliteStorage;
   final String rootKey;
 
-  Authentication({
+  Authorization({
     required this.sqliteStorage,
     required this.rootKey,
   });
@@ -26,29 +26,24 @@ class Authentication {
       ) async {
         String auth = request.headers['authorization'] ?? '';
         if (auth.isNotEmpty) {
-
           Console.info('[Auth]');
 
-          if (auth == rootKey) {
-            // static root key has full access
-            return handler(request);
-          }
-
-          Token token = await sqliteStorage.tokens.load(auth);
+          // -------------------
+          Token token = await tokenForAuth(auth);
           if (!token.valid()) {
             return Api.rUnauthorized(
-              'Empty token',
+              message: 'Token not found',
             );
           }
           if (!token.keepLive(sqliteStorage)) {
             return Api.rUnauthorized(
-              'Token expired',
+              message: 'Token expired',
             );
           }
           if (token.root) {
-            // root token -> always full access
             return handler(request);
           }
+          // -------------------
 
           int bucketId = int.parse(request.params['bucket'] ?? '0');
           if (!Bucket.validId(bucketId)) {
@@ -59,23 +54,17 @@ class Authentication {
             bucketId,
             request.params['resource'] ?? '',
           );
-
           if (!resource.valid()) {
-            return Api.rNotFound('Resource not found');
+            return Api.rNotFound(message: 'Resource not found');
           }
-
           if (!token.accessResource(resource)) {
-            return Api.rForbidden(
-              'Forbidden',
-            );
+            return Api.rForbidden();
           }
 
           return handler(request);
         }
 
-        return Api.rNotFound(
-          'Not found',
-        );
+        return Api.rNotFound();
       };
     };
   }
@@ -91,31 +80,23 @@ class Authentication {
         Request request,
       ) async {
         String auth = request.headers['authorization'] ?? '';
-
         if (auth.isNotEmpty) {
-          if (auth == rootKey) {
-            // static root key has full access
-            return handler(request);
-          }
-
-          // loadToken
-          Token token = await sqliteStorage.tokens.load(auth);
+          // -------------------
+          Token token = await tokenForAuth(auth);
           if (!token.valid()) {
-            // no token found
             return Api.rUnauthorized(
-              'Token not found',
+              message: 'Token not found',
             );
           }
           if (!token.keepLive(sqliteStorage)) {
             return Api.rUnauthorized(
-              'Token expired',
+              message: 'Token expired',
             );
           }
-
           if (token.root) {
-            // root token -> always full access
             return handler(request);
           }
+          // -------------------
 
           int bucket = 0;
           String path = request.params['path'] ?? '';
@@ -128,14 +109,25 @@ class Authentication {
             return handler(request);
           }
 
-          return Api.rForbidden(
-            'Forbidden',
-          );
+          return Api.rForbidden();
         }
-        return Api.rUnauthorized(
-          'Unauthorized',
-        );
+        return Api.rUnauthorized();
       };
     };
+  }
+
+  // ----
+
+  Future<Token> tokenForAuth(
+    String auth,
+  ) async {
+    if (auth.isNotEmpty) {
+      if (auth == rootKey) {
+        return Token.root();
+      } else {
+        return await sqliteStorage.tokens.load(auth);
+      }
+    }
+    return Token.empty();
   }
 }

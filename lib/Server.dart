@@ -4,7 +4,7 @@ import 'dart:isolate';
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Service/Api/Api.dart';
 import 'package:mwcdn/Config.dart';
-import 'package:mwcdn/Service/Api/Authentication.dart';
+import 'package:mwcdn/Service/Api/Authorization.dart';
 import 'package:mwcdn/Service/Work/Images/Converter.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
@@ -78,7 +78,7 @@ class Server {
         '/priv${Config.matchBucket}${Config.matchSeg1}${Config.matchSeg2}${Config.matchResource}${Config.matchFile}',
         Pipeline()
             .addMiddleware(
-              Authentication(
+              Authorization(
                 sqliteStorage: sqliteStorage,
                 rootKey: rootKey,
               ).privateAccess(),

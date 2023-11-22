@@ -10,7 +10,6 @@ import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/Service/Work/Images/Imagick.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:shelf_static/shelf_static.dart';
 
@@ -50,7 +49,7 @@ class Converter {
       request.params['resource'] ?? '',
     );
     if (!resource.valid()) {
-      return Api.rNotFound('Resource not found');
+      return Api.rNotFound(message: 'Resource not found');
     }
 
     String file = request.params['file'] ?? '';
@@ -59,7 +58,7 @@ class Converter {
 
     Method method = bucket.method(methodName);
     if (!method.valid()) {
-      return Api.rNotFound('Method "$methodName" not exists');
+      return Api.rNotFound(message: 'Method "$methodName" not exists');
     }
 
     String path = resource.path();
@@ -67,11 +66,11 @@ class Converter {
     String target = '$path/$file';
 
     if (!await fileStorage.dirExists(path)) {
-      return Api.rNotFound('Folder not exists ($path)');
+      return Api.rNotFound(message: 'Folder not exists ($path)');
     }
 
     if (!await fileStorage.fileExists(original)) {
-      return Api.rNotFound('File not exists ($original)');
+      return Api.rNotFound(message: 'File not exists ($original)');
     }
 
     if (method.tool == 'convert') {
@@ -81,7 +80,7 @@ class Converter {
         method,
       );
     } else {
-      return Api.rNotFound('Tool not found (${method.tool})');
+      return Api.rNotFound(message: 'Tool not found (${method.tool})');
     }
 
     // now try again to serve file after converting took place

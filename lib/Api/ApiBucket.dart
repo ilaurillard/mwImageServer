@@ -39,7 +39,7 @@ class ApiBucket {
 
     String name = Types.stringData(data, 'name');
     if (!Bucket.validName(name)) {
-      return Api.rBadRequest('Invalid bucket name');
+      return Api.rBadRequest(message: 'Invalid bucket name');
     }
 
     if (bucket.valid()) {
@@ -80,16 +80,16 @@ class ApiBucket {
 
     Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Api.rNotFound('Bucket not found');
+      return Api.rNotFound(message: 'Bucket not found');
     }
 
     String pathPublic = '/pub/${bucket.id}';
     String pathPrivate = '/priv/${bucket.id}';
     if (!await fileStorage.dirExists(pathPublic)) {
-      return Api.rNotFound('Bucket folder missing');
+      return Api.rNotFound(message: 'Bucket folder missing');
     }
     if (!await fileStorage.dirExists(pathPrivate)) {
-      return Api.rNotFound('Bucket folder missing');
+      return Api.rNotFound(message: 'Bucket folder missing');
     }
 
     return Api.rJsonOk(
@@ -106,7 +106,7 @@ class ApiBucket {
 
     Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Api.rNotFound('Bucket not found');
+      return Api.rNotFound(message: 'Bucket not found');
     }
 
     Dict data = await Api.incomingJson(request);
@@ -114,11 +114,11 @@ class ApiBucket {
     // TODO check incoming data
     String name = Types.stringData(data, 'name');
     if (!Method.validName(name)) {
-      return Api.rBadRequest('Invalid method name');
+      return Api.rBadRequest(message: 'Invalid method name');
     }
     String tool = Types.stringData(data, 'tool');
     if (!Converter.tools.contains(tool)) {
-      return Api.rBadRequest('Unknown tool name');
+      return Api.rBadRequest(message: 'Unknown tool name');
     }
 
     List<String> parameters = Types.stringListFromDict(data, 'parameters');
@@ -149,7 +149,7 @@ class ApiBucket {
 
     Bucket bucket = await bucketFromRequest(request);
     if (!bucket.valid()) {
-      return Api.rNotFound('Bucket not found');
+      return Api.rNotFound(message: 'Bucket not found');
     }
 
     String name = (request.params['method'] ?? '');

@@ -87,7 +87,7 @@ class FileStorage {
     return await File(path).exists();
   }
 
-  Future<Dict> fileData(
+  Future<Dict> fileDataAsJson(
     Resource resource,
   ) async {
     if (await dirExists(resource.path())) {
@@ -100,6 +100,20 @@ class FileStorage {
     }
     return {};
   }
+
+  Future<Uint8List> fileData(
+      Resource resource,
+      ) async {
+    if (await dirExists(resource.path())) {
+      String filename = '${resource.path()}/${resource.filename}';
+      if (await fileExists(filename)) {
+        File f = file(filename);
+        return await f.readAsBytes();
+      }
+    }
+    return Uint8List(0);
+  }
+
 
   // ---------------------
 

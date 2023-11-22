@@ -16,7 +16,7 @@ class Files {
     String filename = data['filename'] as String? ?? '';
     if (!Files.validFilename(filename)) {
       throw ResponseException(
-        Api.rBadRequest('Invalid filename'),
+        Api.rBadRequest(message: 'Invalid filename'),
       );
     }
     return filename;

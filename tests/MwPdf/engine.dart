@@ -4,8 +4,11 @@ import 'dart:io';
 import 'package:merge_map_null_safety/merge_map.dart';
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/Token.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
+import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 
 const dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
 const baseDir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwPdf';
@@ -16,8 +19,8 @@ Future<void> main() async {
     baseDir: baseDir,
   );
 
-  // String templateFile = '';
-  String templateFile = 'templates/pdf_template1.json';
+  String templateFile = '';
+  // String templateFile = 'templates/pdf_template1.json';
 
   // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
@@ -44,7 +47,8 @@ Future<void> main() async {
   // String jsonFile = 'pdf_form.json';
   // String jsonFile = 'pdf_invoice.json';
   // String jsonFile = 'pdf_multiCol.json';
-  String jsonFile = 'pdf_template1_data.json';
+  // String jsonFile = 'pdf_template1_data.json';
+  String jsonFile = 'pdf_sources.json';
 
   String pdfBase = '{}';
   if (templateFile.isNotEmpty) {
@@ -64,10 +68,21 @@ Future<void> main() async {
 
     if (results.valid) {
       try {
+        FileStorage fileStorage = FileStorage(
+          dataDir: dataDir,
+        );
+        SqliteStorage sqliteStorage = SqliteStorage(
+          dataDir: dataDir,
+        );
+        await sqliteStorage.init();
+
         Engine engine = await Engine.run(
           pdfJsonDict,
           baseDir: baseDir,
-          dataDir: dataDir,
+          fileStorage: fileStorage,
+          sqliteStorage: sqliteStorage,
+          bucketId: 77,
+          token: Token.root(),
         );
 
         String name = '$examplesDir/output/$jsonFile.pdf';

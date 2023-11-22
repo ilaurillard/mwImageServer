@@ -4,8 +4,11 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/Model/Resource.dart';
+import 'package:mwcdn/Model/Token.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
+import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -14,9 +17,6 @@ class Datasource {
 
   // image/svg
   final String url;
-
-  // api/bucket/98/resource/$resourceId1
-  final String file;
 
   // svg/image... (xml,base64)
   String binary;
@@ -33,22 +33,32 @@ class Datasource {
   // placeholder text
   final String text;
 
+  // api/bucket/98/resource/$resourceId1
+  final String resourceId;
+  final int bucketId;
+  final Token? token;
+
   Datasource(
     this.key, {
     this.binary = '',
-    this.file = '',
     this.url = '',
     this.values = const [],
     this.data = const [],
     this.widget,
     this.text = '',
+    this.resourceId = '',
+
+    this.bucketId = -1,
+    this.token,
   });
 
   static Datasource fromJson(
     String key,
     Dict json,
-    State state,
-  ) {
+    State state, {
+    int bucketId = -1,
+    Token? token,
+  }) {
     String binary = '';
     try {
       binary = json['binary'] as String? ?? '';
@@ -63,7 +73,7 @@ class Datasource {
       key,
       binary: binary,
       url: json['url'] as String? ?? '',
-      file: json['file'] as String? ?? '',
+      resourceId: json['resource'] as String? ?? '',
       values: (json['values'] as List<dynamic>? ?? [])
           .map(
             (dynamic row) => applyFormats(
@@ -83,54 +93,83 @@ class Datasource {
         state,
       ),
       text: json['text'] as String? ?? '',
+      bucketId: bucketId,
+      token: token,
     );
   }
 
   Future<void> load(
     FileStorage fileStorage,
+    SqliteStorage? sqliteStorage,
   ) async {
-
-    if (file.isNotEmpty) {
-      binary = '';
-      print('load resource "$key" from file: $file');
-      // TODO a bucket resource
-
-
-
-      // ---> put into binary
-    } else if (url.isNotEmpty) {
-      print('load source "$key" from url: $url');
-
-      binary = '';
-
-      // cacheKey, load from remote, cache, file
-      String cacheKey = fileStorage.cacheKey(url);
-
-      if (await fileStorage.hasCache(cacheKey)) {
-        binary = await fileStorage.loadCache(cacheKey);
-      }
-      print(
-        'loaded ${binary.length} bytes from cache ($cacheKey)',
+    if (url.isNotEmpty) {
+      await _loadUrl(
+        fileStorage,
       );
+    } else if (resourceId.isNotEmpty) {
+      await _loadResource(
+        fileStorage,
+        sqliteStorage,
+      );
+    }
+  }
 
-      if (binary.isEmpty) {
-        http.Response response = await http.get(
-          Uri.parse(url),
+  Future<void> _loadResource(
+    FileStorage fileStorage,
+    SqliteStorage? sqliteStorage,
+  ) async {
+    binary = '';
+
+    print('source "$key" from resource: $resourceId');
+
+    if (sqliteStorage == null) {
+      throw Exception('Have no database');
+    }
+
+    Resource res = await sqliteStorage.resources.load(
+      bucketId,
+      resourceId,
+    );
+
+    if (token == null || !token!.accessResource(res)) {
+      throw Exception('Token has no access to resource');
+    }
+
+    // ---> put into binary
+    binary = String.fromCharCodes(
+      await fileStorage.fileData(res),
+    );
+  }
+  Future<void> _loadUrl(
+    FileStorage fileStorage,
+  ) async {
+    print('source "$key" from url: $url');
+
+    binary = '';
+
+    // cacheKey, load from remote, cache, file
+    String cacheKey = fileStorage.cacheKey(url);
+
+    if (await fileStorage.hasCache(cacheKey)) {
+      binary = await fileStorage.loadCache(cacheKey);
+    }
+    print(
+      'loaded ${binary.length} bytes from cache ($cacheKey)',
+    );
+
+    if (binary.isEmpty) {
+      http.Response response = await http.get(
+        Uri.parse(url),
+      );
+      print(
+        'received ${response.bodyBytes.length} bytes, status ${response.statusCode}',
+      );
+      if (response.statusCode < 400) {
+        binary = response.body;
+        fileStorage.putCache(
+          cacheKey,
+          binary,
         );
-        print(
-          'received ${response.bodyBytes.length} bytes, status ${response
-              .statusCode}',
-        );
-        if (response.statusCode < 400) {
-          binary = response.body;
-          // print(
-          //   'put ${binary.length} bytes to cache ($cacheKey)',
-          // );
-          fileStorage.putCache(
-            cacheKey,
-            binary,
-          );
-        }
       }
     }
   }

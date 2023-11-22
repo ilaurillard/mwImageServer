@@ -10,7 +10,9 @@ import 'package:mwcdn/Etc/ResponseException.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/Bucket.dart';
 import 'package:mwcdn/Model/Resource.dart';
+import 'package:mwcdn/Model/Token.dart';
 import 'package:mwcdn/Service/Api/Api.dart';
+import 'package:mwcdn/Service/Api/Authorization.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/Service/Work/Pdf/Pdf.dart';
@@ -21,10 +23,12 @@ import 'package:shelf_router/shelf_router.dart';
 class ApiResource {
   final SqliteStorage sqliteStorage;
   final FileStorage fileStorage;
+  final Authorization authorization;
 
   ApiResource({
     required this.sqliteStorage,
     required this.fileStorage,
+    required this.authorization,
   });
 
   // ---------------------
@@ -36,8 +40,16 @@ class ApiResource {
 
     Resource resource = await _resourceFromRequest(request);
     if (!resource.valid()) {
-      return Api.rNotFound('Resource not found');
+      return Api.rNotFound(message: 'Resource not found');
     }
+
+    int bucketId = int.parse(request.params['bucket'] ?? '0');
+    if (!Bucket.validId(bucketId)) {
+      bucketId = 0;
+    }
+
+    String auth = request.headers['authorization'] ?? '';
+    Token token = await authorization.tokenForAuth(auth);
 
     Dict data = await Api.incomingJson(request);
 
@@ -53,23 +65,31 @@ class ApiResource {
     //     binary,
     //     headers: Config.pdfHeaders,
     //   );
-    // }
-    // on ResponseException catch(e) {
+    // } on ResponseException catch (e) {
     //   return e.response;
+    // } on Exception catch (e) {
+    //   return Api.rError(
+    //     message: e.toString(),
+    //   );
     // }
 
     try {
       Resource pdfResource = await (Pdf(
         sqliteStorage: sqliteStorage,
         fileStorage: fileStorage,
+        bucketId: bucketId,
+        token: token,
       )).buildResource(
         data,
         resource,
       );
       return Api.rJsonOk(pdfResource);
-    }
-    on ResponseException catch(e) {
+    } on ResponseException catch (e) {
       return e.response;
+    } on Exception catch (e) {
+      return Api.rError(
+        message: e.toString(),
+      );
     }
   }
 
@@ -83,13 +103,13 @@ class ApiResource {
 
     Resource resource = await _resourceFromRequest(request);
     if (!resource.valid()) {
-      return Api.rNotFound('Resource not found');
+      return Api.rNotFound(message: 'Resource not found');
     }
 
     bool successFiles = await fileStorage.flushResourceFiles(resource);
     if (!successFiles) {
       return Api.rError(
-        'Remove files failed (${resource.path()})',
+        message: 'Remove files failed (${resource.path()})',
       );
     }
 
@@ -106,7 +126,7 @@ class ApiResource {
 
     Resource resource = await _resourceFromRequest(request);
     if (!resource.valid()) {
-      return Api.rNotFound('Resource not found');
+      return Api.rNotFound(message: 'Resource not found');
     }
 
     if (request.method == 'GET') {
@@ -118,7 +138,7 @@ class ApiResource {
       bool successRecord = await sqliteStorage.deleteEntity(resource);
       if (!successFiles || !successRecord) {
         return Api.rError(
-          'Remove resource failed ($successRecord/$successFiles)',
+          message: 'Remove resource failed ($successRecord/$successFiles)',
         );
       }
       return Response(204);
@@ -131,7 +151,7 @@ class ApiResource {
 
       if (resource.public() != wasPublic) {
         return Api.rError(
-          'Cannot change a resource from pub to priv and vice versa',
+          message: 'Cannot change a resource from pub to priv and vice versa',
         );
       }
       await sqliteStorage.resources.update(resource);
@@ -139,7 +159,7 @@ class ApiResource {
     }
 
     return Api.rBadRequest(
-      'Method not available',
+      message: 'Method not available',
     );
   }
 
@@ -156,7 +176,7 @@ class ApiResource {
     }
 
     if (!request.isMultipart) {
-      return Api.rBadRequest('Must be multipart post');
+      return Api.rBadRequest(message: 'Must be multipart post');
     }
 
     // ------------------- payload
@@ -169,46 +189,46 @@ class ApiResource {
       } else if (mPartFile == null) {
         mPartFile = mPart;
       } else {
-        return Api.rBadRequest('Too many parts');
+        return Api.rBadRequest(message: 'Too many parts');
       }
     }
     if (mPartMeta == null) {
-      return Api.rBadRequest('Missing meta part');
+      return Api.rBadRequest(message: 'Missing meta part');
     }
     if (mPartFile == null) {
-      return Api.rBadRequest('Missing file part');
+      return Api.rBadRequest(message: 'Missing file part');
     }
 
     // -------------- check mimetype, filename, ...
 
     KeyValue headersMeta = mPartMeta.headers;
     if (headersMeta['content-type'] != 'application/json') {
-      return Api.rBadRequest('First part must be json');
+      return Api.rBadRequest(message: 'First part must be json');
     }
 
     KeyValue headersFile = mPartFile.headers;
     String mimeType = headersFile['content-type'] ?? '';
     if (!Config.acceptedTypes.contains(mimeType)) {
-      return Api.rBadRequest('Mime type not accepted');
+      return Api.rBadRequest(message: 'Mime type not accepted');
     }
     KeyValue disp = Files.parseContentDisposition(
       headersFile['content-disposition'] ?? '',
     );
     String filename = disp['filename'] ?? '';
     if (filename.isEmpty) {
-      return Api.rBadRequest('No filename');
+      return Api.rBadRequest(message: 'No filename');
     }
     if (!Files.validFilename(filename)) {
-      return Api.rBadRequest('Invalid filename');
+      return Api.rBadRequest(message: 'Invalid filename');
     }
     if (!Files.validMimetype(filename, mimeType)) {
-      return Api.rBadRequest('Mime type vs suffix error');
+      return Api.rBadRequest(message: 'Mime type vs suffix error');
     }
 
     Uint8List partBytes = await mPartFile.readBytes();
     if (partBytes.isEmpty || partBytes.length > Config.maxFileSize) {
       return Api.rBadRequest(
-        'Invalid file size',
+        message: 'Invalid file size',
       );
     }
 
@@ -227,7 +247,7 @@ class ApiResource {
 
     if (await fileStorage.dirExists(resource.path())) {
       return Api.rError(
-        'Fatal, resource collision',
+        message: 'Fatal, resource collision',
       );
     }
 
@@ -261,7 +281,7 @@ class ApiResource {
         throw 'length check failed ($realSize vs ${bytes.length})';
       }
     } catch (e) {
-      Api.rError('File error: $e');
+      Api.rError(message: 'File error: $e');
       // TODO append this error to database record
     }
   }

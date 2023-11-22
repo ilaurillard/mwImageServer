@@ -8,7 +8,7 @@ import 'package:mwcdn/Config.dart';
 import 'package:mwcdn/Etc/Console.dart';
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/Model/JsonSerializable.dart';
-import 'package:mwcdn/Service/Api/Authentication.dart';
+import 'package:mwcdn/Service/Api/Authorization.dart';
 import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 import 'package:shelf/shelf.dart';
@@ -26,6 +26,10 @@ class Api {
   });
 
   Handler create() {
+    Authorization authorization = Authorization(
+      sqliteStorage: sqliteStorage,
+      rootKey: rootKey,
+    );
     ApiBucket apiBucket = ApiBucket(
       sqliteStorage: sqliteStorage,
       fileStorage: fileStorage,
@@ -33,6 +37,7 @@ class Api {
     ApiResource apiResource = ApiResource(
       sqliteStorage: sqliteStorage,
       fileStorage: fileStorage,
+      authorization: authorization,
     );
     ApiToken apiToken = ApiToken(
       sqliteStorage: sqliteStorage,
@@ -45,10 +50,7 @@ class Api {
     return Pipeline()
         // --------- auth/security middleware
         .addMiddleware(
-          Authentication(
-            sqliteStorage: sqliteStorage,
-            rootKey: rootKey,
-          ).apiAccess(),
+          authorization.apiAccess(),
         )
         .addHandler(
           Router()
@@ -138,8 +140,8 @@ class Api {
   // ----------------
 
   static Future<Dict> incomingJson(
-      Request request,
-      ) async {
+    Request request,
+  ) async {
     String tmp = await request.readAsString();
 
     Dict data;
@@ -156,8 +158,8 @@ class Api {
   // ----------------
 
   static Response rJsonOk(
-      JsonSerializable subject,
-      ) {
+    JsonSerializable subject,
+  ) {
     return Response.ok(
       json.encode(subject.toJson()),
       headers: Config.jsonHeaders,
@@ -165,10 +167,12 @@ class Api {
   }
 
   static Response rBucketError() {
-    return rBadRequest('Invalid bucket');
+    return rBadRequest(message: 'Invalid bucket');
   }
 
-  static Response rNotFound(String message) {
+  static Response rNotFound({
+    String message = 'Not found',
+  }) {
     Console.warning('[404] $message');
     return Response.notFound(
       message,
@@ -176,7 +180,9 @@ class Api {
     );
   }
 
-  static Response rError(String message) {
+  static Response rError({
+    String message = 'Error',
+  }) {
     Console.warning('[500] $message');
     return Response.internalServerError(
       body: message,
@@ -184,7 +190,9 @@ class Api {
     );
   }
 
-  static Response rBadRequest(String message) {
+  static Response rBadRequest({
+    String message = 'Bad request',
+  }) {
     Console.warning('[400] $message');
     return Response.badRequest(
       body: message,
@@ -192,7 +200,9 @@ class Api {
     );
   }
 
-  static Response rUnauthorized(String message) {
+  static Response rUnauthorized({
+    String message = 'Unauthorized',
+  }) {
     Console.warning('[401] $message');
     return Response.unauthorized(
       message,
@@ -200,7 +210,9 @@ class Api {
     );
   }
 
-  static Response rForbidden(String message) {
+  static Response rForbidden({
+    String message = 'Forbidden',
+  }) {
     Console.warning('[403] $message');
     return Response.forbidden(
       message,
