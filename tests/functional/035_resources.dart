@@ -25,7 +25,9 @@ void main() {
       body: Test.upload(
         await File('tests/functional/files/example_template.json')
             .readAsBytes(),
-        {},
+        {
+          'users': [666]
+        },
         'application/json',
         'example_template.json',
       ),
@@ -44,7 +46,9 @@ void main() {
       },
       body: Test.upload(
         await File('tests/functional/files/ffff23.jpg').readAsBytes(),
-        {},
+        {
+          'users': [666]
+        },
         'image/jpeg',
         'ffff23.jpg',
       ),

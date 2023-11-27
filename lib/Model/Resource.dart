@@ -38,7 +38,9 @@ class Resource implements JsonSerializable, Entity {
   }
 
   // --> public/77/ff/aa/ffaa112233334444ffaa112233334444
-  String path({bool absolute = true}) {
+  String path({
+    bool absolute = true,
+  }) {
     return '${absolute ? '/' : ''}${public() ? 'pub' : 'priv'}/$bucket/${id.substring(0, 2)}/${id.substring(2, 4)}/$id';
   }
 
