@@ -41,7 +41,7 @@ class ColPage extends MultiPage {
           header: header,
           footer: footer,
         ) {
-    _margin = this.margin!;
+    _margin = this.margin!.resolve(textDirection);
   }
 
   @override

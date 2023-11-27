@@ -741,8 +741,8 @@
               "symbol",
               "times",
               "timesBold",
-              "timesBoldOblique",
-              "timesOblique",
+              "timesBoldItalic",
+              "timesItalic",
               "zapfDingbats"
             ]
           },
@@ -923,6 +923,9 @@
       "maxProperties": 1,
       "minProperties": 1,
       "properties": {
+        "Comment": {
+          "$ref": "#/definitions/Widgets/Comment"
+        },
         "Anchor": {
           "$ref": "#/definitions/Widgets/Anchor"
         },
@@ -994,6 +997,9 @@
         },
         "Watermark": {
           "$ref": "#/definitions/Widgets/Watermark"
+        },
+        "RichText": {
+          "$ref": "#/definitions/Widgets/RichText"
         },
         "Expanded": {
           "$ref": "#/definitions/Widgets/Expanded"
@@ -1581,6 +1587,24 @@
           },
           "fit": {
             "$ref": "#/definitions/Enum/BoxFit"
+          }
+        },
+        "type": "object"
+      },
+      "RichText": {
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Comment": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
           }
         },
         "type": "object"

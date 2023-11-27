@@ -35,8 +35,9 @@ Future<void> main() async {
   // String jsonFile = 'pdf_layout.json';
   // String jsonFile = 'pdf_listView.json';
   // String jsonFile = 'pdf_multiCol.json';
-  String jsonFile = 'pdf_multiPage.json';
+  // String jsonFile = 'pdf_multiPage.json';
   // String jsonFile = 'pdf_partitions.json';
+  String jsonFile = 'pdf_richtext.json';
   // String jsonFile = 'pdf_shapes.json';
   // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
@@ -93,8 +94,6 @@ Future<void> main() async {
         await File(name).writeAsBytes(
           await engine.pdf().save(),
         );
-
-
 
         Console.info(
             '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n');

@@ -1,5 +1,6 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Unwrapped.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Widget/Widget.dart';
@@ -28,15 +29,21 @@ class Page {
   List<pw.Widget> build(
     State state,
   ) {
-    return content
-        .map(
-          (e) => Widget(
-            json: e as Dict,
-          ).build(
-            state,
-          ),
-        )
-        .toList();
+    List<pw.Widget> widgets = [];
+    for (dynamic e in content) {
+      pw.Widget w = Widget(
+        json: e as Dict,
+      ).build(
+        state,
+      );
+      if (w.runtimeType == Unwrapped) {
+        widgets.addAll((w as Unwrapped).children);
+      }
+      else {
+        widgets.add(w);
+      }
+    }
+    return widgets;
   }
 
   static Page fromJson(

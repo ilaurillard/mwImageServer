@@ -77,6 +77,9 @@ class Widget {
       // print(widget);
 
       switch (key) {
+        case 'Comment':
+          return pw.Container();
+        // ------------
         case 'Switch':
           return Etc.switchCases(
             data,
@@ -189,6 +192,7 @@ class Widget {
             data,
             state,
           );
+
         case 'ListView':
           return Flex.listView(
             data,
@@ -256,8 +260,12 @@ class Widget {
             data,
             state,
           );
-        // case 'RichText':
-        //   return Text.richText(data);
+        case 'RichText':
+          return Text.richText(
+            data,
+            state,
+          );
+        // ----------
         case 'Paragraph':
           return Content.paragraph(
             data,

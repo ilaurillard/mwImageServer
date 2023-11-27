@@ -128,7 +128,9 @@ class Content {
     Dict json,
     State state,
   ) {
-    double? bulletSize = double.tryParse(json['bulletSize'].toString());
+    double? bulletSize = double.tryParse(
+      json['bulletSize'].toString(),
+    );
 
     return pw.Bullet(
         text: Etc.replaceParameters(
