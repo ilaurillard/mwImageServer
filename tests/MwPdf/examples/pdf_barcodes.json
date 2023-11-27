@@ -26,6 +26,12 @@
                 }
               },
               {
+                "Divider": {
+                  "color": "FF8800",
+                  "thickness": 1
+                }
+              },
+              {
                 "BarcodeWidget": {
                   "value": "1234123412344",
                   "barcode": "CodeEAN13",
