@@ -68,7 +68,7 @@
           "height": 50.0,
           "child": {
             "Text": {
-              "text": "HEADER"
+              "text": "XXX"
             }
           }
         }
@@ -132,7 +132,7 @@
       "content": [
         {
           "LoremParagraph": {
-            "sentence": 700
+            "sentence": 20000
           }
         }
       ]

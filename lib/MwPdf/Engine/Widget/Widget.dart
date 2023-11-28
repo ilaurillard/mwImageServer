@@ -397,8 +397,6 @@ class Widget {
             Shape
           shape:
             Inklist
-          text:
-            RichText
           forms:
             ChoiceField
             Checkbox

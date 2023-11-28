@@ -1,8 +1,13 @@
 {
+  "meta": {
+    "theme": {
+
+    }
+  },
   "pages": [
     {
       "multi": false,
-      "columns": 2,
+      "columns": 3,
       "content": [
         {
           "Column": {
@@ -290,6 +295,30 @@
         ],
         [
           "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Löwe",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Löwe",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Löwe",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Löwe",
           0,
           true,
           1121.52

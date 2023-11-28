@@ -134,6 +134,7 @@ class Engine {
               header: page.header.isNotEmpty ? headerBuilder : null,
               footer: page.footer.isNotEmpty ? footerBuilder : null,
               build: (pw.Context context) => pageBuilder(context),
+              maxPages: 100,
             ),
           );
         }

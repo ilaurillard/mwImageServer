@@ -60,44 +60,10 @@ Future<Uint8List> generate(
     title: 'test',
   );
 
-  // doc.addPage(
-  //   pw.MultiPage(
-  //       pageFormat: format,
-  //       build: (
-  //         pw.Context context,
-  //       ) {
-  //         return [
-  //           pw.Partitions(
-  //             children: [
-  //               pw.Partition(
-  //                 child: pw.Container(
-  //                   padding: pw.EdgeInsets.symmetric(horizontal: 10),
-  //                   color: PdfColors.yellow,
-  //                   child: pw.Paragraph(
-  //                     text: pw.LoremText(random: math.Random(123)).paragraph(120),
-  //                   ),
-  //                 ),
-  //               ),
-  //               pw.Partition(
-  //                 child: pw.Paragraph(
-  //                   text: pw.LoremText(random: math.Random(124)).paragraph(70),
-  //                 ),
-  //               ),
-  //               pw.Partition(
-  //                 child: pw.Paragraph(
-  //                   text: pw.LoremText(random: math.Random(125)).paragraph(140),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ];
-  //       }),
-  // );
-
   doc.addPage(
     ColPage(
         pageFormat: format,
-        columns: 3,
+        columns: 1,
         gapWidth: 7 * PdfPageFormat.mm,
         header: _buildHeader,
         footer: _buildFooter,
@@ -107,16 +73,16 @@ Future<Uint8List> generate(
           return [
             pw.Paragraph(
                 text: pw.LoremText(random: math.Random(123)).paragraph(50)),
-            pw.Paragraph(
-                text: pw.LoremText(random: math.Random(124)).paragraph(30)),
-            pw.Paragraph(
-                text: pw.LoremText(random: math.Random(125)).paragraph(30)),
-            pw.Paragraph(
-                text: pw.LoremText(random: math.Random(126)).paragraph(50)),
-            pw.Paragraph(
-                text: pw.LoremText(random: math.Random(127)).paragraph(50)),
-            pw.Paragraph(
-                text: pw.LoremText(random: math.Random(128)).paragraph(50)),
+            // pw.Paragraph(
+            //     text: pw.LoremText(random: math.Random(124)).paragraph(30)),
+            // pw.Paragraph(
+            //     text: pw.LoremText(random: math.Random(125)).paragraph(30)),
+            // pw.Paragraph(
+            //     text: pw.LoremText(random: math.Random(126)).paragraph(50)),
+            // pw.Paragraph(
+            //     text: pw.LoremText(random: math.Random(127)).paragraph(50)),
+            // pw.Paragraph(
+            //     text: pw.LoremText(random: math.Random(128)).paragraph(50)),
           ];
         }),
   );

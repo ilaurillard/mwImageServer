@@ -330,9 +330,14 @@
           "color": "660033"
         },
         {
-          "value": 40,
+          "value": 30,
           "legend": "Maus",
           "color": "330066"
+        },
+        {
+          "value": 10,
+          "legend": "Giraffe",
+          "color": "FF8000"
         }
       ]
     }

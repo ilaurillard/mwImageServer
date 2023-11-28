@@ -37,9 +37,9 @@ Future<void> main() async {
   // String jsonFile = 'pdf_multiCol.json';
   // String jsonFile = 'pdf_multiPage.json';
   // String jsonFile = 'pdf_partitions.json';
-  String jsonFile = 'pdf_richtext.json';
+  // String jsonFile = 'pdf_richtext.json';
   // String jsonFile = 'pdf_shapes.json';
-  // String jsonFile = 'pdf_simple.json';
+  String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
   // String jsonFile = 'pdf_simple3.json';
   // String jsonFile = 'pdf_simple4.json';
@@ -68,6 +68,7 @@ Future<void> main() async {
     Dict pdfJsonDict = json.decode(pdfJson) as Dict;
     pdfJsonDict = mergeMap([pdfBaseDict, pdfJsonDict]);
     pdfJson = json.encode(pdfJsonDict);
+
     Results results = schema.validate(pdfJson);
 
     if (results.valid) {
@@ -96,7 +97,9 @@ Future<void> main() async {
         );
 
         Console.info(
-            '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n');
+          '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n',
+        );
+
       } catch (e) {
         print('Fatal error: $e');
         // throw e;
