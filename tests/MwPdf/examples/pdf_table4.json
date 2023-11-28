@@ -54,10 +54,15 @@
               "2": "center",
               "3": "centerRight"
             },
+            "border": {
+              "all": {
+                "color": "CCCCDD"
+              }
+            },
             "headers": [
               "Animal",
               "Amount",
-              "Wild",
+              "Wildness",
               "Weight"
             ]
           }

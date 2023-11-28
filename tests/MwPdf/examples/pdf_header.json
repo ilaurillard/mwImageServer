@@ -13,17 +13,25 @@
               "Container": {
                 "child": {
                   "Row": {
+                    "crossAxisAlignment": "start",
                     "mainAxisAlignment": "spaceBetween",
                     "children": [
                       {
                         "Text": {
-                          "text": "Portable Document Format",
-                          "textScaleFactor": 2
+                          "text": "P.D.F.",
+                          "textScaleFactor": 4
                         }
                       },
                       {
-                        "PdfLogo": {
-                          "color": "FFCC00"
+                        "Container": {
+                          "width": 50,
+                          "height": 50,
+                          "child": {
+                            "PdfLogo": {
+                              "color": "883300",
+                              "fit": "fill"
+                            }
+                          }
                         }
                       }
                     ]
@@ -38,20 +46,30 @@
     {
       "content": [
         {
+          "LoremParagraph": {
+            "paragraph": 100,
+            "textAlign": "right"
+          }
+        }
+      ]
+    },
+    {
+      "content": [
+        {
           "Footer": {
             "leading": {
               "Text": {
-                "text": "aaa"
+                "text": "LEADING"
               }
             },
             "title": {
               "Text": {
-                "text": "bbb"
+                "text": "TITLE"
               }
             },
             "trailing": {
               "Text": {
-                "text": "ccc"
+                "text": "TRAILING"
               }
             }
           }

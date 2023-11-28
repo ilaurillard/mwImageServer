@@ -172,9 +172,6 @@ class Markdown implements md.NodeVisitor {
             child: listNr.last > 0
                 ? pw.Text(
                     '${listNr.last}.',
-                    // style: pw.TextStyle(
-                    //     fontWeight: pw.FontWeight.bold,
-                    //     ),
                   )
                 : pw.Icon(
                     pw.IconData(

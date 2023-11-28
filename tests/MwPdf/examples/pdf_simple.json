@@ -17,7 +17,7 @@
         "textDirection": "ltr",
         "styles": {
           "text": {
-            "color": "FFFF6600",
+            "color": "AA6600",
             "font": "courier",
             "fontNormal": "courier",
             "fontBold": "courier",
@@ -36,7 +36,9 @@
             "decorationThickness": 1.0,
             "renderingMode": "fill"
           },
-          "paragraph": {},
+          "paragraph": {
+            "color": "FF339900"
+          },
           "header0": {},
           "header1": {},
           "header2": {},
@@ -129,13 +131,8 @@
       "footer": "@default",
       "content": [
         {
-          "Container": {
-            "height": 50.0,
-            "child": {
-              "LoremText": {
-                "sentence": 50
-              }
-            }
+          "LoremParagraph": {
+            "sentence": 700
           }
         }
       ]
