@@ -4,26 +4,9 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class Markdown implements md.NodeVisitor {
-  final String markdownContent;
-
-  final double margin1 = 8.0 * PdfPageFormat.mm;
-  final double margin2 = 4.0 * PdfPageFormat.mm;
-  final double margin3 = 1.5 * PdfPageFormat.mm;
-  final double size1 = 6.0 * PdfPageFormat.mm;
-  final double size2 = 5.0 * PdfPageFormat.mm;
-  final double size3 = 4.0 * PdfPageFormat.mm;
-  final double size4 = 3.0 * PdfPageFormat.mm;
-  final PdfColor color0 = PdfColors.grey800;
-  final PdfColor color1 = PdfColors.grey200;
-  final PdfColor color2 = PdfColors.grey300;
-  final PdfColor color3 = PdfColors.grey400;
-  final PdfColor color4 = PdfColors.grey500;
-  final PdfColor color5 = PdfColors.grey600;
-  final int bulletIcon = 0xEf4a;
-  final pw.Font monoFont = pw.Font.courier();
-
   // ---------------------
 
+  // STATE
   bool bold = false;
   bool oblique = false;
   bool code = false;
@@ -36,9 +19,45 @@ class Markdown implements md.NodeVisitor {
   List<int> listNr = [];
   int quoteDepth = 0;
 
+  // ---------------------
+
+  final String markdownContent;
+
+  final PdfColor colorQuote;
+
+  final double margin1;
+  final double margin2;
+  final double margin3;
+  final double fontSize1;
+  final double fontSize2;
+  final double fontSize3;
+  final double fontSize4;
+  final double fontSize5;
+  final int bulletIcon;
+  final PdfColor colorCode;
+  late pw.Font? fontCode;
+
   Markdown(
-    this.markdownContent,
-  );
+    this.markdownContent, {
+    this.margin1 = 8.0 * PdfPageFormat.mm,
+    this.margin2 = 3.0 * PdfPageFormat.mm,
+    this.margin3 = 1.5 * PdfPageFormat.mm,
+    this.fontSize1 = 12.0 * PdfPageFormat.mm,
+    this.fontSize2 = 10.0 * PdfPageFormat.mm,
+    this.fontSize3 = 8.0 * PdfPageFormat.mm,
+    this.fontSize4 = 6.0 * PdfPageFormat.mm,
+    this.fontSize5 = 4.0 * PdfPageFormat.mm,
+    this.bulletIcon = 0xEf4a,
+    this.colorCode = PdfColors.grey200,
+    this.colorQuote = PdfColors.grey200,
+    this.fontCode,
+  }) {
+    fontCode ??= pw.Font.courier();
+
+    print(darken(PdfColors.white));
+    // print(darken(PdfColors.green));
+    // print(darken(PdfColors.blue));
+  }
 
   pw.Widget toRichText() {
     parse(markdownContent);
@@ -60,6 +79,7 @@ class Markdown implements md.NodeVisitor {
             text: pw.TextSpan(
               children: spans,
             ),
+            // textScaleFactor: 2,
           ),
         ),
       );
@@ -77,6 +97,7 @@ class Markdown implements md.NodeVisitor {
             text: pw.TextSpan(
               children: spans,
             ),
+            // textScaleFactor: 2,
           ),
         ),
       );
@@ -87,19 +108,19 @@ class Markdown implements md.NodeVisitor {
   void quote() {
     List<pw.Widget> children = widgets.removeLast();
 
-    PdfColor c = color5;
+    PdfColor c = colorQuote.shade(0.78);
     switch (quoteDepth) {
       case 0:
-        c = color1;
+        c = colorQuote;
         break;
       case 1:
-        c = color2;
+        c = colorQuote.shade(0.57);
         break;
       case 2:
-        c = color3;
+        c = colorQuote.shade(0.64);
         break;
       case 3:
-        c = color4;
+        c = colorQuote.shade(0.71);
         break;
     }
 
@@ -116,14 +137,13 @@ class Markdown implements md.NodeVisitor {
                   left: margin1,
                   top: margin2,
                   right: margin1,
-                  bottom: margin2,
                 ),
                 decoration: pw.BoxDecoration(
                   color: c,
                   border: pw.Border(
                     left: pw.BorderSide(
                       // style: pw.BorderStyle.dashed,
-                      color: color0,
+                      color: colorQuote.shade(0.9),
                       width: margin3,
                     ),
                   ),
@@ -166,7 +186,7 @@ class Markdown implements md.NodeVisitor {
           pw.Padding(
             padding: pw.EdgeInsets.only(
               left: margin3,
-              top: listNr.last == 0 ? size3 / 2 : 0,
+              top: listNr.last == 0 ? fontSize5 / 2 : 0,
               right: margin2,
             ),
             child: listNr.last > 0
@@ -177,7 +197,7 @@ class Markdown implements md.NodeVisitor {
                     pw.IconData(
                       bulletIcon,
                     ),
-                    size: size3,
+                    size: fontSize5,
                   ),
           ),
           pw.Expanded(
@@ -209,7 +229,7 @@ class Markdown implements md.NodeVisitor {
                   margin1,
                 ),
                 decoration: pw.BoxDecoration(
-                  color: color1,
+                  color: colorCode,
                 ),
                 child: pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -270,19 +290,19 @@ class Markdown implements md.NodeVisitor {
         widgets.add([]);
         break;
       case 'h1':
-        size = size1 * PdfPageFormat.mm;
+        size = fontSize1;
         bold = true;
         break;
       case 'h2':
-        size = size2 * PdfPageFormat.mm;
+        size = fontSize2;
         bold = true;
         break;
       case 'h3':
-        size = size3 * PdfPageFormat.mm;
+        size = fontSize3;
         bold = true;
         break;
       case 'h4':
-        size = size4 * PdfPageFormat.mm;
+        size = fontSize4;
         bold = true;
         break;
       case 'p':
@@ -369,9 +389,9 @@ class Markdown implements md.NodeVisitor {
     if (code || bold || oblique || size != null) {
       if (code) {
         bg = pw.BoxDecoration(
-          color: color1,
+          color: colorCode,
         );
-        font = monoFont;
+        font = fontCode;
       }
 
       textStyle = pw.TextStyle(
@@ -399,9 +419,27 @@ class Markdown implements md.NodeVisitor {
           text: pw.TextSpan(
             children: spans,
           ),
+          // textScaleFactor: 2,
         ),
       );
       spans = [];
     }
+  }
+
+  PdfColor darken(
+    PdfColor c, [
+    int percent = 10,
+  ]) {
+    // assert(1 <= percent && percent <= 100);
+    // var f = 1 - percent / 100;
+    // int r = (c.red * f).round();
+    // int g = (c.green * f).round();
+    // int b = (c.blue * f).round();
+    // print('0x${r.toRadixString(16)}${g.toRadixString(16)}${b.toRadixString(16)}');
+    // return PdfColor.fromInt(
+    //   int.parse('0x${r.toRadixString(16)}${g.toRadixString(16)}${b.toRadixString(16)}'),
+    // );
+
+    return c.shade(.6);
   }
 }

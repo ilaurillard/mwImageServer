@@ -1,6 +1,7 @@
 import 'package:mwcdn/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Markdown/Markdown.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Etc.dart';
@@ -10,49 +11,32 @@ class Text {
     Dict json,
     State state,
   ) {
-
     String md = json['text'] as String? ?? '';
 
-//     md = '''
-// ### test
-//
-// asdfasdf *xxx*
-// asdfasdf
-//
-// > xxx
-// >
-// > sdfgsdfg
-// >> sdfgsdfg **xxx**
-// >> sdfgsdfgsdf
-//
-// - item 1
-// - item 2
-//   - item 2.1
-//   - item 2.2
-//
-// > #### The quarterly results look great!
-// >
-// > - Revenue was off the chart.
-// > - Profits were higher than ever.
-// >
-// > *Everything* is going according to **plan**.
-//
-// 1. First item
-// 2. Second item
-// 3. Third item
-//     1. Indented item
-//     2. Indented item
-// 4. Fourth item
-//
-// At the command prompt, type `nano`.
-//
-//     <?php
-//         print('hello world');
-//         exit;
-//
-// ''';
+    String bulletIcon = json['bulletIcon'].toString();
+    int? bulletIconCode = int.tryParse(bulletIcon, radix: 16);
+    bulletIconCode ??=
+        int.parse(State.materialCodes[bulletIcon] ?? 'EF4A', radix: 16);
 
-    return Markdown(md).toRichText();
+    return Markdown(
+      md,
+      bulletIcon: bulletIconCode,
+      colorCode: Etc.color(json['colorCode'] as String?) ?? PdfColors.grey200,
+      fontCode: Etc.font(
+        json['fontCode'] as String?,
+        state,
+      ),
+      margin1: (double.tryParse(json['margin1'].toString()) ?? 8) * PdfPageFormat.mm,
+      margin2: (double.tryParse(json['margin2'].toString()) ?? 3) * PdfPageFormat.mm,
+      margin3: (double.tryParse(json['margin3'].toString()) ?? 1.5) * PdfPageFormat.mm,
+      fontSize1: (double.tryParse(json['fontSize1'].toString()) ?? 12) * PdfPageFormat.mm,
+      fontSize2: (double.tryParse(json['fontSize2'].toString()) ?? 10) * PdfPageFormat.mm,
+      fontSize3: (double.tryParse(json['fontSize3'].toString()) ?? 8) * PdfPageFormat.mm,
+      fontSize4: (double.tryParse(json['fontSize4'].toString()) ?? 6) * PdfPageFormat.mm,
+      fontSize5: (double.tryParse(json['fontSize5'].toString()) ?? 4) * PdfPageFormat.mm,
+
+      colorQuote: Etc.color(json['colorQuote'] as String?) ?? PdfColors.grey200,
+    ).toRichText();
   }
 
   static pw.Text text(

@@ -7,13 +7,16 @@
         },
         "styles": {
           "text": {
-            "color": "000000",
+            "color": "000033",
             "font": "helvetica",
             "fontNormal": "helvetica",
             "fontBold": "helveticaBold",
             "fontItalic": "helveticaOblique",
             "fontBoldItalic": "helveticaBoldOblique",
             "fontSize": 6.0
+          },
+          "iconTheme": {
+            "color": "000033"
           }
         }
       }
@@ -25,6 +28,14 @@
       "theme": "@default",
       "content": [
         {
+          "RichText": {
+            "bulletIcon": "circle",
+            "colorCode": "EEEEEE",
+            "fontCode": "courier",
+            "text": "### test\n\nEs war einmal ein Mann *komma* Es war einmal ein Mann Es war einmal ein Mann\nasdfasdf\n\n> xxx  asdf asdf asdf sdfg sdfg sdfg sdfgsdfg sadf asdf asdf asdf asdf\n>> sdfgsdfg **xxx**\n>> sdfgsdfgsdf\n\n#### test\n\n- item 1\n- item 2\n  - item 2.1\n  - item 2.2\n\n> #### The quarterly results look great!\n>\n> - Revenue was off the chart.\n> - Profits were higher than ever.\n>\n> *Everything* is going according to **plan**.\n\n1. First item\n2. Second item\n3. Third item Es war einmal ein Mann, und er hatte acht Söhne.\n    1. Indented item\n    2. Indented item\n4. Fourth item \n\nAt the command prompt, type `nano`.\n\n    <?php\n        print('hello world');\n        exit;"
+          }
+        },
+        {
           "Comment": {
             "child": {
               "RichText": {
@@ -34,8 +45,20 @@
           }
         },
         {
-          "RichText": {
-            "text": "### test\n\nEs war einmal ein Mann *xxx*\nasdfasdf\n\n> xxx  asdf asdf asdf sdfg sdfg sdfg sdfgsdfg sadf asdf asdf asdf asdf\n>> sdfgsdfg **xxx**\n>> sdfgsdfgsdf\n\n- item 1\n- item 2\n  - item 2.1\n  - item 2.2\n\n> #### The quarterly results look great!\n>\n> - Revenue was off the chart.\n> - Profits were higher than ever.\n>\n> *Everything* is going according to **plan**.\n\n1. First item\n2. Second item\n3. Third item Es war einmal ein Mann, und er hatte acht Söhne.\n    1. Indented item\n    2. Indented item\n4. Fourth item \n\nAt the command prompt, type `nano`.\n\n    <?php\n        print('hello world');\n        exit;"
+          "Comment": {
+            "child": {
+              "RichText": {
+                "fontSize1": 12.0,
+                "fontSize2": 10.0,
+                "fontSize3": 8.0,
+                "fontSize4": 6.0,
+                "margin1": 8.0,
+                "margin2": 3.0,
+                "margin3": 1.5,
+                "colorQuote": "FFCCCC",
+                "text": "#### Headline\n\nTex Tex Tex\n\n### Headline\n\n## Headline\n\n# Headline\n\n> xxx\n> xxx\n>> xxx"
+              }
+            }
           }
         }
       ]

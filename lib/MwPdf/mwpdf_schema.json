@@ -1596,6 +1596,42 @@
         "properties": {
           "text": {
             "type": "string"
+          },
+          "colorQuote": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "bulletIcon": {
+            "type": "string"
+          },
+          "colorCode": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "fontCode": {
+            "$ref": "#/definitions/Style/Font"
+          },
+          "fontSize1": {
+            "type": "number"
+          },
+          "fontSize2": {
+            "type": "number"
+          },
+          "fontSize3": {
+            "type": "number"
+          },
+          "fontSize4": {
+            "type": "number"
+          },
+          "fontSize5": {
+            "type": "number"
+          },
+          "margin1": {
+            "type": "number"
+          },
+          "margin2": {
+            "type": "number"
+          },
+          "margin3": {
+            "type": "number"
           }
         },
         "type": "object"
