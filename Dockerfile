@@ -9,7 +9,7 @@ RUN dart pub get
 
 # Copy app source code (except anything in .dockerignore) and AOT compile app.
 COPY . .
-RUN dart compile exe bin/main.dart -o bin/main
+RUN dart compile exe bin/mwcdn.dart -o bin/main
 
 ###########################
 # Build minimal serving image from AOT-compiled `/server`

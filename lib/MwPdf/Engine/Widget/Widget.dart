@@ -1,4 +1,4 @@
-import 'package:mwcdn/Etc/Types.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/MultiPage.dart';
 import 'package:pdf/widgets.dart' as pw;

@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:merge_map_null_safety/merge_map.dart';
-import 'package:mwcdn/Etc/Console.dart';
-import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Model/Token.dart';
+import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
+import 'package:mwcdn/MwMs/Etc/Console.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwMs/Model/RootToken.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
-import 'package:mwcdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 
 const dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
@@ -23,7 +23,7 @@ Future<void> main() async {
   String templateFile = '';
   // String templateFile = 'templates/pdf_template1.json';
 
-  // String jsonFile = 'pdf_barcodes.json';
+  String jsonFile = 'pdf_barcodes.json';
   // String jsonFile = 'pdf_charts.json';
   // String jsonFile = 'pdf_charts2.json';
   // String jsonFile = 'pdf_form.json'; // TODO
@@ -39,7 +39,7 @@ Future<void> main() async {
   // String jsonFile = 'pdf_partitions.json';
   // String jsonFile = 'pdf_richtext.json';
   // String jsonFile = 'pdf_shapes.json';
-  String jsonFile = 'pdf_simple.json';
+  // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
   // String jsonFile = 'pdf_simple3.json';
   // String jsonFile = 'pdf_simple4.json';
@@ -56,7 +56,9 @@ Future<void> main() async {
 
   String pdfBase = '{}';
   if (templateFile.isNotEmpty) {
-    pdfBase = await File('$examplesDir/$templateFile').readAsString();
+    pdfBase = await File(
+      '$examplesDir/$templateFile',
+    ).readAsString();
   }
 
   String pdfJson = await File(
@@ -85,9 +87,9 @@ Future<void> main() async {
             fileStorage: FileStorage(
               dataDir: dataDir,
             ),
-            sqliteStorage: sqliteStorage,
+            resources: sqliteStorage.resources,
             bucketId: 98,
-            token: Token.root(),
+            token: RootToken(),
           ),
         );
 
@@ -99,7 +101,6 @@ Future<void> main() async {
         Console.info(
           '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n',
         );
-
       } catch (e) {
         print('Fatal error: $e');
         // throw e;

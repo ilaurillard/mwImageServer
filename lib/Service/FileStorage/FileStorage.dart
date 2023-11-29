@@ -3,9 +3,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
-import 'package:mwcdn/Etc/Console.dart';
-import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Model/Resource.dart';
+import 'package:mwcdn/MwMs/Etc/Console.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwMs/Model/ResourceInterface.dart';
 import 'package:path/path.dart';
 
 class FileStorage {
@@ -88,7 +88,7 @@ class FileStorage {
   }
 
   Future<Dict> fileDataAsJson(
-    Resource resource,
+    ResourceInterface resource,
   ) async {
     if (await dirExists(resource.path())) {
       String filename = '${resource.path()}/${resource.filename}';
@@ -102,7 +102,7 @@ class FileStorage {
   }
 
   Future<Uint8List> fileData(
-    Resource resource,
+    ResourceInterface resource,
   ) async {
     if (await dirExists(resource.path())) {
       String filename = '${resource.path()}/${resource.filename}';
@@ -166,7 +166,7 @@ class FileStorage {
   // ---------------------
 
   Future<bool> flushResourceFiles(
-    Resource resource,
+    ResourceInterface resource,
   ) async {
     // delete all files for resource, except original
     if (await dirExists(resource.path())) {
@@ -186,7 +186,7 @@ class FileStorage {
   // ---------------------
 
   Future<bool> deleteResourceFiles(
-    Resource resource,
+    ResourceInterface resource,
   ) async {
     // delete all files for resource (including folder)
     String path = dataDir + resource.path();
@@ -202,7 +202,7 @@ class FileStorage {
   }
 
   void storeResource(
-    Resource resource,
+    ResourceInterface resource,
     Uint8List bytes,
   ) async {
     File file = await createFileFromBytes(

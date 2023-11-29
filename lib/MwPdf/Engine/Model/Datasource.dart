@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Model/Resource.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwMs/Model/ResourceInterface.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
@@ -111,11 +111,11 @@ class Datasource {
 
     print('Source "$key" from resource: $resourceId');
 
-    if (storage.sqliteStorage == null) {
+    if (storage.resources == null) {
       throw Exception('Have no database');
     }
 
-    Resource res = await storage.sqliteStorage!.resources.load(
+    ResourceInterface res = await storage.resources!.load(
       storage.bucketId,
       resourceId,
     );

@@ -1,16 +1,16 @@
-import 'package:mwcdn/Model/Token.dart';
-import 'package:mwcdn/Service/Database/SqliteStorage.dart';
+import 'package:mwcdn/MwMs/Model/ResourcesInterface.dart';
+import 'package:mwcdn/MwMs/Model/TokenInterface.dart';
 import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
 
 class Storage {
   final FileStorage fileStorage;
-  final SqliteStorage? sqliteStorage;
+  final ResourcesInterface? resources;
   final int bucketId;
-  final Token token;
+  final TokenInterface token;
 
   Storage({
     required this.fileStorage,
-    this.sqliteStorage,
+    this.resources,
     this.bucketId = -1,
     required this.token,
   });

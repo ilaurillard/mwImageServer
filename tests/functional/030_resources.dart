@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:mwcdn/Etc/Types.dart';
-import 'package:mwcdn/Etc/Test.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwMs/Etc/Test.dart';
 import 'package:test/test.dart';
 
 import '../testConfig.dart';

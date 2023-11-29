@@ -1,7 +1,7 @@
 ---- start local 
 
-$ dart run bin/main.dart -d ~/PhpstormProjects/mwcdn/data
-$ dart run bin/main.dart -d ~/PhpstormProjects/mwcdn/data -k myRootKey
+$ dart run bin/mwcdn.dart -d ~/PhpstormProjects/mwcdn/data
+$ dart run bin/mwcdn.dart -d ~/PhpstormProjects/mwcdn/data -k myRootKey
 
 $ curl http://0.0.0.0:8080/static/help.html
 
