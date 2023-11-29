@@ -4,7 +4,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Model/Datasource.dart';
-import 'Etc.dart';
+import 'Util.dart';
 import 'Widget.dart';
 
 class Table {
@@ -39,19 +39,19 @@ class Table {
 
     return pw.TableHelper.fromTextArray(
       data: data,
-      cellPadding: Etc.edgeInsets(
+      cellPadding: Util.edgeInsets(
             json['cellPadding'] as List<dynamic>?,
           ) ??
           const pw.EdgeInsets.all(5),
       cellHeight: cellHeight != null ? cellHeight * PdfPageFormat.mm : 0,
-      cellAlignment: Etc.alignment(json['cellAlignment'] as String?) ??
+      cellAlignment: Util.alignment(json['cellAlignment'] as String?) ??
           pw.Alignment.topLeft,
       cellAlignments: _cellAlignments('cellAlignments', json),
-      cellStyle: Etc.textStyle(
+      cellStyle: Util.textStyle(
         json['cellStyle'] as Dict? ?? {},
         state,
       ),
-      oddCellStyle: Etc.textStyle(
+      oddCellStyle: Util.textStyle(
         json['oddCellStyle'] as Dict? ?? {},
         state,
       ),
@@ -59,15 +59,15 @@ class Table {
       // cellDecoration: TODO support callbacks somehow??
       headerCount: int.tryParse(json['headerCount'].toString()) ?? 1,
       headers: json['headers'] as List<dynamic>?,
-      headerPadding: Etc.edgeInsets(
+      headerPadding: Util.edgeInsets(
         json['headerPadding'] as List<dynamic>?,
       ),
       headerHeight:
           headerHeight != null ? headerHeight * PdfPageFormat.mm : null,
-      headerAlignment: Etc.alignment(json['headerAlignment'] as String?) ??
+      headerAlignment: Util.alignment(json['headerAlignment'] as String?) ??
           pw.Alignment.center,
       headerAlignments: _cellAlignments('headerAlignments', json),
-      headerStyle: Etc.textStyle(
+      headerStyle: Util.textStyle(
         json['headerStyle'] as Dict? ?? {},
         state,
       ),
@@ -82,26 +82,26 @@ class Table {
       tableWidth: tableWidth(
         json['tableWidth'] as String?,
       ),
-      headerDecoration: Etc.boxDecoration(
+      headerDecoration: Util.boxDecoration(
         (json['headerDecoration'] as Dict?) ?? {},
         state,
       ),
-      headerCellDecoration: Etc.boxDecoration(
+      headerCellDecoration: Util.boxDecoration(
         (json['headerCellDecoration'] as Dict?) ?? {},
         state,
       ),
-      rowDecoration: Etc.boxDecoration(
+      rowDecoration: Util.boxDecoration(
         (json['rowDecoration'] as Dict?) ?? {},
         state,
       ),
-      oddRowDecoration: Etc.boxDecoration(
+      oddRowDecoration: Util.boxDecoration(
         (json['oddRowDecoration'] as Dict?) ?? {},
         state,
       ),
-      headerDirection: Etc.textDirection(
+      headerDirection: Util.textDirection(
         json['headerDirection'] as String?,
       ),
-      tableDirection: Etc.textDirection(
+      tableDirection: Util.textDirection(
         json['tableDirection'] as String?,
       ),
     );
@@ -154,7 +154,7 @@ class Table {
     );
     // print(resource);
 
-    pw.BoxDecoration? decoration = Etc.boxDecoration(
+    pw.BoxDecoration? decoration = Util.boxDecoration(
       data['decoration'] as Dict? ?? {},
       state,
     );
@@ -198,15 +198,15 @@ class Table {
   ) {
     if (json != null) {
       pw.BorderSide fb =
-          Etc.borderSide(json['all'] as Dict?) ?? pw.BorderSide.none;
+          Util.borderSide(json['all'] as Dict?) ?? pw.BorderSide.none;
       return pw.TableBorder(
-        top: Etc.borderSide(json['top'] as Dict?) ?? fb,
-        right: Etc.borderSide(json['right'] as Dict?) ?? fb,
-        bottom: Etc.borderSide(json['bottom'] as Dict?) ?? fb,
-        left: Etc.borderSide(json['left'] as Dict?) ?? fb,
+        top: Util.borderSide(json['top'] as Dict?) ?? fb,
+        right: Util.borderSide(json['right'] as Dict?) ?? fb,
+        bottom: Util.borderSide(json['bottom'] as Dict?) ?? fb,
+        left: Util.borderSide(json['left'] as Dict?) ?? fb,
         horizontalInside:
-            Etc.borderSide(json['horizontalInside'] as Dict?) ?? fb,
-        verticalInside: Etc.borderSide(json['verticalInside'] as Dict?) ?? fb,
+            Util.borderSide(json['horizontalInside'] as Dict?) ?? fb,
+        verticalInside: Util.borderSide(json['verticalInside'] as Dict?) ?? fb,
       );
     }
     return null;
@@ -283,7 +283,7 @@ class Table {
           ) {
             return MapEntry(
               int.tryParse(entry.key) ?? 0,
-              Etc.alignment(
+              Util.alignment(
                     entry.value as String?,
                   ) ??
                   pw.Alignment.topLeft,

@@ -3,7 +3,7 @@ import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Etc.dart';
+import 'Util.dart';
 import 'Widget.dart';
 
 class Stack {
@@ -12,7 +12,7 @@ class Stack {
     State state,
   ) {
     return pw.Stack(
-      alignment: Etc.alignment(
+      alignment: Util.alignment(
             json['alignment'] as String?,
           ) ??
           pw.Alignment.topLeft,
@@ -20,8 +20,8 @@ class Stack {
         json,
         state,
       ),
-      overflow: Etc.overflow(json['overflow'] as String?) ?? pw.Overflow.clip,
-      fit: Etc.stackFit(json['fit'] as String?) ?? pw.StackFit.loose,
+      overflow: Util.overflow(json['overflow'] as String?) ?? pw.Overflow.clip,
+      fit: Util.stackFit(json['fit'] as String?) ?? pw.StackFit.loose,
     );
   }
 

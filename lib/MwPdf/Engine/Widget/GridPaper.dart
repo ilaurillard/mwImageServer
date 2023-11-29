@@ -3,7 +3,7 @@ import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Etc.dart';
+import 'Util.dart';
 import 'Widget.dart';
 
 class GridPaper {
@@ -16,7 +16,7 @@ class GridPaper {
     double? interval = double.tryParse(json['interval'].toString());
 
     return pw.GridPaper(
-      color: Etc.color(
+      color: Util.color(
             json['color'] as String?,
           ) ??
           lineColor,

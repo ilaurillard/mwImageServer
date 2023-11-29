@@ -5,7 +5,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math.dart';
 
 import '../Model/Datasource.dart';
-import 'Etc.dart';
+import 'Util.dart';
 import 'Widget.dart';
 
 class Chart {
@@ -176,8 +176,8 @@ class Chart {
       divisions: json['divisions'] as bool?,
       axisTick: json['axisTick'] as bool?,
       divisionsDashed: json['divisionsDashed'] as bool?,
-      color: Etc.color(json['color'] as String?),
-      textStyle: Etc.textStyle(
+      color: Util.color(json['color'] as String?),
+      textStyle: Util.textStyle(
         json['textStyle'] as Dict? ?? {},
         state,
       ),
@@ -189,20 +189,20 @@ class Chart {
     State state,
   ) {
     return pw.ChartLegend(
-      textStyle: Etc.textStyle(
+      textStyle: Util.textStyle(
         json['textStyle'] as Dict? ?? {},
         state,
       ),
-      position: Etc.alignment(
+      position: Util.alignment(
             json['position'] as String?,
           ) ??
           pw.Alignment.topRight,
-      direction: Etc.axis(json['direction'] as String?) ?? pw.Axis.vertical,
-      padding: Etc.edgeInsets(
+      direction: Util.axis(json['direction'] as String?) ?? pw.Axis.vertical,
+      padding: Util.edgeInsets(
             json['padding'] as List<dynamic>?,
           ) ??
           pw.EdgeInsets.all(5),
-      decoration: Etc.boxDecoration(
+      decoration: Util.boxDecoration(
         (json['decoration'] as Dict?) ?? {},
         state,
       ),
@@ -292,11 +292,11 @@ class Chart {
       drawSurface: json['drawSurface'] as bool? ?? true,
       drawBorder: json['drawBorder'] as bool?,
       drawPoints: json['drawPoints'] as bool? ?? false,
-      color: Etc.color(json['color'] as String?) ?? PdfColors.blue,
+      color: Util.color(json['color'] as String?) ?? PdfColors.blue,
       legend: json['legend'] as String?,
-      borderColor: Etc.color(json['borderColor'] as String?),
-      pointColor: Etc.color(json['pointColor'] as String?),
-      axis: Etc.axis(json['axis'] as String?) ?? pw.Axis.horizontal,
+      borderColor: Util.color(json['borderColor'] as String?),
+      pointColor: Util.color(json['pointColor'] as String?),
+      axis: Util.axis(json['axis'] as String?) ?? pw.Axis.horizontal,
       pointSize: pointSize != null ? pointSize * PdfPageFormat.mm : 3,
       valuePosition: valuePosition(json['valuePosition'] as String?) ??
           pw.ValuePosition.auto,
@@ -317,18 +317,18 @@ class Chart {
     double? surfaceOpacity = double.tryParse(json['surfaceOpacity'].toString());
     return pw.LineDataSet(
       legend: json['legend'] as String?,
-      color: Etc.color(json['color'] as String?) ?? PdfColors.blue,
-      pointColor: Etc.color(json['pointColor'] as String?),
+      color: Util.color(json['color'] as String?) ?? PdfColors.blue,
+      pointColor: Util.color(json['pointColor'] as String?),
       pointSize: pointSize != null ? pointSize * PdfPageFormat.mm : 3,
       lineWidth: lineWidth != null ? lineWidth * PdfPageFormat.mm : 2,
       drawLine: json['drawLine'] as bool? ?? true,
-      lineColor: Etc.color(json['lineColor'] as String?),
+      lineColor: Util.color(json['lineColor'] as String?),
       drawPoints: json['drawPoints'] as bool? ?? true,
       valuePosition: valuePosition(json['valuePosition'] as String?) ??
           pw.ValuePosition.auto,
       drawSurface: json['drawSurface'] as bool? ?? false,
       surfaceOpacity: surfaceOpacity ?? .2,
-      surfaceColor: Etc.color(json['surfaceColor'] as String?),
+      surfaceColor: Util.color(json['surfaceColor'] as String?),
       isCurved: json['isCurved'] as bool? ?? false,
       smoothness: smoothness ?? 0.35,
       data: values(source),
@@ -365,24 +365,24 @@ class Chart {
         double.tryParse(json['legendLineWidth'].toString());
     return pw.PieDataSet(
       value: value ?? 0,
-      color: Etc.color(json['color'] as String?) ?? PdfColors.amber,
+      color: Util.color(json['color'] as String?) ?? PdfColors.amber,
       legend: json['legend'] as String?,
-      borderColor: Etc.color(json['borderColor'] as String?) ?? PdfColors.white,
+      borderColor: Util.color(json['borderColor'] as String?) ?? PdfColors.white,
       borderWidth: borderWidth != null ? borderWidth * PdfPageFormat.mm : 1.5,
       drawBorder: json['drawBorder'] as bool?,
       drawSurface: json['drawSurface'] as bool? ?? true,
       surfaceOpacity: surfaceOpacity ?? 1,
       offset: offset != null ? offset * PdfPageFormat.mm : 0,
-      legendStyle: Etc.textStyle(
+      legendStyle: Util.textStyle(
         (json['legendStyle'] as Dict?) ?? {},
         state,
       ),
-      legendAlign: Etc.textAlign(json['legendAlign'] as String?),
+      legendAlign: Util.textAlign(json['legendAlign'] as String?),
       legendPosition: pieLegendPosition(json['legendPosition'] as String?) ??
           pw.PieLegendPosition.auto,
       legendLineWidth:
           legendLineWidth != null ? legendLineWidth * PdfPageFormat.mm : 1.0,
-      legendLineColor: Etc.color(json['legendLineColor'] as String?),
+      legendLineColor: Util.color(json['legendLineColor'] as String?),
       legendWidget: json['legendWidget'] != null
           ? Widget.parse(
               json['legendWidget'] as Dict? ?? {},

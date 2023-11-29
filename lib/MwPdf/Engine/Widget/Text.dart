@@ -4,7 +4,7 @@ import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Etc.dart';
+import 'Util.dart';
 
 class Text {
   static pw.Widget richText(
@@ -21,8 +21,8 @@ class Text {
     return Markdown(
       md,
       bulletIcon: bulletIconCode,
-      colorCode: Etc.color(json['colorCode'] as String?) ?? PdfColors.grey200,
-      fontCode: Etc.font(
+      colorCode: Util.color(json['colorCode'] as String?) ?? PdfColors.grey200,
+      fontCode: Util.font(
         json['fontCode'] as String?,
         state,
       ),
@@ -35,7 +35,7 @@ class Text {
       fontSize4: (double.tryParse(json['fontSize4'].toString()) ?? 6) * PdfPageFormat.mm,
       fontSize5: (double.tryParse(json['fontSize5'].toString()) ?? 4) * PdfPageFormat.mm,
 
-      colorQuote: Etc.color(json['colorQuote'] as String?) ?? PdfColors.grey200,
+      colorQuote: Util.color(json['colorQuote'] as String?) ?? PdfColors.grey200,
     ).toRichText();
   }
 
@@ -43,7 +43,7 @@ class Text {
     Dict json,
     State state,
   ) {
-    String text = Etc.replaceParameters(
+    String text = Util.replaceParameters(
       json['text'] as String? ?? '',
       state,
     );
@@ -56,14 +56,14 @@ class Text {
     }
     return pw.Text(
       text,
-      style: Etc.textStyle(
+      style: Util.textStyle(
         (json['style'] as Dict?) ?? {},
         state,
       ),
-      textAlign: Etc.textAlign(
+      textAlign: Util.textAlign(
         json['textAlign'] as String?,
       ),
-      textDirection: Etc.textDirection(
+      textDirection: Util.textDirection(
         json['textDirection'] as String?,
       ),
       softWrap: json['softWrap'] as bool?,
@@ -71,7 +71,7 @@ class Text {
       textScaleFactor:
           double.tryParse(json['textScaleFactor'].toString()) ?? 1.0,
       maxLines: int.tryParse(json['maxLines'].toString()),
-      overflow: Etc.textOverflow(json['overflow'] as String?),
+      overflow: Util.textOverflow(json['overflow'] as String?),
     );
   }
 }

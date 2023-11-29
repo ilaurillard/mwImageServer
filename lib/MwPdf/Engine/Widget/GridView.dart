@@ -3,7 +3,7 @@ import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Etc.dart';
+import 'Util.dart';
 import 'Widget.dart';
 
 class GridView {
@@ -16,13 +16,13 @@ class GridView {
     double? crossAxisSpacing =
         double.tryParse(json['crossAxisSpacing'].toString());
     return pw.GridView(
-      direction: Etc.axis(json['direction'] as String?) ?? pw.Axis.vertical,
+      direction: Util.axis(json['direction'] as String?) ?? pw.Axis.vertical,
       crossAxisCount: int.tryParse(json['crossAxisCount'].toString()) ?? 3,
       children: Widget.children(
         json,
         state,
       ),
-      padding: Etc.edgeInsets(
+      padding: Util.edgeInsets(
             json['padding'] as List<dynamic>?,
           ) ??
           pw.EdgeInsets.zero,

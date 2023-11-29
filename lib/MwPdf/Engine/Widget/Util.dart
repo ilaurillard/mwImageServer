@@ -8,7 +8,7 @@ import 'package:vector_math/vector_math_64.dart';
 
 import 'Widget.dart';
 
-class Etc {
+class Util {
   static pw.DecorationGraphic? decorationGraphic(
     Dict json,
     State state,
@@ -24,16 +24,16 @@ class Etc {
     if (source.isSvg()) {
       return pw.DecorationSvgImage(
         svg: source.svgFromBinary(),
-        fit: Etc.boxFit(json['fit'] as String?) ?? pw.BoxFit.cover,
+        fit: Util.boxFit(json['fit'] as String?) ?? pw.BoxFit.cover,
         alignment:
-            Etc.alignment(json['alignment'] as String?) ?? pw.Alignment.center,
+            Util.alignment(json['alignment'] as String?) ?? pw.Alignment.center,
       );
     } else {
       return pw.DecorationImage(
         image: source.imageFromBinary(),
-        fit: Etc.boxFit(json['fit'] as String?) ?? pw.BoxFit.cover,
+        fit: Util.boxFit(json['fit'] as String?) ?? pw.BoxFit.cover,
         alignment:
-            Etc.alignment(json['alignment'] as String?) ?? pw.Alignment.center,
+            Util.alignment(json['alignment'] as String?) ?? pw.Alignment.center,
         dpi: double.tryParse(json['dpi'].toString()),
       );
     }
@@ -48,17 +48,17 @@ class Etc {
     }
     List<dynamic> bs = json['boxShadow'] as List<dynamic>? ?? [];
     return pw.BoxDecoration(
-      color: Etc.color(json['color'] as String?),
-      border: Etc.boxBorder(
+      color: Util.color(json['color'] as String?),
+      border: Util.boxBorder(
         json['border'] as Dict?,
       ),
-      borderRadius: Etc.borderRadius(
+      borderRadius: Util.borderRadius(
         json['borderRadius'] as List<dynamic>?,
       ),
-      shape: Etc.boxShape(json['shape'] as String?) ?? pw.BoxShape.rectangle,
-      boxShadow: bs.map((e) => Etc.boxShadow(e as Dict? ?? {})).toList(),
-      gradient: Etc.gradient(json['gradient'] as Dict? ?? {}),
-      image: Etc.decorationGraphic(
+      shape: Util.boxShape(json['shape'] as String?) ?? pw.BoxShape.rectangle,
+      boxShadow: bs.map((e) => Util.boxShadow(e as Dict? ?? {})).toList(),
+      gradient: Util.gradient(json['gradient'] as Dict? ?? {}),
+      image: Util.decorationGraphic(
         json['image'] as Dict? ?? {},
         state,
       ),
@@ -93,24 +93,24 @@ class Etc {
     double? fontSize = double.tryParse(json['fontSize'].toString());
 
     return pw.TextStyle(
-      color: Etc.color(json['color'] as String?),
-      font: Etc.font(
+      color: Util.color(json['color'] as String?),
+      font: Util.font(
         json['font'] as String?,
         state,
       ),
-      fontNormal: Etc.font(
+      fontNormal: Util.font(
         json['fontNormal'] as String?,
         state,
       ),
-      fontBold: Etc.font(
+      fontBold: Util.font(
         json['fontBold'] as String?,
         state,
       ),
-      fontItalic: Etc.font(
+      fontItalic: Util.font(
         json['fontItalic'] as String?,
         state,
       ),
-      fontBoldItalic: Etc.font(
+      fontBoldItalic: Util.font(
         json['fontBoldItalic'] as String?,
         state,
       ),
@@ -121,12 +121,12 @@ class Etc {
       wordSpacing: double.tryParse(json['wordSpacing'].toString()),
       lineSpacing: double.tryParse(json['lineSpacing'].toString()),
       height: double.tryParse(json['height'].toString()),
-      background: Etc.boxDecoration(
+      background: Util.boxDecoration(
         json['background'] as Dict? ?? {},
         state,
       ),
-      decoration: Etc.textDecoration(json['decoration'] as String?),
-      decorationColor: Etc.color(json['decorationColor'] as String?),
+      decoration: Util.textDecoration(json['decoration'] as String?),
+      decorationColor: Util.color(json['decorationColor'] as String?),
       decorationStyle: decStyle,
       decorationThickness:
           double.tryParse(json['decorationThickness'].toString()),
@@ -208,9 +208,9 @@ class Etc {
     Dict json,
   ) {
     return pw.BoxShadow(
-      color: Etc.color(json['color'] as String?) ?? PdfColors.black,
+      color: Util.color(json['color'] as String?) ?? PdfColors.black,
       offset:
-          Etc.pdfPoint(json['offset'] as List<dynamic>? ?? []) ?? PdfPoint.zero,
+          Util.pdfPoint(json['offset'] as List<dynamic>? ?? []) ?? PdfPoint.zero,
       blurRadius: double.tryParse(json['blurRadius'].toString()) ?? 0.0,
       spreadRadius: double.tryParse(json['spreadRadius'].toString()) ?? 0.0,
     );
@@ -609,12 +609,12 @@ class Etc {
   ) {
     if (json != null) {
       pw.BorderSide fb =
-          Etc.borderSide(json['all'] as Dict?) ?? pw.BorderSide.none;
+          Util.borderSide(json['all'] as Dict?) ?? pw.BorderSide.none;
       return pw.Border(
-        top: Etc.borderSide(json['top'] as Dict?) ?? fb,
-        right: Etc.borderSide(json['right'] as Dict?) ?? fb,
-        bottom: Etc.borderSide(json['bottom'] as Dict?) ?? fb,
-        left: Etc.borderSide(json['left'] as Dict?) ?? fb,
+        top: Util.borderSide(json['top'] as Dict?) ?? fb,
+        right: Util.borderSide(json['right'] as Dict?) ?? fb,
+        bottom: Util.borderSide(json['bottom'] as Dict?) ?? fb,
+        left: Util.borderSide(json['left'] as Dict?) ?? fb,
       );
     }
     return null;
@@ -626,11 +626,11 @@ class Etc {
     if (json != null) {
       double? width = double.tryParse(json['width'].toString());
       return pw.BorderSide(
-        color: Etc.color(
+        color: Util.color(
               json['color'] as String?,
             ) ??
             PdfColors.black,
-        style: Etc.borderStyle(
+        style: Util.borderStyle(
           json['style'] as String?,
         ),
         width: width != null ? width * PdfPageFormat.mm : 1.0,
@@ -694,7 +694,7 @@ class Etc {
       Dict data = widget.value as Dict;
 
       List<PdfColor> colors = (data['colors'] as List<dynamic>)
-          .map((e) => Etc.color(e as String?) ?? PdfColors.black)
+          .map((e) => Util.color(e as String?) ?? PdfColors.black)
           .toList();
 
       List<double>? stops = data['stops'] != null
@@ -708,12 +708,12 @@ class Etc {
           return pw.LinearGradient(
             colors: colors,
             stops: stops,
-            begin: Etc.alignment(data['begin'] as String?) ??
+            begin: Util.alignment(data['begin'] as String?) ??
                 pw.Alignment.centerLeft,
-            end: Etc.alignment(data['end'] as String?) ??
+            end: Util.alignment(data['end'] as String?) ??
                 pw.Alignment.centerRight,
             tileMode:
-                Etc.tileMode(data['tileMode'] as String?) ?? pw.TileMode.clamp,
+                Util.tileMode(data['tileMode'] as String?) ?? pw.TileMode.clamp,
           );
         case 'RadialGradient':
           double? radius = double.tryParse(data['radius'].toString());
@@ -722,13 +722,13 @@ class Etc {
           return pw.RadialGradient(
               colors: colors,
               stops: stops,
-              center: Etc.alignment(data['center'] as String?) ??
+              center: Util.alignment(data['center'] as String?) ??
                   pw.Alignment.center,
               radius: radius ?? 0.5,
-              tileMode: Etc.tileMode(data['tileMode'] as String?) ??
+              tileMode: Util.tileMode(data['tileMode'] as String?) ??
                   pw.TileMode.clamp,
               focalRadius: focalRadius ?? 0.0,
-              focal: Etc.alignment(data['center'] as String?));
+              focal: Util.alignment(data['center'] as String?));
       }
       throw Exception('Parsing gradient failed');
     }
@@ -764,7 +764,7 @@ class Etc {
           );
           return matrix;
         case 'Translate':
-          PdfPoint p = Etc.pdfPoint(data['offset'] as List<dynamic>? ?? []) ??
+          PdfPoint p = Util.pdfPoint(data['offset'] as List<dynamic>? ?? []) ??
               PdfPoint.zero;
           matrix.multiply(
             Matrix4.translationValues(

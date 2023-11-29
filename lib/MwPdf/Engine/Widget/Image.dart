@@ -4,7 +4,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Model/Datasource.dart';
-import 'Etc.dart';
+import 'Util.dart';
 
 class Image {
   static pw.Image image(
@@ -18,11 +18,11 @@ class Image {
     double? height = double.tryParse(json['height'].toString());
     return pw.Image(
       source.imageFromBinary(),
-      fit: Etc.boxFit(
+      fit: Util.boxFit(
             json['fit'] as String?,
           ) ??
           pw.BoxFit.contain,
-      alignment: Etc.alignment(
+      alignment: Util.alignment(
             json['alignment'] as String?,
           ) ??
           pw.Alignment.center,
@@ -43,16 +43,16 @@ class Image {
     double? height = double.tryParse(json['height'].toString());
     return pw.SvgImage(
       svg: source.svgFromBinary(),
-      fit: Etc.boxFit(
+      fit: Util.boxFit(
             json['fit'] as String?,
           ) ??
           pw.BoxFit.contain,
-      alignment: Etc.alignment(
+      alignment: Util.alignment(
             json['alignment'] as String?,
           ) ??
           pw.Alignment.center,
       clip: json['clip'] as bool? ?? true,
-      colorFilter: Etc.color(
+      colorFilter: Util.color(
         json['colorFilter'] as String?,
       ),
       width: width != null ? width * PdfPageFormat.mm : null,
@@ -73,7 +73,7 @@ class Image {
         code,
       ),
       size: size != null ? size * PdfPageFormat.mm : null,
-      color: Etc.color(
+      color: Util.color(
         json['color'] as String?,
       ),
     );

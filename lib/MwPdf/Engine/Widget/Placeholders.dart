@@ -6,7 +6,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Content.dart';
-import 'Etc.dart';
+import 'Util.dart';
 import 'Text.dart';
 
 class Placeholders {
@@ -22,7 +22,7 @@ class Placeholders {
           fallbackWidth != null ? fallbackWidth * PdfPageFormat.mm : 400.0,
       fallbackHeight:
           fallbackHeight != null ? fallbackHeight * PdfPageFormat.mm : 400.0,
-      color: Etc.color(
+      color: Util.color(
             json['color'] as String?,
           ) ??
           PdfColor.fromInt(0xFF455A64),
@@ -75,11 +75,11 @@ class Placeholders {
     Dict json,
   ) {
     return pw.PdfLogo(
-      color: Etc.color(
+      color: Util.color(
             json['color'] as String?,
           ) ??
           PdfColors.red,
-      fit: Etc.boxFit(
+      fit: Util.boxFit(
             json['fit'] as String?,
           ) ??
           pw.BoxFit.contain,

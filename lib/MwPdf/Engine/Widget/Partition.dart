@@ -3,7 +3,7 @@ import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Etc.dart';
+import 'Util.dart';
 import 'Widget.dart';
 
 class Partition {
@@ -12,7 +12,7 @@ class Partition {
     State state,
   ) {
     return pw.Partitions(
-      mainAxisSize: Etc.mainAxisSize(json['mainAxisSize'] as String?),
+      mainAxisSize: Util.mainAxisSize(json['mainAxisSize'] as String?),
       children: (json['children'] as List<dynamic>? ?? [])
           .map((e) => partition(
                 e as Dict,

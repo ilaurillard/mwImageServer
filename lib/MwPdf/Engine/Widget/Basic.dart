@@ -4,7 +4,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math_64.dart';
 
-import 'Etc.dart';
+import 'Util.dart';
 import 'Widget.dart';
 
 class Basic {
@@ -27,7 +27,7 @@ class Basic {
     double? widthFactor = double.tryParse(json['widthFactor'].toString());
     double? heightFactor = double.tryParse(json['heightFactor'].toString());
     return pw.Align(
-      alignment: Etc.alignment(
+      alignment: Util.alignment(
             json['alignment'] as String?,
           ) ??
           pw.Alignment.center,
@@ -46,11 +46,11 @@ class Basic {
     State state,
   ) {
     return pw.FittedBox(
-      fit: Etc.boxFit(
+      fit: Util.boxFit(
             json['fit'] as String?,
           ) ??
           pw.BoxFit.contain,
-      alignment: Etc.alignment(
+      alignment: Util.alignment(
             json['alignment'] as String?,
           ) ??
           pw.Alignment.center,
@@ -101,7 +101,7 @@ class Basic {
     State state,
   ) {
     return pw.ConstrainedBox(
-      constraints: Etc.boxConstraints(
+      constraints: Util.boxConstraints(
             json['constraints'] as Dict?,
           ) ??
           pw.BoxConstraints(),
@@ -117,7 +117,7 @@ class Basic {
     State state,
   ) {
     return pw.OverflowBox(
-      alignment: Etc.alignment(
+      alignment: Util.alignment(
             json['alignment'] as String?,
           ) ??
           pw.Alignment.center,
@@ -178,12 +178,12 @@ class Basic {
     // return pw.Transform.rotateBox(angle: radians(45), child: Widget.child(json));
     // print(json);
     return pw.Transform(
-      origin: Etc.pdfPoint(json['origin'] as List<dynamic>?),
+      origin: Util.pdfPoint(json['origin'] as List<dynamic>?),
       adjustLayout: json['adjustLayout'] as bool? ?? false,
       unconstrained: json['unconstrained'] as bool? ?? false,
-      alignment: Etc.alignment(json['alignment'] as String?),
+      alignment: Util.alignment(json['alignment'] as String?),
       transform:
-          Etc.transform(json['transform'] as Dict? ?? {}) ?? Matrix4.zero(),
+          Util.transform(json['transform'] as Dict? ?? {}) ?? Matrix4.zero(),
       child: Widget.child(
         json,
         state,
@@ -204,10 +204,10 @@ class Basic {
       thickness: thickness != null ? thickness * PdfPageFormat.mm : null,
       indent: indent != null ? indent * PdfPageFormat.mm : null,
       endIndent: endIndent != null ? endIndent * PdfPageFormat.mm : null,
-      color: Etc.color(
+      color: Util.color(
         json['color'] as String?,
       ),
-      borderStyle: Etc.borderStyle(
+      borderStyle: Util.borderStyle(
         json['borderStyle'] as String?,
       ),
     );
@@ -225,10 +225,10 @@ class Basic {
       thickness: thickness != null ? thickness * PdfPageFormat.mm : null,
       indent: indent != null ? indent * PdfPageFormat.mm : null,
       endIndent: endIndent != null ? endIndent * PdfPageFormat.mm : null,
-      color: Etc.color(
+      color: Util.color(
         json['color'] as String?,
       ),
-      borderStyle: Etc.borderStyle(
+      borderStyle: Util.borderStyle(
         json['borderStyle'] as String?,
       ),
     );

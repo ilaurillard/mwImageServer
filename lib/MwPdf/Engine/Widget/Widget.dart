@@ -11,7 +11,7 @@ import 'Chart.dart';
 import 'Clip.dart';
 import 'Container.dart';
 import 'Content.dart';
-import 'Etc.dart';
+import 'Util.dart';
 import 'Flex.dart';
 import 'Form.dart';
 import 'GridPaper.dart';
@@ -81,7 +81,7 @@ class Widget {
           return pw.Container();
         // ------------
         case 'Switch':
-          return Etc.switchCases(
+          return Util.switchCases(
             data,
             state,
           );

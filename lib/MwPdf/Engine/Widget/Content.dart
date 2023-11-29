@@ -4,7 +4,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math_64.dart';
 
-import 'Etc.dart';
+import 'Util.dart';
 import 'Internal.dart';
 import 'Widget.dart';
 
@@ -14,7 +14,7 @@ class Content {
     State state,
   ) {
     return pw.Watermark(
-      fit: Etc.boxFit(json['fit'] as String?) ?? pw.BoxFit.contain,
+      fit: Util.boxFit(json['fit'] as String?) ?? pw.BoxFit.contain,
       angle: radians(double.tryParse(json['angle'].toString()) ?? 0),
       child: Widget.child(
         json,
@@ -27,7 +27,7 @@ class Content {
     Dict json,
     State state,
   ) {
-    String text = Etc.replaceParameters(
+    String text = Util.replaceParameters(
       json['text'] as String? ?? '',
       state,
     );
@@ -40,18 +40,18 @@ class Content {
     }
     return pw.Paragraph(
       text: text,
-      textAlign: Etc.textAlign(
+      textAlign: Util.textAlign(
             json['textAlign'] as String?,
           ) ??
           pw.TextAlign.justify,
-      padding: Etc.edgeInsets(
+      padding: Util.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
-      margin: Etc.edgeInsets(
+      margin: Util.edgeInsets(
             json['margin'] as List<dynamic>?,
           ) ??
           const pw.EdgeInsets.only(bottom: 5.0 * PdfPageFormat.mm),
-      style: Etc.textStyle(
+      style: Util.textStyle(
         json['style'] as Dict? ?? {},
         state,
       ),
@@ -70,24 +70,24 @@ class Content {
         state,
       ),
       level: json['level'] as int? ?? 0,
-      decoration: Etc.boxDecoration(
+      decoration: Util.boxDecoration(
         (json['decoration'] as Dict?) ?? {},
         state,
       ),
-      outlineColor: Etc.color(
+      outlineColor: Util.color(
         json['outlineColor'] as String?,
       ),
       outlineStyle: Internal.pdfOutlineStyle(
             json['outlineStyle'] as String?,
           ) ??
           PdfOutlineStyle.normal,
-      margin: Etc.edgeInsets(
+      margin: Util.edgeInsets(
         json['margin'] as List<dynamic>?,
       ),
-      padding: Etc.edgeInsets(
+      padding: Util.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
-      textStyle: Etc.textStyle(
+      textStyle: Util.textStyle(
         (json['textStyle'] as Dict?) ?? {},
         state,
       ),
@@ -117,13 +117,13 @@ class Content {
               state,
             )
           : null,
-      margin: Etc.edgeInsets(
+      margin: Util.edgeInsets(
         json['margin'] as List<dynamic>?,
       ),
-      padding: Etc.edgeInsets(
+      padding: Util.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
-      decoration: Etc.boxDecoration(
+      decoration: Util.boxDecoration(
         (json['decoration'] as Dict?) ?? {},
         state,
       ),
@@ -139,26 +139,26 @@ class Content {
     );
 
     return pw.Bullet(
-        text: Etc.replaceParameters(
+        text: Util.replaceParameters(
           json['text'] as String? ?? '',
           state,
         ),
-        textAlign: Etc.textAlign(
+        textAlign: Util.textAlign(
               json['textAlign'] as String?,
             ) ??
             pw.TextAlign.left,
-        padding: Etc.edgeInsets(
+        padding: Util.edgeInsets(
           json['padding'] as List<dynamic>?,
         ),
-        margin: Etc.edgeInsets(
+        margin: Util.edgeInsets(
               json['margin'] as List<dynamic>?,
             ) ??
             const pw.EdgeInsets.only(bottom: 2.0 * PdfPageFormat.mm),
-        style: Etc.textStyle(
+        style: Util.textStyle(
           json['style'] as Dict? ?? {},
           state,
         ),
-        bulletMargin: Etc.edgeInsets(
+        bulletMargin: Util.edgeInsets(
               json['bulletMargin'] as List<dynamic>?,
             ) ??
             const pw.EdgeInsets.only(
@@ -170,8 +170,8 @@ class Content {
             ? bulletSize * PdfPageFormat.mm
             : 2.0 * PdfPageFormat.mm,
         bulletShape:
-            Etc.boxShape(json['bulletShape'] as String?) ?? pw.BoxShape.circle,
+            Util.boxShape(json['bulletShape'] as String?) ?? pw.BoxShape.circle,
         bulletColor:
-            Etc.color(json['bulletColor'] as String?) ?? PdfColors.black);
+            Util.color(json['bulletColor'] as String?) ?? PdfColors.black);
   }
 }

@@ -3,7 +3,7 @@ import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Etc.dart';
+import 'Util.dart';
 import 'Widget.dart';
 
 class Flex {
@@ -12,16 +12,16 @@ class Flex {
     State state,
   ) {
     return pw.Row(
-      mainAxisAlignment: Etc.mainAxisAlignment(
+      mainAxisAlignment: Util.mainAxisAlignment(
         json['mainAxisAlignment'] as String?,
       ),
-      crossAxisAlignment: Etc.crossAxisAlignment(
+      crossAxisAlignment: Util.crossAxisAlignment(
         json['crossAxisAlignment'] as String?,
       ),
-      mainAxisSize: Etc.mainAxisSize(
+      mainAxisSize: Util.mainAxisSize(
         json['mainAxisSize'] as String?,
       ),
-      verticalDirection: Etc.verticalDirection(
+      verticalDirection: Util.verticalDirection(
         json['verticalDirection'] as String?,
       ),
       children: Widget.children(
@@ -36,16 +36,16 @@ class Flex {
     State state,
   ) {
     return pw.Column(
-      mainAxisAlignment: Etc.mainAxisAlignment(
+      mainAxisAlignment: Util.mainAxisAlignment(
         json['mainAxisAlignment'] as String?,
       ),
-      crossAxisAlignment: Etc.crossAxisAlignment(
+      crossAxisAlignment: Util.crossAxisAlignment(
         json['crossAxisAlignment'] as String?,
       ),
-      mainAxisSize: Etc.mainAxisSize(
+      mainAxisSize: Util.mainAxisSize(
         json['mainAxisSize'] as String?,
       ),
-      verticalDirection: Etc.verticalDirection(
+      verticalDirection: Util.verticalDirection(
         json['verticalDirection'] as String?,
       ),
       children: Widget.children(
@@ -61,20 +61,20 @@ class Flex {
     State state,
   ) {
     return pw.Flex(
-      direction: Etc.axis(
+      direction: Util.axis(
             json['direction'] as String?,
           ) ??
           pw.Axis.horizontal,
-      mainAxisAlignment: Etc.mainAxisAlignment(
+      mainAxisAlignment: Util.mainAxisAlignment(
         json['mainAxisAlignment'] as String?,
       ),
-      crossAxisAlignment: Etc.crossAxisAlignment(
+      crossAxisAlignment: Util.crossAxisAlignment(
         json['crossAxisAlignment'] as String?,
       ),
-      mainAxisSize: Etc.mainAxisSize(
+      mainAxisSize: Util.mainAxisSize(
         json['mainAxisSize'] as String?,
       ),
-      verticalDirection: Etc.verticalDirection(
+      verticalDirection: Util.verticalDirection(
         json['verticalDirection'] as String?,
       ),
       children: Widget.children(
@@ -90,7 +90,7 @@ class Flex {
   ) {
     return pw.Expanded(
       flex: int.tryParse(json['flex'].toString()) ?? 1,
-      fit: Etc.flexFit(
+      fit: Util.flexFit(
         json['fit'] as String?,
       ),
       child: Widget.child(
@@ -106,12 +106,12 @@ class Flex {
   ) {
     double? spacing = double.tryParse(json['spacing'].toString());
     return pw.ListView(
-      direction: Etc.axis(json['direction'] as String?) ?? pw.Axis.vertical,
+      direction: Util.axis(json['direction'] as String?) ?? pw.Axis.vertical,
       children: Widget.children(
         json,
         state,
       ),
-      padding: Etc.edgeInsets(
+      padding: Util.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
       spacing: spacing != null ? spacing * PdfPageFormat.mm : 0,
@@ -133,7 +133,7 @@ class Flex {
   ) {
     return pw.Flexible(
       flex: int.tryParse(json['flex'].toString()) ?? 1,
-      fit: Etc.flexFit(
+      fit: Util.flexFit(
         json['fit'] as String? ?? 'loose',
       ),
       child: Widget.child(
