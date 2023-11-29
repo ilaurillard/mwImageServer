@@ -9,7 +9,7 @@ import 'Widget.dart';
 class Container {
   static pw.Widget container(
     Dict json,
-      State state,
+    State state,
   ) {
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
@@ -32,36 +32,53 @@ class Container {
       ),
       width: width != null ? width * PdfPageFormat.mm : null,
       height: height != null ? height * PdfPageFormat.mm : null,
-      decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
-      foregroundDecoration:
-          Etc.boxDecoration((json['foregroundDecoration'] as Dict?) ?? {}),
-      child: Widget.child(json, state, ),
+      decoration: Etc.boxDecoration(
+        (json['decoration'] as Dict?) ?? {},
+        state,
+      ),
+      foregroundDecoration: Etc.boxDecoration(
+        (json['foregroundDecoration'] as Dict?) ?? {},
+        state,
+      ),
+      child: Widget.child(
+        json,
+        state,
+      ),
       transform: Etc.transform(json['transform'] as Dict? ?? {}),
     );
   }
 
   static pw.DecoratedBox decoratedBox(
     Dict json,
-      State state,
+    State state,
   ) {
     return pw.DecoratedBox(
-      decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}) ??
+      decoration: Etc.boxDecoration(
+            (json['decoration'] as Dict?) ?? {},
+            state,
+          ) ??
           pw.BoxDecoration(),
       position: Etc.decorationPosition(json['decorationPosition'] as String?),
-      child: Widget.child(json, state,),
+      child: Widget.child(
+        json,
+        state,
+      ),
     );
   }
 
   static pw.Padding padding(
     Dict json,
-      State state,
+    State state,
   ) {
     return pw.Padding(
       padding: Etc.edgeInsets(
             json['padding'] as List<dynamic>?,
           ) ??
           pw.EdgeInsets.zero,
-      child: Widget.child(json, state,),
+      child: Widget.child(
+        json,
+        state,
+      ),
     );
   }
 }

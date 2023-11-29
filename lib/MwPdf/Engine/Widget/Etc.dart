@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Model/Datasource.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -8,17 +9,44 @@ import 'package:vector_math/vector_math_64.dart';
 import 'Widget.dart';
 
 class Etc {
-  static pw.BoxDecoration? boxDecoration(
+  static pw.DecorationGraphic? decorationGraphic(
     Dict json,
+    State state,
   ) {
     if (json.isEmpty) {
       return null;
     }
 
-    // TODO image
+    Datasource source = state.source(
+      json['source'] as String?,
+    );
 
-    List<dynamic> temp = json['boxShadow'] as List<dynamic>? ?? [];
+    if (source.isSvg()) {
+      return pw.DecorationSvgImage(
+        svg: source.svgFromBinary(),
+        fit: Etc.boxFit(json['fit'] as String?) ?? pw.BoxFit.cover,
+        alignment:
+            Etc.alignment(json['alignment'] as String?) ?? pw.Alignment.center,
+      );
+    } else {
+      return pw.DecorationImage(
+        image: source.imageFromBinary(),
+        fit: Etc.boxFit(json['fit'] as String?) ?? pw.BoxFit.cover,
+        alignment:
+            Etc.alignment(json['alignment'] as String?) ?? pw.Alignment.center,
+        dpi: double.tryParse(json['dpi'].toString()),
+      );
+    }
+  }
 
+  static pw.BoxDecoration? boxDecoration(
+    Dict json,
+    State state,
+  ) {
+    if (json.isEmpty) {
+      return null;
+    }
+    List<dynamic> bs = json['boxShadow'] as List<dynamic>? ?? [];
     return pw.BoxDecoration(
       color: Etc.color(json['color'] as String?),
       border: Etc.boxBorder(
@@ -28,8 +56,12 @@ class Etc {
         json['borderRadius'] as List<dynamic>?,
       ),
       shape: Etc.boxShape(json['shape'] as String?) ?? pw.BoxShape.rectangle,
-      boxShadow: temp.map((e) => Etc.boxShadow(e as Dict? ?? {})).toList(),
+      boxShadow: bs.map((e) => Etc.boxShadow(e as Dict? ?? {})).toList(),
       gradient: Etc.gradient(json['gradient'] as Dict? ?? {}),
+      image: Etc.decorationGraphic(
+        json['image'] as Dict? ?? {},
+        state,
+      ),
     );
   }
 
@@ -89,7 +121,10 @@ class Etc {
       wordSpacing: double.tryParse(json['wordSpacing'].toString()),
       lineSpacing: double.tryParse(json['lineSpacing'].toString()),
       height: double.tryParse(json['height'].toString()),
-      background: Etc.boxDecoration(json['background'] as Dict? ?? {}),
+      background: Etc.boxDecoration(
+        json['background'] as Dict? ?? {},
+        state,
+      ),
       decoration: Etc.textDecoration(json['decoration'] as String?),
       decorationColor: Etc.color(json['decorationColor'] as String?),
       decorationStyle: decStyle,

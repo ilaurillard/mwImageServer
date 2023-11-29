@@ -70,7 +70,10 @@ class Content {
         state,
       ),
       level: json['level'] as int? ?? 0,
-      decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
+      decoration: Etc.boxDecoration(
+        (json['decoration'] as Dict?) ?? {},
+        state,
+      ),
       outlineColor: Etc.color(
         json['outlineColor'] as String?,
       ),
@@ -120,7 +123,10 @@ class Content {
       padding: Etc.edgeInsets(
         json['padding'] as List<dynamic>?,
       ),
-      decoration: Etc.boxDecoration((json['decoration'] as Dict?) ?? {}),
+      decoration: Etc.boxDecoration(
+        (json['decoration'] as Dict?) ?? {},
+        state,
+      ),
     );
   }
 

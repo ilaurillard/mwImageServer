@@ -204,6 +204,7 @@ class Chart {
           pw.EdgeInsets.all(5),
       decoration: Etc.boxDecoration(
         (json['decoration'] as Dict?) ?? {},
+        state,
       ),
     );
   }

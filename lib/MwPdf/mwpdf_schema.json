@@ -618,6 +618,27 @@
             },
             "maxProperties": 1,
             "minProperties": 1
+          },
+          "image": {
+            "$ref": "#/definitions/Style/BoxDecorationImage"
+          }
+        },
+        "type": "object"
+      },
+      "BoxDecorationImage": {
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
+          "fit": {
+            "$ref": "#/definitions/Enum/BoxFit"
+          },
+          "alignment": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "dpi": {
+            "type": "number"
           }
         },
         "type": "object"
@@ -2697,7 +2718,6 @@
               "description": "Remote file will get downloaded and cached",
               "type": "string"
             },
-
             "text": {
               "description": "reusable text",
               "type": "string"

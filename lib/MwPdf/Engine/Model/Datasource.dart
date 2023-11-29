@@ -166,12 +166,16 @@ class Datasource {
     }
   }
 
+  bool isSvg() {
+    return binary.startsWith('<');
+  }
+
   String svgFromBinary() {
     String binary = this.binary;
     if (binary.isEmpty) {
       throw Exception('Source "$key" has no data (svg)');
     }
-    if (!binary.startsWith('<')) {
+    if (!isSvg()) {
       throw Exception('Source "$key" data does not start with "<" (svg)');
     }
     return binary;

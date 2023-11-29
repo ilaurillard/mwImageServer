@@ -1,6 +1,18 @@
 {
+  "meta": {
+    "theme": {
+      "@theme1": {
+        "styles": {
+          "paragraph": {
+            "color": "66FF99"
+          }
+        }
+      }
+    }
+  },
   "pages": [
     {
+      "theme": "@theme1",
       "content": [
         {
           "Column": {
@@ -29,7 +41,6 @@
               },
               {
                 "Divider": {
-
                 }
               },
               {
@@ -53,7 +64,49 @@
               },
               {
                 "Divider": {
-
+                  "height": 10
+                }
+              },
+              {
+                "Container": {
+                  "width": 100,
+                  "height": 50,
+                  "decoration": {
+                    "color": "000000",
+                    "image": {
+                      "source": "@deco1",
+                      "fit": "contain",
+                      "alignment": "bottomLeft",
+                      "dpi": 15
+                    }
+                  },
+                  "child": {
+                    "Paragraph": {
+                      "text": "Hi, there?"
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                  "height": 10
+                }
+              },
+              {
+                "Container": {
+                  "width": 100,
+                  "height": 50,
+                  "decoration": {
+                    "color": "000000",
+                    "image": {
+                      "source": "@deco2"
+                    }
+                  },
+                  "child": {
+                    "Paragraph": {
+                      "text": "Hi, there?"
+                    }
+                  }
                 }
               }
             ]
@@ -61,5 +114,13 @@
         }
       ]
     }
-  ]
+  ],
+  "sources": {
+    "@deco1": {
+      "url": "https://placekitten.com/150/150"
+    },
+    "@deco2": {
+      "binary": "<svg height=\"100\" width=\"100\"><circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"yellow\" /></svg>"
+    }
+  }
 }

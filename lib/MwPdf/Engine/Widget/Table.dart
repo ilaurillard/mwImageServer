@@ -82,13 +82,22 @@ class Table {
       tableWidth: tableWidth(
         json['tableWidth'] as String?,
       ),
-      headerDecoration:
-          Etc.boxDecoration((json['headerDecoration'] as Dict?) ?? {}),
-      headerCellDecoration:
-          Etc.boxDecoration((json['headerCellDecoration'] as Dict?) ?? {}),
-      rowDecoration: Etc.boxDecoration((json['rowDecoration'] as Dict?) ?? {}),
-      oddRowDecoration:
-          Etc.boxDecoration((json['oddRowDecoration'] as Dict?) ?? {}),
+      headerDecoration: Etc.boxDecoration(
+        (json['headerDecoration'] as Dict?) ?? {},
+        state,
+      ),
+      headerCellDecoration: Etc.boxDecoration(
+        (json['headerCellDecoration'] as Dict?) ?? {},
+        state,
+      ),
+      rowDecoration: Etc.boxDecoration(
+        (json['rowDecoration'] as Dict?) ?? {},
+        state,
+      ),
+      oddRowDecoration: Etc.boxDecoration(
+        (json['oddRowDecoration'] as Dict?) ?? {},
+        state,
+      ),
       headerDirection: Etc.textDirection(
         json['headerDirection'] as String?,
       ),
@@ -147,6 +156,7 @@ class Table {
 
     pw.BoxDecoration? decoration = Etc.boxDecoration(
       data['decoration'] as Dict? ?? {},
+      state,
     );
     bool? repeat = data['repeat'] as bool? ?? false;
     pw.TableCellVerticalAlignment? verticalAlignment =
