@@ -1,6 +1,6 @@
 import 'package:mwcdn/MwMs/Model/ResourcesInterface.dart';
 import 'package:mwcdn/MwMs/Model/TokenInterface.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 
 class Storage {
   final FileStorage fileStorage;

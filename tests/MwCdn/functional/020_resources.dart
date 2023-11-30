@@ -53,7 +53,7 @@ void main() {
         'Content-Type': Test.uploadContentType,
       },
       body: Test.upload(
-        await File('tests/functional/files/ffff23.jpg').readAsBytes(),
+        await File('tests/MwCdn/functional/files/ffff23.jpg').readAsBytes(),
         {
           'users': [777]
         },

@@ -23,7 +23,7 @@ void main() {
         'Content-Type': Test.uploadContentType,
       },
       body: Test.upload(
-        await File('tests/functional/files/example_template.json')
+        await File('tests/MwCdn/functional/files/example_template.json')
             .readAsBytes(),
         {
           'users': [666]
@@ -45,7 +45,7 @@ void main() {
         'Content-Type': Test.uploadContentType,
       },
       body: Test.upload(
-        await File('tests/functional/files/ffff23.jpg').readAsBytes(),
+        await File('tests/MwCdn/functional/files/ffff23.jpg').readAsBytes(),
         {
           'users': [666]
         },

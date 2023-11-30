@@ -14,7 +14,7 @@ import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:path/path.dart' show dirname;
 
 class Pdf {

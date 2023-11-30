@@ -1,3 +1,5 @@
+################# MwCdn
+
 FROM docker.io/dart:stable AS build
 
 RUN apt-get update; \
@@ -9,7 +11,7 @@ RUN dart pub get
 
 # Copy app source code (except anything in .dockerignore) and AOT compile app.
 COPY . .
-RUN dart compile exe bin/mwcdn.dart -o bin/main
+RUN dart compile exe bin/MwCdn.dart -o bin/main
 
 ###########################
 # Build minimal serving image from AOT-compiled `/server`

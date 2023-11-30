@@ -92,8 +92,8 @@ class Invoice {
   ) async {
     final doc = pw.Document();
 
-    _logo = await File('tests/etc/files/logo.svg').readAsString();
-    _bgShape = await File('tests/etc/files/invoice.svg').readAsString();
+    _logo = await File('tests/MwPdf/etc/files/logo.svg').readAsString();
+    _bgShape = await File('tests/MwPdf/etc/files/invoice.svg').readAsString();
 
     doc.addPage(
       pw.MultiPage(

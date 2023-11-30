@@ -7,7 +7,7 @@ import 'package:mwcdn/MwCdn/Model/BucketStats.dart';
 import 'package:mwcdn/MwCdn/Model/Stats.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
 import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 
 class ApiStats extends ApiBucket {

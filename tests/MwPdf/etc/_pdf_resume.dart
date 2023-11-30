@@ -38,7 +38,7 @@ Future<Uint8List> generateResume(PdfPageFormat format, CustomData data) async {
   final doc = pw.Document(title: 'My Résumé', author: 'David PHAM-VAN');
 
   final profileImage = pw.MemoryImage(
-      await File('tests/etc/files/profile.jpg').readAsBytes());
+      await File('tests/MwPdf/etc/files/profile.jpg').readAsBytes());
 
   final pageTheme = await _myPageTheme(format);
 
@@ -168,7 +168,7 @@ Future<pw.PageTheme> _myPageTheme(
 ) async {
   pw.Font openSansRegular = pw.Font.ttf(
     ByteData.view(
-      (await File('tests/MwPdf/assets/Open Sans Regular.ttf').readAsBytes())
+      (await File('lib/MwPdf/assets/Open Sans Regular.ttf').readAsBytes())
           .buffer,
     ),
   );

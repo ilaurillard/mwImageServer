@@ -5,7 +5,7 @@ import 'package:mwcdn/MwCdn/Config.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwCdn/Server.dart';
 import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwCdn/Service/Work/Images/Imagick.dart';
 
 void main(

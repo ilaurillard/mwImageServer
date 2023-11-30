@@ -8,7 +8,7 @@ import 'package:mwcdn/MwMs/Model/ResourceInterface.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class Datasource {

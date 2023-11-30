@@ -9,7 +9,7 @@ import 'package:mwcdn/MwMs/Model/RootToken.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 
 const dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
 const baseDir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwPdf';

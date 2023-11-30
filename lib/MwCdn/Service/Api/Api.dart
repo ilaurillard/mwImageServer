@@ -5,7 +5,7 @@ import 'package:mwcdn/MwCdn/Api/ApiToken.dart';
 import 'package:mwcdn/MwCdn/Config.dart';
 import 'package:mwcdn/MwCdn/Service/Api/Authorization.dart';
 import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 

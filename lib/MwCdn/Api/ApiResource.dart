@@ -13,7 +13,7 @@ import 'package:mwcdn/MwCdn/Model/Token.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
 import 'package:mwcdn/MwCdn/Service/Api/Authorization.dart';
 import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwCdn/Service/Work/Pdf/Pdf.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_multipart/multipart.dart';

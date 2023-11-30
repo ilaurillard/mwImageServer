@@ -6,7 +6,7 @@ import 'package:mwcdn/MwCdn/Model/Method.dart';
 import 'package:mwcdn/MwCdn/Model/Resource.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
 import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/Service/FileStorage/FileStorage.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwCdn/Service/Work/Images/Imagick.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';

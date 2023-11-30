@@ -1,7 +1,10 @@
+MWCDN
+-----
+
 ---- start local 
 
-$ dart run bin/mwcdn.dart -d ~/PhpstormProjects/mwcdn/data
-$ dart run bin/mwcdn.dart -d ~/PhpstormProjects/mwcdn/data -k myRootKey
+$ dart run bin/MwCdn.dart -d ~/PhpstormProjects/mwcdn/data
+$ dart run bin/MwCdn.dart -d ~/PhpstormProjects/mwcdn/data -k myRootKey
 
 $ curl http://0.0.0.0:8080/static/help.html
 
@@ -21,28 +24,13 @@ $ podman rm -f mwcdn
 $ podman system prune
 
 
----- Build via docker compose
-
-$ docker build . -t mwcdn
-
-$ cat .env
-$ docker-compose up
-
-$ curl http://0.0.0.0:8080
-
-$ curl http://0.0.0.0:8080/pub/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
-
-$ curl http://0.0.0.0:8080/priv/77/aa/aa/aaaabbbbccccddddaaaabbbbccccdddd/meta.json
-
-
-
 ---- tests
 
 http client tests in phpstorm
 
 $ ab -k -n 10000 -c 10 http://0.0.0.0:8080/static/help.html
 
-$ dart test tests/functional/* --reporter=expanded -j1
+$ dart test tests/MwCdn/functional/* --reporter=expanded -j1
 
 
 ----
@@ -134,9 +122,6 @@ POST /api/bucket/77/token
 {}
 
 GET /api/bucket/77/token/1f077f5b99634d0c8839a45000692b20
-
-
-
 
 
 

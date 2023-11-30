@@ -1,0 +1,30 @@
+### Not found -----------------------------------------------
+GET {{host}}/xxx
+
+> scripts/assert404.js
+
+### help file
+GET {{host}}/static/help.html
+
+> scripts/assert200.js
+
+
+### Create hello world pdf
+POST {{host}}/api/pdf
+Authorization: myRootKey
+
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Paragraph": {
+             "text": "Hello world!"
+          }
+        }
+      ]
+    }
+  ]
+}
+
+> scripts/assert200AndPdf.js

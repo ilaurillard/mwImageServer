@@ -40,7 +40,7 @@ void main() {
         'Content-Type': Test.uploadContentType,
       },
       body: Test.upload(
-        await File('tests/functional/files/ffff23.jpg').readAsBytes(),
+        await File('tests/MwCdn/functional/files/ffff23.jpg').readAsBytes(),
         {
           'users': [5, 4],
           'groups': [19, 16, 17, 17]
@@ -76,7 +76,7 @@ void main() {
         'Content-Type': Test.uploadContentType,
       },
       body: Test.upload(
-        await File('tests/functional/files/ffff23.jpg').readAsBytes(),
+        await File('tests/MwCdn/functional/files/ffff23.jpg').readAsBytes(),
         {},
         'image/jpeg',
         'ffff23.jpg',
@@ -220,7 +220,7 @@ void main() {
         'Content-Type': Test.uploadContentType,
       },
       body: Test.upload(
-        await File('tests/functional/files/ffff23.jpg').readAsBytes(),
+        await File('tests/MwCdn/functional/files/ffff23.jpg').readAsBytes(),
         {
           'users': [777],
           'groups': [999]
@@ -246,7 +246,7 @@ void main() {
         'Content-Type': 'multipart/form-data; boundary=MyBoundary',
       },
       body: Test.upload(
-        await File('tests/functional/files/ffff23.jpg').readAsBytes(),
+        await File('tests/MwCdn/functional/files/ffff23.jpg').readAsBytes(),
         {},
         'image/jpeg',
         'ffff23.jpg',
