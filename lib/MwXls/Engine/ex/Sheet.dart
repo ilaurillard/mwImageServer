@@ -1,45 +1,30 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwXls/Engine/Model/State.dart';
+
 import 'Model/CellIndex.dart';
 import 'Model/ColIndex.dart';
-import 'Model/Range.dart';
-import 'Model/SheetStyles.dart';
+import 'Model/SheetStyle.dart';
 import 'Row.dart';
 import 'Styles.dart';
 
 class Sheet {
   final String name;
-  final SheetStyles sheetStyles;
+  final SheetStyle sheetStyle;
   List<Row> rows;
-  List<Range> mergeCells = [];
 
   Sheet({
     this.name = 'Sheet1',
-    this.sheetStyles = const SheetStyles(),
-    this.mergeCells = const [],
+    this.sheetStyle = const SheetStyle(),
     this.rows = const [],
   }) {
     if (rows.isEmpty) {
       rows = [];
-    }
-    if (mergeCells.isEmpty) {
-      mergeCells = [];
     }
   }
 
   String nameSanitized() {
     // TODO
     return name;
-  }
-
-  String mergeCellsXml() {
-    String xml = '';
-    if (mergeCells.isNotEmpty) {
-      xml += '<mergeCells>\n';
-      for (Range range in mergeCells) {
-        xml += '<mergeCell ref="$range"/>\n';
-      }
-      xml += '</mergeCells>\n';
-    }
-    return xml;
   }
 
   String rowsToXml(
@@ -50,7 +35,9 @@ class Sheet {
     for (Row row in rows) {
       xml += row.toXml(
         i + 1,
-        sheetCellStyles: sheetStyles.cellStyles,
+        sheetCellStyles: sheetStyle.cellStyles,
+        sheetRowStyle: sheetStyle.defaultRowStyle,
+        sheetCellStyle: sheetStyle.defaultCellStyle,
         styles: styles,
       );
       i++;
@@ -80,7 +67,7 @@ class Sheet {
 
     // ---------------
 
-    xml += sheetStyles.freezeXml();
+    xml += sheetStyle.freezeXml();
 
     // ---------------
 
@@ -90,8 +77,8 @@ class Sheet {
     xml += '<cols>\n';
 
     int i = 0;
-    if (sheetStyles.colWidths.isNotEmpty) {
-      for (double width in sheetStyles.colWidths) {
+    if (sheetStyle.columnWidths.isNotEmpty) {
+      for (double width in sheetStyle.columnWidths) {
         xml += '<col '
             'collapsed="${width == 0 ? 'true' : 'false'}" '
             'hidden="${width == 0 ? 'true' : 'false'}" '
@@ -122,15 +109,16 @@ class Sheet {
 
     xml += '</sheetData>\n';
 
-    if (sheetStyles.autoFilterRow > -1) {
-      xml += '<autoFilter ref="A${sheetStyles.autoFilterRow + 1}:$maxCellName"/>';
+    if (sheetStyle.autoFilterRow > -1) {
+      xml +=
+          '<autoFilter ref="A${sheetStyle.autoFilterRow + 1}:$maxCellName"/>';
     }
 
     // print(xml);
 
     // ---------------
 
-    xml += mergeCellsXml();
+    xml += sheetStyle.mergeCellsXml();
 
     // ---------------
 
@@ -161,6 +149,35 @@ class Sheet {
     return CellIndex.fromColAndRow(
       ColIndex.fromValue(cell - 1),
       row,
+    );
+  }
+
+  static Sheet fromJson(
+    Dict json, {
+    required State state,
+  }) {
+    List<Row> rows = (json['headers'] as List<dynamic>? ?? [])
+        .map((dynamic e) => Row.fromJson(
+              e as Dict? ?? {},
+              state: state,
+            ))
+        .toList();
+    rows.addAll(
+      (json['rows'] as List<dynamic>? ?? [])
+          .map((dynamic e) => Row.fromJson(
+                e as Dict? ?? {},
+                state: state,
+              ))
+          .toList(),
+    );
+
+    return Sheet(
+      name: json['name'] as String? ?? 'Sheet1',
+      sheetStyle: SheetStyle.fromJson(
+        json['style'] as Dict? ?? {},
+        state: state,
+      ),
+      rows: rows,
     );
   }
 }

@@ -1,3 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwXls/Engine/Model/State.dart';
+
 import 'Excel.dart';
 import 'Model/CellIndex.dart';
 import 'Model/CellStyle.dart';
@@ -20,13 +23,13 @@ class Cell {
   }) {
     if (this.style != null) {
       style = this.style!;
+      // print(style.hash);
     }
     styles.registerStyle(style);
-
     // print('${style.index}');
     // print('${style.comment} ${style.index}');
-
     // print(style.type);
+
     String asString = value.toString();
     if (value.runtimeType == bool) {
       int asBool = value as bool ? 1 : 0;
@@ -58,5 +61,22 @@ class Cell {
 
       return '<c r="${index.name}" s="${style.index}" t="inlineStr"><is><t>${Excel.escapeXml(asString)}</t></is></c>\n';
     }
+  }
+
+  static Cell fromJson(
+    Dict json, {
+    required State state,
+  }) {
+    Dict? style = json['style'] as Dict?;
+    // print(style);
+    return Cell(
+      value: json['value'],
+      style: style != null
+          ? CellStyle.fromJson(
+              style,
+              state: state,
+            )
+          : null,
+    );
   }
 }

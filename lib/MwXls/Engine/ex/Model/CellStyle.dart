@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwXls/Engine/Model/State.dart';
+import 'package:mwcdn/MwXls/Engine/ex/Util.dart';
+
 class CellStyle {
   late String format;
   late CellType type;
@@ -13,7 +17,7 @@ class CellStyle {
   final String color;
   final double fontSize;
   final String font;
-  final String fontStyle;
+  final List<FontStyle> fontStyles;
   final List<BorderSide> borderSides;
   final BorderStyle borderStyle;
   final String borderColor;
@@ -35,7 +39,7 @@ class CellStyle {
     this.color = '',
     this.font = '',
     this.fontSize = 10,
-    this.fontStyle = '',
+    this.fontStyles = const [],
     this.borderSides = const [],
     this.borderStyle = BorderStyle.none,
     this.borderColor = '',
@@ -62,7 +66,10 @@ class CellStyle {
     String? color,
     String? font,
     double? fontSize,
-    String? fontStyle,
+    List<FontStyle>? fontStyles,
+    List<BorderSide>? borderSides,
+    BorderStyle? borderStyle,
+    String? borderColor,
   }) {
     return CellStyle(
       format: format ?? this.format,
@@ -76,7 +83,8 @@ class CellStyle {
       color: color ?? this.color,
       font: font ?? this.font,
       fontSize: fontSize ?? this.fontSize,
-      fontStyle: fontStyle ?? this.fontStyle,
+      fontStyles: fontStyles ?? this.fontStyles,
+      borderColor: borderColor ?? this.borderColor,
     );
   }
 
@@ -211,8 +219,50 @@ class CellStyle {
       'color': color,
       'font': font,
       'fontSize': fontSize,
-      'fontStyle': fontStyle,
+      'fontStyles': fontStyles.map((FontStyle s) => s.name).toList().join(','),
+      'borderStyle': borderStyle.name,
+      'borderColor': borderColor,
+      'borderSides':
+          borderSides.map((BorderSide s) => s.name).toList().join(','),
     });
+  }
+
+  static CellStyle fromJson(
+    Dict json, {
+    required State state,
+  }) {
+
+    String s = json['source'] as String? ?? '';
+    if (s.isNotEmpty) {
+      CellStyle? cs = state.cellStyles[s];
+      if (cs != null) {
+        return cs;
+      }
+      print('Cellstyle $s not found!!');
+    }
+
+    return CellStyle(
+      format: json['format'] as String? ?? defaultFormat,
+      applyAlignment: json['applyAlignment'] as bool? ?? false,
+      applyBorder: json['applyBorder'] as bool? ?? false,
+      wrapText: json['wrapText'] as bool? ?? false,
+      applyFont: json['applyFont'] as bool? ?? false,
+      halign: Util.horizontalAlignment(json['halign'] as String?) ??
+          HorizontalAlignment.general,
+      valign: Util.verticalAlignment(json['valign'] as String?) ??
+          VerticalAlignment.bottom,
+      fill: Util.color(json['fill'] as String? ?? ''),
+      color: Util.color(json['color'] as String? ?? ''),
+      font: json['font'] as String? ?? '',
+      fontSize: double.tryParse(json['fontSize'].toString()) ?? 10.0,
+      fontStyles:
+          Util.fontStyles((json['fontStyles'] as List<dynamic>? ?? []).cast()),
+      borderSides: Util.borderSides(
+          (json['borderSides'] as List<dynamic>? ?? []).cast()),
+      borderStyle:
+          Util.borderStyle(json['borderStyle'] as String?) ?? BorderStyle.none,
+      borderColor: Util.color(json['borderColor'] as String? ?? ''),
+    );
   }
 }
 
@@ -246,6 +296,13 @@ enum BorderSide {
   right,
   top,
   bottom,
+}
+
+enum FontStyle {
+  italic,
+  bold,
+  underline,
+  strike,
 }
 
 enum BorderStyle {

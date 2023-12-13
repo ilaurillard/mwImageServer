@@ -1,0 +1,366 @@
+{
+  "additionalProperties": false,
+  "definitions": {
+    "Enum": {
+      "BorderSide": {
+        "enum": [
+          "left",
+          "right",
+          "top",
+          "bottom"
+        ]
+      },
+      "FontStyle": {
+        "enum": [
+          "italic",
+          "bold",
+          "underline",
+          "strike"
+        ]
+      },
+      "BorderStyle": {
+        "enum": [
+          "none",
+          "thin",
+          "medium",
+          "thick",
+          "dashDot",
+          "dashDotDot",
+          "dashed",
+          "dotted",
+          "double",
+          "hair",
+          "mediumDashDot",
+          "mediumDashDotDot",
+          "mediumDashed",
+          "slantDashDot"
+        ]
+      },
+      "HorizontalAlignment": {
+        "enum": [
+          "general",
+          "left",
+          "right",
+          "justify",
+          "center"
+        ]
+      },
+      "VerticalAlignment": {
+        "enum": [
+          "bottom",
+          "center",
+          "distributed",
+          "top"
+        ]
+      }
+    },
+    "Style": {
+      "Color": {
+        "description": "Hex Colors: RRGGBB",
+        "maxLength": 6,
+        "minLength": 6,
+        "pattern": "^[A-F0-9]{6,6}$",
+        "type": "string"
+      },
+      "SheetStyle": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "mergeCells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Model/Range"
+            }
+          },
+          "cellStyles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Style/CellStyle"
+            }
+          },
+          "autoFilterRow": {
+            "description": "0-n (-1 for off)",
+            "type": "integer"
+          },
+          "columnWidths": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "freezeRows": {
+            "description": "0-n (-1 for off)",
+            "type": "integer"
+          },
+          "freezeColumns": {
+            "description": "0-n (-1 for off)",
+            "type": "integer"
+          }
+        }
+      },
+      "CellStyle": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
+          "format": {
+            "type": "string"
+          },
+          "applyAlignment": {
+            "type": "boolean"
+          },
+          "applyBorder": {
+            "type": "boolean"
+          },
+          "wrapText": {
+            "type": "boolean"
+          },
+          "applyFont": {
+            "type": "boolean"
+          },
+          "fontSize": {
+            "type": "number"
+          },
+          "fill": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "fontStyles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Enum/FontStyle"
+            }
+          },
+          "font": {
+            "type": "string"
+          },
+          "halign": {
+            "$ref": "#/definitions/Enum/HorizontalAlignment"
+          },
+          "valign": {
+            "$ref": "#/definitions/Enum/VerticalAlignment"
+          },
+          "borderSides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Enum/BorderSide"
+            }
+          },
+          "borderStyle": {
+            "$ref": "#/definitions/Enum/BorderStyle"
+          },
+          "borderColor": {
+            "$ref": "#/definitions/Style/Color"
+          }
+        }
+      },
+      "RowStyle": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
+          "customHeight": {
+            "type": "boolean"
+          },
+          "height": {
+            "type": "number"
+          },
+          "customFormat": {
+            "type": "boolean"
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "collapsed": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "Model": {
+      "Cell": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "value": {
+
+          },
+          "style": {
+            "description": "overrides all previous styles",
+            "$ref": "#/definitions/Style/CellStyle"
+          }
+        }
+      },
+      "Row": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "cells": {
+            "items": {
+              "$ref": "#/definitions/Model/Cell"
+            },
+            "type": "array"
+          },
+          "defaultCellStyle": {
+            "description": "style applied to all cells in this row",
+            "$ref": "#/definitions/Style/CellStyle"
+          },
+          "cellStyles": {
+            "items": {
+              "$ref": "#/definitions/Style/CellStyle"
+            },
+            "type": "array"
+          },
+          "style": {
+            "$ref": "#/definitions/Style/RowStyle"
+          }
+        }
+      },
+      "CellIndex": {
+        "type": "string",
+        "description": "i.e. AB17",
+        "pattern": "^[A-Z]{1,4}[1-9][0-9]{0,5}$"
+      },
+      "Range": {
+        "type": "string",
+        "description": "i.e. AB17:AG22",
+        "pattern": "^[A-Z]{1,4}[1-9][0-9]{0,5}:[A-Z]{1,4}[1-9][0-9]{0,5}$"
+      },
+      "Sheet": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "style": {
+            "$ref": "#/definitions/Style/SheetStyle"
+          },
+          "headers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Model/Row"
+            }
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Model/Row"
+            }
+          },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          }
+        }
+      }
+    },
+    "Util": {
+      "Identifier": {
+        "description": "@identifier (1 to 24 characters)",
+        "pattern": "^@[a-zA-Z][a-zA-Z0-9]{1,23}$",
+        "type": "string"
+      }
+    }
+  },
+  "description": "mwxls",
+  "properties": {
+    "meta": {
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "cellStyles": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
+              "$ref": "#/definitions/Style/CellStyle"
+            }
+          },
+          "type": "object"
+        },
+        "rowStyles": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
+              "$ref": "#/definitions/Style/RowStyle"
+            }
+          },
+          "type": "object"
+        },
+        "defaultCellStyle": {
+          "$ref": "#/definitions/Style/CellStyle"
+        },
+        "defaultRowStyle": {
+          "$ref": "#/definitions/Style/RowStyle"
+        }
+      },
+      "type": "object"
+    },
+    "sheets": {
+      "items": {
+        "$ref": "#/definitions/Model/Sheet"
+      },
+      "type": "array"
+    },
+    "sources": {
+      "additionalProperties": false,
+      "description": "",
+      "patternProperties": {
+        "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
+          "additionalProperties": false,
+          "properties": {
+            "values": {
+              "description": "2d values for tables, charts, etc",
+              "items": {
+                "minItems": 1,
+                "items": {
+                  "type": [
+                    "boolean",
+                    "integer",
+                    "null",
+                    "number",
+                    "string"
+                  ]
+                },
+                "type": "array"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

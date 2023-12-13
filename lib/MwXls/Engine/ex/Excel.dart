@@ -204,14 +204,14 @@ class Excel {
 
     i = 0;
     for (Sheet sheet in sheets) {
-      if (sheet.sheetStyles.autoFilterRow > -1) {
+      if (sheet.sheetStyle.autoFilterRow > -1) {
         ColIndex maxCellCol = sheet.maxCell().colIndex;
         int maxCellRow = sheet.maxCell().rowIndex;
         String sheetname = sheet.nameSanitized();
         xml +=
             '<definedName name="_xlnm._FilterDatabase" localSheetId="$i" hidden="1">\n';
         xml +=
-            '\'${escapeXml(sheetname)}\'!\$A\$${sheet.sheetStyles.autoFilterRow}:\$${maxCellCol.name}\$${maxCellRow + 1}';
+            '\'${escapeXml(sheetname)}\'!\$A\$${sheet.sheetStyle.autoFilterRow}:\$${maxCellCol.name}\$${maxCellRow + 1}';
         xml += '</definedName>\n';
         i++;
       }

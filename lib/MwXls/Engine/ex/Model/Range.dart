@@ -13,4 +13,14 @@ class Range {
   String toString() {
     return '${c1.name}:${c2.name}';
   }
+
+  static Range fromJson(
+    String s,
+  ) {
+    List<String> tmp = s.split(':');
+    return Range(
+      CellIndex(tmp[0]),
+      CellIndex(tmp[1]),
+    );
+  }
 }

@@ -149,7 +149,7 @@ class Chart {
             num.tryParse(v.toString()) ?? 0: v.toString()
         };
       } else {
-        values = (json['values'] as Map<String, dynamic>? ?? {}).map(
+        values = (json['values'] as Dict? ?? {}).map(
             (dynamic key, dynamic value) =>
                 MapEntry(num.tryParse(key.toString()) ?? 0, value.toString()));
       }
@@ -243,7 +243,7 @@ class Chart {
           );
 
           if (source.data.isNotEmpty) {
-            for (Map<String, dynamic> i in source.data) {
+            for (Dict i in source.data) {
               data['value'] = double.tryParse(i['value'].toString()) ?? 0;
               data['color'] = i['color'] as String?;
               data['legend'] = i['legend'] as String?;

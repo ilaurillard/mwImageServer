@@ -736,7 +736,7 @@ class Util {
   }
 
   static Matrix4? transform(
-    Map<String, dynamic> json,
+      Dict json,
   ) {
     if (json.isNotEmpty) {
       MapEntry<String, dynamic> widget = json.entries.first;

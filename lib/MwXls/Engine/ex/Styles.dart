@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+
 import 'Excel.dart';
 import 'Model/CellStyle.dart';
 import 'Model/RowStyle.dart';
@@ -72,7 +74,7 @@ class Styles {
     String color,
     double size,
     String font,
-    String style,
+    List<FontStyle> styles,
   ) {
     Map<String, String> fontData = {...defaultFont};
     if (color.isNotEmpty && color[0] == '#') {
@@ -84,9 +86,11 @@ class Styles {
     if (size.toString().isNotEmpty) {
       fontData['size'] = size.toString();
     }
-    if (style.isNotEmpty) {
-      fontData['style'] = style;
+    if (styles.isNotEmpty) {
+      fontData['styles'] = styles.map((FontStyle e) => e.name).toList().join(',');
     }
+
+    // print(fontData);
 
     String fd = json.encode(fontData);
     if (fd == json.encode(defaultFont)) {
@@ -171,7 +175,7 @@ class Styles {
         s.color,
         s.fontSize,
         s.font,
-        s.fontStyle,
+        s.fontStyles,
       );
       registerBorder(
         s.borderSides,
@@ -188,7 +192,7 @@ class Styles {
     xml += '<font><name val="Arial"/><family val="0"/><sz val="10"/></font>\n';
     for (String font in fonts) {
       if (font.isNotEmpty) {
-        Map<String, dynamic> f = json.decode(font) as Map<String, dynamic>;
+        Dict f = json.decode(font) as Dict;
         xml += '<font>\n';
         xml += '<name val="${Excel.escapeXml(f['name'].toString())}" />'
             '<charset val="1"/>'
@@ -198,7 +202,7 @@ class Styles {
         if (color.isNotEmpty) {
           xml += '<color rgb="$color" />\n';
         }
-        String style = (f['style'] as String?) ?? '';
+        String style = (f['styles'] as String?) ?? '';
         if (style.contains('bold')) {
           xml += '<b val="true"/>\n';
         }
@@ -238,7 +242,7 @@ class Styles {
 
     for (String border in borders) {
       if (border.isNotEmpty) {
-        Map<String, dynamic> b = json.decode(border) as Map<String, dynamic>;
+        Dict b = json.decode(border) as Dict;
 
         xml += '<border diagonalDown="false" diagonalUp="false">\n';
 
@@ -323,7 +327,7 @@ class Styles {
         s.color,
         s.fontSize,
         s.font,
-        s.fontStyle,
+        s.fontStyles,
       );
       int borderIndex = registerBorder(
         s.borderSides,

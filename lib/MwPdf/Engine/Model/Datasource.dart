@@ -24,7 +24,7 @@ class Datasource {
   final List<List<dynamic>> values;
 
   // chart data (pie!)
-  final List<Map<String, dynamic>> data;
+  final List<Dict> data;
 
   // reusable widget
   final pw.Widget? widget;
@@ -221,8 +221,8 @@ class Datasource {
     String locale,
   ) {
     Map<int, NumberFormat?>? formats = {};
-    Map<String, dynamic> temp =
-        json['valuesFormats'] as Map<String, dynamic>? ?? {};
+    Dict temp =
+        json['valuesFormats'] as Dict? ?? {};
     if (json['valuesFormats'] != null) {
       formats = Map.fromEntries(
         temp.entries.map(

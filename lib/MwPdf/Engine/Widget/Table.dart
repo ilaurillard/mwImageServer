@@ -21,7 +21,7 @@ class Table {
 
     List<List<dynamic>> data = source.values;
 
-    Map<int, Dict> cells = _cells(json['cells'] as Map<String, dynamic>? ?? {});
+    Map<int, Dict> cells = _cells(json['cells'] as Dict? ?? {});
 
     if (cells.isNotEmpty) {
       for (List<dynamic> row in data) {
@@ -274,7 +274,7 @@ class Table {
     Dict json,
   ) {
     Map<int, pw.Alignment>? cellAlignments;
-    Map<String, dynamic> temp = json[key] as Map<String, dynamic>? ?? {};
+    Dict temp = json[key] as Dict? ?? {};
     if (json[key] != null) {
       cellAlignments = Map.fromEntries(
         temp.entries.map(
@@ -299,8 +299,8 @@ class Table {
     Dict json,
   ) {
     Map<int, pw.TableColumnWidth>? columnWidths;
-    Map<String, dynamic> temp =
-        json['columnWidths'] as Map<String, dynamic>? ?? {};
+    Dict temp =
+        json['columnWidths'] as Dict? ?? {};
     if (json['columnWidths'] != null) {
       columnWidths = Map.fromEntries(
         temp.entries.map(
