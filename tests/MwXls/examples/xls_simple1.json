@@ -25,7 +25,10 @@
         "fontStyles": [
           "bold"
         ],
-        "borderSides": ["left", "right"],
+        "borderSides": [
+          "left",
+          "right"
+        ],
         "borderStyle": "dashed",
         "borderColor": "444444"
       }
@@ -61,14 +64,16 @@
           ]
         }
       ],
-      "source": "@data",
       "rows": [
         {
           "defaultCellStyle": {
             "color": "88FF00",
             "fill": "6666FF",
+            "font": "Helvetica",
             "fontSize": 10,
-            "fontStyles": ["bold"]
+            "fontStyles": [
+              "bold"
+            ]
           },
           "cells": [
             {
@@ -107,6 +112,19 @@
           33.5
         ]
       }
+    },
+    {
+      "name": "yyy",
+      "source": "@data",
+      "rows": [
+        {
+          "cells": [
+            {
+              "value": 123
+            }
+          ]
+        }
+      ]
     }
   ],
   "sources": {
