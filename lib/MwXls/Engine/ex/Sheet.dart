@@ -1,3 +1,4 @@
+import 'package:archive/src/archive_file.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwXls/Engine/Model/State.dart';
 
@@ -11,6 +12,8 @@ class Sheet {
   final String name;
   final SheetStyle sheetStyle;
   List<Row> rows;
+
+  final String filename = 'xl/worksheets/sheet{nr}.xml';
 
   Sheet({
     this.name = 'Sheet1',
@@ -178,6 +181,22 @@ class Sheet {
         state: state,
       ),
       rows: rows,
+    );
+  }
+
+  ArchiveFile file(
+    int amountSheets,
+    Styles styles,
+    int nr,
+  ) {
+    String xml = toXml(
+      amountSheets,
+      styles,
+    );
+    return ArchiveFile(
+      filename.replaceAll('{nr}', nr.toString()),
+      xml.length,
+      xml,
     );
   }
 }

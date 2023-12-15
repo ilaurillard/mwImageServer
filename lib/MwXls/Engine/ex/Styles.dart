@@ -1,12 +1,17 @@
 import 'dart:convert';
 
+import 'package:archive/src/archive_file.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 
 import 'Excel.dart';
 import 'Model/CellStyle.dart';
 import 'Model/RowStyle.dart';
+import 'Util.dart';
 
 class Styles {
+
+  final String filename = 'xl/styles.xml';
+
   List<String> numberFormats = [];
   List<CellStyle> cellStyles = [];
   List<String> fills = ['', '']; // none + gray125
@@ -31,6 +36,7 @@ class Styles {
     'style': '',
     'color': '',
   };
+
 
   Styles({
     CellStyle? defaultCellStyle,
@@ -160,6 +166,7 @@ class Styles {
     xml +=
         '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">\n';
 
+    // number formats
     xml += '<numFmts count="${numberFormats.length}">\n';
     int i = 0;
     for (String f in numberFormats) {
@@ -194,7 +201,7 @@ class Styles {
       if (font.isNotEmpty) {
         Dict f = json.decode(font) as Dict;
         xml += '<font>\n';
-        xml += '<name val="${Excel.escapeXml(f['name'].toString())}" />'
+        xml += '<name val="${Util.escapeXml(f['name'].toString())}" />'
             '<charset val="1"/>'
             '<family val="${f['family']}"/>\n';
         xml += '<sz val="${f['size']}" />';
@@ -382,5 +389,14 @@ class Styles {
       tmp = tmp[0] + tmp[0] + tmp[1] + tmp[1] + tmp[2] + tmp[2];
     }
     return 'FF$tmp';
+  }
+
+  ArchiveFile file() {
+    String xml = toXml();
+    return ArchiveFile(
+      filename,
+      xml.length,
+      xml,
+    );
   }
 }

@@ -1,0 +1,43 @@
+{
+  "meta": {
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "Text": {
+                  "text": "Hyphenation"
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Container": {
+                  "color": "FF8800",
+                  "width": 50,
+                  "child": {
+                    "Paragraph": {
+                      "text": "Texts for begin\u00ADners include simple sen\u00ADtences with basic voca\u00ADbulary. More advanced texts feature complex sentences with relative and subordinate clauses and wider use of tenses. Our innovative teaching system clearly indicates the vocabulary level in each reading, making it very easy for any German student to choose appropriate texts for their needs.",
+                      "textAlign": "left"
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+  }
+}

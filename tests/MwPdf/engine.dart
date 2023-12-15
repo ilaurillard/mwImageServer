@@ -42,7 +42,7 @@ Future<void> main() async {
   // String jsonFile = 'pdf_simple.json';
   // String jsonFile = 'pdf_simple2.json';
   // String jsonFile = 'pdf_simple3.json';
-  String jsonFile = 'pdf_simple4.json';
+  // String jsonFile = 'pdf_simple4.json';
   // String jsonFile = 'pdf_simple5.json';
   // String jsonFile = 'pdf_simple6.json';
   // String jsonFile = 'pdf_sources.json';
@@ -52,6 +52,7 @@ Future<void> main() async {
   // String jsonFile = 'pdf_table3.json';
   // String jsonFile = 'pdf_table4.json';
   // String jsonFile = 'pdf_table5.json';
+  String jsonFile = 'pdf_text1.json';
   // String jsonFile = 'pdf_template1_data.json';
 
   String pdfBase = '{}';
@@ -99,7 +100,7 @@ Future<void> main() async {
         );
 
         Console.info(
-          '\nThank you, parsed "$jsonFile"\nwrote "$name"\n${engine.pages.length} pages)\n\n',
+          '\nThank you, rendered "$jsonFile" into "output/$jsonFile.pdf"\nwrote "$name"\n${engine.pages.length} pages)\n\n',
         );
       } catch (e) {
         print('Fatal error: $e');

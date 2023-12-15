@@ -25,8 +25,14 @@ dependencies:
   http: ^1.1.0
   markdown: ^7.1.1
   pdf: ^3.10.6
-#  excel: ^4.0.0
   archive: ^3.4.9
+
+dependency_overrides:
+  pdf:
+    git:
+      url: https://github.com/DavBfr/dart_pdf.git
+      path: pdf
+      ref: master
 
 dev_dependencies:
   lints: ^2.0.0

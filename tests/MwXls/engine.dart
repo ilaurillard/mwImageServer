@@ -12,16 +12,10 @@ const examplesDir = '/home/ilja/PhpstormProjects/mwcdn/tests/MwXls/examples';
 
 Future<void> main() async {
 
+  String templateFile = '';
   String jsonFile = 'xls_simple1.json';
 
-  Schema schema = await Schema.create(
-    baseDir: baseDir,
-  );
-
-  String templateFile = '';
-
   String xlsBase = '{}';
-
   if (templateFile.isNotEmpty) {
     xlsBase = await File(
       '$examplesDir/$templateFile',
@@ -33,12 +27,19 @@ Future<void> main() async {
   ).readAsString();
 
   try {
-    Dict xlsBaseDict = json.decode(xlsBase) as Dict;
-    Dict xlsJsonDict = json.decode(xlsJson) as Dict;
-    xlsJsonDict = mergeMap([xlsBaseDict, xlsJsonDict]);
-    xlsJson = json.encode(xlsJsonDict);
+    Dict xlsJsonDict = mergeMap([
+      json.decode(xlsBase) as Dict,
+      json.decode(xlsJson) as Dict,
+    ]);
 
-    Results results = schema.validate(xlsJson);
+    Results results = (await Schema.create(
+      baseDir: baseDir,
+    ))
+        .validate(
+      json.encode(
+        xlsJsonDict,
+      ),
+    );
 
     if (results.valid) {
       try {
@@ -49,11 +50,11 @@ Future<void> main() async {
 
         String name = '$examplesDir/output/$jsonFile.xls';
         await File(name).writeAsBytes(
-          await engine.xls().save(),
+          await engine.excel.save(),
         );
 
         Console.info(
-          '\nThank you, parsed "$jsonFile"\n\n',
+          '\nThank you, rendered "$jsonFile" into "output/$jsonFile.xls"\n\n',
         );
       } catch (e) {
         print('Fatal error: $e');

@@ -17,6 +17,10 @@
       }
     },
     "cellStyles": {
+      "@cStyle2": {
+        "format": "GENERAL",
+        "fill": "9999FF"
+      },
       "@cStyle1": {
         "format": "GENERAL",
         "color": "FF8800",
@@ -44,6 +48,9 @@
         {
           "style": {
             "source": "@rStyle1"
+          },
+          "defaultCellStyle": {
+            "source": "@cStyle2"
           },
           "cells": [
             {
