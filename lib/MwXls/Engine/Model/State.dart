@@ -67,4 +67,13 @@ class State {
 
     return state;
   }
+
+  Datasource source(
+      String? key,
+      ) {
+    if (key != null && key.isNotEmpty && sources[key] == null) {
+      print('No resource available for "$key"');
+    }
+    return sources[key ?? ''] ?? Datasource(key ?? '');
+  }
 }

@@ -75,8 +75,8 @@ class Row {
     Dict? defaultCellStyle = json['defaultCellStyle'] as Dict?;
     return Row(
       cells: (json['cells'] as List<dynamic>? ?? [])
-          .map((dynamic e) => Cell.fromJson(
-                e as Dict? ?? {},
+          .map((dynamic v) => Cell.fromJson(
+                v as Dict? ?? {},
                 state: state,
               ))
           .toList(),
@@ -87,8 +87,8 @@ class Row {
             )
           : null,
       cellStyles: (json['cellStyles'] as List<dynamic>? ?? [])
-          .map((dynamic e) => CellStyle.fromJson(
-                e as Dict? ?? {},
+          .map((dynamic s) => CellStyle.fromJson(
+                s as Dict? ?? {},
                 state: state,
               ))
           .toList(),
@@ -98,6 +98,15 @@ class Row {
               state: state,
             )
           : null,
+    );
+  }
+
+  static Row fromValues(
+    List<dynamic> data,
+    State state,
+  ) {
+    return Row(
+      cells: data.map((dynamic v) => Cell(value: v)).toList(),
     );
   }
 }

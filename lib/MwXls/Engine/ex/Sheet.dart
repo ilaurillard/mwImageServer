@@ -1,5 +1,6 @@
 import 'package:archive/src/archive_file.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwXls/Engine/Model/Datasource.dart';
 import 'package:mwcdn/MwXls/Engine/Model/State.dart';
 
 import 'Model/CellIndex.dart';
@@ -173,6 +174,17 @@ class Sheet {
               ))
           .toList(),
     );
+
+    String sourceName = json['source'] as String? ?? '';
+    Datasource source = state.source(sourceName);
+    for (List<dynamic> data in source.values) {
+      rows.add(
+        Row.fromValues(
+          data,
+          state,
+        ),
+      );
+    }
 
     return Sheet(
       name: json['name'] as String? ?? 'Sheet1',

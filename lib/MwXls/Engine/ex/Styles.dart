@@ -3,22 +3,18 @@ import 'dart:convert';
 import 'package:archive/src/archive_file.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 
-import 'Excel.dart';
 import 'Model/CellStyle.dart';
 import 'Model/RowStyle.dart';
 import 'Util.dart';
 
 class Styles {
-
   final String filename = 'xl/styles.xml';
 
   List<String> numberFormats = [];
   List<CellStyle> cellStyles = [];
   List<String> fills = ['', '']; // none + gray125
   List<String> fonts = ['', '', '', ''];
-  List<String> borders = [
-    '',
-  ];
+  List<String> borders = [''];
 
   late final CellStyle defaultCellStyle;
   late final RowStyle defaultRowStyle;
@@ -36,7 +32,6 @@ class Styles {
     'style': '',
     'color': '',
   };
-
 
   Styles({
     CellStyle? defaultCellStyle,
@@ -93,7 +88,8 @@ class Styles {
       fontData['size'] = size.toString();
     }
     if (styles.isNotEmpty) {
-      fontData['styles'] = styles.map((FontStyle e) => e.name).toList().join(',');
+      fontData['styles'] =
+          styles.map((FontStyle e) => e.name).toList().join(',');
     }
 
     // print(fontData);

@@ -43,7 +43,7 @@
   },
   "sheets": [
     {
-      "name": "xxx",
+      "name": "MySheet1",
       "headers": [
         {
           "style": {
@@ -121,13 +121,22 @@
       }
     },
     {
-      "name": "yyy",
+      "name": "MySheet2",
       "source": "@data",
       "rows": [
         {
           "cells": [
             {
-              "value": 123
+              "value": "x"
+            },
+            {
+              "value": "x"
+            },
+            {
+              "value": "x"
+            },
+            {
+              "value": "x"
             }
           ]
         }
