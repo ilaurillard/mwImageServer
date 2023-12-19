@@ -2,7 +2,7 @@ import 'package:archive/src/archive_file.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwXls/Engine/Model/Datasource.dart';
 import 'package:mwcdn/MwXls/Engine/Model/State.dart';
-
+import 'dart:math';
 import 'Model/CellIndex.dart';
 import 'Model/ColIndex.dart';
 import 'Model/SheetStyle.dart';
@@ -27,8 +27,14 @@ class Sheet {
   }
 
   String nameSanitized() {
-    // TODO
-    return name;
+    String s = name
+        .replaceAll(
+          RegExp(r'[\/\?\*\:\[\]]'),
+          '',
+        )
+        .trim()
+        .substring(0, 31);
+    return s.isNotEmpty ? s : 'Sheet${Random().nextInt(1000)}';
   }
 
   String rowsToXml(
