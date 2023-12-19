@@ -209,8 +209,8 @@ class Util {
   ) {
     return pw.BoxShadow(
       color: Util.color(json['color'] as String?) ?? PdfColors.black,
-      offset:
-          Util.pdfPoint(json['offset'] as List<dynamic>? ?? []) ?? PdfPoint.zero,
+      offset: Util.pdfPoint(json['offset'] as List<dynamic>? ?? []) ??
+          PdfPoint.zero,
       blurRadius: double.tryParse(json['blurRadius'].toString()) ?? 0.0,
       spreadRadius: double.tryParse(json['spreadRadius'].toString()) ?? 0.0,
     );
@@ -736,7 +736,7 @@ class Util {
   }
 
   static Matrix4? transform(
-      Dict json,
+    Dict json,
   ) {
     if (json.isNotEmpty) {
       MapEntry<String, dynamic> widget = json.entries.first;

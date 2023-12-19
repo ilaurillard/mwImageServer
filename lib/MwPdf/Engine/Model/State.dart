@@ -3,6 +3,8 @@ import 'dart:typed_data';
 
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
+import 'package:mwcdn/MwPdf/Service/Hyphenation/hyphenator.dart';
+import 'package:mwcdn/MwPdf/Service/Hyphenation/loader.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Datasource.dart';
@@ -23,6 +25,8 @@ class State {
 
   final Storage storage;
 
+  Map<String, Hyphenator> _hyphenators = {};
+
   State({
     required this.baseDir,
     required this.storage,
@@ -35,6 +39,20 @@ class State {
     }
 
     await loadSources();
+
+    // TODO load more languages
+    _hyphenators['de'] = Hyphenator(
+      resource: await Loader.load(
+        File('$baseDir/assets/tex/hyph-de-1996.tex'),
+      ),
+      minLetterCount: 2,
+    );
+    _hyphenators['en-us'] = Hyphenator(
+      resource: await Loader.load(
+        File('$baseDir/assets/tex/hyph-en-us.tex'),
+      ),
+      minLetterCount: 2,
+    );
   }
 
   Future<void> loadBuiltinFonts() async {
@@ -111,5 +129,21 @@ class State {
       print('No resource available for "$key"');
     }
     return sources[key ?? ''] ?? Datasource(key ?? '');
+  }
+
+  pw.Hyphenation hyphenator({
+    String language = 'de',
+  }) {
+    if (_hyphenators[language] == null) {
+      print('No hyphenator for language "$language"!');
+    }
+    return (String word) {
+      if (word.length > 3) {
+        if (_hyphenators[language] != null) {
+          return _hyphenators[language]!.hyphenateWordToList(word);
+        }
+      }
+      return [word];
+    };
   }
 }

@@ -1,11 +1,13 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Hyphenation.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Text.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math_64.dart';
 
-import 'Util.dart';
 import 'Internal.dart';
+import 'Util.dart';
 import 'Widget.dart';
 
 class Content {
@@ -23,7 +25,7 @@ class Content {
     );
   }
 
-  static pw.Paragraph paragraph(
+  static HyphenatedParagraph paragraph(
     Dict json,
     State state,
   ) {
@@ -38,7 +40,8 @@ class Content {
           )
           .text;
     }
-    return pw.Paragraph(
+    String hyphLang = json['hyphenationlanguage'] as String? ?? '';
+    return HyphenatedParagraph(
       text: text,
       textAlign: Util.textAlign(
             json['textAlign'] as String?,
@@ -55,6 +58,7 @@ class Content {
         json['style'] as Dict? ?? {},
         state,
       ),
+      hyphenation: hyphLang.isNotEmpty ? state.hyphenator(language: hyphLang) : null,
     );
   }
 

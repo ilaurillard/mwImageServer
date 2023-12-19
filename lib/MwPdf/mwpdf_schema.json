@@ -1658,11 +1658,8 @@
         "type": "object"
       },
       "Comment": {
-        "additionalProperties": false,
+        "additionalProperties": true,
         "properties": {
-          "child": {
-            "$ref": "#/definitions/Widget"
-          }
         },
         "type": "object"
       },
@@ -2041,6 +2038,10 @@
           },
           "textAlign": {
             "$ref": "#/definitions/Enum/TextAlign"
+          },
+          "hyphenationlanguage": {
+            "type": "string",
+            "description": "de, en, .."
           }
         },
         "type": "object"
@@ -2473,6 +2474,10 @@
           },
           "tightBounds": {
             "type": "boolean"
+          },
+          "hyphenationlanguage": {
+            "type": "string",
+            "description": "de, en, .."
           }
         },
         "type": "object"

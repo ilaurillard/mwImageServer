@@ -1,11 +1,13 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Markdown/Markdown.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Hyphenation.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Util.dart';
 
+// Note, paragraph is in "Content"
 class Text {
   static pw.Widget richText(
     Dict json,
@@ -26,20 +28,28 @@ class Text {
         json['fontCode'] as String?,
         state,
       ),
-      margin1: (double.tryParse(json['margin1'].toString()) ?? 8) * PdfPageFormat.mm,
-      margin2: (double.tryParse(json['margin2'].toString()) ?? 3) * PdfPageFormat.mm,
-      margin3: (double.tryParse(json['margin3'].toString()) ?? 1.5) * PdfPageFormat.mm,
-      fontSize1: (double.tryParse(json['fontSize1'].toString()) ?? 12) * PdfPageFormat.mm,
-      fontSize2: (double.tryParse(json['fontSize2'].toString()) ?? 10) * PdfPageFormat.mm,
-      fontSize3: (double.tryParse(json['fontSize3'].toString()) ?? 8) * PdfPageFormat.mm,
-      fontSize4: (double.tryParse(json['fontSize4'].toString()) ?? 6) * PdfPageFormat.mm,
-      fontSize5: (double.tryParse(json['fontSize5'].toString()) ?? 4) * PdfPageFormat.mm,
-
-      colorQuote: Util.color(json['colorQuote'] as String?) ?? PdfColors.grey200,
+      margin1:
+          (double.tryParse(json['margin1'].toString()) ?? 8) * PdfPageFormat.mm,
+      margin2:
+          (double.tryParse(json['margin2'].toString()) ?? 3) * PdfPageFormat.mm,
+      margin3: (double.tryParse(json['margin3'].toString()) ?? 1.5) *
+          PdfPageFormat.mm,
+      fontSize1: (double.tryParse(json['fontSize1'].toString()) ?? 12) *
+          PdfPageFormat.mm,
+      fontSize2: (double.tryParse(json['fontSize2'].toString()) ?? 10) *
+          PdfPageFormat.mm,
+      fontSize3: (double.tryParse(json['fontSize3'].toString()) ?? 8) *
+          PdfPageFormat.mm,
+      fontSize4: (double.tryParse(json['fontSize4'].toString()) ?? 6) *
+          PdfPageFormat.mm,
+      fontSize5: (double.tryParse(json['fontSize5'].toString()) ?? 4) *
+          PdfPageFormat.mm,
+      colorQuote:
+          Util.color(json['colorQuote'] as String?) ?? PdfColors.grey200,
     ).toRichText();
   }
 
-  static pw.Text text(
+  static HyphenatedText text(
     Dict json,
     State state,
   ) {
@@ -54,7 +64,9 @@ class Text {
           )
           .text;
     }
-    return pw.Text(
+    String hyphLang = json['hyphenationlanguage'] as String? ?? '';
+
+    return HyphenatedText(
       text,
       style: Util.textStyle(
         (json['style'] as Dict?) ?? {},
@@ -72,6 +84,8 @@ class Text {
           double.tryParse(json['textScaleFactor'].toString()) ?? 1.0,
       maxLines: int.tryParse(json['maxLines'].toString()),
       overflow: Util.textOverflow(json['overflow'] as String?),
+      hyphenation: hyphLang.isNotEmpty ? state.hyphenator(language: hyphLang) : null,
+
     );
   }
 }
