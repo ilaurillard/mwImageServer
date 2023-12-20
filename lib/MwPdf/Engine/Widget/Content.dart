@@ -69,10 +69,10 @@ class Content {
     return pw.Header(
       title: json['title'] as String?,
       text: json['text'] as String?,
-      child: Widget.child(
+      child: json['child'] != null ? Widget.child(
         json,
         state,
-      ),
+      ) : null,
       level: json['level'] as int? ?? 0,
       decoration: Util.boxDecoration(
         (json['decoration'] as Dict?) ?? {},

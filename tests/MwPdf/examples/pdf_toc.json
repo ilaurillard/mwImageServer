@@ -2,119 +2,108 @@
   "meta": {
     "title": "xxx",
     "keywords": "kw1,kw2",
-    "theme": "@def2",
+    "theme": "@def1",
     "themes": {
       "@def1": {
         "styles": {
           "paragraph": {
             "font": "courier"
+          },
+          "header0": {
+            "font": "courier",
+            "fontSize": 15,
+            "color": "666666"
+          },
+          "header1": {
+            "font": "courier",
+            "fontSize": 12,
+            "color": "444444"
+          },
+          "header2": {
+            "font": "courier",
+            "fontSize": 9,
+            "color": "222222"
           }
         }
-      },
-      "@def2": {
-        "styles": {
-          "paragraph": {
-            "font": "helvetica"
+      }
+    },
+    "footers": {
+      "@default": {
+        "Container": {
+          "alignment": "bottomRight",
+          "height": 10.0,
+          "child": {
+            "Text": {
+              "text": "Page: %pageNumber%/%pagesCount%"
+            }
           }
         }
       }
     }
-
   },
   "pages": [
     {
+      "theme": "@def1",
       "multi": true,
+      "footer": "@default",
       "content": [
         {
-          "Column": {
-            "children": [
-              {
-                "Text": {
-                  "text": "TOC"
-                }
-              },
-              {
-                "TableOfContent": {
-                }
-              }
-            ]
+          "Header": {
+            "level": 0,
+            "title": "Kapitel 1",
+            "text": "Kapitel 1"
           }
-        }
-      ]
-    },
-    {
-      "multi": true,
-      "content": [
+        },
         {
-          "Column": {
-            "children": [
-              {
-                "Header": {
-                  "title": "header123",
-                  "text": "header123",
-                  "child": {
-                    "Text": {
-                      "text": "header123"
-                    }
-                  }
-                }
-              },
-              {
-                "LoremParagraph": {
-                  "sentence": 100
-                }
-              },
-              {
-                "Header": {
-                  "title": "header234",
-                  "text": "header234",
-                  "child": {
-                    "Text": {
-                      "text": "header234"
-                    }
-                  }
-                }
-              },
-              {
-                "LoremParagraph": {
-                  "sentence": 100
-                }
-              },
-              {
-                "Divider": {
-                }
-              },
-              {
-                "LoremParagraph": {
-                  "sentence": 100
-                }
-              },
-              {
-                "Divider": {
-                }
-              },
-              {
-                "LoremParagraph": {
-                  "sentence": 100
-                }
-              },
-              {
-                "Header": {
-                  "title": "header345",
-                  "text": "header345",
-                  "child": {
-                    "Text": {
-                      "text": "header345"
-                    }
-                  }
-                }
-              },
-              {
-                "LoremParagraph": {
-                  "sentence": 100
-                }
-              }
-            ]
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        },
+        {
+          "Header": {
+            "level": 1,
+            "title": "Kapitel 1.1",
+            "text": "Kapitel 1.1"
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        },
+        {
+          "Divider": {
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        },
+        {
+          "Divider": {
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 300
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 273
+          }
+        },
+        {
+          "Header": {
+            "level": 2,
+            "title": "Kapitel 1.1.1",
+            "text": "Kapitel 1.1.1"
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
           }
         }
       ]

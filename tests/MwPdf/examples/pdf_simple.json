@@ -132,7 +132,7 @@
       "content": [
         {
           "LoremParagraph": {
-            "sentence": 20000
+            "sentence": 200
           }
         }
       ]
@@ -143,9 +143,20 @@
       "footer": "@default",
       "content": [
         {
-          "LoremParagraph": {
-            "paragraph": 100,
-            "textAlign": "left"
+          "Column": {
+            "children": [
+              {
+                "LoremParagraph": {
+                  "paragraph": 100,
+                  "textAlign": "left"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Page: %pageNumber%/%pagesCount%"
+                }
+              }
+            ]
           }
         }
       ]

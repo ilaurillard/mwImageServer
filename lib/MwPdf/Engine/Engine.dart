@@ -201,6 +201,17 @@ class Engine {
       }
     }
 
+    pdf.addPage(
+      pw.MultiPage(
+        build: (context) => [
+          pw.Text('Table of content'),
+          pw.SizedBox(height: 20),
+          pw.TableOfContent(),
+        ],
+      ),
+      index: 0,
+    );
+
     return pdf;
   }
 }
