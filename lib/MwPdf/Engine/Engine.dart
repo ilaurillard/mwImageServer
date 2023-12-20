@@ -1,5 +1,7 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Util.dart';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Etc/ColPage.dart';
@@ -12,6 +14,16 @@ import 'Theme/Theme.dart';
 class Engine {
   final List<Page> pages;
 
+  final String theme;
+  final PdfPageMode pageMode;
+
+  final String? title;
+  final String? author;
+  final String? creator;
+  final String? subject;
+  final String? keywords;
+  final String? producer;
+
   final Map<String, Theme> themes;
   final Map<String, Header> headers;
   final Map<String, Footer> footers;
@@ -21,16 +33,26 @@ class Engine {
   final State state;
 
   Engine({
+    required this.state,
+
     required this.baseDir,
     required this.pages,
-    required this.themes,
-    required this.headers,
-    required this.footers,
-    required this.state,
+
+    this.pageMode = PdfPageMode.none,
+
+    this.themes = const {},
+    this.headers = const {},
+    this.footers = const {},
+    this.theme = '',
+    this.title,
+    this.author,
+    this.creator,
+    this.subject,
+    this.keywords,
+    this.producer,
   });
 
-  static Future<Engine> create(
-    Dict json, {
+  static Future<Engine> create(Dict json, {
     required String baseDir,
     required Storage storage,
   }) async {
@@ -44,15 +66,23 @@ class Engine {
     Dict meta = (json['meta'] as Dict?) ?? {};
     return Engine(
       baseDir: baseDir,
+      theme: meta['theme'] as String? ?? '',
+      pageMode: Util.pageMode(meta['pageMode'] as String?),
+      title: meta['title'] as String?,
+      author: meta['author'] as String?,
+      creator: meta['creator'] as String?,
+      subject: meta['subject'] as String?,
+      keywords: meta['keywords'] as String?,
+      producer: meta['producer'] as String?,
       themes: Theme.fromJsonAll(
-        (meta['theme'] as Dict?) ?? {},
+        (meta['themes'] as Dict?) ?? {},
         state,
       ),
       headers: Header.fromJsonAll(
-        (meta['header'] as Dict?) ?? {},
+        (meta['headers'] as Dict?) ?? {},
       ),
       footers: Footer.fromJsonAll(
-        (meta['footer'] as Dict?) ?? {},
+        (meta['footers'] as Dict?) ?? {},
       ),
       pages: Page.fromJsonAll(
         (json['pages'] as List?) ?? [],
@@ -62,13 +92,31 @@ class Engine {
   }
 
   pw.Document pdf() {
-    pw.Document pdf = pw.Document();
+    pw.ThemeData? docTheme = Theme.defaultDocumentTheme(state);
+    if (theme.isNotEmpty) {
+      pw.PageTheme? pt = themes[theme]?.theme;
+      if (pt != null) {
+        docTheme = pt.theme;
+      }
+    }
+
+    pw.Document pdf = pw.Document(
+      pageMode: pageMode,
+      theme: docTheme,
+      title: title,
+      author: author,
+      creator: creator,
+      subject: subject,
+      keywords: keywords,
+      producer: producer,
+    );
+
+    pw.Document.debug = false;
+    pw.RichText.debug = false;
 
     for (Page page in pages) {
       // header callback --------------------------
-      pw.Widget headerBuilder(
-        pw.Context context,
-      ) {
+      pw.Widget headerBuilder(pw.Context context,) {
         if (page.header.isNotEmpty) {
           Header? header = headers[page.header];
           if (header != null) {
@@ -82,9 +130,7 @@ class Engine {
       }
 
       // footer callback --------------------------
-      pw.Widget footerBuilder(
-        pw.Context context,
-      ) {
+      pw.Widget footerBuilder(pw.Context context,) {
         if (page.footer.isNotEmpty) {
           Footer? footer = footers[page.footer];
           if (footer != null) {
@@ -98,9 +144,7 @@ class Engine {
       }
 
       // page builder  --------------------------
-      List<pw.Widget> pageBuilder(
-        pw.Context context,
-      ) {
+      List<pw.Widget> pageBuilder(pw.Context context,) {
         return page.build(
           state,
         );
@@ -109,14 +153,16 @@ class Engine {
       // --------------------------
       // --------------------------
 
+      pw.PageTheme? pageTheme = themes[page.theme]?.theme ??
+          Theme.defaultPageTheme(
+            state,
+          );
+
       if (page.multi) {
         if (page.columns > 1) {
           pdf.addPage(
             ColPage(
-              pageTheme: themes[page.theme]?.theme ??
-                  Theme.defaultTheme(
-                    state,
-                  ),
+              pageTheme: pageTheme,
               header: page.header.isNotEmpty ? headerBuilder : null,
               footer: page.footer.isNotEmpty ? footerBuilder : null,
               build: (pw.Context context) => pageBuilder(context),
@@ -127,10 +173,7 @@ class Engine {
         } else {
           pdf.addPage(
             pw.MultiPage(
-              pageTheme: themes[page.theme]?.theme ??
-                  Theme.defaultTheme(
-                    state,
-                  ),
+              pageTheme: pageTheme,
               header: page.header.isNotEmpty ? headerBuilder : null,
               footer: page.footer.isNotEmpty ? footerBuilder : null,
               build: (pw.Context context) => pageBuilder(context),
@@ -141,20 +184,18 @@ class Engine {
       } else {
         pdf.addPage(
           pw.Page(
-            pageTheme: themes[page.theme]?.theme ??
-                Theme.defaultTheme(
-                  state,
+            pageTheme: pageTheme,
+            build: (pw.Context context) =>
+                pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    if (page.header.isNotEmpty) headerBuilder(context),
+                    pw.Expanded(
+                      child: pageBuilder(context).first,
+                    ),
+                    if (page.footer.isNotEmpty) footerBuilder(context),
+                  ],
                 ),
-            build: (pw.Context context) => pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                if (page.header.isNotEmpty) headerBuilder(context),
-                pw.Expanded(
-                  child: pageBuilder(context).first,
-                ),
-                if (page.footer.isNotEmpty) footerBuilder(context),
-              ],
-            ),
           ),
         );
       }

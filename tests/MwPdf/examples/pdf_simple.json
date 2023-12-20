@@ -1,6 +1,6 @@
 {
   "meta": {
-    "theme": {
+    "themes": {
       "@default": {
         "format": {
           "preset": "a4",
@@ -62,7 +62,7 @@
         "margin": [5, 5, 5, 5]
       }
     },
-    "header": {
+    "headers": {
       "@default": {
         "Container": {
           "height": 50.0,
@@ -74,7 +74,7 @@
         }
       }
     },
-    "footer": {
+    "footers": {
       "@default": {
         "Row": {
           "crossAxisAlignment": "start",

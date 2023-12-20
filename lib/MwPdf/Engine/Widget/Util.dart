@@ -375,6 +375,22 @@ class Util {
     return null;
   }
 
+  static PdfPageMode pageMode(
+      String? json,
+      ) {
+    if (json != null && json != '') {
+      switch (json) {
+        case 'outlines':
+          return PdfPageMode.outlines;
+        case 'fullscreen':
+          return PdfPageMode.fullscreen;
+        case 'thumbs':
+          return PdfPageMode.thumbs;
+      }
+    }
+    return PdfPageMode.none;
+  }
+
   static pw.Alignment? alignment(
     String? json,
   ) {

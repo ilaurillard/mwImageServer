@@ -36,6 +36,14 @@
           "vertical"
         ]
       },
+      "PageMode": {
+        "enum": [
+          "none",
+          "outlines",
+          "thumbs",
+          "fullscreen"
+        ]
+      },
       "ValuePosition": {
         "enum": [
           "left",
@@ -1114,6 +1122,9 @@
         },
         "Text": {
           "$ref": "#/definitions/Widgets/Text"
+        },
+        "TableOfContent": {
+          "$ref": "#/definitions/Widgets/TableOfContent"
         },
         "VerticalDivider": {
           "$ref": "#/definitions/Widgets/VerticalDivider"
@@ -2442,6 +2453,13 @@
         },
         "type": "object"
       },
+      "TableOfContent": {
+        "additionalProperties": false,
+        "properties": {
+
+        },
+        "type": "object"
+      },
       "Text": {
         "additionalProperties": false,
         "properties": {
@@ -2526,25 +2544,49 @@
       "additionalProperties": false,
       "description": "footers, header, themes",
       "properties": {
-        "footer": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
-              "$ref": "#/definitions/Widget"
-            }
-          },
-          "type": "object"
-        },
-        "header": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
-              "$ref": "#/definitions/Widget"
-            }
-          },
-          "type": "object"
+        "pageMode": {
+          "$ref": "#/definitions/Enum/PageMode"
         },
         "theme": {
+          "$ref": "#/definitions/Util/Identifier"
+        },
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "creator": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "footers": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
+              "$ref": "#/definitions/Widget"
+            }
+          },
+          "type": "object"
+        },
+        "headers": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
+              "$ref": "#/definitions/Widget"
+            }
+          },
+          "type": "object"
+        },
+        "themes": {
           "additionalProperties": false,
           "patternProperties": {
             "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
@@ -2701,7 +2743,7 @@
           },
           "theme": {
             "$ref": "#/definitions/Util/Identifier",
-            "description": "see meta/theme"
+            "description": "see meta/themes"
           }
         },
         "type": "object"

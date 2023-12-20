@@ -134,6 +134,13 @@ class Content {
     );
   }
 
+  static pw.TableOfContent tableOfContent(
+      Dict json,
+      State state,
+      ) {
+    return pw.TableOfContent();
+  }
+
   static pw.Bullet bullet(
     Dict json,
     State state,

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "theme": {
+    "themes": {
       "@default": {
         "format": {
           "preset": "a4"

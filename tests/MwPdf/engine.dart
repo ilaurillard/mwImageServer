@@ -6,10 +6,10 @@ import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwMs/Model/RootToken.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
-import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 
 const dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
 const baseDir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwPdf';
@@ -52,12 +52,13 @@ Future<void> main() async {
   // String jsonFile = 'pdf_table3.json';
   // String jsonFile = 'pdf_table4.json';
   // String jsonFile = 'pdf_table5.json';
-  String jsonFile = 'pdf_text1.json';
+  // String jsonFile = 'pdf_text1.json';
+  String jsonFile = 'pdf_toc.json';
   // String jsonFile = 'pdf_template1_data.json';
 
-  String pdfBase = '{}';
+  String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {
-    pdfBase = await File(
+    pdfTplJson = await File(
       '$examplesDir/$templateFile',
     ).readAsString();
   }
@@ -67,12 +68,13 @@ Future<void> main() async {
   ).readAsString();
 
   try {
-    Dict pdfBaseDict = json.decode(pdfBase) as Dict;
-    Dict pdfJsonDict = json.decode(pdfJson) as Dict;
-    pdfJsonDict = mergeMap([pdfBaseDict, pdfJsonDict]);
-    pdfJson = json.encode(pdfJsonDict);
+    Dict pdfTplData = json.decode(pdfTplJson) as Dict;
+    Dict pdfData = json.decode(pdfJson) as Dict;
+    pdfData = mergeMap([pdfTplData, pdfData]);
 
-    Results results = schema.validate(pdfJson);
+    Results results = schema.validate(
+      json.encode(pdfData),
+    );
 
     if (results.valid) {
       try {
@@ -82,7 +84,7 @@ Future<void> main() async {
         await sqliteStorage.init();
 
         Engine engine = await Engine.create(
-          pdfJsonDict,
+          pdfData,
           baseDir: baseDir,
           storage: Storage(
             fileStorage: FileStorage(

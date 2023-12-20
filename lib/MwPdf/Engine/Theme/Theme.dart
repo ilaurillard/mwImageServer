@@ -199,16 +199,17 @@ class Theme {
     });
   }
 
-  static pw.PageTheme defaultTheme(
+  static pw.ThemeData defaultDocumentTheme(
+      State state,
+      ) {
+    return pw.ThemeData(
+    );
+  }
+
+  static pw.PageTheme defaultPageTheme(
     State state,
   ) {
     return pw.PageTheme(
-      theme: pw.ThemeData(
-        iconTheme: iconTheme(
-          {},
-          state,
-        ),
-      ),
     );
   }
 }

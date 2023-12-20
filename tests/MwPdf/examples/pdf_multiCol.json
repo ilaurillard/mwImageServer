@@ -1,6 +1,6 @@
 {
   "meta": {
-    "theme": {
+    "themes": {
       "@default": {
         "format": {
           "preset": "a5",
@@ -14,7 +14,7 @@
         }
       }
     },
-    "header": {
+    "headers": {
       "@myHead": {
         "Container": {
           "height": 15.0,
@@ -26,7 +26,7 @@
         }
       }
     },
-    "footer": {
+    "footers": {
       "@myFoot": {
         "Container": {
           "height": 15.0,

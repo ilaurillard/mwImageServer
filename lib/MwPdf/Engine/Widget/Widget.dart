@@ -237,6 +237,11 @@ class Widget {
             data,
             state,
           );
+        case 'TableOfContent':
+          return Content.tableOfContent(
+            data,
+            state,
+          );
         // ----------
         case 'Partitions':
           return Partition.partitions(
@@ -391,8 +396,6 @@ class Widget {
 
           basic:
             CustomPaint
-          content:
-            TableOfContent
           image:
             Shape
           shape:
