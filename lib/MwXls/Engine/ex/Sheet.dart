@@ -1,4 +1,5 @@
 import 'package:archive/src/archive_file.dart';
+import 'package:collection/collection.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwXls/Engine/Model/Datasource.dart';
 import 'package:mwcdn/MwXls/Engine/Model/State.dart';
@@ -33,7 +34,7 @@ class Sheet {
           '',
         )
         .trim()
-        .substring(0, 31);
+        .substring(0, min(31, name.length));
     return s.isNotEmpty ? s : 'Sheet${Random().nextInt(1000)}';
   }
 
