@@ -16,6 +16,8 @@ class Page {
 
   final List<dynamic> content;
 
+  final int toc;
+
   Page({
     this.multi = false,
     this.theme = '',
@@ -24,6 +26,7 @@ class Page {
     required this.content,
     this.columns = 1,
     this.gapWidth = 10,
+    this.toc = 0,
   });
 
   List<pw.Widget> build(
@@ -64,6 +67,7 @@ class Page {
       content: json['content'] as List<dynamic>? ?? [],
       gapWidth: double.tryParse(json['gapWidth'].toString()) ?? 10,
       columns: columns,
+      toc: int.tryParse(json['toc'].toString()) ?? 0,
     );
   }
 

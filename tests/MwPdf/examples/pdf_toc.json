@@ -43,6 +43,26 @@
   },
   "pages": [
     {
+      "toc": 1,
+      "multi": true,
+      "content": [
+        {
+          "Padding": {
+            "padding": [0,0,0,10],
+            "child": {
+              "Text": {
+                "text": "Inhaltverzeichnis"
+              }
+            }
+          }
+        },
+        {
+          "TableOfContent": {
+          }
+        }
+      ]
+    },
+    {
       "theme": "@def1",
       "multi": true,
       "footer": "@default",
@@ -99,6 +119,30 @@
             "level": 2,
             "title": "Kapitel 1.1.1",
             "text": "Kapitel 1.1.1"
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        },
+        {
+          "Header": {
+            "level": 2,
+            "title": "Kapitel 1.1.2",
+            "text": "Kapitel 1.1.2"
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        },
+        {
+          "Header": {
+            "level": 0,
+            "title": "Kapitel 2",
+            "text": "Kapitel 2"
           }
         },
         {

@@ -1,10 +1,9 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/Util.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'Etc/ColPage.dart';
+import 'Meta.dart';
 import 'Model/Footer.dart';
 import 'Model/Header.dart';
 import 'Model/Page.dart';
@@ -13,46 +12,19 @@ import 'Theme/Theme.dart';
 
 class Engine {
   final List<Page> pages;
-
-  final String theme;
-  final PdfPageMode pageMode;
-
-  final String? title;
-  final String? author;
-  final String? creator;
-  final String? subject;
-  final String? keywords;
-  final String? producer;
-
-  final Map<String, Theme> themes;
-  final Map<String, Header> headers;
-  final Map<String, Footer> footers;
-
   final String baseDir;
-
   final State state;
+  final Meta meta;
 
   Engine({
     required this.state,
-
     required this.baseDir,
     required this.pages,
-
-    this.pageMode = PdfPageMode.none,
-
-    this.themes = const {},
-    this.headers = const {},
-    this.footers = const {},
-    this.theme = '',
-    this.title,
-    this.author,
-    this.creator,
-    this.subject,
-    this.keywords,
-    this.producer,
+    required this.meta,
   });
 
-  static Future<Engine> create(Dict json, {
+  static Future<Engine> create(
+    Dict json, {
     required String baseDir,
     required Storage storage,
   }) async {
@@ -63,62 +35,51 @@ class Engine {
     );
     await state.init();
 
-    Dict meta = (json['meta'] as Dict?) ?? {};
     return Engine(
       baseDir: baseDir,
-      theme: meta['theme'] as String? ?? '',
-      pageMode: Util.pageMode(meta['pageMode'] as String?),
-      title: meta['title'] as String?,
-      author: meta['author'] as String?,
-      creator: meta['creator'] as String?,
-      subject: meta['subject'] as String?,
-      keywords: meta['keywords'] as String?,
-      producer: meta['producer'] as String?,
-      themes: Theme.fromJsonAll(
-        (meta['themes'] as Dict?) ?? {},
-        state,
-      ),
-      headers: Header.fromJsonAll(
-        (meta['headers'] as Dict?) ?? {},
-      ),
-      footers: Footer.fromJsonAll(
-        (meta['footers'] as Dict?) ?? {},
-      ),
       pages: Page.fromJsonAll(
         (json['pages'] as List?) ?? [],
       ),
       state: state,
+      meta: Meta.fromJson(
+        (json['meta'] as Dict?) ?? {},
+        state,
+      ),
     );
   }
 
   pw.Document pdf() {
     pw.ThemeData? docTheme = Theme.defaultDocumentTheme(state);
-    if (theme.isNotEmpty) {
-      pw.PageTheme? pt = themes[theme]?.theme;
+    if (meta.theme.isNotEmpty) {
+      pw.PageTheme? pt = meta.themes[meta.theme]?.theme;
       if (pt != null) {
         docTheme = pt.theme;
       }
     }
 
     pw.Document pdf = pw.Document(
-      pageMode: pageMode,
+      pageMode: meta.pageMode,
       theme: docTheme,
-      title: title,
-      author: author,
-      creator: creator,
-      subject: subject,
-      keywords: keywords,
-      producer: producer,
+      title: meta.title,
+      author: meta.author,
+      creator: meta.creator,
+      subject: meta.subject,
+      keywords: meta.keywords,
+      producer: meta.producer,
     );
 
     pw.Document.debug = false;
     pw.RichText.debug = false;
 
+    int tocPageNr = 0;
+    pw.Page? tocPage;
     for (Page page in pages) {
       // header callback --------------------------
-      pw.Widget headerBuilder(pw.Context context,) {
+      pw.Widget headerBuilder(
+        pw.Context context,
+      ) {
         if (page.header.isNotEmpty) {
-          Header? header = headers[page.header];
+          Header? header = meta.headers[page.header];
           if (header != null) {
             return header.build(
               context,
@@ -130,9 +91,11 @@ class Engine {
       }
 
       // footer callback --------------------------
-      pw.Widget footerBuilder(pw.Context context,) {
+      pw.Widget footerBuilder(
+        pw.Context context,
+      ) {
         if (page.footer.isNotEmpty) {
-          Footer? footer = footers[page.footer];
+          Footer? footer = meta.footers[page.footer];
           if (footer != null) {
             return footer.build(
               context,
@@ -144,73 +107,72 @@ class Engine {
       }
 
       // page builder  --------------------------
-      List<pw.Widget> pageBuilder(pw.Context context,) {
+      List<pw.Widget> pageBuilder(
+        pw.Context context,
+      ) {
         return page.build(
           state,
         );
       }
 
       // --------------------------
-      // --------------------------
 
-      pw.PageTheme? pageTheme = themes[page.theme]?.theme ??
+      pw.PageTheme? pageTheme = meta.themes[page.theme]?.theme ??
           Theme.defaultPageTheme(
             state,
           );
 
+      // --------------------------
+
+      pw.Page pwPage;
       if (page.multi) {
         if (page.columns > 1) {
-          pdf.addPage(
-            ColPage(
-              pageTheme: pageTheme,
-              header: page.header.isNotEmpty ? headerBuilder : null,
-              footer: page.footer.isNotEmpty ? footerBuilder : null,
-              build: (pw.Context context) => pageBuilder(context),
-              columns: page.columns,
-              gapWidth: page.gapWidth,
-            ),
+          pwPage = ColPage(
+            pageTheme: pageTheme,
+            header: page.header.isNotEmpty ? headerBuilder : null,
+            footer: page.footer.isNotEmpty ? footerBuilder : null,
+            build: (pw.Context context) => pageBuilder(context),
+            columns: page.columns,
+            gapWidth: page.gapWidth,
           );
         } else {
-          pdf.addPage(
-            pw.MultiPage(
-              pageTheme: pageTheme,
-              header: page.header.isNotEmpty ? headerBuilder : null,
-              footer: page.footer.isNotEmpty ? footerBuilder : null,
-              build: (pw.Context context) => pageBuilder(context),
-              maxPages: 100,
-            ),
+          pwPage = pw.MultiPage(
+            pageTheme: pageTheme,
+            header: page.header.isNotEmpty ? headerBuilder : null,
+            footer: page.footer.isNotEmpty ? footerBuilder : null,
+            build: (pw.Context context) => pageBuilder(context),
+            maxPages: 100,
           );
         }
       } else {
-        pdf.addPage(
-          pw.Page(
-            pageTheme: pageTheme,
-            build: (pw.Context context) =>
-                pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    if (page.header.isNotEmpty) headerBuilder(context),
-                    pw.Expanded(
-                      child: pageBuilder(context).first,
-                    ),
-                    if (page.footer.isNotEmpty) footerBuilder(context),
-                  ],
-                ),
+        pwPage = pw.Page(
+          pageTheme: pageTheme,
+          build: (pw.Context context) => pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              if (page.header.isNotEmpty) headerBuilder(context),
+              pw.Expanded(
+                child: pageBuilder(context).first,
+              ),
+              if (page.footer.isNotEmpty) footerBuilder(context),
+            ],
           ),
         );
       }
+      if (page.toc > 0) {
+        tocPage = pwPage;
+        tocPageNr = page.toc;
+      } else {
+        pdf.addPage(pwPage);
+      }
     }
 
-    pdf.addPage(
-      pw.MultiPage(
-        build: (context) => [
-          pw.Text('Table of content'),
-          pw.SizedBox(height: 20),
-          pw.TableOfContent(),
-        ],
-      ),
-      index: 0,
-    );
+    if (tocPage != null) {
+      pdf.addPage(
+        tocPage,
+        index: tocPageNr - 1,
+      );
+    }
 
     return pdf;
   }

@@ -958,6 +958,9 @@
         "Anchor": {
           "$ref": "#/definitions/Widgets/Anchor"
         },
+        "TableOfContent": {
+          "$ref": "#/definitions/Widgets/TableOfContent"
+        },
         "Link": {
           "$ref": "#/definitions/Widgets/Link"
         },
@@ -1123,9 +1126,6 @@
         "Text": {
           "$ref": "#/definitions/Widgets/Text"
         },
-        "TableOfContent": {
-          "$ref": "#/definitions/Widgets/TableOfContent"
-        },
         "VerticalDivider": {
           "$ref": "#/definitions/Widgets/VerticalDivider"
         },
@@ -1181,6 +1181,12 @@
           "ignoreMargins": {
             "type": "boolean"
           }
+        },
+        "type": "object"
+      },
+      "TableOfContent": {
+        "additionalProperties": false,
+        "properties": {
         },
         "type": "object"
       },
@@ -1810,7 +1816,8 @@
             "$ref": "#/definitions/Style/BoxDecoration"
           },
           "level": {
-            "type": "integer"
+            "type": "integer",
+            "description": "0..n"
           },
           "margin": {
             "$ref": "#/definitions/Style/EdgeInsets"
@@ -2453,13 +2460,6 @@
         },
         "type": "object"
       },
-      "TableOfContent": {
-        "additionalProperties": false,
-        "properties": {
-
-        },
-        "type": "object"
-      },
       "Text": {
         "additionalProperties": false,
         "properties": {
@@ -2728,6 +2728,10 @@
           },
           "header": {
             "$ref": "#/definitions/Util/Identifier"
+          },
+          "toc": {
+            "type": "integer",
+            "description": "Insert as TOC-page on page number"
           },
           "multi": {
             "description": "multi page (tables, ...) or not",

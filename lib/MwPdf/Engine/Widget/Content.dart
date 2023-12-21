@@ -1,7 +1,6 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Hyphenation.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/Text.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math_64.dart';
@@ -58,7 +57,8 @@ class Content {
         json['style'] as Dict? ?? {},
         state,
       ),
-      hyphenation: hyphLang.isNotEmpty ? state.hyphenator(language: hyphLang) : null,
+      hyphenation:
+          hyphLang.isNotEmpty ? state.hyphenator(language: hyphLang) : null,
     );
   }
 
@@ -69,10 +69,12 @@ class Content {
     return pw.Header(
       title: json['title'] as String?,
       text: json['text'] as String?,
-      child: json['child'] != null ? Widget.child(
-        json,
-        state,
-      ) : null,
+      child: json['child'] != null
+          ? Widget.child(
+              json,
+              state,
+            )
+          : null,
       level: json['level'] as int? ?? 0,
       decoration: Util.boxDecoration(
         (json['decoration'] as Dict?) ?? {},
