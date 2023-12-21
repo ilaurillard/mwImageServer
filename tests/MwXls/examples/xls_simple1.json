@@ -1,20 +1,176 @@
 {
   "meta": {
-
+    "title": "title",
+    "subject": "subject",
+    "description": "description",
+    "author": "author",
+    "company": "company",
+    "keywords": [
+      "kw1",
+      "kw2"
+    ],
+    "fileName": "testing234.xlsx",
+    "rowStyles": {
+      "@rStyle1": {
+        "customHeight": true,
+        "height": 30
+      }
+    },
+    "cellStyles": {
+      "@cStyle2": {
+        "format": "GENERAL",
+        "fill": "9999FF"
+      },
+      "@cStyle1": {
+        "format": "GENERAL",
+        "color": "FF8800",
+        "halign": "right",
+        "valign": "top",
+        "fontStyles": [
+          "bold"
+        ],
+        "borderSides": [
+          "left",
+          "right"
+        ],
+        "borderStyle": "dashed",
+        "borderColor": "444444"
+      }
+    },
+    "defaultCellStyle": {
+      "color": "666600"
+    }
   },
   "sheets": [
     {
       "name": "MySheet1",
+      "headers": [
+        {
+          "style": {
+            "source": "@rStyle1"
+          },
+          "defaultCellStyle": {
+            "source": "@cStyle2"
+          },
+          "cells": [
+            {
+              "value": "XXX"
+            },
+            {
+              "value": "YYY",
+              "style": {
+                "source": "@cStyle1"
+              }
+            },
+            {
+              "value": "ZZZ"
+            },
+            {
+              "value": "MMM"
+            }
+          ]
+        }
+      ],
       "rows": [
         {
-
+          "defaultCellStyle": {
+            "color": "88FF00",
+            "fill": "6666FF",
+            "font": "Helvetica",
+            "fontSize": 10,
+            "fontStyles": [
+              "bold"
+            ]
+          },
           "cells": [
             {
               "value": 123.4
+            },
+            {
+              "value": 22
+            },
+            {
+              "value": 333,
+              "style": {
+                "color": "FF8800",
+                "fontSize": 10,
+                "fill": "888888",
+                "applyAlignment": true,
+                "halign": "center"
+              }
+            },
+            {
+              "value": 7000
+            }
+          ]
+        }
+      ],
+      "style": {
+        "cellStyles": [
+          {
+            "color": "0000FF",
+            "fill": "FF9999"
+          }
+        ],
+        "columnWidths": [
+          20,
+          20,
+          26,
+          33.5
+        ]
+      }
+    },
+    {
+      "name": "MySheet2",
+      "source": "@data",
+      "rows": [
+        {
+          "cells": [
+            {
+              "value": "x"
+            },
+            {
+              "value": "x"
+            },
+            {
+              "value": "x"
+            },
+            {
+              "value": "x"
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "sources": {
+    "@data": {
+      "values": [
+        [
+          "Katze",
+          1.5,
+          true,
+          7.5
+        ],
+        [
+          "Hund",
+          null,
+          false,
+          333441275.25
+        ],
+        [
+          "Seehund",
+          33,
+          false,
+          375.25
+        ],
+        [
+          "Hase",
+          4,
+          true,
+          0
+        ]
+      ]
+    }
+  }
 }
