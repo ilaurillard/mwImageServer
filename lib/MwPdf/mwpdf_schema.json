@@ -5,6 +5,12 @@
       "Alignment": {
         "anyOf": [
           {
+            "description": "enum or double,double (-1.0..1.0,-1.0..1.0)",
+            "maxLength": 24,
+            "minLength": 3,
+            "type": "string"
+          },
+          {
             "enum": [
               "bottomCenter",
               "bottomLeft",
@@ -16,41 +22,13 @@
               "topLeft",
               "topRight"
             ]
-          },
-          {
-            "description": "enum or double,double (-1.0..1.0,-1.0..1.0)",
-            "maxLength": 24,
-            "minLength": 3,
-            "type": "string"
           }
-        ]
-      },
-      "TileMode": {
-        "enum": [
-          "clamp"
         ]
       },
       "Axis": {
         "enum": [
           "horizontal",
           "vertical"
-        ]
-      },
-      "PageMode": {
-        "enum": [
-          "none",
-          "outlines",
-          "thumbs",
-          "fullscreen"
-        ]
-      },
-      "ValuePosition": {
-        "enum": [
-          "left",
-          "top",
-          "right",
-          "bottom",
-          "auto"
         ]
       },
       "BorderStyle": {
@@ -85,6 +63,14 @@
           "stretch"
         ]
       },
+      "LegendPosition": {
+        "enum": [
+          "auto",
+          "inside",
+          "none",
+          "outside"
+        ]
+      },
       "MainAxisAlignment": {
         "enum": [
           "center",
@@ -115,6 +101,14 @@
           "visible"
         ]
       },
+      "PageMode": {
+        "enum": [
+          "fullscreen",
+          "none",
+          "outlines",
+          "thumbs"
+        ]
+      },
       "StackFit": {
         "enum": [
           "expand",
@@ -136,14 +130,6 @@
           "right"
         ]
       },
-      "LegendPosition": {
-        "enum": [
-          "none",
-          "auto",
-          "inside",
-          "outside"
-        ]
-      },
       "TextDirection": {
         "enum": [
           "ltr",
@@ -155,6 +141,20 @@
           "clip",
           "span",
           "visible"
+        ]
+      },
+      "TileMode": {
+        "enum": [
+          "clamp"
+        ]
+      },
+      "ValuePosition": {
+        "enum": [
+          "auto",
+          "bottom",
+          "left",
+          "right",
+          "top"
         ]
       },
       "VerticalAlignment": {
@@ -176,38 +176,8 @@
       "BarDataSet": {
         "additionalProperties": false,
         "properties": {
-          "legend": {
-            "type": "string"
-          },
-          "source": {
-            "$ref": "#/definitions/Util/Identifier"
-          },
-          "drawPoints": {
-            "type": "boolean"
-          },
-          "drawBorder": {
-            "type": "boolean"
-          },
-          "drawSurface": {
-            "type": "boolean"
-          },
-          "surfaceOpacity": {
-            "$ref": "#/definitions/Util/DoubleZeroToOne"
-          },
-          "width": {
-            "type": "number"
-          },
-          "offset": {
-            "type": "number"
-          },
           "axis": {
             "$ref": "#/definitions/Enum/Axis"
-          },
-          "color": {
-            "$ref": "#/definitions/Style/Color"
-          },
-          "pointColor": {
-            "$ref": "#/definitions/Style/Color"
           },
           "borderColor": {
             "$ref": "#/definitions/Style/Color"
@@ -215,27 +185,83 @@
           "borderWidth": {
             "type": "number"
           },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "drawBorder": {
+            "type": "boolean"
+          },
+          "drawPoints": {
+            "type": "boolean"
+          },
+          "drawSurface": {
+            "type": "boolean"
+          },
+          "legend": {
+            "type": "string"
+          },
+          "offset": {
+            "type": "number"
+          },
+          "pointColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
           "pointSize": {
             "type": "number"
           },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
+          "surfaceOpacity": {
+            "$ref": "#/definitions/Util/DoubleZeroToOne"
+          },
           "valuePosition": {
             "$ref": "#/definitions/Enum/ValuePosition"
+          },
+          "width": {
+            "type": "number"
           }
         },
         "type": "object"
       },
       "FixedAxis": {
         "additionalProperties": false,
-        "required": [
-          "values"
-        ],
         "properties": {
+          "angle": {
+            "type": "number"
+          },
+          "axisTick": {
+            "type": "boolean"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "divisions": {
+            "type": "boolean"
+          },
+          "divisionsDashed": {
+            "type": "boolean"
+          },
+          "divisionsWidth": {
+            "type": "number"
+          },
+          "margin": {
+            "type": "number"
+          },
+          "marginEnd": {
+            "type": "number"
+          },
+          "marginStart": {
+            "type": "number"
+          },
+          "textStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "ticks": {
+            "type": "boolean"
+          },
           "values": {
-            "description": "array of numbers OR number indexed dict (use %value% placeholder), null for automatic",
             "anyOf": [
-              {
-                "type": "null"
-              },
               {
                 "additionalProperties": false,
                 "patternProperties": {
@@ -246,108 +272,50 @@
                 "type": "object"
               },
               {
-                "type": "array",
                 "items": {
                   "type": "number"
-                }
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
               }
-            ]
-          },
-          "ticks": {
-            "type": "boolean"
-          },
-          "divisions": {
-            "type": "boolean"
-          },
-          "axisTick": {
-            "type": "boolean"
-          },
-          "divisionsDashed": {
-            "type": "boolean"
-          },
-          "angle": {
-            "type": "number"
+            ],
+            "description": "array of numbers OR number indexed dict (use %value% placeholder), null for automatic"
           },
           "width": {
             "type": "number"
-          },
-          "divisionsWidth": {
-            "type": "number"
-          },
-          "margin": {
-            "type": "number"
-          },
-          "marginStart": {
-            "type": "number"
-          },
-          "marginEnd": {
-            "type": "number"
-          },
-          "textStyle": {
-            "$ref": "#/definitions/Style/TextStyle"
-          },
-          "color": {
-            "$ref": "#/definitions/Style/Color"
           }
         },
+        "required": [
+          "values"
+        ],
         "type": "object"
       },
-      "PieDataSet": {
+      "LinearGradient": {
         "additionalProperties": false,
         "properties": {
-          "source": {
-            "$ref": "#/definitions/Util/Identifier"
+          "begin": {
+            "$ref": "#/definitions/Enum/Alignment"
           },
-          "value": {
-            "type": "number"
+          "colors": {
+            "items": {
+              "$ref": "#/definitions/Style/Color"
+            },
+            "type": "array"
           },
-          "legend": {
-            "type": "string"
+          "end": {
+            "$ref": "#/definitions/Enum/Alignment"
           },
-          "color": {
-            "$ref": "#/definitions/Style/Color"
+          "stops": {
+            "description": "usually 0..1",
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
           },
-          "borderColor": {
-            "$ref": "#/definitions/Style/Color"
-          },
-          "borderWidth": {
-            "type": "number"
-          },
-          "drawBorder": {
-            "type": "boolean"
-          },
-          "drawSurface": {
-            "type": "boolean"
-          },
-          "surfaceOpacity": {
-            "$ref": "#/definitions/Util/DoubleZeroToOne"
-          },
-          "innerRadius": {
-            "type": "number"
-          },
-          "offset": {
-            "type": "number"
-          },
-          "legendStyle": {
-            "$ref": "#/definitions/Style/TextStyle"
-          },
-          "legendAlign": {
-            "$ref": "#/definitions/Enum/TextAlign"
-          },
-          "legendLineColor": {
-            "$ref": "#/definitions/Style/Color"
-          },
-          "legendPosition": {
-            "$ref": "#/definitions/Enum/LegendPosition"
-          },
-          "legendWidget": {
-            "$ref": "#/definitions/Widget"
-          },
-          "legendOffset": {
-            "type": "number"
-          },
-          "legendLineWidth": {
-            "type": "number"
+          "tileMode": {
+            "$ref": "#/definitions/Enum/TileMode"
           }
         },
         "type": "object"
@@ -355,50 +323,50 @@
       "LineDataSet": {
         "additionalProperties": false,
         "properties": {
-          "legend": {
-            "type": "string"
-          },
-          "source": {
-            "$ref": "#/definitions/Util/Identifier"
-          },
-          "drawPoints": {
-            "type": "boolean"
+          "color": {
+            "$ref": "#/definitions/Style/Color"
           },
           "drawLine": {
             "type": "boolean"
           },
-          "color": {
-            "$ref": "#/definitions/Style/Color"
+          "drawPoints": {
+            "type": "boolean"
           },
-          "pointColor": {
-            "$ref": "#/definitions/Style/Color"
+          "drawSurface": {
+            "type": "boolean"
+          },
+          "isCurved": {
+            "type": "boolean"
+          },
+          "legend": {
+            "type": "string"
           },
           "lineColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "lineWidth": {
+            "type": "number"
+          },
+          "pointColor": {
             "$ref": "#/definitions/Style/Color"
           },
           "pointSize": {
             "type": "number"
           },
-          "lineWidth": {
+          "smoothness": {
             "type": "number"
           },
-          "valuePosition": {
-            "$ref": "#/definitions/Enum/ValuePosition"
-          },
-          "drawSurface": {
-            "type": "boolean"
-          },
-          "surfaceOpacity": {
-            "$ref": "#/definitions/Util/DoubleZeroToOne"
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
           },
           "surfaceColor": {
             "$ref": "#/definitions/Style/Color"
           },
-          "isCurved": {
-            "type": "boolean"
+          "surfaceOpacity": {
+            "$ref": "#/definitions/Util/DoubleZeroToOne"
           },
-          "smoothness": {
-            "type": "number"
+          "valuePosition": {
+            "$ref": "#/definitions/Enum/ValuePosition"
           }
         },
         "type": "object"
@@ -414,6 +382,102 @@
           },
           "width": {
             "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "PieDataSet": {
+        "additionalProperties": false,
+        "properties": {
+          "borderColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "borderWidth": {
+            "type": "number"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "drawBorder": {
+            "type": "boolean"
+          },
+          "drawSurface": {
+            "type": "boolean"
+          },
+          "innerRadius": {
+            "type": "number"
+          },
+          "legend": {
+            "type": "string"
+          },
+          "legendAlign": {
+            "$ref": "#/definitions/Enum/TextAlign"
+          },
+          "legendLineColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "legendLineWidth": {
+            "type": "number"
+          },
+          "legendOffset": {
+            "type": "number"
+          },
+          "legendPosition": {
+            "$ref": "#/definitions/Enum/LegendPosition"
+          },
+          "legendStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "legendWidget": {
+            "$ref": "#/definitions/Widget"
+          },
+          "offset": {
+            "type": "number"
+          },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
+          "surfaceOpacity": {
+            "$ref": "#/definitions/Util/DoubleZeroToOne"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "RadialGradient": {
+        "additionalProperties": false,
+        "properties": {
+          "center": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "colors": {
+            "items": {
+              "$ref": "#/definitions/Style/Color"
+            },
+            "type": "array"
+          },
+          "focal": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "focalRadius": {
+            "description": "usually 0..1",
+            "type": "number"
+          },
+          "radius": {
+            "description": "usually 0..1",
+            "type": "number"
+          },
+          "stops": {
+            "description": "usually 0..1",
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "tileMode": {
+            "$ref": "#/definitions/Enum/TileMode"
           }
         },
         "type": "object"
@@ -442,106 +506,40 @@
         },
         "type": "object"
       },
-      "LinearGradient": {
-        "additionalProperties": false,
-        "properties": {
-          "colors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/Style/Color"
-            }
-          },
-          "stops": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "description": "usually 0..1"
-          },
-          "begin": {
-            "$ref": "#/definitions/Enum/Alignment"
-          },
-          "end": {
-            "$ref": "#/definitions/Enum/Alignment"
-          },
-          "tileMode": {
-            "$ref": "#/definitions/Enum/TileMode"
-          }
-        },
-        "type": "object"
-      },
-      "RadialGradient": {
-        "additionalProperties": false,
-        "properties": {
-          "colors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/Style/Color"
-            }
-          },
-          "stops": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "description": "usually 0..1"
-          },
-          "center": {
-            "$ref": "#/definitions/Enum/Alignment"
-          },
-          "tileMode": {
-            "$ref": "#/definitions/Enum/TileMode"
-          },
-          "focal": {
-            "$ref": "#/definitions/Enum/Alignment"
-          },
-          "radius": {
-            "type": "number",
-            "description": "usually 0..1"
-          },
-          "focalRadius": {
-            "type": "number",
-            "description": "usually 0..1"
-          }
-        },
-        "type": "object"
-      },
       "Transform": {
         "additionalProperties": false,
-        "type": "object",
-        "minProperties": 1,
         "maxProperties": 1,
+        "minProperties": 1,
         "properties": {
-          "Translate": {
-            "additionalProperties": false,
-            "type": "object",
-            "properties": {
-              "offset": {
-                "$ref": "#/definitions/Style/PdfPoint"
-              }
-            }
-          },
-          "Scale": {
-            "additionalProperties": false,
-            "type": "object",
-            "properties": {
-              "scale": {
-                "type": "number"
-              }
-            }
-          },
           "RotateZ": {
             "additionalProperties": false,
-            "type": "object",
             "properties": {
               "angle": {
                 "type": "number"
               }
-            }
+            },
+            "type": "object"
+          },
+          "Scale": {
+            "additionalProperties": false,
+            "properties": {
+              "scale": {
+                "type": "number"
+              }
+            },
+            "type": "object"
+          },
+          "Translate": {
+            "additionalProperties": false,
+            "properties": {
+              "offset": {
+                "$ref": "#/definitions/Style/PdfPoint"
+              }
+            },
+            "type": "object"
           }
         },
-        "maxProperties": 1,
-        "minProperties": 1
+        "type": "object"
       }
     },
     "Style": {
@@ -601,21 +599,19 @@
           "borderRadius": {
             "$ref": "#/definitions/Style/BorderRadius"
           },
+          "boxShadow": {
+            "items": {
+              "$ref": "#/definitions/Style/BoxShadow"
+            },
+            "type": "array"
+          },
           "color": {
             "$ref": "#/definitions/Style/Color"
           },
-          "shape": {
-            "$ref": "#/definitions/Enum/BoxShape"
-          },
-          "boxShadow": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/Style/BoxShadow"
-            }
-          },
           "gradient": {
             "additionalProperties": false,
-            "type": "object",
+            "maxProperties": 1,
+            "minProperties": 1,
             "properties": {
               "LinearGradient": {
                 "$ref": "#/definitions/Other/LinearGradient"
@@ -624,11 +620,13 @@
                 "$ref": "#/definitions/Other/RadialGradient"
               }
             },
-            "maxProperties": 1,
-            "minProperties": 1
+            "type": "object"
           },
           "image": {
             "$ref": "#/definitions/Style/BoxDecorationImage"
+          },
+          "shape": {
+            "$ref": "#/definitions/Enum/BoxShape"
           }
         },
         "type": "object"
@@ -636,30 +634,29 @@
       "BoxDecorationImage": {
         "additionalProperties": false,
         "properties": {
-          "source": {
-            "$ref": "#/definitions/Util/Identifier"
-          },
-          "fit": {
-            "$ref": "#/definitions/Enum/BoxFit"
-          },
           "alignment": {
             "$ref": "#/definitions/Enum/Alignment"
           },
           "dpi": {
             "type": "number"
+          },
+          "fit": {
+            "$ref": "#/definitions/Enum/BoxFit"
+          },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
           }
         },
         "type": "object"
       },
       "BoxShadow": {
-        "type": "object",
         "additionalProperties": false,
         "properties": {
-          "color": {
-            "$ref": "#/definitions/Style/Color"
-          },
           "blurRadius": {
             "type": "number"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
           },
           "offset": {
             "$ref": "#/definitions/Style/PdfPoint"
@@ -667,7 +664,8 @@
           "spreadRadius": {
             "type": "number"
           }
-        }
+        },
+        "type": "object"
       },
       "BoxSide": {
         "additionalProperties": false,
@@ -747,14 +745,6 @@
           "null"
         ]
       },
-      "PdfPoint": {
-        "items": {
-          "type": "number"
-        },
-        "maxItems": 2,
-        "minItems": 2,
-        "type": "array"
-      },
       "Font": {
         "anyOf": [
           {
@@ -804,6 +794,14 @@
           }
         },
         "type": "object"
+      },
+      "PdfPoint": {
+        "items": {
+          "type": "number"
+        },
+        "maxItems": 2,
+        "minItems": 2,
+        "type": "array"
       },
       "TableBorder": {
         "additionalProperties": false,
@@ -952,32 +950,11 @@
       "maxProperties": 1,
       "minProperties": 1,
       "properties": {
-        "Comment": {
-          "$ref": "#/definitions/Widgets/Comment"
+        "Align": {
+          "$ref": "#/definitions/Widgets/Align"
         },
         "Anchor": {
           "$ref": "#/definitions/Widgets/Anchor"
-        },
-        "TableOfContent": {
-          "$ref": "#/definitions/Widgets/TableOfContent"
-        },
-        "Link": {
-          "$ref": "#/definitions/Widgets/Link"
-        },
-        "UrlLink": {
-          "$ref": "#/definitions/Widgets/UrlLink"
-        },
-        "NewPage": {
-          "$ref": "#/definitions/Widgets/NewPage"
-        },
-        "FullPage": {
-          "$ref": "#/definitions/Widgets/FullPage"
-        },
-        "Transform": {
-          "$ref": "#/definitions/Widgets/Transform"
-        },
-        "Align": {
-          "$ref": "#/definitions/Widgets/Align"
         },
         "AspectRatio": {
           "$ref": "#/definitions/Widgets/AspectRatio"
@@ -1012,6 +989,9 @@
         "Column": {
           "$ref": "#/definitions/Widgets/Column"
         },
+        "Comment": {
+          "$ref": "#/definitions/Widgets/Comment"
+        },
         "ConstrainedBox": {
           "$ref": "#/definitions/Widgets/ConstrainedBox"
         },
@@ -1023,15 +1003,6 @@
         },
         "Divider": {
           "$ref": "#/definitions/Widgets/Divider"
-        },
-        "Widget": {
-          "$ref": "#/definitions/Widgets/Widget"
-        },
-        "Watermark": {
-          "$ref": "#/definitions/Widgets/Watermark"
-        },
-        "RichText": {
-          "$ref": "#/definitions/Widgets/RichText"
         },
         "Expanded": {
           "$ref": "#/definitions/Widgets/Expanded"
@@ -1045,6 +1016,9 @@
         "Footer": {
           "$ref": "#/definitions/Widgets/Footer"
         },
+        "FullPage": {
+          "$ref": "#/definitions/Widgets/FullPage"
+        },
         "GridPaper": {
           "$ref": "#/definitions/Widgets/GridPaper"
         },
@@ -1053,9 +1027,6 @@
         },
         "Header": {
           "$ref": "#/definitions/Widgets/Header"
-        },
-        "Outline": {
-          "$ref": "#/definitions/Widgets/Outline"
         },
         "Icon": {
           "$ref": "#/definitions/Widgets/Icon"
@@ -1066,6 +1037,9 @@
         "LimitedBox": {
           "$ref": "#/definitions/Widgets/LimitedBox"
         },
+        "Link": {
+          "$ref": "#/definitions/Widgets/Link"
+        },
         "ListView": {
           "$ref": "#/definitions/Widgets/ListView"
         },
@@ -1075,8 +1049,14 @@
         "LoremText": {
           "$ref": "#/definitions/Widgets/LoremText"
         },
+        "NewPage": {
+          "$ref": "#/definitions/Widgets/NewPage"
+        },
         "Opacity": {
           "$ref": "#/definitions/Widgets/Opacity"
+        },
+        "Outline": {
+          "$ref": "#/definitions/Widgets/Outline"
         },
         "Padding": {
           "$ref": "#/definitions/Widgets/Padding"
@@ -1102,6 +1082,9 @@
         "Rectangle": {
           "$ref": "#/definitions/Widgets/Rectangle"
         },
+        "RichText": {
+          "$ref": "#/definitions/Widgets/RichText"
+        },
         "Row": {
           "$ref": "#/definitions/Widgets/Row"
         },
@@ -1126,11 +1109,26 @@
         "TableAuto": {
           "$ref": "#/definitions/Widgets/TableAuto"
         },
+        "TableOfContent": {
+          "$ref": "#/definitions/Widgets/TableOfContent"
+        },
         "Text": {
           "$ref": "#/definitions/Widgets/Text"
         },
+        "Transform": {
+          "$ref": "#/definitions/Widgets/Transform"
+        },
+        "UrlLink": {
+          "$ref": "#/definitions/Widgets/UrlLink"
+        },
         "VerticalDivider": {
           "$ref": "#/definitions/Widgets/VerticalDivider"
+        },
+        "Watermark": {
+          "$ref": "#/definitions/Widgets/Watermark"
+        },
+        "Widget": {
+          "$ref": "#/definitions/Widgets/Widget"
         },
         "Wrap": {
           "$ref": "#/definitions/Widgets/Wrap"
@@ -1151,94 +1149,22 @@
         },
         "type": "object"
       },
-      "Transform": {
-        "additionalProperties": false,
-        "properties": {
-          "child": {
-            "$ref": "#/definitions/Widget"
-          },
-          "transform": {
-            "$ref": "#/definitions/Other/Transform"
-          },
-          "adjustLayout": {
-            "type": "boolean"
-          },
-          "unconstrained": {
-            "type": "boolean"
-          },
-          "alignment": {
-            "$ref": "#/definitions/Enum/Alignment"
-          },
-          "origin": {
-            "$ref": "#/definitions/Style/PdfPoint"
-          }
-        },
-        "type": "object"
-      },
-      "FullPage": {
-        "additionalProperties": false,
-        "properties": {
-          "child": {
-            "$ref": "#/definitions/Widget"
-          },
-          "ignoreMargins": {
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
-      "TableOfContent": {
-        "additionalProperties": false,
-        "properties": {
-        },
-        "type": "object"
-      },
       "Anchor": {
         "additionalProperties": false,
         "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
           "name": {
             "type": "string"
           },
-          "child": {
-            "$ref": "#/definitions/Widget"
+          "setX": {
+            "type": "boolean"
           },
           "zoom": {
             "type": "number"
-          },
-          "setX": {
-            "type": "boolean"
           }
         },
-        "type": "object"
-      },
-      "Link": {
-        "additionalProperties": false,
-        "properties": {
-          "destination": {
-            "type": "string",
-            "description": "An anchor name"
-          },
-          "child": {
-            "$ref": "#/definitions/Widget"
-          }
-        },
-        "type": "object"
-      },
-      "UrlLink": {
-        "additionalProperties": false,
-        "properties": {
-          "destination": {
-            "type": "string",
-            "description": "An url"
-          },
-          "child": {
-            "$ref": "#/definitions/Widget"
-          }
-        },
-        "type": "object"
-      },
-      "NewPage": {
-        "additionalProperties": false,
         "type": "object"
       },
       "AspectRatio": {
@@ -1524,6 +1450,11 @@
         },
         "type": "object"
       },
+      "Comment": {
+        "additionalProperties": true,
+        "properties": {},
+        "type": "object"
+      },
       "ConstrainedBox": {
         "additionalProperties": false,
         "properties": {
@@ -1566,11 +1497,11 @@
           "padding": {
             "$ref": "#/definitions/Style/EdgeInsets"
           },
-          "width": {
-            "type": "number"
-          },
           "transform": {
             "$ref": "#/definitions/Other/Transform"
+          },
+          "width": {
+            "type": "number"
           }
         },
         "type": "object"
@@ -1614,72 +1545,6 @@
           "thickness": {
             "type": "number"
           }
-        },
-        "type": "object"
-      },
-      "Watermark": {
-        "additionalProperties": false,
-        "properties": {
-          "child": {
-            "$ref": "#/definitions/Widget"
-          },
-          "angle": {
-            "type": "number"
-          },
-          "fit": {
-            "$ref": "#/definitions/Enum/BoxFit"
-          }
-        },
-        "type": "object"
-      },
-      "RichText": {
-        "additionalProperties": false,
-        "properties": {
-          "text": {
-            "type": "string"
-          },
-          "colorQuote": {
-            "$ref": "#/definitions/Style/Color"
-          },
-          "bulletIcon": {
-            "type": "string"
-          },
-          "colorCode": {
-            "$ref": "#/definitions/Style/Color"
-          },
-          "fontCode": {
-            "$ref": "#/definitions/Style/Font"
-          },
-          "fontSize1": {
-            "type": "number"
-          },
-          "fontSize2": {
-            "type": "number"
-          },
-          "fontSize3": {
-            "type": "number"
-          },
-          "fontSize4": {
-            "type": "number"
-          },
-          "fontSize5": {
-            "type": "number"
-          },
-          "margin1": {
-            "type": "number"
-          },
-          "margin2": {
-            "type": "number"
-          },
-          "margin3": {
-            "type": "number"
-          }
-        },
-        "type": "object"
-      },
-      "Comment": {
-        "additionalProperties": true,
-        "properties": {
         },
         "type": "object"
       },
@@ -1758,6 +1623,18 @@
         },
         "type": "object"
       },
+      "FullPage": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "ignoreMargins": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
       "GridPaper": {
         "additionalProperties": false,
         "properties": {
@@ -1809,31 +1686,6 @@
         },
         "type": "object"
       },
-      "Outline": {
-        "additionalProperties": false,
-        "properties": {
-          "child": {
-            "$ref": "#/definitions/Widget"
-          },
-          "level": {
-            "type": "integer",
-            "description": "0..n"
-          },
-          "color": {
-            "$ref": "#/definitions/Style/Color"
-          },
-          "style": {
-            "$ref": "#/definitions/Enum/OutlineStyle"
-          },
-          "name": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "Header": {
         "additionalProperties": false,
         "properties": {
@@ -1844,8 +1696,8 @@
             "$ref": "#/definitions/Style/BoxDecoration"
           },
           "level": {
-            "type": "integer",
-            "description": "0..n"
+            "description": "0..n",
+            "type": "integer"
           },
           "margin": {
             "$ref": "#/definitions/Style/EdgeInsets"
@@ -1926,6 +1778,19 @@
         },
         "type": "object"
       },
+      "Link": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "destination": {
+            "description": "An anchor name",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "ListView": {
         "additionalProperties": false,
         "properties": {
@@ -1953,9 +1818,6 @@
       "LoremParagraph": {
         "additionalProperties": false,
         "properties": {
-          "random": {
-            "type": "integer"
-          },
           "margin": {
             "$ref": "#/definitions/Style/EdgeInsets"
           },
@@ -1963,6 +1825,9 @@
             "$ref": "#/definitions/Style/EdgeInsets"
           },
           "paragraph": {
+            "type": "integer"
+          },
+          "random": {
             "type": "integer"
           },
           "sentence": {
@@ -1980,9 +1845,6 @@
       "LoremText": {
         "additionalProperties": false,
         "properties": {
-          "random": {
-            "type": "integer"
-          },
           "maxLines": {
             "type": "integer"
           },
@@ -1990,6 +1852,9 @@
             "$ref": "#/definitions/Enum/TextOverflow"
           },
           "paragraph": {
+            "type": "integer"
+          },
+          "random": {
             "type": "integer"
           },
           "sentence": {
@@ -2016,6 +1881,10 @@
         },
         "type": "object"
       },
+      "NewPage": {
+        "additionalProperties": false,
+        "type": "object"
+      },
       "Opacity": {
         "additionalProperties": false,
         "properties": {
@@ -2024,6 +1893,31 @@
           },
           "opacity": {
             "$ref": "#/definitions/Util/DoubleZeroToOne"
+          }
+        },
+        "type": "object"
+      },
+      "Outline": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "level": {
+            "description": "0..n",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "style": {
+            "$ref": "#/definitions/Enum/OutlineStyle"
+          },
+          "title": {
+            "type": "string"
           }
         },
         "type": "object"
@@ -2067,11 +1961,18 @@
       "Paragraph": {
         "additionalProperties": false,
         "properties": {
+          "hyphenationlanguage": {
+            "description": "de, en, ..",
+            "type": "string"
+          },
           "margin": {
             "$ref": "#/definitions/Style/EdgeInsets"
           },
           "padding": {
             "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
           },
           "style": {
             "$ref": "#/definitions/Style/TextStyle"
@@ -2079,15 +1980,8 @@
           "text": {
             "type": "string"
           },
-          "source": {
-            "$ref": "#/definitions/Util/Identifier"
-          },
           "textAlign": {
             "$ref": "#/definitions/Enum/TextAlign"
-          },
-          "hyphenationlanguage": {
-            "type": "string",
-            "description": "de, en, .."
           }
         },
         "type": "object"
@@ -2196,6 +2090,51 @@
       },
       "Rectangle": {
         "$ref": "#/definitions/Widgets/Shape"
+      },
+      "RichText": {
+        "additionalProperties": false,
+        "properties": {
+          "bulletIcon": {
+            "type": "string"
+          },
+          "colorCode": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "colorQuote": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "fontCode": {
+            "$ref": "#/definitions/Style/Font"
+          },
+          "fontSize1": {
+            "type": "number"
+          },
+          "fontSize2": {
+            "type": "number"
+          },
+          "fontSize3": {
+            "type": "number"
+          },
+          "fontSize4": {
+            "type": "number"
+          },
+          "fontSize5": {
+            "type": "number"
+          },
+          "margin1": {
+            "type": "number"
+          },
+          "margin2": {
+            "type": "number"
+          },
+          "margin3": {
+            "type": "number"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "Row": {
         "additionalProperties": false,
@@ -2464,11 +2403,11 @@
           "oddRowDecoration": {
             "$ref": "#/definitions/Style/BoxDecoration"
           },
-          "source": {
-            "$ref": "#/definitions/Util/Identifier"
-          },
           "rowDecoration": {
             "$ref": "#/definitions/Style/BoxDecoration"
+          },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
           },
           "tableDirection": {
             "$ref": "#/definitions/Enum/TextDirection"
@@ -2479,18 +2418,18 @@
         },
         "type": "object"
       },
-      "Widget": {
+      "TableOfContent": {
         "additionalProperties": false,
-        "properties": {
-          "source": {
-            "$ref": "#/definitions/Util/Identifier"
-          }
-        },
+        "properties": {},
         "type": "object"
       },
       "Text": {
         "additionalProperties": false,
         "properties": {
+          "hyphenationlanguage": {
+            "description": "de, en, ..",
+            "type": "string"
+          },
           "maxLines": {
             "type": "integer"
           },
@@ -2500,14 +2439,14 @@
           "softWrap": {
             "type": "boolean"
           },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
           "style": {
             "$ref": "#/definitions/Style/TextStyle"
           },
           "text": {
             "type": "string"
-          },
-          "source": {
-            "$ref": "#/definitions/Util/Identifier"
           },
           "textAlign": {
             "$ref": "#/definitions/Enum/TextAlign"
@@ -2520,10 +2459,43 @@
           },
           "tightBounds": {
             "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "Transform": {
+        "additionalProperties": false,
+        "properties": {
+          "adjustLayout": {
+            "type": "boolean"
           },
-          "hyphenationlanguage": {
-            "type": "string",
-            "description": "de, en, .."
+          "alignment": {
+            "$ref": "#/definitions/Enum/Alignment"
+          },
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "origin": {
+            "$ref": "#/definitions/Style/PdfPoint"
+          },
+          "transform": {
+            "$ref": "#/definitions/Other/Transform"
+          },
+          "unconstrained": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "UrlLink": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "destination": {
+            "description": "An url",
+            "type": "string"
           }
         },
         "type": "object"
@@ -2552,6 +2524,30 @@
         },
         "type": "object"
       },
+      "Watermark": {
+        "additionalProperties": false,
+        "properties": {
+          "angle": {
+            "type": "number"
+          },
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "fit": {
+            "$ref": "#/definitions/Enum/BoxFit"
+          }
+        },
+        "type": "object"
+      },
+      "Widget": {
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          }
+        },
+        "type": "object"
+      },
       "Wrap": {
         "additionalProperties": false,
         "properties": {
@@ -2572,28 +2568,10 @@
       "additionalProperties": false,
       "description": "footers, header, themes",
       "properties": {
-        "pageMode": {
-          "$ref": "#/definitions/Enum/PageMode"
-        },
-        "theme": {
-          "$ref": "#/definitions/Util/Identifier"
-        },
-        "title": {
-          "type": "string"
-        },
         "author": {
           "type": "string"
         },
         "creator": {
-          "type": "string"
-        },
-        "subject": {
-          "type": "string"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "producer": {
           "type": "string"
         },
         "footers": {
@@ -2614,14 +2592,35 @@
           },
           "type": "object"
         },
+        "keywords": {
+          "type": "string"
+        },
+        "pageMode": {
+          "$ref": "#/definitions/Enum/PageMode"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "theme": {
+          "$ref": "#/definitions/Util/Identifier"
+        },
         "themes": {
           "additionalProperties": false,
           "patternProperties": {
             "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
               "additionalProperties": false,
               "properties": {
+                "background": {
+                  "$ref": "#/definitions/Widget"
+                },
                 "clip": {
                   "type": "boolean"
+                },
+                "foreground": {
+                  "$ref": "#/definitions/Widget"
                 },
                 "format": {
                   "additionalProperties": false,
@@ -2725,18 +2724,15 @@
                 },
                 "textDirection": {
                   "$ref": "#/definitions/Enum/TextDirection"
-                },
-                "foreground": {
-                  "$ref": "#/definitions/Widget"
-                },
-                "background": {
-                  "$ref": "#/definitions/Widget"
                 }
               },
               "type": "object"
             }
           },
           "type": "object"
+        },
+        "title": {
+          "type": "string"
         }
       },
       "type": "object"
@@ -2745,6 +2741,11 @@
       "items": {
         "additionalProperties": false,
         "properties": {
+          "columns": {
+            "maximum": 8,
+            "minimum": 2,
+            "type": "integer"
+          },
           "content": {
             "items": {
               "$ref": "#/definitions/Widget"
@@ -2754,28 +2755,23 @@
           "footer": {
             "$ref": "#/definitions/Util/Identifier"
           },
+          "gapWidth": {
+            "type": "number"
+          },
           "header": {
             "$ref": "#/definitions/Util/Identifier"
-          },
-          "toc": {
-            "type": "integer",
-            "description": "Insert as TOC-page on page number"
           },
           "multi": {
             "description": "multi page (tables, ...) or not",
             "type": "boolean"
           },
-          "columns": {
-            "type": "integer",
-            "minimum": 2,
-            "maximum": 8
-          },
-          "gapWidth": {
-            "type": "number"
-          },
           "theme": {
             "$ref": "#/definitions/Util/Identifier",
             "description": "see meta/themes"
+          },
+          "toc": {
+            "description": "Insert as TOC-page on page number",
+            "type": "integer"
           }
         },
         "type": "object"
@@ -2789,22 +2785,6 @@
         "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
           "additionalProperties": false,
           "properties": {
-            "resource": {
-              "description": "Local resource via bucket access (mwcdn)",
-              "type": "string"
-            },
-            "url": {
-              "description": "Remote file will get downloaded and cached",
-              "type": "string"
-            },
-            "text": {
-              "description": "reusable text",
-              "type": "string"
-            },
-            "widget": {
-              "description": "a predefined widget for reuse",
-              "$ref": "#/definitions/Widget"
-            },
             "binary": {
               "description": "inline data, f.e. for svg, ...",
               "type": "string"
@@ -2812,10 +2792,7 @@
             "data": {
               "description": "list of maps (for charts, ..)",
               "items": {
-                "type": "object",
-                "required": [
-                  "value"
-                ],
+                "additionalProperties": false,
                 "patternProperties": {
                   "^[a-z][a-zA-Z0-9]{1,31}$": {
                     "type": [
@@ -2827,14 +2804,28 @@
                     ]
                   }
                 },
-                "additionalProperties": false
+                "required": [
+                  "value"
+                ],
+                "type": "object"
               },
               "type": "array"
+            },
+            "resource": {
+              "description": "Local resource via bucket access (mwcdn)",
+              "type": "string"
+            },
+            "text": {
+              "description": "reusable text",
+              "type": "string"
+            },
+            "url": {
+              "description": "Remote file will get downloaded and cached",
+              "type": "string"
             },
             "values": {
               "description": "2d values for tables, charts, etc",
               "items": {
-                "minItems": 1,
                 "items": {
                   "type": [
                     "boolean",
@@ -2844,6 +2835,7 @@
                     "string"
                   ]
                 },
+                "minItems": 1,
                 "type": "array"
               },
               "type": "array"
@@ -2861,6 +2853,10 @@
             "valuesLocale": {
               "description": "f.e. de_DE, en_US (for number formatting)",
               "type": "string"
+            },
+            "widget": {
+              "$ref": "#/definitions/Widget",
+              "description": "a predefined widget for reuse"
             }
           },
           "type": "object"
