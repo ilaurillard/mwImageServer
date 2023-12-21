@@ -15,6 +15,12 @@ Future<void> main() async {
   String templateFile = '';
   String jsonFile = 'xls_simple1.json';
 
+  // String alle = await File(
+  //     '$examplesDir/ALLE.json',
+  //   ).readAsString();
+  // List<dynamic> alleList = json.decode(alle) as List<dynamic>;
+  // print(alle.length);
+
   String xlsBase = '{}';
   if (templateFile.isNotEmpty) {
     xlsBase = await File(
