@@ -1054,6 +1054,9 @@
         "Header": {
           "$ref": "#/definitions/Widgets/Header"
         },
+        "Outline": {
+          "$ref": "#/definitions/Widgets/Outline"
+        },
         "Icon": {
           "$ref": "#/definitions/Widgets/Icon"
         },
@@ -1802,6 +1805,31 @@
           },
           "padding": {
             "$ref": "#/definitions/Style/EdgeInsets"
+          }
+        },
+        "type": "object"
+      },
+      "Outline": {
+        "additionalProperties": false,
+        "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "level": {
+            "type": "integer",
+            "description": "0..n"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "style": {
+            "$ref": "#/definitions/Enum/OutlineStyle"
+          },
+          "name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
           }
         },
         "type": "object"

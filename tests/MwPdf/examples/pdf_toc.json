@@ -110,6 +110,25 @@
           }
         },
         {
+          "Outline": {
+            "level": 2,
+            "title": "Outline1",
+            "name": "Outline1",
+            "child": {
+              "Container": {
+                "padding": [10],
+                "color": "FF8800",
+                "margin": [0,0,0,10],
+                "child": {
+                  "Text": {
+                    "text": "Outline1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
           "LoremParagraph": {
             "sentence": 273
           }
@@ -148,6 +167,34 @@
         {
           "LoremParagraph": {
             "sentence": 100
+          }
+        },
+        {
+          "Divider": {
+          }
+        },
+        {
+          "Link": {
+            "destination": "xxx",
+            "child": {
+              "Text": {
+                "text": "Link (links to anchor below)"
+              }
+            }
+          }
+        },
+        {
+          "Divider": {
+          }
+        },
+        {
+          "UrlLink": {
+            "destination": "https://www.google.de",
+            "child": {
+              "Text": {
+                "text": "UrlLink (links to google)"
+              }
+            }
           }
         }
       ]

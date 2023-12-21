@@ -377,6 +377,16 @@ class Widget {
             data,
             state,
           );
+        case 'Outline':
+          return Annotation.outline(
+            data,
+            state,
+          );
+        // case 'SquareAnnotation':
+        //   return Annotation.squareAnnotation(
+        //     data,
+        //     state,
+        //   );
         // -----------
         case 'Widget':
           return Widget.widget(
@@ -412,8 +422,6 @@ class Widget {
             PolygonAnnotation
             PolyLineAnnotation
             InkAnnotation
-            Outline
-
         */
       }
 
