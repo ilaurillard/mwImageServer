@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "fileName": "testingXxx.xlsx"
+  },
+  "sheets": [
+    {
+      "name": "MySheet1",
+      "rows": [
+        {
+
+        }
+      ]
+    }
+  ]
+}

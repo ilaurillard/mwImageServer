@@ -9,20 +9,20 @@ import '../Util.dart';
 class Core {
   final Meta meta;
 
-  final String filename = 'docProps/core.xml';
+  final String _filename = 'docProps/core.xml';
 
   Core(this.meta);
 
   ArchiveFile file() {
-    String xml = toXml();
+    String xml = _toXml();
     return ArchiveFile(
-      filename,
+      _filename,
       xml.length,
       xml,
     );
   }
 
-  String toXml() {
+  String _toXml() {
     String xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
     xml +=
     '<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">\n';

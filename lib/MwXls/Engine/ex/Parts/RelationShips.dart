@@ -1,18 +1,18 @@
 import 'package:archive/archive.dart';
 
 class RelationShips {
-  final String filename = '_rels/.rels';
+  final String _filename = '_rels/.rels';
 
   ArchiveFile file() {
-    String xml = toXml();
+    String xml = _toXml();
     return ArchiveFile(
-      filename,
+      _filename,
       xml.length,
       xml,
     );
   }
 
-  String toXml() {
+  String _toXml() {
     String xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
     xml +=
         '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">\n';

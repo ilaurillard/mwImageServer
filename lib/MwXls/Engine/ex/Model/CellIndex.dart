@@ -20,6 +20,7 @@ class CellIndex {
     ColIndex colIndex,
     int rowIndex, // 1..n
   ) {
+    assert(rowIndex > 0);
     return CellIndex(
       colIndex.name + rowIndex.toString(),
     );

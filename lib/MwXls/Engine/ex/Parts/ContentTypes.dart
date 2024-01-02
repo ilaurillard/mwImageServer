@@ -2,22 +2,22 @@ import 'package:archive/archive.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Sheet.dart';
 
 class ContentTypes {
-  final List<Sheet> sheets;
+  final List<Sheet> _sheets;
 
-  final String filename = '[Content_Types].xml';
+  final String _filename = '[Content_Types].xml';
 
-  ContentTypes(this.sheets);
+  ContentTypes(this._sheets);
 
   ArchiveFile file() {
-    String xml = toXml();
+    String xml = _toXml();
     return ArchiveFile(
-      filename,
+      _filename,
       xml.length,
       xml,
     );
   }
 
-  String toXml() {
+  String _toXml() {
     String xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
     xml +=
         '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">\n';
@@ -26,7 +26,7 @@ class ContentTypes {
     xml +=
         '<Override PartName="/xl/_rels/workbook.xml.rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>\n';
     int nr = 1;
-    for (int i = 0; i < sheets.length; i++) {
+    for (int i = 0; i < _sheets.length; i++) {
       xml +=
           '<Override PartName="/xl/worksheets/sheet$nr.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>\n';
       nr++;

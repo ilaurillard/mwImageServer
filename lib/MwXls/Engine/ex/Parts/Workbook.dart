@@ -1,26 +1,27 @@
 import 'package:archive/archive.dart';
+import 'package:mwcdn/MwXls/Engine/ex/Model/CellIndex.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Model/ColIndex.dart';
 
 import '../Sheet.dart';
 import '../Util.dart';
 
 class Workbook {
-  final List<Sheet> sheets;
+  final List<Sheet> _sheets;
 
-  final String filename = 'xl/workbook.xml';
+  final String _filename = 'xl/workbook.xml';
 
-  Workbook(this.sheets);
+  Workbook(this._sheets);
 
   ArchiveFile file() {
-    String xml = toXml();
+    String xml = _toXml();
     return ArchiveFile(
-      filename,
+      _filename,
       xml.length,
       xml,
     );
   }
 
-  String toXml() {
+  String _toXml() {
     String xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
     xml +=
         '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">\n';
@@ -31,7 +32,7 @@ class Workbook {
     xml += '<sheets>\n';
 
     int i = 0;
-    for (Sheet sheet in sheets) {
+    for (Sheet sheet in _sheets) {
       String sheetName = sheet.nameSanitized();
       xml +=
           '<sheet name="${Util.escapeXml(sheetName)}" sheetId="${i + 1}" state="visible" r:id="rId${i + 2}"/>';
@@ -39,18 +40,17 @@ class Workbook {
     }
 
     xml += '</sheets>\n';
+
     xml += '<definedNames>\n';
 
     i = 0;
-    for (Sheet sheet in sheets) {
+    for (Sheet sheet in _sheets) {
       if (sheet.sheetStyle.autoFilterRow > -1) {
-        ColIndex maxCellCol = sheet.maxCell().colIndex;
-        int maxCellRow = sheet.maxCell().rowIndex;
-        String sheetname = sheet.nameSanitized();
+        CellIndex maxCell = sheet.maxCell();
         xml +=
             '<definedName name="_xlnm._FilterDatabase" localSheetId="$i" hidden="1">\n';
         xml +=
-            '\'${Util.escapeXml(sheetname)}\'!\$A\$${sheet.sheetStyle.autoFilterRow}:\$${maxCellCol.name}\$${maxCellRow + 1}';
+            '\'${Util.escapeXml(sheet.nameSanitized())}\'!\$A\$${sheet.sheetStyle.autoFilterRow}:\$${maxCell.colIndex.name}\$${maxCell.rowIndex + 1}';
         xml += '</definedName>\n';
         i++;
       }
