@@ -25,7 +25,7 @@ class State {
 
   final Storage storage;
 
-  Map<String, Hyphenator> _hyphenators = {};
+  final Map<String, Hyphenator> _hyphenators = {};
 
   State({
     required this.baseDir,

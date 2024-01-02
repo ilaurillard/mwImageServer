@@ -39,7 +39,7 @@ class Content {
           )
           .text;
     }
-    String hyphLang = json['hyphenationlanguage'] as String? ?? '';
+    String hyphLang = json['hyphenationLanguage'] as String? ?? '';
     return HyphenatedParagraph(
       text: text,
       textAlign: Util.textAlign(

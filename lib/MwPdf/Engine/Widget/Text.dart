@@ -64,7 +64,7 @@ class Text {
           )
           .text;
     }
-    String hyphLang = json['hyphenationlanguage'] as String? ?? '';
+    String hyphLang = json['hyphenationLanguage'] as String? ?? '';
 
     return HyphenatedText(
       text,

@@ -18,6 +18,15 @@ Future<void> main() async {
   // String jsonFile = 'xls_simple2.json';
   // ----------------------
 
+  // Stopwatch s = Stopwatch()..start();
+  // String alle = await File(
+  //     '$examplesDir/ALLE.json',
+  //   ).readAsString();
+  // List<dynamic> alleList = json.decode(alle) as List<dynamic>;
+  // print(alle.length);
+  // print(alleList.length);
+  // print(s.elapsed);
+
   // Uint8List alle = await File(
   //     '$examplesDir/ALLE.ndjson.gz',
   //   ).readAsBytes();

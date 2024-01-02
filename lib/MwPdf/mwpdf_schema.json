@@ -1961,8 +1961,8 @@
       "Paragraph": {
         "additionalProperties": false,
         "properties": {
-          "hyphenationlanguage": {
-            "description": "de, en, ..",
+          "hyphenationLanguage": {
+            "description": "de, en-us, ..",
             "type": "string"
           },
           "margin": {
@@ -2426,8 +2426,8 @@
       "Text": {
         "additionalProperties": false,
         "properties": {
-          "hyphenationlanguage": {
-            "description": "de, en, ..",
+          "hyphenationLanguage": {
+            "description": "de, en-us, ..",
             "type": "string"
           },
           "maxLines": {

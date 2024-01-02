@@ -20,69 +20,141 @@
       "theme": "@default",
       "content": [
         {
-          "Column": {
-            "crossAxisAlignment": "start",
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
             "children": [
               {
-                "Container": {
-                  "padding": [3],
-                  "color": "FFDD77",
-                  "margin": [0,0,0,3],
-                  "width": 65,
-                  "child": {
-                    "Paragraph": {
-                      "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
-                      "textAlign": "justify",
-                      "hyphenationlanguage": "de"
+                "Column": {
+                  "crossAxisAlignment": "start",
+                  "children": [
+                    {
+                      "Container": {
+                        "padding": [3],
+                        "color": "FFDD77",
+                        "margin": [0,0,0,3],
+                        "width": 65,
+                        "child": {
+                          "Paragraph": {
+                            "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
+                            "textAlign": "justify",
+                            "hyphenationLanguage": "de"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "padding": [3],
+                        "color": "DDAAFF",
+                        "margin": [0,0,0,3],
+                        "width": 60,
+                        "child": {
+                          "Paragraph": {
+                            "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
+                            "textAlign": "justify",
+                            "hyphenationLanguage": "de"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "padding": [3],
+                        "color": "DDFF77",
+                        "margin": [0,0,0,3],
+                        "width": 55,
+                        "child": {
+                          "Text": {
+                            "softWrap": true,
+                            "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
+                            "textAlign": "justify",
+                            "hyphenationLanguage": "de"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "padding": [3],
+                        "color": "FFAADD",
+                        "margin": [0,0,0,3],
+                        "width": 50,
+                        "child": {
+                          "Text": {
+                            "softWrap": true,
+                            "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
+                            "textAlign": "justify",
+                            "hyphenationLanguage": "de"
+                          }
+                        }
+                      }
                     }
-                  }
+                  ]
                 }
               },
               {
-                "Container": {
-                  "padding": [3],
-                  "color": "DDAAFF",
-                  "margin": [0,0,0,3],
-                  "width": 60,
-                  "child": {
-                    "Paragraph": {
-                      "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
-                      "textAlign": "justify",
-                      "hyphenationlanguage": "de"
+                "Column": {
+                  "crossAxisAlignment": "start",
+                  "children": [
+                    {
+                      "Container": {
+                        "padding": [3],
+                        "color": "FFDD77",
+                        "margin": [0,0,0,3],
+                        "width": 65,
+                        "child": {
+                          "Paragraph": {
+                            "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
+                            "textAlign": "justify"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "padding": [3],
+                        "color": "DDAAFF",
+                        "margin": [0,0,0,3],
+                        "width": 60,
+                        "child": {
+                          "Paragraph": {
+                            "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
+                            "textAlign": "justify"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "padding": [3],
+                        "color": "DDFF77",
+                        "margin": [0,0,0,3],
+                        "width": 55,
+                        "child": {
+                          "Text": {
+                            "softWrap": true,
+                            "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
+                            "textAlign": "justify"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "padding": [3],
+                        "color": "FFAADD",
+                        "margin": [0,0,0,3],
+                        "width": 50,
+                        "child": {
+                          "Text": {
+                            "softWrap": true,
+                            "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
+                            "textAlign": "justify"
+                          }
+                        }
+                      }
                     }
-                  }
-                }
-              },
-              {
-                "Container": {
-                  "padding": [3],
-                  "color": "DDFF77",
-                  "margin": [0,0,0,3],
-                  "width": 55,
-                  "child": {
-                    "Text": {
-                      "softWrap": true,
-                      "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
-                      "textAlign": "justify",
-                      "hyphenationlanguage": "de"
-                    }
-                  }
-                }
-              },
-              {
-                "Container": {
-                  "padding": [3],
-                  "color": "FFAADD",
-                  "margin": [0,0,0,3],
-                  "width": 50,
-                  "child": {
-                    "Text": {
-                      "softWrap": true,
-                      "text": "Ich bin ein kleiner Blindtext. Und zwar schon so lange ich denken kann. Es war nicht leicht zu verstehen, was es bedeutet, ein blinder Text zu sein: Man ergibt keinen Sinn.",
-                      "textAlign": "justify",
-                      "hyphenationlanguage": "de"
-                    }
-                  }
+                  ]
                 }
               }
             ]
