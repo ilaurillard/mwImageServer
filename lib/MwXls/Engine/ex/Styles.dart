@@ -8,7 +8,7 @@ import 'Model/RowStyle.dart';
 import 'Util.dart';
 
 class Styles {
-  final String filename = 'xl/styles.xml';
+  final String _filename = 'xl/styles.xml';
 
   List<String> numberFormats = [];
   List<CellStyle> cellStyles = [];
@@ -155,7 +155,7 @@ class Styles {
     return i;
   }
 
-  String toXml() {
+  String _toXml() {
     String xml = '';
 
     xml += '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
@@ -388,9 +388,9 @@ class Styles {
   }
 
   ArchiveFile file() {
-    String xml = toXml();
+    String xml = _toXml();
     return ArchiveFile(
-      filename,
+      _filename,
       xml.length,
       xml,
     );
