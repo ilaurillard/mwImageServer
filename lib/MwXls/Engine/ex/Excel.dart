@@ -30,7 +30,7 @@ class Excel {
     Sheet sheet,
   ) {}
 
-  Future<List<int>> save() {
+  Future<List<int>> save() async {
     Archive archive = Archive();
 
     archive.addFile(
@@ -48,7 +48,7 @@ class Excel {
     int nr = 1;
     for (Sheet sheet in sheets) {
       archive.addFile(
-        sheet.file(
+        await sheet.file(
           sheets.length,
           styles,
           nr,
@@ -56,10 +56,6 @@ class Excel {
       );
       nr++;
     }
-
-    archive.addFile(
-      Workbook(sheets).file(),
-    );
 
     archive.addFile(
       styles.file(),
@@ -71,6 +67,10 @@ class Excel {
 
     archive.addFile(
       WorkbookRelationShips(sheets).file(),
+    );
+
+    archive.addFile(
+      Workbook(sheets).file(),
     );
 
     return Future.value(
