@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:archive/archive.dart';
 import 'package:merge_map_null_safety/merge_map.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
@@ -11,15 +13,28 @@ const baseDir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwXls';
 const examplesDir = '/home/ilja/PhpstormProjects/mwcdn/tests/MwXls/examples';
 
 Future<void> main() async {
-
   String templateFile = '';
   String jsonFile = 'xls_simple1.json';
+  // String jsonFile = 'xls_simple2.json';
+  // ----------------------
 
-  // String alle = await File(
-  //     '$examplesDir/ALLE.json',
-  //   ).readAsString();
-  // List<dynamic> alleList = json.decode(alle) as List<dynamic>;
-  // print(alle.length);
+  // Uint8List alle = await File(
+  //     '$examplesDir/ALLE.ndjson.gz',
+  //   ).readAsBytes();
+  // InputStream stream = InputStream(alle);
+  // OutputStream output = OutputStream();
+  // GZipDecoder().decodeStream(stream, output);
+
+  // String d = String.fromCharCodes(output.getBytes());
+  // List<String> lines = d.split('\n');
+  // for (String c in lines) {
+  //   if (c.isNotEmpty) {
+  //     List<dynamic> row = json.decode(c.toString()) as List<dynamic>;
+  //     // Row.fromValues(row);
+  //   }
+  // }
+
+  // ----------------------
 
   String xlsBase = '{}';
   if (templateFile.isNotEmpty) {
@@ -54,13 +69,21 @@ Future<void> main() async {
           baseDir: baseDir,
         );
 
-        String name = '$examplesDir/output/$jsonFile.xls';
+        String name = '$examplesDir/output/$jsonFile.xlsx';
         await File(name).writeAsBytes(
           await engine.excel.save(),
         );
 
+        // final inputStream = InputFileStream(name);
+        // final archive = ZipDecoder().decodeBuffer(inputStream);
+        // archive.addFile(ArchiveFile('test.txt', 3, 'xxx'));
+        // String name2 = '$examplesDir/output/test.zip';
+        // await File(name2).writeAsBytes(
+        //   ZipEncoder().encode(archive)!,
+        // );
+
         Console.info(
-          '\nThank you, rendered "$jsonFile" into "output/$jsonFile.xls"\n\n',
+          '\nThank you, rendered "$jsonFile" to "$name"\n\n',
         );
       } catch (e) {
         print('Fatal error: $e');
