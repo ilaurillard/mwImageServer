@@ -173,25 +173,6 @@
       }
     },
     "Other": {
-      "Points": {
-        "items": {
-          "items": {
-            "type": "number"
-          },
-          "maxItems": 2,
-          "minItems": 2,
-          "type": "array"
-        },
-        "minItems": 3,
-        "type": "array"
-      },
-      "PointsList": {
-        "items": {
-          "$ref": "#/definitions/Other/Points"
-        },
-        "minItems": 1,
-        "type": "array"
-      },
       "BarDataSet": {
         "additionalProperties": false,
         "properties": {
@@ -464,6 +445,25 @@
           }
         },
         "type": "object"
+      },
+      "Points": {
+        "items": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "minItems": 3,
+        "type": "array"
+      },
+      "PointsList": {
+        "items": {
+          "$ref": "#/definitions/Other/Points"
+        },
+        "minItems": 1,
+        "type": "array"
       },
       "RadialGradient": {
         "additionalProperties": false,
@@ -1053,8 +1053,8 @@
         "Image": {
           "$ref": "#/definitions/Widgets/Image"
         },
-        "Shape": {
-          "$ref": "#/definitions/Widgets/Shape"
+        "InkList": {
+          "$ref": "#/definitions/Widgets/InkList"
         },
         "LimitedBox": {
           "$ref": "#/definitions/Widgets/LimitedBox"
@@ -1098,9 +1098,6 @@
         "Polygon": {
           "$ref": "#/definitions/Widgets/Polygon"
         },
-        "InkList": {
-          "$ref": "#/definitions/Widgets/InkList"
-        },
         "Positioned": {
           "$ref": "#/definitions/Widgets/Positioned"
         },
@@ -1112,6 +1109,9 @@
         },
         "Row": {
           "$ref": "#/definitions/Widgets/Row"
+        },
+        "Shape": {
+          "$ref": "#/definitions/Widgets/Shape"
         },
         "SizedBox": {
           "$ref": "#/definitions/Widgets/SizedBox"
@@ -1788,6 +1788,21 @@
         },
         "type": "object"
       },
+      "InkList": {
+        "additionalProperties": false,
+        "properties": {
+          "points": {
+            "$ref": "#/definitions/Other/PointsList"
+          },
+          "strokeColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "strokeWidth": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
       "LimitedBox": {
         "additionalProperties": false,
         "properties": {
@@ -2083,21 +2098,6 @@
         },
         "type": "object"
       },
-      "InkList": {
-        "additionalProperties": false,
-        "properties": {
-          "points": {
-            "$ref": "#/definitions/Other/PointsList"
-          },
-          "strokeColor": {
-            "$ref": "#/definitions/Style/Color"
-          },
-          "strokeWidth": {
-            "type": "number"
-          }
-        },
-        "type": "object"
-      },
       "Positioned": {
         "additionalProperties": false,
         "properties": {
@@ -2194,26 +2194,26 @@
       "Shape": {
         "additionalProperties": false,
         "properties": {
+          "fillColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "fit": {
+            "$ref": "#/definitions/Enum/BoxFit"
+          },
+          "height": {
+            "type": "number"
+          },
           "path": {
             "type": "string"
           },
           "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
-          "fillColor": {
-            "$ref": "#/definitions/Style/Color"
-          },
           "strokeColor": {
             "$ref": "#/definitions/Style/Color"
           },
           "width": {
             "type": "number"
-          },
-          "height": {
-            "type": "number"
-          },
-          "fit": {
-            "$ref": "#/definitions/Enum/BoxFit"
           }
         },
         "type": "object"
