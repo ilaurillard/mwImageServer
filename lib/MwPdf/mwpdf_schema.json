@@ -2194,6 +2194,9 @@
       "Shape": {
         "additionalProperties": false,
         "properties": {
+          "path": {
+            "type": "string"
+          },
           "source": {
             "$ref": "#/definitions/Util/Identifier"
           },

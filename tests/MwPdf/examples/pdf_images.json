@@ -81,18 +81,52 @@
                 }
               },
               {
-                "Container": {
-                  "height": 40,
-                  "width": 40,
-                  "color": "CCFFCC",
-                  "child": {
-                    "Shape": {
-                      "source": "@shape1",
-                      "strokeColor": "333333",
-                      "fillColor": "FF8800",
-                      "fit": "contain"
+                "Row": {
+                  "mainAxisAlignment": "spaceEvenly",
+                  "children": [
+                    {
+                      "Container": {
+                        "height": 40,
+                        "width": 40,
+                        "child": {
+                          "Shape": {
+                            "source": "@shape1",
+                            "strokeColor": "333333",
+                            "fillColor": "CCFFCC",
+                            "fit": "contain"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "height": 40,
+                        "width": 40,
+                        "child": {
+                          "Shape": {
+                            "path": "M 0 0 H 50 V50 H 0 L 0 0",
+                            "strokeColor": "222222",
+                            "fillColor": "DDEEDD",
+                            "fit": "contain"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "height": 40,
+                        "width": 40,
+                        "child": {
+                          "Shape": {
+                            "path": "M 10 10 C 20 20, 40 20, 50 10 Z",
+                            "strokeColor": "111111",
+                            "fillColor": "CCDDCC",
+                            "fit": "contain"
+                          }
+                        }
+                      }
                     }
-                  }
+                  ]
                 }
               }
             ]
@@ -109,7 +143,7 @@
       "binary": "<svg height=\"100\" width=\"100\"><circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"yellow\" /></svg>"
     },
     "@shape1": {
-      "binary": "M 0 0 H 80 V 80 H 0 L 0 0"
+      "binary": "M 0 0 H 100 V 100 H 0 L 0 0"
     }
   }
 }

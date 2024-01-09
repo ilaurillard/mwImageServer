@@ -15,12 +15,13 @@ class Image {
     double? width = double.tryParse(json['width'].toString());
     double? height = double.tryParse(json['height'].toString());
 
+    String? path = json['path'] as  String?;
     Datasource source = state.source(
       json['source'] as String?,
     );
 
     return pw.Shape(
-      source.shapeFromBinary(),
+      path ?? source.shapeFromBinary(),
       fillColor: Util.color(
         json['fillColor'] as String?,
       ),

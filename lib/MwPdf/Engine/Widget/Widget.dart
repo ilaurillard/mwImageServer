@@ -408,7 +408,7 @@ class Widget {
           );
 
         /*
-          TODO missing widgets
+          TODO not yet implemented widgets
           ----
 
           basic:
