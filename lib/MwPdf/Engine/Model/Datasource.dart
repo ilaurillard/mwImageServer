@@ -5,10 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwMs/Model/ResourceInterface.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
-import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class Datasource {
@@ -54,8 +54,14 @@ class Datasource {
     String binary = '';
     try {
       binary = json['binary'] as String? ?? '';
-      if (binary.isNotEmpty && !binary.startsWith('<')) {
-        binary = String.fromCharCodes(base64.decode(binary));
+      if (binary.isNotEmpty &&
+          !binary.startsWith('<') &&
+          !binary.startsWith('M ')) {
+        binary = String.fromCharCodes(
+          base64.decode(
+            binary,
+          ),
+        );
       }
     } catch (e) {
       throw Exception('Datasource "$key": $e');
@@ -170,6 +176,14 @@ class Datasource {
     return binary.startsWith('<');
   }
 
+  String shapeFromBinary() {
+    String binary = this.binary;
+    if (binary.isEmpty) {
+      throw Exception('Source "$key" has no data (shape)');
+    }
+    return binary;
+  }
+
   String svgFromBinary() {
     String binary = this.binary;
     if (binary.isEmpty) {
@@ -221,8 +235,7 @@ class Datasource {
     String locale,
   ) {
     Map<int, NumberFormat?>? formats = {};
-    Dict temp =
-        json['valuesFormats'] as Dict? ?? {};
+    Dict temp = json['valuesFormats'] as Dict? ?? {};
     if (json['valuesFormats'] != null) {
       formats = Map.fromEntries(
         temp.entries.map(

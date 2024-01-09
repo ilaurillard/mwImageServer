@@ -1053,6 +1053,9 @@
         "Image": {
           "$ref": "#/definitions/Widgets/Image"
         },
+        "Shape": {
+          "$ref": "#/definitions/Widgets/Shape"
+        },
         "LimitedBox": {
           "$ref": "#/definitions/Widgets/LimitedBox"
         },
@@ -2191,14 +2194,23 @@
       "Shape": {
         "additionalProperties": false,
         "properties": {
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
           "fillColor": {
             "$ref": "#/definitions/Style/Color"
           },
           "strokeColor": {
             "$ref": "#/definitions/Style/Color"
           },
-          "strokeWidth": {
+          "width": {
             "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "fit": {
+            "$ref": "#/definitions/Enum/BoxFit"
           }
         },
         "type": "object"
@@ -2814,7 +2826,7 @@
           "additionalProperties": false,
           "properties": {
             "binary": {
-              "description": "inline data, f.e. for svg, ...",
+              "description": "inline data, f.e. for svg, paths ...",
               "type": "string"
             },
             "data": {

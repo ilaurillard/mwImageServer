@@ -7,6 +7,35 @@ import '../Model/Datasource.dart';
 import 'Util.dart';
 
 class Image {
+  static pw.Shape shape(
+    Dict json,
+    State state,
+  ) {
+
+    double? width = double.tryParse(json['width'].toString());
+    double? height = double.tryParse(json['height'].toString());
+
+    Datasource source = state.source(
+      json['source'] as String?,
+    );
+
+    return pw.Shape(
+      source.shapeFromBinary(),
+      fillColor: Util.color(
+        json['fillColor'] as String?,
+      ),
+      strokeColor: Util.color(
+        json['strokeColor'] as String?,
+      ),
+      width: width != null ? width * PdfPageFormat.mm : null,
+      height: height != null ? height * PdfPageFormat.mm : null,
+      fit: Util.boxFit(
+        json['fit'] as String?,
+      ) ??
+          pw.BoxFit.contain,
+    );
+  }
+
   static pw.Image image(
     Dict json,
     State state,

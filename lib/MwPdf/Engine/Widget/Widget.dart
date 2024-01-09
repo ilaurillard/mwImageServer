@@ -312,6 +312,11 @@ class Widget {
             data,
             state,
           );
+        case 'Shape':
+          return Image.shape(
+            data,
+            state,
+          );
         // ----------
         case 'Chart':
           return Chart.chart(
@@ -408,8 +413,6 @@ class Widget {
 
           basic:
             CustomPaint
-          image:
-            Shape
           forms:
             ChoiceField
             Checkbox

@@ -203,6 +203,10 @@ class Theme {
       State state,
       ) {
     return pw.ThemeData(
+        iconTheme: iconTheme(
+          {},
+          state,
+        )
     );
   }
 
@@ -210,6 +214,12 @@ class Theme {
     State state,
   ) {
     return pw.PageTheme(
+      theme: pw.ThemeData(
+        iconTheme: iconTheme(
+          {},
+          state,
+        )
+      ),
     );
   }
 }
