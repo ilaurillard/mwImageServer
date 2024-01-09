@@ -336,6 +336,8 @@ class Widget {
           return Shape.polygon(data);
         case 'Rectangle':
           return Shape.rectangle(data);
+        case 'InkList':
+          return Shape.inkList(data);
         // ----------
         case 'GridPaper':
           return GridPaper.gridPaper(
@@ -408,8 +410,6 @@ class Widget {
             CustomPaint
           image:
             Shape
-          shape:
-            Inklist
           forms:
             ChoiceField
             Checkbox

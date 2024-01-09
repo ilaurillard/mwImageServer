@@ -10,7 +10,6 @@
   },
   "pages": [
     {
-      "multi": true,
       "theme": "@default",
       "content": [
         {
@@ -32,25 +31,37 @@
                 }
               },
               {
-                "BarcodeWidget": {
-                  "value": "1234123412344",
-                  "barcode": "CodeEAN13",
-                  "width": 120,
-                  "height": 40,
-                  "color": "FF000000",
-                  "backgroundColor": "FFCCFF88",
-                  "drawText": true,
-                  "textPadding": 0.5,
-                  "textStyle": {
-                    "color": "FF333333",
-                    "fontWeight": "bold"
-                  },
-                  "margin": [
-                    0,
-                    2
-                  ],
-                  "padding": [
-                    3
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "CodeEAN13"
+                      }
+                    },
+                    {
+                      "BarcodeWidget": {
+                        "value": "1234123412344",
+                        "barcode": "CodeEAN13",
+                        "width": 120,
+                        "height": 40,
+                        "color": "FF000000",
+                        "backgroundColor": "FFCCFF88",
+                        "drawText": true,
+                        "textPadding": 0.5,
+                        "textStyle": {
+                          "color": "FF333333",
+                          "fontWeight": "bold"
+                        },
+                        "margin": [
+                          0,
+                          2
+                        ],
+                        "padding": [
+                          3
+                        ]
+                      }
+                    }
                   ]
                 }
               },
@@ -59,11 +70,23 @@
                 }
               },
               {
-                "BarcodeWidget": {
-                  "value": "http://www.google.de",
-                  "barcode": "QrCode",
-                  "width": 50,
-                  "height": 50
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "QrCode"
+                      }
+                    },
+                    {
+                      "BarcodeWidget": {
+                        "value": "http://www.google.de",
+                        "barcode": "QrCode",
+                        "width": 50,
+                        "height": 50
+                      }
+                    }
+                  ]
                 }
               },
               {
@@ -71,11 +94,23 @@
                 }
               },
               {
-                "BarcodeWidget": {
-                  "value": "1234123412344",
-                  "barcode": "Aztec",
-                  "width": 50,
-                  "height": 50
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "Aztec"
+                      }
+                    },
+                    {
+                      "BarcodeWidget": {
+                        "value": "1234123412344",
+                        "barcode": "Aztec",
+                        "width": 50,
+                        "height": 50
+                      }
+                    }
+                  ]
                 }
               },
               {
@@ -83,12 +118,24 @@
                 }
               },
               {
-                "BarcodeWidget": {
-                  "value": "1234567",
-                  "barcode": "Telepen",
-                  "drawText": true,
-                  "width": 50,
-                  "height": 20
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "Telepen"
+                      }
+                    },
+                    {
+                      "BarcodeWidget": {
+                        "value": "1234567",
+                        "barcode": "Telepen",
+                        "drawText": true,
+                        "width": 50,
+                        "height": 30
+                      }
+                    }
+                  ]
                 }
               },
               {
@@ -96,12 +143,24 @@
                 }
               },
               {
-                "BarcodeWidget": {
-                  "value": "9783161484100",
-                  "barcode": "CodeISBN",
-                  "drawText": true,
-                  "width": 50,
-                  "height": 20
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "CodeISBN"
+                      }
+                    },
+                    {
+                      "BarcodeWidget": {
+                        "value": "9783161484100",
+                        "barcode": "CodeISBN",
+                        "drawText": true,
+                        "width": 50,
+                        "height": 30
+                      }
+                    }
+                  ]
                 }
               }
             ]

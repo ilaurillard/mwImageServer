@@ -1,17 +1,28 @@
 {
+  "meta": {
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "format": {
+          "preset": "a5"
+        }
+      }
+    }
+  },
   "pages": [
     {
+      "theme": "@default",
       "multi": true,
       "content": [
         {
           "LoremParagraph": {
-            "sentence": 100,
+            "sentence": 120,
             "random": 123
           }
         },
         {
           "LoremParagraph": {
-            "sentence": 100,
+            "sentence": 120,
             "random": 124
           }
         },
@@ -21,7 +32,7 @@
         },
         {
           "LoremParagraph": {
-            "sentence": 100,
+            "sentence": 120,
             "random": 125
           }
         }

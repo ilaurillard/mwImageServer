@@ -173,6 +173,25 @@
       }
     },
     "Other": {
+      "Points": {
+        "items": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "minItems": 3,
+        "type": "array"
+      },
+      "PointsList": {
+        "items": {
+          "$ref": "#/definitions/Other/Points"
+        },
+        "minItems": 1,
+        "type": "array"
+      },
       "BarDataSet": {
         "additionalProperties": false,
         "properties": {
@@ -1075,6 +1094,9 @@
         },
         "Polygon": {
           "$ref": "#/definitions/Widgets/Polygon"
+        },
+        "InkList": {
+          "$ref": "#/definitions/Widgets/InkList"
         },
         "Positioned": {
           "$ref": "#/definitions/Widgets/Positioned"
@@ -2047,16 +2069,22 @@
             "$ref": "#/definitions/Style/Color"
           },
           "points": {
-            "items": {
-              "items": {
-                "type": "number"
-              },
-              "maxItems": 2,
-              "minItems": 2,
-              "type": "array"
-            },
-            "minItems": 3,
-            "type": "array"
+            "$ref": "#/definitions/Other/Points"
+          },
+          "strokeColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "strokeWidth": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "InkList": {
+        "additionalProperties": false,
+        "properties": {
+          "points": {
+            "$ref": "#/definitions/Other/PointsList"
           },
           "strokeColor": {
             "$ref": "#/definitions/Style/Color"

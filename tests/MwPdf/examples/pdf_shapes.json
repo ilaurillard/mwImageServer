@@ -241,6 +241,133 @@
                     }
                   ]
                 }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceEvenly",
+                  "children": [
+                    {
+                      "Container": {
+                        "color": "FFEECC",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "InkList": {
+                            "points": [
+                              [
+                                [2, 2],
+                                [5, 15],
+                                [10, 15],
+                                [15, 5],
+                                [2, 2]
+                              ],
+                              [
+                                [12, 12],
+                                [15, 25],
+                                [20, 25],
+                                [25, 15],
+                                [12, 12]
+                              ]
+                            ],
+                            "strokeColor": "000000",
+                            "strokeWidth": 1
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "EEDDBB",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "InkList": {
+                            "points": [
+                              [
+                                [2, 2],
+                                [5, 15],
+                                [10, 15],
+                                [15, 5],
+                                [2, 2]
+                              ],
+                              [
+                                [12, 12],
+                                [15, 25],
+                                [20, 25],
+                                [25, 15],
+                                [12, 12]
+                              ]
+                            ],
+                            "strokeColor": "000000",
+                            "strokeWidth": 0.5
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "DDBBAA",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "InkList": {
+                            "points": [
+                              [
+                                [2, 2],
+                                [5, 15],
+                                [10, 15],
+                                [15, 5],
+                                [2, 2]
+                              ],
+                              [
+                                [12, 12],
+                                [15, 25],
+                                [20, 25],
+                                [25, 15],
+                                [12, 12]
+                              ]
+                            ],
+                            "strokeColor": "000000",
+                            "strokeWidth": 0.25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "color": "BBAA99",
+                        "width": 30,
+                        "height": 30,
+                        "child": {
+                          "InkList": {
+                            "points": [
+                              [
+                                [2, 2],
+                                [5, 15],
+                                [10, 15],
+                                [15, 5],
+                                [2, 2]
+                              ],
+                              [
+                                [12, 12],
+                                [15, 25],
+                                [20, 25],
+                                [25, 15],
+                                [12, 12]
+                              ]
+                            ],
+                            "strokeColor": "000000",
+                            "strokeWidth": 0
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
               }
             ]
           }
