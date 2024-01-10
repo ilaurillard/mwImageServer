@@ -35,9 +35,7 @@ class Pdf {
     Dict data,
     Resource templateResource,
   ) async {
-    String baseDir = '${dirname(
-      Platform.script.path,
-    )}/../lib/MwPdf';
+    String resDir = '${fileStorage.resDir}/MwPdf';
 
     String filename = Files.filenameFromRequest(data);
 
@@ -51,7 +49,7 @@ class Pdf {
 
     // validate incoming data via json-scheme
     Results results = (await Schema.create(
-      baseDir: baseDir, // for schema
+      resDir: resDir, // for schema
     ))
         .validate(
       json.encode(
@@ -62,7 +60,7 @@ class Pdf {
     if (results.valid) {
       Engine engine = await Engine.create(
         pdfJsonDict,
-        baseDir: baseDir, // for fonts
+        resDir: resDir, // for fonts
         storage: Storage(
           fileStorage: fileStorage,
           resources: sqliteStorage.resources,
@@ -152,17 +150,4 @@ class Pdf {
       }
     }
   }
-
-// Future<Uint8List> build(
-//   Dict data,
-//   Resource resource,
-// ) async {
-//
-//   // Engine engine = await Engine.run(
-//   //   json.decode(pdfJson) as Dict,
-//   //   baseDir: baseDir,
-//   // );
-//
-//   // return await engine.buildPdf().save();
-// }
 }

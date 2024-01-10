@@ -12,7 +12,7 @@ $ curl http://0.0.0.0:8080/static/help.html
 
 ---- Build container via podman
 
-$ podman build . -t mwcdn
+$ podman build . -f Dockerfile.MwCdn -t mwcdn
 
 $ podman run --name mwcdn -v ~/PhpstormProjects/mwcdn/data:/data -it -p 8080:8080 mwcdn
 $ podman run -e ROOT_KEY=myRootKey --name mwcdn -v ~/PhpstormProjects/mwcdn/data:/data -it -p 8080:8080 mwcdn

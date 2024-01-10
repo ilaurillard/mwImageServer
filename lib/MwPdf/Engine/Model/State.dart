@@ -15,7 +15,7 @@ class State {
   static Map<String, pw.Font> fonts = {};
   static Map<String, String> materialCodes = {};
 
-  final String baseDir;
+  final String resDir;
 
   String value = '';
   int pageNumber = 0;
@@ -28,7 +28,7 @@ class State {
   final Map<String, Hyphenator> _hyphenators = {};
 
   State({
-    required this.baseDir,
+    required this.resDir,
     required this.storage,
   });
 
@@ -43,13 +43,13 @@ class State {
     // TODO load more languages
     _hyphenators['de'] = Hyphenator(
       resource: await Loader.load(
-        File('$baseDir/assets/tex/hyph-de-1996.tex'),
+        File('$resDir/tex/hyph-de-1996.tex'),
       ),
       minLetterCount: 2,
     );
     _hyphenators['en-us'] = Hyphenator(
       resource: await Loader.load(
-        File('$baseDir/assets/tex/hyph-en-us.tex'),
+        File('$resDir/tex/hyph-en-us.tex'),
       ),
       minLetterCount: 2,
     );
@@ -59,7 +59,7 @@ class State {
     print('load builtin fonts');
     fonts['openSansRegular'] = pw.Font.ttf(
       ByteData.view(
-        (await File('$baseDir/assets/Open Sans Regular.ttf').readAsBytes())
+        (await File('$resDir/fonts/Open Sans Regular.ttf').readAsBytes())
             .buffer,
       ),
     );
@@ -69,13 +69,13 @@ class State {
     print('load material font');
     fonts[material] = pw.Font.ttf(
       ByteData.view(
-        (await File('$baseDir/assets/MaterialIcons-Regular.ttf').readAsBytes())
+        (await File('$resDir/fonts/MaterialIcons-Regular.ttf').readAsBytes())
             .buffer,
       ),
     );
 
     List<String> lines =
-        File('$baseDir/assets/MaterialIcons-Regular.codepoints')
+        File('$resDir/fonts/MaterialIcons-Regular.codepoints')
             .readAsLinesSync();
     for (String line in lines) {
       List<String> splitted = line.split(' ');
@@ -94,11 +94,11 @@ class State {
 
   static State fromJson(
     Dict json, {
-    required String baseDir,
+    required String resDir,
     required Storage storage,
   }) {
     State state = State(
-      baseDir: baseDir,
+      resDir: resDir,
       storage: storage,
     );
 

@@ -19,6 +19,7 @@ void main(
 
   FileStorage fileStorage = FileStorage(
     dataDir: args.dataDir,
+    resDir: '',
   );
 
   // start a database for schema upgrades

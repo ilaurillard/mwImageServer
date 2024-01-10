@@ -10,11 +10,13 @@ import 'package:path/path.dart';
 
 class FileStorage {
   final String dataDir;
+  final String resDir;
 
   FileStorage({
     required this.dataDir,
+    required this.resDir,
   }) {
-    Console.info('[filesystem] $dataDir');
+    Console.info('[filesystem] data: $dataDir, res: $resDir');
   }
 
   // ---------------------

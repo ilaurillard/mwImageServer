@@ -5,6 +5,8 @@ import 'package:mwcdn/MwCdn/Config.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Service/Server.dart';
+import 'dart:io';
+import 'package:path/path.dart' show dirname;
 
 void main(
   List<String> arguments,
@@ -15,8 +17,13 @@ void main(
     arguments,
   );
 
+  String resDir = '${dirname(
+    Platform.script.path,
+  )}/res';
+
   FileStorage fileStorage = FileStorage(
     dataDir: args.dataDir,
+    resDir: resDir,
   );
 
   //------------ server

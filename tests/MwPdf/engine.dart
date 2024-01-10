@@ -12,12 +12,12 @@ import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 
 const dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
-const baseDir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwPdf';
 const examplesDir = '/home/ilja/PhpstormProjects/mwcdn/tests/MwPdf/examples';
+const resDir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwPdf/res';
 
 Future<void> main() async {
   Schema schema = await Schema.create(
-    baseDir: baseDir,
+    resDir: resDir,
   );
 
   String templateFile = '';
@@ -84,10 +84,11 @@ Future<void> main() async {
 
         Engine engine = await Engine.create(
           pdfData,
-          baseDir: baseDir,
+          resDir: resDir,
           storage: Storage(
             fileStorage: FileStorage(
               dataDir: dataDir,
+              resDir: '',
             ),
             resources: sqliteStorage.resources,
             bucketId: 98,

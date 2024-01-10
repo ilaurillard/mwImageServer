@@ -12,31 +12,31 @@ import 'Theme/Theme.dart';
 
 class Engine {
   final List<Page> pages;
-  final String baseDir;
+  final String resDir;
   final State state;
   final Meta meta;
 
   Engine({
     required this.state,
-    required this.baseDir,
+    required this.resDir,
     required this.pages,
     required this.meta,
   });
 
   static Future<Engine> create(
     Dict json, {
-    required String baseDir,
+    required String resDir,
     required Storage storage,
   }) async {
     State state = State.fromJson(
       (json['sources'] as Dict?) ?? {},
-      baseDir: baseDir,
+      resDir: resDir,
       storage: storage,
     );
     await state.init();
 
     return Engine(
-      baseDir: baseDir,
+      resDir: resDir,
       pages: Page.fromJsonAll(
         (json['pages'] as List?) ?? [],
       ),

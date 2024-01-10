@@ -21,15 +21,13 @@ class Pdf {
 
   Future<String> schema() async {
     return (await Schema.create(
-      baseDir: _baseDir(),
+      resDir: _resDir(),
     ))
         .schemaData;
   }
 
-  String _baseDir() {
-    return '${dirname(
-      Platform.script.path,
-    )}/../lib/MwPdf';
+  String _resDir() {
+    return '${fileStorage.resDir}/MwPdf';
   }
 
   Future<Results> validate(
@@ -47,7 +45,7 @@ class Pdf {
     if (results.valid) {
       Engine engine = await Engine.create(
         data,
-        baseDir: _baseDir(), // for fonts
+        resDir: _resDir(), // for fonts
         storage: Storage(
           fileStorage: fileStorage,
           token: AnonToken(),
@@ -72,7 +70,7 @@ class Pdf {
     Dict data,
   ) async {
     return (await Schema.create(
-      baseDir: _baseDir(),
+      resDir: _resDir(),
     ))
         .validate(
       json.encode(

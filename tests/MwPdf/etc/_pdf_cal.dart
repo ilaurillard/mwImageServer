@@ -198,7 +198,6 @@ Future<Uint8List> generateCalendar(
 
   switch (date.month) {
     case 12:
-      // bg = await rootBundle.loadString('assets/calendar.svg');
       break;
   }
 

@@ -12,7 +12,6 @@ GET {{host}}/static/help.html
 GET {{host}}/api/schema
 Authorization: myRootKey
 
-
 ### Validation
 POST {{host}}/api/validate
 Authorization: myRootKey
@@ -30,7 +29,6 @@ Authorization: myRootKey
     }
   ]
 }
-
 
 ### Create hello world pdf
 POST {{host}}/api/pdf

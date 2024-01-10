@@ -1,4 +1,4 @@
-################# MwCdn
+################# MwPdf
 
 FROM docker.io/dart:stable AS build
 
@@ -11,7 +11,7 @@ RUN dart pub get
 
 # Copy app source code (except anything in .dockerignore) and AOT compile app.
 COPY . .
-RUN dart compile exe bin/MwCdn.dart -o bin/main
+RUN dart compile exe bin/MwPdf.dart -o bin/main
 
 ###########################
 # Build minimal serving image from AOT-compiled `/server`
@@ -21,11 +21,12 @@ RUN dart compile exe bin/MwCdn.dart -o bin/main
 # FROM scratch
 
 FROM alpine:3.3
-RUN apk --update add imagemagick && \
-    rm -rf /var/cache/apk/*
+RUN rm -rf /var/cache/apk/*
 
 COPY --from=build /runtime/ /
+
 COPY --from=build /app/bin/main /app/bin/
+COPY --from=build /app/lib/MwPdf/res /app/bin/res/MwPdf
 
 COPY --from=build /usr/lib/x86_64-linux-gnu/libsqlite3.so /app/bin/
 
