@@ -2214,6 +2214,9 @@
           },
           "width": {
             "type": "number"
+          },
+          "strokeWidth": {
+            "type": "number"
           }
         },
         "type": "object"

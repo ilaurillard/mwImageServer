@@ -1,0 +1,137 @@
+<html>
+<head>
+    <title>test</title>
+    <style>
+
+        * {
+            font-family: Arial;
+        }
+
+        body {
+            background-color: #DDDDEE;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            width: 40em;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.5em;
+            font-size: 1.2em;
+        }
+
+        textarea {
+            height: 50em;
+            font-family: monospace;
+        }
+
+        #iframe,
+        #embedPdf {
+            background-color: #FFF;
+            width: 40em;
+            height: 50em;
+            border: 1px solid #000;
+        }
+
+        #butt, #validate, #clear {
+            background-color: #8888AA;
+            border: 1px solid #000;
+            color: #FFF;
+            float: right;
+            padding: 0.5em;
+            margin-left: 0.5em;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h4>mwpdf</h4>
+
+<div id="container">
+    <form>
+
+        <textarea id="data">
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Paragraph": {
+             "text": "Hello world!"
+          }
+        }
+      ]
+    }
+  ]
+}</textarea><br/>
+        <br />
+<!--        <input id="auth" type="text" value="myRootKey" placeholder="Authkey"/><br/>-->
+<!--        <br />-->
+        <button id="butt">Generate PDF</button>
+        <button id="validate">Validate</button>
+        <button id="clear">Clear</button>
+
+    </form>
+    <div style="width:3em"></div>
+    <iframe id="iframe" frameborder="0"></iframe>
+</div>
+
+<script>
+
+    document.getElementById('clear').onclick = function (e) {
+        e.preventDefault();
+
+        document.getElementById('data').value = '';
+    }
+
+    document.getElementById('butt').onclick = function (e) {
+        e.preventDefault();
+
+        let xhr = new XMLHttpRequest;
+        xhr.open('post', 'http://0.0.0.0:8081/api/pdf', true);
+        xhr.setRequestHeader(
+            'Authorization',
+            'myRootKey'
+        );
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function (e) {
+            let content = this.response;
+            let blob = new Blob([content], {type: 'application/pdf'});
+            let url = URL.createObjectURL(blob);
+            let i = document.getElementById('iframe');
+            i.src = url;
+            i.hidden = false;
+        };
+        let data = document.getElementById('data').value;
+        xhr.send(data);
+    }
+
+    document.getElementById('validate').onclick = function (e) {
+        e.preventDefault();
+
+        let xhr = new XMLHttpRequest;
+        xhr.open('post', 'http://0.0.0.0:8081/api/validate', true);
+        xhr.setRequestHeader(
+            'Authorization',
+            'myRootKey'
+        );
+        xhr.onload = function (e) {
+            let content = this.response;
+            alert(content);
+        };
+        let data = document.getElementById('data').value;
+        xhr.send(data);
+    }
+
+
+</script>
+</body>
+</html>
