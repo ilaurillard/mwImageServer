@@ -19,27 +19,35 @@ class Pdf {
     required this.fileStorage,
   });
 
+  Future<String> schema() async {
+    return (await Schema.create(
+      baseDir: _baseDir(),
+    ))
+        .schemaData;
+  }
+
+  String _baseDir() {
+    return '${dirname(
+      Platform.script.path,
+    )}/../lib/MwPdf';
+  }
+
+  Future<Results> validate(
+    Dict data,
+  ) async {
+    return await _validate(data);
+  }
+
   Future<Uint8List> build(
     Dict data,
   ) async {
-    String baseDir = '${dirname(
-      Platform.script.path,
-    )}/../lib/MwPdf';
-
     // validate incoming data via json-scheme
-    Results results = (await Schema.create(
-      baseDir: baseDir, // for schema
-    ))
-        .validate(
-      json.encode(
-        data,
-      ),
-    );
+    Results results = await _validate(data);
 
     if (results.valid) {
       Engine engine = await Engine.create(
         data,
-        baseDir: baseDir, // for fonts
+        baseDir: _baseDir(), // for fonts
         storage: Storage(
           fileStorage: fileStorage,
           token: AnonToken(),
@@ -48,14 +56,32 @@ class Pdf {
 
       return await engine.pdf().save();
     } else {
-      printErrors(results);
+      _printErrors(results);
       throw ResponseException(
-        Util.rError(message: 'Schema validation failed!'),
+        Util.rBadRequest(
+          message: json.encode({
+            'errors': results.errors,
+            'warnings': results.warnings,
+          }),
+        ),
       );
     }
   }
 
-  void printErrors(
+  Future<Results> _validate(
+    Dict data,
+  ) async {
+    return (await Schema.create(
+      baseDir: _baseDir(),
+    ))
+        .validate(
+      json.encode(
+        data,
+      ),
+    );
+  }
+
+  void _printErrors(
     Results results,
   ) {
     print('Document does not validate!');

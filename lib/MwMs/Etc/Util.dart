@@ -2,16 +2,15 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:crypto/crypto.dart';
-import 'package:mwcdn/MwMs/Model/JsonSerializable.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
+import 'package:mwcdn/MwMs/Etc/ResponseException.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwMs/Model/JsonSerializable.dart';
 import 'package:shelf/shelf.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:string_scanner/string_scanner.dart';
 
 class Util {
-
   static const KeyValue jsonHeaders = {
     'content-type': 'application/json',
   };
@@ -20,9 +19,16 @@ class Util {
   };
 
   static const Map<String, List<String>> mimeToSuffix = {
-    'image/jpeg': ['.jpg', '.jpeg',],
-    'application/json': ['.json',],
-    'application/pdf': ['.pdf',],
+    'image/jpeg': [
+      '.jpg',
+      '.jpeg',
+    ],
+    'application/json': [
+      '.json',
+    ],
+    'application/pdf': [
+      '.pdf',
+    ],
   };
 
   // ----------------
@@ -61,8 +67,9 @@ class Util {
   // ----------------
 
   static Future<Dict> incomingJson(
-      Request request,
-      ) async {
+    Request request, {
+    bool throwError = false,
+  }) async {
     String tmp = await request.readAsString();
 
     Dict data;
@@ -71,6 +78,17 @@ class Util {
     } catch (e) {
       data = {};
       Console.warning('[500] Json decode: $e');
+      if (throwError) {
+        throw ResponseException(
+          Util.rBadRequest(
+            message: json.encode({
+              'errors': [
+                e.toString(),
+              ]
+            })
+          ),
+        );
+      }
     }
 
     return data;
@@ -79,8 +97,8 @@ class Util {
   // ----------------
 
   static Response rJsonOk(
-      JsonSerializable subject,
-      ) {
+    JsonSerializable subject,
+  ) {
     return Response.ok(
       json.encode(subject.toJson()),
       headers: jsonHeaders,
@@ -144,8 +162,8 @@ class Util {
   // ----------------
 
   static Map<String, String> parseContentDisposition(
-      String header,
-      ) {
+    String header,
+  ) {
     final scanner = StringScanner(header);
 
     final token = RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');

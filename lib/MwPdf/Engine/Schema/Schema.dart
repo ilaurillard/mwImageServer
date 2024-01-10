@@ -5,8 +5,9 @@ import 'package:json_schema/src/json_schema/models/validation_results.dart';
 
 class Schema {
   final String baseDir;
-
   late final JsonSchema schema;
+  late final String schemaData;
+  static Schema? instance;
 
   Schema._({
     required this.baseDir,
@@ -15,13 +16,19 @@ class Schema {
   static Future<Schema> create({
     required String baseDir,
   }) async {
-    Schema schema = Schema._(baseDir: baseDir);
-    await schema.load();
-    return schema;
+    if (instance == null) {
+      instance = Schema._(
+        baseDir: baseDir,
+      );
+      await instance!.load();
+    }
+    return instance!;
   }
 
   Future<void> load() async {
-    String schemaData = await File('$baseDir/mwpdf_schema.json').readAsString();
+    schemaData = await File(
+      '$baseDir/mwpdf_schema.json',
+    ).readAsString();
     print('Loaded schema (${schemaData.length})');
     schema = JsonSchema.create(schemaData);
   }

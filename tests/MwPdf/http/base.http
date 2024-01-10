@@ -8,6 +8,29 @@ GET {{host}}/static/help.html
 
 > scripts/assert200.js
 
+### Download schema
+GET {{host}}/api/schema
+Authorization: myRootKey
+
+
+### Validation
+POST {{host}}/api/validate
+Authorization: myRootKey
+
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Paragraph": {
+             "text": "Hello world!"
+          }
+        }
+      ]
+    }
+  ]
+}
+
 
 ### Create hello world pdf
 POST {{host}}/api/pdf

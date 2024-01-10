@@ -30,6 +30,14 @@ class Api {
           ..post(
             '/pdf',
             apiPdf.pdf,
+          )
+          ..post(
+            '/validate',
+            apiPdf.validate,
+          )
+          ..get(
+            '/schema',
+            apiPdf.schema,
           ));
   }
 }
