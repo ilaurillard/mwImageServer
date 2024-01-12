@@ -1,0 +1,63 @@
+{
+  "meta": {
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Text": {
+                  "text": "Einfacher, fetter Text in Grün",
+                  "style": {
+                    "color": "006600",
+                    "fontWeight": "bold"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Durchgetrichen und schräger Text in Rot",
+                  "style": {
+                    "color": "660000",
+                    "fontStyle": "italic",
+                    "decoration": "lineThrough"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Text mit einem Rand und Hintergrundfarbe",
+                  "style": {
+                    "color": "000066",
+                    "background": {
+                      "color": "FF8800",
+                      "border": {
+                        "all": {
+                          "color": "000000"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Kerning und Courier (Achtung, Zahlen beziehen sich auf 1.0)",
+                  "style": {
+                    "color": "006666",
+                    "fontNormal": "courier",
+                    "letterSpacing": 2,
+                    "wordSpacing": 3
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

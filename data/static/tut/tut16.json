@@ -1,0 +1,159 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "Es können leicht eine Vielzahl an Barcode-Typen generiert werden:"
+                }
+              },
+              {
+                "Divider": {
+                  "color": "FF8800",
+                  "thickness": 0.5
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "CodeEAN13"
+                      }
+                    },
+                    {
+                      "BarcodeWidget": {
+                        "value": "1234123412344",
+                        "barcode": "CodeEAN13",
+                        "width": 120,
+                        "height": 40,
+                        "color": "FF000000",
+                        "backgroundColor": "FFCCFF88",
+                        "drawText": true,
+                        "textPadding": 0.5,
+                        "textStyle": {
+                          "color": "FF333333",
+                          "fontWeight": "bold"
+                        },
+                        "margin": [
+                          0,
+                          2
+                        ],
+                        "padding": [
+                          3
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "QrCode"
+                      }
+                    },
+                    {
+                      "BarcodeWidget": {
+                        "value": "http://www.google.de",
+                        "barcode": "QrCode",
+                        "width": 50,
+                        "height": 50
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "Aztec"
+                      }
+                    },
+                    {
+                      "BarcodeWidget": {
+                        "value": "1234123412344",
+                        "barcode": "Aztec",
+                        "width": 50,
+                        "height": 50
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "Telepen"
+                      }
+                    },
+                    {
+                      "BarcodeWidget": {
+                        "value": "1234567",
+                        "barcode": "Telepen",
+                        "drawText": true,
+                        "width": 50,
+                        "height": 30
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "CodeISBN"
+                      }
+                    },
+                    {
+                      "BarcodeWidget": {
+                        "value": "9783161484100",
+                        "barcode": "CodeISBN",
+                        "drawText": true,
+                        "width": 50,
+                        "height": 30
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

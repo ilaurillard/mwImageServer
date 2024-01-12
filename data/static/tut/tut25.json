@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "title": "xxx",
+    "keywords": "kw1,kw2",
+    "theme": "@def1",
+    "themes": {
+      "@def1": {
+        "styles": {
+          "paragraph": {
+            "font": "courier"
+          },
+          "header0": {
+            "font": "courier",
+            "fontSize": 15,
+            "color": "666666"
+          },
+          "header1": {
+            "font": "courier",
+            "fontSize": 12,
+            "color": "444444"
+          },
+          "header2": {
+            "font": "courier",
+            "fontSize": 9,
+            "color": "222222"
+          }
+        }
+      }
+    },
+    "footers": {
+      "@default": {
+        "Container": {
+          "alignment": "bottomRight",
+          "height": 10.0,
+          "child": {
+            "Text": {
+              "text": "Page: %pageNumber%/%pagesCount%"
+            }
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "toc": 1,
+      "multi": true,
+      "content": [
+        {
+          "Padding": {
+            "padding": [0,0,0,10],
+            "child": {
+              "Text": {
+                "text": "Inhaltverzeichnis"
+              }
+            }
+          }
+        },
+        {
+          "TableOfContent": {
+          }
+        }
+      ]
+    },
+    {
+      "theme": "@def1",
+      "multi": true,
+      "footer": "@default",
+      "content": [
+        {
+          "Header": {
+            "level": 0,
+            "title": "Kapitel 1",
+            "text": "Kapitel 1"
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        },
+        {
+          "Header": {
+            "level": 1,
+            "title": "Kapitel 1.1",
+            "text": "Kapitel 1.1"
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        },
+        {
+          "Divider": {
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        },
+        {
+          "Divider": {
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 300
+          }
+        },
+        {
+          "Outline": {
+            "level": 2,
+            "title": "Outline1",
+            "name": "Outline1",
+            "child": {
+              "Container": {
+                "padding": [10],
+                "color": "FF8800",
+                "margin": [0,0,0,10],
+                "child": {
+                  "Text": {
+                    "text": "Outline1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 273
+          }
+        },
+        {
+          "Header": {
+            "level": 2,
+            "title": "Kapitel 1.1.1",
+            "text": "Kapitel 1.1.1"
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        },
+        {
+          "Header": {
+            "level": 2,
+            "title": "Kapitel 1.1.2",
+            "text": "Kapitel 1.1.2"
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        },
+        {
+          "Header": {
+            "level": 0,
+            "title": "Kapitel 2",
+            "text": "Kapitel 2"
+          }
+        },
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        }
+      ]
+    }
+  ]
+}

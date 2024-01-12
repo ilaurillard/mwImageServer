@@ -1,0 +1,305 @@
+{
+  "pages": [
+    {
+      "multi": true,
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Text": {
+                  "text": "Ein Tabelle über mehrere Seiten. Kopf wird automatisch wiederholt."
+                }
+              },
+              {
+                "Divider": {
+
+                }
+              }
+            ]
+          }
+        },
+        {
+          "TableAuto": {
+            "source": "@source1",
+            "cellPadding": [
+              1.5
+            ],
+            "cellHeight": 10,
+            "cellAlignment": "topLeft",
+            "cellAlignments": {
+              "0": "centerLeft",
+              "1": "bottomRight",
+              "2": "topLeft",
+              "3": "centerRight"
+            },
+            "cellStyle": {
+              "color": "FF0000"
+            },
+            "oddCellStyle": {
+              "color": "0000FF"
+            },
+            "headerCount": 1,
+            "headerPadding": [
+              1
+            ],
+            "headerAlignment": "topRight",
+            "headerAlignments": {
+              "1": "center"
+            },
+            "headerStyle": {
+              "color": "666666",
+              "fontWeight": "bold"
+            },
+            "border": {
+              "all": {
+                "style": "dotted"
+              }
+            },
+            "tableWidth": "max",
+            "headerDecoration": {
+              "color": "FFEE00",
+              "border": {
+                "all": {
+                  "style": "solid"
+                }
+              }
+            },
+            "rowDecoration": {
+              "color": "CCCCCC"
+            },
+            "headers": [
+              "Animal",
+              "Amount",
+              "Wild",
+              "Weight"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@source1": {
+      "values": [
+        [
+          "Katze",
+          1,
+          true,
+          7.5
+        ],
+        [
+          "Hund",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Vogel",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Frosch",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Meerschwein",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Maus",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Löwe",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Katze",
+          1,
+          true,
+          7.5
+        ],
+        [
+          "Hund",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Vogel",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Frosch",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Meerschwein",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Maus",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Löwe",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Katze",
+          1,
+          true,
+          7.5
+        ],
+        [
+          "Hund",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Vogel",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Frosch",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Meerschwein",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Maus",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ],
+        [
+          "Löwe",
+          0,
+          true,
+          1121.52
+        ]
+      ]
+    }
+  }
+}

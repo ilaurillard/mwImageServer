@@ -28,7 +28,7 @@ class HyphenatedParagraph extends pw.StatelessWidget {
       child: HyphenatedText(
         text!,
         textAlign: textAlign,
-        style: style ?? pw.Theme.of(context).paragraphStyle,
+        style:  pw.Theme.of(context).paragraphStyle.merge(style),
         overflow: pw.TextOverflow.span,
         hyphenation: hyphenation,
       ),

@@ -1,0 +1,126 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "Partitions": {
+                  "children": [
+                    {
+                      "Partition": {
+                        "flex": 1,
+                        "child": {
+                          "Column": {
+                            "children": [
+                              {
+                                "Placeholder": {
+                                  "fallbackHeight": 40
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Partition": {
+                        "flex": 4,
+                        "child": {
+                          "Column": {
+                            "children": [
+                              {
+                                "Placeholder": {
+                                  "fallbackHeight": 40
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Partition": {
+                        "flex": 1,
+                        "child": {
+                          "Column": {
+                            "children": [
+                              {
+                                "Placeholder": {
+                                  "fallbackHeight": 40
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Partitions": {
+                  "children": [
+                    {
+                      "Partition": {
+                        "flex": 3,
+                        "child": {
+                          "Column": {
+                            "children": [
+                              {
+                                "Placeholder": {
+                                  "fallbackHeight": 40
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Partition": {
+                        "flex": 2,
+                        "child": {
+                          "Column": {
+                            "children": [
+                              {
+                                "Placeholder": {
+                                  "fallbackHeight": 30
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Partition": {
+                        "flex": 1,
+                        "child": {
+                          "Column": {
+                            "children": [
+                              {
+                                "Placeholder": {
+                                  "fallbackHeight": 20
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "ListView": {
+            "spacing": 2,
+            "children": [
+              {
+                "Text": {
+                  "text": "SVG"
+                }
+              },
+              {
+                "Container": {
+                  "height": 10,
+                  "child": {
+                    "SvgImage": {
+                      "source": "@svg1"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "child": {
+                    "SvgImage": {
+                      "source": "@svg1"
+                    }
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Bilder"
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Container": {
+                        "height": 30,
+                        "child": {
+                          "Image": {
+                            "dpi": 90,
+                            "source": "@image1"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "height": 30,
+                        "child": {
+                          "Image": {
+                            "dpi": 60,
+                            "source": "@image1"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "height": 30,
+                        "child": {
+                          "Image": {
+                            "dpi": 30,
+                            "source": "@image1"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "height": 30,
+                        "child": {
+                          "Image": {
+                            "dpi": 10,
+                            "source": "@image1"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Text": {
+                  "text": "Pfade"
+                }
+              },
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceEvenly",
+                  "children": [
+                    {
+                      "Container": {
+                        "height": 40,
+                        "width": 40,
+                        "child": {
+                          "Shape": {
+                            "source": "@shape1",
+                            "strokeColor": "333333",
+                            "fillColor": "CCFFCC",
+                            "fit": "contain"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "height": 40,
+                        "width": 40,
+                        "child": {
+                          "Shape": {
+                            "path": "M 0 0 H 50 V50 H 0 L 0 0",
+                            "strokeColor": "222222",
+                            "fillColor": "DDEEDD",
+                            "fit": "contain"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "height": 40,
+                        "width": 40,
+                        "child": {
+                          "Shape": {
+                            "path": "M 10 10 C 20 20, 40 20, 50 10 Z",
+                            "strokeColor": "111111",
+                            "fillColor": "CCDDCC",
+                            "fit": "contain"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@image1": {
+      "url": "https://placekitten.com/300/200"
+    },
+    "@svg1": {
+      "binary": "<svg height=\"100\" width=\"100\"><circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"yellow\" /></svg>"
+    },
+    "@shape1": {
+      "binary": "M 0 0 H 100 V 100 H 0 L 0 0"
+    }
+  }
+}

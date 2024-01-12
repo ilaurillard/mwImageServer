@@ -1,0 +1,419 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Row": {
+            "children": [
+              {
+                "Expanded": {
+                  "flex": 3,
+                  "child": {
+                    "Column": {
+                      "children": [
+                        {
+                          "Chart": {
+                            "grid": {
+                              "CartesianGrid": {
+                                "xAxis": {
+                                  "FixedAxis": {
+                                    "values": [
+                                      0,
+                                      1,
+                                      2,
+                                      3,
+                                      4,
+                                      5,
+                                      6
+                                    ],
+                                    "ticks": true,
+                                    "divisions": true,
+                                    "axisTick": true,
+                                    "divisionsDashed": true,
+                                    "angle": 0,
+                                    "width": 0.2,
+                                    "divisionsWidth": 0.2,
+                                    "margin": 0,
+                                    "marginStart": 10,
+                                    "marginEnd": 10,
+                                    "textStyle": {
+                                      "color": "FF0000"
+                                    },
+                                    "color": "006688"
+                                  }
+                                },
+                                "yAxis": {
+                                  "FixedAxis": {
+                                    "values": {
+                                      "0.0": "a %value%",
+                                      "0.5": "b %value%",
+                                      "1.0": "c %value%",
+                                      "1.5": "d %value%",
+                                      "2.0": "e %value%",
+                                      "2.5": "f %value%",
+                                      "3.0": "g %value%",
+                                      "3.5": "h %value%",
+                                      "4.0": "i %value%",
+                                      "4.5": "j %value%",
+                                      "5.0": "k %value%",
+                                      "5.5": "l %value%",
+                                      "6.0": "m %value%"
+                                    },
+                                    "ticks": true,
+                                    "divisions": true,
+                                    "axisTick": true,
+                                    "divisionsDashed": true,
+                                    "angle": 0,
+                                    "width": 0.2,
+                                    "divisionsWidth": 0.2
+                                  }
+                                }
+                              }
+                            },
+                            "datasets": [
+                              {
+                                "BarDataSet": {
+                                  "source": "@source1",
+                                  "legend": "aaa",
+                                  "color": "FF8800",
+                                  "borderColor": "000000",
+                                  "pointColor": "FF8800",
+                                  "axis": "horizontal",
+                                  "drawPoints": false,
+                                  "drawSurface": true,
+                                  "surfaceOpacity": 0.3,
+                                  "width": 8,
+                                  "drawBorder": true,
+                                  "valuePosition": "auto"
+                                }
+                              },
+                              {
+                                "LineDataSet": {
+                                  "source": "@source2",
+                                  "legend": "bbb",
+                                  "color": "FF8800",
+                                  "pointColor": "000000",
+                                  "surfaceColor": "FFFF00",
+                                  "drawPoints": true,
+                                  "drawSurface": true,
+                                  "surfaceOpacity": 0.3,
+                                  "valuePosition": "auto",
+                                  "isCurved": false
+                                }
+                              }
+                            ],
+                            "overlay": {
+                              "ChartLegend": {
+                                "position": "0.9,1",
+                                "direction": "vertical"
+                              }
+                            },
+                            "title": {
+                              "Text": {
+                                "text": "title"
+                              }
+                            },
+                            "bottom": {
+                              "Text": {
+                                "text": "B"
+                              }
+                            },
+                            "left": {
+                              "Text": {
+                                "text": "L"
+                              }
+                            },
+                            "right": {
+                              "Text": {
+                                "text": "R"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "Divider": {
+                          }
+                        },
+                        {
+                          "Chart": {
+                            "grid": {
+                              "PieGrid": {
+                                "startAngle": 45.0
+                              }
+                            },
+                            "datasets": [
+                              {
+                                "PieDataSet": {
+                                  "legend": "Hund",
+                                  "color": "000066",
+                                  "value": 2.3,
+                                  "legendStyle": {
+                                    "color": "000000"
+                                  },
+                                  "legendLineWidth": 0.2,
+                                  "legendLineColor": "000000",
+                                  "legendPosition": "auto"
+                                }
+                              },
+                              {
+                                "PieDataSet": {
+                                  "legend": "Katze",
+                                  "color": "F80000",
+                                  "value": 63.7,
+                                  "legendOffset": 0
+                                }
+                              },
+                              {
+                                "PieDataSet": {
+                                  "legend": "Maus",
+                                  "color": "00FF00",
+                                  "value": 35,
+                                  "innerRadius": 0,
+                                  "legendOffset": 0
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "VerticalDivider": {
+                }
+              },
+              {
+                "Expanded": {
+                  "flex": 2,
+                  "child": {
+                    "Column": {
+                      "children": [
+                        {
+                          "Chart": {
+                            "grid": {
+                              "PieGrid": {
+                                "startAngle": 10.0
+                              }
+                            },
+                            "datasets": [
+                              {
+                                "PieDataSet": {
+                                  "source": "@source3"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Divider": {
+                          }
+                        },
+                        {
+                          "Chart": {
+                            "grid": {
+                              "CartesianGrid": {
+                                "xAxis": {
+                                  "FixedAxis": {
+                                    "values": [
+                                      0.0,
+                                      1.0,
+                                      2.0,
+                                      3.0,
+                                      4.0,
+                                      5.0,
+                                      6.0
+                                    ]
+                                  }
+                                },
+                                "yAxis": {
+                                  "FixedAxis": {
+                                    "values": {
+                                      "0": "a",
+                                      "1": "b",
+                                      "2": "c",
+                                      "3": "d",
+                                      "4": "e",
+                                      "5": "f",
+                                      "6": "g"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "datasets": [
+                              {
+                                "LineDataSet": {
+                                  "source": "@source1",
+                                  "legend": "ccc",
+                                  "color": "FF8800",
+                                  "surfaceColor": "CCCCCC",
+                                  "drawSurface": true,
+                                  "surfaceOpacity": 0.3,
+                                  "isCurved": true
+                                }
+                              }
+                            ],
+                            "overlay": {
+                              "ChartLegend": {
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "Chart": {
+                  "grid": {
+                    "CartesianGrid": {
+                      "xAxis": {
+                        "FixedAxis": {
+                          "values": null
+                        }
+                      },
+                      "yAxis": {
+                        "FixedAxis": {
+                          "values": null
+                        }
+                      }
+                    }
+                  },
+                  "datasets": [
+                    {
+                      "LineDataSet": {
+                        "source": "@source4",
+                        "color": "FF8800",
+                        "lineWidth": 0.2,
+                        "pointColor": "000000",
+                        "surfaceColor": "88FF88",
+                        "drawSurface": true,
+                        "drawPoints": true,
+                        "surfaceOpacity": 0.3,
+                        "isCurved": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@source1": {
+      "values": [
+        [
+          3.9
+        ],
+        [
+          4.9
+        ],
+        [
+          5
+        ],
+        [
+          3.5
+        ],
+        [
+          4.0
+        ],
+        [
+          1.4
+        ]
+      ]
+    },
+    "@source2": {
+      "values": [
+        [
+          2.9
+        ],
+        [
+          3.9
+        ],
+        [
+          4
+        ],
+        [
+          2.5
+        ],
+        [
+          6.0
+        ],
+        [
+          0.4
+        ]
+      ]
+    },
+    "@source3": {
+      "data": [
+        {
+          "value": 27,
+          "legend": "Hund",
+          "color": "336600"
+        },
+        {
+          "value": 33,
+          "legend": "Katze",
+          "color": "660033"
+        },
+        {
+          "value": 30,
+          "legend": "Maus",
+          "color": "330066"
+        },
+        {
+          "value": 10,
+          "legend": "Giraffe",
+          "color": "FF8000"
+        }
+      ]
+    },
+    "@source4": {
+      "values": [
+        [
+          2.9
+        ],
+        [
+          3.9
+        ],
+        [
+          4
+        ],
+        [
+          2.5
+        ],
+        [
+          6.0
+        ],
+        [
+          3.4
+        ],
+        [
+          1.4
+        ],
+        [
+          0.4
+        ],
+        [
+          3.4
+        ]
+      ]
+    }
+  }
+}

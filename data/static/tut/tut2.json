@@ -1,0 +1,18 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Paragraph": {
+            "text": "Das PDF-Hauptelement enthält nur wenige Attribute. Das wichtigste ist das 'pages'-Attribut.\nJede Seite enthält eine Liste von 'Widgets'.\n\nHier ein einfaches Paragraph-Widget."
+          }
+        },
+        {
+          "Paragraph": {
+            "text": "Aber Achtung, auf einfachen Seiten, wird nur das erste Widget gerendert. Dazu später mehr."
+          }
+        }
+      ]
+    }
+  ]
+}

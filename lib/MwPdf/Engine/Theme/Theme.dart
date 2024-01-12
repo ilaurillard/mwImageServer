@@ -199,7 +199,7 @@ class Theme {
     });
   }
 
-  static pw.ThemeData defaultDocumentTheme(
+  static pw.ThemeData? defaultDocumentTheme(
       State state,
       ) {
     return pw.ThemeData(
@@ -210,9 +210,10 @@ class Theme {
     );
   }
 
-  static pw.PageTheme defaultPageTheme(
+  static pw.PageTheme? defaultPageTheme(
     State state,
   ) {
+    return null;
     return pw.PageTheme(
       theme: pw.ThemeData(
         iconTheme: iconTheme(

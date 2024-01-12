@@ -1,0 +1,202 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "Es sind einige Fonts immer verfügbar, teilweise aber ohne UTF-8 Support:"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Courier",
+                  "style": {
+                    "font": "courier"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Courier Fett",
+                  "style": {
+                    "font": "courierBold"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Courier Fett + Kursiv",
+                  "style": {
+                    "font": "courierBoldOblique"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Courier Kursiv",
+                  "style": {
+                    "font": "courierOblique"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Helvetica",
+                  "style": {
+                    "font": "helvetica"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Helvetica Fett",
+                  "style": {
+                    "font": "helveticaBold"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Helvetica Fett und Kursiv",
+                  "style": {
+                    "font": "helveticaBoldOblique"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Helvetica Kursiv",
+                  "style": {
+                    "font": "helveticaOblique"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Times",
+                  "style": {
+                    "font": "times"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Times Fett",
+                  "style": {
+                    "font": "timesBold"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Times Fett und Kursiv",
+                  "style": {
+                    "font": "timesBoldItalic"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Times Kursiv",
+                  "style": {
+                    "font": "timesItalic"
+                  }
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Es ist geplant, weitere typische Fonts bereitzustellen, oder ggf. sogar Fonts einbindbar zu machen, aktuell gibt es zumindest schonmal:"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Open Sans Regular",
+                  "style": {
+                    "font": "openSansRegular"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Open Sans Bold",
+                  "style": {
+                    "font": "openSansBold"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Open Sans Italic",
+                  "style": {
+                    "font": "openSansItalic"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Open Sans Bold Italic",
+                  "style": {
+                    "font": "openSansBoldItalic"
+                  }
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Es steht aber auch noch ein Material-Icon-Font zur Verfügung."
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Icons können via Hex-Code oder via Namen eingebunden werden (siehe MaterialIcons-Regular.codepoints)."
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Icon": {
+                        "icon": "close"
+                      }
+                    },
+                    {
+                      "Icon": {
+                        "icon": "bathroom"
+                      }
+                    },
+                    {
+                      "Icon": {
+                        "icon": "camera"
+                      }
+                    },
+                    {
+                      "Icon": {
+                        "icon": "church"
+                      }
+                    },
+                    {
+                      "Icon": {
+                        "icon": "e99a"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -49,12 +49,16 @@ class Engine {
   }
 
   pw.Document pdf() {
-    pw.ThemeData? docTheme = Theme.defaultDocumentTheme(state);
+    // main page theme
+    pw.PageTheme? pageTheme;
     if (meta.theme.isNotEmpty) {
-      pw.PageTheme? pt = meta.themes[meta.theme]?.theme;
-      if (pt != null) {
-        docTheme = pt.theme;
-      }
+      pageTheme = meta.themes[meta.theme]?.theme;
+    }
+
+    // document theme
+    pw.ThemeData? docTheme = Theme.defaultDocumentTheme(state);
+    if (pageTheme != null) {
+      docTheme = pageTheme.theme;
     }
 
     pw.Document pdf = pw.Document(
@@ -117,7 +121,8 @@ class Engine {
 
       // --------------------------
 
-      pw.PageTheme? pageTheme = meta.themes[page.theme]?.theme ??
+      pageTheme = meta.themes[page.theme]?.theme ??
+          pageTheme ??
           Theme.defaultPageTheme(
             state,
           );

@@ -1,0 +1,46 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "Mit dem 'GridPaper'-Widget ist es möglich einen beliebig konfigurierbaren Raster-Hintergrund darzustellen.\\n\\nAchtung, alle Maße weiterhin in mm!"
+                }
+              },
+              {
+                "Container": {
+                  "width": 100,
+                  "height": 100,
+                  "child": {
+                    "GridPaper": {
+                      "color": "FF8800",
+                      "divisions": 2,
+                      "subdivisions": 5,
+                      "interval": 50,
+                      "child": {
+                        "Polygon": {
+                          "points": [
+                            [5, 5],
+                            [20, 85],
+                            [90, 90],
+                            [75, 10],
+                            [15, 0]
+                          ],
+                          "strokeColor": "7777CC",
+                          "close": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
+import 'package:pdf/widgets.dart';
 import 'package:shelf/shelf.dart';
 
 import '../Service/Pdf.dart';
@@ -98,9 +99,14 @@ class ApiPdf {
       );
     } on ResponseException catch (e) {
       return e.response;
+    } on TooManyPagesException catch (e) {
+      return Util.rError(
+        message: 'TooManyPagesException, a widget is probably too big for one page!',
+      );
+
     } on Exception catch (e) {
       return Util.rError(
-        message: e.toString(),
+        message: e.runtimeType.toString(),
       );
     }
   }

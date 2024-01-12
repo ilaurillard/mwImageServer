@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta charset="UTF-8"/>
     <title>test</title>
     <style>
 
@@ -20,32 +21,75 @@
             width: 40em;
         }
 
+        #tutContainer {
+            position: relative;
+            height: 50em;
+            margin-bottom: 0.5em;
+            background-color: white;
+        }
+
         input, textarea {
             width: 100%;
             padding: 0.5em;
-            font-size: 1.2em;
+            font-size: 14px;
+            line-height: 120%;
         }
 
-        textarea {
-            height: 50em;
+        #tutInfo {
+            display: none;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            text-align: right;
+            box-sizing: border-box;
+            padding: 0.5em 1.5em 0.5em 0.5em;
+            color: green;
             font-family: monospace;
+            font-style: italic;
+            font-size: 14px;
+            line-height: 120%;
         }
 
-        #iframe,
-        #embedPdf {
+        #data {
+            height: 100%;
+            font-family: monospace;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: transparent;
+        }
+
+        #iframe {
             background-color: #FFF;
             width: 40em;
             height: 50em;
             border: 1px solid #000;
         }
 
-        #butt, #validate, #clear {
+        #butt, #validate, #clear, #info, #schema {
             background-color: #8888AA;
             border: 1px solid #000;
             color: #FFF;
             float: right;
             padding: 0.5em;
             margin-left: 0.5em;
+        }
+
+        #tutButtons {
+            margin-bottom: 0.5em;
+        }
+        #tutButtons button {
+            display: block;
+            margin-bottom: 0.2em;
+        }
+        #tutButtons button[data-tut=""] {
+            color: #666;
+        }
+
+        h4 {
+            margin-bottom: 0.5em;
         }
 
     </style>
@@ -56,35 +100,107 @@
 <h4>mwpdf</h4>
 
 <div id="container">
-    <form>
 
-        <textarea id="data">
-{
-  "pages": [
-    {
-      "content": [
-        {
-          "Paragraph": {
-             "text": "Hello world!"
-          }
-        }
-      ]
-    }
-  ]
-}</textarea><br/>
-        <br />
-<!--        <input id="auth" type="text" value="myRootKey" placeholder="Authkey"/><br/>-->
-<!--        <br />-->
+    <div id="tutButtons">
+        <button data-tut="1">Hello World</button>
+
+        <hr />
+
+        <button data-tut="2">Seitenstruktur</button>
+        <button data-tut="3">Meta-Daten</button>
+        <button data-tut="4">Validierung</button>
+        <button data-tut="5">Einzelne Seite</button>
+        <button data-tut="6">Multi Seite</button>
+        <button data-tut="7">Mehrspaltig</button>
+        <button data-tut="8">Seite/Ränder</button>
+        <button data-tut="9">Kopf/Fuß</button>
+
+        <hr />
+
+        <button data-tut="">Layout, Col/Row</button>
+        <button data-tut="">Layout, Flexible</button>
+        <button data-tut="23">Layout, Listview</button>
+        <button data-tut="22">Layout, Partitions</button>
+        <button data-tut="21">Layout, Grid</button>
+        <button data-tut="20">Layout, Stack</button>
+        <button data-tut="19">Layout, Clips/Decoration</button>
+
+        <hr />
+
+        <button data-tut="10">Textstyles</button>
+        <button data-tut="11">Richtext/Markdown</button>
+        <button data-tut="12">Silbentrennung</button>
+        <button data-tut="13">Fonts/Icons</button>
+        <button data-tut="18">Bullets/Gliederung</button>
+
+        <hr />
+
+        <button data-tut="">Datenquellen</button>
+        <button data-tut="17">Bilder</button>
+        <button data-tut="24">Diagramme</button>
+        <button data-tut="16">Barcodes</button>
+        <button data-tut="26">Tabellen 1</button>
+        <button data-tut="27">Tabellen 2</button>
+        <button data-tut="28">Tabellen 3</button>
+        <button data-tut="15">Grafiken</button>
+        <button data-tut="14">Millimeterpapier</button>
+
+        <hr />
+
+        <button data-tut="25">Inhaltsverzeichnis</button>
+        <button data-tut="29">Links</button>
+        <button data-tut="">Anmerkungen</button>
+        <button data-tut="">Formulare</button>
+
+    </div>
+
+    <div style="width:2em"></div>
+
+    <form>
+        <div id="tutContainer">
+            <div id="tutInfo">
+                Das wichtigste Attribut des<br/>
+                Hauptelementes ist das <strong>pages</strong>-Attribut,<br/>
+                welches die auszugebenden Inhalte definiert.<br/>
+                Jede Seite enthält ein <strong>content</strong>-Attribut,<br/>
+                mit einer Liste von "Widgets". <br/>
+                Hier ein erstes "<strong>Paragraph</strong>"-Widget<br/>
+                mit einem <strong>text</strong>-Attribut.<br/>
+                <br/>
+                Klicke nun unten auf "Generate PDF"<br/>
+                um das Ergebnis anzusehen.
+            </div>
+
+            <textarea id="data">
+</textarea>
+        </div>
+        <!--        <input id="auth" type="text" value="myRootKey" placeholder="Authkey"/><br/>-->
+        <!--        <br />-->
+
         <button id="butt">Generate PDF</button>
         <button id="validate">Validate</button>
+
+        <button id="schema">Schema</button>
         <button id="clear">Clear</button>
 
     </form>
+
     <div style="width:3em"></div>
+
     <iframe id="iframe" frameborder="0"></iframe>
+
 </div>
 
 <script>
+
+    let bt = document.querySelectorAll('button[data-tut]');
+    for (var i = 0; i < bt.length; i++) {
+        bt[i].onclick = function (e) {
+            e.preventDefault();
+            let t = this.getAttribute('data-tut');
+            loadTut(t);
+        }
+    }
 
     document.getElementById('clear').onclick = function (e) {
         e.preventDefault();
@@ -103,12 +219,19 @@
         );
         xhr.responseType = 'arraybuffer';
         xhr.onload = function (e) {
-            let content = this.response;
-            let blob = new Blob([content], {type: 'application/pdf'});
-            let url = URL.createObjectURL(blob);
-            let i = document.getElementById('iframe');
-            i.src = url;
-            i.hidden = false;
+            if (xhr.status == 200) {
+                let content = this.response;
+                let blob = new Blob([content], {type: 'application/pdf'});
+                let url = URL.createObjectURL(blob);
+                let i = document.getElementById('iframe');
+                i.src = url;
+                i.hidden = false;
+            }
+            else {
+                let td = new TextDecoder("utf-8");
+                let s = td.decode(this.response);
+                alert(s);
+            }
         };
         let data = document.getElementById('data').value;
         xhr.send(data);
@@ -131,6 +254,38 @@
         xhr.send(data);
     }
 
+    document.getElementById('schema').onclick = function (e) {
+        e.preventDefault();
+
+        let xhr = new XMLHttpRequest;
+        xhr.open('get', 'http://0.0.0.0:8081/api/schema', true);
+        xhr.setRequestHeader(
+            'Authorization',
+            'myRootKey'
+        );
+        xhr.onload = function (e) {
+            let content = this.response;
+            document.getElementById('data').value = content;
+        };
+        xhr.send({});
+    }
+
+    loadTut = function(nr) {
+
+        let xhr = new XMLHttpRequest;
+        xhr.open('get', 'http://0.0.0.0:8081/static/tut/tut' + nr + '.json', true);
+        xhr.setRequestHeader(
+            'Authorization',
+            'myRootKey'
+        );
+        xhr.onload = function (e) {
+            let content = this.response;
+            document.getElementById('data').value = content;
+        };
+        xhr.send({});
+    }
+
+    loadTut(1);
 
 </script>
 </body>

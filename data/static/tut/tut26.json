@@ -1,0 +1,450 @@
+{
+  "meta": {
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "format": {
+          "preset": "a5",
+          "marginLeft": 10,
+          "marginTop": 10,
+          "marginRight": 20,
+          "marginBottom": 20
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Table": {
+                  "tableWidth": "min",
+                  "defaultColumnWidth": {
+                    "FixedColumnWidth": {
+                      "width": 80
+                    }
+                  },
+                  "border": {
+                    "all": {
+                      "style": "none"
+                    },
+                    "bottom": {
+                      "style": "solid",
+                      "color": "0000FF"
+                    },
+                    "verticalInside": {
+                      "style": "none"
+                    },
+                    "horizontalInside": {
+                      "style": "dotted",
+                      "color": "0000FF"
+                    }
+                  },
+                  "children": [
+                    {
+                      "TableRow": {
+                        "verticalAlignment": "middle",
+                        "repeat": false,
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "Hund"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Katze"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Maus"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "TableRow": {
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "Huhn"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Henne"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Ei"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Table": {
+                  "tableWidth": "min",
+                  "columnWidths": {
+                    "0": {
+                      "FixedColumnWidth": {
+                        "width": 40
+                      }
+                    },
+                    "1": {
+                      "FixedColumnWidth": {
+                        "width": 30
+                      }
+                    },
+                    "2": {
+                      "FixedColumnWidth": {
+                        "width": 20
+                      }
+                    }
+                  },
+                  "defaultVerticalAlignment": "bottom",
+                  "border": {
+                    "all": {
+                      "style": "solid",
+                      "color": "000000"
+                    }
+                  },
+                  "children": [
+                    {
+                      "TableRow": {
+                        "decoration": {
+                          "color": "FFCCCC"
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "Hund"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Katze"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Haus"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "TableRow": {
+                        "decoration": {
+                          "color": "FFAAAA"
+                        },
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "Huhn"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Hahn"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Küken"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Table": {
+                  "tableWidth": "max",
+                  "columnWidths": {
+                    "0": {
+                      "FlexColumnWidth": {
+                        "flex": 3
+                      }
+                    },
+                    "1": {
+                      "FlexColumnWidth": {
+                        "flex": 2
+                      }
+                    },
+                    "2": {
+                      "FlexColumnWidth": {
+                        "flex": 1
+                      }
+                    }
+                  },
+                  "defaultVerticalAlignment": "bottom",
+                  "border": {
+                    "all": {
+                      "style": "solid",
+                      "color": "000000"
+                    },
+                    "verticalInside": {
+                      "style": "none"
+                    }
+                  },
+                  "children": [
+                    {
+                      "TableRow": {
+                        "decoration": {
+                          "color": "CCFFCC"
+                        },
+                        "children": [
+                          {
+                            "Container": {
+                              "height": 15
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Hase"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Pferd"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "TableRow": {
+                        "decoration": {
+                          "color": "AAFFAA"
+                        },
+                        "children": [
+                          {
+                            "Container": {
+                              "color": "99EE99",
+                              "constraints": {
+                                "minHeight": 15
+                              },
+                              "child": {
+                                "Text": {
+                                  "text": "Eichhorn"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Einhorn"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Pegasus"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+
+                }
+              },
+              {
+                "Table": {
+                  "tableWidth": "max",
+                  "columnWidths": {
+                    "0": {
+                      "FlexColumnWidth": {
+                        "flex": 2
+                      }
+                    },
+                    "1": {
+                      "FlexColumnWidth": {
+                        "flex": 1
+                      }
+                    },
+                    "2": {
+                      "FlexColumnWidth": {
+                        "flex": 1
+                      }
+                    },
+                    "3": {
+                      "FlexColumnWidth": {
+                        "flex": 1
+                      }
+                    }
+                  },
+                  "border": {
+                    "all": {
+                      "style": "solid"
+                    }
+                  },
+                  "children": [
+                    {
+                      "TableRow": {
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "Pet",
+                              "style": {
+                                "fontWeight": "bold"
+                              }
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Amount",
+                              "style": {
+                                "fontWeight": "bold"
+                              }
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Crazy",
+                              "style": {
+                                "fontWeight": "bold"
+                              }
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "Weight",
+                              "style": {
+                                "fontWeight": "bold"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "TableRow": {
+                        "source": "@source1",
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "%value%"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "%value%"
+                            }
+                          },
+                          {
+                            "Switch": {
+                              "subject": "%value%",
+                              "default": {
+                                "Text": {
+                                  "text": "%value%"
+                                }
+                              },
+                              "cases": {
+                                "false": {
+                                  "Align": {
+                                    "child": {
+                                      "Icon": {
+                                        "icon": "close",
+                                        "color": "660000"
+                                      }
+                                    }
+                                  }
+                                },
+                                "true": {
+                                  "Align": {
+                                    "child": {
+                                      "Icon": {
+                                        "icon": "check_circle",
+                                        "color": "006600"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Text": {
+                              "textAlign": "right",
+                              "text": "%value%"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@source1": {
+      "valuesFormats": {
+        "1": "#,##0",
+        "3": "#,##0.00"
+      },
+      "values": [
+        [
+          "Katze",
+          1,
+          true,
+          7.5
+        ],
+        [
+          "Hund",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Vogel",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Frosch",
+          2,
+          false,
+          1.5
+        ],
+        [
+          "Tiger",
+          0,
+          true,
+          1121.52
+        ]
+      ]
+    }
+  }
+}

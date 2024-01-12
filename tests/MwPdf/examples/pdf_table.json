@@ -1,4 +1,18 @@
 {
+  "meta": {
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "format": {
+          "preset": "a5",
+          "marginLeft": 10,
+          "marginTop": 10,
+          "marginRight": 20,
+          "marginBottom": 20
+        }
+      }
+    }
+  },
   "pages": [
     {
       "content": [

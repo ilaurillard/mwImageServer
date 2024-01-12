@@ -1,0 +1,32 @@
+{
+  "pages": [
+    {
+      "multi": true,
+      "columns": 3,
+      "gapWidth": 10,
+      "content": [
+        {
+          "Paragraph": {
+            "text": "Hier eine spezielle Multi-Seite mit mehreren Spalten. Statt einem Seitenüberlauf kann es auch einen Spaltenüberlauf geben!"
+          }
+        },
+        {
+          "Paragraph": {
+            "text": "Die meisten Maße sind übrigens in mm. Der oben definierte 'Steg' ist hier also 1cm breit.",
+            "style": {
+              "color": "338833"
+            }
+          }
+        },
+        {
+          "LoremParagraph": {
+            "textAlign": "left",
+            "sentence": 500,
+            "random": 234,
+            "textAlign": "justify"
+          }
+        }
+      ]
+    }
+  ]
+}

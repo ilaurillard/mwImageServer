@@ -1,0 +1,30 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "Jedes beliebige PDF kann komplett mit Hilfe von einer JSON-Struktur beschrieben werden. Das JSON folgt bestimmten Regeln die mit einem JSON-Schema validiert werden können."
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Klicke unten auf den Knopf 'Schema' und du kannst dir dieses Schema ansehen ('/api/schema'). Das Schema findet Verwendung wenn du JSON-Daten an den Service um ein PDF zu Erstellen sendest ('/api/pdf'). Wird das Schema nicht eingehalten, so kann kein PDF erstellt werden. Du kannst dein JSON auch mit einem besonderen Service ('/api/validate') testen - klicke dazu unten auf den Knopf 'Validate'"
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Besonders spannend wird es, wenn du das Schema in deinem IDE installierst. Ordnest du nun eine PDF-JSON Datein diesem Schema zu, so siehst du direkt Fehler und du bekommst Beschreibungen und eine Auto-Vervollständigung."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

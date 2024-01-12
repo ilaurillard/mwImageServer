@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "format": {
+          "preset": "a5",
+          "marginLeft": 10,
+          "marginTop": 10,
+          "marginRight": 20,
+          "marginBottom": 20
+        }
+      },
+      "@custom": {
+        "orientation": "landscape",
+        "format": {
+          "preset": "a4",
+          "marginAll": 50
+        }
+      },
+      "@letter": {
+        "format": {
+          "width": 215.9,
+          "height": 279.4
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Paragraph": {
+            "text": "Seite 1 ist im Format A5. Das oben definierte 'Theme' gilt für alle Seiten ohne Theme. Themes haben einen @Bezeichner unter dem sie referenziert werden können."
+          }
+        }
+      ]
+    },
+    {
+      "theme": "@custom",
+      "content": [
+        {
+          "Paragraph": {
+            "text": "Seite 2 verweist auf ein besonderes 'Theme'."
+          }
+        }
+      ]
+    },
+    {
+      "theme": "@default",
+      "content": [
+        {
+          "Paragraph": {
+            "text": "Seite 3 wird wiederum im Format vom @default Theme gerendert."
+          }
+        }
+      ]
+    },
+    {
+      "theme": "@letter",
+      "content": [
+        {
+          "Paragraph": {
+            "text": "Seite 4 hat wieder ein eigenes Format."
+          }
+        }
+      ]
+    }
+  ]
+}

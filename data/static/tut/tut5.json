@@ -1,0 +1,31 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "Eine einzelne Seite hat nur einen begrenzten Raum."
+                }
+              },
+              {
+                "LoremParagraph": {
+                  "paragraph": 450,
+                  "random": 1
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Nach dem Blindtext ist nur noch wenig Platz auf dieser Seite. Passt ein Widget nicht mehr in den verfügbaren Platz, so wird es weggelassen."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

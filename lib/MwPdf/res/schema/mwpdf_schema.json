@@ -776,17 +776,18 @@
               "helveticaBold",
               "helveticaBoldOblique",
               "helveticaOblique",
-              "symbol",
               "times",
               "timesBold",
               "timesBoldItalic",
-              "timesItalic",
-              "zapfDingbats"
+              "timesItalic"
             ]
           },
           {
             "enum": [
-              "openSansRegular"
+              "openSansRegular",
+              "openSansBold",
+              "openSansBoldItalic",
+              "openSansItalic"
             ]
           },
           {
@@ -1181,6 +1182,9 @@
             "$ref": "#/definitions/Widget"
           },
           "name": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           },
           "setX": {

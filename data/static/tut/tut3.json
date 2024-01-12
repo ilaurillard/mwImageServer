@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "title": "Der Titel des Dokumentes",
+    "keywords": "Schlagwort1,Schlagwort2"
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "Im 'meta'-Attribute können Meta-Daten des Dokumentes wie title, author, creator, subject, keywords, producer, subject angegeben werden."
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Probiere es doch einmal aus, indem du zum Beispiel den Title veränderst."
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Außerdem sehen wir ein erstes Container-Widget 'Column'. So ein Container kann mehrere Widgets enthalten."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

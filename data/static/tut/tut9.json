@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "headers": {
+      "@default": {
+        "Container": {
+          "color": "DDDDDD",
+          "margin": [0, 0, 0, 10],
+          "height": 20.0,
+          "child": {
+            "Text": {
+              "text": "Kopfbereich, 2cm hoch, 1cm Abstand nach unten"
+            }
+          }
+        }
+      }
+    },
+    "footers": {
+      "@default": {
+        "Row": {
+          "crossAxisAlignment": "start",
+          "children": [
+            {
+              "Expanded": {
+                "child": {
+                  "Text": {
+                    "text": "Fußbereich mit Seitenzahlen"
+                  }
+                }
+              }
+            },
+            {
+              "Text": {
+                "text": "%pageNumber%/%pagesCount%"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "header": "@default",
+      "footer": "@default",
+      "content": [
+        {
+          "Paragraph": {
+            "text": "Kopf und Fuß werden ähnlich wie Themes referenziert. Auf Multi-Seiten wiederholen sich diese automatisch!",
+            "style": {
+              "color": "006600"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "multi": true,
+      "header": "@default",
+      "footer": "@default",
+      "content": [
+        {
+          "LoremParagraph": {
+            "sentence": 500
+          }
+        }
+      ]
+    },
+    {
+      "header": "@default",
+      "footer": "@default",
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "LoremParagraph": {
+                  "paragraph": 100,
+                  "textAlign": "left"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Seitenzahlen können auch woanders benutzt werden: %pageNumber%/%pagesCount%",
+                  "style": {
+                    "color": "006600"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

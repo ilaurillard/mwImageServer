@@ -12,8 +12,18 @@ import 'Datasource.dart';
 class State {
   static const material = 'material';
 
+  // be sure to include names in schema
+  Map<String, String> builtinFonts = {
+    'openSansRegular': 'OpenSans/OpenSans-Regular.ttf',
+    'openSansBold': 'OpenSans/OpenSans-Bold.ttf',
+    'openSansItalic': 'OpenSans/OpenSans-Italic.ttf',
+    'openSansBoldItalic': 'OpenSans/OpenSans-BoldItalic.ttf',
+  };
+
   static Map<String, pw.Font> fonts = {};
   static Map<String, String> materialCodes = {};
+
+  static Map<String, Hyphenator> hyphenators = {};
 
   final String resDir;
 
@@ -25,8 +35,6 @@ class State {
 
   final Storage storage;
 
-  final Map<String, Hyphenator> _hyphenators = {};
-
   State({
     required this.resDir,
     required this.storage,
@@ -37,32 +45,24 @@ class State {
       await loadBuiltinFonts();
       await loadMaterialFont();
     }
-
+    if (hyphenators.isEmpty) {
+      await loadHyphenation();
+    }
     await loadSources();
-
-    // TODO load more languages
-    _hyphenators['de'] = Hyphenator(
-      resource: await Loader.load(
-        File('$resDir/tex/hyph-de-1996.tex'),
-      ),
-      minLetterCount: 2,
-    );
-    _hyphenators['en-us'] = Hyphenator(
-      resource: await Loader.load(
-        File('$resDir/tex/hyph-en-us.tex'),
-      ),
-      minLetterCount: 2,
-    );
   }
 
   Future<void> loadBuiltinFonts() async {
     print('load builtin fonts');
-    fonts['openSansRegular'] = pw.Font.ttf(
-      ByteData.view(
-        (await File('$resDir/fonts/Open Sans Regular.ttf').readAsBytes())
-            .buffer,
-      ),
-    );
+
+    for (String name in builtinFonts.keys) {
+      print(' font: $name, file: ${builtinFonts[name]}');
+      fonts[name] = pw.Font.ttf(
+        ByteData.view(
+          (await File('$resDir/fonts/${builtinFonts[name]}').readAsBytes())
+              .buffer,
+        ),
+      );
+    }
   }
 
   Future<void> loadMaterialFont() async {
@@ -74,9 +74,8 @@ class State {
       ),
     );
 
-    List<String> lines =
-        File('$resDir/fonts/MaterialIcons-Regular.codepoints')
-            .readAsLinesSync();
+    List<String> lines = File('$resDir/fonts/MaterialIcons-Regular.codepoints')
+        .readAsLinesSync();
     for (String line in lines) {
       List<String> splitted = line.split(' ');
       materialCodes[splitted[0]] = splitted[1];
@@ -134,16 +133,34 @@ class State {
   pw.Hyphenation hyphenator({
     String language = 'de',
   }) {
-    if (_hyphenators[language] == null) {
+    if (hyphenators[language] == null) {
       print('No hyphenator for language "$language"!');
     }
     return (String word) {
       if (word.length > 3) {
-        if (_hyphenators[language] != null) {
-          return _hyphenators[language]!.hyphenateWordToList(word);
+        if (hyphenators[language] != null) {
+          return hyphenators[language]!.hyphenateWordToList(word);
         }
       }
       return [word];
     };
+  }
+
+  Future<void> loadHyphenation() async {
+    print('load hyphenation files');
+
+    // TODO support more languages
+    hyphenators['de'] = Hyphenator(
+      resource: await Loader.load(
+        File('$resDir/tex/hyph-de-1996.tex'),
+      ),
+      minLetterCount: 2,
+    );
+    hyphenators['en-us'] = Hyphenator(
+      resource: await Loader.load(
+        File('$resDir/tex/hyph-en-us.tex'),
+      ),
+      minLetterCount: 2,
+    );
   }
 }
