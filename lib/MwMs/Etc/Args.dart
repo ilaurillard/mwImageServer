@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:args/args.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 
-import '../../MwMs/Etc/Types.dart';
+import 'Types.dart';
 
 class Args {
   late final String dataDir;

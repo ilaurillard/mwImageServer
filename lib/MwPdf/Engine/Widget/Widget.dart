@@ -167,11 +167,11 @@ class Widget {
         // ----------
         case 'Spacer':
           return Flex.spacer(data);
-        case 'Flex':
-          return Flex.flex(
-            data,
-            state,
-          );
+        // case 'Flex':
+        //   return Flex.flex(
+        //     data,
+        //     state,
+        //   );
         case 'Row':
           return Flex.row(
             data,

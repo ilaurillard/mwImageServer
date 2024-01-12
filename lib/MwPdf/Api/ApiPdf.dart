@@ -106,7 +106,7 @@ class ApiPdf {
 
     } on Exception catch (e) {
       return Util.rError(
-        message: e.runtimeType.toString(),
+        message: '(${e.runtimeType}) $e',
       );
     }
   }

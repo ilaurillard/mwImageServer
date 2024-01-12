@@ -56,33 +56,33 @@ class Flex {
   }
 
   // (obsolete) parent of row/col ..
-  static pw.Flex flex(
-    Dict json,
-    State state,
-  ) {
-    return pw.Flex(
-      direction: Util.axis(
-            json['direction'] as String?,
-          ) ??
-          pw.Axis.horizontal,
-      mainAxisAlignment: Util.mainAxisAlignment(
-        json['mainAxisAlignment'] as String?,
-      ),
-      crossAxisAlignment: Util.crossAxisAlignment(
-        json['crossAxisAlignment'] as String?,
-      ),
-      mainAxisSize: Util.mainAxisSize(
-        json['mainAxisSize'] as String?,
-      ),
-      verticalDirection: Util.verticalDirection(
-        json['verticalDirection'] as String?,
-      ),
-      children: Widget.children(
-        json,
-        state,
-      ),
-    );
-  }
+  // static pw.Flex flex(
+  //   Dict json,
+  //   State state,
+  // ) {
+  //   return pw.Flex(
+  //     direction: Util.axis(
+  //           json['direction'] as String?,
+  //         ) ??
+  //         pw.Axis.horizontal,
+  //     mainAxisAlignment: Util.mainAxisAlignment(
+  //       json['mainAxisAlignment'] as String?,
+  //     ),
+  //     crossAxisAlignment: Util.crossAxisAlignment(
+  //       json['crossAxisAlignment'] as String?,
+  //     ),
+  //     mainAxisSize: Util.mainAxisSize(
+  //       json['mainAxisSize'] as String?,
+  //     ),
+  //     verticalDirection: Util.verticalDirection(
+  //       json['verticalDirection'] as String?,
+  //     ),
+  //     children: Widget.children(
+  //       json,
+  //       state,
+  //     ),
+  //   );
+  // }
 
   static pw.Expanded expanded(
     Dict json,

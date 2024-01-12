@@ -94,6 +94,9 @@ class Hyphenator {
   }
 
   List<String> hyphenateWordToList(String inputWord) {
+
+    // print(' >>> Got word: $inputWord');
+
     if (_isNotNeedHyphenate(inputWord)) return <String>[inputWord];
 
     final word = inputWord.toLowerCase();

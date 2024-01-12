@@ -139,7 +139,19 @@ class State {
     return (String word) {
       if (word.length > 3) {
         if (hyphenators[language] != null) {
-          return hyphenators[language]!.hyphenateWordToList(word);
+
+          List<String> list;
+          String trail = word.substring(word.length - 1);
+          if (trail.contains(RegExp(r'^\W$'))) {
+            word = word.substring(0, word.length - 1);
+            list = hyphenators[language]!.hyphenateWordToList(word);
+            list.last += trail;
+          }
+          else {
+            list = hyphenators[language]!.hyphenateWordToList(word);
+          }
+
+          return list;
         }
       }
       return [word];

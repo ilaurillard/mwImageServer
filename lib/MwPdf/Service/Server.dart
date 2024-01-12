@@ -4,7 +4,7 @@ import 'dart:isolate';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Service/Api/Api.dart';
-import 'package:mwcdn/MwPdf/Service/Config.dart';
+import 'package:mwcdn/MwPdf/Config.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 // ignore: depend_on_referenced_packages

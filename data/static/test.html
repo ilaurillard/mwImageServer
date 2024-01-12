@@ -117,13 +117,12 @@
 
         <hr />
 
-        <button data-tut="">Layout, Col/Row</button>
-        <button data-tut="">Layout, Flexible</button>
-        <button data-tut="23">Layout, Listview</button>
-        <button data-tut="22">Layout, Partitions</button>
-        <button data-tut="21">Layout, Grid</button>
-        <button data-tut="20">Layout, Stack</button>
-        <button data-tut="19">Layout, Clips/Decoration</button>
+        <button data-tut="31">Col/Row/Flex</button>
+        <button data-tut="23">Listview</button>
+        <button data-tut="22">Partitions</button>
+        <button data-tut="21">Grid</button>
+        <button data-tut="20">Stack/Positioned</button>
+        <button data-tut="19">Clips/Decoration</button>
 
         <hr />
 
@@ -135,7 +134,7 @@
 
         <hr />
 
-        <button data-tut="">Datenquellen</button>
+        <button data-tut="30">Datenquellen</button>
         <button data-tut="17">Bilder</button>
         <button data-tut="24">Diagramme</button>
         <button data-tut="16">Barcodes</button>
@@ -212,7 +211,7 @@
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('post', 'http://0.0.0.0:8081/api/pdf', true);
+        xhr.open('post', 'http://0.0.0.0:8234/api/pdf', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -241,7 +240,7 @@
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('post', 'http://0.0.0.0:8081/api/validate', true);
+        xhr.open('post', 'http://0.0.0.0:8234/api/validate', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -258,7 +257,7 @@
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('get', 'http://0.0.0.0:8081/api/schema', true);
+        xhr.open('get', 'http://0.0.0.0:8234/api/schema', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -273,7 +272,7 @@
     loadTut = function(nr) {
 
         let xhr = new XMLHttpRequest;
-        xhr.open('get', 'http://0.0.0.0:8081/static/tut/tut' + nr + '.json', true);
+        xhr.open('get', 'http://0.0.0.0:8234/static/tut/tut' + nr + '.json', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'

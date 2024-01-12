@@ -1,6 +1,6 @@
 import 'dart:isolate';
 
-import 'package:mwcdn/MwCdn/Etc/Args.dart';
+import 'package:mwcdn/MwMs/Etc/Args.dart';
 import 'package:mwcdn/MwCdn/Config.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwCdn/Server.dart';

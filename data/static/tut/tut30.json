@@ -1,0 +1,336 @@
+{
+  "pages": [
+    {
+      "multi": true,
+      "content": [
+        {
+          "Text": {
+            "text": "Datenquellen für Bilder"
+          }
+        },
+        {
+          "Divider": {}
+        },
+        {
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "SvgImage": {
+                      "source": "@svg4"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "Widget": {
+                      "source": "@widget1"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "Image": {
+                      "source": "@img4"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "SizedBox": {
+            "height": 5
+          }
+        },
+        {
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "Image": {
+                      "source": "@img2"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "Image": {
+                      "source": "@img3"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "width": 40,
+                  "height": 20,
+                  "child": {
+                    "SvgImage": {
+                      "source": "@svg3"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "SizedBox": {
+            "height": 5
+          }
+        },
+        {
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "Image": {
+                  "source": "@img1"
+                }
+              },
+              {
+                "SvgImage": {
+                  "source": "@svg1"
+                }
+              },
+              {
+                "SvgImage": {
+                  "source": "@svg2"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Text": {
+            "text": "Datenquellen für Widgets"
+          }
+        },
+        {
+          "Divider": {}
+        },
+        {
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "Expanded": {
+                  "child": {
+                    "Widget": {
+                      "source": "@source2"
+                    }
+                  }
+                }
+              },
+              {
+                "SizedBox": {
+                  "width": 5
+                }
+              },
+              {
+                "Expanded": {
+                  "child": {
+                    "Widget": {
+                      "source": "@source2"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Text": {
+            "text": "Datenquellen für Text"
+          }
+        },
+        {
+          "Divider": {}
+        },
+        {
+          "Row": {
+            "mainAxisAlignment": "spaceBetween",
+            "children": [
+              {
+                "Paragraph": {
+                  "source": "@source3"
+                }
+              },
+              {
+                "Text": {
+                  "source": "@source3"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Text": {
+            "text": "Datenquellen für Tabellen"
+          }
+        },
+        {
+          "Divider": {}
+        },
+        {
+          "TableAuto": {
+            "headerCount": 1,
+            "source": "@source1",
+            "cells": {
+              "2": {
+                "Switch": {
+                  "subject": "%value%",
+                  "default": {
+                    "Text": {
+                      "text": "%value%"
+                    }
+                  },
+                  "cases": {
+                    "false": {
+                      "Align": {
+                        "child": {
+                          "Icon": {
+                            "icon": "close",
+                            "color": "660000"
+                          }
+                        }
+                      }
+                    },
+                    "true": {
+                      "Align": {
+                        "child": {
+                          "Icon": {
+                            "icon": "check_circle",
+                            "color": "006600"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "cellAlignments": {
+              "1": "centerRight",
+              "3": "centerRight"
+            },
+            "headerStyle": {
+              "fontWeight": "bold"
+            },
+            "headerAlignments": {
+              "0": "centerLeft",
+              "1": "centerRight",
+              "2": "center",
+              "3": "centerRight"
+            },
+            "headers": [
+              "Animal",
+              "Amount",
+              "Wild",
+              "Weight"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@img1": {
+      "binary": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAAA3NCSVQICAjb4U/gAAAAsUlEQVRoQ+3S0Q2AIBTFUHFHB2Io9zPMcD7MS8p/b6BlPfu9Jp978uXP3XvA3wUrUAE00BdCgYxXgBXiQAVQIOMVYIU4UAEUyHgFWCEOVAAFMl4BVogDFUCBjFeAFeJABVAg4xVghThQARTIeAVYIQ5UAAUyXgFWiAMVQIGMV4AV4kAFUCDjFWCFOFABFMh4BVghDlQABTJeAVaIAxVAgYxXgBXiQAVQIOMVYIU4ML7AB7SUAgsNFnJkAAAAAElFTkSuQmCC"
+    },
+    "@img2": {
+      "url": "https://placehold.co/200x100/png?text=FlinsenDaFör"
+    },
+    "@img3": {
+      "url": "https://placehold.co/200x100/jpg?text=HurrFurr"
+    },
+    "@img4": {
+      "url": "https://placekitten.com/300/200"
+    },
+
+    "@widget1": {
+      "widget": {
+        "LoremParagraph": {"sentence": 5}
+      }
+    },
+
+    "@svg1": {
+      "binary": "PHN2ZyBoZWlnaHQ9IjEwMCIgd2lkdGg9IjEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0icmVkIiAvPgogIFNvcnJ5LCB5b3VyIGJyb3dzZXIgZG9lcyBub3Qgc3VwcG9ydCBpbmxpbmUgU1ZHLiAgCjwvc3ZnPiA="
+    },
+    "@svg2": {
+      "binary": "<svg height=\"100\" width=\"100\"><circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"green\" /></svg>"
+    },
+    "@svg3": {
+      "url": "https://placehold.co/200x100/svg?text=FlinsenSuppe"
+    },
+    "@svg4": {
+      "binary": "<svg width=\"100\" height=\"100\"><rect width=\"100\" height=\"100\" fill=\"#DDDDDD\"/></svg>"
+    },
+
+    "@source3": {
+      "text": "some text"
+    },
+    "@source2": {
+      "widget": {
+        "LoremParagraph": {
+          "sentence": 20
+        }
+      }
+    },
+    "@source1": {
+      "valuesLocale": "en_US",
+      "valuesFormats": {
+        "1": "#,##0",
+        "3": "#,##0.00"
+      },
+      "values": [
+        [
+          "Katze",
+          1.5,
+          true,
+          7.5
+        ],
+        [
+          "Hund",
+          null,
+          false,
+          333441275.25
+        ],
+        [
+          "Seehund",
+          33,
+          false,
+          375.25
+        ],
+        [
+          "Hase",
+          4,
+          true,
+          0
+        ]
+      ]
+    }
+  }
+}
