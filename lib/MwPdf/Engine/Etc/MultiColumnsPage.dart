@@ -4,17 +4,17 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:vector_math/vector_math_64.dart';
 
-class ColPage extends MultiPage {
+class MultiColumnsPage extends MultiPage {
   final BuildListCallback _buildList;
 
-  final List<_ColPageInstance> _pages = [];
+  final List<_MultiColumnsPageInstance> _pages = [];
 
   final int columns;
   final double gapWidth;
 
   late final EdgeInsets _margin;
 
-  ColPage({
+  MultiColumnsPage({
     PageTheme? pageTheme,
     PdfPageFormat? pageFormat,
     required BuildListCallback build,
@@ -98,7 +98,7 @@ class ColPage extends MultiPage {
             mustRotate ? pageHeightMargin - _margin.left : _margin.bottom;
 
         _pages.add(
-          _ColPageInstance(
+          _MultiColumnsPageInstance(
             context: pageContext,
             constraints: maxColumnWidth,
             fullConstraints: fullConstraints,
@@ -147,7 +147,7 @@ class ColPage extends MultiPage {
 
       if (childFits) {
         _pages.last.widgets.add(
-          _ColPageWidget(
+          _MultiColumnsPageWidget(
             column: column,
             child: child,
             constraints: maxColumnWidth,
@@ -182,7 +182,7 @@ class ColPage extends MultiPage {
         widgetContext = partialChild.saveContext();
 
         _pages.last.widgets.add(
-          _ColPageWidget(
+          _MultiColumnsPageWidget(
             column: column,
             child: partialChild,
             constraints: localConstraints,
@@ -219,7 +219,7 @@ class ColPage extends MultiPage {
     double columnWidth = _calcColumnWidth();
     BoxConstraints fullConstraints = _calcFullConstraints();
 
-    for (_ColPageInstance page in _pages) {
+    for (_MultiColumnsPageInstance page in _pages) {
       double offsetStart = pageHeight -
           (mustRotate ? pageHeightMargin - _margin.bottom : _margin.top);
 
@@ -270,7 +270,7 @@ class ColPage extends MultiPage {
       }
 
       for (int col = 0; col < columns; col++) {
-        for (_ColPageWidget widget in page.widgets) {
+        for (_MultiColumnsPageWidget widget in page.widgets) {
           if (widget.column == col) {
             Widget child = widget.child;
 
@@ -286,7 +286,7 @@ class ColPage extends MultiPage {
         }
 
         double ypos = offsetStart;
-        for (_ColPageWidget widget in page.widgets) {
+        for (_MultiColumnsPageWidget widget in page.widgets) {
           if (widget.column == col) {
             ypos -= widget.child.box!.height;
 
@@ -406,13 +406,13 @@ class ColPage extends MultiPage {
   }
 }
 
-class _ColPageWidget {
+class _MultiColumnsPageWidget {
   final int column;
   final Widget child;
   final BoxConstraints constraints;
   final WidgetContext? widgetContext;
 
-  const _ColPageWidget({
+  const _MultiColumnsPageWidget({
     required this.column,
     required this.child,
     required this.constraints,
@@ -420,14 +420,14 @@ class _ColPageWidget {
   });
 }
 
-class _ColPageInstance {
+class _MultiColumnsPageInstance {
   final Context context;
   final BoxConstraints constraints;
   final BoxConstraints fullConstraints;
   final double? offsetStart;
-  final List<_ColPageWidget> widgets = [];
+  final List<_MultiColumnsPageWidget> widgets = [];
 
-  _ColPageInstance({
+  _MultiColumnsPageInstance({
     required this.context,
     required this.constraints,
     required this.fullConstraints,

@@ -2624,6 +2624,9 @@
         "creator": {
           "type": "string"
         },
+        "pdfa3b": {
+          "type": "boolean"
+        },
         "footers": {
           "additionalProperties": false,
           "patternProperties": {

@@ -23,6 +23,7 @@ Future<void> main() async {
   String templateFile = '';
   // String templateFile = 'templates/pdf_template1.json';
 
+  // String jsonFile = 'pdf_a.json';
   // String jsonFile = 'pdf_barcodes.json';
   // String jsonFile = 'pdf_charts.json';
   // String jsonFile = 'pdf_charts2.json';
@@ -30,11 +31,11 @@ Future<void> main() async {
   // String jsonFile = 'pdf_grid.json';
   // String jsonFile = 'pdf_gridView.json';
   // String jsonFile = 'pdf_header.json';
-  String jsonFile = 'pdf_hyphenation.json';
+  // String jsonFile = 'pdf_hyphenation.json';
   // String jsonFile = 'pdf_images.json';
   // String jsonFile = 'pdf_layout.json';
   // String jsonFile = 'pdf_listView.json';
-  // String jsonFile = 'pdf_multiCol.json';
+  String jsonFile = 'pdf_multiCol.json';
   // String jsonFile = 'pdf_multiPage.json';
   // String jsonFile = 'pdf_partitions.json';
   // String jsonFile = 'pdf_richtext.json';

@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "title": "Rechnung",
+    "producer": "producer",
+    "author": "author",
+    "subject": "subject",
+    "creator": "creator",
+    "pdfa3b": true,
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "styles": {
+          "text": {
+            "font": "openSansRegular"
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "Text": {
+                  "text": "Hello mindworks!"
+                }
+              },
+              {
+                "Icon": {
+                  "icon": "church"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

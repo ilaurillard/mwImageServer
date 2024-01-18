@@ -23,9 +23,24 @@ $ podman system prune
 
 
 
-TODO
+TODO/Ideen
 
 Bates numbering
-Zugferd
+PDF/A3, Zugferd
+https://de.wikipedia.org/wiki/QR-Rechnung (Schweiz)
+Digitale Signaturen
+Higher-Level Widgets
+
+LINKS
+https://pub.dev/packages/pdf
+
+(pdf/a)
+https://www.pdf-tools.com/pdf-knowledge/zugferd-standard-electronic-invoices/
+https://demo.verapdf.org/
+https://avepdf.com/pdfa-validation
+http://fpdf.org/en/script/script103.php
+https://www.pdf-tools.com/
+
+
 
 

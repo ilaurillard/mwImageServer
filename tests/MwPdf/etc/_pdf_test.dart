@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:typed_data';
 
-import 'package:mwcdn/MwPdf/Engine/Etc/ColPage.dart';
+import 'package:mwcdn/MwPdf/Engine/Etc/MultiColumnsPage.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -61,7 +61,7 @@ Future<Uint8List> generate(
   );
 
   doc.addPage(
-    ColPage(
+    MultiColumnsPage(
         pageFormat: format,
         columns: 1,
         gapWidth: 7 * PdfPageFormat.mm,

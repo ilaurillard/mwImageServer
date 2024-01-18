@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Etc/ColPage.dart';
+import 'Etc/MultiColumnsPage.dart';
 import 'Meta.dart';
 import 'Model/Footer.dart';
 import 'Model/Header.dart';
@@ -49,17 +52,17 @@ class Engine {
   }
 
   pw.Document pdf() {
-    // main page theme
     pw.PageTheme? pageTheme;
     if (meta.theme.isNotEmpty) {
       pageTheme = meta.themes[meta.theme]?.theme;
     }
 
-    // document theme
     pw.ThemeData? docTheme = Theme.defaultDocumentTheme(state);
     if (pageTheme != null) {
       docTheme = pageTheme.theme;
     }
+
+    // --------------------------------------
 
     pw.Document pdf = pw.Document(
       pageMode: meta.pageMode,
@@ -70,7 +73,15 @@ class Engine {
       subject: meta.subject,
       keywords: meta.keywords,
       producer: meta.producer,
+      metadata: meta.pdfaXml(),
     );
+
+    if (meta.pdfa3b) {
+      ColorProfile(
+        pdf.document,
+        File('$resDir/sRGB2014.icc').readAsBytesSync(),
+      );
+    }
 
     pw.Document.debug = false;
     pw.RichText.debug = false;
@@ -78,7 +89,7 @@ class Engine {
     int tocPageNr = 0;
     pw.Page? tocPage;
     for (Page page in pages) {
-      // header callback --------------------------
+
       pw.Widget headerBuilder(
         pw.Context context,
       ) {
@@ -94,7 +105,6 @@ class Engine {
         return pw.SizedBox();
       }
 
-      // footer callback --------------------------
       pw.Widget footerBuilder(
         pw.Context context,
       ) {
@@ -110,7 +120,6 @@ class Engine {
         return pw.SizedBox();
       }
 
-      // page builder  --------------------------
       List<pw.Widget> pageBuilder(
         pw.Context context,
       ) {
@@ -119,20 +128,16 @@ class Engine {
         );
       }
 
-      // --------------------------
-
       pageTheme = meta.themes[page.theme]?.theme ??
           pageTheme ??
           Theme.defaultPageTheme(
             state,
           );
 
-      // --------------------------
-
       pw.Page pwPage;
       if (page.multi) {
         if (page.columns > 1) {
-          pwPage = ColPage(
+          pwPage = MultiColumnsPage(
             pageTheme: pageTheme,
             header: page.header.isNotEmpty ? headerBuilder : null,
             footer: page.footer.isNotEmpty ? footerBuilder : null,
@@ -164,15 +169,17 @@ class Engine {
           ),
         );
       }
+
       if (page.toc > 0) {
         tocPage = pwPage;
         tocPageNr = page.toc;
       } else {
         pdf.addPage(pwPage);
       }
-    }
 
+    }
     if (tocPage != null) {
+      // insert "table of contents" page
       pdf.addPage(
         tocPage,
         index: tocPageNr - 1,
