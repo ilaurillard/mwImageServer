@@ -12,7 +12,7 @@ class FormattedDateTime {
     builder.element(
       name,
       nest: () {
-        dateTimeString.toXml(builder);
+        dateTimeString.toXml(builder, 'qdt:DateTimeString');
       },
     );
   }

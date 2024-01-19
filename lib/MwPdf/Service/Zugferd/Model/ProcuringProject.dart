@@ -15,7 +15,7 @@ class ProcuringProject {
       name,
       nest: () {
         Util.stringElement(builder, id, 'ram:ID');
-        Util.stringElement(builder, name, 'ram:Name');
+        Util.stringElement(builder, this.name, 'ram:Name');
       },
     );
   }

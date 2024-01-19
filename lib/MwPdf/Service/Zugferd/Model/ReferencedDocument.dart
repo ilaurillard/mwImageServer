@@ -30,7 +30,7 @@ class ReferencedDocument {
           uriid!.toXml(builder, 'ram:URIID');
         }
         Util.stringElement(builder, typeCode, 'ram:TypeCode');
-        Util.stringElement(builder, name, 'ram:Name');
+        Util.stringElement(builder, this.name, 'ram:Name');
         if (attachmentBinaryObject != null) {
           attachmentBinaryObject!.toXml(builder, 'ram:AttachmentBinaryObject');
         }

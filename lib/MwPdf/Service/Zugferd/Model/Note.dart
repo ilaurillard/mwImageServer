@@ -1,3 +1,4 @@
+import 'package:mwcdn/MwPdf/Service/Zugferd/Util.dart';
 import 'package:xml/src/xml/builder.dart';
 
 class Note {
@@ -18,17 +19,9 @@ class Note {
     builder.element(
       name,
       nest: () {
-        builder.element(
-          'ram:Content',
-          nest: () {
-            builder.text(content);
-          },
-        );
-        if (subjectCode != null) {
-          builder.element('ram:SubjectCode', nest: () {
-            builder.text(subjectCode!);
-          });
-        }
+        Util.stringElement(builder, contentCode, 'ram:ContentCode');
+        Util.stringElement(builder, content, 'ram:Content');
+        Util.stringElement(builder, subjectCode, 'ram:SubjectCode');
       },
     );
   }

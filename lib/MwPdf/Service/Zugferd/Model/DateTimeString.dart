@@ -9,9 +9,9 @@ class DateTimeString {
     required this.value,
   });
 
-  void toXml(XmlBuilder builder,) {
+  void toXml(XmlBuilder builder, String name) {
     builder.element(
-      'udt:DateTimeString',
+      name,
       nest: () {
         builder.attribute('format', format);
         builder.text(value);

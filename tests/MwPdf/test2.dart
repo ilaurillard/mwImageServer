@@ -10,6 +10,7 @@ import 'package:mwcdn/MwPdf/Service/Zugferd/Model/DocumentContextParameter.dart'
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/DocumentLineDocument.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ExchangedDocument.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ExchangedDocumentContext.dart';
+import 'package:mwcdn/MwPdf/Service/Zugferd/Model/FormattedDateTime.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/HeaderTradeAgreement.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/HeaderTradeDelivery.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/HeaderTradeSettlement.dart';
@@ -18,8 +19,11 @@ import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Indicator.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/LineTradeAgreement.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/LineTradeDelivery.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/LineTradeSettlement.dart';
+import 'package:mwcdn/MwPdf/Service/Zugferd/Model/LogisticsServiceCharge.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Note.dart';
+import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ProcuringProject.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Quantity.dart';
+import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ReferencedDocument.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/SupplyChainEvent.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/SupplyChainTradeLineItem.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/SupplyChainTradeTransaction.dart';
@@ -27,6 +31,7 @@ import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TaxRegistration.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeAddress.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeAllowanceCharge.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeContact.dart';
+import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeCountry.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeParty.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradePaymentTerms.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradePrice.dart';
@@ -39,50 +44,74 @@ import 'package:mwcdn/MwPdf/Service/Zugferd/Model/UniversalCommunication.dart';
 import 'package:xml/xml.dart';
 
 Future<void> main() async {
-//   XmlDocument metaXml = XmlDocument.parse('''
-// <?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?>
-// <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-//
-// </rdf:RDF>
-// <?xpacket end="r"?>
-// ''');
-//
-//   // $s .= $this->_getxmpdescription('pdf', 'http://ns.adobe.com/pdf/1.3/', $pdf);
-//   // $s .= $this->_getxmpdescription('xmp', 'http://ns.adobe.com/xap/1.0/', $xmp);
-//   // if($dc)
-//   // $s .= $this->_getxmpdescription('dc', 'http://purl.org/dc/elements/1.1/', $dc);
-//   // $s .= $this->_getxmpdescription('pdfaid', 'http://www.aiim.org/pdfa/ns/id/', $pdfaid);
-//   // $s .= '</rdf:RDF>'."\n";
-//   // $s .= '<?xpacket end="r"?>';
-//
-//   print(metaXml);
+
+  TradeParty tp1 = TradeParty(
+    globalID: [Id(value: '4000001123452', schemeID: '0088')],
+    name: 'Lieferant GmbH',
+    definedTradeContact: TradeContact(
+      personName: 'Max Mustermann',
+      departmentName: 'Muster-Einkauf',
+      telephoneUniversalCommunication: UniversalCommunication(
+        completeNumber: '+49891234567',
+      ),
+      emailURIUniversalCommunication: UniversalCommunication(
+        uriid: Id(
+          value: 'Max@Mustermann.de',
+        ),
+      ),
+    ),
+    postalTradeAddress: TradeAddress(
+      postcode: '80333',
+      lineOne: 'Lieferantenstraße 20',
+      city: 'München',
+      countryCode: 'DE',
+    ),
+    taxRegistrations: [
+      TaxRegistration(
+        registration: Id(
+          value: '201/113/40209',
+          schemeID: 'FC',
+        ),
+      ),
+      TaxRegistration(
+        registration: Id(
+          value: 'DE123456789',
+          schemeID: 'VA',
+        ),
+      ),
+    ],
+  );
 
   CrossIndustryInvoice i = CrossIndustryInvoice(
     exchangedDocumentContext: ExchangedDocumentContext(
       documentContextParameter: DocumentContextParameter(
-        id: 'urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2',
+        id: 'urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p1:extended',
       ),
     ),
     exchangedDocument: ExchangedDocument(
       id: '471102',
+      name: 'Rechnung',
       typeCode: '380',
       issueDateTime: DateTime(
-        dateTimeString: DateTimeString(format: 102, value: '20180305'),
+        dateTimeString: DateTimeString(
+          format: 102,
+          value: '20180305',
+        ),
       ),
-      // languageId: ['XXX'],
+      languageId: ['de'],
       notes: [
         Note(
           content: 'Rechnung gemäß Bestellung vom 01.03.2018.',
         ),
         Note(
           content: '''
-Lieferant GmbH				
+          Lieferant GmbH				
 Lieferantenstraße 20				
 80333 München				
 Deutschland				
 Geschäftsführer: Hans Muster
 Handelsregisternummer: H A 123
-      ''',
+          ''',
           subjectCode: 'REG',
         ),
       ],
@@ -92,7 +121,12 @@ Handelsregisternummer: H A 123
         SupplyChainTradeLineItem(
           associatedDocumentLineDocument: DocumentLineDocument(
             lineId: '1',
-            // notes: [Note(content: 'xxx')],
+            notes: [
+              Note(
+                  content: 'Neutrale Umverpackung',
+                  contentCode: 'Umverpackung',
+                  subjectCode: 'AAI')
+            ],
           ),
           specifiedTradeProduct: TradeProduct(
             name: 'Trennblätter A4',
@@ -102,7 +136,7 @@ Handelsregisternummer: H A 123
               schemeID: '0160',
             ),
             // description: 'XXX',
-            // tradeCountry: TradeCountry(id: 'XXX'),
+            tradeCountry: TradeCountry(id: 'DE'),
           ),
           tradeAgreement: LineTradeAgreement(
             grossPrice: TradePrice(
@@ -114,6 +148,7 @@ Handelsregisternummer: H A 123
               chargeAmount: Amount(
                 value: '9.9000',
               ),
+              basisQuantity: Quantity(unitCode: 'C62', value: '1'),
             ),
           ),
           delivery: LineTradeDelivery(
@@ -121,14 +156,14 @@ Handelsregisternummer: H A 123
               value: '20.0000',
               unitCode: 'H87',
             ),
-            // chainEvent: SupplyChainEvent(
-            //   date: DateTime(
-            //     dateTimeString: DateTimeString(
-            //       format: 1,
-            //       value: 'xxx',
-            //     ),
-            //   ),
-            // ),
+            chainEvent: SupplyChainEvent(
+              date: DateTime(
+                dateTimeString: DateTimeString(
+                  format: 102,
+                  value: '20180305',
+                ),
+              ),
+            ),
           ),
           specifiedLineTradeSettlement: LineTradeSettlement(
             tradeTax: [
@@ -139,14 +174,17 @@ Handelsregisternummer: H A 123
               ),
             ],
             monetarySummation: TradeSettlementLineMonetarySummation(
-              totalAmount: Amount(value: '198.00'),
+              totalAmount: Amount(value: '190.00'),
+              totalAllowanceChargeAmount: Amount(value: '8.00'),
             ),
-            // specifiedTradeAllowanceCharge: [
-            //   TradeAllowanceCharge(
-            //     actualAmount: Amount(value: 'xxx'),
-            //     indicator: Indicator(indicator: true),
-            //   ),
-            // ],
+            specifiedTradeAllowanceCharge: [
+              TradeAllowanceCharge(
+                actualAmount: Amount(value: '8.00'),
+                indicator: Indicator(indicator: false),
+                reason: 'Artikelrabatt',
+                basisAmount: Amount(value: '198.00'),
+              ),
+            ],
           ),
         ),
         SupplyChainTradeLineItem(
@@ -194,42 +232,7 @@ Handelsregisternummer: H A 123
         ),
       ],
       applicableHeaderTradeAgreement: HeaderTradeAgreement(
-        sellerTradeParty: TradeParty(
-          globalID: [Id(value: '4000001123452', schemeID: '0088')],
-          name: 'Lieferant GmbH',
-          definedTradeContact: TradeContact(
-            personName: 'Max Mustermann',
-            departmentName: 'Muster-Einkauf',
-            telephoneUniversalCommunication: UniversalCommunication(
-              completeNumber: '+49891234567',
-            ),
-            emailURIUniversalCommunication: UniversalCommunication(
-              uriid: Id(
-                value: 'Max@Mustermann.de',
-              ),
-            ),
-          ),
-          postalTradeAddress: TradeAddress(
-            postcode: '80333',
-            lineOne: 'Lieferantenstraße 20',
-            city: 'München',
-            countryCode: 'DE',
-          ),
-          taxRegistrations: [
-            TaxRegistration(
-              registration: Id(
-                value: '201/113/40209',
-                schemeID: 'FC',
-              ),
-            ),
-            TaxRegistration(
-              registration: Id(
-                value: 'DE123456789',
-                schemeID: 'VA',
-              ),
-            ),
-          ],
-        ),
+        sellerTradeParty: tp1,
         buyerTradeParty: TradeParty(
           id: Id(value: 'GE2020211'),
           name: 'Kunden AG Mitte',
@@ -241,8 +244,22 @@ Handelsregisternummer: H A 123
           ),
         ),
         buyerReference: '04011000-12345-34',
+        specifiedProcuringProject: ProcuringProject(
+          id: '1234',
+          name: 'Projekt',
+        ),
       ),
       applicableHeaderTradeDelivery: HeaderTradeDelivery(
+        shipToTradeParty: TradeParty(
+          id: Id(value: 'GE2020211'),
+          name: 'Kunden AG Mitte',
+          postalTradeAddress: TradeAddress(
+            postcode: '69876',
+            lineOne: 'Kundenstraße 15',
+            city: 'Frankfurt',
+            countryCode: 'DE',
+          ),
+        ),
         chainEvent: SupplyChainEvent(
           date: DateTime(
             dateTimeString: DateTimeString(
@@ -251,24 +268,46 @@ Handelsregisternummer: H A 123
             ),
           ),
         ),
+        deliveryNoteReferencedDocument: ReferencedDocument(
+          issuerAssignedID: Id(value: '123456'),
+          formattedIssueDateTime: FormattedDateTime(
+              dateTimeString: DateTimeString(format: 102, value: '20180305')),
+        ),
       ),
       applicableHeaderTradeSettlement: HeaderTradeSettlement(
         specifiedTradeSettlementHeaderMonetarySummation:
             TradeSettlementHeaderMonetarySummation(
-          lineTotalAmount: Amount(value: '473.00'),
+          lineTotalAmount: Amount(value: '465.00'),
           chargeTotalAmount: Amount(value: '0.00'),
           allowanceTotalAmount: Amount(value: '0.00'),
-          taxBasisTotalAmount: [Amount(value: '473.00')],
-          taxTotalAmount: [Amount(value: '56.87', currency: 'EUR')],
-          grandTotalAmount: [Amount(value: '529.87')],
+          taxBasisTotalAmount: [Amount(value: '465.00')],
+          taxTotalAmount: [Amount(value: '55.35', currency: 'EUR')],
+          grandTotalAmount: [Amount(value: '520.35')],
           totalPrepaidAmount: Amount(value: '0.00'),
-          duePayableAmount: Amount(value: '529.87'),
+          duePayableAmount: Amount(value: '520.35'),
         ),
         specifiedTradePaymentTerms: [
           TradePaymentTerms(
-            description:
-                'Zahlbar innerhalb 30 Tagen netto bis 04.04.2018, 3% Skonto innerhalb 10 Tagen bis 15.03.2018',
-          )
+              description:
+                  'Zahlbar innerhalb 30 Tagen netto bis 04.04.2018, 3% Skonto innerhalb 10 Tagen bis 15.03.2018',
+              directDebitMandateID: 'Mandate Reference')
+        ],
+        payeeTradeParty: tp1,
+        creditorReferenceID: 'TEST1234',
+        paymentReference: '421102',
+        specifiedLogisticsServiceCharge: [
+          LogisticsServiceCharge(
+            description: 'Versandkosten',
+            appliedAmount: Amount(value: '0'),
+            tradeTaxes: [
+              TradeTax(
+                typeCode: 'VAT',
+                categoryCode: 'S',
+                rateApplicablePercent: '19.00'
+
+              ),
+            ],
+          ),
         ],
         tradeTaxes: [
           TradeTax(
@@ -281,8 +320,8 @@ Handelsregisternummer: H A 123
           TradeTax(
             typeCode: 'VAT',
             categoryCode: 'S',
-            basisAmount: Amount(value: '198.00'),
-            calculatedAmount: Amount(value: '37.62'),
+            basisAmount: Amount(value: '190.00'),
+            calculatedAmount: Amount(value: '36.10'),
             rateApplicablePercent: '19.00',
           ),
         ],
@@ -310,17 +349,9 @@ Handelsregisternummer: H A 123
   XmlDocument xml = i.toXml();
   // print(xml.toXmlString(pretty: true));
 
-  File f = await File('zug_dart.xml').create();
+  File f = await File('zug_dart2.xml').create();
   f.writeAsString(
-    xml.toXmlString(pretty: true, preserveWhitespace: (XmlNode n) {
-      if (n is XmlElement) {
-        print(n.name.local);
-        if (n.name.toString() == 'ram:Content') {
-return true;
-        }
-      }
-      return false;
-    }),
+    xml.toXmlString(pretty: true),
     flush: true,
   );
 }
