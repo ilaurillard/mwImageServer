@@ -1,7 +1,8 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ReferencedDocument.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/SupplyChainEvent.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeParty.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class HeaderTradeDelivery {
   final TradeParty? shipToTradeParty;
@@ -28,6 +29,12 @@ class HeaderTradeDelivery {
           deliveryNoteReferencedDocument!.toXml(builder, 'ram:DeliveryNoteReferencedDocument');
         }
       },
+    );
+  }
+
+  static HeaderTradeDelivery fromJson(Dict json) {
+    return HeaderTradeDelivery(
+
     );
   }
 }

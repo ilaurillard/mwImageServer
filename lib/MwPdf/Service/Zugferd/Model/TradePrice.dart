@@ -1,6 +1,7 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Amount.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Quantity.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class TradePrice {
   final Amount chargeAmount;
@@ -20,6 +21,22 @@ class TradePrice {
           basisQuantity!.toXml(builder, 'ram:BasisQuantity');
         }
       },
+    );
+  }
+
+  static TradePrice? fromJson(Dict json) {
+    if (json.isNotEmpty) {
+      return TradePrice(
+        chargeAmount: Amount.fromJson(json['chargeAmount'] as Dict? ?? {}) ?? Amount.empty(),
+        basisQuantity: Quantity.fromJson(json['basisQuantity'] as Dict? ?? {}),
+      );
+    }
+    return null;
+  }
+
+  static TradePrice empty() {
+    return TradePrice(
+      chargeAmount: Amount.empty(),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/LogisticsServiceCharge.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ReferencedDocument.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeAllowanceCharge.dart';
@@ -7,7 +8,7 @@ import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeSettlementHeaderMonetaryS
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeSettlementPaymentMeans.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeTax.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Util.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class HeaderTradeSettlement {
   final String? creditorReferenceID;
@@ -69,9 +70,46 @@ class HeaderTradeSettlement {
           'ram:SpecifiedTradeSettlementHeaderMonetarySummation',
         );
         if (invoiceReferencedDocument != null) {
-          invoiceReferencedDocument!.toXml(builder, 'ram:InvoiceReferencedDocument');
+          invoiceReferencedDocument!
+              .toXml(builder, 'ram:InvoiceReferencedDocument');
         }
       },
+    );
+  }
+
+  static HeaderTradeSettlement fromJson(Dict json) {
+    return HeaderTradeSettlement(
+      creditorReferenceID: json['creditorReferenceID'] as String?,
+      paymentReference: json['paymentReference'] as String?,
+      currency: json['currency'] as String? ?? '?',
+      payeeTradeParty:
+          TradeParty.fromJson(json['payeeTradeParty'] as Dict? ?? {}),
+      specifiedTradeSettlementPaymentMeans:
+          (json['specifiedTradeSettlementPaymentMeans'] as List<dynamic>? ?? [])
+              .map((dynamic e) =>
+                  TradeSettlementPaymentMeans.fromJson(e as Dict))
+              .toList(),
+      tradeTaxes: (json['tradeTaxes'] as List<dynamic>? ?? [])
+          .map((dynamic e) => TradeTax.fromJson(e as Dict))
+          .toList(),
+      specifiedTradeAllowanceCharge:
+          (json['specifiedTradeAllowanceCharge'] as List<dynamic>? ?? [])
+              .map((dynamic e) => TradeAllowanceCharge.fromJson(e as Dict))
+              .toList(),
+      specifiedLogisticsServiceCharge:
+          (json['specifiedLogisticsServiceCharge'] as List<dynamic>? ?? [])
+              .map((dynamic e) => LogisticsServiceCharge.fromJson(e as Dict))
+              .toList(),
+      specifiedTradePaymentTerms:
+          (json['specifiedTradePaymentTerms'] as List<dynamic>? ?? [])
+              .map((dynamic e) => TradePaymentTerms.fromJson(e as Dict))
+              .toList(),
+      specifiedTradeSettlementHeaderMonetarySummation:
+          TradeSettlementHeaderMonetarySummation.fromJson(
+        json['specifiedTradeSettlementHeaderMonetarySummation'] as Dict? ?? {},
+      ),
+      invoiceReferencedDocument: ReferencedDocument.fromJson(
+          json['invoiceReferencedDocument'] as Dict? ?? {}),
     );
   }
 }

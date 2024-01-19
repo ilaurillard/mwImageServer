@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Id.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class TradeAccountingAccount {
   final Id id;
@@ -21,6 +22,13 @@ class TradeAccountingAccount {
           });
         }
       },
+    );
+  }
+
+  static TradeAccountingAccount fromJson(Dict json) {
+    return TradeAccountingAccount(
+      id: Id.fromJson(json['id'] as Dict? ?? {}) ?? Id.empty(),
+      typeCode: json['typeCode'] as String?,
     );
   }
 }

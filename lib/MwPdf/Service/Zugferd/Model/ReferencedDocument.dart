@@ -1,8 +1,9 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/BinaryObject.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/FormattedDateTime.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Id.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Util.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class ReferencedDocument {
   final Id issuerAssignedID;
@@ -38,6 +39,29 @@ class ReferencedDocument {
           formattedIssueDateTime!.toXml(builder, 'ram:FormattedIssueDateTime');
         }
       },
+    );
+  }
+
+  static ReferencedDocument? fromJson(Dict json) {
+    if (json.isNotEmpty) {
+      return ReferencedDocument(
+        issuerAssignedID:
+            Id.fromJson(json['issuerAssignedID'] as Dict? ?? {}) ?? Id.empty(),
+        uriid: Id.fromJson(json['uriid'] as Dict? ?? {}),
+        typeCode: json['typeCode'] as String?,
+        name: json['name'] as String?,
+        attachmentBinaryObject: BinaryObject.fromJson(
+            json['attachmentBinaryObject'] as Dict? ?? {}),
+        formattedIssueDateTime: FormattedDateTime.fromJson(
+            json['formattedIssueDateTime'] as Dict? ?? {}),
+      );
+    }
+    return null;
+  }
+
+  static ReferencedDocument empty() {
+    return ReferencedDocument(
+      issuerAssignedID: Id.empty(),
     );
   }
 }

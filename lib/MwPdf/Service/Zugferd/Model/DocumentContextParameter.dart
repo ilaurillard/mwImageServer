@@ -1,4 +1,5 @@
-import 'package:xml/src/xml/builder.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:xml/xml.dart';
 
 class DocumentContextParameter {
   final String id;
@@ -20,6 +21,12 @@ class DocumentContextParameter {
           },
         );
       },
+    );
+  }
+
+  static DocumentContextParameter fromJson(Dict json) {
+    return DocumentContextParameter(
+      id: json['id'] as String? ?? '?',
     );
   }
 }

@@ -1,7 +1,8 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Amount.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Indicator.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeTax.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class TradeAllowanceCharge {
   final Indicator? indicator;
@@ -51,6 +52,19 @@ class TradeAllowanceCharge {
           t.toXml(builder, 'ram:CategoryTradeTax');
         }
       },
+    );
+  }
+
+  static TradeAllowanceCharge fromJson(Dict json) {
+    return TradeAllowanceCharge(
+      indicator: Indicator.fromJson(json['indicator'] as Dict? ?? {}),
+      calculationPercent: json['calculationPercent'] as String?,
+      basisAmount: Amount.fromJson(json['basisAmount'] as Dict? ?? {}),
+      actualAmount: Amount.fromJson(json['actualAmount'] as Dict? ?? {}) ?? Amount.empty(),
+      reason: json['reason'] as String?,
+      tradeTax: (json['tradeTax'] as List<dynamic>? ?? [])
+          .map((dynamic e) => TradeTax.fromJson(e as Dict))
+          .toList(),
     );
   }
 }

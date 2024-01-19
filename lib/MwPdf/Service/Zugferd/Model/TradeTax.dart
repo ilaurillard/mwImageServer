@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Amount.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class TradeTax {
   final Amount? calculatedAmount;
@@ -52,7 +53,8 @@ class TradeTax {
           lineTotalBasisAmount!.toXml(builder, 'ram:LineTotalBasisAmount');
         }
         if (allowanceChargeBasisAmount != null) {
-          allowanceChargeBasisAmount!.toXml(builder, 'ram:AllowanceChargeBasisAmount');
+          allowanceChargeBasisAmount!
+              .toXml(builder, 'ram:AllowanceChargeBasisAmount');
         }
         if (applicablePercent != null) {
           builder.element(
@@ -78,8 +80,25 @@ class TradeTax {
             },
           );
         }
-
       },
+    );
+  }
+
+  static TradeTax fromJson(Dict json) {
+    return TradeTax(
+      calculatedAmount:
+          Amount.fromJson(json['calculatedAmount'] as Dict? ?? {}),
+      typeCode: json['typeCode'] as String? ?? '?',
+      exemptionReason: json['exemptionReason'] as String?,
+      basisAmount:
+          Amount.fromJson(json['basisAmount'] as Dict? ?? {}),
+      lineTotalBasisAmount:
+          Amount.fromJson(json['lineTotalBasisAmount'] as Dict? ?? {}),
+      allowanceChargeBasisAmount:
+          Amount.fromJson(json['allowanceChargeBasisAmount'] as Dict? ?? {}),
+      applicablePercent: json['applicablePercent'] as String?,
+      categoryCode: json['categoryCode'] as String?,
+      rateApplicablePercent: json['rateApplicablePercent'] as String?,
     );
   }
 }

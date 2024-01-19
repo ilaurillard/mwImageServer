@@ -1,3 +1,4 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ExchangedDocument.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ExchangedDocumentContext.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/SupplyChainTradeTransaction.dart';
@@ -35,5 +36,16 @@ class CrossIndustryInvoice {
     );
 
     return builder.buildDocument();
+  }
+
+  static CrossIndustryInvoice fromJson(Dict json) {
+    return CrossIndustryInvoice(
+      exchangedDocumentContext: ExchangedDocumentContext.fromJson(
+          json['exchangedDocumentContext'] as Dict? ?? {}),
+      exchangedDocument:
+          ExchangedDocument.fromJson(json['exchangedDocument'] as Dict? ?? {}),
+      supplyChainTradeTransaction: SupplyChainTradeTransaction.fromJson(
+          json['supplyChainTradeTransaction'] as Dict? ?? {}),
+    );
   }
 }

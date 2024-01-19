@@ -1,9 +1,9 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Quantity.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/SupplyChainEvent.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class LineTradeDelivery {
-
   final Quantity billedQuantity;
   final SupplyChainEvent? chainEvent;
 
@@ -13,12 +13,23 @@ class LineTradeDelivery {
   });
 
   void toXml(XmlBuilder builder) {
-
     billedQuantity.toXml(builder, 'ram:BilledQuantity');
 
     if (chainEvent != null) {
       chainEvent!.toXml(builder, 'ram:ActualDeliverySupplyChainEvent');
     }
+  }
 
+  static LineTradeDelivery? fromJson(Dict json) {
+    if (json.isNotEmpty) {
+      return LineTradeDelivery(
+        billedQuantity:
+            Quantity.fromJson(json['billedQuantity'] as Dict? ?? {}) ??
+                Quantity.empty(),
+        chainEvent:
+            SupplyChainEvent.fromJson(json['chainEvent'] as Dict? ?? {}),
+      );
+    }
+    return null;
   }
 }

@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Util.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class Note {
   final String? contentCode;
@@ -23,6 +24,14 @@ class Note {
         Util.stringElement(builder, content, 'ram:Content');
         Util.stringElement(builder, subjectCode, 'ram:SubjectCode');
       },
+    );
+  }
+
+  static Note fromJson(Dict json) {
+    return Note(
+      contentCode: json['contentCode'] as String?,
+      content: json['content'] as String? ?? '?',
+      subjectCode: json['subjectCode'] as String?,
     );
   }
 }

@@ -1,7 +1,8 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Amount.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeTax.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Util.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class LogisticsServiceCharge {
   final String description;
@@ -22,5 +23,16 @@ class LogisticsServiceCharge {
         t.toXml(builder, 'ram:AppliedTradeTax');
       }
     });
+  }
+
+  static LogisticsServiceCharge fromJson(Dict json) {
+    return LogisticsServiceCharge(
+      description: json['description'] as String? ?? '?',
+      appliedAmount: Amount.fromJson(json['appliedAmount'] as Dict? ?? {}) ??
+          Amount.empty(),
+      tradeTaxes: (json['tradeTaxes'] as List<dynamic>? ?? [])
+          .map((dynamic e) => TradeTax.fromJson(e as Dict))
+          .toList(),
+    );
   }
 }

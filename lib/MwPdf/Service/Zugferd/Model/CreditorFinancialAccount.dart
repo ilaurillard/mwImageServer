@@ -1,6 +1,7 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Id.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Util.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class CreditorFinancialAccount {
   final Id? ibanId;
@@ -18,5 +19,15 @@ class CreditorFinancialAccount {
       }
       Util.stringElement(builder, accountName, 'ram:AccountName');
     });
+  }
+
+  static CreditorFinancialAccount? fromJson(Dict json) {
+    if (json.isNotEmpty) {
+      return CreditorFinancialAccount(
+        ibanId: Id.fromJson(json['ibanId'] as Dict? ?? {}),
+        accountName: json['accountName'] as String?,
+      );
+    }
+    return null;
   }
 }

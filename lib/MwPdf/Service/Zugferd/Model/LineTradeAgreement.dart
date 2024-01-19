@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradePrice.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class LineTradeAgreement {
   final TradePrice? grossPrice;
@@ -11,12 +12,16 @@ class LineTradeAgreement {
   });
 
   void toXml(XmlBuilder builder) {
-
     if (grossPrice != null) {
       grossPrice!.toXml(builder, 'ram:GrossPriceProductTradePrice');
     }
-
     netPrice.toXml(builder, 'ram:NetPriceProductTradePrice');
+  }
 
+  static LineTradeAgreement fromJson(Dict json) {
+    return LineTradeAgreement(
+      netPrice: TradePrice.fromJson(json['netPrice'] as Dict? ?? {}) ?? TradePrice.empty(),
+      grossPrice: TradePrice.fromJson(json['grossPrice'] as Dict? ?? {}),
+    );
   }
 }

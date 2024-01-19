@@ -1,9 +1,10 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/CreditorFinancialAccount.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/CreditorFinancialInstitution.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/DebtorFinancialAccount.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeSettlementFinancialCard.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Util.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class TradeSettlementPaymentMeans {
   final String typeCode;
@@ -46,6 +47,24 @@ class TradeSettlementPaymentMeans {
               .toXml(builder, 'ram:ApplicableTradeSettlementFinancialCard');
         }
       },
+    );
+  }
+
+  static TradeSettlementPaymentMeans fromJson(Dict json) {
+    return TradeSettlementPaymentMeans(
+      typeCode: json['typeCode'] as String? ?? '?',
+      information: json['information'] as String?,
+      payeePartyCreditorFinancialAccount: CreditorFinancialAccount.fromJson(
+          json['payeePartyCreditorFinancialAccount'] as Dict? ?? {}),
+      payeeSpecifiedCreditorFinancialInstitution:
+          CreditorFinancialInstitution.fromJson(
+              json['payeeSpecifiedCreditorFinancialInstitution'] as Dict? ??
+                  {}),
+      payerPartyDebtorFinancialAccount: DebtorFinancialAccount.fromJson(
+          json['payerPartyDebtorFinancialAccount'] as Dict? ?? {}),
+      applicableTradeSettlementFinancialCard:
+          TradeSettlementFinancialCard.fromJson(
+              json['applicableTradeSettlementFinancialCard'] as Dict? ?? {}),
     );
   }
 }

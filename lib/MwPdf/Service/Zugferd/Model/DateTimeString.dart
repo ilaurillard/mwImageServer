@@ -1,4 +1,5 @@
-import 'package:xml/src/xml/builder.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:xml/xml.dart';
 
 class DateTimeString {
   final int format;
@@ -16,6 +17,13 @@ class DateTimeString {
         builder.attribute('format', format);
         builder.text(value);
       },
+    );
+  }
+
+  static DateTimeString fromJson(Dict json) {
+    return DateTimeString(
+      value: json['value'] as String? ?? '0',
+      format: int.tryParse(json['format'].toString()) ?? 0,
     );
   }
 }

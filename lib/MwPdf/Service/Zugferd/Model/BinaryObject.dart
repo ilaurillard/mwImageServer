@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Util.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class BinaryObject {
   final String mimeCode;
@@ -21,5 +22,17 @@ class BinaryObject {
         builder.text(value);
       },
     );
+  }
+
+  static BinaryObject? fromJson(Dict json)
+  {
+    if (json.isNotEmpty) {
+      return BinaryObject(
+        value: json['value'] as String? ?? '?',
+        mimeCode: json['mimeCode'] as String? ?? '?',
+        filename: json['filename'] as String? ?? '?',
+      );
+    }
+    return null;
   }
 }

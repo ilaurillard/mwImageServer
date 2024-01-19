@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Note.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class DocumentLineDocument {
   final String lineId;
@@ -11,7 +12,6 @@ class DocumentLineDocument {
   });
 
   void toXml(XmlBuilder builder) {
-
     builder.element(
       'ram:LineID',
       nest: () {
@@ -25,6 +25,14 @@ class DocumentLineDocument {
         'ram:IncludedNote',
       );
     }
+  }
 
+  static DocumentLineDocument fromJson(Dict json) {
+    return DocumentLineDocument(
+      lineId: json['lineId'] as String? ?? '?',
+      notes: (json['notes'] as List<dynamic>? ?? [])
+          .map((dynamic e) => Note.fromJson(e as Dict))
+          .toList(),
+    );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Id.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class UniversalCommunication {
   final String? completeNumber;

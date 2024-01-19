@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/DateTime.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class Period {
   final DateTime startDatetime;
@@ -18,5 +19,15 @@ class Period {
         endDatetime.toXml(builder, 'ram:EndDateTime');
       },
     );
+  }
+
+  static Period? fromJson(Dict json) {
+    if (json.isNotEmpty) {
+      return Period(
+        startDatetime: DateTime.fromJson(json['startDatetime'] as Dict? ?? {}),
+        endDatetime: DateTime.fromJson(json['endDatetime'] as Dict? ?? {}),
+      );
+    }
+    return null;
   }
 }

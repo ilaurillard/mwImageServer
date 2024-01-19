@@ -1,6 +1,7 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/DateTime.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Util.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class TradePaymentTerms {
   final String? description;
@@ -21,5 +22,9 @@ class TradePaymentTerms {
       }
       Util.stringElement(builder, directDebitMandateID, 'ram:DirectDebitMandateID');
     });
+  }
+
+  static TradePaymentTerms fromJson(Dict json) {
+    return TradePaymentTerms();
   }
 }

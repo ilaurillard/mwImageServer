@@ -1,4 +1,5 @@
-import 'package:xml/src/xml/builder.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:xml/xml.dart';
 
 class TradeCountry {
   final String id;
@@ -14,5 +15,14 @@ class TradeCountry {
         builder.text(id);
       },
     );
+  }
+
+  static TradeCountry? fromJson(Dict json) {
+    if (json.isNotEmpty) {
+      return TradeCountry(
+        id: json['id'] as String? ?? '?',
+      );
+    }
+    return null;
   }
 }

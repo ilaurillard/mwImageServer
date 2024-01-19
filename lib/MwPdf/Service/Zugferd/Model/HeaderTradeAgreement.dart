@@ -1,7 +1,8 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ProcuringProject.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ReferencedDocument.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeParty.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class HeaderTradeAgreement {
   final String? buyerReference;
@@ -35,15 +36,35 @@ class HeaderTradeAgreement {
         sellerTradeParty.toXml(builder, 'ram:SellerTradeParty');
         buyerTradeParty.toXml(builder, 'ram:BuyerTradeParty');
         if (buyerOrderReferencedDocument != null) {
-          buyerOrderReferencedDocument!.toXml(builder, 'ram:BuyerOrderReferencedDocument');
+          buyerOrderReferencedDocument!
+              .toXml(builder, 'ram:BuyerOrderReferencedDocument');
         }
         for (ReferencedDocument d in additionalReferencedDocuments) {
           d.toXml(builder, 'ram:AdditionalReferencedDocument');
         }
         if (specifiedProcuringProject != null) {
-          specifiedProcuringProject!.toXml(builder, 'ram:SpecifiedProcuringProject');
+          specifiedProcuringProject!
+              .toXml(builder, 'ram:SpecifiedProcuringProject');
         }
       },
+    );
+  }
+
+  static HeaderTradeAgreement fromJson(Dict json) {
+    return HeaderTradeAgreement(
+      buyerReference: json['buyerReference'] as String?,
+      buyerTradeParty:
+          TradeParty.fromJson(json['buyerTradeParty'] as Dict? ?? {}) ?? TradeParty.empty(),
+      sellerTradeParty:
+          TradeParty.fromJson(json['sellerTradeParty'] as Dict? ?? {}) ?? TradeParty.empty(),
+      buyerOrderReferencedDocument: ReferencedDocument.fromJson(
+          json['buyerOrderReferencedDocument'] as Dict? ?? {}),
+      additionalReferencedDocuments:
+          (json['additionalReferencedDocuments'] as List<dynamic>? ?? [])
+              .map((dynamic e) => ReferencedDocument.fromJson(e as Dict) ?? ReferencedDocument.empty())
+              .toList(),
+      specifiedProcuringProject: ProcuringProject.fromJson(
+          json['specifiedProcuringProject'] as Dict? ?? {}),
     );
   }
 }

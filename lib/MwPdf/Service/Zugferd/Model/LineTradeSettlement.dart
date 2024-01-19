@@ -1,9 +1,10 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Period.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeAccountingAccount.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeAllowanceCharge.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeSettlementLineMonetarySummation.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeTax.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class LineTradeSettlement {
   final List<TradeTax> tradeTax;
@@ -36,5 +37,25 @@ class LineTradeSettlement {
     for (TradeAccountingAccount t in tradeAccountingAccount) {
       t.toXml(builder, 'ram:ReceivableSpecifiedTradeAccountingAccount');
     }
+  }
+
+  static LineTradeSettlement fromJson(Dict json) {
+    return LineTradeSettlement(
+      tradeTax: (json['tradeTax'] as List<dynamic>? ?? [])
+          .map((dynamic e) => TradeTax.fromJson(e as Dict))
+          .toList(),
+      specifiedTradeAllowanceCharge:
+          (json['specifiedTradeAllowanceCharge'] as List<dynamic>? ?? [])
+              .map((dynamic e) => TradeAllowanceCharge.fromJson(e as Dict))
+              .toList(),
+      billingSpecifiedPeriod:
+          Period.fromJson(json['billingSpecifiedPeriod'] as Dict? ?? {}),
+      monetarySummation: TradeSettlementLineMonetarySummation.fromJson(
+          json['billingSpecifiedPeriod'] as Dict? ?? {}),
+      tradeAccountingAccount:
+          (json['tradeAccountingAccount'] as List<dynamic>? ?? [])
+              .map((dynamic e) => TradeAccountingAccount.fromJson(e as Dict))
+              .toList(),
+    );
   }
 }

@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Amount.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class TradeSettlementLineMonetarySummation {
   final Amount totalAmount;
@@ -16,9 +17,17 @@ class TradeSettlementLineMonetarySummation {
       nest: () {
         totalAmount.toXml(builder, 'ram:LineTotalAmount');
         if (totalAllowanceChargeAmount != null) {
-          totalAllowanceChargeAmount!.toXml(builder, 'ram:TotalAllowanceChargeAmount');
+          totalAllowanceChargeAmount!
+              .toXml(builder, 'ram:TotalAllowanceChargeAmount');
         }
       },
+    );
+  }
+
+  static TradeSettlementLineMonetarySummation fromJson(Dict json) {
+    return TradeSettlementLineMonetarySummation(
+      totalAmount: Amount.fromJson(json['totalAmount'] as Dict? ?? {}) ?? Amount.empty(),
+      totalAllowanceChargeAmount: Amount.fromJson(json['totalAllowanceChargeAmount'] as Dict? ?? {}),
     );
   }
 }

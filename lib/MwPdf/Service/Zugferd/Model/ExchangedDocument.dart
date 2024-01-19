@@ -1,6 +1,7 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/DateTime.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Note.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class ExchangedDocument {
   final String id;
@@ -64,6 +65,21 @@ class ExchangedDocument {
           );
         }
       },
+    );
+  }
+
+  static ExchangedDocument fromJson(Dict json) {
+    return ExchangedDocument(
+      id: json['id'] as String? ?? '?',
+      name: json['name'] as String?,
+      typeCode: json['typeCode'] as String? ?? '?',
+      issueDateTime: DateTime.fromJson(json['issueDateTime'] as Dict? ?? {}),
+      languageId: (json['languageId'] as List<dynamic>? ?? [])
+          .map((dynamic e) => e as String? ?? '')
+          .toList(),
+      notes: (json['notes'] as List<dynamic>? ?? [])
+          .map((dynamic e) => Note.fromJson(e as Dict))
+          .toList(),
     );
   }
 }

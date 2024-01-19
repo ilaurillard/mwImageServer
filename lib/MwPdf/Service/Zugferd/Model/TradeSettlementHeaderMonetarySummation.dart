@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Amount.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class TradeSettlementHeaderMonetarySummation {
   final Amount? lineTotalAmount;
@@ -26,7 +27,6 @@ class TradeSettlementHeaderMonetarySummation {
 
   void toXml(XmlBuilder builder, String name) {
     builder.element(name, nest: () {
-
       if (lineTotalAmount != null) {
         lineTotalAmount!.toXml(builder, 'ram:LineTotalAmount');
       }
@@ -53,5 +53,30 @@ class TradeSettlementHeaderMonetarySummation {
       }
       duePayableAmount.toXml(builder, 'ram:DuePayableAmount');
     });
+  }
+
+  static TradeSettlementHeaderMonetarySummation fromJson(Dict json) {
+    return TradeSettlementHeaderMonetarySummation(
+      lineTotalAmount: Amount.fromJson(json['lineTotalAmount'] as Dict? ?? {}),
+      chargeTotalAmount:
+          Amount.fromJson(json['chargeTotalAmount'] as Dict? ?? {}),
+      allowanceTotalAmount:
+          Amount.fromJson(json['allowanceTotalAmount'] as Dict? ?? {}),
+      taxBasisTotalAmount: (json['taxBasisTotalAmount'] as List<dynamic>? ?? [])
+          .map((dynamic e) => Amount.fromJson(e as Dict) ?? Amount.empty())
+          .toList(),
+      taxTotalAmount: (json['taxTotalAmount'] as List<dynamic>? ?? [])
+          .map((dynamic e) => Amount.fromJson(e as Dict) ?? Amount.empty())
+          .toList(),
+      roundingAmount: Amount.fromJson(json['roundingAmount'] as Dict? ?? {}),
+      grandTotalAmount: (json['grandTotalAmount'] as List<dynamic>? ?? [])
+          .map((dynamic e) => Amount.fromJson(e as Dict) ?? Amount.empty())
+          .toList(),
+      totalPrepaidAmount:
+          Amount.fromJson(json['totalPrepaidAmount'] as Dict? ?? {}),
+      duePayableAmount:
+          Amount.fromJson(json['duePayableAmount'] as Dict? ?? {}) ??
+              Amount.empty(),
+    );
   }
 }

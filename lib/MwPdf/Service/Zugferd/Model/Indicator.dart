@@ -1,4 +1,5 @@
-import 'package:xml/src/xml/builder.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:xml/xml.dart';
 
 class Indicator {
   final bool indicator;
@@ -19,5 +20,14 @@ class Indicator {
         );
       },
     );
+  }
+
+  static Indicator? fromJson(Dict json) {
+    if (json.isNotEmpty) {
+      return Indicator(
+        indicator: json['indicator'] as bool? ?? false,
+      );
+    }
+    return null;
   }
 }

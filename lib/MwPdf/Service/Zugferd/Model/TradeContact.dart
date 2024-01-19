@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/UniversalCommunication.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class TradeContact {
   final String? personName;
@@ -37,15 +38,25 @@ class TradeContact {
           );
         }
         if (telephoneUniversalCommunication != null) {
-          telephoneUniversalCommunication!.toXml(builder, 'ram:TelephoneUniversalCommunication');
+          telephoneUniversalCommunication!
+              .toXml(builder, 'ram:TelephoneUniversalCommunication');
         }
         if (faxUniversalCommunication != null) {
-          faxUniversalCommunication!.toXml(builder, 'ram:FaxUniversalCommunication');
+          faxUniversalCommunication!
+              .toXml(builder, 'ram:FaxUniversalCommunication');
         }
         if (emailURIUniversalCommunication != null) {
-          emailURIUniversalCommunication!.toXml(builder, 'ram:EmailURIUniversalCommunication');
+          emailURIUniversalCommunication!
+              .toXml(builder, 'ram:EmailURIUniversalCommunication');
         }
       },
     );
+  }
+
+  static TradeContact? fromJson(Dict json) {
+    if (json.isNotEmpty) {
+      return TradeContact();
+    }
+    return null;
   }
 }

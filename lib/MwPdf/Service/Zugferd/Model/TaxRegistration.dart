@@ -1,5 +1,6 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Id.dart';
-import 'package:xml/src/xml/builder.dart';
+import 'package:xml/xml.dart';
 
 class TaxRegistration {
   final Id registration;
@@ -14,6 +15,13 @@ class TaxRegistration {
       nest: () {
         registration.toXml(builder, 'ram:ID');
       },
+    );
+  }
+
+  static TaxRegistration fromJson(Dict json) {
+    return TaxRegistration(
+      registration:
+          Id.fromJson(json['registration'] as Dict? ?? {}) ?? Id.empty(),
     );
   }
 }
