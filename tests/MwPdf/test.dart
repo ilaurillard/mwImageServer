@@ -1,41 +1,40 @@
 import 'dart:io';
 
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Amount.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/CreditorFinancialAccount.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/CreditorFinancialInstitution.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/CrossIndustryInvoice.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/DateTime.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/DateTimeString.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/DocumentContextParameter.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/DocumentLineDocument.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ExchangedDocument.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/ExchangedDocumentContext.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/HeaderTradeAgreement.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/HeaderTradeDelivery.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/HeaderTradeSettlement.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Id.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Indicator.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/LineTradeAgreement.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/LineTradeDelivery.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/LineTradeSettlement.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Note.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Quantity.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/SupplyChainEvent.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/SupplyChainTradeLineItem.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/SupplyChainTradeTransaction.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TaxRegistration.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeAddress.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeAllowanceCharge.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeContact.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeParty.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradePaymentTerms.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradePrice.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeProduct.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeSettlementHeaderMonetarySummation.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeSettlementLineMonetarySummation.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeSettlementPaymentMeans.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/TradeTax.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/UniversalCommunication.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/Amount.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/CreditorFinancialAccount.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/CreditorFinancialInstitution.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/CrossIndustryInvoice.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/DateTime.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/DateTimeString.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/DocumentContextParameter.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/DocumentLineDocument.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/ExchangedDocument.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/ExchangedDocumentContext.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/HeaderTradeAgreement.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/HeaderTradeDelivery.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/HeaderTradeSettlement.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/Id.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/LineTradeAgreement.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/LineTradeDelivery.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/LineTradeSettlement.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/Note.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/Quantity.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/SupplyChainEvent.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/SupplyChainTradeLineItem.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/SupplyChainTradeTransaction.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TaxRegistration.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TradeAddress.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TradeContact.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TradeParty.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TradePaymentTerms.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TradePrice.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TradeProduct.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TradeSettlementHeaderMonetarySummation.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TradeSettlementLineMonetarySummation.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TradeSettlementPaymentMeans.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/TradeTax.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/UniversalCommunication.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Util.dart';
 import 'package:xml/xml.dart';
 
 Future<void> main() async {
@@ -293,19 +292,9 @@ Handelsregisternummer: H A 123
 
   // print(xml.toXmlString(pretty: true));
 
-//   File f = await File('zug_dart.xml').create();
-//   f.writeAsString(
-//     xml.toXmlString(pretty: true, preserveWhitespace: (XmlNode n) {
-//       if (n is XmlElement) {
-//         print(n.name.local);
-//         if (n.name.toString() == 'ram:Content') {
-// return true;
-//         }
-//       }
-//       return false;
-//     }),
-//     flush: true,
-//   );
-
-
+  File f = await File('zug_dart.xml').create();
+  f.writeAsString(
+    Util.prettyXml(xml),
+    flush: true,
+  );
 }

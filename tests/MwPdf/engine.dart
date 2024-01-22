@@ -23,7 +23,7 @@ Future<void> main() async {
   String templateFile = '';
   // String templateFile = 'templates/pdf_template1.json';
 
-  String jsonFile = 'pdf_a.json';
+
   // String jsonFile = 'pdf_barcodes.json';
   // String jsonFile = 'pdf_charts.json';
   // String jsonFile = 'pdf_charts2.json';
@@ -55,6 +55,9 @@ Future<void> main() async {
   // String jsonFile = 'pdf_table5.json';
   // String jsonFile = 'pdf_toc.json';
   // String jsonFile = 'pdf_template1_data.json';
+  // String jsonFile = 'pdf_a.json';
+  String jsonFile = 'zugferd1.json';
+
 
   String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {

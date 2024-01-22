@@ -2916,6 +2916,9 @@
         }
       },
       "type": "object"
+    },
+    "facturx": {
+      "$ref": "facturx_schema.json"
     }
   },
   "type": "object"

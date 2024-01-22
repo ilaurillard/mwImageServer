@@ -22,8 +22,14 @@ $ podman system prune
 
 
 
-
 TODO/Ideen
+----------
+
+---> embed facturx file in pdf
+---> Catalog/Metadata problem
+---> facturx json schema
+---> put code into pdf/ilja
+
 
 Bates numbering
 PDF/A3, Zugferd
@@ -31,15 +37,27 @@ https://de.wikipedia.org/wiki/QR-Rechnung (Schweiz)
 Digitale Signaturen
 Higher-Level Widgets
 
+
+ZUGFERD
+-------
+
+java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.10.0.jar --action extract
+
+java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.10.0.jar --action validate
+
+
+
 LINKS
 https://pub.dev/packages/pdf
 
 (pdf/a)
+https://www.pdf-tools.com/
 https://www.pdf-tools.com/pdf-knowledge/zugferd-standard-electronic-invoices/
 https://demo.verapdf.org/
 https://avepdf.com/pdfa-validation
+http://www.fpdf.org/en/script/script95.php
 http://fpdf.org/en/script/script103.php
-https://www.pdf-tools.com/
+
 
 
 

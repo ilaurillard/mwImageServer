@@ -6,11 +6,13 @@ import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/ResponseException.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
+
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:pdf/widgets.dart';
 import 'package:shelf/shelf.dart';
-
+import 'package:xml/xml.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Util.dart' as zugferd_util;
 import '../Service/Pdf.dart';
 
 class ApiPdf {
@@ -34,6 +36,56 @@ class ApiPdf {
       schema,
       headers: Util.jsonHeaders,
     );
+  }
+
+  FutureOr<Response> schemaf(
+      Request request,
+      ) async {
+    Console.info('[ApiPdf.schemaf]');
+
+    String schema = await (Pdf(
+      fileStorage: fileStorage,
+    )).schemaf();
+
+    return Response.ok(
+      schema,
+      headers: Util.jsonHeaders,
+    );
+  }
+
+  FutureOr<Response> facturx(
+      Request request,
+      ) async {
+    Console.info('[ApiPdf.facturx]');
+
+    try {
+      Dict data = await Util.incomingJson(
+        request,
+        throwError: true,
+      );
+
+      XmlDocument? xml = await (Pdf(
+        fileStorage: fileStorage,
+      )).facturx(
+        data,
+      );
+
+      if (xml == null) {
+        return Util.rNotFound(message: 'No embedded invoice');
+      }
+
+      return Response.ok(
+        zugferd_util.Util.prettyXml(xml),
+        headers: Util.xmlHeaders,
+      );
+
+    } on ResponseException catch (e) {
+      return e.response;
+    } on Exception catch (e) {
+      return Util.rError(
+        message: e.toString(),
+      );
+    }
   }
 
   // validate against schema

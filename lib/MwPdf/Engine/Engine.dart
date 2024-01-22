@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Invoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -18,13 +19,15 @@ class Engine {
   final String resDir;
   final State state;
   final Meta meta;
-
   Engine({
     required this.state,
     required this.resDir,
     required this.pages,
     required this.meta,
+    required this.invoice,
   });
+
+  final Invoice invoice;
 
   static Future<Engine> create(
     Dict json, {
@@ -46,6 +49,10 @@ class Engine {
       state: state,
       meta: Meta.fromJson(
         (json['meta'] as Dict?) ?? {},
+        state,
+      ),
+      invoice: Invoice.fromJson(
+        (json['facturx'] as Dict?) ?? {},
         state,
       ),
     );
@@ -73,7 +80,12 @@ class Engine {
       subject: meta.subject,
       keywords: meta.keywords,
       producer: meta.producer,
-      metadata: meta.pdfaXml(),
+      // compress: false,
+      // verbose: true,
+      version: PdfVersion.pdf_1_4,
+      metadata: meta.pdfaXml(
+        facturx: invoice.facturx != null,
+      ),
     );
 
     if (meta.pdfa3b) {
@@ -83,13 +95,19 @@ class Engine {
       );
     }
 
+    if (invoice.facturx != null) {
+      AttachedFiles(
+        pdf.document,
+        invoice.facturx!,
+      );
+    }
+
     pw.Document.debug = false;
     pw.RichText.debug = false;
 
     int tocPageNr = 0;
     pw.Page? tocPage;
     for (Page page in pages) {
-
       pw.Widget headerBuilder(
         pw.Context context,
       ) {
@@ -176,7 +194,6 @@ class Engine {
       } else {
         pdf.addPage(pwPage);
       }
-
     }
     if (tocPage != null) {
       // insert "table of contents" page

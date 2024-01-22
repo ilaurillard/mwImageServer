@@ -35,9 +35,17 @@ class Api {
             '/validate',
             apiPdf.validate,
           )
+          ..post(
+            '/facturx',
+            apiPdf.facturx,
+          )
           ..get(
             '/schema',
             apiPdf.schema,
+          )
+          ..get(
+            '/schemaf',
+            apiPdf.schemaf,
           ));
   }
 }

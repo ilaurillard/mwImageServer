@@ -1,0 +1,15 @@
+{
+  "additionalProperties": false,
+  "definitions": {
+  },
+  "description": "factur-x",
+  "properties": {
+    "exchangedDocumentContext": {
+    },
+    "exchangedDocument": {
+    },
+    "supplyChainTradeTransaction": {
+    }
+  },
+  "type": "object"
+}

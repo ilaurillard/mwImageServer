@@ -17,6 +17,9 @@ class Util {
   static const KeyValue pdfHeaders = {
     'content-type': 'application/pdf',
   };
+  static const KeyValue xmlHeaders = {
+    'content-type': 'application/xml',
+  };
 
   static const Map<String, List<String>> mimeToSuffix = {
     'image/jpeg': [

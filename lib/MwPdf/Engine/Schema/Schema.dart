@@ -1,12 +1,19 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:json_schema/json_schema.dart';
 import 'package:json_schema/src/json_schema/models/validation_results.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 
 class Schema {
   final String resDir;
+
   late final JsonSchema schema;
   late final String schemaData;
+
+  late final JsonSchema schemaZugferd;
+  late final String schemaDataZugferd;
+
   static Schema? instance;
 
   Schema._({
@@ -30,7 +37,25 @@ class Schema {
       '$resDir/schema/mwpdf_schema.json',
     ).readAsString();
     print('Loaded schema (${schemaData.length})');
-    schema = JsonSchema.create(schemaData);
+
+    schemaDataZugferd = await File(
+      '$resDir/schema/facturx_schema.json',
+    ).readAsString();
+    print('Loaded schema [ZUGFeRD] (${schemaData.length})');
+
+    Dict zug = json.decode(schemaDataZugferd) as Dict;
+
+    schema = JsonSchema.create(
+      schemaData,
+      refProvider: RefProvider.sync((String ref) {
+        if (ref.contains('facturx_schema.json')) {
+          return zug;
+        }
+        return {};
+      }),
+    );
+
+    schemaZugferd = JsonSchema.create(schemaDataZugferd);
   }
 
   Results validate(
@@ -44,26 +69,30 @@ class Schema {
       validateFormats: true,
     );
 
-    // if (results.errors.isNotEmpty) {
-    //   print('Oh no, document does not validate!');
-    //   print('Errors: ');
-    //   print(results.errors.map((e) => print("$e\n")));
-    // }
-    // else {
-    //   print('Fine! Document is valid.');
-    // }
-
-    // if (results.warnings.isNotEmpty) {
-    //   print('Warnings: ');
-    //   print(results.warnings.map((e) => print("$e\n")));
-    // }
-
     return Results(
       valid: results.errors.isEmpty,
       errors: results.errors.map((e) => e.toString()).toList(),
       warnings: results.warnings.map((e) => e.toString()).toList(),
     );
   }
+
+// Results validateZugferd(
+//     String json,
+//     ) {
+//   print('Validating data [ZUGFeRD] (${json.length})');
+//
+//   ValidationResults results = schemaZugferd.validate(
+//     json,
+//     parseJson: true,
+//     validateFormats: true,
+//   );
+//
+//   return Results(
+//     valid: results.errors.isEmpty,
+//     errors: results.errors.map((e) => e.toString()).toList(),
+//     warnings: results.warnings.map((e) => e.toString()).toList(),
+//   );
+// }
 }
 
 class Results {

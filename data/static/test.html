@@ -68,7 +68,7 @@
             border: 1px solid #000;
         }
 
-        #butt, #validate, #clear, #info, #schema {
+        #butt, #validate, #clear, #info, #schema, #schemaf, #facturx {
             background-color: #8888AA;
             border: 1px solid #000;
             color: #FFF;
@@ -150,6 +150,7 @@
         <button data-tut="29">Links</button>
         <button data-tut="">Anmerkungen</button>
         <button data-tut="">Formulare</button>
+        <button data-tut="32">Factur-x</button>
 
     </div>
 
@@ -177,8 +178,9 @@
         <!--        <br />-->
 
         <button id="butt">Generate PDF</button>
+        <button id="facturx">Factur-x XML</button>
         <button id="validate">Validate</button>
-
+        <button id="schemaf">Schema F</button>
         <button id="schema">Schema</button>
         <button id="clear">Clear</button>
 
@@ -247,7 +249,34 @@
         );
         xhr.onload = function (e) {
             let content = this.response;
-            alert(content);
+            let blob = new Blob([content], {type: 'text/plain'});
+            let url = URL.createObjectURL(blob);
+            let i = document.getElementById('iframe');
+            i.src = url;
+            i.hidden = false;
+        };
+        let data = document.getElementById('data').value;
+        xhr.send(data);
+    }
+
+    document.getElementById('facturx').onclick = function (e) {
+        e.preventDefault();
+
+        let xhr = new XMLHttpRequest;
+        xhr.open('post', 'http://0.0.0.0:8234/api/facturx', true);
+        xhr.setRequestHeader(
+            'Authorization',
+            'myRootKey'
+        );
+        xhr.onload = function (e) {
+            // let content = this.response;
+            // document.getElementById('data').value = content;
+            let content = this.response;
+            let blob = new Blob([content], {type: 'text/plain'});
+            let url = URL.createObjectURL(blob);
+            let i = document.getElementById('iframe');
+            i.src = url;
+            i.hidden = false;
         };
         let data = document.getElementById('data').value;
         xhr.send(data);
@@ -264,7 +293,31 @@
         );
         xhr.onload = function (e) {
             let content = this.response;
-            document.getElementById('data').value = content;
+            let blob = new Blob([content], {type: 'text/plain'});
+            let url = URL.createObjectURL(blob);
+            let i = document.getElementById('iframe');
+            i.src = url;
+            i.hidden = false;
+        };
+        xhr.send({});
+    }
+
+    document.getElementById('schemaf').onclick = function (e) {
+        e.preventDefault();
+
+        let xhr = new XMLHttpRequest;
+        xhr.open('get', 'http://0.0.0.0:8234/api/schemaf', true);
+        xhr.setRequestHeader(
+            'Authorization',
+            'myRootKey'
+        );
+        xhr.onload = function (e) {
+            let content = this.response;
+            let blob = new Blob([content], {type: 'text/plain'});
+            let url = URL.createObjectURL(blob);
+            let i = document.getElementById('iframe');
+            i.src = url;
+            i.hidden = false;
         };
         xhr.send({});
     }

@@ -9,7 +9,7 @@ import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwXls/Engine/Engine.dart';
 import 'package:mwcdn/MwXls/Engine/Schema/Schema.dart';
 
-const baseDir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwXls';
+const resDir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwXls/res';
 const examplesDir = '/home/ilja/PhpstormProjects/mwcdn/tests/MwXls/examples';
 
 Future<void> main() async {
@@ -63,7 +63,7 @@ Future<void> main() async {
     ]);
 
     Results results = (await Schema.create(
-      baseDir: baseDir,
+      resDir: resDir,
     ))
         .validate(
       json.encode(
@@ -75,7 +75,7 @@ Future<void> main() async {
       try {
         Engine engine = await Engine.create(
           xlsJsonDict,
-          baseDir: baseDir,
+          resDir: resDir,
         );
 
         String name = '$examplesDir/output/$jsonFile.xlsx';

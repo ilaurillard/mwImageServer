@@ -5,24 +5,24 @@ import '../ex/Model/CellStyle.dart';
 import 'Datasource.dart';
 
 class State {
-  final String baseDir;
+  final String resDir;
 
   Map<String, Datasource> sources = {};
   Map<String, RowStyle> rowStyles = {};
   Map<String, CellStyle> cellStyles = {};
 
   State({
-    required this.baseDir,
+    required this.resDir,
   });
 
   static State fromJson(
     Dict json, {
     Dict rowStyles = const {},
     Dict cellStyles = const {},
-    required String baseDir,
+    required String resDir,
   }) {
     State state = State(
-      baseDir: baseDir,
+      resDir: resDir,
     );
 
     state.sources = json.map(

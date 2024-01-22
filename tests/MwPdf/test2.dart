@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:mwcdn/MwMs/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Service/Zugferd/Model/CrossIndustryInvoice.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Model/CrossIndustryInvoice.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Util.dart';
 import 'package:xml/xml.dart';
 
 Future<void> main() async {
@@ -309,15 +310,19 @@ Future<void> main() async {
 //   );
 
   CrossIndustryInvoice i = CrossIndustryInvoice.fromJson(
-      json.decode(File('tests/MwPdf/examples/zugferd1.json').readAsStringSync()) as Dict
+    (json.decode(
+      File(
+        'tests/MwPdf/examples/zugferd1.json',
+      ).readAsStringSync(),
+    ) as Dict)['invoice'] as Dict,
   );
 
   XmlDocument xml = i.toXml();
-  // print(xml.toXmlString(pretty: true));
-  File f = await File('zug_dart2.xml').create();
+  // print(Util.prettyXml(xml));
 
+  File f = await File('zug_dart2.xml').create();
   f.writeAsString(
-    xml.toXmlString(pretty: true),
+    Util.prettyXml(xml),
     flush: true,
   );
 }

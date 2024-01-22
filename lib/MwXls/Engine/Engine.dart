@@ -8,30 +8,30 @@ import 'package:mwcdn/MwXls/Engine/ex/Sheet.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Styles.dart';
 
 class Engine {
-  final String baseDir;
+  final String resDir;
   final State state;
   final Excel excel;
 
   Engine({
-    required this.baseDir,
+    required this.resDir,
     required this.state,
     required this.excel,
   });
 
   static Future<Engine> create(
     Dict json, {
-    required String baseDir,
+    required String resDir,
   }) async {
     Dict meta = json['meta'] as Dict? ?? {};
 
     State state = _state(
       meta,
       (json['sources'] as Dict?) ?? {},
-      baseDir: baseDir,
+      resDir: resDir,
     );
 
     return Engine(
-      baseDir: baseDir,
+      resDir: resDir,
       state: state,
       excel: Excel(
         meta: Meta.fromJson(
@@ -225,7 +225,7 @@ class Engine {
   static State _state(
     Dict meta,
     Dict sources, {
-    required String baseDir,
+    required String resDir,
   }) {
     Dict rowStyles = meta['rowStyles'] as Dict? ?? {};
     Dict cellStyles = meta['cellStyles'] as Dict? ?? {};
@@ -233,7 +233,7 @@ class Engine {
       sources,
       rowStyles: rowStyles,
       cellStyles: cellStyles,
-      baseDir: baseDir,
+      resDir: resDir,
     );
   }
 

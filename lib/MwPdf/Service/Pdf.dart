@@ -8,9 +8,11 @@ import 'package:mwcdn/MwMs/Etc/Util.dart';
 import 'package:mwcdn/MwMs/Model/AnonToken.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
+import 'package:mwcdn/MwPdf/Engine/Invoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:path/path.dart' show dirname;
+import 'package:xml/xml.dart';
 
 class Pdf {
   final FileStorage fileStorage;
@@ -26,6 +28,13 @@ class Pdf {
         .schemaData;
   }
 
+  Future<String> schemaf() async {
+    return (await Schema.create(
+      resDir: _resDir(),
+    ))
+        .schemaDataZugferd;
+  }
+
   String _resDir() {
     return '${fileStorage.resDir}/MwPdf';
   }
@@ -34,6 +43,19 @@ class Pdf {
     Dict data,
   ) async {
     return await _validate(data);
+  }
+
+
+  Future<XmlDocument?> facturx(Dict data) async {
+    Engine engine = await Engine.create(
+      data,
+      resDir: _resDir(), // for fonts
+      storage: Storage(
+        fileStorage: fileStorage,
+        token: AnonToken(),
+      ),
+    );
+    return engine.invoice.facturx;
   }
 
   Future<Uint8List> build(
@@ -96,4 +118,5 @@ class Pdf {
       }
     }
   }
+
 }
