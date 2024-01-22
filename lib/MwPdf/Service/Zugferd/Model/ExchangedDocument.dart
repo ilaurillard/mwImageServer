@@ -73,7 +73,7 @@ class ExchangedDocument {
       id: json['id'] as String? ?? '?',
       name: json['name'] as String?,
       typeCode: json['typeCode'] as String? ?? '?',
-      issueDateTime: DateTime.fromJson(json['issueDateTime'] as Dict? ?? {}),
+      issueDateTime: DateTime.fromJson(json['issueDateTime'] as Dict? ?? {}) ?? DateTime.empty(),
       languageId: (json['languageId'] as List<dynamic>? ?? [])
           .map((dynamic e) => e as String? ?? '')
           .toList(),

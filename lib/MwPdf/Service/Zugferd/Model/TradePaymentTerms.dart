@@ -25,6 +25,10 @@ class TradePaymentTerms {
   }
 
   static TradePaymentTerms fromJson(Dict json) {
-    return TradePaymentTerms();
+    return TradePaymentTerms(
+      description: json['description'] as String?,
+      dueDate: DateTime.fromJson(json['dueDate'] as Dict? ??{}),
+      directDebitMandateID: json['directDebitMandateID'] as String?,
+    );
   }
 }

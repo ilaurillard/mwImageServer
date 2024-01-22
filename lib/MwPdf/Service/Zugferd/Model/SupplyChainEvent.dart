@@ -21,7 +21,8 @@ class SupplyChainEvent {
   static SupplyChainEvent? fromJson(Dict json) {
     if (json.isNotEmpty) {
       return SupplyChainEvent(
-        date: DateTime.fromJson(json['date'] as Dict? ?? {}),
+        date:
+            DateTime.fromJson(json['date'] as Dict? ?? {}) ?? DateTime.empty(),
       );
     }
     return null;

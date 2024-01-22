@@ -51,7 +51,7 @@ class LineTradeSettlement {
       billingSpecifiedPeriod:
           Period.fromJson(json['billingSpecifiedPeriod'] as Dict? ?? {}),
       monetarySummation: TradeSettlementLineMonetarySummation.fromJson(
-          json['billingSpecifiedPeriod'] as Dict? ?? {}),
+          json['monetarySummation'] as Dict? ?? {}),
       tradeAccountingAccount:
           (json['tradeAccountingAccount'] as List<dynamic>? ?? [])
               .map((dynamic e) => TradeAccountingAccount.fromJson(e as Dict))

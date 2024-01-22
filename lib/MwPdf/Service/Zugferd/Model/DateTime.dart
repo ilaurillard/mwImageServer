@@ -24,10 +24,20 @@ class DateTime {
     );
   }
 
-  static DateTime fromJson(Dict json) {
+  static DateTime? fromJson(Dict json) {
+    if (json.isNotEmpty) {
+      return DateTime(
+        dateTimeString:
+        DateTimeString.fromJson(json['dateTimeString'] as Dict? ?? {}),
+      );
+    }
+    return null;
+  }
+
+  static DateTime empty() {
     return DateTime(
       dateTimeString:
-          DateTimeString.fromJson(json['dateTimeString'] as Dict? ?? {}),
+      DateTimeString.fromJson({}),
     );
   }
 }

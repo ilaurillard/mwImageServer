@@ -38,7 +38,15 @@ class TradeAddress {
 
   static TradeAddress? fromJson(Dict json) {
     if (json.isNotEmpty) {
-      return TradeAddress();
+      return TradeAddress(
+        postcode: json['postCode'] as String?,
+        lineOne: json['lineOne'] as String?,
+        lineTwo: json['lineTwo'] as String?,
+        lineThree: json['lineThree'] as String?,
+        city: json['city'] as String?,
+        countryCode: json['countryCode'] as String?,
+        countrySubDivisionName: json['countrySubDivisionName'] as String?,
+      );
     }
     return null;
   }

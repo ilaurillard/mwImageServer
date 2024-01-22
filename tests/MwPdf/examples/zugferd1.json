@@ -1,0 +1,397 @@
+{
+  "exchangedDocumentContext": {
+    "documentContextParameter": {
+      "id": "urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p1:extended"
+    }
+  },
+  "exchangedDocument": {
+    "id": "471102",
+    "name": "Rechnung",
+    "typeCode": "380",
+    "issueDateTime": {
+      "dateTimeString": {
+        "format": "102",
+        "value": "20180305"
+      }
+    },
+    "languageId": [
+      "de"
+    ],
+    "notes": [
+      {
+        "content": "Rechnung gemäß Bestellung vom 01.03.2018."
+      },
+      {
+        "content": "Lieferant GmbHLieferantenstraße 2080333 München\nDeutschland\nGeschäftsführer: Hans Muster\nHandelsregisternummer: H A 123",
+        "subjectCode": "REG"
+      }
+    ]
+  },
+  "supplyChainTradeTransaction": {
+    "lineItems": [
+      {
+        "associatedDocumentLineDocument": {
+          "lineId": "1",
+          "notes": [
+            {
+              "contentCode": "Umverpackung",
+              "content": "Neutrale Umverpackung",
+              "subjectCode": "AAI"
+            }
+          ]
+        },
+        "specifiedTradeProduct": {
+          "globalID": {
+            "value": "4012345001235",
+            "schemeID": "0160"
+          },
+          "sellerAssignedID": "TB100A4",
+          "name": "Trennblätter A4",
+          "tradeCountry": {
+            "id": "DE"
+          }
+        },
+        "tradeAgreement": {
+          "grossPrice": {
+            "chargeAmount": {
+              "value": "9.9000"
+            }
+          },
+          "netPrice": {
+            "chargeAmount": {
+              "value": "9.9000"
+            },
+            "basisQuantity": {
+              "unitCode": "C62",
+              "value": "1"
+            }
+          }
+        },
+        "delivery": {
+          "billedQuantity": {
+            "unitCode": "H87",
+            "value": "20.0000"
+          },
+          "chainEvent": {
+            "date": {
+              "dateTimeString": {
+                "format": "102",
+                "value": "20180305"
+              }
+            }
+          }
+        },
+        "specifiedLineTradeSettlement": {
+          "tradeTax": [
+            {
+              "typeCode": "VAT",
+              "categoryCode": "S",
+              "rateApplicablePercent": "19.00"
+            }
+          ],
+          "monetarySummation": {
+            "totalAmount": {
+              "value": "190.00"
+            },
+            "totalAllowanceChargeAmount": {
+              "value": "8.00"
+            }
+          },
+          "specifiedTradeAllowanceCharge": [
+            {
+              "actualAmount": {
+                "value": "8.00"
+              },
+              "indicator": {
+                "indicator": false
+              },
+              "reason": "Artikelrabatt",
+              "basisAmount": {
+                "value": "198.00"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "associatedDocumentLineDocument": {
+          "lineId": "2"
+        },
+        "specifiedTradeProduct": {
+          "globalID": {
+            "value": "4000050986428",
+            "schemeID": "0160"
+          },
+          "sellerAssignedID": "ARNR2",
+          "name": "Joghurt Banane"
+        },
+        "tradeAgreement": {
+          "grossPrice": {
+            "chargeAmount": {
+              "value": "5.5000"
+            }
+          },
+          "netPrice": {
+            "chargeAmount": {
+              "value": "5.5000"
+            }
+          }
+        },
+        "delivery": {
+          "billedQuantity": {
+            "unitCode": "H87",
+            "value": "50.0000"
+          }
+        },
+        "specifiedLineTradeSettlement": {
+          "tradeTax": [
+            {
+              "typeCode": "VAT",
+              "categoryCode": "S",
+              "rateApplicablePercent": "7.00"
+            }
+          ],
+          "monetarySummation": {
+            "totalAmount": {
+              "value": "275.00"
+            }
+          }
+        }
+      }
+    ],
+    "applicableHeaderTradeAgreement": {
+      "sellerTradeParty": {
+        "globalID": [
+          {
+            "schemeID": "0088",
+            "value": "4000001123452"
+          }
+        ],
+        "name": "Lieferant GmbH",
+        "definedTradeContact": {
+          "personName": "Max Mustermann",
+          "departmentName": "Muster-Einkauf",
+          "telephoneUniversalCommunication": {
+            "completeNumber": "+49891234567"
+          },
+          "emailURIUniversalCommunication": {
+            "uriid": {
+              "value": "Max@Mustermann.de"
+            }
+          }
+        },
+        "postalTradeAddress": {
+          "postCode": "80333",
+          "lineOne": "Lieferantenstraße 20",
+          "city": "München",
+          "countryCode": "DE"
+        },
+        "taxRegistrations": [
+          {
+            "registration": {
+              "value": "201/113/40209",
+              "schemeID": "FC"
+            }
+          },
+          {
+            "registration": {
+              "value": "DE123456789",
+              "schemeID": "VA"
+            }
+          }
+        ]
+      },
+      "buyerTradeParty": {
+        "id": {
+          "value": "GE2020211"
+        },
+        "name": "Kunden AG Mitte",
+        "postalTradeAddress": {
+          "postCode": "69876",
+          "lineOne": "Kundenstraße 15",
+          "city": "Frankfurt",
+          "countryCode": "DE"
+        }
+      },
+      "buyerReference": "04011000-12345-34",
+      "specifiedProcuringProject": {
+        "id": "1234",
+        "name": "Projekt"
+      }
+    },
+    "applicableHeaderTradeDelivery": {
+      "shipToTradeParty": {
+        "id": {
+          "value": "GE2020211"
+        },
+        "name": "Kunden AG Mitte",
+        "postalTradeAddress": {
+          "postCode": "69876",
+          "lineOne": "Kundenstraße 15",
+          "city": "Frankfurt",
+          "countryCode": "DE"
+        }
+      },
+      "chainEvent": {
+        "date": {
+          "dateTimeString": {
+            "format": "102",
+            "value": "20180305"
+          }
+        }
+      },
+      "deliveryNoteReferencedDocument": {
+        "issuerAssignedID": {
+          "value": "123456"
+        },
+        "formattedIssueDateTime": {
+          "dateTimeString": {
+            "format": "102",
+            "value": "20180305"
+          }
+        }
+      }
+    },
+    "applicableHeaderTradeSettlement": {
+      "specifiedTradeSettlementHeaderMonetarySummation": {
+        "lineTotalAmount": {
+          "value": "465.00"
+        },
+        "chargeTotalAmount": {
+          "value": "0.00"
+        },
+        "allowanceTotalAmount": {
+          "value": "0.00"
+        },
+        "taxBasisTotalAmount": [
+          {
+            "value": "465.00"
+          }
+        ],
+        "taxTotalAmount": [
+          {
+            "value": "55.35",
+            "currency": "EUR"
+          }
+        ],
+        "grandTotalAmount": [
+          {
+            "value": "520.35"
+          }
+        ],
+        "totalPrepaidAmount": {
+          "value": "0.00"
+        },
+        "duePayableAmount": {
+          "value": "520.35"
+        }
+      },
+      "creditorReferenceID": "TEST1234",
+      "paymentReference": "421102",
+      "currency": "EUR",
+      "payeeTradeParty": {
+        "globalID": [
+          {
+            "schemeID": "0088",
+            "value": "4000001123452"
+          }
+        ],
+        "name": "Lieferant GmbH",
+        "definedTradeContact": {
+          "personName": "Max Mustermann",
+          "departmentName": "Muster-Einkauf",
+          "telephoneUniversalCommunication": {
+            "completeNumber": "+49891234567"
+          },
+          "emailURIUniversalCommunication": {
+            "uriid": {
+              "value": "Max@Mustermann.de"
+            }
+          }
+        },
+        "postalTradeAddress": {
+          "postCode": "80333",
+          "lineOne": "Lieferantenstraße 20",
+          "city": "München",
+          "countryCode": "DE"
+        },
+        "taxRegistrations": [
+          {
+            "registration": {
+              "value": "201/113/40209",
+              "schemeID": "FC"
+            }
+          },
+          {
+            "registration": {
+              "value": "DE123456789",
+              "schemeID": "VA"
+            }
+          }
+        ]
+      },
+      "specifiedTradePaymentTerms": [
+        {
+          "description": "Zahlbar innerhalb 30 Tagen netto bis 04.04.2018, 3% Skonto innerhalb 10 Tagen bis 15.03.2018",
+          "directDebitMandateID": "Mandate Reference"
+        }
+      ],
+      "specifiedLogisticsServiceCharge": [
+        {
+          "description": "Versandkosten",
+          "appliedAmount": {
+            "value": "0"
+          },
+          "tradeTaxes": [
+            {
+              "typeCode": "VAT",
+              "categoryCode": "S",
+              "rateApplicablePercent": "19.00"
+            }
+          ]
+        }
+      ],
+      "tradeTaxes": [
+        {
+          "typeCode": "VAT",
+          "categoryCode": "S",
+          "basisAmount": {
+            "value": "275.00"
+          },
+          "calculatedAmount": {
+            "value": "19.25"
+          },
+          "rateApplicablePercent": "7.00"
+        },
+        {
+          "typeCode": "VAT",
+          "categoryCode": "S",
+          "basisAmount": {
+            "value": "190.00"
+          },
+          "calculatedAmount": {
+            "value": "36.10"
+          },
+          "rateApplicablePercent": "19.00"
+        }
+      ],
+      "specifiedTradeSettlementPaymentMeans": [
+        {
+          "typeCode": "58",
+          "information": "Zahlung per SEPA Überweisung.",
+          "payeePartyCreditorFinancialAccount": {
+            "ibanId": {
+              "value": "DE02120300000000202051"
+            },
+            "accountName": "Kunden AG"
+          },
+          "payeeSpecifiedCreditorFinancialInstitution": {
+            "bicId": {
+              "value": "BYLADEM1001"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

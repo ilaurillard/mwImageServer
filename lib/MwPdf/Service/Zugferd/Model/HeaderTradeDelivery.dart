@@ -26,7 +26,8 @@ class HeaderTradeDelivery {
           chainEvent!.toXml(builder, 'ram:ActualDeliverySupplyChainEvent');
         }
         if (deliveryNoteReferencedDocument != null) {
-          deliveryNoteReferencedDocument!.toXml(builder, 'ram:DeliveryNoteReferencedDocument');
+          deliveryNoteReferencedDocument!
+              .toXml(builder, 'ram:DeliveryNoteReferencedDocument');
         }
       },
     );
@@ -34,7 +35,11 @@ class HeaderTradeDelivery {
 
   static HeaderTradeDelivery fromJson(Dict json) {
     return HeaderTradeDelivery(
-
+      shipToTradeParty:
+          TradeParty.fromJson(json['shipToTradeParty'] as Dict? ?? {}),
+      chainEvent: SupplyChainEvent.fromJson(json['chainEvent'] as Dict? ?? {}),
+      deliveryNoteReferencedDocument: ReferencedDocument.fromJson(
+          json['deliveryNoteReferencedDocument'] as Dict? ?? {}),
     );
   }
 }

@@ -24,8 +24,11 @@ class Period {
   static Period? fromJson(Dict json) {
     if (json.isNotEmpty) {
       return Period(
-        startDatetime: DateTime.fromJson(json['startDatetime'] as Dict? ?? {}),
-        endDatetime: DateTime.fromJson(json['endDatetime'] as Dict? ?? {}),
+        startDatetime:
+            DateTime.fromJson(json['startDatetime'] as Dict? ?? {}) ??
+                DateTime.empty(),
+        endDatetime: DateTime.fromJson(json['endDatetime'] as Dict? ?? {}) ??
+            DateTime.empty(),
       );
     }
     return null;

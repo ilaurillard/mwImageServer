@@ -1,3 +1,4 @@
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/Zugferd/Model/Id.dart';
 import 'package:xml/xml.dart';
 
@@ -27,5 +28,15 @@ class UniversalCommunication {
         }
       },
     );
+  }
+
+  static UniversalCommunication? fromJson(Dict json) {
+    if (json.isNotEmpty) {
+      return UniversalCommunication(
+        completeNumber: json['completeNumber'] as String?,
+        uriid: Id.fromJson(json['uriid'] as Dict? ?? {}),
+      );
+    }
+    return null;
   }
 }
