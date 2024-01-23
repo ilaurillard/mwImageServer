@@ -1,12 +1,100 @@
 {
   "additionalProperties": false,
   "definitions": {
+    "Note": {
+      "additionalProperties": false,
+      "required": [
+        "content"
+      ],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "subjectCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "DateTimeString": {
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "value"
+      ],
+      "properties": {
+        "format": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
   },
-  "description": "factur-x",
+  "description": "factur-x TBD",
+  "required": [
+    "exchangedDocumentContext",
+    "exchangedDocument",
+    "supplyChainTradeTransaction"
+  ],
   "properties": {
     "exchangedDocumentContext": {
+      "additionalProperties": false,
+      "properties": {
+        "documentContextParameter": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "exchangedDocument": {
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "typeCode",
+        "issueDateTime"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "typeCode": {
+          "type": "string"
+        },
+        "issueDateTime": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "dateTimeString": {
+              "$ref": "#/definitions/DateTimeString"
+            }
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "languageId": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Note"
+          }
+        }
+      },
+      "type": "object"
     },
     "supplyChainTradeTransaction": {
     }

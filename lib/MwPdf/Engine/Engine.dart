@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Invoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
+import 'package:mwcdn/MwPdf/Service/Facturx/Util.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -58,6 +59,7 @@ class Engine {
     );
   }
 
+  // Create the pdf -------------------
   pw.Document pdf() {
     pw.PageTheme? pageTheme;
     if (meta.theme.isNotEmpty) {
@@ -71,6 +73,9 @@ class Engine {
 
     // --------------------------------------
 
+    pw.Document.debug = false;
+    pw.RichText.debug = false;
+
     pw.Document pdf = pw.Document(
       pageMode: meta.pageMode,
       theme: docTheme,
@@ -80,30 +85,38 @@ class Engine {
       subject: meta.subject,
       keywords: meta.keywords,
       producer: meta.producer,
-      // compress: false,
+
       // verbose: true,
+      compress: false,
       version: PdfVersion.pdf_1_4,
-      metadata: meta.pdfaXml(
+
+      metadata: meta.pdfaRdf(
         facturx: invoice.facturx != null,
       ),
     );
 
+    // -------------------------
+
     if (meta.pdfa3b) {
+      // Needed for PDF/A 3b compliency
       ColorProfile(
         pdf.document,
         File('$resDir/sRGB2014.icc').readAsBytesSync(),
       );
     }
 
+    // -------------------------
+
     if (invoice.facturx != null) {
       AttachedFiles(
         pdf.document,
-        invoice.facturx!,
+          {
+            'factur-x.xml': Util.prettyXml(invoice.facturx!),
+          }
       );
     }
 
-    pw.Document.debug = false;
-    pw.RichText.debug = false;
+    // -------------------------
 
     int tocPageNr = 0;
     pw.Page? tocPage;
@@ -146,6 +159,8 @@ class Engine {
         );
       }
 
+      // -------------------------
+
       pageTheme = meta.themes[page.theme]?.theme ??
           pageTheme ??
           Theme.defaultPageTheme(
@@ -187,6 +202,8 @@ class Engine {
           ),
         );
       }
+
+      // -------------------------
 
       if (page.toc > 0) {
         tocPage = pwPage;

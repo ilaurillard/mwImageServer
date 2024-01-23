@@ -58,7 +58,6 @@ Future<void> main() async {
   // String jsonFile = 'pdf_a.json';
   String jsonFile = 'zugferd1.json';
 
-
   String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {
     pdfTplJson = await File(

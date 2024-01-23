@@ -36,10 +36,12 @@ class Meta {
     this.subject,
     this.keywords,
     this.producer,
+    // PDF/A 3b compliency (needed for embedded bills)
     this.pdfa3b = false,
   });
 
-  XmlDocument? pdfaXml({
+  // PDF/A 3b Metadata
+  XmlDocument? pdfaRdf({
     bool facturx = false,
   }) {
     if (!pdfa3b) {
