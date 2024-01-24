@@ -57,7 +57,7 @@ https://demo.verapdf.org/
 https://avepdf.com/pdfa-validation
 http://www.fpdf.org/en/script/script95.php
 http://fpdf.org/en/script/script103.php
-
+https://github.com/konik-io/js-konik/blob/master/ZUGFeRD-Comfort-Schema.json
 
 
 

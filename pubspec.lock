@@ -302,7 +302,7 @@ packages:
     description:
       path: pdf
       ref: ilja
-      resolved-ref: "9720d4352147485d1cd647a0ec3e7a25a9806ee8"
+      resolved-ref: "6b377ad3fc4048958f21d082c9cc0cbd02984e59"
       url: "https://github.com/ilaurillard/dart_pdf"
     source: git
     version: "3.10.7"

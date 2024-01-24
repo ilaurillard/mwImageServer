@@ -39,7 +39,7 @@ class TradeAddress {
   static TradeAddress? fromJson(Dict json) {
     if (json.isNotEmpty) {
       return TradeAddress(
-        postcode: json['postCode'] as String?,
+        postcode: json['postcode'] as String?,
         lineOne: json['lineOne'] as String?,
         lineTwo: json['lineTwo'] as String?,
         lineThree: json['lineThree'] as String?,

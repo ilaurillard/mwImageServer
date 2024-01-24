@@ -1,6 +1,1494 @@
 {
   "additionalProperties": false,
+  "description": "factur-x TBD",
+  "required": [
+    "exchangedDocumentContext",
+    "exchangedDocument",
+    "supplyChainTradeTransaction"
+  ],
   "definitions": {
+    "Enum": {
+      "Unit": {
+        "enum": [
+          "ARTICLE",
+          "UNIT",
+          "SET",
+          "PAIR",
+          "HECTARE",
+          "HOUR",
+          "KILOGRAM",
+          "KILOMETER",
+          "KILOWATT_HOUR",
+          "LUMP_SUM",
+          "LITRE",
+          "MINUTE",
+          "MILLIMETER_SQUARE",
+          "MILLIMETER",
+          "METER_SQUARE",
+          "METER_CUBIC",
+          "METER",
+          "SECOND",
+          "PERCENT",
+          "TON_METRIC",
+          "DAY",
+          "WEEK",
+          "MONTH"
+        ]
+      },
+      "TaxType": {
+        "enum": [
+          "AAA",
+          "AAB",
+          "AAC",
+          "AAD",
+          "AAE",
+          "AAF",
+          "AAG",
+          "AAH",
+          "AAI",
+          "AAJ",
+          "AAK",
+          "AAL",
+          "AAM",
+          "AAN",
+          "AAO",
+          "AAP",
+          "AAQ",
+          "AAR",
+          "AAS",
+          "AAT",
+          "AAU",
+          "AAV",
+          "AAW",
+          "AAX",
+          "AAY",
+          "AAZ",
+          "ABA",
+          "ABB",
+          "ABC",
+          "ABD",
+          "ABE",
+          "ABF",
+          "ABG",
+          "ABH",
+          "ABI",
+          "ABJ",
+          "ABK",
+          "ABL",
+          "ABM",
+          "ABN",
+          "ABO",
+          "ABP",
+          "ABQ",
+          "ABR",
+          "ABS",
+          "ABT",
+          "ABU",
+          "ABV",
+          "ABW",
+          "ABX",
+          "ABY",
+          "ABZ",
+          "AC",
+          "ACA",
+          "ACB",
+          "ACC",
+          "ACD",
+          "ACE",
+          "ACF",
+          "ACG",
+          "ACH",
+          "ACI",
+          "ACJ",
+          "ACK",
+          "ACL",
+          "ACN",
+          "ACO",
+          "ACP",
+          "ACQ",
+          "ACR",
+          "ACT",
+          "ACU",
+          "ACV",
+          "ACW",
+          "ACX",
+          "ACY",
+          "ACZ",
+          "ADA",
+          "ADB",
+          "ADC",
+          "ADD",
+          "ADE",
+          "ADF",
+          "ADG",
+          "ADI",
+          "ADJ",
+          "ADK",
+          "ADL",
+          "ADM",
+          "ADN",
+          "ADO",
+          "ADP",
+          "ADQ",
+          "ADT",
+          "ADU",
+          "ADV",
+          "ADW",
+          "ADX",
+          "ADY",
+          "ADZ",
+          "AE",
+          "AEA",
+          "AEB",
+          "AEC",
+          "AED",
+          "AEE",
+          "AEF",
+          "AEG",
+          "AEH",
+          "AEI",
+          "AEJ",
+          "AEK",
+          "AEL",
+          "AEM",
+          "AEN",
+          "AEO",
+          "AEP",
+          "AEQ",
+          "AER",
+          "AES",
+          "AET",
+          "AEU",
+          "AEV",
+          "AEW",
+          "AEX",
+          "AEY",
+          "AEZ",
+          "AF",
+          "AFA",
+          "AFB",
+          "AFC",
+          "AFD",
+          "AFE",
+          "AFF",
+          "AFG",
+          "AFH",
+          "AFI",
+          "AFJ",
+          "AFK",
+          "AFL",
+          "AFM",
+          "AFN",
+          "AFO",
+          "AFP",
+          "AFQ",
+          "AFR",
+          "AFS",
+          "AFT",
+          "AFU",
+          "AFV",
+          "AFW",
+          "AFX",
+          "AFY",
+          "AFZ",
+          "AGA",
+          "AGB",
+          "AGC",
+          "AGD",
+          "AGE",
+          "AGF",
+          "AGG",
+          "AGH",
+          "AGI",
+          "AGJ",
+          "AGK",
+          "AGL",
+          "AGM",
+          "AGN",
+          "AGO",
+          "AGP",
+          "AGQ",
+          "AGR",
+          "AGS",
+          "AGT",
+          "AGU",
+          "AGV",
+          "AGW",
+          "AGX",
+          "AGY",
+          "AGZ",
+          "AHA",
+          "AHB",
+          "AHC",
+          "AHD",
+          "AHE",
+          "AHF",
+          "AHG",
+          "AHH",
+          "AHI",
+          "AHJ",
+          "AHK",
+          "AHL",
+          "AHM",
+          "AHN",
+          "AHO",
+          "AHP",
+          "AHQ",
+          "AHR",
+          "AHS",
+          "AHT",
+          "AHU",
+          "AHV",
+          "AHX",
+          "AHY",
+          "AHZ",
+          "AIA",
+          "AIB",
+          "AIC",
+          "AID",
+          "AIE",
+          "AIF",
+          "AIG",
+          "AIH",
+          "AII",
+          "AIJ",
+          "AIK",
+          "AIL",
+          "AIM",
+          "AIN",
+          "AIO",
+          "AIP",
+          "AIQ",
+          "AIR",
+          "AIS",
+          "AIT",
+          "AIU",
+          "AIV",
+          "AIW",
+          "AIX",
+          "AIY",
+          "AIZ",
+          "AJA",
+          "AJB",
+          "AJC",
+          "AJD",
+          "AJE",
+          "AJF",
+          "AJG",
+          "AJH",
+          "AJI",
+          "AJJ",
+          "AJK",
+          "AJL",
+          "AJM",
+          "AJN",
+          "AJO",
+          "AJP",
+          "AJQ",
+          "AJR",
+          "AJS",
+          "AJT",
+          "AJU",
+          "AJV",
+          "AJW",
+          "AJX",
+          "AJY",
+          "AJZ",
+          "AKA",
+          "AKB",
+          "AKC",
+          "AKD",
+          "AKE",
+          "AKF",
+          "AKG",
+          "AKH",
+          "AKI",
+          "AKJ",
+          "AKK",
+          "AKL",
+          "AKM",
+          "AKN",
+          "AKO",
+          "AKP",
+          "AKQ",
+          "AKR",
+          "AKS",
+          "AKT",
+          "AKU",
+          "AKV",
+          "AKW",
+          "AKX",
+          "AKY",
+          "AKZ",
+          "ALA",
+          "ALB",
+          "ALC",
+          "ALD",
+          "ALE",
+          "ALF",
+          "ALG",
+          "ALH",
+          "ALI",
+          "ALJ",
+          "ALK",
+          "ALL",
+          "ALM",
+          "ALN",
+          "ALO",
+          "ALP",
+          "ALQ",
+          "ALR",
+          "ALS",
+          "ALT",
+          "ALU",
+          "ALV",
+          "ALW",
+          "ALX",
+          "ALY",
+          "ALZ",
+          "AMA",
+          "AMB",
+          "AMC",
+          "AMD",
+          "AME",
+          "AMF",
+          "AMG",
+          "AMH",
+          "AMI",
+          "AMJ",
+          "AMK",
+          "AML",
+          "AMM",
+          "AMN",
+          "AMO",
+          "AMP",
+          "AMQ",
+          "AMR",
+          "AMS",
+          "AMT",
+          "AMU",
+          "AMV",
+          "AMW",
+          "AMX",
+          "AMY",
+          "AMZ",
+          "ANA",
+          "ANB",
+          "ANC",
+          "AND",
+          "ANE",
+          "ANF",
+          "ANG",
+          "ANH",
+          "ANI",
+          "ANJ",
+          "ANK",
+          "ANL",
+          "ANM",
+          "ANN",
+          "ANO",
+          "ANP",
+          "ANQ",
+          "ANR",
+          "ANS",
+          "ANT",
+          "ANU",
+          "ANV",
+          "ANW",
+          "ANX",
+          "ANY",
+          "AOA",
+          "AOD",
+          "AOE",
+          "AOF",
+          "AOG",
+          "AOH",
+          "AOI",
+          "AOJ",
+          "AOK",
+          "AOL",
+          "AOM",
+          "AON",
+          "AOO",
+          "AOP",
+          "AOQ",
+          "AOR",
+          "AOS",
+          "AOT",
+          "AOU",
+          "AOV",
+          "AOW",
+          "AOX",
+          "AOY",
+          "AOZ",
+          "AP",
+          "APA",
+          "APB",
+          "APC",
+          "APD",
+          "APE",
+          "APF",
+          "APG",
+          "APH",
+          "API",
+          "APJ",
+          "APK",
+          "APL",
+          "APM",
+          "APN",
+          "APO",
+          "APP",
+          "APQ",
+          "APR",
+          "APS",
+          "APT",
+          "APU",
+          "APV",
+          "APW",
+          "APX",
+          "APY",
+          "APZ",
+          "AQA",
+          "AQB",
+          "AQC",
+          "AQD",
+          "AQE",
+          "AQF",
+          "AQG",
+          "AQH",
+          "AQI",
+          "AQJ",
+          "AQK",
+          "AQL",
+          "AQM",
+          "AQN",
+          "AQO",
+          "AQP",
+          "AQQ",
+          "AQR",
+          "AQS",
+          "AQT",
+          "AQU",
+          "AQV",
+          "AQW",
+          "AQX",
+          "AQY",
+          "AQZ",
+          "ARA",
+          "ARB",
+          "ARC",
+          "ARD",
+          "ARE",
+          "ARF",
+          "ARG",
+          "ARH",
+          "ARI",
+          "ARJ",
+          "ARK",
+          "ARL",
+          "ARM",
+          "ARN",
+          "ARO",
+          "ARP",
+          "ARQ",
+          "ARR",
+          "ARS",
+          "ART",
+          "ARU",
+          "ARV",
+          "ARW",
+          "ARX",
+          "ARY",
+          "ARZ",
+          "ASA",
+          "ASB",
+          "ASC",
+          "ASD",
+          "ASE",
+          "ASF",
+          "ASG",
+          "ASH",
+          "ASI",
+          "ASJ",
+          "ASK",
+          "ASL",
+          "ASM",
+          "ASN",
+          "ASO",
+          "ASP",
+          "ASQ",
+          "ASR",
+          "ASS",
+          "AST",
+          "ASU",
+          "ASV",
+          "ASW",
+          "ASX",
+          "ASY",
+          "ASZ",
+          "ATA",
+          "ATB",
+          "ATC",
+          "ATD",
+          "ATE",
+          "ATF",
+          "ATG",
+          "ATH",
+          "ATI",
+          "ATJ",
+          "ATK",
+          "ATL",
+          "ATM",
+          "ATN",
+          "ATO",
+          "ATP",
+          "ATQ",
+          "ATR",
+          "ATS",
+          "ATT",
+          "ATU",
+          "ATV",
+          "ATW",
+          "ATX",
+          "ATY",
+          "ATZ",
+          "AU",
+          "AUA",
+          "AUB",
+          "AUC",
+          "AUD",
+          "AUE",
+          "AUF",
+          "AUG",
+          "AUH",
+          "AUI",
+          "AUJ",
+          "AUK",
+          "AUL",
+          "AUM",
+          "AUN",
+          "AUO",
+          "AUP",
+          "AUQ",
+          "AUR",
+          "AUS",
+          "AUT",
+          "AUU",
+          "AUV",
+          "AUW",
+          "AUX",
+          "AUY",
+          "AUZ",
+          "AV",
+          "AVA",
+          "AVB",
+          "AVC",
+          "AVD",
+          "AVE",
+          "AVF",
+          "AVG",
+          "AVH",
+          "AVI",
+          "AVJ",
+          "AVK",
+          "AVL",
+          "AVM",
+          "AVN",
+          "AVO",
+          "AVP",
+          "AVQ",
+          "AVR",
+          "AVS",
+          "AVT",
+          "AVU",
+          "AVV",
+          "AVW",
+          "AVX",
+          "AVY",
+          "AVZ",
+          "AWA",
+          "AWB",
+          "AWC",
+          "AWD",
+          "AWE",
+          "AWF",
+          "AWG",
+          "AWH",
+          "AWI",
+          "AWJ",
+          "AWK",
+          "AWL",
+          "AWM",
+          "AWN",
+          "AWO",
+          "AWP",
+          "AWQ",
+          "AWR",
+          "AWS",
+          "AWT",
+          "AWU",
+          "AWV",
+          "BA",
+          "BC",
+          "BD",
+          "BE",
+          "BH",
+          "BM",
+          "BN",
+          "BO",
+          "BR",
+          "BT",
+          "BW",
+          "CAS",
+          "CAT",
+          "CAU",
+          "CAV",
+          "CAW",
+          "CAX",
+          "CAY",
+          "CAZ",
+          "CBA",
+          "CD",
+          "CEC",
+          "CFE",
+          "CFO",
+          "CG",
+          "CH",
+          "CK",
+          "CKN",
+          "CM",
+          "CMR",
+          "CN",
+          "CNO",
+          "COF",
+          "CP",
+          "CR",
+          "CRN",
+          "CS",
+          "CST",
+          "CT",
+          "CU",
+          "CV",
+          "CW",
+          "CZ",
+          "DA",
+          "DAN",
+          "DB",
+          "DI",
+          "DL",
+          "DM",
+          "DQ",
+          "DR",
+          "EA",
+          "EB",
+          "ED",
+          "EE",
+          "EI",
+          "EN",
+          "EQ",
+          "ER",
+          "ERN",
+          "ET",
+          "EX",
+          "FC",
+          "FF",
+          "FI",
+          "FLW",
+          "FN",
+          "FO",
+          "FS",
+          "FT",
+          "FV",
+          "FX",
+          "GA",
+          "GC",
+          "GD",
+          "GDN",
+          "GN",
+          "HS",
+          "HWB",
+          "IA",
+          "IB",
+          "ICA",
+          "ICE",
+          "ICO",
+          "II",
+          "IL",
+          "INB",
+          "INN",
+          "INO",
+          "IP",
+          "IS",
+          "IT",
+          "IV",
+          "JB",
+          "JE",
+          "LA",
+          "LAN",
+          "LAR",
+          "LB",
+          "LC",
+          "LI",
+          "LO",
+          "LRC",
+          "LS",
+          "MA",
+          "MB",
+          "MF",
+          "MG",
+          "MH",
+          "MR",
+          "MRN",
+          "MS",
+          "MSS",
+          "MWB",
+          "NA",
+          "NF",
+          "OH",
+          "OI",
+          "ON",
+          "OP",
+          "OR",
+          "PB",
+          "PC",
+          "PD",
+          "PE",
+          "PF",
+          "PI",
+          "PK",
+          "PL",
+          "POR",
+          "PP",
+          "PQ",
+          "PR",
+          "PS",
+          "PW",
+          "PY",
+          "RA",
+          "RC",
+          "RCN",
+          "RE",
+          "REN",
+          "RF",
+          "RR",
+          "RT",
+          "SA",
+          "SB",
+          "SD",
+          "SE",
+          "SEA",
+          "SF",
+          "SH",
+          "SI",
+          "SM",
+          "SN",
+          "SP",
+          "SQ",
+          "SRN",
+          "SS",
+          "STA",
+          "SW",
+          "SZ",
+          "TB",
+          "TCR",
+          "TE",
+          "TF",
+          "TI",
+          "TIN",
+          "TL",
+          "TN",
+          "TP",
+          "UAR",
+          "UC",
+          "UCN",
+          "UN",
+          "UO",
+          "URI",
+          "VA",
+          "VC",
+          "VM",
+          "VN",
+          "VON",
+          "VP",
+          "VR",
+          "VS",
+          "VT",
+          "VV",
+          "WE",
+          "WM",
+          "WN",
+          "WR",
+          "WS",
+          "WY",
+          "XA",
+          "XC",
+          "XP",
+          "ZZZ"
+        ]
+      },
+      "TaxCategory": {
+        "enum": [
+          "A",
+          "AA",
+          "AB",
+          "AC",
+          "AD",
+          "AE",
+          "B",
+          "C",
+          "E",
+          "G",
+          "H",
+          "O",
+          "S",
+          "Z"
+        ]
+      },
+      "Currency": {
+        "enum": [
+          "AED",
+          "AFN",
+          "ALL",
+          "AMD",
+          "ANG",
+          "AOA",
+          "ARS",
+          "AUD",
+          "AWG",
+          "AZN",
+          "BAM",
+          "BBD",
+          "BDT",
+          "BGN",
+          "BHD",
+          "BIF",
+          "BMD",
+          "BND",
+          "BOB",
+          "BOV",
+          "BRL",
+          "BSD",
+          "BTN",
+          "BWP",
+          "BYR",
+          "BZD",
+          "CAD",
+          "CDF",
+          "CHE",
+          "CHF",
+          "CHW",
+          "CLF",
+          "CLP",
+          "CNY",
+          "COP",
+          "COU",
+          "CRC",
+          "CUC",
+          "CUP",
+          "CVE",
+          "CZK",
+          "DJF",
+          "DKK",
+          "DOP",
+          "DZD",
+          "EGP",
+          "ERN",
+          "ETB",
+          "EUR",
+          "FJD",
+          "FKP",
+          "GBP",
+          "GEL",
+          "GHS",
+          "GIP",
+          "GMD",
+          "GNF",
+          "GTQ",
+          "GYD",
+          "HKD",
+          "HNL",
+          "HRK",
+          "HTG",
+          "HUF",
+          "IDR",
+          "ILS",
+          "INR",
+          "IQD",
+          "IRR",
+          "ISK",
+          "JMD",
+          "JOD",
+          "JPY",
+          "KES",
+          "KGS",
+          "KHR",
+          "KMF",
+          "KPW",
+          "KRW",
+          "KWD",
+          "KYD",
+          "KZT",
+          "LAK",
+          "LBP",
+          "LKR",
+          "LRD",
+          "LSL",
+          "LTL",
+          "LYD",
+          "MAD",
+          "MDL",
+          "MGA",
+          "MKD",
+          "MMK",
+          "MNT",
+          "MOP",
+          "MRO",
+          "MUR",
+          "MVR",
+          "MWK",
+          "MXN",
+          "MXV",
+          "MYR",
+          "MZN",
+          "NAD",
+          "NGN",
+          "NIO",
+          "NOK",
+          "NPR",
+          "NZD",
+          "OMR",
+          "PAB",
+          "PEN",
+          "PGK",
+          "PHP",
+          "PKR",
+          "PLN",
+          "PYG",
+          "QAR",
+          "RON",
+          "RSD",
+          "RUB",
+          "RWF",
+          "SAR",
+          "SBD",
+          "SCR",
+          "SDG",
+          "SEK",
+          "SGD",
+          "SHP",
+          "SLL",
+          "SOS",
+          "SRD",
+          "SSP",
+          "STD",
+          "SVC",
+          "SYP",
+          "SZL",
+          "THB",
+          "TJS",
+          "TMT",
+          "TND",
+          "TOP",
+          "TRY",
+          "TTD",
+          "TWD",
+          "TZS",
+          "UAH",
+          "UGX",
+          "USD",
+          "USN",
+          "USS",
+          "UYI",
+          "UYU",
+          "UZS",
+          "VEF",
+          "VND",
+          "VUV",
+          "WST",
+          "XAF",
+          "XAG",
+          "XAU",
+          "XBA",
+          "XBB",
+          "XBC",
+          "XBD",
+          "XCD",
+          "XDR",
+          "XOF",
+          "XPD",
+          "XPF",
+          "XPT",
+          "XSU",
+          "XTS",
+          "XUA",
+          "XXX",
+          "YER",
+          "ZAR",
+          "ZMW",
+          "ZWL"
+        ]
+      },
+      "Country": {
+        "enum": [
+          "AC",
+          "AD",
+          "AE",
+          "AF",
+          "AG",
+          "AI",
+          "AL",
+          "AM",
+          "AN",
+          "AO",
+          "AQ",
+          "AR",
+          "AS",
+          "AT",
+          "AU",
+          "AW",
+          "AX",
+          "AZ",
+          "BA",
+          "BB",
+          "BD",
+          "BE",
+          "BF",
+          "BG",
+          "BH",
+          "BI",
+          "BJ",
+          "BL",
+          "BM",
+          "BN",
+          "BO",
+          "BQ",
+          "BR",
+          "BS",
+          "BT",
+          "BU",
+          "BV",
+          "BW",
+          "BY",
+          "BZ",
+          "CA",
+          "CC",
+          "CD",
+          "CF",
+          "CG",
+          "CH",
+          "CI",
+          "CK",
+          "CL",
+          "CM",
+          "CN",
+          "CO",
+          "CP",
+          "CR",
+          "CS",
+          "CU",
+          "CV",
+          "CW",
+          "CX",
+          "CY",
+          "CZ",
+          "DE",
+          "DG",
+          "DJ",
+          "DK",
+          "DM",
+          "DO",
+          "DZ",
+          "EA",
+          "EC",
+          "EE",
+          "EG",
+          "EH",
+          "ER",
+          "ES",
+          "ET",
+          "EU",
+          "FI",
+          "FJ",
+          "FK",
+          "FM",
+          "FO",
+          "FR",
+          "FX",
+          "GA",
+          "GB",
+          "GD",
+          "GE",
+          "GF",
+          "GG",
+          "GH",
+          "GI",
+          "GL",
+          "GM",
+          "GN",
+          "GP",
+          "GQ",
+          "GR",
+          "GS",
+          "GT",
+          "GU",
+          "GW",
+          "GY",
+          "HK",
+          "HM",
+          "HN",
+          "HR",
+          "HT",
+          "HU",
+          "IC",
+          "ID",
+          "IE",
+          "IL",
+          "IM",
+          "IN",
+          "IO",
+          "IQ",
+          "IR",
+          "IS",
+          "IT",
+          "JE",
+          "JM",
+          "JO",
+          "JP",
+          "KE",
+          "KG",
+          "KH",
+          "KI",
+          "KM",
+          "KN",
+          "KP",
+          "KR",
+          "KW",
+          "KY",
+          "KZ",
+          "LA",
+          "LB",
+          "LC",
+          "LI",
+          "LK",
+          "LR",
+          "LS",
+          "LT",
+          "LU",
+          "LV",
+          "LY",
+          "MA",
+          "MC",
+          "MD",
+          "ME",
+          "MF",
+          "MG",
+          "MH",
+          "MK",
+          "ML",
+          "MM",
+          "MN",
+          "MO",
+          "MP",
+          "MQ",
+          "MR",
+          "MS",
+          "MT",
+          "MU",
+          "MV",
+          "MW",
+          "MX",
+          "MY",
+          "MZ",
+          "NA",
+          "NC",
+          "NE",
+          "NF",
+          "NG",
+          "NI",
+          "NL",
+          "NO",
+          "NP",
+          "NR",
+          "NT",
+          "NU",
+          "NZ",
+          "OM",
+          "PA",
+          "PE",
+          "PF",
+          "PG",
+          "PH",
+          "PK",
+          "PL",
+          "PM",
+          "PN",
+          "PR",
+          "PS",
+          "PT",
+          "PW",
+          "PY",
+          "QA",
+          "RE",
+          "RO",
+          "RS",
+          "RU",
+          "RW",
+          "SA",
+          "SB",
+          "SC",
+          "SD",
+          "SE",
+          "SF",
+          "SG",
+          "SH",
+          "SI",
+          "SJ",
+          "SK",
+          "SL",
+          "SM",
+          "SN",
+          "SO",
+          "SR",
+          "SS",
+          "ST",
+          "SU",
+          "SV",
+          "SX",
+          "SY",
+          "SZ",
+          "TA",
+          "TC",
+          "TD",
+          "TF",
+          "TG",
+          "TH",
+          "TJ",
+          "TK",
+          "TL",
+          "TM",
+          "TN",
+          "TO",
+          "TP",
+          "TR",
+          "TT",
+          "TV",
+          "TW",
+          "TZ",
+          "UA",
+          "UG",
+          "UK",
+          "UM",
+          "US",
+          "UY",
+          "UZ",
+          "VA",
+          "VC",
+          "VE",
+          "VG",
+          "VI",
+          "VN",
+          "VU",
+          "WF",
+          "WS",
+          "XK",
+          "YE",
+          "YT",
+          "YU",
+          "ZA",
+          "ZM",
+          "ZR",
+          "ZW"
+        ]
+      },
+      "LanguageCode": {
+        "enum": [
+          "aa",
+          "ab",
+          "ae",
+          "af",
+          "ak",
+          "am",
+          "an",
+          "ar",
+          "as",
+          "av",
+          "ay",
+          "az",
+          "ba",
+          "be",
+          "bg",
+          "bh",
+          "bi",
+          "bm",
+          "bn",
+          "bo",
+          "br",
+          "bs",
+          "ca",
+          "ce",
+          "ch",
+          "co",
+          "cr",
+          "cs",
+          "cu",
+          "cv",
+          "cy",
+          "da",
+          "de",
+          "dv",
+          "dz",
+          "ee",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "ff",
+          "fi",
+          "fj",
+          "fo",
+          "fr",
+          "fy",
+          "ga",
+          "gd",
+          "gl",
+          "gn",
+          "gu",
+          "gv",
+          "ha",
+          "he",
+          "hi",
+          "ho",
+          "hr",
+          "ht",
+          "hu",
+          "hy",
+          "hz",
+          "ia",
+          "id",
+          "ie",
+          "ig",
+          "ii",
+          "ik",
+          "io",
+          "is",
+          "it",
+          "iu",
+          "ja",
+          "jv",
+          "ka",
+          "kg",
+          "ki",
+          "kj",
+          "kk",
+          "kl",
+          "km",
+          "kn",
+          "ko",
+          "kr",
+          "ks",
+          "ku",
+          "kv",
+          "kw",
+          "ky",
+          "la",
+          "lb",
+          "lg",
+          "li",
+          "ln",
+          "lo",
+          "lt",
+          "lu",
+          "lv",
+          "mg",
+          "mh",
+          "mi",
+          "mk",
+          "ml",
+          "mn",
+          "mr",
+          "ms",
+          "mt",
+          "my",
+          "na",
+          "nb",
+          "nd",
+          "ne",
+          "ng",
+          "nl",
+          "nn",
+          "no",
+          "nr",
+          "nv",
+          "ny",
+          "oc",
+          "oj",
+          "om",
+          "or",
+          "os",
+          "pa",
+          "pi",
+          "pl",
+          "ps",
+          "pt",
+          "qu",
+          "rm",
+          "rn",
+          "ro",
+          "ru",
+          "rw",
+          "sa",
+          "sc",
+          "sd",
+          "se",
+          "sg",
+          "si",
+          "sk",
+          "sl",
+          "sm",
+          "sn",
+          "so",
+          "sq",
+          "sr",
+          "ss",
+          "st",
+          "su",
+          "sv",
+          "sw",
+          "ta",
+          "te",
+          "tg",
+          "th",
+          "ti",
+          "tk",
+          "tl",
+          "tn",
+          "to",
+          "tr",
+          "ts",
+          "tt",
+          "tw",
+          "ty",
+          "ug",
+          "uk",
+          "ur",
+          "uz",
+          "ve",
+          "vi",
+          "vo",
+          "wa",
+          "wo",
+          "xh",
+          "yi",
+          "yo",
+          "za",
+          "zh",
+          "zu"
+        ]
+      }
+    },
     "Note": {
       "additionalProperties": false,
       "required": [
@@ -12,9 +1500,99 @@
         },
         "subjectCode": {
           "type": "string"
+        },
+        "contentCode": {
+          "type": "string"
         }
       },
       "type": "object"
+    },
+    "UniversalCommunication": {
+      "additionalProperties": false,
+      "properties": {
+        "completeNumber": {
+          "type": "string"
+        },
+        "uriid": {
+          "$ref": "#/definitions/Id"
+        }
+      },
+      "type": "object"
+    },
+    "TradeContact": {
+      "additionalProperties": false,
+      "properties": {
+        "personName": {
+          "type": "string"
+        },
+        "departmentName": {
+          "type": "string"
+        },
+        "telephoneUniversalCommunication": {
+          "$ref": "#/definitions/UniversalCommunication"
+        },
+        "faxUniversalCommunication": {
+          "$ref": "#/definitions/UniversalCommunication"
+        },
+        "emailURIUniversalCommunication": {
+          "$ref": "#/definitions/UniversalCommunication"
+        }
+      },
+      "type": "object"
+    },
+    "TradeAddress": {
+      "additionalProperties": false,
+      "properties": {
+        "postcode": {
+          "type": "string"
+        },
+        "lineOne": {
+          "type": "string"
+        },
+        "lineTwo": {
+          "type": "string"
+        },
+        "lineThree": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "countryCode": {
+          "type": "string"
+        },
+        "countrySubDivisionName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Id": {
+      "additionalProperties": false,
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "schemeID": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "DateTime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dateTimeString"
+      ],
+      "properties": {
+        "dateTimeString": {
+          "$ref": "#/definitions/DateTimeString"
+        }
+      }
     },
     "DateTimeString": {
       "additionalProperties": false,
@@ -31,16 +1609,251 @@
         }
       },
       "type": "object"
-    }
-  },
-  "description": "factur-x TBD",
-  "required": [
-    "exchangedDocumentContext",
-    "exchangedDocument",
-    "supplyChainTradeTransaction"
-  ],
-  "properties": {
-    "exchangedDocumentContext": {
+    },
+    "Quantity": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "unitCode",
+        "value"
+      ],
+      "properties": {
+        "unitCode": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "SupplyChainEvent": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "date"
+      ],
+      "properties": {
+        "date": {
+          "$ref": "#/definitions/DateTime"
+        }
+      }
+    },
+    "TradePrice": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "chargeAmount"
+      ],
+      "properties": {
+        "chargeAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "basisQuantity": {
+          "$ref": "#/definitions/Quantity"
+        }
+      }
+    },
+    "TradePaymentTerms": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "dueDate": {
+          "$ref": "#/definitions/DateTime"
+        },
+        "directDebitMandateID": {
+          "type": "string"
+        }
+      }
+    },
+    "TradeAllowanceCharge": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "actualAmount"
+      ],
+      "properties": {
+        "actualAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "basisAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "calculationPercent": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "tradeTax": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TradeTax"
+          }
+        },
+        "indicator": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "indicator"
+          ],
+          "properties": {
+            "indicator": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "TradeTax": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "typeCode"
+      ],
+      "properties": {
+        "typeCode": {
+          "type": "string"
+        },
+        "exemptionReason": {
+          "type": "string"
+        },
+        "applicablePercent": {
+          "type": "string"
+        },
+        "categoryCode": {
+          "type": "string"
+        },
+        "rateApplicablePercent": {
+          "type": "string"
+        },
+        "calculatedAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "basisAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "lineTotalBasisAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "allowanceChargeBasisAmount": {
+          "$ref": "#/definitions/Amount"
+        }
+      }
+    },
+    "Amount": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "currency": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "TradeParty": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/definitions/Id"
+        },
+        "globalID": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Id"
+          }
+        },
+        "definedTradeContact": {
+          "$ref": "#/definitions/TradeContact"
+        },
+        "postalTradeAddress": {
+          "$ref": "#/definitions/TradeAddress"
+        },
+        "taxRegistrations": {
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "registration"
+            ],
+            "properties": {
+              "registration": {
+                "$ref": "#/definitions/Id"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ReferencedDocument": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "issuerAssignedID"
+      ],
+      "properties": {
+        "issuerAssignedID": {
+          "$ref": "#/definitions/Id"
+        },
+        "uriid": {
+          "$ref": "#/definitions/Id"
+        },
+        "typeCode": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "attachmentBinaryObject": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "mimeCode",
+            "filename",
+            "value"
+          ],
+          "properties": {
+            "mimeCode": {
+              "type": "string"
+            },
+            "filename": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "formattedIssueDateTime": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "dateTimeString"
+          ],
+          "properties": {
+            "dateTimeString": {
+              "$ref": "#/definitions/DateTimeString"
+            }
+          }
+        }
+      }
+    },
+    "ExchangedDocumentContext": {
       "additionalProperties": false,
       "properties": {
         "documentContextParameter": {
@@ -55,7 +1868,7 @@
       },
       "type": "object"
     },
-    "exchangedDocument": {
+    "ExchangedDocument": {
       "additionalProperties": false,
       "required": [
         "id",
@@ -70,13 +1883,7 @@
           "type": "string"
         },
         "issueDateTime": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "dateTimeString": {
-              "$ref": "#/definitions/DateTimeString"
-            }
-          }
+          "$ref": "#/definitions/DateTime"
         },
         "name": {
           "type": "string"
@@ -84,7 +1891,7 @@
         "languageId": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/Enum/LanguageCode"
           }
         },
         "notes": {
@@ -96,7 +1903,466 @@
       },
       "type": "object"
     },
+    "DocumentLineDocument": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lineId": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Note"
+          }
+        }
+      },
+      "required": [
+        "lineId"
+      ]
+    },
+    "LineTradeDelivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "billedQuantity": {
+          "$ref": "#/definitions/Quantity"
+        },
+        "chainEvent": {
+          "$ref": "#/definitions/SupplyChainEvent"
+        }
+      },
+      "required": [
+        "billedQuantity"
+      ]
+    },
+    "TradeProduct": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "globalID": {
+          "$ref": "#/definitions/Id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sellerAssignedID": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tradeCountry": {
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "LineTradeAgreement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grossPrice": {
+          "$ref": "#/definitions/TradePrice"
+        },
+        "netPrice": {
+          "$ref": "#/definitions/TradePrice"
+        }
+      },
+      "required": [
+        "netPrice"
+      ]
+    },
+    "SupplyChainTradeLineItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "associatedDocumentLineDocument",
+        "specifiedTradeProduct",
+        "tradeAgreement",
+        "specifiedLineTradeSettlement"
+      ],
+      "properties": {
+        "delivery": {
+          "$ref": "#/definitions/LineTradeDelivery"
+        },
+        "associatedDocumentLineDocument": {
+          "$ref": "#/definitions/DocumentLineDocument"
+        },
+        "specifiedTradeProduct": {
+          "$ref": "#/definitions/TradeProduct"
+        },
+        "tradeAgreement": {
+          "$ref": "#/definitions/LineTradeAgreement"
+        },
+        "specifiedLineTradeSettlement": {
+          "$ref": "#/definitions/LineTradeSettlement"
+        }
+      }
+    },
+    "Period": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "startDatetime": {
+          "$ref": "#/definitions/DateTime"
+        },
+        "endDatetime": {
+          "$ref": "#/definitions/DateTime"
+        }
+      },
+      "required": [
+        "startDatetime",
+        "endDatetime"
+      ]
+    },
+    "LineTradeSettlement": {
+      "required": [
+        "monetarySummation"
+      ],
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tradeTax": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TradeTax"
+          }
+        },
+        "specifiedTradeAllowanceCharge": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TradeAllowanceCharge"
+          }
+        },
+        "billingSpecifiedPeriod": {
+          "$ref": "#/definitions/Period"
+        },
+        "monetarySummation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "totalAmount": {
+              "$ref": "#/definitions/Amount"
+            },
+            "totalAllowanceChargeAmount": {
+              "$ref": "#/definitions/Amount"
+            }
+          },
+          "required": [
+            "totalAmount"
+          ]
+        },
+        "tradeAccountingAccount": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TradeAccountingAccount"
+          }
+        }
+      }
+    },
+    "TradeAccountingAccount": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/Id"
+        },
+        "typeCode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "HeaderTradeAgreement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sellerTradeParty",
+        "buyerTradeParty"
+      ],
+      "properties": {
+        "sellerTradeParty": {
+          "$ref": "#/definitions/TradeParty"
+        },
+        "buyerTradeParty": {
+          "$ref": "#/definitions/TradeParty"
+        },
+        "buyerReference": {
+          "type": "string"
+        },
+        "buyerOrderReferencedDocument": {
+          "$ref": "#/definitions/ReferencedDocument"
+        },
+        "additionalReferencedDocuments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferencedDocument"
+          }
+        },
+        "specifiedProcuringProject": {
+          "$ref": "#/definitions/ProcuringProject"
+        }
+      }
+    },
+    "ProcuringProject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "HeaderTradeDelivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shipToTradeParty": {
+          "$ref": "#/definitions/TradeParty"
+        },
+        "chainEvent": {
+          "$ref": "#/definitions/SupplyChainEvent"
+        },
+        "deliveryNoteReferencedDocument": {
+          "$ref": "#/definitions/ReferencedDocument"
+        }
+      }
+    },
+    "TradeSettlementPaymentMeans": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "typeCode"
+      ],
+      "properties": {
+        "typeCode": {
+          "type": "string"
+        },
+        "information": {
+          "type": "string"
+        },
+        "payeePartyCreditorFinancialAccount": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ibanId": {
+              "$ref": "#/definitions/Id"
+            },
+            "accountName": {
+              "type": "string"
+            }
+          }
+        },
+        "payeeSpecifiedCreditorFinancialInstitution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "bicId"
+          ],
+          "properties": {
+            "bicId": {
+              "$ref": "#/definitions/Id"
+            }
+          }
+        },
+        "payerPartyDebtorFinancialAccount": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ibanId": {
+              "$ref": "#/definitions/Id"
+            }
+          }
+        },
+        "applicableTradeSettlementFinancialCard": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/definitions/Id"
+            },
+            "cardholderName": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "LogisticsServiceCharge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "appliedAmount"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "appliedAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "tradeTaxes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TradeTax"
+          }
+        }
+      }
+    },
+    "HeaderTradeSettlement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "currency",
+        "specifiedTradeSettlementHeaderMonetarySummation"
+      ],
+      "properties": {
+        "creditorReferenceID": {
+          "type": "string"
+        },
+        "paymentReference": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "payeeTradeParty": {
+          "$ref": "#/definitions/TradeParty"
+        },
+        "specifiedTradeSettlementPaymentMeans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TradeSettlementPaymentMeans"
+          }
+        },
+        "tradeTaxes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TradeTax"
+          }
+        },
+        "specifiedTradeAllowanceCharge": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TradeAllowanceCharge"
+          }
+        },
+        "specifiedLogisticsServiceCharge": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LogisticsServiceCharge"
+          }
+        },
+        "specifiedTradePaymentTerms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TradePaymentTerms"
+          }
+        },
+        "invoiceReferencedDocument": {
+          "$ref": "#/definitions/ReferencedDocument"
+        },
+        "specifiedTradeSettlementHeaderMonetarySummation": {
+          "$ref": "#/definitions/TradeSettlementHeaderMonetarySummation"
+        }
+      }
+    },
+    "TradeSettlementHeaderMonetarySummation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "duePayableAmount"
+      ],
+      "properties": {
+        "lineTotalAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "chargeTotalAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "allowanceTotalAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "roundingAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "totalPrepaidAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "duePayableAmount": {
+          "$ref": "#/definitions/Amount"
+        },
+        "taxBasisTotalAmount": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Amount"
+          }
+        },
+        "taxTotalAmount": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Amount"
+          }
+        },
+        "grandTotalAmount": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Amount"
+          }
+        }
+      }
+    },
+    "SupplyChainTradeTransaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicableHeaderTradeAgreement",
+        "applicableHeaderTradeDelivery",
+        "applicableHeaderTradeSettlement"
+      ],
+      "properties": {
+        "lineItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SupplyChainTradeLineItem"
+          }
+        },
+        "applicableHeaderTradeAgreement": {
+          "$ref": "#/definitions/HeaderTradeAgreement"
+        },
+        "applicableHeaderTradeDelivery": {
+          "$ref": "#/definitions/HeaderTradeDelivery"
+        },
+        "applicableHeaderTradeSettlement": {
+          "$ref": "#/definitions/HeaderTradeSettlement"
+        }
+      }
+    }
+  },
+  "properties": {
+    "exchangedDocumentContext": {
+      "$ref": "#/definitions/ExchangedDocumentContext"
+    },
+    "exchangedDocument": {
+      "$ref": "#/definitions/ExchangedDocument"
+    },
     "supplyChainTradeTransaction": {
+      "$ref": "#/definitions/SupplyChainTradeTransaction"
     }
   },
   "type": "object"
