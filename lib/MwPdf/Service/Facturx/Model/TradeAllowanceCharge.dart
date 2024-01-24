@@ -10,6 +10,7 @@ class TradeAllowanceCharge {
   final Amount? basisAmount;
   final Amount actualAmount;
   final String? reason;
+  final String? reasonCode;
   final List<TradeTax> tradeTax;
 
   TradeAllowanceCharge({
@@ -18,6 +19,7 @@ class TradeAllowanceCharge {
     this.basisAmount,
     required this.actualAmount,
     this.reason,
+    this.reasonCode,
     this.tradeTax = const [],
   });
 
@@ -48,6 +50,14 @@ class TradeAllowanceCharge {
             },
           );
         }
+        if (reasonCode != null) {
+          builder.element(
+            'ram:ReasonCode',
+            nest: () {
+              builder.text(reasonCode!);
+            },
+          );
+        }
         for (TradeTax t in tradeTax) {
           t.toXml(builder, 'ram:CategoryTradeTax');
         }
@@ -62,6 +72,7 @@ class TradeAllowanceCharge {
       basisAmount: Amount.fromJson(json['basisAmount'] as Dict? ?? {}),
       actualAmount: Amount.fromJson(json['actualAmount'] as Dict? ?? {}) ?? Amount.empty(),
       reason: json['reason'] as String?,
+      reasonCode: json['reasonCode'] as String?,
       tradeTax: (json['tradeTax'] as List<dynamic>? ?? [])
           .map((dynamic e) => TradeTax.fromJson(e as Dict))
           .toList(),

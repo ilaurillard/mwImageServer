@@ -10,6 +10,8 @@ class ExchangedDocument {
   final DateTime issueDateTime;
   final List<String> languageId;
   final List<Note> notes;
+  // EffectiveSpecifiedPeriod?
+  // CopyIndicator?
 
   ExchangedDocument({
     required this.id,
