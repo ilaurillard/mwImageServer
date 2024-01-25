@@ -5,10 +5,10 @@
 # Conventional directory for build output.
 build/
 
-/data/database/system.db
-/data/priv/*
-/data/pub/*
-/data/cache/*
-/data/templates/*
+data/database/system.db
+data/priv/*
+data/pub/*
+data/cache/*
+data/templates/*
 
 .idea/
