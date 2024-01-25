@@ -6,9 +6,9 @@
     "subject": "subject",
     "creator": "creator",
     "pdfa3b": true,
-    "theme": "@default",
+    "theme": "@def",
     "themes": {
-      "@default": {
+      "@def": {
         "margin": [
           20,
           20,
@@ -709,6 +709,43 @@
           }
         }
       ]
+    },
+    {
+      "multi": true,
+      "columns": 3,
+      "gapWidth": 10,
+      "header": "@def",
+      "footer": "@def",
+      "content": [
+        {
+          "LoremParagraph": {
+            "textAlign": "justify",
+            "sentence": 100,
+            "random": 123
+          }
+        },
+        {
+          "LoremParagraph": {
+            "textAlign": "justify",
+            "sentence": 200,
+            "random": 124
+          }
+        },
+        {
+          "LoremParagraph": {
+            "textAlign": "justify",
+            "sentence": 100,
+            "random": 125
+          }
+        },
+        {
+          "LoremParagraph": {
+            "textAlign": "justify",
+            "sentence": 50,
+            "random": 126
+          }
+        }
+      ]
     }
   ],
   "variables": {
@@ -725,20 +762,20 @@
     "@companyRow": {
       "text": "Magic Garden Seeds GmbH - Junkersstraße 7 - 93055 Regensburg"
     },
-    "@footerLeft": {
-      "text": "Geschäftsführer / CEO: Harald Schreiner\nJunkersstr. 7 93055 Regensburg\nHRB 14909 Regensburg\nUST Nr./VAT ID: DE301026455"
-    },
-    "@footerRight": {
-      "text": "service@magicgardenseeds.com\nRaiffeisenbank Regenstauf\nIBAN: DE08 7506 1851 0100 2813 10\nBIC: GENODEF1REF"
-    },
     "@recipient": {
       "text": "Ilja Laurillard\nKassenhofweg 20\n21077 Hamburg\nDeutschland"
     },
     "@delivery": {
       "text": "Ilja Laurillard\nKassenhofweg 20\n21077 Hamburg\nDeutschland"
     },
+    "@footerLeft": {
+      "text": "Geschäftsführer / CEO: Harald Schreiner\nJunkersstr. 7 93055 Regensburg\nHRB 14909 Regensburg\nUST Nr./VAT ID: DE301026455"
+    },
+    "@footerRight": {
+      "text": "service@magicgardenseeds.com\nRaiffeisenbank Regenstauf\nIBAN: DE08 7506 1851 0100 2813 10\nBIC: GENODEF1REF"
+    },
     "@sum1": {
-      "valuesFormats": {
+      "formats": {
         "1": "#,##0.00"
       },
       "values": [
@@ -749,7 +786,7 @@
       ]
     },
     "@sum2": {
-      "valuesFormats": {
+      "formats": {
         "1": "#,##0.00"
       },
       "values": [
@@ -760,7 +797,7 @@
       ]
     },
     "@sum3": {
-      "valuesFormats": {
+      "formats": {
         "1": "#,##0.00"
       },
       "values": [
@@ -771,7 +808,7 @@
       ]
     },
     "@sum4": {
-      "valuesFormats": {
+      "formats": {
         "1": "#,##0.00"
       },
       "values": [
@@ -782,7 +819,7 @@
       ]
     },
     "@sum5": {
-      "valuesFormats": {
+      "formats": {
         "1": "#,##0.00"
       },
       "values": [
@@ -793,7 +830,7 @@
       ]
     },
     "@sum6": {
-      "valuesFormats": {
+      "formats": {
         "1": "#,##0.00"
       },
       "values": [
@@ -804,7 +841,7 @@
       ]
     },
     "@lineItems": {
-      "valuesFormats": {
+      "formats": {
         "0": "#",
         "1": "#,##0.00",
         "4": "#,##0.00",

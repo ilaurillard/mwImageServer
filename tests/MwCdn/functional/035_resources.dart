@@ -120,7 +120,7 @@ void main() {
             },
             '@source1': {
               'valuesLocale': 'en_US',
-              'valuesFormats': {'1': '#,##0', '3': '#,##0.00'},
+              'formats': {'1': '#,##0', '3': '#,##0.00'},
               'values': [
                 ['Katze', 1.5, true, 7.5],
                 ['Hund', null, false, 333441275.25],

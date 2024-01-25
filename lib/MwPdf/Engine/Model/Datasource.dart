@@ -75,7 +75,7 @@ class Datasource {
       values: (json['values'] as List<dynamic>? ?? [])
           .map(
             (dynamic row) => applyFormats(
-              _valuesFormats(
+              _formats(
                 json,
                 json['valuesLocale'] as String? ?? 'de_DE',
               ),
@@ -230,13 +230,13 @@ class Datasource {
     return res;
   }
 
-  static Map<int, NumberFormat?> _valuesFormats(
+  static Map<int, NumberFormat?> _formats(
     Dict json,
     String locale,
   ) {
     Map<int, NumberFormat?>? formats = {};
-    Dict temp = json['valuesFormats'] as Dict? ?? {};
-    if (json['valuesFormats'] != null) {
+    Dict temp = json['formats'] as Dict? ?? {};
+    if (json['formats'] != null) {
       formats = Map.fromEntries(
         temp.entries.map(
           (

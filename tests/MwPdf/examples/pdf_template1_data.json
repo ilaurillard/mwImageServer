@@ -44,7 +44,7 @@
     },
     "@source1": {
       "valuesLocale": "en_US",
-      "valuesFormats": {
+      "formats": {
         "1": "#,##0",
         "3": "#,##0.00"
       },
