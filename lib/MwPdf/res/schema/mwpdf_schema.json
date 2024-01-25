@@ -2411,6 +2411,7 @@
             "$ref": "#/definitions/Enum/Alignment"
           },
           "headerAlignments": {
+            "description": "control alignments per column (column number: Alignment)",
             "additionalProperties": false,
             "patternProperties": {
               "^[0-9]+$": {
@@ -2830,6 +2831,22 @@
         "type": "object"
       },
       "type": "array"
+    },
+    "variables": {
+      "description": "global named values",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][a-zA-Z0-9]{1,31}$": {
+          "type": [
+            "boolean",
+            "integer",
+            "null",
+            "number",
+            "string"
+          ]
+        }
+      },
+      "type": "object"
     },
     "sources": {
       "additionalProperties": false,

@@ -6,13 +6,14 @@ import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:mwcdn/MwPdf/Service/Hyphenation/hyphenator.dart';
 import 'package:mwcdn/MwPdf/Service/Hyphenation/loader.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:xml/xml.dart';
 
 import 'Datasource.dart';
 
 class State {
   static const material = 'material';
 
-  // be sure to include names in schema
+  // be sure to also include fonts in schema
   Map<String, String> builtinFonts = {
     'openSansRegular': 'OpenSans/OpenSans-Regular.ttf',
     'openSansBold': 'OpenSans/OpenSans-Bold.ttf',
@@ -25,17 +26,18 @@ class State {
 
   static Map<String, Hyphenator> hyphenators = {};
 
-  final String resDir;
+  final Storage storage; // from CDN project
 
-  String value = '';
-  int pageNumber = 0;
-  int pagesCount = 0;
+  final String resDir;
 
   Map<String, Datasource> sources = {};
 
-  final Storage storage;
+  Dict variables = {};
+  String cellValue = '';
+  int pageNumber = 0;
+  int pagesCount = 0;
 
-
+  // ------------------------------
 
   State({
     required this.resDir,
@@ -93,8 +95,9 @@ class State {
     }
   }
 
-  static State fromJson(
-    Dict json, {
+  static State fromJson({
+    required Dict sources,
+    required Dict variables,
     required String resDir,
     required Storage storage,
   }) {
@@ -103,7 +106,16 @@ class State {
       storage: storage,
     );
 
-    state.sources = json.map(
+    state.variables = variables.map(
+      (key, value) {
+        return MapEntry(
+          key,
+          value,
+        );
+      },
+    );
+
+    state.sources = sources.map(
       (key, value) {
         return MapEntry(
           key,
@@ -141,15 +153,13 @@ class State {
     return (String word) {
       if (word.length > 3) {
         if (hyphenators[language] != null) {
-
           List<String> list;
           String trail = word.substring(word.length - 1);
           if (trail.contains(RegExp(r'^\W$'))) {
             word = word.substring(0, word.length - 1);
             list = hyphenators[language]!.hyphenateWordToList(word);
             list.last += trail;
-          }
-          else {
+          } else {
             list = hyphenators[language]!.hyphenateWordToList(word);
           }
 
@@ -176,5 +186,20 @@ class State {
       ),
       minLetterCount: 2,
     );
+  }
+
+  String replaceParameters(
+    String text,
+  ) {
+    if (!text.contains('%')) {
+      return text;
+    }
+    for (String key in variables.keys) {
+      text = text.replaceAll('%$key%', (variables[key] ?? '').toString());
+    }
+    return text
+        .replaceAll('%value%', cellValue)
+        .replaceAll('%pageNumber%', pageNumber.toString())
+        .replaceAll('%pagesCount%', pagesCount.toString());
   }
 }

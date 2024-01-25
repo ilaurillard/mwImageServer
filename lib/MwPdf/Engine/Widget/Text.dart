@@ -53,9 +53,8 @@ class Text {
     Dict json,
     State state,
   ) {
-    String text = Util.replaceParameters(
+    String text = state.replaceParameters(
       json['text'] as String? ?? '',
-      state,
     );
     if (text.isEmpty) {
       text = state

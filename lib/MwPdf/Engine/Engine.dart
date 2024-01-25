@@ -36,7 +36,8 @@ class Engine {
     required Storage storage,
   }) async {
     State state = State.fromJson(
-      (json['sources'] as Dict?) ?? {},
+      sources: (json['sources'] as Dict?) ?? {},
+      variables: (json['variables'] as Dict?) ?? {},
       resDir: resDir,
       storage: storage,
     );

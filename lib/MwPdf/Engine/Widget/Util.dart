@@ -588,19 +588,6 @@ class Util {
     return pw.DecorationPosition.background;
   }
 
-  static String replaceParameters(
-    String text,
-    State state,
-  ) {
-    // for (String key in Widget.parameters.keys) {
-    //   text = text.replaceAll('%$key%', Widget.parameters[key] ?? '');
-    // }
-    return text
-        .replaceAll('%value%', state.value)
-        .replaceAll('%pageNumber%', state.pageNumber.toString())
-        .replaceAll('%pagesCount%', state.pagesCount.toString());
-  }
-
   // text decoration is broken .. ?
   static pw.TextDecoration? textDecoration(
     String? json,
@@ -680,9 +667,8 @@ class Util {
     State state,
   ) {
     String subject = json['subject'] as String? ?? '';
-    String value = replaceParameters(
+    String value = state.replaceParameters(
       subject,
-      state,
     );
 
     Dict cases = (json['cases'] as Dict? ?? {});

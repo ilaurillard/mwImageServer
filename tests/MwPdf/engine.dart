@@ -56,7 +56,9 @@ Future<void> main() async {
   // String jsonFile = 'pdf_toc.json';
   // String jsonFile = 'pdf_template1_data.json';
   // String jsonFile = 'pdf_a.json';
-  String jsonFile = 'zugferd1.json';
+  // String jsonFile = 'pdf_zugferd1.json';
+
+  String jsonFile = 'pdf_invoice.json';
 
   String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {

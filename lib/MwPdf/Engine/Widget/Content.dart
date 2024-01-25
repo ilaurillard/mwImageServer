@@ -28,9 +28,8 @@ class Content {
     Dict json,
     State state,
   ) {
-    String text = Util.replaceParameters(
+    String text = state.replaceParameters(
       json['text'] as String? ?? '',
-      state,
     );
     if (text.isEmpty) {
       text = state
@@ -152,9 +151,8 @@ class Content {
     );
 
     return pw.Bullet(
-        text: Util.replaceParameters(
+        text: state.replaceParameters(
           json['text'] as String? ?? '',
-          state,
         ),
         textAlign: Util.textAlign(
               json['textAlign'] as String?,

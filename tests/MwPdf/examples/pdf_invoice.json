@@ -1,0 +1,836 @@
+{
+  "meta": {
+    "title": "Rechnung %rechnungsNr%",
+    "producer": "producer",
+    "author": "author",
+    "subject": "subject",
+    "creator": "creator",
+    "pdfa3b": true,
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "margin": [
+          20,
+          20,
+          20,
+          5
+        ],
+        "background": {
+          "FullPage": {
+            "ignoreMargins": true,
+            "child": {
+              "Align": {
+                "alignment": "bottomCenter",
+                "child": {
+                  "Row": {
+                    "children": [
+                      {
+                        "Expanded": {
+                          "child": {
+                            "Container": {
+                              "color": "DDEEFF",
+                              "height": 40
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "styles": {
+          "text": {
+            "font": "openSansRegular",
+            "fontSize": 3,
+            "fontBold": "openSansBold"
+          },
+          "paragraph": {
+            "font": "openSansRegular",
+            "fontSize": 3
+          }
+        }
+      }
+    },
+    "footers": {
+      "@def": {
+        "Container": {
+          "height": 44,
+          "child": {
+            "Column": {
+              "mainAxisAlignment": "end",
+              "children": [
+                {
+                  "Align": {
+                    "alignment": "centerRight",
+                    "child": {
+                      "Text": {
+                        "text": "Rechnung %rechnungsNr% - Seite %pageNumber%/%pagesCount%",
+                        "style": {
+                          "fontSize": 2.5
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "SizedBox": {
+                    "height": 10
+                  }
+                },
+                {
+                  "Row": {
+                    "crossAxisAlignment": "end",
+                    "mainAxisAlignment": "spaceBetween",
+                    "children": [
+                      {
+                        "Container": {
+                          "child": {
+                            "Paragraph": {
+                              "source": "@footerLeft",
+                              "style": {
+                                "fontSize": 3
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "Container": {
+                          "child": {
+                            "Text": {
+                              "text": ""
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "Container": {
+                          "child": {
+                            "Paragraph": {
+                              "textAlign": "right",
+                              "source": "@footerRight",
+                              "style": {
+                                "fontSize": 3
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "headers": {
+      "@def": {
+        "Container": {
+          "height": 30,
+          "margin": [
+            0,
+            0,
+            0,
+            10
+          ],
+          "child": {
+            "Row": {
+              "crossAxisAlignment": "end",
+              "mainAxisAlignment": "spaceBetween",
+              "children": [
+                {
+                  "Container": {
+                    "child": {
+                      "Text": {
+                        "text": "RECHNUNG",
+                        "style": {
+                          "fontSize": 9,
+                          "fontWeight": "bold"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "Container": {
+                    "child": {
+                      "Text": {
+                        "text": "(logo)"
+                      }
+                    }
+                  }
+                },
+                {
+                  "Container": {
+                    "child": {
+                      "BarcodeWidget": {
+                        "value": "http://www.google.de",
+                        "barcode": "QrCode",
+                        "width": 20,
+                        "height": 20
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "multi": true,
+      "header": "@def",
+      "footer": "@def",
+      "content": [
+        {
+          "Container": {
+            "margin": [
+              0,
+              0,
+              0,
+              2
+            ],
+            "child": {
+              "Text": {
+                "source": "@companyRow",
+                "style": {
+                  "decoration": "underline"
+                }
+              }
+            }
+          }
+        },
+        {
+          "Row": {
+            "crossAxisAlignment": "end",
+            "children": [
+              {
+                "Expanded": {
+                  "flex": 7,
+                  "child": {
+                    "Column": {
+                      "crossAxisAlignment": "start",
+                      "children": [
+                        {
+                          "Paragraph": {
+                            "source": "@recipient"
+                          }
+                        },
+                        {
+                          "Container": {
+                            "margin": [
+                              0,
+                              0,
+                              0,
+                              2
+                            ],
+                            "child": {
+                              "Text": {
+                                "text": "Lieferadresse",
+                                "style": {
+                                  "decoration": "underline"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "Paragraph": {
+                            "source": "@delivery"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "Expanded": {
+                  "flex": 2,
+                  "child": {
+                    "Container": {
+                      "child": {
+                        "Paragraph": {
+                          "text": "Kunden-Nr.:\nRechnungs-Nr:\nRechnungsdatum:\nAuftrags-Nr:\nBestelldatum:\nVersandland:\nVersanddatum:\nZahlungsart:"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Expanded": {
+                  "flex": 2,
+                  "child": {
+                    "Container": {
+                      "child": {
+                        "Paragraph": {
+                          "textAlign": "right",
+                          "text": "%kundenNr%\n%rechnungsNr%\n%rechnungsDatum%\n%auftragsNr%\n%bestellDatum%\n%versandLand%\n%versandDatum%\n%zahlungsArt%"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "TableAuto": {
+            "columnWidths": {
+              "0": {
+                "FlexColumnWidth": {
+                  "flex": 1
+                }
+              },
+              "1": {
+                "FlexColumnWidth": {
+                  "flex": 1.5
+                }
+              },
+              "2": {
+                "FlexColumnWidth": {
+                  "flex": 2
+                }
+              },
+              "3": {
+                "FlexColumnWidth": {
+                  "flex": 8
+                }
+              },
+              "4": {
+                "FlexColumnWidth": {
+                  "flex": 2
+                }
+              },
+              "5": {
+                "FlexColumnWidth": {
+                  "flex": 2
+                }
+              },
+              "6": {
+                "FlexColumnWidth": {
+                  "flex": 2
+                }
+              }
+            },
+            "source": "@lineItems",
+            "cellPadding": [
+              1,
+              2,
+              1,
+              2
+            ],
+            "cellAlignment": "topLeft",
+            "cellAlignments": {
+              "0": "topRight",
+              "1": "topRight",
+              "4": "topRight",
+              "5": "topRight",
+              "6": "topRight"
+            },
+            "cellStyle": {
+              "color": "000000"
+            },
+            "oddCellStyle": {
+              "color": "000000"
+            },
+            "headerCount": 1,
+            "headerPadding": [
+              1
+            ],
+            "headerAlignment": "bottomLeft",
+            "headerAlignments": {
+              "1": "bottomRight",
+              "4": "bottomRight",
+              "5": "bottomRight",
+              "6": "bottomRight"
+            },
+            "headerStyle": {
+              "color": "000000",
+              "fontWeight": "bold"
+            },
+            "tableWidth": "max",
+            "headerDecoration": {
+              "color": "FFFFFF",
+              "border": {
+                "bottom": {
+                  "style": "solid"
+                }
+              }
+            },
+            "headers": [
+              "Pos.",
+              "Menge",
+              "Art.-Nr.",
+              "Bezeichnung",
+              "MwSt.",
+              "E.Preis",
+              "G.-Preis"
+            ],
+            "cells": {
+              "4": {
+                "Text": {
+                  "text": "%value% %"
+                }
+              },
+              "5": {
+                "Text": {
+                  "text": "%value% €"
+                }
+              },
+              "6": {
+                "Text": {
+                  "text": "%value% €"
+                }
+              }
+            }
+          }
+        },
+        {
+          "Table": {
+            "tableWidth": "max",
+            "columnWidths": {
+              "0": {
+                "FlexColumnWidth": {
+                  "flex": 16.5
+                }
+              },
+              "1": {
+                "FlexColumnWidth": {
+                  "flex": 2
+                }
+              }
+            },
+            "defaultVerticalAlignment": "middle",
+            "children": [
+              {
+                "TableRow": {
+                  "source": "@sum1",
+                  "decoration": {
+                    "border": {
+                      "top": {
+                        "style": "solid"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          2,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value%",
+                            "textAlign": "right"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          2,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value% €",
+                            "textAlign": "right"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TableRow": {
+                  "source": "@sum2",
+                  "children": [
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          2,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value%",
+                            "textAlign": "right"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          2,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value% €",
+                            "textAlign": "right"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TableRow": {
+                  "source": "@sum3",
+                  "children": [
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          3,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value%",
+                            "textAlign": "right",
+                            "style": {
+                              "fontWeight": "bold"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          3,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value% €",
+                            "textAlign": "right",
+                            "style": {
+                              "fontWeight": "bold"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TableRow": {
+                  "source": "@sum4",
+                  "decoration": {
+                    "border": {
+                      "top": {
+                        "style": "solid"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          2,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value%",
+                            "textAlign": "right",
+                            "style": {
+                              "fontWeight": "bold"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          2,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value% €",
+                            "textAlign": "right",
+                            "style": {
+                              "fontWeight": "bold"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TableRow": {
+                  "source": "@sum5",
+                  "decoration": {
+                    "border": {
+                      "bottom": {
+                        "style": "solid"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          3,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value%",
+                            "textAlign": "right"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          3,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value% €",
+                            "textAlign": "right"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TableRow": {
+                  "source": "@sum6",
+                  "decoration": {
+                    "border": {
+                      "top": {
+                        "style": "solid"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          2,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value%",
+                            "textAlign": "right",
+                            "style": {
+                              "fontWeight": "bold"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "padding": [
+                          1,
+                          2,
+                          1,
+                          2
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value% €",
+                            "textAlign": "right",
+                            "style": {
+                              "fontWeight": "bold"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "kundenNr": "KMGS111002",
+    "rechnungsNr": "RE-MGS-2023673047",
+    "rechnungsDatum": "20.11.2023",
+    "auftragsNr": "MGS133458",
+    "bestellDatum": "20.11.2023",
+    "versandLand": "DE",
+    "versandDatum": "20.11.2023",
+    "zahlungsArt": "PAYPAL"
+  },
+  "sources": {
+    "@companyRow": {
+      "text": "Magic Garden Seeds GmbH - Junkersstraße 7 - 93055 Regensburg"
+    },
+    "@footerLeft": {
+      "text": "Geschäftsführer / CEO: Harald Schreiner\nJunkersstr. 7 93055 Regensburg\nHRB 14909 Regensburg\nUST Nr./VAT ID: DE301026455"
+    },
+    "@footerRight": {
+      "text": "service@magicgardenseeds.com\nRaiffeisenbank Regenstauf\nIBAN: DE08 7506 1851 0100 2813 10\nBIC: GENODEF1REF"
+    },
+    "@recipient": {
+      "text": "Ilja Laurillard\nKassenhofweg 20\n21077 Hamburg\nDeutschland"
+    },
+    "@delivery": {
+      "text": "Ilja Laurillard\nKassenhofweg 20\n21077 Hamburg\nDeutschland"
+    },
+    "@sum1": {
+      "valuesFormats": {
+        "1": "#,##0.00"
+      },
+      "values": [
+        [
+          "Gesamt Netto (7,00 %)",
+          23.88
+        ]
+      ]
+    },
+    "@sum2": {
+      "valuesFormats": {
+        "1": "#,##0.00"
+      },
+      "values": [
+        [
+          "zzgl. MwSt (7,00 %)",
+          3.5
+        ]
+      ]
+    },
+    "@sum3": {
+      "valuesFormats": {
+        "1": "#,##0.00"
+      },
+      "values": [
+        [
+          "Rechnungsbetrag",
+          33.57
+        ]
+      ]
+    },
+    "@sum4": {
+      "valuesFormats": {
+        "1": "#,##0.00"
+      },
+      "values": [
+        [
+          "Zahlbetrag",
+          33.57
+        ]
+      ]
+    },
+    "@sum5": {
+      "valuesFormats": {
+        "1": "#,##0.00"
+      },
+      "values": [
+        [
+          "Zahlung (PAYPAL) vom 20.11.2023",
+          33.57
+        ]
+      ]
+    },
+    "@sum6": {
+      "valuesFormats": {
+        "1": "#,##0.00"
+      },
+      "values": [
+        [
+          "Offener Betrag",
+          0
+        ]
+      ]
+    },
+    "@lineItems": {
+      "valuesFormats": {
+        "0": "#",
+        "1": "#,##0.00",
+        "4": "#,##0.00",
+        "5": "#,##0.00",
+        "6": "#,##0.00"
+      },
+      "values": [
+        [
+          1,
+          1.00,
+          "A-AK-001",
+          "Saatgut-Adventskalender - Gemüse, Kräuter & Blumen-Samen",
+          7,
+          22.5,
+          22.5
+        ],
+        [
+          2,
+          1.00,
+          "nn00001",
+          "PAYPAL",
+          7,
+          0,
+          0
+        ]
+      ]
+    }
+  }
+}

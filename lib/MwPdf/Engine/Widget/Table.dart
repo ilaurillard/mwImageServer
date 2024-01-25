@@ -27,7 +27,7 @@ class Table {
       for (List<dynamic> row in data) {
         for (int nr in cells.keys) {
           if (row.length > nr) {
-            state.value = row[nr]!.toString();
+            state.cellValue = row[nr]!.toString();
             row[nr] = Widget.parse(
               cells[nr]!,
               state,
@@ -175,7 +175,7 @@ class Table {
       List<pw.Widget> children = [];
       int nr = 0;
       for (dynamic d in data['children'] as List<dynamic>? ?? []) {
-        state.value = v.length > nr ? v[nr].toString() : '?';
+        state.cellValue = v.length > nr ? v[nr].toString() : '?';
         children.add(Widget.parse(
           d as Dict,
           state,

@@ -101,12 +101,14 @@ class Meta {
     return Meta(
       theme: json['theme'] as String? ?? '',
       pageMode: Util.pageMode(json['pageMode'] as String?),
-      title: json['title'] as String?,
-      author: json['author'] as String?,
-      creator: json['creator'] as String?,
-      subject: json['subject'] as String?,
-      keywords: json['keywords'] as String?,
-      producer: json['producer'] as String?,
+
+      title: replaceParameters(json['title'] as String?, state),
+      author: replaceParameters(json['author'] as String?, state),
+      creator: replaceParameters(json['creator'] as String?, state),
+      subject: replaceParameters(json['subject'] as String?, state),
+      keywords: replaceParameters(json['keywords'] as String?, state),
+      producer: replaceParameters(json['producer'] as String?, state),
+
       themes: Theme.fromJsonAll(
         (json['themes'] as Dict?) ?? {},
         state,
@@ -177,5 +179,12 @@ class Meta {
   </pdfaExtension:schemas>
 </rdf:Description>
 ''';
+  }
+
+  static String? replaceParameters(String? string, State state,) {
+    if (string != null) {
+      string = state.replaceParameters(string);
+    }
+    return string;
   }
 }
