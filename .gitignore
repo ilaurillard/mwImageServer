@@ -9,5 +9,6 @@ build/
 /data/priv/*
 /data/pub/*
 /data/cache/*
+/data/templates/*
 
 .idea/
