@@ -1,5 +1,5 @@
 {
-  "import": "56e06d9938331a6e573319e6f77cd3ef",
+  "import": "86e8bc2a72e1cbe0eb6c371e78253b7a",
   "variables": {
     "kundenNr": "KMGS111002",
     "rechnungsNr": "RE-MGS-2023673047",
@@ -11,6 +11,21 @@
     "zahlungsArt": "PAYPAL"
   },
   "sources": {
+    "@logoImage": {
+      "url": "https://placekitten.com/300/200"
+    },
+    "@logo": {
+      "widget": {
+        "Container": {
+          "width": 50,
+          "child": {
+            "Image": {
+              "source": "@logoImage"
+            }
+          }
+        }
+      }
+    },
     "@companyRow": {
       "text": "Magic Garden Seeds GmbH - Junkersstraße 7 - 93055 Regensburg"
     },

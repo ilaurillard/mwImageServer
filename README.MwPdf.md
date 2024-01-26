@@ -41,9 +41,9 @@ Higher-Level Widgets
 ZUGFERD
 -------
 
-java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.10.0.jar --action extract
+java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.10.0.jar --action extract --source invoice.pdf
 
-java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.10.0.jar --action validate
+java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.10.0.jar --action validate --source invoice.pdf
 
 
 

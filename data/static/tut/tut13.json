@@ -149,6 +149,38 @@
                 }
               },
               {
+                "Text": {
+                  "text": "PT Serif Regular",
+                  "style": {
+                    "font": "ptSerifRegular"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "PT Serif Bold",
+                  "style": {
+                    "font": "ptSerifBold"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "PT Serif Italic",
+                  "style": {
+                    "font": "ptSerifItalic"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "PT Serif Bold Italic",
+                  "style": {
+                    "font": "ptSerifBoldItalic"
+                  }
+                }
+              },
+              {
                 "Divider": {
                 }
               },

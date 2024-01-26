@@ -159,8 +159,8 @@
                 {
                   "Container": {
                     "child": {
-                      "Text": {
-                        "text": "(logo)"
+                      "Widget": {
+                        "source": "@widget"
                       }
                     }
                   }
@@ -770,6 +770,16 @@
     "showRow2": true
   },
   "sources": {
+    "@image1": {
+      "url": "https://placekitten.com/300/200"
+    },
+    "@widget": {
+      "widget": {
+        "Image": {
+          "source": "@image1"
+        }
+      }
+    },
     "@companyRow": {
       "text": "Magic Garden Seeds GmbH - Junkersstraße 7 - 93055 Regensburg"
     },

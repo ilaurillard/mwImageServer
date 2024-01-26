@@ -830,7 +830,11 @@
               "openSansRegular",
               "openSansBold",
               "openSansBoldItalic",
-              "openSansItalic"
+              "openSansItalic",
+              "ptSerifRegular",
+              "ptSerifBold",
+              "ptSerifBoldItalic",
+              "ptSerifItalic"
             ]
           },
           {

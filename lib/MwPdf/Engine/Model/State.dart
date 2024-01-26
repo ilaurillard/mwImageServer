@@ -19,6 +19,10 @@ class State {
     'openSansBold': 'OpenSans/OpenSans-Bold.ttf',
     'openSansItalic': 'OpenSans/OpenSans-Italic.ttf',
     'openSansBoldItalic': 'OpenSans/OpenSans-BoldItalic.ttf',
+    'ptSerifBoldItalic': 'Pt/PTSerif-BoldItalic.ttf',
+    'ptSerifBold': 'Pt/PTSerif-Bold.ttf',
+    'ptSerifRegular': 'Pt/PTSerif-Regular.ttf',
+    'ptSerifItalic': 'Pt/PTSerif-Italic.ttf',
   };
 
   static Map<String, pw.Font> fonts = {};
@@ -92,6 +96,11 @@ class State {
       await sources[key]!.load(
         storage,
       );
+    }
+    // we need to create widgets afterwards
+    // (resources must be all loaded!)
+    for (String key in sources.keys) {
+      sources[key]!.prepareWidget(this);
     }
   }
 

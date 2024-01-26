@@ -5,7 +5,9 @@
       <excludeFolder url="file://$MODULE_DIR$/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bin/res" />
       <excludeFolder url="file://$MODULE_DIR$/data/files" />
+      <excludeFolder url="file://$MODULE_DIR$/tests/MwPdf/log" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

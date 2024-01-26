@@ -11,7 +11,10 @@
       "@default": {
         "styles": {
           "text": {
-            "font": "openSansRegular"
+            "font": "ptSerifRegular"
+          },
+          "paragraph": {
+            "font": "ptSerifRegular"
           }
         }
       }
@@ -22,10 +25,41 @@
       "content": [
         {
           "Column": {
+            "crossAxisAlignment": "start",
             "children": [
               {
-                "Text": {
+                "Paragraph": {
                   "text": "Invoice with embedded Factur-X XML"
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Validate it: java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.10.0.jar --action validate --source invoice.pdf"
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "For PDF/A validation try:"
+                }
+              },
+              {
+                "UrlLink": {
+                  "destination": "https://demo.verapdf.org/",
+                  "child": {
+                    "Text": {
+                      "text": "https://demo.verapdf.org/"
+                    }
+                  }
+                }
+              },
+              {
+                "UrlLink": {
+                  "destination": "https://avepdf.com/pdfa-validation",
+                  "child": {
+                    "Text": {
+                      "text": "https://avepdf.com/pdfa-validation"
+                    }
+                  }
                 }
               }
             ]
@@ -34,7 +68,6 @@
       ]
     }
   ],
-
   "facturx": {
     "exchangedDocumentContext": {
       "documentContextParameter": {

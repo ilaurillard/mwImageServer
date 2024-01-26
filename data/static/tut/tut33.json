@@ -157,12 +157,8 @@
                   }
                 },
                 {
-                  "Container": {
-                    "child": {
-                      "Text": {
-                        "text": "(logo)"
-                      }
-                    }
+                  "Widget": {
+                    "source": "@logo"
                   }
                 },
                 {

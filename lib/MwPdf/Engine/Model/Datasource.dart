@@ -9,8 +9,9 @@ import 'package:mwcdn/MwMs/Model/ResourceInterface.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
 import 'package:pdf/widgets.dart' as pw;
+
+import '../Widget/Widget.dart';
 
 class Datasource {
   final String key;
@@ -28,7 +29,9 @@ class Datasource {
   final List<Dict> data;
 
   // reusable widget
-  final pw.Widget? widget;
+  pw.Widget? widget;
+
+  final Dict widgetData;
 
   // placeholder text
   final String text;
@@ -43,6 +46,7 @@ class Datasource {
     this.values = const [],
     this.data = const [],
     this.widget,
+    this.widgetData = const {},
     this.text = '',
     this.resourceId = '',
   });
@@ -87,13 +91,19 @@ class Datasource {
       data: (json['data'] as List<dynamic>? ?? [])
           .map((dynamic row) => row as Dict)
           .toList(),
-      widget: Widget.parse(
-        json['widget'] as Dict? ?? {},
-        state,
-      ),
+      widgetData: json['widget'] as Dict? ?? {},
+      // widget: Widget.parse(
+      //   json['widget'] as Dict? ?? {},
+      //   state,
+      // ),
       text: json['text'] as String? ?? '',
-      // bucketId: bucketId,
-      // token: token,
+    );
+  }
+
+  void prepareWidget(State state) {
+    widget = Widget.parse(
+      widgetData,
+      state,
     );
   }
 

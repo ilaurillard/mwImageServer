@@ -12,3 +12,4 @@ data/cache/*
 data/files/*
 
 .idea/
+/tests/MwPdf/log/

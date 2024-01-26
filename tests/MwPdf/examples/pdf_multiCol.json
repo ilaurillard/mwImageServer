@@ -41,8 +41,17 @@
   },
   "pages": [
     {
+      "content": [
+        {
+          "Container": {
+
+          }
+        }
+      ]
+    },
+    {
       "multi": true,
-      "columns": 3,
+      "columns": 2,
       "gapWidth": 10,
       "theme": "@default",
       "header": "@myHead",
@@ -78,7 +87,7 @@
         {
           "LoremParagraph": {
             "textAlign": "left",
-            "sentence": 60,
+            "sentence": 600,
             "random": 125
           }
         }

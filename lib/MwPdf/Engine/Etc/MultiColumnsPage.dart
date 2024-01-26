@@ -74,11 +74,16 @@ class MultiColumnsPage extends MultiPage {
     int column = 0;
     int idx = 0;
 
+    int pages = 0;
     while (idx < children.length) {
       Widget child = children[idx];
 
       bool startNewPage = pageContext == null || child is NewPage;
       if (startNewPage) {
+        pages++;
+        if (pages > 10) {
+          throw Exception('Can generate 10 multi col pages max',);
+        }
         PdfPage pdfPage = PdfPage(
           document.document,
           pageFormat: pageFormat,
