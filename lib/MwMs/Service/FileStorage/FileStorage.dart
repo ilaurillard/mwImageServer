@@ -75,6 +75,16 @@ class FileStorage {
 
   // ---------------------
 
+  Future<File> putFile(
+    String path,
+    String binary,
+  ) async {
+    return await createFileFromString(
+      path,
+      binary,
+    );
+  }
+
   File file(
     String path,
   ) {

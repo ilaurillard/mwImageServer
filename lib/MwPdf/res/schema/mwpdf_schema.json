@@ -173,6 +173,49 @@
       }
     },
     "Other": {
+      "Condition": {
+        "type": "string"
+      },
+      "ShowIfValueTableRow": {
+        "additionalProperties": false,
+        "properties": {
+          "condition": {
+            "$ref": "#/definitions/Other/Condition"
+          },
+          "child": {
+            "additionalProperties": false,
+            "maxProperties": 1,
+            "minProperties": 1,
+            "properties": {
+              "TableRow": {
+                "$ref": "#/definitions/Other/TableRow"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "ShowIfValuePartition": {
+        "additionalProperties": false,
+        "properties": {
+          "condition": {
+            "$ref": "#/definitions/Other/Condition"
+          },
+          "child": {
+            "additionalProperties": false,
+            "maxProperties": 1,
+            "minProperties": 1,
+            "properties": {
+              "Partition": {
+                "$ref": "#/definitions/Other/Partition"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "BarDataSet": {
         "additionalProperties": false,
         "properties": {
@@ -966,12 +1009,14 @@
       }
     },
     "Widget": {
-      "additionalProperties": false,
-      "maxProperties": 1,
       "minProperties": 1,
+      "maxProperties": 1,
       "properties": {
         "Align": {
           "$ref": "#/definitions/Widgets/Align"
+        },
+        "ShowIfValue": {
+          "$ref": "#/definitions/Widgets/ShowIfValue"
         },
         "Anchor": {
           "$ref": "#/definitions/Widgets/Anchor"
@@ -1160,6 +1205,7 @@
           "$ref": "#/definitions/Widgets/Wrap"
         }
       },
+      "additionalProperties": false,
       "type": "object"
     },
     "Widgets": {
@@ -1168,6 +1214,18 @@
         "properties": {
           "alignment": {
             "$ref": "#/definitions/Enum/Alignment"
+          },
+          "child": {
+            "$ref": "#/definitions/Widget"
+          }
+        },
+        "type": "object"
+      },
+      "ShowIfValue": {
+        "additionalProperties": false,
+        "properties": {
+          "condition": {
+            "$ref": "#/definitions/Other/Condition"
           },
           "child": {
             "$ref": "#/definitions/Widget"
@@ -2039,8 +2097,14 @@
               "properties": {
                 "Partition": {
                   "$ref": "#/definitions/Other/Partition"
+                },
+                "ShowIfValue": {
+                  "$ref": "#/definitions/Other/ShowIfValuePartition"
                 }
               },
+              "additionalPropeterties": false,
+              "minProperties": 1,
+              "maxProperties": 1,
               "type": "object"
             },
             "type": "array"
@@ -2330,9 +2394,15 @@
               "properties": {
                 "TableRow": {
                   "$ref": "#/definitions/Other/TableRow"
+                },
+                "ShowIfValue": {
+                  "$ref": "#/definitions/Other/ShowIfValueTableRow"
                 }
               },
-              "type": "object"
+              "minProperties": 1,
+              "maxProperties": 1,
+              "type": "object",
+              "additionalProperties": false
             },
             "type": "array"
           },
@@ -2615,6 +2685,11 @@
   },
   "description": "mwpdf",
   "properties": {
+    "import": {
+      "description": "Template token",
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
     "meta": {
       "additionalProperties": false,
       "description": "footers, header, themes",

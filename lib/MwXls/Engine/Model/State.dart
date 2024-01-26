@@ -1,3 +1,4 @@
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Model/RowStyle.dart';
 
@@ -72,7 +73,7 @@ class State {
       String? key,
       ) {
     if (key != null && key.isNotEmpty && sources[key] == null) {
-      print('No resource available for "$key"');
+      Console.notice('No resource available for "$key"');
     }
     return sources[key ?? ''] ?? Datasource(key ?? '');
   }

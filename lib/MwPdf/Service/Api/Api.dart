@@ -32,6 +32,10 @@ class Api {
             apiPdf.pdf,
           )
           ..post(
+            '/template',
+            apiPdf.template,
+          )
+          ..post(
             '/validate',
             apiPdf.validate,
           )

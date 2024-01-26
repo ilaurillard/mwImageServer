@@ -53,8 +53,7 @@ class Markdown implements md.NodeVisitor {
     this.fontCode,
   }) {
     fontCode ??= pw.Font.courier();
-
-    print(darken(PdfColors.white));
+    // print(darken(PdfColors.white));
     // print(darken(PdfColors.green));
     // print(darken(PdfColors.blue));
   }

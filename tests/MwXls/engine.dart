@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:archive/archive.dart';
-import 'package:merge_map_null_safety/merge_map.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwMs/Etc/Util.dart';
 import 'package:mwcdn/MwXls/Engine/Engine.dart';
 import 'package:mwcdn/MwXls/Engine/Schema/Schema.dart';
 
@@ -57,7 +55,7 @@ Future<void> main() async {
   ).readAsString();
 
   try {
-    Dict xlsJsonDict = mergeMap([
+    Dict xlsJsonDict = Util.mergeMap([
       json.decode(xlsBase) as Dict,
       json.decode(xlsJson) as Dict,
     ]);
@@ -95,26 +93,26 @@ Future<void> main() async {
           '\nThank you, rendered "$jsonFile" to "$name"\n\n',
         );
       } catch (e) {
-        print('Fatal error: $e');
+        Console.error('Fatal error: $e');
         // throw e;
       }
     } else {
-      print('Document does not validate!');
+      Console.warning('Document does not validate!');
       if (results.errors.isNotEmpty) {
-        print('Errors: ');
+        Console.warning('Errors: ');
         for (String e in results.errors) {
-          print('>> $e');
+          Console.warning('>> $e');
         }
       }
       if (results.warnings.isNotEmpty) {
-        print('Warnings: ');
+        Console.warning('Warnings: ');
         for (String w in results.warnings) {
-          print('>> $w');
+          Console.warning('>> $w');
         }
       }
     }
   } catch (e) {
-    print('Parse error: $e');
+    Console.error('Parse error: $e');
     // throw e;
   }
 }

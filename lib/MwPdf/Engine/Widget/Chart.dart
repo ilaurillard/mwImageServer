@@ -1,3 +1,4 @@
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
@@ -266,7 +267,7 @@ class Chart {
           break;
 
         default:
-          print('Unknown dataset "$key"');
+          Console.notice('Unknown chart dataset "$key"');
           break;
       }
     }

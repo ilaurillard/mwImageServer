@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/Datasource.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
@@ -177,7 +178,7 @@ class Util {
           return pw.Font.zapfDingbats();
       }
 
-      print('?? Unknown font: $json');
+      Console.notice('?? Unknown font requested: $json');
     }
     return null;
   }
@@ -376,8 +377,8 @@ class Util {
   }
 
   static PdfPageMode pageMode(
-      String? json,
-      ) {
+    String? json,
+  ) {
     if (json != null && json != '') {
       switch (json) {
         case 'outlines':
@@ -660,6 +661,22 @@ class Util {
       );
     }
     return null;
+  }
+
+  static pw.Widget showIf(
+    Dict json,
+    State state,
+  ) {
+    String condition = state.replaceParameters(
+      json['condition'] as String? ?? '',
+    );
+    if (condition.isEmpty) {
+      return pw.SizedBox();
+    }
+    return Widget.child(
+      json,
+      state,
+    );
   }
 
   static pw.Widget switchCases(

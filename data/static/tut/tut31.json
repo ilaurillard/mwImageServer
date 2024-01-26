@@ -1,6 +1,7 @@
 {
   "pages": [
     {
+      "multi": true,
       "content": [
         {
           "Column": {
@@ -40,6 +41,47 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "Divider": {
+          }
+        },
+        {
+          "Container": {
+            "color": "DDDDDD",
+            "height": 100,
+            "child": {
+              "Column": {
+                "children": [
+                  {
+                    "Flexible": {
+                      "flex": 3,
+                      "child": {
+                        "Placeholder": {
+                          "fallbackHeight": 30
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Spacer": {
+                      "flex": 1
+                    }
+                  },
+                  {
+                    "Flexible": {
+                      "flex": 2,
+                      "child": {
+                        "Placeholder": {
+                          "fallbackHeight": 30
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
           }
         }
       ]

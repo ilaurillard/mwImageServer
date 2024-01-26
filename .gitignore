@@ -9,6 +9,6 @@ data/database/system.db
 data/priv/*
 data/pub/*
 data/cache/*
-data/templates/*
+data/files/*
 
 .idea/

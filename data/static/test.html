@@ -68,7 +68,7 @@
             border: 1px solid #000;
         }
 
-        #butt, #validate, #clear, #info, #schema, #schemaf, #facturx {
+        form button {
             background-color: #8888AA;
             border: 1px solid #000;
             color: #FFF;
@@ -84,6 +84,7 @@
 
         #tutButtons {
             margin-bottom: 0.5em;
+            display: flex;
         }
         #tutButtons button {
             display: block;
@@ -91,6 +92,9 @@
         }
         #tutButtons button[data-tut=""] {
             color: #666;
+        }
+        #tutButtons div {
+
         }
 
         h4 {
@@ -107,59 +111,67 @@
 <div id="container">
 
     <div id="tutButtons">
-        <button data-tut="1">Hello World</button>
 
-        <hr />
+        <div>
+            <button data-tut="1">Hello World</button>
 
-        <button data-tut="2">Seitenstruktur</button>
-        <button data-tut="3">Meta-Daten</button>
-        <button data-tut="4">Validierung</button>
-        <button data-tut="5">Einzelne Seite</button>
-        <button data-tut="6">Multi Seite</button>
-        <button data-tut="7">Mehrspaltig</button>
-        <button data-tut="8">Seite/Ränder</button>
-        <button data-tut="9">Kopf/Fuß</button>
+            <br/>
 
-        <hr />
+            <button data-tut="2">Seitenstruktur</button>
+            <button data-tut="3">Meta-Daten</button>
+            <button data-tut="4">Validierung</button>
+            <button data-tut="5">Einzelne Seite</button>
+            <button data-tut="6">Multi Seite</button>
+            <button data-tut="7">Mehrspaltig</button>
+            <button data-tut="8">Seite/Ränder</button>
+            <button data-tut="9">Kopf/Fuß</button>
 
-        <button data-tut="31">Col/Row/Flex</button>
-        <button data-tut="23">Listview</button>
-        <button data-tut="22">Partitions</button>
-        <button data-tut="21">Grid</button>
-        <button data-tut="20">Stack/Positioned</button>
-        <button data-tut="19">Clips/Decoration</button>
+            <br/>
 
-        <hr />
+            <button data-tut="31">Col/Row/Flex</button>
+            <button data-tut="23">Listview</button>
+            <button data-tut="22">Partitions</button>
+            <button data-tut="21">Grid</button>
+            <button data-tut="20">Stack/Positioned</button>
+            <button data-tut="19">Clips/Decoration</button>
 
-        <button data-tut="10">Textstyles</button>
-        <button data-tut="11">Richtext/Markdown</button>
-        <button data-tut="12">Silbentrennung</button>
-        <button data-tut="13">Fonts/Icons</button>
-        <button data-tut="18">Bullets/Gliederung</button>
+            <br/>
 
-        <hr />
+            <button data-tut="10">Textstyles</button>
+            <button data-tut="11">Richtext/Markdown</button>
+            <button data-tut="12">Silbentrennung</button>
+            <button data-tut="13">Fonts/Icons</button>
+            <button data-tut="18">Bullets/Gliederung</button>
 
-        <button data-tut="30">Datenquellen</button>
-        <button data-tut="17">Bilder</button>
-        <button data-tut="24">Diagramme</button>
-        <button data-tut="16">Barcodes</button>
-        <button data-tut="26">Tabellen 1</button>
-        <button data-tut="27">Tabellen 2</button>
-        <button data-tut="28">Tabellen 3</button>
-        <button data-tut="15">Grafiken</button>
-        <button data-tut="14">Millimeterpapier</button>
+            <br/>
 
-        <hr />
+            <button data-tut="30">Datenquellen</button>
+            <button data-tut="17">Bilder</button>
+            <button data-tut="24">Diagramme</button>
+            <button data-tut="16">Barcodes</button>
+            <button data-tut="26">Tabellen 1</button>
+            <button data-tut="27">Tabellen 2</button>
+            <button data-tut="28">Tabellen 3</button>
+            <button data-tut="15">Grafiken</button>
+            <button data-tut="14">Millimeterpapier</button>
 
-        <button data-tut="25">Inhaltsverzeichnis</button>
-        <button data-tut="29">Links</button>
-        <button data-tut="">Anmerkungen</button>
-        <button data-tut="">Formulare</button>
-        <button data-tut="32">Factur-x</button>
+            <br/>
 
+            <button data-tut="25">Inhaltsverzeichnis</button>
+            <button data-tut="29">Links</button>
+            <button data-tut="">Anmerkungen</button>
+            <button data-tut="">Formulare</button>
+
+        </div>
+        <div>
+            <button data-tut="35">Conditionals</button>
+            <button data-tut="32">Factur-x</button>
+            <button data-tut="33">Prepare template</button>
+            <button data-tut="34">Use template</button>
+        </div>
     </div>
 
-    <div style="width:2em"></div>
+    <div style="width:1em"></div>
 
     <form>
         <div id="tutContainer">
@@ -183,6 +195,7 @@
         <!--        <br />-->
 
         <button id="butt">Generate PDF &raquo;</button>
+        <button id="template">Template</button>
         <button id="facturx">Factur-x XML</button>
         <button id="validate">Validate</button>
         <button id="schemaf">Schema F</button>
@@ -191,7 +204,7 @@
 
     </form>
 
-    <div style="width:3em"></div>
+    <div style="width:1em"></div>
 
     <iframe id="iframe" frameborder="0"></iframe>
 
@@ -232,8 +245,7 @@
                 let i = document.getElementById('iframe');
                 i.src = url;
                 i.hidden = false;
-            }
-            else {
+            } else {
                 let td = new TextDecoder("utf-8");
                 let s = td.decode(this.response);
                 alert(s);
@@ -248,6 +260,27 @@
 
         let xhr = new XMLHttpRequest;
         xhr.open('post', 'http://0.0.0.0:8234/api/validate', true);
+        xhr.setRequestHeader(
+            'Authorization',
+            'myRootKey'
+        );
+        xhr.onload = function (e) {
+            let content = this.response;
+            let blob = new Blob([content], {type: 'text/plain'});
+            let url = URL.createObjectURL(blob);
+            let i = document.getElementById('iframe');
+            i.src = url;
+            i.hidden = false;
+        };
+        let data = document.getElementById('data').value;
+        xhr.send(data);
+    }
+
+    document.getElementById('template').onclick = function (e) {
+        e.preventDefault();
+
+        let xhr = new XMLHttpRequest;
+        xhr.open('post', 'http://0.0.0.0:8234/api/template', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -327,7 +360,7 @@
         xhr.send({});
     }
 
-    loadTut = function(nr) {
+    loadTut = function (nr) {
 
         let xhr = new XMLHttpRequest;
         xhr.open('get', 'http://0.0.0.0:8234/static/tut/tut' + nr + '.json', true);

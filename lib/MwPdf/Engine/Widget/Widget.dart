@@ -1,3 +1,4 @@
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/MultiPage.dart';
@@ -82,6 +83,11 @@ class Widget {
         // ------------
         case 'Switch':
           return Util.switchCases(
+            data,
+            state,
+          );
+        case 'ShowIfValue':
+          return Util.showIf(
             data,
             state,
           );
@@ -428,7 +434,7 @@ class Widget {
         */
       }
 
-      print(' !!! widget $key not supported');
+      Console.error(' !!! widget $key not supported');
     }
     return pw.SizedBox();
   }

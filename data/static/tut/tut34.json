@@ -1,0 +1,100 @@
+{
+  "import": "56e06d9938331a6e573319e6f77cd3ef",
+  "variables": {
+    "kundenNr": "KMGS111002",
+    "rechnungsNr": "RE-MGS-2023673047",
+    "rechnungsDatum": "20.11.2023",
+    "auftragsNr": "MGS133458",
+    "bestellDatum": "20.11.2023",
+    "versandLand": "DE",
+    "versandDatum": "20.11.2023",
+    "zahlungsArt": "PAYPAL"
+  },
+  "sources": {
+    "@companyRow": {
+      "text": "Magic Garden Seeds GmbH - Junkersstraße 7 - 93055 Regensburg"
+    },
+    "@recipient": {
+      "text": "Ilja Laurillard\nKassenhofweg 20\n21077 Hamburg\nDeutschland"
+    },
+    "@delivery": {
+      "text": "Ilja Laurillard\nKassenhofweg 20\n21077 Hamburg\nDeutschland"
+    },
+    "@footerLeft": {
+      "text": "Geschäftsführer / CEO: Harald Schreiner\nJunkersstr. 7 93055 Regensburg\nHRB 14909 Regensburg\nUST Nr./VAT ID: DE301026455"
+    },
+    "@footerRight": {
+      "text": "service@magicgardenseeds.com\nRaiffeisenbank Regenstauf\nIBAN: DE08 7506 1851 0100 2813 10\nBIC: GENODEF1REF"
+    },
+    "@sumNet": {
+      "values": [
+        [
+          "Gesamt Netto (7,00 %)",
+          23.88
+        ]
+      ]
+    },
+    "@sumVat": {
+      "values": [
+        [
+          "zzgl. MwSt (7,00 %)",
+          3.5
+        ]
+      ]
+    },
+    "@sumTotal": {
+      "values": [
+        [
+          "Rechnungsbetrag",
+          33.57
+        ]
+      ]
+    },
+    "@sum4": {
+      "values": [
+        [
+          "Zahlbetrag",
+          33.57
+        ]
+      ]
+    },
+    "@sum5": {
+      "values": [
+        [
+          "Zahlung (PAYPAL) vom 20.11.2023",
+          33.57
+        ]
+      ]
+    },
+    "@sum6": {
+      "values": [
+        [
+          "Offener Betrag",
+          0
+        ]
+      ]
+    },
+    "@lineItems": {
+      "values": [
+        [
+          1,
+          1.00,
+          "A-AK-001",
+          "Saatgut-Adventskalender - Gemüse, Kräuter & Blumen-Samen",
+          7,
+          22.5,
+          22.5
+        ],
+        [
+          2,
+          1.00,
+          "nn00001",
+          "PAYPAL",
+          7,
+          0,
+          0
+        ]
+      ]
+    }
+  }
+}

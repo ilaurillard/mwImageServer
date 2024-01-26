@@ -1,3 +1,4 @@
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwXls/Engine/Model/State.dart';
 
@@ -26,7 +27,7 @@ class RowStyle {
       if (rs != null) {
         return rs;
       }
-      print('RowStyle $s not found!!');
+      Console.notice('RowStyle $s not found!!');
     }
     return RowStyle(
       height: double.tryParse(json['height'].toString()) ?? 12.1,

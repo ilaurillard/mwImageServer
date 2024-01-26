@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:mwcdn/MwPdf/Service/Hyphenation/hyphenator.dart';
 import 'package:mwcdn/MwPdf/Service/Hyphenation/loader.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:xml/xml.dart';
 
 import 'Datasource.dart';
 
@@ -56,10 +56,10 @@ class State {
   }
 
   Future<void> loadBuiltinFonts() async {
-    print('load builtin fonts');
+    Console.notice('load builtin fonts');
 
     for (String name in builtinFonts.keys) {
-      print(' font: $name, file: ${builtinFonts[name]}');
+      Console.notice(' font: $name, file: ${builtinFonts[name]}');
       fonts[name] = pw.Font.ttf(
         ByteData.view(
           (await File('$resDir/fonts/${builtinFonts[name]}').readAsBytes())
@@ -70,7 +70,7 @@ class State {
   }
 
   Future<void> loadMaterialFont() async {
-    print('load material font');
+    Console.notice('load material font');
     fonts[material] = pw.Font.ttf(
       ByteData.view(
         (await File('$resDir/fonts/MaterialIcons-Regular.ttf').readAsBytes())
@@ -87,7 +87,7 @@ class State {
   }
 
   Future<void> loadSources() async {
-    print('load sources (${sources.length})');
+    Console.notice('load sources (${sources.length})');
     for (String key in sources.keys) {
       await sources[key]!.load(
         storage,
@@ -139,7 +139,7 @@ class State {
     String? key,
   ) {
     if (key != null && key.isNotEmpty && sources[key] == null) {
-      print('No resource available for "$key"');
+      Console.notice('No resource available for "$key"');
     }
     return sources[key ?? ''] ?? Datasource(key ?? '');
   }
@@ -148,7 +148,7 @@ class State {
     String language = 'de',
   }) {
     if (hyphenators[language] == null) {
-      print('No hyphenator for language "$language"!');
+      Console.notice('No hyphenator for language "$language"!');
     }
     return (String word) {
       if (word.length > 3) {
@@ -171,7 +171,7 @@ class State {
   }
 
   Future<void> loadHyphenation() async {
-    print('load hyphenation files');
+    Console.notice('load hyphenation files');
 
     // TODO support more languages
     hyphenators['de'] = Hyphenator(
@@ -195,7 +195,14 @@ class State {
       return text;
     }
     for (String key in variables.keys) {
-      text = text.replaceAll('%$key%', (variables[key] ?? '').toString());
+      dynamic v = variables[key] ?? '';
+      if (v == false) {
+        v = '';
+      }
+      text = text.replaceAll(
+        '%$key%',
+        v.toString(),
+      );
     }
     return text
         .replaceAll('%value%', cellValue)

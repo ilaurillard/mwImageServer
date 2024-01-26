@@ -11,22 +11,38 @@ class Partition {
     Dict json,
     State state,
   ) {
+    List<pw.Partition> children = [];
+    for (dynamic child in json['children'] as List<dynamic>? ?? []) {
+      pw.Partition? p = partition(
+        child as Dict,
+        state,
+      );
+      if (p != null) {
+        children.add(p);
+      }
+    }
     return pw.Partitions(
       mainAxisSize: Util.mainAxisSize(json['mainAxisSize'] as String?),
-      children: (json['children'] as List<dynamic>? ?? [])
-          .map((e) => partition(
-                e as Dict,
-                state,
-              ))
-          .toList(),
+      children: children,
     );
   }
 
-  static pw.Partition partition(
+  static pw.Partition? partition(
     Dict json,
     State state,
   ) {
+    Dict showIf = json['ShowIfValue'] as Dict? ?? {};
+    if (showIf.isNotEmpty) {
+      String condition = state.replaceParameters(
+        showIf['condition'] as String? ?? '',
+      );
+      if (condition.isEmpty) {
+        return null;
+      }
+      json = showIf['child'] as Dict? ?? {};
+    }
     Dict data = json['Partition'] as Dict? ?? {};
+
     double? width = double.tryParse(data['width'].toString());
     return pw.Partition(
       child: Partition.childSpanning(

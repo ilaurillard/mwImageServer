@@ -207,4 +207,34 @@ class Util {
     scanner.expectDone();
     return params;
   }
+
+  static bool validHash(String hash) {
+    return hash.contains(RegExp(r'^[a-f0-9]{32}$'));
+  }
+
+  static Map<String, dynamic> mergeMap(
+      Iterable<Map<String, dynamic>> maps,
+      ) {
+    void copyMapData(
+        Map<String, dynamic> from,
+        Map<String, dynamic> to,
+        ) {
+      for (String key in from.keys) {
+        if (to[key] is Map<String, dynamic> && from[key] is Map<String, dynamic>) {
+          copyMapData(
+            from[key] as Map<String, dynamic>,
+            to[key] as Map<String, dynamic>,
+          );
+        } else {
+          to[key] = from[key];
+        }
+      }
+    }
+    Map<String, dynamic> result = <String, dynamic>{};
+    for (Map<String, dynamic> map in maps) {
+      copyMapData(map, result);
+    }
+    return result;
+  }
+
 }

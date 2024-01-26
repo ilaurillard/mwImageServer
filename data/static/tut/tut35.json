@@ -1,0 +1,199 @@
+{
+  "variables": {
+    "description": "Es können globale Variable beliebig in Widgets verwendet werden",
+    "showWidget1": true,
+    "showWidget2": false,
+    "showPartition1": false,
+    "showTableRow1": false,
+    "switchValue": ""
+  },
+  "sources": {
+    "@tabledata": {
+      "values": [
+        ["ZEILE3"],
+        ["ZEILE4"],
+        ["ZEILE5"]
+      ]
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "%description%"
+                }
+              },
+              {
+                "ShowIfValue": {
+                  "condition": "%showWidget1%",
+                  "child": {
+                    "Paragraph": {
+                      "text": "Diese Widget wird gezeigt, wenn die Variable showWidget1 gesetzt ist!"
+                    }
+                  }
+                }
+              },
+              {
+                "ShowIfValue": {
+                  "condition": "%showWidget2%",
+                  "child": {
+                    "Paragraph": {
+                      "text": "Diese Widget wird gezeigt, wenn die Variable showWidget2 gesetzt ist!"
+                    }
+                  }
+                }
+              },
+              {
+                "Switch": {
+                  "subject": "%switchValue%",
+                  "default": {
+                    "Paragraph": {
+                      "text": "Dies ist ein Switch, setze die Variable switchValue auf Fall1 oder Fall2"
+                    }
+                  },
+                  "cases": {
+                    "Fall1": {
+                      "Paragraph": {
+                        "text": "Hurra, Fall1!"
+                      }
+                    },
+                    "Fall2": {
+                      "Paragraph": {
+                        "text": "Hurra, Fall2"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Das funktioniert auch mit Partitions, setze die Variable oben auf einen Wert!"
+                }
+              },
+              {
+                "Partitions": {
+                  "children": [
+                    {
+                      "ShowIfValue": {
+                        "condition": "%showPartition1%",
+                        "child": {
+                          "Partition": {
+                            "child": {
+                              "Text": {
+                                "text": "Diese Partition wird gezeigt, wenn die Variable showPartition1 gesetzt ist!"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Partition": {
+                        "child": {
+                          "Text": {
+                            "text": "Partition 2"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Das funktioniert auch mit Tabellen, setze die Variable oben auf einen Wert!"
+                }
+              },
+              {
+                "Table": {
+                  "tableWidth": "max",
+                  "columnWidths": {
+                    "0": {
+                      "FlexColumnWidth": {
+                        "flex": 1
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "ShowIfValue": {
+                        "condition": "%showTableRow1%",
+                        "child": {
+                          "TableRow": {
+                            "children": [
+                              {
+                                "Paragraph": {
+                                  "text": "Diese Tabellenzeile wird konditional gezeigt"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "TableRow": {
+                        "children": [
+                          {
+                            "Container": {
+                              "child": {
+                                "Paragraph": {
+                                  "text": "Zeile2"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "TableRow": {
+                        "source": "@tabledata",
+                        "children": [
+                          {
+                            "Container": {
+                              "child": {
+                                "Switch": {
+                                  "subject": "%value%",
+                                  "default": {
+                                    "Paragraph": {
+                                      "text": "Zeilenwert: %value%"
+                                    }
+                                  },
+                                  "cases": {
+                                    "ZEILE4": {
+                                      "Paragraph": {
+                                        "text": "Zeile 4 wird hier besonders behandelt"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

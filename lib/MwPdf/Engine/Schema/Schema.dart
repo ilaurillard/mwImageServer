@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:json_schema/json_schema.dart';
 import 'package:json_schema/src/json_schema/models/validation_results.dart';
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 
 class Schema {
@@ -36,12 +37,12 @@ class Schema {
     schemaData = await File(
       '$resDir/schema/mwpdf_schema.json',
     ).readAsString();
-    print('Loaded schema (${schemaData.length})');
+    Console.notice('Loaded schema (${schemaData.length})');
 
     schemaDataZugferd = await File(
       '$resDir/schema/facturx_schema.json',
     ).readAsString();
-    print('Loaded schema [ZUGFeRD] (${schemaData.length})');
+    Console.notice('Loaded schema [ZUGFeRD] (${schemaData.length})');
 
     Dict zug = json.decode(schemaDataZugferd) as Dict;
 
@@ -61,7 +62,7 @@ class Schema {
   Results validate(
     String json,
   ) {
-    print('Validating data (${json.length})');
+    Console.notice('Validating data (${json.length})');
 
     ValidationResults results = schema.validate(
       json,
@@ -75,24 +76,6 @@ class Schema {
       warnings: results.warnings.map((e) => e.toString()).toList(),
     );
   }
-
-// Results validateZugferd(
-//     String json,
-//     ) {
-//   print('Validating data [ZUGFeRD] (${json.length})');
-//
-//   ValidationResults results = schemaZugferd.validate(
-//     json,
-//     parseJson: true,
-//     validateFormats: true,
-//   );
-//
-//   return Results(
-//     valid: results.errors.isEmpty,
-//     errors: results.errors.map((e) => e.toString()).toList(),
-//     warnings: results.warnings.map((e) => e.toString()).toList(),
-//   );
-// }
 }
 
 class Results {

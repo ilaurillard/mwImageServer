@@ -23,7 +23,7 @@ class ResourceRepository implements ResourcesInterface {
   }) async {
     String id = Util.randMd5();
 
-    // printNotice('sqliteStorage:createToken ' + id);
+    // Console.notice('sqliteStorage:createToken $id');
 
     Resource resource = Resource(
       id,

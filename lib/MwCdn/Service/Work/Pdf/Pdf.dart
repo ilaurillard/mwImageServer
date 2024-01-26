@@ -1,21 +1,18 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:merge_map_null_safety/merge_map.dart';
-import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwCdn/Etc/Files.dart';
-import 'package:mwcdn/MwMs/Etc/ResponseException.dart';
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwCdn/Model/Resource.dart';
 import 'package:mwcdn/MwCdn/Model/Token.dart';
+import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
+import 'package:mwcdn/MwMs/Etc/Console.dart';
+import 'package:mwcdn/MwMs/Etc/ResponseException.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
-import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
-import 'package:path/path.dart' show dirname;
 
 class Pdf {
   final SqliteStorage sqliteStorage;
@@ -40,7 +37,7 @@ class Pdf {
     String filename = Files.filenameFromRequest(data);
 
     // merge request data onto resource template
-    Dict pdfJsonDict = mergeMap([
+    Dict pdfJsonDict = Util.mergeMap([
       await templateFromResource(
         templateResource,
       ),
@@ -101,7 +98,6 @@ class Pdf {
       }
 
       return resource;
-
     } else {
       printErrors(results);
       throw ResponseException(
@@ -136,17 +132,17 @@ class Pdf {
   void printErrors(
     Results results,
   ) {
-    print('Document does not validate!');
+    Console.notice('Document does not validate!');
     if (results.errors.isNotEmpty) {
-      print('Errors: ');
+      Console.notice('Errors: ');
       for (String e in results.errors) {
-        print('>> $e');
+        Console.notice('>> $e');
       }
     }
     if (results.warnings.isNotEmpty) {
-      print('Warnings: ');
+      Console.notice('Warnings: ');
       for (String w in results.warnings) {
-        print('>> $w');
+        Console.notice('>> $w');
       }
     }
   }

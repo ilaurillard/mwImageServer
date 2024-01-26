@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwXls/Engine/Model/State.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Util.dart';
@@ -238,7 +239,7 @@ class CellStyle {
       if (cs != null) {
         return cs;
       }
-      print('Cellstyle $s not found!!');
+      Console.notice('Cellstyle $s not found!!');
     }
 
     return CellStyle(

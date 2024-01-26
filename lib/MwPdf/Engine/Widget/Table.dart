@@ -113,11 +113,10 @@ class Table {
   ) {
     List<pw.TableRow> rows = [];
 
-    for (dynamic e in json['children'] as List<dynamic>? ?? []) {
-      Dict d = e as Dict;
+    for (dynamic childData in json['children'] as List<dynamic>? ?? []) {
       rows.addAll(
         tableRows(
-          d,
+          childData as Dict,
           state,
         ),
       );
@@ -146,13 +145,24 @@ class Table {
     Dict json,
     State state,
   ) {
-    // print('W: TableRow');
+    Dict showIf = json['ShowIfValue'] as Dict? ?? {};
+    if (showIf.isNotEmpty) {
+      String condition = state.replaceParameters(
+        showIf['condition'] as String? ?? '',
+      );
+      if (condition.isEmpty) {
+        print('W: ???');
+        return [];
+      }
+      json = showIf['child'] as Dict? ?? {};
+    }
     Dict data = json['TableRow'] as Dict? ?? {};
+
+    print('W: TableRow');
 
     Datasource source = state.source(
       data['source'] as String?,
     );
-    // print(resource);
 
     pw.BoxDecoration? decoration = Util.boxDecoration(
       data['decoration'] as Dict? ?? {},
@@ -299,8 +309,7 @@ class Table {
     Dict json,
   ) {
     Map<int, pw.TableColumnWidth>? columnWidths;
-    Dict temp =
-        json['columnWidths'] as Dict? ?? {};
+    Dict temp = json['columnWidths'] as Dict? ?? {};
     if (json['columnWidths'] != null) {
       columnWidths = Map.fromEntries(
         temp.entries.map(

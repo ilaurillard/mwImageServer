@@ -110,8 +110,6 @@ class Token implements JsonSerializable, Entity, TokenInterface {
     // update if not too old
     // return false if expired
 
-    // print(stamp);
-
     return true;
   }
 

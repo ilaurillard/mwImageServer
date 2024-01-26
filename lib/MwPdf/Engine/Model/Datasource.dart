@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwMs/Model/ResourceInterface.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
@@ -115,7 +116,7 @@ class Datasource {
   ) async {
     binary = '';
 
-    print('Source "$key" from resource: $resourceId');
+    Console.notice('Source "$key" from resource: $resourceId');
 
     if (storage.resources == null) {
       throw Exception('Have no database');
@@ -141,7 +142,7 @@ class Datasource {
   Future<void> _loadUrl(
     FileStorage fileStorage,
   ) async {
-    print('Source "$key" from url: $url');
+    Console.notice('Source "$key" from url: $url');
 
     binary = '';
 
@@ -151,7 +152,7 @@ class Datasource {
     if (await fileStorage.hasCache(cacheKey)) {
       binary = await fileStorage.loadCache(cacheKey);
     }
-    print(
+    Console.notice(
       'Loaded ${binary.length} bytes from cache ($cacheKey)',
     );
 
@@ -159,7 +160,7 @@ class Datasource {
       http.Response response = await http.get(
         Uri.parse(url),
       );
-      print(
+      Console.notice(
         'Received ${response.bodyBytes.length} bytes, status ${response.statusCode}',
       );
       if (response.statusCode < 400) {

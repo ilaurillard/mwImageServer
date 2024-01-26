@@ -21,7 +21,7 @@ class TokenRepository {
   }) async {
     String id = Util.randMd5();
 
-    // printNotice('sqliteStorage:createToken ' + id);
+    // Console.notice('sqliteStorage:createToken $id');
 
     Token token = Token(
       id,

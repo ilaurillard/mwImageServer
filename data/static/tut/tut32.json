@@ -25,7 +25,7 @@
             "children": [
               {
                 "Text": {
-                  "text": "Invoice"
+                  "text": "Invoice with embedded Factur-X XML"
                 }
               }
             ]

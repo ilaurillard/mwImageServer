@@ -12,7 +12,7 @@ class BucketRepository {
     int id,
     String name,
   ) async {
-    // printNotice('sqliteStorage:createBucket');
+    // Console.notice('sqliteStorage:createBucket');
 
     Bucket bucket = Bucket.fresh(
       id,

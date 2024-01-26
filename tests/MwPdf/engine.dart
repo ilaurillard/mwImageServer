@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:merge_map_null_safety/merge_map.dart';
 import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwMs/Etc/Util.dart';
 import 'package:mwcdn/MwMs/Model/RootToken.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
@@ -22,7 +22,6 @@ Future<void> main() async {
 
   String templateFile = '';
   // String templateFile = 'templates/pdf_template1.json';
-
 
   // String jsonFile = 'pdf_barcodes.json';
   // String jsonFile = 'pdf_charts.json';
@@ -73,7 +72,7 @@ Future<void> main() async {
   try {
     Dict pdfTplData = json.decode(pdfTplJson) as Dict;
     Dict pdfData = json.decode(pdfJson) as Dict;
-    pdfData = mergeMap([pdfTplData, pdfData]);
+    pdfData = Util.mergeMap([pdfTplData, pdfData]);
 
     Results results = schema.validate(
       json.encode(pdfData),
@@ -109,26 +108,26 @@ Future<void> main() async {
           '\nThank you, rendered "$jsonFile" into "output/$jsonFile.pdf"\nwrote "$name"\n${engine.pages.length} pages)\n\n',
         );
       } catch (e) {
-        print('Fatal error: $e');
+        Console.error('Fatal error: $e');
         // throw e;
       }
     } else {
-      print('Document does not validate!');
+      Console.warning('Document does not validate!');
       if (results.errors.isNotEmpty) {
-        print('Errors: ');
+        Console.warning('Errors: ');
         for (String e in results.errors) {
-          print('>> $e');
+          Console.warning('>> $e');
         }
       }
       if (results.warnings.isNotEmpty) {
-        print('Warnings: ');
+        Console.warning('Warnings: ');
         for (String w in results.warnings) {
-          print('>> $w');
+          Console.warning('>> $w');
         }
       }
     }
   } catch (e) {
-    print('Parse error: $e');
+    Console.error('Parse error: $e');
     // throw e;
   }
 }

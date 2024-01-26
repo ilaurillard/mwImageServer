@@ -312,9 +312,9 @@ Future<void> main() async {
   CrossIndustryInvoice i = CrossIndustryInvoice.fromJson(
     (json.decode(
       File(
-        'tests/MwPdf/examples/zugferd1.json',
+        'tests/MwPdf/examples/pdf_zugferd1.json',
       ).readAsStringSync(),
-    ) as Dict)['invoice'] as Dict,
+    ) as Dict)['facturx'] as Dict,
   );
 
   XmlDocument xml = i.toXml();

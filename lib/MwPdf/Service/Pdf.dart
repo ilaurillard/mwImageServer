@@ -1,17 +1,16 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:crypto/crypto.dart';
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/ResponseException.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
 import 'package:mwcdn/MwMs/Model/AnonToken.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
-import 'package:mwcdn/MwPdf/Engine/Invoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
-import 'package:path/path.dart' show dirname;
 import 'package:xml/xml.dart';
 
 class Pdf {
@@ -20,6 +19,49 @@ class Pdf {
   Pdf({
     required this.fileStorage,
   });
+
+  Future<Results> validate(
+    Dict data,
+  ) async {
+    data = _expandTemplate(data);
+
+    return await _validate(data);
+  }
+
+  Future<XmlDocument?> facturx(
+    Dict data,
+  ) async {
+    data = _expandTemplate(data);
+
+    Engine engine = await _engine(data);
+
+    return engine.invoice.facturx;
+  }
+
+  Future<Uint8List> build(
+    Dict data,
+  ) async {
+    data = _expandTemplate(data);
+
+    // validate incoming data via json-scheme
+    Results results = await _validate(data);
+
+    if (results.valid) {
+      Engine engine = await _engine(data);
+
+      return await engine.pdf().save();
+    } else {
+      _printErrors(results);
+      throw ResponseException(
+        Util.rBadRequest(
+          message: json.encode({
+            'errors': results.errors,
+            'warnings': results.warnings,
+          }),
+        ),
+      );
+    }
+  }
 
   Future<String> schema() async {
     return (await Schema.create(
@@ -35,57 +77,29 @@ class Pdf {
         .schemaDataZugferd;
   }
 
-  String _resDir() {
-    return '${fileStorage.resDir}/MwPdf';
-  }
-
-  Future<Results> validate(
+  Future<String> template(
     Dict data,
   ) async {
-    return await _validate(data);
-  }
-
-
-  Future<XmlDocument?> facturx(Dict data) async {
-    Engine engine = await Engine.create(
-      data,
-      resDir: _resDir(), // for fonts
-      storage: Storage(
-        fileStorage: fileStorage,
-        token: AnonToken(),
-      ),
-    );
-    return engine.invoice.facturx;
-  }
-
-  Future<Uint8List> build(
-    Dict data,
-  ) async {
-    // validate incoming data via json-scheme
-    Results results = await _validate(data);
-
-    if (results.valid) {
-      Engine engine = await Engine.create(
-        data,
-        resDir: _resDir(), // for fonts
-        storage: Storage(
-          fileStorage: fileStorage,
-          token: AnonToken(),
-        ),
-      );
-
-      return await engine.pdf().save();
-    } else {
-      _printErrors(results);
+    String content = json.encode(data);
+    if (content.length > 32000) {
       throw ResponseException(
         Util.rBadRequest(
-          message: json.encode({
-            'errors': results.errors,
-            'warnings': results.warnings,
-          }),
+          message: 'Maximum size exceeded',
         ),
       );
     }
+    String token = md5.convert(content.codeUnits).toString();
+    fileStorage.putFile(
+      _templatePath(token),
+      content,
+    );
+    return token;
+  }
+
+  // ----------------
+
+  String _resDir() {
+    return '${fileStorage.resDir}/MwPdf';
   }
 
   Future<Results> _validate(
@@ -104,19 +118,53 @@ class Pdf {
   void _printErrors(
     Results results,
   ) {
-    print('Document does not validate!');
+    Console.notice('Document does not validate!');
     if (results.errors.isNotEmpty) {
-      print('Errors: ');
+      Console.notice('Errors: ');
       for (String e in results.errors) {
-        print('>> $e');
+        Console.notice('>> $e');
       }
     }
     if (results.warnings.isNotEmpty) {
-      print('Warnings: ');
+      Console.notice('Warnings: ');
       for (String w in results.warnings) {
-        print('>> $w');
+        Console.notice('>> $w');
       }
     }
   }
 
+  Dict _expandTemplate(
+    Dict pdfData,
+  ) {
+    String token = pdfData['import'] as String? ?? '';
+    if (token.isNotEmpty && Util.validHash(token)) {
+      String data = fileStorage
+          .file(
+            _templatePath(token),
+          )
+          .readAsStringSync();
+      Dict pdfTplData = json.decode(data) as Dict;
+      return Util.mergeMap([pdfTplData, pdfData]);
+    }
+    return pdfData;
+  }
+
+  Future<Engine> _engine(
+    Dict data,
+  ) {
+    return Engine.create(
+      data,
+      resDir: _resDir(), // for fonts
+      storage: Storage(
+        fileStorage: fileStorage,
+        token: AnonToken(),
+      ),
+    );
+  }
+
+  String _templatePath(
+    String token,
+  ) {
+    return '/files/${token.substring(0, 2)}/${token.substring(2, 4)}/$token.json';
+  }
 }

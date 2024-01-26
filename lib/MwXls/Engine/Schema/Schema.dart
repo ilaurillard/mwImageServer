@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:json_schema/json_schema.dart';
 import 'package:json_schema/src/json_schema/models/validation_results.dart';
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 
 class Schema {
   final String resDir;
@@ -29,14 +30,14 @@ class Schema {
     schemaData = await File(
       '$resDir/schema/mwxls_schema.json',
     ).readAsString();
-    print('Loaded schema (${schemaData.length})');
+    Console.notice('Loaded schema (${schemaData.length})');
     schema = JsonSchema.create(schemaData);
   }
 
   Results validate(
     String json,
   ) {
-    print('Validating data (${json.length})');
+    Console.notice('Validating data (${json.length})');
 
     ValidationResults results = schema.validate(
       json,
