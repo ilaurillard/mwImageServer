@@ -372,8 +372,8 @@ class Widget {
             state,
           );
         // -----------
-        case 'TextField':
-          return Form.textField(data);
+        // case 'TextField':
+        //   return Form.textField(data);
         // -----------
         case 'Anchor':
           return Annotation.anchor(
@@ -423,8 +423,8 @@ class Widget {
             ChoiceField
             Checkbox
             FlatButton
-            TextField
             Signature
+            TextField
           annotations:
             SquareAnnotation
             CircleAnnotation

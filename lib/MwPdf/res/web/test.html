@@ -231,7 +231,7 @@
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('post', 'http://0.0.0.0:8234/api/pdf', true);
+        xhr.open('post', '/api/pdf', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -259,7 +259,7 @@
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('post', 'http://0.0.0.0:8234/api/validate', true);
+        xhr.open('post', '/api/validate', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -280,7 +280,7 @@
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('post', 'http://0.0.0.0:8234/api/template', true);
+        xhr.open('post', '/api/template', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -301,7 +301,7 @@
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('post', 'http://0.0.0.0:8234/api/facturx', true);
+        xhr.open('post', '/api/facturx', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -324,7 +324,7 @@
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('get', 'http://0.0.0.0:8234/api/schema', true);
+        xhr.open('get', '/api/schema', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -344,7 +344,7 @@
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('get', 'http://0.0.0.0:8234/api/schemaf', true);
+        xhr.open('get', '/api/schemaf', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -363,7 +363,7 @@
     loadTut = function (nr) {
 
         let xhr = new XMLHttpRequest;
-        xhr.open('get', 'http://0.0.0.0:8234/static/tut/tut' + nr + '.json', true);
+        xhr.open('get', '/tut/tut' + nr + '.json', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'

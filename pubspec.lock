@@ -293,11 +293,11 @@ packages:
     dependency: "direct main"
     description:
       path: pdf
-      ref: ilja
-      resolved-ref: "6b377ad3fc4048958f21d082c9cc0cbd02984e59"
+      ref: pdfa_3b_ilja
+      resolved-ref: d7fee664e57103f5df1131c64baa2c6bfd505bb4
       url: "https://github.com/ilaurillard/dart_pdf"
     source: git
-    version: "3.10.7"
+    version: "3.10.8"
   petitparser:
     dependency: transitive
     description:

@@ -3,8 +3,8 @@ import 'dart:isolate';
 
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
-import 'package:mwcdn/MwPdf/Service/Api/Api.dart';
 import 'package:mwcdn/MwPdf/Config.dart';
+import 'package:mwcdn/MwPdf/Service/Api/Api.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 // ignore: depend_on_referenced_packages
@@ -40,19 +40,20 @@ class Server {
 
   Router app() {
     return Router()
-      // Public static files ---------
-      ..get(
-        '/static/<any|.*>',
-        createStaticHandler(
-          fileStorage.dataDir,
-        ),
-      )
+
       // API ----------------------
       ..mount(
           '/api',
           Api(
             fileStorage: fileStorage,
             rootKey: rootKey,
-          ).create());
+          ).create())
+      // Public static files ---------
+      ..get(
+        '/<any|.*>',
+        createStaticHandler(
+          '${fileStorage.resDir}/MwPdf/web',
+        ),
+      );
   }
 }

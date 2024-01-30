@@ -25,10 +25,31 @@
       "content": [
         {
           "Column": {
+            "crossAxisAlignment": "start",
             "children": [
               {
+                "Paragraph": {
+                  "text": "Invoice with embedded Factur-X XML"
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Validate it: java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.10.0.jar --action validate --source invoice.pdf"
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "For PDF/A validation try:"
+                }
+              },
+              {
                 "Text": {
-                  "text": "Invoice"
+                  "text": "https://demo.verapdf.org/"
+                }
+              },
+              {
+                "Text": {
+                  "text": "https://avepdf.com/pdfa-validation"
                 }
               }
             ]
@@ -37,7 +58,6 @@
       ]
     }
   ],
-
   "facturx": {
     "exchangedDocumentContext": {
       "documentContextParameter": {

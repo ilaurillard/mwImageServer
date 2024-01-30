@@ -20,6 +20,7 @@ class Engine {
   final String resDir;
   final State state;
   final Meta meta;
+
   Engine({
     required this.state,
     required this.resDir,
@@ -35,7 +36,6 @@ class Engine {
     required String resDir,
     required Storage storage,
   }) async {
-
     State state = State.fromJson(
       sources: (json['sources'] as Dict?) ?? {},
       variables: (json['variables'] as Dict?) ?? {},
@@ -81,6 +81,7 @@ class Engine {
     pw.Document pdf = pw.Document(
       pageMode: meta.pageMode,
       theme: docTheme,
+
       title: meta.title,
       author: meta.author,
       creator: meta.creator,
@@ -89,8 +90,8 @@ class Engine {
       producer: meta.producer,
 
       // verbose: true,
-      compress: false,
-      version: PdfVersion.pdf_1_4,
+      compress: true,
+      version: PdfVersion.pdf_1_5,
 
       metadata: meta.pdfaRdf(
         facturx: invoice.facturx != null,
@@ -101,7 +102,7 @@ class Engine {
 
     if (meta.pdfa3b) {
       // Needed for PDF/A 3b compliency
-      ColorProfile(
+      PdfaColorProfile(
         pdf.document,
         File('$resDir/sRGB2014.icc').readAsBytesSync(),
       );
@@ -110,11 +111,11 @@ class Engine {
     // -------------------------
 
     if (invoice.facturx != null) {
-      AttachedFiles(
+      PdfaAttachedFiles(
         pdf.document,
-          {
-            'factur-x.xml': Util.prettyXml(invoice.facturx!),
-          }
+        {
+          'factur-x.xml': Util.prettyXml(invoice.facturx!),
+        },
       );
     }
 
