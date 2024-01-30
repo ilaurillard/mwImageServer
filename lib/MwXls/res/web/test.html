@@ -89,7 +89,7 @@
 </head>
 <body>
 
-<h4>mwpdf</h4>
+<h4>mwxls</h4>
 
 <div id="container">
 
@@ -98,59 +98,7 @@
         <div>
             <button data-tut="1">Hello World</button>
 
-            <br/>
 
-            <button data-tut="2">Seitenstruktur</button>
-            <button data-tut="3">Meta-Daten</button>
-            <button data-tut="4">Validierung</button>
-            <button data-tut="5">Einzelne Seite</button>
-            <button data-tut="6">Multi Seite</button>
-            <button data-tut="7">Mehrspaltig</button>
-            <button data-tut="8">Seite/Ränder</button>
-            <button data-tut="9">Kopf/Fuß</button>
-
-            <br/>
-
-            <button data-tut="31">Col/Row/Flex</button>
-            <button data-tut="23">Listview</button>
-            <button data-tut="22">Partitions</button>
-            <button data-tut="21">Grid</button>
-            <button data-tut="20">Stack/Positioned</button>
-            <button data-tut="19">Clips/Decoration</button>
-
-            <br/>
-
-            <button data-tut="10">Textstyles</button>
-            <button data-tut="11">Richtext/Markdown</button>
-            <button data-tut="12">Silbentrennung</button>
-            <button data-tut="13">Fonts/Icons</button>
-            <button data-tut="18">Bullets/Gliederung</button>
-
-            <br/>
-
-            <button data-tut="30">Datenquellen</button>
-            <button data-tut="17">Bilder</button>
-            <button data-tut="24">Diagramme</button>
-            <button data-tut="16">Barcodes</button>
-            <button data-tut="26">Tabellen 1</button>
-            <button data-tut="27">Tabellen 2</button>
-            <button data-tut="28">Tabellen 3</button>
-            <button data-tut="15">Grafiken</button>
-            <button data-tut="14">Millimeterpapier</button>
-
-            <br/>
-
-            <button data-tut="25">Inhaltsverzeichnis</button>
-            <button data-tut="29">Links</button>
-            <button data-tut="">Anmerkungen</button>
-            <button data-tut="">Formulare</button>
-
-        </div>
-        <div>
-            <button data-tut="35">Conditionals</button>
-            <button data-tut="32">Factur-x</button>
-            <button data-tut="33">Prepare template</button>
-            <button data-tut="34">Use template</button>
         </div>
     </div>
 
@@ -161,14 +109,10 @@
             <textarea id="data">
 </textarea>
         </div>
-        <!--        <input id="auth" type="text" value="myRootKey" placeholder="Authkey"/><br/>-->
-        <!--        <br />-->
 
-        <button id="butt">Generate PDF &raquo;</button>
+        <button id="butt">Generate XLS &raquo;</button>
         <button id="template">Template</button>
-        <button id="facturx">Factur-x XML</button>
         <button id="validate">Validate</button>
-        <button id="schemaf">Schema F</button>
         <button id="schema">Schema</button>
         <button id="clear">Clear</button>
 
@@ -179,6 +123,12 @@
     <iframe id="iframe" frameborder="0"></iframe>
 
 </div>
+
+Inline excel viewer for chrome:<br />
+<a href="https://chromewebstore.google.com/detail/gbkeegbaiigmenfmjfclcdgdpimamgkj?hl=en">
+    https://chromewebstore.google.com/detail/gbkeegbaiigmenfmjfclcdgdpimamgkj?hl=en
+</a>
+
 
 <script>
 
@@ -201,7 +151,7 @@
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('post', '/api/pdf', true);
+        xhr.open('post', '/api/xls', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -210,7 +160,7 @@
         xhr.onload = function (e) {
             if (xhr.status == 200) {
                 let content = this.response;
-                let blob = new Blob([content], {type: 'application/pdf'});
+                let blob = new Blob([content], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
                 let url = URL.createObjectURL(blob);
                 let i = document.getElementById('iframe');
                 i.src = url;
@@ -267,54 +217,11 @@
         xhr.send(data);
     }
 
-    document.getElementById('facturx').onclick = function (e) {
-        e.preventDefault();
-
-        let xhr = new XMLHttpRequest;
-        xhr.open('post', '/api/facturx', true);
-        xhr.setRequestHeader(
-            'Authorization',
-            'myRootKey'
-        );
-        xhr.onload = function (e) {
-            // let content = this.response;
-            // document.getElementById('data').value = content;
-            let content = this.response;
-            let blob = new Blob([content], {type: 'text/plain'});
-            let url = URL.createObjectURL(blob);
-            let i = document.getElementById('iframe');
-            i.src = url;
-            i.hidden = false;
-        };
-        let data = document.getElementById('data').value;
-        xhr.send(data);
-    }
-
     document.getElementById('schema').onclick = function (e) {
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
         xhr.open('get', '/api/schema', true);
-        xhr.setRequestHeader(
-            'Authorization',
-            'myRootKey'
-        );
-        xhr.onload = function (e) {
-            let content = this.response;
-            let blob = new Blob([content], {type: 'text/plain'});
-            let url = URL.createObjectURL(blob);
-            let i = document.getElementById('iframe');
-            i.src = url;
-            i.hidden = false;
-        };
-        xhr.send({});
-    }
-
-    document.getElementById('schemaf').onclick = function (e) {
-        e.preventDefault();
-
-        let xhr = new XMLHttpRequest;
-        xhr.open('get', '/api/schemaf', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'

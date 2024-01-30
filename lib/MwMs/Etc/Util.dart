@@ -20,6 +20,9 @@ class Util {
   static const KeyValue xmlHeaders = {
     'content-type': 'application/xml',
   };
+  static const KeyValue xlsHeaders = {
+    'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  };
 
   static const Map<String, List<String>> mimeToSuffix = {
     'image/jpeg': [

@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
+import 'package:mwcdn/MwMs/Model/RootToken.dart';
+import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwXls/Engine/Engine.dart';
 import 'package:mwcdn/MwXls/Engine/Schema/Schema.dart';
+import 'package:mwcdn/MwXls/Engine/Storage.dart';
 
 const resDir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwXls/res';
 const examplesDir = '/home/ilja/PhpstormProjects/mwcdn/tests/MwXls/examples';
+const dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
 
 Future<void> main() async {
   String templateFile = '';
@@ -71,9 +76,23 @@ Future<void> main() async {
 
     if (results.valid) {
       try {
+        SqliteStorage sqliteStorage = SqliteStorage(
+          dataDir: dataDir,
+        );
+        await sqliteStorage.init();
+
         Engine engine = await Engine.create(
           xlsJsonDict,
           resDir: resDir,
+          storage: Storage(
+            fileStorage: FileStorage(
+              dataDir: dataDir,
+              resDir: '',
+            ),
+            resources: sqliteStorage.resources,
+            bucketId: 98,
+            token: RootToken(),
+          ),
         );
 
         String name = '$examplesDir/output/$jsonFile.xlsx';

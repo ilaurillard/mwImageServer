@@ -1,5 +1,6 @@
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwXls/Engine/Storage.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Model/RowStyle.dart';
 
 import '../ex/Model/CellStyle.dart';
@@ -14,6 +15,7 @@ class State {
 
   State({
     required this.resDir,
+    required Storage storage,
   });
 
   static State fromJson(
@@ -21,9 +23,11 @@ class State {
     Dict rowStyles = const {},
     Dict cellStyles = const {},
     required String resDir,
+    required Storage storage,
   }) {
     State state = State(
       resDir: resDir,
+      storage: storage,
     );
 
     state.sources = json.map(
@@ -70,8 +74,8 @@ class State {
   }
 
   Datasource source(
-      String? key,
-      ) {
+    String? key,
+  ) {
     if (key != null && key.isNotEmpty && sources[key] == null) {
       Console.notice('No resource available for "$key"');
     }

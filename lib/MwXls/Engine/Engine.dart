@@ -1,5 +1,6 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwXls/Engine/Model/State.dart';
+import 'package:mwcdn/MwXls/Engine/Storage.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Excel.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Meta.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Model/CellStyle.dart';
@@ -21,6 +22,7 @@ class Engine {
   static Future<Engine> create(
     Dict json, {
     required String resDir,
+    required Storage storage,
   }) async {
     Dict meta = json['meta'] as Dict? ?? {};
 
@@ -28,6 +30,7 @@ class Engine {
       meta,
       (json['sources'] as Dict?) ?? {},
       resDir: resDir,
+      storage: storage,
     );
 
     return Engine(
@@ -226,6 +229,7 @@ class Engine {
     Dict meta,
     Dict sources, {
     required String resDir,
+    required Storage storage,
   }) {
     Dict rowStyles = meta['rowStyles'] as Dict? ?? {};
     Dict cellStyles = meta['cellStyles'] as Dict? ?? {};
@@ -234,6 +238,7 @@ class Engine {
       rowStyles: rowStyles,
       cellStyles: cellStyles,
       resDir: resDir,
+      storage: storage,
     );
   }
 
