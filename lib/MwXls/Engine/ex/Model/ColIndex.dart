@@ -7,7 +7,7 @@ class ColIndex {
   ColIndex(
     this.name,
   ) {
-    assert(name.contains(RegExp(r'^[A-Z]+$')));
+    assert(name.contains(RegExp(r'^[A-Z]+$')), 'name is $name');
     assert(name.length < 4);
     value = toNumber(name);
   }

@@ -31,13 +31,14 @@ class Cell {
     // print('${style.comment} ${style.index}');
     // print(style.type);
 
+    bool isNull = value == null;
     String asString = value.toString();
     if (value.runtimeType == bool) {
       int asBool = value as bool ? 1 : 0;
       return '<c r="${index.name}" s="${style.index}" t="b">'
           '<v>$asBool</v>'
           '</c>\n';
-    } else if (value == '') {
+    } else if (value == '' || isNull) {
       return '<c r="${index.name}" s="${style.index}" />\n';
     } else if (asString.isNotEmpty && asString[0] == '=') { // formula
       return '<c r="${index.name}" s="${style.index}" t="s">'

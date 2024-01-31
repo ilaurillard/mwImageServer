@@ -27,7 +27,7 @@ class Core {
     xml +=
     '<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">\n';
     xml +=
-    '<dcterms:created xsi:type="dcterms:W3CDTF">\n${_currentDate(null)}</dcterms:created>\n';
+    '<dcterms:created xsi:type="dcterms:W3CDTF">${_currentDate(null)}</dcterms:created>\n';
     xml += '<dc:title>${Util.escapeXml(meta.title)}</dc:title>\n';
     xml += '<dc:subject>${Util.escapeXml(meta.subject)}</dc:subject>\n';
     xml += '<dc:creator>${Util.escapeXml(meta.author)}</dc:creator>\n';

@@ -17,8 +17,8 @@ const dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
 
 Future<void> main() async {
   String templateFile = '';
-  String jsonFile = 'xls_simple1.json';
-  // String jsonFile = 'xls_simple2.json';
+  // String jsonFile = 'xls_simple1.json';
+  String jsonFile = 'xls_simple3.json';
   // ----------------------
 
   // Stopwatch s = Stopwatch()..start();

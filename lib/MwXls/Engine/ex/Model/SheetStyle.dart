@@ -90,12 +90,12 @@ class SheetStyle {
   }
 
   CellIndex _xlsCell(
-    int rowIndex, // 1..n
-    int colIndex, // 1..n
+    int rowIndex, // 0..n
+    int colIndex, // 0..n
   ) {
     return CellIndex.fromColAndRow(
-      ColIndex.fromValue(colIndex - 1),
-      rowIndex,
+      ColIndex.fromValue(colIndex),
+      rowIndex + 1,
     );
   }
 

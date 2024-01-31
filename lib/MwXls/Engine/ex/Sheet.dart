@@ -96,16 +96,6 @@ class Sheet {
 
     // ---------------
 
-    xml += '<sheetData>\n';
-
-    xml += await rowsToXml(
-      styles,
-    );
-
-    xml += '</sheetData>\n';
-
-    // ---------------
-
     String maxCellName = maxCell().name;
 
     xml += '<sheetPr filterMode="false">\n';
@@ -124,6 +114,19 @@ class Sheet {
     xml += '</sheetViews>\n';
 
     xml += _colsXml();
+
+
+    // ---------------
+
+    xml += '<sheetData>\n';
+
+    xml += await rowsToXml(
+      styles,
+    );
+
+    xml += '</sheetData>\n';
+
+    // ------
 
     if (sheetStyle.autoFilterRow > -1) {
       xml +=
