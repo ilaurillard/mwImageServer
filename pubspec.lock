@@ -294,7 +294,7 @@ packages:
     description:
       path: pdf
       ref: pdfa_3b_ilja
-      resolved-ref: d7fee664e57103f5df1131c64baa2c6bfd505bb4
+      resolved-ref: f39f3ee58d1488f29a3eda69e2d80896ed802c00
       url: "https://github.com/ilaurillard/dart_pdf"
     source: git
     version: "3.10.8"
