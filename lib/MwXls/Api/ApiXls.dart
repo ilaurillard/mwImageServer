@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/ResponseException.dart';
@@ -128,6 +127,13 @@ class ApiXls {
       return Response.ok(
         binary,
         headers: Util.xlsHeaders,
+        // headers: {}
+        //   ..addAll(Util.xlsHeaders)
+        //   ..addAll(
+        //     {
+        //       'Content-Disposition': 'attachment; filename=test.xlsx',
+        //     },
+        //   ),
       );
     } on ResponseException catch (e) {
       return e.response;
