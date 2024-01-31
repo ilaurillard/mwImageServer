@@ -91,16 +91,18 @@ class State {
   }
 
   Future<void> loadSources() async {
-    Console.notice('load sources (${sources.length})');
-    for (String key in sources.keys) {
-      await sources[key]!.load(
-        storage,
-      );
-    }
-    // we need to create widgets afterwards
-    // (resources must be all loaded!)
-    for (String key in sources.keys) {
-      sources[key]!.prepareWidget(this);
+    if (sources.keys.isNotEmpty) {
+      Console.notice('load sources (${sources.length})');
+      for (String key in sources.keys) {
+        await sources[key]!.load(
+          storage,
+        );
+      }
+      // we need to create widgets afterwards
+      // (resources must be all loaded!)
+      for (String key in sources.keys) {
+        sources[key]!.prepareWidget(this);
+      }
     }
   }
 
