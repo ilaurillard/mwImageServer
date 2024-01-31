@@ -46,6 +46,10 @@ class Text {
           PdfPageFormat.mm,
       colorQuote:
           Util.color(json['colorQuote'] as String?) ?? PdfColors.grey200,
+      style: Util.textStyle(
+        json['style'] as Dict? ?? {},
+        state,
+      ),
     ).toRichText();
   }
 
@@ -83,8 +87,8 @@ class Text {
           double.tryParse(json['textScaleFactor'].toString()) ?? 1.0,
       maxLines: int.tryParse(json['maxLines'].toString()),
       overflow: Util.textOverflow(json['overflow'] as String?),
-      hyphenation: hyphLang.isNotEmpty ? state.hyphenator(language: hyphLang) : null,
-
+      hyphenation:
+          hyphLang.isNotEmpty ? state.hyphenator(language: hyphLang) : null,
     );
   }
 }

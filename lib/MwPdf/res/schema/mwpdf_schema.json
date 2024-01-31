@@ -2233,6 +2233,9 @@
           "margin3": {
             "type": "number"
           },
+          "style": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
           "text": {
             "type": "string"
           }

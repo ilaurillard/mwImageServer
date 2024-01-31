@@ -36,6 +36,7 @@ class Markdown implements md.NodeVisitor {
   final int bulletIcon;
   final PdfColor colorCode;
   late pw.Font? fontCode;
+  final pw.TextStyle? style;
 
   Markdown(
     this.markdownContent, {
@@ -50,12 +51,10 @@ class Markdown implements md.NodeVisitor {
     this.bulletIcon = 0xEf4a,
     this.colorCode = PdfColors.grey200,
     this.colorQuote = PdfColors.grey200,
+    this.style,
     this.fontCode,
   }) {
     fontCode ??= pw.Font.courier();
-    // print(darken(PdfColors.white));
-    // print(darken(PdfColors.green));
-    // print(darken(PdfColors.blue));
   }
 
   pw.Widget toRichText() {
@@ -72,13 +71,15 @@ class Markdown implements md.NodeVisitor {
     if (spans.isNotEmpty) {
       widgets.last.add(
         pw.Container(
-          padding: pw.EdgeInsets.only(bottom: margin1),
+          padding: pw.EdgeInsets.only(
+            bottom: margin1,
+          ),
           child: pw.RichText(
             overflow: pw.TextOverflow.span,
             text: pw.TextSpan(
               children: spans,
+              style: style,
             ),
-            // textScaleFactor: 2,
           ),
         ),
       );
@@ -95,8 +96,8 @@ class Markdown implements md.NodeVisitor {
             overflow: pw.TextOverflow.span,
             text: pw.TextSpan(
               children: spans,
+              style: style,
             ),
-            // textScaleFactor: 2,
           ),
         ),
       );
@@ -383,7 +384,7 @@ class Markdown implements md.NodeVisitor {
 
     pw.Font? font;
     pw.BoxDecoration? bg;
-    pw.TextStyle? textStyle;
+    pw.TextStyle? textStyle = style;
 
     if (code || bold || oblique || size != null) {
       if (code) {
@@ -417,6 +418,7 @@ class Markdown implements md.NodeVisitor {
           overflow: pw.TextOverflow.span,
           text: pw.TextSpan(
             children: spans,
+            style: style,
           ),
           // textScaleFactor: 2,
         ),
@@ -429,16 +431,6 @@ class Markdown implements md.NodeVisitor {
     PdfColor c, [
     int percent = 10,
   ]) {
-    // assert(1 <= percent && percent <= 100);
-    // var f = 1 - percent / 100;
-    // int r = (c.red * f).round();
-    // int g = (c.green * f).round();
-    // int b = (c.blue * f).round();
-    // print('0x${r.toRadixString(16)}${g.toRadixString(16)}${b.toRadixString(16)}');
-    // return PdfColor.fromInt(
-    //   int.parse('0x${r.toRadixString(16)}${g.toRadixString(16)}${b.toRadixString(16)}'),
-    // );
-
     return c.shade(.6);
   }
 }
