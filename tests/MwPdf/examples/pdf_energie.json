@@ -201,271 +201,263 @@
       "theme": "@default",
       "content": [
         {
-          "Container": {
-            "margin": [
-              0,
-              0,
-              0,
-              10
-            ],
-            "child": {
-              "Partitions": {
-                "children": [
-                  {
-                    "Partition": {
-                      "flex": 7,
-                      "child": {
-                        "Column": {
-                          "crossAxisAlignment": "start",
-                          "children": [
-                            {
-                              "Paragraph": {
-                                "text": "HAMBURG ENERGIE, Postfach 26 14 64, 20504 Hamburg",
-                                "style": {
-                                  "fontSize": 3
-                                }
-                              }
-                            },
-                            {
-                              "Paragraph": {
-                                "source": "@recipient"
-                              }
-                            },
-                            {"SizedBox": {
-                              "height": 5
-                            }},
-                            {
-                              "Paragraph": {
-                                "text": "LIEFERANSCHRIFT",
-                                "style": {
-                                  "fontWeight": "bold",
-                                  "fontSize": 3.7
-                                }
-                              }
-                            },
-                            {
-                              "Paragraph": {
-                                "source": "@delivery"
-                              }
+          "Partitions": {
+            "children": [
+              {
+                "Partition": {
+                  "flex": 7,
+                  "child": {
+                    "Column": {
+                      "crossAxisAlignment": "start",
+                      "children": [
+                        {
+                          "Paragraph": {
+                            "text": "HAMBURG ENERGIE, Postfach 26 14 64, 20504 Hamburg",
+                            "style": {
+                              "fontSize": 3
                             }
-                          ]
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "Partition": {
-                      "flex": 6,
-                      "child": {
-                        "Column": {
-                          "crossAxisAlignment": "start",
-                          "children": [
-                            {
-                              "Paragraph": {
-                                "text": "IHRE DATEN",
-                                "style": {
-                                  "fontWeight": "bold",
-                                  "fontSize": 3.7
-                                }
-                              }
-                            },
-                            {
-                              "Row": {
-                                "crossAxisAlignment": "start",
-                                "mainAxisAlignment": "spaceBetween",
-                                "children": [
-                                  {
-                                    "Expanded": {
-                                      "flex": 3,
-                                      "child": {
-                                        "Paragraph": {
-                                          "textAlign": "left",
-                                          "text": "Kunden-Nr.:\nVertragskonto\n",
-                                          "style": {
-                                            "fontSize": 3.0
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "Expanded": {
-                                      "flex": 4,
-                                      "child": {
-                                        "Paragraph": {
-                                          "textAlign": "left",
-                                          "text": "%kundenNr%\n%vertragskonto%\n(bei Zahlungen bitte angeben)",
-                                          "style": {
-                                            "fontSize": 3.0
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "Paragraph": {
-                                "text": "WIR SIND FÜR SIE DA",
-                                "style": {
-                                  "fontWeight": "bold",
-                                  "fontSize": 3.7
-                                }
-                              }
-                            },
-                            {
-                              "Row": {
-                                "crossAxisAlignment": "start",
-                                "mainAxisAlignment": "spaceBetween",
-                                "children": [
-                                  {
-                                    "Expanded": {
-                                      "flex": 3,
-                                      "child": {
-                                        "Paragraph": {
-                                          "textAlign": "left",
-                                          "text": "Telefon:",
-                                          "style": {
-                                            "fontSize": 3.0
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "Expanded": {
-                                      "flex": 4,
-                                      "child": {
-                                        "Paragraph": {
-                                          "textAlign": "left",
-                                          "text": "040 334410-10\nMo.-Fr.: 9-15 Uhr",
-                                          "style": {
-                                            "fontSize": 3.0
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "Row": {
-                                "crossAxisAlignment": "start",
-                                "mainAxisAlignment": "spaceBetween",
-                                "children": [
-                                  {
-                                    "Expanded": {
-                                      "flex": 3,
-                                      "child": {
-                                        "Paragraph": {
-                                          "textAlign": "left",
-                                          "text": "E-Mail:\nKundencenter:",
-                                          "style": {
-                                            "fontSize": 3.0
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "Expanded": {
-                                      "flex": 4,
-                                      "child": {
-                                        "Paragraph": {
-                                          "textAlign": "left",
-                                          "text": "moin@hamburgenergie.de\nBallindamm 1, 20095 Hamburg\nMo.-Fr.: 9-13 und 14-17 Uhr",
-                                          "style": {
-                                            "fontSize": 3.0
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "Row": {
-                                "crossAxisAlignment": "start",
-                                "mainAxisAlignment": "spaceBetween",
-                                "children": [
-                                  {
-                                    "Expanded": {
-                                      "flex": 3,
-                                      "child": {
-                                        "Paragraph": {
-                                          "textAlign": "left",
-                                          "text": "Datum:",
-                                          "style": {
-                                            "fontSize": 3.0
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "Expanded": {
-                                      "flex": 4,
-                                      "child": {
-                                        "Paragraph": {
-                                          "textAlign": "left",
-                                          "text": "22.12.2023",
-                                          "style": {
-                                            "fontSize": 3.0
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "Row": {
-                                "crossAxisAlignment": "start",
-                                "mainAxisAlignment": "spaceBetween",
-                                "children": [
-                                  {
-                                    "Expanded": {
-                                      "flex": 3,
-                                      "child": {
-                                        "Paragraph": {
-                                          "textAlign": "left",
-                                          "text": "Zählernummer:",
-                                          "style": {
-                                            "fontSize": 3.0
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "Expanded": {
-                                      "flex": 4,
-                                      "child": {
-                                        "Paragraph": {
-                                          "textAlign": "left",
-                                          "text": "35063609",
-                                          "style": {
-                                            "fontSize": 3.0
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
+                          }
+                        },
+                        {
+                          "Paragraph": {
+                            "source": "@recipient"
+                          }
+                        },
+                        {
+                          "SizedBox": {
+                            "height": 5
+                          }
+                        },
+                        {
+                          "Paragraph": {
+                            "text": "LIEFERANSCHRIFT",
+                            "style": {
+                              "fontWeight": "bold",
+                              "fontSize": 3.7
                             }
-                          ]
+                          }
+                        },
+                        {
+                          "Paragraph": {
+                            "source": "@delivery"
+                          }
                         }
-                      }
+                      ]
                     }
                   }
-                ]
+                }
+              },
+              {
+                "Partition": {
+                  "flex": 6,
+                  "child": {
+                    "Column": {
+                      "crossAxisAlignment": "start",
+                      "children": [
+                        {
+                          "Paragraph": {
+                            "text": "IHRE DATEN",
+                            "style": {
+                              "fontWeight": "bold",
+                              "fontSize": 3.7
+                            }
+                          }
+                        },
+                        {
+                          "Row": {
+                            "crossAxisAlignment": "start",
+                            "mainAxisAlignment": "spaceBetween",
+                            "children": [
+                              {
+                                "Expanded": {
+                                  "flex": 3,
+                                  "child": {
+                                    "Paragraph": {
+                                      "textAlign": "left",
+                                      "text": "Kunden-Nr.:\nVertragskonto\n",
+                                      "style": {
+                                        "fontSize": 3.0
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "Expanded": {
+                                  "flex": 4,
+                                  "child": {
+                                    "Paragraph": {
+                                      "textAlign": "left",
+                                      "text": "%kundenNr%\n%vertragskonto%\n(bei Zahlungen bitte angeben)",
+                                      "style": {
+                                        "fontSize": 3.0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Paragraph": {
+                            "text": "WIR SIND FÜR SIE DA",
+                            "style": {
+                              "fontWeight": "bold",
+                              "fontSize": 3.7
+                            }
+                          }
+                        },
+                        {
+                          "Row": {
+                            "crossAxisAlignment": "start",
+                            "mainAxisAlignment": "spaceBetween",
+                            "children": [
+                              {
+                                "Expanded": {
+                                  "flex": 3,
+                                  "child": {
+                                    "Paragraph": {
+                                      "textAlign": "left",
+                                      "text": "Telefon:",
+                                      "style": {
+                                        "fontSize": 3.0
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "Expanded": {
+                                  "flex": 4,
+                                  "child": {
+                                    "Paragraph": {
+                                      "textAlign": "left",
+                                      "text": "040 334410-10\nMo.-Fr.: 9-15 Uhr",
+                                      "style": {
+                                        "fontSize": 3.0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Row": {
+                            "crossAxisAlignment": "start",
+                            "mainAxisAlignment": "spaceBetween",
+                            "children": [
+                              {
+                                "Expanded": {
+                                  "flex": 3,
+                                  "child": {
+                                    "Paragraph": {
+                                      "textAlign": "left",
+                                      "text": "E-Mail:\nKundencenter:",
+                                      "style": {
+                                        "fontSize": 3.0
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "Expanded": {
+                                  "flex": 4,
+                                  "child": {
+                                    "Paragraph": {
+                                      "textAlign": "left",
+                                      "text": "moin@hamburgenergie.de\nBallindamm 1, 20095 Hamburg\nMo.-Fr.: 9-13 und 14-17 Uhr",
+                                      "style": {
+                                        "fontSize": 3.0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Row": {
+                            "crossAxisAlignment": "start",
+                            "mainAxisAlignment": "spaceBetween",
+                            "children": [
+                              {
+                                "Expanded": {
+                                  "flex": 3,
+                                  "child": {
+                                    "Paragraph": {
+                                      "textAlign": "left",
+                                      "text": "Datum:",
+                                      "style": {
+                                        "fontSize": 3.0
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "Expanded": {
+                                  "flex": 4,
+                                  "child": {
+                                    "Paragraph": {
+                                      "textAlign": "left",
+                                      "text": "22.12.2023",
+                                      "style": {
+                                        "fontSize": 3.0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Row": {
+                            "crossAxisAlignment": "start",
+                            "mainAxisAlignment": "spaceBetween",
+                            "children": [
+                              {
+                                "Expanded": {
+                                  "flex": 3,
+                                  "child": {
+                                    "Paragraph": {
+                                      "textAlign": "left",
+                                      "text": "Zählernummer:",
+                                      "style": {
+                                        "fontSize": 3.0
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "Expanded": {
+                                  "flex": 4,
+                                  "child": {
+                                    "Paragraph": {
+                                      "textAlign": "left",
+                                      "text": "35063609",
+                                      "style": {
+                                        "fontSize": 3.0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
               }
-            }
+            ]
           }
         },
         {
@@ -483,7 +475,7 @@
         },
         {
           "Paragraph": {
-            "text": "schön, dass Sie bei HAMBURG ENERGIE als Kunde an Bord sind. Heute erhalten Sie Ihre Lieferbestätigung"
+            "text": "schön, dass Sie bei HAMBURG ENERGIE als Kunde an Bord sind. Heute erhalten Sie Ihre Lieferbestätigung."
           }
         },
         {
