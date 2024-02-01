@@ -37,6 +37,19 @@ class Table {
       }
     }
 
+    List<dynamic>? headers = json['headers'] as List<dynamic>?;
+    if (headers != null) {
+      for (int index = 0; index < headers.length; index++) {
+        dynamic h = headers[index];
+        if (h is! String) {
+          headers[index] = Widget.parse(
+            h as Dict? ?? {},
+            state,
+          );
+        }
+      }
+    }
+
     return pw.TableHelper.fromTextArray(
       data: data,
       cellPadding: Util.edgeInsets(
@@ -57,8 +70,11 @@ class Table {
       ),
       // cellFormat: TODO support callbacks??
       // cellDecoration: TODO support callbacks somehow??
+      // headerFormat: (int index, dynamic data) {
+      //   return 'xxx';
+      // },
       headerCount: int.tryParse(json['headerCount'].toString()) ?? 1,
-      headers: json['headers'] as List<dynamic>?,
+      headers: headers,
       headerPadding: Util.edgeInsets(
         json['headerPadding'] as List<dynamic>?,
       ),
@@ -71,7 +87,7 @@ class Table {
         json['headerStyle'] as Dict? ?? {},
         state,
       ),
-      // headerFormat: TODO callbacks??
+
       border: tableBorder(
         json['border'] as Dict?,
       ),

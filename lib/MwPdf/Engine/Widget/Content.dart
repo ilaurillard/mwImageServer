@@ -51,7 +51,9 @@ class Content {
       margin: Util.edgeInsets(
             json['margin'] as List<dynamic>?,
           ) ??
-          const pw.EdgeInsets.only(bottom: 5.0 * PdfPageFormat.mm),
+          const pw.EdgeInsets.only(
+            bottom: 5.0 * PdfPageFormat.mm,
+          ),
       style: Util.textStyle(
         json['style'] as Dict? ?? {},
         state,
@@ -136,9 +138,9 @@ class Content {
   }
 
   static pw.TableOfContent tableOfContent(
-      Dict json,
-      State state,
-      ) {
+    Dict json,
+    State state,
+  ) {
     return pw.TableOfContent();
   }
 

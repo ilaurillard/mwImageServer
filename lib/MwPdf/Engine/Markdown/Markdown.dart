@@ -40,7 +40,7 @@ class Markdown implements md.NodeVisitor {
 
   Markdown(
     this.markdownContent, {
-    this.margin1 = 8.0 * PdfPageFormat.mm,
+    this.margin1 = 5.0 * PdfPageFormat.mm,
     this.margin2 = 3.0 * PdfPageFormat.mm,
     this.margin3 = 1.5 * PdfPageFormat.mm,
     this.fontSize1 = 12.0 * PdfPageFormat.mm,

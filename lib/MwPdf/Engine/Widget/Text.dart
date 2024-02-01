@@ -13,7 +13,7 @@ class Text {
     Dict json,
     State state,
   ) {
-    String md = json['text'] as String? ?? '';
+    String md = state.replaceParameters(json['text'] as String? ?? '');
 
     String bulletIcon = json['bulletIcon'].toString();
     int? bulletIconCode = int.tryParse(bulletIcon, radix: 16);
@@ -29,7 +29,7 @@ class Text {
         state,
       ),
       margin1:
-          (double.tryParse(json['margin1'].toString()) ?? 8) * PdfPageFormat.mm,
+          (double.tryParse(json['margin1'].toString()) ?? 5) * PdfPageFormat.mm,
       margin2:
           (double.tryParse(json['margin2'].toString()) ?? 3) * PdfPageFormat.mm,
       margin3: (double.tryParse(json['margin3'].toString()) ?? 1.5) *

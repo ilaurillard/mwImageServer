@@ -2518,7 +2518,14 @@
           "headers": {
             "description": "A list of strings",
             "items": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/definitions/Widget"
+                }
+              ]
             },
             "type": "array"
           },

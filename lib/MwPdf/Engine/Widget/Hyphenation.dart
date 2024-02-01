@@ -6,7 +6,9 @@ class HyphenatedParagraph extends pw.StatelessWidget {
     this.text,
     this.textAlign = pw.TextAlign.justify,
     this.style,
-    this.margin = const pw.EdgeInsets.only(bottom: 5.0 * PdfPageFormat.mm),
+    this.margin = const pw.EdgeInsets.only(
+      bottom: 5.0 * PdfPageFormat.mm,
+    ),
     this.padding,
     this.hyphenation,
   });
@@ -28,7 +30,7 @@ class HyphenatedParagraph extends pw.StatelessWidget {
       child: HyphenatedText(
         text!,
         textAlign: textAlign,
-        style:  pw.Theme.of(context).paragraphStyle.merge(style),
+        style: pw.Theme.of(context).paragraphStyle.merge(style),
         overflow: pw.TextOverflow.span,
         hyphenation: hyphenation,
       ),
@@ -63,26 +65,26 @@ class HyphenatedText extends pw.RichText {
 
 // this is the word overflow logic in Richtext.layout (buildlines)
 // see https://github.com/DavBfr/dart_pdf/pull/1563
-    // if (hyphenation != null) {
-    //   List<String> syllables = hyphenation!(word);
-    //   if (syllables.length > 1) {
-    //     String fits = '';
-    //     for (String syllable in syllables) {
-    //       if (offsetX + ((font.stringMetrics(
-    //           fits + syllable + '-',
-    //           letterSpacing: style.letterSpacing! /
-    //               (style.fontSize! * textScaleFactor)) *
-    //           (style.fontSize! * textScaleFactor)).width) >
-    //           constraintWidth + 0.00001) {
-    //         break;
-    //       }
-    //       fits += syllable;
-    //     }
-    //     if (fits.isNotEmpty) {
-    //       words[index] = fits + '-';
-    //       words.insert(index + 1, word.substring(fits.length));
-    //       index--;
-    //       continue;
-    //     }
-    //   }
-    // }
+// if (hyphenation != null) {
+//   List<String> syllables = hyphenation!(word);
+//   if (syllables.length > 1) {
+//     String fits = '';
+//     for (String syllable in syllables) {
+//       if (offsetX + ((font.stringMetrics(
+//           fits + syllable + '-',
+//           letterSpacing: style.letterSpacing! /
+//               (style.fontSize! * textScaleFactor)) *
+//           (style.fontSize! * textScaleFactor)).width) >
+//           constraintWidth + 0.00001) {
+//         break;
+//       }
+//       fits += syllable;
+//     }
+//     if (fits.isNotEmpty) {
+//       words[index] = fits + '-';
+//       words.insert(index + 1, word.substring(fits.length));
+//       index--;
+//       continue;
+//     }
+//   }
+// }
