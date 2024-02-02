@@ -191,7 +191,7 @@
       "footer": "@def",
       "content": [
         {
-          "ShowIfValue": {
+          "ShowIf": {
             "condition": "%showRow2%",
             "child": {
               "Container": {
@@ -467,7 +467,7 @@
                 }
               },
               {
-                "ShowIfValue": {
+                "ShowIf": {
                   "condition": "%showRow2%",
                   "child": {
                     "TableRow": {

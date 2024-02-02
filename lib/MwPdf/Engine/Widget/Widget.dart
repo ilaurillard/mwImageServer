@@ -85,7 +85,7 @@ class Widget {
             data,
             state,
           );
-        case 'ShowIfValue':
+        case 'ShowIf':
           return Util.showIf(
             data,
             state,

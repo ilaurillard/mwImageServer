@@ -31,16 +31,19 @@ class Partition {
     Dict json,
     State state,
   ) {
-    Dict showIf = json['ShowIfValue'] as Dict? ?? {};
+    Dict showIf = json['ShowIf'] as Dict? ?? {};
+
     if (showIf.isNotEmpty) {
-      String condition = state.replaceParameters(
-        showIf['condition'] as String? ?? '',
-      );
-      if (condition.isEmpty) {
+      if (!Util.conditionMatch(
+        state.replaceParameters(
+          showIf['condition'] as String? ?? '',
+        ),
+      )) {
         return null;
       }
       json = showIf['child'] as Dict? ?? {};
     }
+
     Dict data = json['Partition'] as Dict? ?? {};
 
     double? width = double.tryParse(data['width'].toString());

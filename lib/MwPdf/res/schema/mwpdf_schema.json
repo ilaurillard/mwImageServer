@@ -176,7 +176,7 @@
       "Condition": {
         "type": "string"
       },
-      "ShowIfValueTableRow": {
+      "ShowIfTableRow": {
         "additionalProperties": false,
         "properties": {
           "condition": {
@@ -196,7 +196,7 @@
         },
         "type": "object"
       },
-      "ShowIfValuePartition": {
+      "ShowIfPartition": {
         "additionalProperties": false,
         "properties": {
           "condition": {
@@ -1019,8 +1019,8 @@
         "Align": {
           "$ref": "#/definitions/Widgets/Align"
         },
-        "ShowIfValue": {
-          "$ref": "#/definitions/Widgets/ShowIfValue"
+        "ShowIf": {
+          "$ref": "#/definitions/Widgets/ShowIf"
         },
         "Anchor": {
           "$ref": "#/definitions/Widgets/Anchor"
@@ -1225,7 +1225,7 @@
         },
         "type": "object"
       },
-      "ShowIfValue": {
+      "ShowIf": {
         "additionalProperties": false,
         "properties": {
           "condition": {
@@ -2102,8 +2102,8 @@
                 "Partition": {
                   "$ref": "#/definitions/Other/Partition"
                 },
-                "ShowIfValue": {
-                  "$ref": "#/definitions/Other/ShowIfValuePartition"
+                "ShowIf": {
+                  "$ref": "#/definitions/Other/ShowIfPartition"
                 }
               },
               "additionalPropeterties": false,
@@ -2402,8 +2402,8 @@
                 "TableRow": {
                   "$ref": "#/definitions/Other/TableRow"
                 },
-                "ShowIfValue": {
-                  "$ref": "#/definitions/Other/ShowIfValueTableRow"
+                "ShowIf": {
+                  "$ref": "#/definitions/Other/ShowIfTableRow"
                 }
               },
               "minProperties": 1,

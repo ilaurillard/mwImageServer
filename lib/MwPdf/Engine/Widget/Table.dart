@@ -161,16 +161,19 @@ class Table {
     Dict json,
     State state,
   ) {
-    Dict showIf = json['ShowIfValue'] as Dict? ?? {};
+    Dict showIf = json['ShowIf'] as Dict? ?? {};
+
     if (showIf.isNotEmpty) {
-      String condition = state.replaceParameters(
-        showIf['condition'] as String? ?? '',
-      );
-      if (condition.isEmpty) {
+      if (!Util.conditionMatch(
+        state.replaceParameters(
+          showIf['condition'] as String? ?? '',
+        ),
+      )) {
         return [];
       }
       json = showIf['child'] as Dict? ?? {};
     }
+
     Dict data = json['TableRow'] as Dict? ?? {};
 
     // print('W: TableRow');

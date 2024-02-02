@@ -5,14 +5,21 @@
     "showWidget2": false,
     "showPartition1": false,
     "showTableRow1": false,
-    "switchValue": ""
+    "switchValue": "",
+    "meineVariable": 1
   },
   "sources": {
     "@tabledata": {
       "values": [
-        ["ZEILE3"],
-        ["ZEILE4"],
-        ["ZEILE5"]
+        [
+          "ZEILE3"
+        ],
+        [
+          "ZEILE4"
+        ],
+        [
+          "ZEILE5"
+        ]
       ]
     }
   },
@@ -24,12 +31,21 @@
             "crossAxisAlignment": "start",
             "children": [
               {
+                "Header": {
+                  "child": {
+                    "Text": {
+                      "text": "Conditionals"
+                    }
+                  }
+                }
+              },
+              {
                 "Paragraph": {
                   "text": "%description%"
                 }
               },
               {
-                "ShowIfValue": {
+                "ShowIf": {
                   "condition": "%showWidget1%",
                   "child": {
                     "Paragraph": {
@@ -39,7 +55,7 @@
                 }
               },
               {
-                "ShowIfValue": {
+                "ShowIf": {
                   "condition": "%showWidget2%",
                   "child": {
                     "Paragraph": {
@@ -83,7 +99,7 @@
                 "Partitions": {
                   "children": [
                     {
-                      "ShowIfValue": {
+                      "ShowIf": {
                         "condition": "%showPartition1%",
                         "child": {
                           "Partition": {
@@ -129,7 +145,7 @@
                   },
                   "children": [
                     {
-                      "ShowIfValue": {
+                      "ShowIf": {
                         "condition": "%showTableRow1%",
                         "child": {
                           "TableRow": {
@@ -188,6 +204,30 @@
                       }
                     }
                   ]
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "ShowIf": {
+                  "condition": "%meineVariable% <= 2",
+                  "child": {
+                    "Paragraph": {
+                      "text": "Conditions mit nur einem Wert werden einfach auf Vorhandensein geprüft. Man kann jedoch auch zB. soetwas schreiben: \"condition\" = \"%eineVariable% < 2\""
+                    }
+                  }
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Folgende Operatoren werden derzeit unterstützt:"
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Gleich: x == y\nUngleich: x != y\nGrößer/Gleich: x >= y\nKleiner/Gleich: x <= y\nGrößer: x > y\nGrößer: x < y"
                 }
               }
             ]

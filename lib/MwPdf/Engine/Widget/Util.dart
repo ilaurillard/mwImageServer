@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:collection/collection.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
@@ -667,16 +669,78 @@ class Util {
     Dict json,
     State state,
   ) {
-    String condition = state.replaceParameters(
-      json['condition'] as String? ?? '',
-    );
-    if (condition.isEmpty) {
+    if (!Util.conditionMatch(
+      state.replaceParameters(
+        json['condition'] as String? ?? '',
+      ),
+    )) {
       return pw.SizedBox();
     }
+
     return Widget.child(
       json,
       state,
     );
+  }
+
+  static bool conditionMatch(
+    String condition,
+  ) {
+    List<String> e = [];
+    for (String op in ['<=', '>=', '!=', '==', '>', '<']) {
+      e = condition.split(op);
+      if (e.length == 2) {
+        return Util.conditionCompare(e, op);
+      }
+    }
+    return condition.isNotEmpty;
+  }
+
+  static bool conditionCompare(
+    List<String> e,
+    String op,
+  ) {
+    assert(e.length == 2);
+    String p1 = e[0].trim();
+    String p2 = e[1].trim();
+    num? n1 = num.tryParse(p1);
+    num? n2 = num.tryParse(p2);
+    if (n1 != null && n2 != null) {
+      // compare numbers
+      switch (op) {
+        case '<=':
+          return n1 <= n2;
+        case '>=':
+          return n1 >= n2;
+        case '==':
+          return n1 == n2;
+        case '!=':
+          return n1 != n2;
+        case '>':
+          return n1 > n2;
+        case '<':
+          return n1 < n2;
+      }
+    }
+    else {
+      // compare strings
+      switch (op) {
+        case '<=':
+          return p1.compareTo(p2) < 1;
+        case '>=':
+          return p1.compareTo(p2) > -1;
+        case '<':
+          return p1.compareTo(p2) < 0;
+        case '>':
+          return p1.compareTo(p2) > 0;
+        case '==':
+          return p1 == p2;
+        case '!=':
+          return p1 != p2;
+      }
+    }
+
+    return false;
   }
 
   static pw.Widget switchCases(
