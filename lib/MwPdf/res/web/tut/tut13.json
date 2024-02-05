@@ -113,6 +113,7 @@
               },
               {
                 "Paragraph": {
+                  "textAlign": "left",
                   "text": "Es ist geplant, weitere typische Fonts bereitzustellen, oder ggf. sogar Fonts einbindbar zu machen, aktuell gibt es zumindest schonmal:"
                 }
               },
@@ -149,6 +150,11 @@
                 }
               },
               {
+                "SizedBox": {
+                  "height": 3
+                }
+              },
+              {
                 "Text": {
                   "text": "PT Serif Regular",
                   "style": {
@@ -181,16 +187,39 @@
                 }
               },
               {
+                "SizedBox": {
+                  "height": 3
+                }
+              },
+              {
+                "Text": {
+                  "text": "UniversCom-55Roman",
+                  "style": {
+                    "font": "universRegular"
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "UniversCom-65Bold",
+                  "style": {
+                    "font": "universBold"
+                  }
+                }
+              },
+              {
                 "Divider": {
                 }
               },
               {
                 "Paragraph": {
+                  "textAlign": "left",
                   "text": "Es steht aber auch noch ein Material-Icon-Font zur Verfügung."
                 }
               },
               {
                 "Paragraph": {
+                  "textAlign": "left",
                   "text": "Icons können via Hex-Code oder via Namen eingebunden werden (siehe MaterialIcons-Regular.codepoints)."
                 }
               },

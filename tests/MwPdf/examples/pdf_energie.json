@@ -50,7 +50,7 @@
                             0
                           ],
                           "child": {
-                            "Paragraph": {
+                            "RichText": {
                               "text": "**Hamburg Energie | eine Marke der\nHamburger Energiewerke GmbH**\nAusschläger Elbdeich 123\n20539 Hamburg",
                               "style": {
                                 "fontSize": 2.6,

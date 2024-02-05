@@ -834,7 +834,9 @@
               "ptSerifRegular",
               "ptSerifBold",
               "ptSerifBoldItalic",
-              "ptSerifItalic"
+              "ptSerifItalic",
+              "universRegular",
+              "universBold"
             ]
           },
           {

@@ -23,6 +23,8 @@ class State {
     'ptSerifBold': 'Pt/PTSerif-Bold.ttf',
     'ptSerifRegular': 'Pt/PTSerif-Regular.ttf',
     'ptSerifItalic': 'Pt/PTSerif-Italic.ttf',
+    'universRegular': 'Univers/UniversCom-55Roman.ttf',
+    'universBold': 'Univers/UniversCom-65Bold.ttf',
   };
 
   static Map<String, pw.Font> fonts = {};

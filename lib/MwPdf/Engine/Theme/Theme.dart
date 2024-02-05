@@ -22,19 +22,6 @@ class Theme {
     pw.PageOrientation? orientation =
         pw.PageOrientation.values.firstWhereOrNull((e) => e.name == o);
 
-    pw.Widget? foreground = json['foreground'] != null
-        ? Widget.parse(
-            json['foreground'] as Dict? ?? {},
-            state,
-          )
-        : null;
-    pw.Widget? background = json['background'] != null
-        ? Widget.parse(
-            json['background'] as Dict? ?? {},
-            state,
-          )
-        : null;
-
     pw.PageTheme theme = pw.PageTheme(
       pageFormat: pageFormat((json['format'] as Dict?) ?? {}),
       theme: styles(
@@ -49,8 +36,26 @@ class Theme {
       textDirection: Util.textDirection(
         json['textDirection'] as String? ?? '',
       ),
-      buildBackground: background != null ? (context) => background : null,
-      buildForeground: foreground != null ? (context) => foreground : null,
+      buildForeground: json['foreground'] != null
+          ? (context) {
+              state.pageNumber = context.pageNumber;
+              state.pagesCount = context.pagesCount;
+              return Widget.parse(
+                json['foreground'] as Dict? ?? {},
+                state,
+              );
+            }
+          : null,
+      buildBackground: json['background'] != null
+          ? (context) {
+              state.pageNumber = context.pageNumber;
+              state.pagesCount = context.pagesCount;
+              return Widget.parse(
+                json['background'] as Dict? ?? {},
+                state,
+              );
+            }
+          : null,
     );
 
     return Theme(theme);
@@ -200,14 +205,13 @@ class Theme {
   }
 
   static pw.ThemeData? defaultDocumentTheme(
-      State state,
-      ) {
+    State state,
+  ) {
     return pw.ThemeData(
         iconTheme: iconTheme(
-          {},
-          state,
-        )
-    );
+      {},
+      state,
+    ));
   }
 
   static pw.PageTheme? defaultPageTheme(
@@ -216,11 +220,10 @@ class Theme {
     return null;
     return pw.PageTheme(
       theme: pw.ThemeData(
-        iconTheme: iconTheme(
-          {},
-          state,
-        )
-      ),
+          iconTheme: iconTheme(
+        {},
+        state,
+      )),
     );
   }
 }

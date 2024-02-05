@@ -30,6 +30,7 @@ class Page {
   });
 
   List<pw.Widget> build(
+    pw.Context context,
     State state,
   ) {
     List<pw.Widget> widgets = [];
@@ -41,8 +42,7 @@ class Page {
       );
       if (w.runtimeType == Unwrapped) {
         widgets.addAll((w as Unwrapped).children);
-      }
-      else {
+      } else {
         widgets.add(w);
       }
     }
