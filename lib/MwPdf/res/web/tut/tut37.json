@@ -1,0 +1,597 @@
+{
+  "meta": {
+    "themes": {
+      "@default": {
+        "margin": [
+          25,
+          50,
+          25,
+          7.5
+        ],
+        "styles": {
+          "text": {
+            "fontSize": 3.2,
+            "font": "universRegular",
+            "fontBold": "universBold",
+            "lineSpacing": 2
+          }
+        },
+        "background": {
+          "FullPage": {
+            "ignoreMargins": true,
+            "child": {
+              "Stack": {
+                "children": [
+                  {
+                    "Positioned": {
+                      "left": 10,
+                      "top": 15,
+                      "child": {
+                        "SvgImage": {
+                          "width": 2.15,
+                          "source": "@dots1",
+                          "fit": "contain"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Positioned": {
+                      "right": 10,
+                      "bottom": 10,
+                      "child": {
+                        "SvgImage": {
+                          "width": 2.15,
+                          "source": "@dots2",
+                          "fit": "contain"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Positioned": {
+                      "top": 4,
+                      "right": 8,
+                      "child": {
+                        "Container": {
+                          "height": 25,
+                          "child": {
+                            "Image": {
+                              "source": "@logo"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "ShowIf": {
+                      "condition": "%pageNumber% < 2",
+                      "child": {
+                        "Positioned": {
+                          "top": 21,
+                          "right": 7,
+                          "child": {
+                            "Container": {
+                              "height": 34,
+                              "child": {
+                                "Opacity": {
+                                  "opacity": 0.8,
+                                  "child": {
+                                    "Image": {
+                                      "source": "@stempel"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "footers": {
+      "@default": {
+        "Column": {
+          "children": [
+            {
+              "Container": {
+                "margin": [
+                  0,
+                  5,
+                  0,
+                  3
+                ],
+                "child": {
+                  "Align": {
+                    "alignment": "centerRight",
+                    "child": {
+                      "Text": {
+                        "text": "%pageNumber% / %pagesCount%",
+                        "textAlign": "right",
+                        "style": {
+                          "fontSize": 2.0
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "Row": {
+                "crossAxisAlignment": "start",
+                "mainAxisAlignment": "spaceBetween",
+                "children": [
+                  {
+                    "Container": {
+                      "child": {
+                        "Text": {
+                          "text": "mindworks GmbH\nPHP-Softwareentwicklung\nwww.mindworks.de\ninfo@mindworks.de",
+                          "style": {
+                            "fontSize": 2.6,
+                            "color": "888888"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Container": {
+                      "child": {
+                        "Text": {
+                          "text": "Jarrestraße 42a,\n22303 Hamburg\nTel. +49 (0)40 - 889 15 68 - 0\nFax +49 (0)40 - 889 15 68 - 77",
+                          "style": {
+                            "fontSize": 2.6,
+                            "color": "888888"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Container": {
+                      "child": {
+                        "Text": {
+                          "text": "Geschäftsführung\nMartin Stoll\nAmtsgericht Hamburg\n66 HRB 61566\nUSt-IdNr. DE 179250477",
+                          "style": {
+                            "fontSize": 2.6,
+                            "color": "888888"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Container": {
+                      "child": {
+                        "Text": {
+                          "text": "Bankverbindung\nHamburger Sparkasse\nIBAN: DE55 2005 0550 1237 1228 80\nBIC/SWIFT: HASPDEHHXXX",
+                          "style": {
+                            "fontSize": 2.6,
+                            "color": "888888"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "footer": "@default",
+      "theme": "@default",
+      "multi": true,
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Container": {
+                  "margin": [
+                    0,
+                    0,
+                    0,
+                    1
+                  ],
+                  "child": {
+                    "Text": {
+                      "text": "Stundenauszug",
+                      "style": {
+                        "fontWeight": "bold",
+                        "fontSize": 4
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "margin": [
+                    0,
+                    0,
+                    0,
+                    8
+                  ],
+                  "child": {
+                    "Text": {
+                      "text": "FA Business Solutions GmbH (fabs)",
+                      "style": {
+                        "fontWeight": "bold",
+                        "fontSize": 3
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "margin": [
+                    0,
+                    0,
+                    0,
+                    20
+                  ],
+                  "child": {
+                    "Partitions": {
+                      "children": [
+                        {
+                          "Partition": {
+                            "flex": 5,
+                            "child": {
+                              "Text": {
+                                "text": "Stundenkontingent ab 2023-12"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "Partition": {
+                            "flex": 1,
+                            "child": {
+                              "Text": {
+                                "text": "Kunde\nDatum\nZeitraum"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "Partition": {
+                            "flex": 2,
+                            "child": {
+                              "Text": {
+                                "text": "fabs\n01.02.2024\n01.01.2024 - 31.01.2024"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "TableAuto": {
+            "columnWidths": {
+              "0": {
+                "FlexColumnWidth": {
+                  "flex": 1.5
+                }
+              },
+              "1": {
+                "FlexColumnWidth": {
+                  "flex": 3
+                }
+              },
+              "2": {
+                "FlexColumnWidth": {
+                  "flex": 4
+                }
+              },
+              "3": {
+                "FlexColumnWidth": {
+                  "flex": 1
+                }
+              }
+            },
+            "cellAlignments": {
+              "0": "topLeft",
+              "1": "topLeft",
+              "2": "topLeft",
+              "3": "topRight"
+            },
+            "headerPadding": [
+              1
+            ],
+            "cellAlignment": "center",
+            "headerAlignment": "center",
+            "headerDecoration": {
+              "border": {
+                "bottom": {
+                  "color": "000000",
+                  "width": 0.2
+                }
+              }
+            },
+            "rowDecoration": {
+              "border": {
+                "bottom": {
+                  "color": "000000",
+                  "width": 0.2
+                }
+              }
+            },
+            "headerStyle": {
+              "fontWeight": "bold"
+            },
+            "source": "@lineItems",
+            "cellPadding": [
+              1,
+              1.5,
+              1,
+              1
+            ],
+            "tableWidth": "max",
+            "headers": [
+              {
+                "Text": {
+                  "text": "Januar 2024\n\nUmsetzung",
+                  "style": {
+                    "fontWeight": "bold"
+                  }
+                }
+              },
+              "",
+              "",
+              "27,75 h\n\n27,75 h"
+            ],
+            "cells": {
+              "2": {
+                "RichText": {
+                  "text": "%value%",
+                  "margin1": 0
+                }
+              },
+              "3": {
+                "Text": {
+                  "text": "%value% h"
+                }
+              }
+            }
+          }
+        },
+        {
+          "Table": {
+            "tableWidth": "max",
+            "columnWidths": {
+              "0": {
+                "FlexColumnWidth": {
+                  "flex": 16.5
+                }
+              },
+              "1": {
+                "FlexColumnWidth": {
+                  "flex": 2
+                }
+              }
+            },
+            "defaultVerticalAlignment": "middle",
+            "children": [
+              {
+                "TableRow": {
+                  "source": "@total",
+                  "decoration": {
+                    "border": {
+                      "bottom": {
+                        "style": "solid"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "Container": {
+                        "margin": [
+                          0,
+                          3,
+                          0,
+                          0
+                        ],
+                        "padding": [
+                          1
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "Total",
+                            "style": {
+                              "fontWeight": "bold"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Container": {
+                        "alignment": "centerRight",
+                        "margin": [
+                          0,
+                          3,
+                          0,
+                          0
+                        ],
+                        "padding": [
+                          1
+                        ],
+                        "child": {
+                          "Text": {
+                            "text": "%value% h",
+                            "textAlign": "right",
+                            "style": {
+                              "fontWeight": "bold"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variables": {
+  },
+  "sources": {
+    "@dots1": {
+      "binary": "<svg viewBox=\"0 0 10 620\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"9ECB93\" d=\"M 0 0 h10 v10 h-10 M 0 20 h10 v10 h-10 M 0 40 h10 v10 h-10 M 0 60 h10 v10 h-10 M 0 80 h10 v10 h-10 M 0 100 h10 v10 h-10 M 0 120 h10 v10 h-10 M 0 140 h10 v10 h-10 M 0 160 h10 v10 h-10 M 0 180 h10 v10 h-10 M 0 200 h10 v10 h-10 M 0 220 h10 v10 h-10 M 0 240 h10 v10 h-10 M 0 260 h10 v10 h-10 M 0 280 h10 v10 h-10 M 0 300 h10 v10 h-10 M 0 320 h10 v10 h-10 M 0 340 h10 v10 h-10 M 0 360 h10 v10 h-10 M 0 380 h10 v10 h-10 M 0 400 h10 v10 h-10\" /><path fill=\"045D2F\" d=\"M 0 420 h10 v10 h-10 M 0 600 h10 v10 h-10\" /></svg>"
+    },
+    "@dots2": {
+      "binary": "<svg viewBox=\"0 0 10 230\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"9ECB93\" d=\"M 0 0 h10 v10 h-10 M 0 20 h10 v10 h-10 M 0 40 h10 v10 h-10 M 0 60 h10 v10 h-10 M 0 80 h10 v10 h-10 M 0 100 h10 v10 h-10 M 0 120 h10 v10 h-10 M 0 140 h10 v10 h-10 M 0 160 h10 v10 h-10 M 0 180 h10 v10 h-10 M 0 200 h10 v10 h-10 M 0 220 h10 v10 h-10\" /></svg>"
+    },
+    "@lineItems": {
+      "formats": {
+        "3": "#,##0.00"
+      },
+      "values": [
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ],
+        [
+          "02.01.",
+          "Hans Joachim Petersen",
+          "Umbuchung **Zeiteinträge** Dezember 2023 in 2 neue Projekte",
+          0.25
+        ]
+      ]
+    },
+    "@total": {
+      "formats": {
+        "1": "#,##0.00"
+      },
+      "values": [
+        [
+          "",
+          23.88
+        ]
+      ]
+    },
+    "@stempel": {
+      "url": "https://www.mindworks.de/assets/stempel_gross_gedreht.gif"
+    },
+    "@logo": {
+      "url": "https://media.designrush.com/agencies/43206/conversions/mindworks-GmbH-logo-profile.jpg"
+    }
+  }
+}
