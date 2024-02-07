@@ -153,6 +153,7 @@
             <button data-tut="34">Use template</button>
             <button data-tut="36">Showcase: HH Energie</button>
             <button data-tut="37">Showcase: MW Doc1</button>
+            <button data-tut="38" data-yaml="1">Yaml to the rescue</button>
         </div>
     </div>
 
@@ -189,7 +190,8 @@
         bt[i].onclick = function (e) {
             e.preventDefault();
             let t = this.getAttribute('data-tut');
-            loadTut(t);
+            let y = this.getAttribute('data-yaml');
+            loadTut(t, y);
         }
     }
 
@@ -332,10 +334,12 @@
         xhr.send({});
     }
 
-    loadTut = function (nr) {
+    loadTut = function (nr, yaml) {
+
+        console.log(yaml);
 
         let xhr = new XMLHttpRequest;
-        xhr.open('get', '/tut/tut' + nr + '.json', true);
+        xhr.open('get', '/tut/tut' + nr + (yaml ? '.yaml' : '.json'), true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'

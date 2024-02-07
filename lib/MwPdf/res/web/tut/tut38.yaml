@@ -1,0 +1,15 @@
+pages:
+  - multi: true
+    content:
+      - RichText:
+          text: |
+            Und wenn jemand das ganze **JSON** nicht so mag? Zu unübersichtlich?
+            
+            Dann benutze einfach **YAML** .. (!)
+            
+            Das Schöne ist, die **IDE** kann das **JSON-scheme** auch
+            auf **YAML** Dateien anwenden!
+            
+            yeah!
+      - LoremParagraph:
+          sentence: 100

@@ -9,6 +9,7 @@ import 'package:mwcdn/MwMs/Model/JsonSerializable.dart';
 import 'package:shelf/shelf.dart';
 // ignore: depend_on_referenced_packages
 import 'package:string_scanner/string_scanner.dart';
+import 'package:yaml/yaml.dart';
 
 class Util {
   static const KeyValue jsonHeaders = {
@@ -77,6 +78,10 @@ class Util {
     bool throwError = false,
   }) async {
     String tmp = await request.readAsString();
+
+    if (!tmp.startsWith('{') && !tmp.startsWith('[')) {
+      tmp = json.encode(loadYaml(tmp));
+    }
 
     Dict data;
     try {

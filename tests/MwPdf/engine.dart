@@ -10,6 +10,7 @@ import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
+import 'package:yaml/yaml.dart';
 
 const dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
 const examplesDir = '/home/ilja/PhpstormProjects/mwcdn/tests/MwPdf/examples';
@@ -59,7 +60,8 @@ Future<void> main() async {
   // String jsonFile = 'pdf_zugferd2.json';
   // String jsonFile = 'pdf_invoice1.json';
   // String jsonFile = 'pdf_energie.json';
-  String jsonFile = 'pdf_mindworks.json';
+  // String jsonFile = 'pdf_mindworks.json';
+  String jsonFile = 'pdf_grid.yaml';
 
   String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {
@@ -73,8 +75,12 @@ Future<void> main() async {
   ).readAsString();
 
   try {
-    Dict pdfTplData = json.decode(pdfTplJson) as Dict;
+    if (jsonFile.endsWith('.yaml')) {
+      pdfJson = json.encode(loadYaml(pdfJson));
+    }
     Dict pdfData = json.decode(pdfJson) as Dict;
+
+    Dict pdfTplData = json.decode(pdfTplJson) as Dict;
     pdfData = Util.mergeMap([pdfTplData, pdfData]);
 
     Results results = schema.validate(
