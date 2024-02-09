@@ -12,22 +12,70 @@ class Table {
     Dict json,
     State state,
   ) {
-    double? cellHeight = double.tryParse(json['cellHeight'].toString());
-    double? headerHeight = double.tryParse(json['headerHeight'].toString());
+    state.sumsReset();
 
     Datasource source = state.source(
       json['source'] as String?,
     );
 
-    List<List<dynamic>> data = source.values;
+    List<List<dynamic>> values = source.valuesFormatted;
+
+    pw.Table main = _tableAuto(
+      json,
+      state,
+      values,
+    );
+
+    state.summarizeValues(source);
+
+    // ----------------- SUMMARY -----------------
+    for (dynamic childData in json['summary'] as List<dynamic>? ?? []) {
+      // take each TR children and decoration and put them
+      // through the auto table using previous definitions
+      Dict tr = childData['TableRow'] as Dict? ?? {};
+      List<dynamic> children = tr['children'] as List<dynamic>? ?? [];
+      Map<String, dynamic> cells = {};
+      int n = 0;
+      for (dynamic d in children) {
+        cells[n.toString()] = d as Dict? ?? {};
+        n++;
+      }
+      json['cells'] = cells;
+      json['headers'] = null;
+      json['headerCount'] = 0;
+      json['rowDecoration'] = tr['decoration'] as Dict? ?? {};
+      json['oddRowDecoration'] = tr['decoration'] as Dict? ?? {};
+      pw.Table summary = _tableAuto(
+        json,
+        state,
+        [List.filled(cells.length, '')],
+      );
+      // copy rows into main table
+      main.children.addAll(
+        summary.children,
+      );
+    }
+
+    return main;
+  }
+
+  static pw.Table _tableAuto(
+    Dict json,
+    State state,
+    List<List<dynamic>> data,
+  ) {
+    double? cellHeight = double.tryParse(json['cellHeight'].toString());
+    double? headerHeight = double.tryParse(json['headerHeight'].toString());
 
     Map<int, Dict> cells = _cells(json['cells'] as Dict? ?? {});
-
     if (cells.isNotEmpty) {
       for (List<dynamic> row in data) {
         for (int nr in cells.keys) {
           if (row.length > nr) {
-            state.cellValue = row[nr]!.toString();
+            state.prepareCell(
+              nr,
+              row[nr]!.toString(),
+            );
             row[nr] = Widget.parse(
               cells[nr]!,
               state,
@@ -127,6 +175,8 @@ class Table {
     Dict json,
     State state,
   ) {
+    state.sumsReset();
+
     List<pw.TableRow> rows = [];
 
     for (dynamic childData in json['children'] as List<dynamic>? ?? []) {
@@ -181,6 +231,7 @@ class Table {
     Datasource source = state.source(
       data['source'] as String?,
     );
+    state.summarizeValues(source);
 
     pw.BoxDecoration? decoration = Util.boxDecoration(
       data['decoration'] as Dict? ?? {},
@@ -194,16 +245,19 @@ class Table {
 
     List<pw.TableRow> rows = [];
 
-    List<List<dynamic>> values = source.values;
+    List<List<dynamic>> values = source.valuesFormatted;
     if (values.isEmpty) {
-      values = [[]];
+      values = [[]]; // assume just one row
     }
 
     for (List<dynamic> v in values) {
       List<pw.Widget> children = [];
       int nr = 0;
       for (dynamic d in data['children'] as List<dynamic>? ?? []) {
-        state.cellValue = v.length > nr ? v[nr].toString() : '?';
+        state.prepareCell(
+          nr,
+          v.length > nr ? v[nr].toString() : '?',
+        );
         children.add(Widget.parse(
           d as Dict,
           state,

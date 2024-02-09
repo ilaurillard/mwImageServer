@@ -1,0 +1,291 @@
+{
+  "pages": [
+    {
+      "multi": true,
+      "content": [
+        {
+          "Text": {
+            "text": "Custom/Manually",
+            "style": {
+              "fontWeight": "bold"
+            }
+          }
+        },
+        {
+          "Table": {
+            "tableWidth": "max",
+            "children": [
+              {
+                "TableRow": {
+                  "source": "@source1",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "%value%"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "%value%"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "%value% kg"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TableRow": {
+                  "decoration": {
+                    "border": {
+                      "top": {
+                        "width": 0.2,
+                        "color": "000000"
+                      },
+                      "bottom": {
+                        "width": 0.2,
+                        "color": "000000"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "SUMME"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "%sum%"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "%sum% kg"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TableRow": {
+                  "source": "@source2",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "%value%"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "%value%"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "%value% kg"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TableRow": {
+                  "decoration": {
+                    "border": {
+                      "top": {
+                        "width": 0.2,
+                        "color": "000000"
+                      },
+                      "bottom": {
+                        "width": 0.2,
+                        "color": "000000"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "SUMME"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "%sum%"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "%sum% kg"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TableRow": {
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "ALLES",
+                        "style": {
+                          "fontWeight": "bold"
+                        }
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "%sumAll% kg",
+                        "style": {
+                          "fontWeight": "bold"
+                        }
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "%sumAll% kg",
+                        "style": {
+                          "fontWeight": "bold"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "Container": {
+            "margin": [0, 10, 0, 0],
+            "child": {
+              "Text": {
+                "text": "Automatic",
+                "style": {
+                  "fontWeight": "bold"
+                }
+              }
+            }
+          }
+        },
+        {
+          "TableAuto": {
+            "headers": ["Animal", "Amount", "Size"],
+            "tableWidth": "max",
+            "headerCount": 1,
+            "source": "@source1",
+            "cellAlignment": "centerLeft",
+            "cellPadding": [1],
+            "cellAlignments": {
+              "0": "centerLeft",
+              "1": "centerRight",
+              "2": "centerRight"
+            },
+            "headerStyle": {
+              "fontWeight": "bold"
+            },
+            "columnWidths": {
+              "0": {
+                "FlexColumnWidth": {
+                  "flex": 2
+                }
+              },
+              "1": {
+                "FlexColumnWidth": {
+                  "flex": 1
+                }
+              },
+              "2": {
+                "FlexColumnWidth": {
+                  "flex": 1
+                }
+              }
+            },
+            "summary": [
+              {
+                "TableRow": {
+                  "decoration": {
+                    "border": {
+                      "top": {
+                        "width": 0.2,
+                        "color": "000000"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "SUMME"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "text": "%sumAll%"
+                      }
+                    },
+                    {
+                      "Text": {
+                        "text": "%sumAll%"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@source1": {
+      "formats": {
+        "1": "#,##0",
+        "2": "#,##0.00"
+      },
+      "values": [
+        [
+          "Katze",
+          1,
+          7.5
+        ],
+        [
+          "Hund",
+          2,
+          1.5
+        ]
+      ]
+    },
+    "@source2": {
+      "formats": {
+        "1": "#,##0",
+        "2": "#,##0.00"
+      },
+      "values": [
+        [
+          "Maus",
+          44,
+          1.5
+        ],
+        [
+          "Ratte",
+          4,
+          5.5
+        ]
+      ]
+    }
+  }
+}

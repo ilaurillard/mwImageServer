@@ -23,7 +23,9 @@ class Datasource {
   String binary;
 
   // charts/tables
+  final Map<int, NumberFormat?> formats;
   final List<List<dynamic>> values;
+  final List<List<String>> valuesFormatted;
 
   // chart data (pie!)
   final List<Dict> data;
@@ -44,10 +46,12 @@ class Datasource {
     this.binary = '',
     this.url = '',
     this.values = const [],
+    this.valuesFormatted = const [],
     this.data = const [],
     this.widget,
     this.widgetData = const {},
     this.text = '',
+    this.formats = const {},
     this.resourceId = '',
   });
 
@@ -72,18 +76,24 @@ class Datasource {
       throw Exception('Datasource "$key": $e');
     }
 
+    Map<int, NumberFormat?> formats = _formats(
+      json,
+      json['valuesLocale'] as String? ?? 'de_DE',
+    );
+
     return Datasource(
       key,
       binary: binary,
       url: json['url'] as String? ?? '',
       resourceId: json['resource'] as String? ?? '',
-      values: (json['values'] as List<dynamic>? ?? [])
+      values: (json['values'] as List<dynamic>? ?? []).map(
+            (dynamic row) => row as List<dynamic>,
+      )
+          .toList(),
+      valuesFormatted: (json['values'] as List<dynamic>? ?? [])
           .map(
             (dynamic row) => applyFormats(
-              _formats(
-                json,
-                json['valuesLocale'] as String? ?? 'de_DE',
-              ),
+              formats,
               row as List<dynamic>,
             ),
           )
@@ -97,6 +107,7 @@ class Datasource {
       //   state,
       // ),
       text: json['text'] as String? ?? '',
+      formats: formats,
     );
   }
 
@@ -219,11 +230,11 @@ class Datasource {
     }
   }
 
-  static List<dynamic> applyFormats(
+  static List<String> applyFormats(
     Map<int, NumberFormat?> formats,
     List<dynamic> row,
   ) {
-    List<dynamic> res = [];
+    List<String> res = [];
     int nr = 0;
     for (dynamic value in row) {
       NumberFormat? f = formats[nr];
@@ -246,8 +257,8 @@ class Datasource {
     String locale,
   ) {
     Map<int, NumberFormat?>? formats = {};
-    Dict temp = json['formats'] as Dict? ?? {};
-    if (json['formats'] != null) {
+    Dict? temp = json['formats'] as Dict?;
+    if (temp != null) {
       formats = Map.fromEntries(
         temp.entries.map(
           (

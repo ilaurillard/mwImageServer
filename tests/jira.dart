@@ -1,0 +1,10 @@
+
+
+// PAT from https://id.atlassian.com/manage-profile/security/api-tokens
+// ATATT3xFfGF0F_JOZxE-2m-STwCwr2scjcz_MYJIc_XNmpqfiveK-kcBynC_9jvFHnM_NUSFW2TcKDwDQzREw8sGkgJR7zJAZdQOsCcCbStZ3F3Ui0ZaNIiILOTJmcLC_tPaljHWl1XKhBwEXfPC2_QWgIGTm0lEh3CKy9belEqQoQTf8vXHQlE=E749C877
+
+// base64('ilaurillard@mindworks.de:' + PAT)
+
+// curl -H "Authorization: Basic aWxhdXJpbGxhcmRAbWluZHdvcmtzLmRlOkFUQVRUM3hGZkdGMEZfSk9aeEUtMm0tU1R3Q3dyMnNjamN6X01ZSkljX1hObXBxZml2ZUsta2NCeW5DXzlqdkZIbk1fTlVTRlcyVGNLRHdEUXpSRXc4c0drZ0pSN3pKQVpkUU9zQ2NDYlN0WjNGM1VpMFphTklpSUxPVEptY0xDX3RQYWxqSFdsMVhLaEJ3RVhmUEMyX1FXZ0lHVG0wbEVoM0NLeTliZWxFcVFvUVRmOHZYSFFsRT1FNzQ5Qzg3Nw==" https://mindworks.atlassian.net/rest/api/latest/issue/ALVE-1000
+
+// curl -H "Authorization: Basic aWxhdXJpbGxhcmRAbWluZHdvcmtzLmRlOkFUQVRUM3hGZkdGMEZfSk9aeEUtMm0tU1R3Q3dyMnNjamN6X01ZSkljX1hObXBxZml2ZUsta2NCeW5DXzlqdkZIbk1fTlVTRlcyVGNLRHdEUXpSRXc4c0drZ0pSN3pKQVpkUU9zQ2NDYlN0WjNGM1VpMFphTklpSUxPVEptY0xDX3RQYWxqSFdsMVhLaEJ3RVhmUEMyX1FXZ0lHVG0wbEVoM0NLeTliZWxFcVFvUVRmOHZYSFFsRT1FNzQ5Qzg3Nw==" "https://mindworks.atlassian.net/rest/api/latest/search?jql=project=ALVE%20AND%20issue=ALVE-1000"

@@ -38,8 +38,14 @@ class State {
 
   Map<String, Datasource> sources = {};
 
+  List<num> sums = [];
+  List<num> sumsAll = [];
+  List<String> sumsFormatted = [];
+  List<String> sumsAllFormatted = [];
+  String sum = '';
+  String sumAll = '';
+  String value = '';
   Dict variables = {};
-  String cellValue = '';
   int pageNumber = 0;
   int pagesCount = 0;
 
@@ -201,6 +207,52 @@ class State {
     );
   }
 
+  //-----------
+
+  void sumsReset() {
+    sums = [];
+    sumsAll = [];
+  }
+
+  void summarizeValues(
+    Datasource source,
+  ) {
+    if (source.values.isNotEmpty) {
+      sums = [];
+      for (List<dynamic> row in source.values) {
+        if (row.length > sums.length) {
+          List<num> pad = List.filled(row.length - sums.length, 0.0);
+          sums.addAll(pad);
+        }
+        if (row.length > sumsAll.length) {
+          List<num> pad = List.filled(row.length - sumsAll.length, 0.0);
+          sumsAll.addAll(pad);
+        }
+        int nr = 0;
+        for (dynamic v in row) {
+          print(v);
+          num n = num.tryParse(v.toString()) ?? 0;
+
+          sums[nr] += n;
+          sumsAll[nr] += n;
+          nr++;
+        }
+      }
+      sumsFormatted = Datasource.applyFormats(source.formats, sums);
+      sumsAllFormatted = Datasource.applyFormats(source.formats, sumsAll);
+    }
+  }
+
+  void prepareCell(
+    int nr,
+    String value,
+  ) {
+    this.value = value;
+    sum = sumsFormatted.length > nr ? sumsFormatted[nr].toString() : '';
+    sumAll =
+        sumsAllFormatted.length > nr ? sumsAllFormatted[nr].toString() : '';
+  }
+
   String replaceParameters(
     String text,
   ) {
@@ -218,8 +270,12 @@ class State {
       );
     }
     return text
-        .replaceAll('%value%', cellValue)
+        .replaceAll('%value%', value)
+        .replaceAll('%sum%', sum)
+        .replaceAll('%sumAll%', sumAll)
         .replaceAll('%pageNumber%', pageNumber.toString())
         .replaceAll('%pagesCount%', pagesCount.toString());
   }
+
+
 }

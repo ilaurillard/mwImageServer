@@ -340,10 +340,10 @@ class Chart {
     Datasource source,
   ) {
     return List<pw.PointChartValue>.generate(
-      source.values.length,
+      source.valuesFormatted.length,
       (int index) {
         final double value =
-            double.tryParse((source.values[index][0]).toString()) ?? 0.0;
+            double.tryParse((source.valuesFormatted[index][0]).toString()) ?? 0.0;
         return pw.PointChartValue(
           index.toDouble(),
           value,

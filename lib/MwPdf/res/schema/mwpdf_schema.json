@@ -2551,6 +2551,24 @@
           },
           "tableWidth": {
             "$ref": "#/definitions/Enum/TableWidth"
+          },
+          "summary": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "TableRow": {
+                  "$ref": "#/definitions/Other/TableRow"
+                },
+                "ShowIf": {
+                  "$ref": "#/definitions/Other/ShowIfTableRow"
+                }
+              },
+              "minProperties": 1,
+              "maxProperties": 1,
+              "type": "object",
+              "additionalProperties": false
+            },
+            "type": "array"
           }
         },
         "type": "object"
