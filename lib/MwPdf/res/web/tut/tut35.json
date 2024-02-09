@@ -1,6 +1,6 @@
 {
   "variables": {
-    "description": "Es können globale Variable beliebig in Widgets verwendet werden",
+    "description": "Globale Variablen können beliebig in Widgets verwendet werden",
     "showWidget1": true,
     "showWidget2": false,
     "showPartition1": false,
@@ -49,7 +49,7 @@
                   "condition": "%showWidget1%",
                   "child": {
                     "Paragraph": {
-                      "text": "Diese Widget wird gezeigt, wenn die Variable showWidget1 gesetzt ist!"
+                      "text": "Dieses Widget wird nur angezeigt, wenn die Variable 'showWidget1' gesetzt ist!"
                     }
                   }
                 }
@@ -59,7 +59,7 @@
                   "condition": "%showWidget2%",
                   "child": {
                     "Paragraph": {
-                      "text": "Diese Widget wird gezeigt, wenn die Variable showWidget2 gesetzt ist!"
+                      "text": "Dieses Widget wird gezeigt, wenn die Variable 'showWidget2' gesetzt ist!"
                     }
                   }
                 }
@@ -69,7 +69,7 @@
                   "subject": "%switchValue%",
                   "default": {
                     "Paragraph": {
-                      "text": "Dies ist ein Switch, setze die Variable switchValue auf Fall1 oder Fall2"
+                      "text": "Dieses ist ein Switch, setze die Variable 'switchValue' auf 'Fall1' oder 'Fall2'"
                     }
                   },
                   "cases": {
@@ -92,7 +92,7 @@
               },
               {
                 "Paragraph": {
-                  "text": "Das funktioniert auch mit Partitions, setze die Variable oben auf einen Wert!"
+                  "text": "Das funktioniert auch mit Partitions, setze die Variable 'showPartition1' oben auf einen Wert!"
                 }
               },
               {
@@ -105,7 +105,7 @@
                           "Partition": {
                             "child": {
                               "Text": {
-                                "text": "Diese Partition wird gezeigt, wenn die Variable showPartition1 gesetzt ist!"
+                                "text": "Diese Partition wird gezeigt, wenn die Variable 'showPartition1' gesetzt ist!"
                               }
                             }
                           }
@@ -130,7 +130,7 @@
               },
               {
                 "Paragraph": {
-                  "text": "Das funktioniert auch mit Tabellen, setze die Variable oben auf einen Wert!"
+                  "text": "Das funktioniert auch mit Tabellenzeilen, setze die Variable 'showTableRow1' oben auf einen Wert!"
                 }
               },
               {
