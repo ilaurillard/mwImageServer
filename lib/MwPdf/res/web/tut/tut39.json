@@ -162,7 +162,7 @@
                     {
                       "Text": {
                         "textAlign": "right",
-                        "text": "%sumAll% kg",
+                        "text": "%sumAll%",
                         "style": {
                           "fontWeight": "bold"
                         }
