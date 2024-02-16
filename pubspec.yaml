@@ -27,6 +27,7 @@ dependencies:
   archive: ^3.4.9
   xml: ">=6.3.0 <7.0.0"
   yaml: ^3.1.2
+  html: ^0.15.4
 
 dependency_overrides:
   pdf:

@@ -20,6 +20,10 @@ class Text {
     bulletIconCode ??=
         int.parse(State.materialCodes[bulletIcon] ?? 'EF4A', radix: 16);
 
+    if (md.trim().isEmpty) {
+      return pw.Container();
+    }
+
     return Markdown(
       md,
       bulletIcon: bulletIconCode,
