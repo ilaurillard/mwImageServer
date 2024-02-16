@@ -230,9 +230,8 @@ class State {
         }
         int nr = 0;
         for (dynamic v in row) {
-          print(v);
+          // print(v);
           num n = num.tryParse(v.toString()) ?? 0;
-
           sums[nr] += n;
           sumsAll[nr] += n;
           nr++;
