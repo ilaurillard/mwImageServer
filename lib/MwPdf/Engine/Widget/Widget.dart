@@ -1,6 +1,7 @@
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/MultiPage.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -411,7 +412,15 @@ class Widget {
             data,
             state,
           );
+        // ----------
+        case 'Calendar':
+          return Custom.calendar(
+            data,
+            state,
+          );
 
+
+        // ----------
         /*
           TODO not yet implemented widgets
           ----

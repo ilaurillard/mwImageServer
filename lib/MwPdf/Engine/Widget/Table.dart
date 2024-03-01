@@ -18,7 +18,16 @@ class Table {
       json['source'] as String?,
     );
 
-    List<List<dynamic>> values = source.valuesFormatted;
+    // make list dynamic again --- hack ??!
+    List<List<dynamic>> values = [];
+    for (List<dynamic> r1 in source.valuesFormatted) {
+      List<dynamic> r2 = [];
+      for (dynamic d in r1) {
+        r2.add(d);
+      }
+      values.add(r2);
+    }
+    // ---------------
 
     pw.Table main = _tableAuto(
       json,

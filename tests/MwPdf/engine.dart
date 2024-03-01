@@ -61,8 +61,9 @@ Future<void> main() async {
   // String jsonFile = 'pdf_zugferd2.json';
   // String jsonFile = 'pdf_invoice1.json';
   // String jsonFile = 'pdf_energie.json';
-  String jsonFile = 'pdf_mindworks.json';
+  // String jsonFile = 'pdf_mindworks.json';
   // String jsonFile = 'pdf_grid.yaml';
+  String jsonFile = 'pdf_cal.json';
 
   String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {
@@ -75,7 +76,7 @@ Future<void> main() async {
     '$examplesDir/$jsonFile',
   ).readAsString();
 
-  try {
+  // try {
     if (jsonFile.endsWith('.yaml')) {
       pdfJson = json.encode(loadYaml(pdfJson));
     }
@@ -89,7 +90,7 @@ Future<void> main() async {
     );
 
     if (results.valid) {
-      try {
+      // try {
         SqliteStorage sqliteStorage = SqliteStorage(
           dataDir: dataDir,
         );
@@ -117,10 +118,10 @@ Future<void> main() async {
         Console.info(
           '\nThank you, rendered "$jsonFile" into "output/$jsonFile.pdf"\nwrote "$name"\n${engine.pages.length} pages)\n\n',
         );
-      } catch (e) {
-        Console.error('Fatal error: $e');
+      // } catch (e) {
+      //   Console.error('Fatal error: $e');
         // throw e;
-      }
+      // }
     } else {
       Console.warning('Document does not validate!');
       if (results.errors.isNotEmpty) {
@@ -136,8 +137,8 @@ Future<void> main() async {
         }
       }
     }
-  } catch (e) {
-    Console.error('Parse error: $e');
+  // } catch (e) {
+  //   Console.error('Parse error: $e');
     // throw e;
-  }
+  // }
 }

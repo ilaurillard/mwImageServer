@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "orientation": "portrait",
+        "format": {
+          "preset": "a4",
+          "marginAll": 5
+        },
+        "styles": {
+          "text": {
+            "fontSize": 2.5,
+            "font": "universRegular",
+            "fontBold": "universBold"
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "multi": true,
+      "content": [
+        {
+          "Calendar": {
+            "year": 2024,
+            "month": 3,
+            "mode": "month",
+            "source": "@data1"
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@data1": {
+      "data": [
+        {
+          "start": "2024-03-31 05:00",
+          "end": "2024-03-31 09:00",
+          "value": "Frühstücken",
+          "allDay": true
+        },
+        {
+          "start": "2024-03-27 06:00",
+          "end": "2024-03-28 07:15",
+          "value": "Bett",
+          "allDay": true
+        },
+        {
+          "start": "2024-03-29 06:00",
+          "end": "2024-03-31 07:45",
+          "value": "Aufstehen",
+          "allDay": true
+        },
+        {
+          "start": "2024-03-30 23:00",
+          "end": "2024-03-31 02:10",
+          "value": "Schlafen",
+          "allDay": true
+        },
+        {
+          "start": "2024-03-29",
+          "end": "2024-04-02",
+          "value": "Anziehen",
+          "allDay": true
+        },
+        {
+          "start": "2024-03-26",
+          "end": "2024-03-29",
+          "value": "Etc",
+          "allDay": true
+        }
+
+      ]
+    }
+  }
+}

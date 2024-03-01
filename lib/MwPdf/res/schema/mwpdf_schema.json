@@ -1018,6 +1018,9 @@
       "minProperties": 1,
       "maxProperties": 1,
       "properties": {
+        "Calendar": {
+          "$ref": "#/definitions/WidgetsCustom/Calendar"
+        },
         "Align": {
           "$ref": "#/definitions/Widgets/Align"
         },
@@ -1213,6 +1216,35 @@
       },
       "additionalProperties": false,
       "type": "object"
+    },
+    "WidgetsCustom": {
+      "Calendar": {
+        "additionalProperties": false,
+        "properties": {
+          "year": {
+            "type": "integer"
+          },
+          "month": {
+            "type": "integer"
+          },
+          "week": {
+            "type": "integer"
+          },
+          "mode": {
+            "enum": [
+              "month",
+              "week",
+              "day",
+              "workDays",
+              "threeDays"
+            ]
+          },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          }
+        },
+        "type": "object"
+      }
     },
     "Widgets": {
       "Align": {
