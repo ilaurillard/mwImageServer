@@ -26,6 +26,19 @@
           "Calendar": {
             "year": 2024,
             "month": 3,
+            "mode": "week",
+            "source": "@data1"
+          }
+        },
+        {
+          "Divider": {
+
+          }
+        },
+        {
+          "Calendar": {
+            "year": 2024,
+            "month": 3,
             "mode": "month",
             "source": "@data1"
           }

@@ -14,253 +14,199 @@ class WeekView {
   });
 
   pw.Widget build() {
-    DateTime d = DateTime.parse('2024-03-25 12:00');
+    DateTime startDate = DateTime.parse('2024-03-25 12:00');
+    // DateTime endDate = startDate.add(Duration(days: 6));
 
-    List<List<int>> lanes = _prepareAllDay(d);
+    // print(endDate);
 
-    print('lanes');
-    print(lanes);
+    List<List<int>> lanes = _prepareAllDay(
+      startDate,
+    );
 
-    List<pw.Widget> allDayWidgets = [];
+    // print('lanes');
+    // print(lanes);
+
+    List<pw.Widget> allDayWidgets = [
+      pw.SizedBox(
+        height: 7 * PdfPageFormat.mm,
+      ),
+    ];
     for (List<int> lane in lanes) {
-      print('lane');
-      print(lane);
+      // print('lane');
+      // print(lane);
 
-      List<pw.Partition> rowWidgets = [];
+      List<pw.Partition> row = [];
 
-      int nr1 = -1;
-      for (int n = 0; n < 7; n++) {
-        int nr2 = lane[n];
+      List<List<int>> chunks = _chunks(lane);
+      for (List<int> seg in chunks) {
+        int nr = seg.first;
+        Entry? e = nr > -1 ? entriesByNumber[nr] : null;
 
-        if (nr2 != nr1 && nr1 > -1) {
-          print("$n $nr1 $nr2");
-
+        bool starts = true;
+        bool ends = true;
+        if (e != null) {
+          int d1 = e.start.difference(startDate).inDays;
+          int d2 = e.end.difference(startDate).inDays;
+          if (d1 < 0) {
+            starts = false;
+          }
+          if (d2 > 6) {
+            ends = false;
+          }
         }
 
-        // rowWidgets.add(
-        //   pw.Partition(
-        //     flex: 1,
-        //     child: pw.Container(
-        //       height: 5 * PdfPageFormat.mm,
-        //       width: double.infinity,
-        //       padding: pw.EdgeInsets.all(1 * PdfPageFormat.mm),
-        //       margin: pw.EdgeInsets.only(
-        //         // right: 1 * PdfPageFormat.mm,
-        //       ),
-        //       decoration: pw.BoxDecoration(
-        //         color: PdfColors.red,
-        //         // borderRadius: pw.BorderRadius.only(
-        //         //   topRight: pw.Radius.circular(3),
-        //         //   bottomRight: pw.Radius.circular(3),
-        //         // ),
-        //       ),
-        //     ),
-        //   ),
-        //   // pw.Partition(
-        //   //   flex: 1,
-        //   //   child: pw.Container(),
-        //   // ),
-        // );
-
+        row.add(
+          pw.Partition(
+            flex: seg.length,
+            child: e != null
+                ? pw.Container(
+                    height: 5 * PdfPageFormat.mm,
+                    width: double.infinity,
+                    padding: pw.EdgeInsets.all(1.5 * PdfPageFormat.mm),
+                    margin: pw.EdgeInsets.only(
+                      right: ends ? 0.75 * PdfPageFormat.mm : 0,
+                      left: starts ? 0.75 * PdfPageFormat.mm : 0,
+                    ),
+                    decoration: pw.BoxDecoration(
+                      color: PdfColors.red,
+                      borderRadius: pw.BorderRadius.only(
+                        topRight: ends
+                            ? pw.Radius.circular(2 * PdfPageFormat.mm)
+                            : pw.Radius.zero,
+                        bottomRight: ends
+                            ? pw.Radius.circular(2 * PdfPageFormat.mm)
+                            : pw.Radius.zero,
+                        topLeft: starts
+                            ? pw.Radius.circular(2 * PdfPageFormat.mm)
+                            : pw.Radius.zero,
+                        bottomLeft: starts
+                            ? pw.Radius.circular(2 * PdfPageFormat.mm)
+                            : pw.Radius.zero,
+                      ),
+                    ),
+                    child: pw.Align(
+                      alignment: pw.Alignment.centerLeft,
+                      child: pw.Text(
+                        e.label,
+                        style: pw.TextStyle(
+                          color: PdfColors.white,
+                          fontWeight: pw.FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                      ),
+                    ),
+                  )
+                : pw.Container(),
+          ),
+        );
       }
 
-
-
-
-
-      allDayWidgets.add(
-        pw.Partitions(
-          children: rowWidgets,
-        ),
-      );
-      allDayWidgets.add(
-        pw.SizedBox(
-          height: 1 * PdfPageFormat.mm,
-        ),
+      allDayWidgets.addAll(
+        [
+          pw.Partitions(
+            children: row,
+          ),
+          pw.SizedBox(
+            height: 1 * PdfPageFormat.mm,
+          ),
+        ],
       );
     }
 
-    return pw.Column(
-      children: allDayWidgets,
+    double height =
+        (lanes.length + 1) * (6 * PdfPageFormat.mm) + (1 * PdfPageFormat.mm);
 
-      // children: [
-      //   pw.Partitions(
-      //     children: [
-      //       pw.Partition(
-      //         flex: 3,
-      //         child: pw.Container(
-      //           height: 5 * PdfPageFormat.mm,
-      //           width: double.infinity,
-      //           padding: pw.EdgeInsets.all(1 * PdfPageFormat.mm),
-      //           margin: pw.EdgeInsets.only(
-      //             right: 1 * PdfPageFormat.mm,
-      //           ),
-      //           decoration: pw.BoxDecoration(
-      //             color: PdfColors.red,
-      //             borderRadius: pw.BorderRadius.only(
-      //               topRight: pw.Radius.circular(3),
-      //               bottomRight: pw.Radius.circular(3),
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      //   pw.SizedBox(
-      //     height: 1 * PdfPageFormat.mm,
-      //   ),
-      //   pw.Partitions(
-      //     children: [
-      //       pw.Partition(
-      //         flex: 1,
-      //         child: pw.Container(),
-      //       ),
-      //       pw.Partition(
-      //         flex: 1,
-      //         child: pw.Container(),
-      //       ),
-      //       pw.Partition(
-      //         flex: 1,
-      //         child: pw.Container(
-      //           height: 5 * PdfPageFormat.mm,
-      //           width: double.infinity,
-      //           padding: pw.EdgeInsets.all(1 * PdfPageFormat.mm),
-      //           margin: pw.EdgeInsets.only(
-      //             right: 1 * PdfPageFormat.mm,
-      //             left: 1 * PdfPageFormat.mm,
-      //           ),
-      //           decoration: pw.BoxDecoration(
-      //             color: PdfColors.cyan,
-      //             borderRadius: pw.BorderRadius.all(
-      //               pw.Radius.circular(3),
-      //             ),
-      //           ),
-      //           child: pw.Text(
-      //             'xxxx',
-      //             style: pw.TextStyle(
-      //               color: PdfColors.white,
-      //             ),
-      //             maxLines: 1,
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ],
+    pw.Border border = pw.Border(
+      left: pw.BorderSide(
+        color: PdfColors.white,
+      ),
     );
 
-    // return pw.TableHelper.fromTextArray(
-    //   border: pw.TableBorder(
-    //       // verticalInside: pw.BorderSide(
-    //       //   color: PdfColors.grey,
-    //       // ),
-    //       // horizontalInside: pw.BorderSide(
-    //       //   color: PdfColors.grey,
-    //       // ),
-    //       ),
-    //   headerCount: 0,
-    //   columnWidths: {
-    //     0: pw.FlexColumnWidth(),
-    //     1: pw.FlexColumnWidth(),
-    //   },
-    //   cellPadding: pw.EdgeInsets.zero,
-    //   data: [
-    //     [
-    //       pw.Container(
-    //         padding: pw.EdgeInsets.only(top: 1 * PdfPageFormat.mm),
-    //         decoration: pw.BoxDecoration(
-    //           color: PdfColors.yellow,
-    //           // border: pw.Border(
-    //           //   right: pw.BorderSide(
-    //           //     color: PdfColors.green,
-    //           //   ),
-    //           // ),
-    //         ),
-    //         child: pw.Column(
-    //           mainAxisSize: pw.MainAxisSize.max,
-    //           children: [
-    //             pw.Container(
-    //               height: 10 * PdfPageFormat.mm,
-    //               width: double.infinity,
-    //               padding: pw.EdgeInsets.all(1 * PdfPageFormat.mm),
-    //               margin: pw.EdgeInsets.only(bottom: 1 * PdfPageFormat.mm),
-    //               color: PdfColors.red,
-    //               child: pw.Text(
-    //                 'xasdfasdxx',
-    //                 style: pw.TextStyle(
-    //                   color: PdfColors.white,
-    //                 ),
-    //                 maxLines: 1,
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //       pw.Container(
-    //         padding: pw.EdgeInsets.only(top: 1 * PdfPageFormat.mm),
-    //         decoration: pw.BoxDecoration(
-    //           color: PdfColors.orange,
-    //           // border: pw.Border(
-    //           //   right: pw.BorderSide(
-    //           //     color: PdfColors.green,
-    //           //   ),
-    //           // ),
-    //         ),
-    //         child: pw.Column(
-    //           mainAxisSize: pw.MainAxisSize.max,
-    //           children: [
-    //             pw.Container(
-    //               height: 10 * PdfPageFormat.mm,
-    //               width: double.infinity,
-    //               padding: pw.EdgeInsets.all(1 * PdfPageFormat.mm),
-    //               margin: pw.EdgeInsets.only(
-    //                 bottom: 1 * PdfPageFormat.mm,
-    //                 right: 2 * PdfPageFormat.mm,
-    //               ),
-    //               decoration: pw.BoxDecoration(
-    //                 color: PdfColors.red,
-    //                 borderRadius: pw.BorderRadius.only(
-    //                   topRight: pw.Radius.circular(3),
-    //                   bottomRight: pw.Radius.circular(3),
-    //                 ),
-    //               ),
-    //               child: pw.Text(
-    //                 '...',
-    //                 style: pw.TextStyle(
-    //                   color: PdfColors.white,
-    //                 ),
-    //                 maxLines: 1,
-    //               ),
-    //             ),
-    //             pw.Container(
-    //               height: 10 * PdfPageFormat.mm,
-    //               width: double.infinity,
-    //               padding: pw.EdgeInsets.all(1 * PdfPageFormat.mm),
-    //               margin: pw.EdgeInsets.only(
-    //                 bottom: 1 * PdfPageFormat.mm,
-    //                 right: 2 * PdfPageFormat.mm,
-    //                 left: 2 * PdfPageFormat.mm,
-    //               ),
-    //               decoration: pw.BoxDecoration(
-    //                 color: PdfColors.cyan,
-    //                 borderRadius: pw.BorderRadius.all(
-    //                   pw.Radius.circular(3),
-    //                 ),
-    //               ),
-    //               child: pw.Text(
-    //                 'xxxx',
-    //                 style: pw.TextStyle(
-    //                   color: PdfColors.white,
-    //                 ),
-    //                 maxLines: 1,
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     ],
-    //   ],
-    // );
+    return pw.Container(
+      // padding: pw.EdgeInsets.only(top: 1 * PdfPageFormat.mm),
+      // color: PdfColors.yellow,
+      child: pw.Stack(
+        fit: pw.StackFit.passthrough,
+        children: [
+          pw.Partitions(
+            children: [
+              pw.Partition(
+                flex: 1,
+                child: pw.Container(
+                  height: height,
+                  decoration: pw.BoxDecoration(
+                    color: PdfColors.grey200,
+                  ),
+                ),
+              ),
+              pw.Partition(
+                flex: 1,
+                child: pw.Container(
+                  height: height,
+                  decoration: pw.BoxDecoration(
+                    border: border,
+                    color: PdfColors.grey200,
+                  ),
+                ),
+              ),
+              pw.Partition(
+                flex: 1,
+                child: pw.Container(
+                  height: height,
+                  decoration: pw.BoxDecoration(
+                    border: border,
+                    color: PdfColors.grey200,
+                  ),
+                ),
+              ),
+              pw.Partition(
+                flex: 1,
+                child: pw.Container(
+                  height: height,
+                  decoration: pw.BoxDecoration(
+                    border: border,
+                    color: PdfColors.grey200,
+                  ),
+                ),
+              ),
+              pw.Partition(
+                flex: 1,
+                child: pw.Container(
+                  height: height,
+                  decoration: pw.BoxDecoration(
+                    border: border,
+                    color: PdfColors.grey200,
+                  ),
+                ),
+              ),
+              pw.Partition(
+                flex: 1,
+                child: pw.Container(
+                  height: height,
+                  decoration: pw.BoxDecoration(
+                    color: PdfColors.green100,
+                    border: border,
+                  ),
+                ),
+              ),
+              pw.Partition(
+                flex: 1,
+                child: pw.Container(
+                  height: height,
+                  decoration: pw.BoxDecoration(
+                    color: PdfColors.green100,
+                    border: border,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          pw.Column(
+            children: allDayWidgets,
+          ),
+        ],
+      ),
+    );
   }
 
   List<List<int>> _prepareAllDay(DateTime d) {
@@ -323,5 +269,20 @@ class WeekView {
       }
     }
     return lanes;
+  }
+
+  List<List<int>> _chunks(List<int> arr) {
+    List<List<int>> chunks = [];
+    List<int> currentChunk = [arr[0]];
+    for (int i = 1; i < arr.length; i++) {
+      if (arr[i] == arr[i - 1]) {
+        currentChunk.add(arr[i]);
+      } else {
+        chunks.add(currentChunk);
+        currentChunk = [arr[i]];
+      }
+    }
+    chunks.add(currentChunk);
+    return chunks;
   }
 }
