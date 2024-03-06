@@ -11,6 +11,7 @@ import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
+import 'package:pdf/widgets.dart';
 import 'package:xml/xml.dart';
 
 class Pdf {
@@ -49,7 +50,9 @@ class Pdf {
     if (results.valid) {
       Engine engine = await _engine(data);
 
-      return await engine.pdf().save();
+      Document pdf = await engine.pdf();
+      return await pdf.save();
+
     } else {
       _printErrors(results);
       throw ResponseException(

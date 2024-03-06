@@ -1227,7 +1227,7 @@
           "month": {
             "type": "integer"
           },
-          "week": {
+          "day": {
             "type": "integer"
           },
           "mode": {

@@ -13,6 +13,7 @@ import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
+import 'package:pdf/widgets.dart';
 
 class Pdf {
   final SqliteStorage sqliteStorage;
@@ -66,7 +67,8 @@ class Pdf {
         ),
       );
 
-      Uint8List content = await engine.pdf().save();
+      Document pdf = await engine.pdf();
+      Uint8List content = await pdf.save();
 
       Resource resource = await sqliteStorage.resources.create(
         templateResource.bucket,

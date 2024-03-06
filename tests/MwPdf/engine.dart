@@ -10,6 +10,7 @@ import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Engine.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
+import 'package:pdf/widgets.dart';
 import 'package:yaml/yaml.dart';
 
 const dataDir = '/home/ilja/PhpstormProjects/mwcdn/data';
@@ -111,8 +112,9 @@ Future<void> main() async {
         );
 
         String name = '$examplesDir/output/$jsonFile.pdf';
+        Document pdf = await engine.pdf();
         await File(name).writeAsBytes(
-          await engine.pdf().save(),
+          await pdf.save(),
         );
 
         Console.info(

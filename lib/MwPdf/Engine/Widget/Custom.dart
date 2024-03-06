@@ -3,7 +3,7 @@ import 'package:mwcdn/MwPdf/Engine/Model/Datasource.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/CustomCalendar.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Entries.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Styles.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Config.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class Custom {
@@ -18,8 +18,9 @@ class Custom {
     return CustomCalendar(
       year: int.tryParse(json['year'].toString()) ?? 2024,
       month: int.tryParse(json['month'].toString()) ?? 1,
+      day: int.tryParse(json['day'].toString()) ?? 1,
       entries: Entries.fromJson(source.data),
-      styles: Styles(
+      config: Config(
           // highlightToday: false,
           // holidaysDE: false,
           ),
@@ -29,3 +30,4 @@ class Custom {
     ).build();
   }
 }
+
