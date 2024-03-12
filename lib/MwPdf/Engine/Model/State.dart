@@ -106,11 +106,6 @@ class State {
           storage,
         );
       }
-      // we need to create widgets afterwards
-      // (resources must be all loaded!)
-      for (String key in sources.keys) {
-        sources[key]!.prepareWidget(this);
-      }
     }
   }
 

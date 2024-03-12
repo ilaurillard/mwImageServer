@@ -1,0 +1,203 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "GridView": {
+            "childAspectRatio": 1,
+            "direction": "vertical",
+            "padding": [
+              3
+            ],
+            "mainAxisSpacing": 3,
+            "crossAxisSpacing": 3,
+            "crossAxisCount": 3,
+            "children": [
+              {
+                "Container": {
+                  "decoration": {
+                    "border": {
+                      "all": {
+                        "width": 0.5
+                      }
+                    },
+                    "image": {
+                      "source": "@rule1"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "decoration": {
+                    "border": {
+                      "all": {
+                        "width": 0.5
+                      }
+                    },
+                    "image": {
+                      "source": "@rule2"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "decoration": {
+                    "border": {
+                      "all": {
+                        "width": 0.5
+                      }
+                    },
+                    "image": {
+                      "source": "@rule3"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "decoration": {
+                    "border": {
+                      "all": {
+                        "width": 0.5
+                      }
+                    },
+                    "image": {
+                      "source": "@rule4"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "decoration": {
+                    "border": {
+                      "all": {
+                        "width": 0.5
+                      }
+                    },
+                    "image": {
+                      "source": "@rule5"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "decoration": {
+                    "border": {
+                      "all": {
+                        "width": 0.5
+                      }
+                    },
+                    "image": {
+                      "source": "@rule6"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "decoration": {
+                    "border": {
+                      "all": {
+                        "width": 0.5
+                      }
+                    },
+                    "image": {
+                      "source": "@rule8"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "decoration": {
+                    "border": {
+                      "all": {
+                        "width": 0.5
+                      }
+                    },
+                    "image": {
+                      "source": "@rule9"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "decoration": {
+                    "border": {
+                      "all": {
+                        "width": 0.5
+                      }
+                    },
+                    "image": {
+                      "source": "@rule10"
+                    }
+                  }
+                }
+              },
+              {
+                "Container": {
+                  "decoration": {
+                    "border": {
+                      "all": {
+                        "width": 0.5
+                      }
+                    },
+                    "image": {
+                      "source": "@rule12"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@rule1": {
+      "url": "https://potsdam.dlrg.de/fileadmin/groups/17010020/bilder/Informieren/Bauch.png"
+    },
+    "@rule2": {
+      "url": "https://potsdam.dlrg.de/fileadmin/groups/17010020/bilder/Informieren/NichtSpringen.png"
+    },
+    "@rule3": {
+      "url": "https://potsdam.dlrg.de/fileadmin/groups/17010020/bilder/Informieren/Erfrischung.png"
+    },
+    "@rule4": {
+      "url": "https://potsdam.dlrg.de/assetService/g1995/a18/vo/GutGelaunt2.png"
+    },
+    "@rule5": {
+      "url": "https://i2.wp.com/potsdam.dlrg.de/fileadmin/groups/17010020/bilder/Informieren/Friert.png"
+    },
+    "@rule6": {
+      "url": "https://potsdam.dlrg.de/fileadmin/groups/17010020/bilder/Informieren/Springen.png"
+    },
+    "@rule7": {
+      "url": "https://www.dlrg.de/fileadmin/user_upload/DLRG.de/Fuer-Mitglieder/AA_DLRG2019/Informieren/Baderegeln/Malvorlagen/BadeEnte_Helfen.jpg"
+    },
+    "@rule8": {
+      "url": "https://potsdam.dlrg.de/fileadmin/groups/17010020/bilder/Informieren/Gewitter.png"
+    },
+    "@rule9": {
+      "url": "https://potsdam.dlrg.de/fileadmin/groups/17010020/bilder/Informieren/NichtUntertauchen.png"
+    },
+    "@rule10": {
+      "url": "https://potsdam.dlrg.de/fileadmin/groups/17010020/bilder/Informieren/Kroko.png"
+    },
+    "@rule11": {
+      "url": "https://www.dlrg.de/fileadmin/user_upload/DLRG.de/Fuer-Mitglieder/AA_DLRG2019/Informieren/Baderegeln/Malvorlagen/BadeEnte_Muellneu.jpg"
+    },
+    "@rule12": {
+      "url": "https://potsdam.dlrg.de/fileadmin/groups/17010020/bilder/Informieren/Essen.png"
+    },
+    "@rule13": {
+      "url": "https://www.dlrg.de/fileadmin/user_upload/DLRG.de/Fuer-Mitglieder/AA_DLRG2019/Informieren/Baderegeln/Malvorlagen/BadeEnte_Schiffneu.jpg"
+    }
+  }
+}

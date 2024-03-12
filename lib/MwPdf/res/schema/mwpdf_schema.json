@@ -622,6 +622,9 @@
       "BoxConstraints": {
         "additionalProperties": false,
         "properties": {
+          "expand": {
+            "type": "boolean"
+          },
           "maxHeight": {
             "type": "number"
           },

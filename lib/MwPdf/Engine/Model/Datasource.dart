@@ -30,9 +30,6 @@ class Datasource {
   // chart data (pie!)
   final List<Dict> data;
 
-  // reusable widget
-  pw.Widget? widget;
-
   final Dict widgetData;
 
   // placeholder text
@@ -48,7 +45,6 @@ class Datasource {
     this.values = const [],
     this.valuesFormatted = const [],
     this.data = const [],
-    this.widget,
     this.widgetData = const {},
     this.text = '',
     this.formats = const {},
@@ -86,9 +82,10 @@ class Datasource {
       binary: binary,
       url: json['url'] as String? ?? '',
       resourceId: json['resource'] as String? ?? '',
-      values: (json['values'] as List<dynamic>? ?? []).map(
+      values: (json['values'] as List<dynamic>? ?? [])
+          .map(
             (dynamic row) => row as List<dynamic>,
-      )
+          )
           .toList(),
       valuesFormatted: (json['values'] as List<dynamic>? ?? [])
           .map(
@@ -102,20 +99,20 @@ class Datasource {
           .map((dynamic row) => row as Dict)
           .toList(),
       widgetData: json['widget'] as Dict? ?? {},
-      // widget: Widget.parse(
-      //   json['widget'] as Dict? ?? {},
-      //   state,
-      // ),
       text: json['text'] as String? ?? '',
       formats: formats,
     );
   }
 
-  void prepareWidget(State state) {
-    widget = Widget.parse(
-      widgetData,
-      state,
-    );
+  pw.Widget? widget(
+    State state,
+  ) {
+    return widgetData.isNotEmpty
+        ? Widget.parse(
+            widgetData,
+            state,
+          )
+        : null;
   }
 
   Future<void> load(

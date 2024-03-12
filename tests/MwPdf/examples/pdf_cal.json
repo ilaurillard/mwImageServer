@@ -23,17 +23,11 @@
       "multi": true,
       "content": [
         {
-          "Calendar": {
-            "year": 2024,
-            "month": 3,
-            "day": 4,
-            "mode": "week",
-            "source": "@data1"
-          }
-        },
-        {
-          "Divider": {
-
+          "Text": {
+            "text": "März 2024",
+            "style": {
+              "fontSize": 12
+            }
           }
         },
         {
@@ -41,6 +35,28 @@
             "year": 2024,
             "month": 3,
             "mode": "month",
+            "source": "@data1"
+          }
+        },
+        {
+          "NewPage": {
+
+          }
+        },
+        {
+          "Text": {
+            "text": "KW 10, 2024",
+            "style": {
+              "fontSize": 12
+            }
+          }
+        },
+        {
+          "Calendar": {
+            "year": 2024,
+            "month": 3,
+            "day": 4,
+            "mode": "week",
             "source": "@data1"
           }
         }

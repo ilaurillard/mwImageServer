@@ -23,10 +23,40 @@
       "multi": true,
       "content": [
         {
+          "Text": {
+            "text": "März 2024",
+            "style": {
+              "fontSize": 12
+            }
+          }
+        },
+        {
           "Calendar": {
             "year": 2024,
             "month": 3,
             "mode": "month",
+            "source": "@data1"
+          }
+        },
+        {
+          "NewPage": {
+
+          }
+        },
+        {
+          "Text": {
+            "text": "KW 10, 2024",
+            "style": {
+              "fontSize": 12
+            }
+          }
+        },
+        {
+          "Calendar": {
+            "year": 2024,
+            "month": 3,
+            "day": 4,
+            "mode": "week",
             "source": "@data1"
           }
         }
@@ -46,19 +76,22 @@
           "start": "2024-03-27 06:00",
           "end": "2024-03-28 07:15",
           "value": "Bett",
-          "allDay": true
+          "allDay": true,
+          "group": 1
         },
         {
           "start": "2024-03-29 06:00",
           "end": "2024-03-31 07:45",
           "value": "Aufstehen",
-          "allDay": true
+          "allDay": true,
+          "group": 1
         },
         {
           "start": "2024-03-30 23:00",
           "end": "2024-03-31 02:10",
           "value": "Schlafen",
-          "allDay": true
+          "allDay": true,
+          "group": 2
         },
         {
           "start": "2024-03-29",
@@ -71,8 +104,18 @@
           "end": "2024-03-29",
           "value": "Etc",
           "allDay": true
+        },
+        {
+          "start": "2024-03-03",
+          "end": "2024-03-08",
+          "value": "this and that",
+          "allDay": true
+        },
+        {
+          "start": "2024-03-07 15:15",
+          "end": "2024-03-07 16:45",
+          "value": "xxx"
         }
-
       ]
     }
   }

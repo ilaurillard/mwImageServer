@@ -13,7 +13,6 @@ import 'Chart.dart';
 import 'Clip.dart';
 import 'Container.dart';
 import 'Content.dart';
-import 'Util.dart';
 import 'Flex.dart';
 import 'GridPaper.dart';
 import 'GridView.dart';
@@ -24,6 +23,7 @@ import 'Shape.dart';
 import 'Stack.dart';
 import 'Table.dart';
 import 'Text.dart';
+import 'Util.dart';
 import 'Wrap.dart';
 
 class Widget {
@@ -419,7 +419,6 @@ class Widget {
             state,
           );
 
-
         // ----------
         /*
           TODO not yet implemented widgets
@@ -455,6 +454,6 @@ class Widget {
     Datasource source = state.source(
       json['source'] as String?,
     );
-    return source.widget ?? pw.SizedBox();
+    return source.widget(state) ?? pw.SizedBox();
   }
 }

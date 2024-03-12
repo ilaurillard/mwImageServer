@@ -1,4 +1,3 @@
-
 import 'package:collection/collection.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
@@ -652,6 +651,14 @@ class Util {
       double? maxWidth = double.tryParse(json['maxWidth'].toString());
       double? minHeight = double.tryParse(json['minHeight'].toString());
       double? maxHeight = double.tryParse(json['maxHeight'].toString());
+
+      if (json['expand'] as bool? ?? false) {
+        return pw.BoxConstraints.expand(
+          // width: minWidth,
+          // height: minHeight,
+        );
+      }
+
       return pw.BoxConstraints(
         minWidth: minWidth != null ? minWidth * PdfPageFormat.mm : 0.0,
         minHeight: minHeight != null ? minHeight * PdfPageFormat.mm : 0.0,
@@ -720,8 +727,7 @@ class Util {
         case '<':
           return n1 < n2;
       }
-    }
-    else {
+    } else {
       // compare strings
       switch (op) {
         case '<=':
