@@ -564,6 +564,9 @@
           },
           "verticalAlignment": {
             "$ref": "#/definitions/Enum/VerticalAlignment"
+          },
+          "group": {
+            "type": "integer"
           }
         },
         "type": "object"

@@ -65,48 +65,4 @@ class SpecialDE {
 
     return special;
   }
-
-  DateTime osternForYear(int year) {
-    // if (year < 1972 || year > 2050) {
-    //   throw Exception('Year out of range');
-    // }
-    // int a = year % 19;
-    // int b = year % 4;
-    // int c = year % 7;
-    // int d = (19 * a + 24) % 30;
-    // int e = (2 * b + 4 * c + 6 * d + 5) % 7;
-    // int x = 22 + d + e;
-    // int day = x - 31;
-    // int month = 4;
-    // if (x <= 31) {
-    //   day = x;
-    //   month = 3;
-    // }
-    // return DateTime(year, month, day);
-
-    if (year < 1583) {
-      throw ArgumentError.value(
-          year, 'year', 'Year cannot be earlier than 1583.');
-    }
-    if (year > 4099) {
-      throw ArgumentError.value(
-          year, 'year', 'Year cannot be later than 4099.');
-    }
-
-    int g = year % 19;
-    int c = year ~/ 100;
-    int h = (c - (c ~/ 4) - ((8 * c + 13) ~/ 25) + 19 * g + 15) % 30;
-    int i =
-        h - (h ~/ 28) * (1 - (h ~/ 28) * (29 ~/ (h + 1)) * ((21 - g) ~/ 11));
-
-    int day = i - ((year + (year ~/ 4) + i + 2 - c + (c ~/ 4)) % 7) + 28;
-    int month = 3;
-
-    if (day > 31) {
-      month++;
-      day -= 31;
-    }
-
-    return DateTime.utc(year, month, day);
-  }
 }

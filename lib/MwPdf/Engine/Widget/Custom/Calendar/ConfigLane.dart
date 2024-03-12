@@ -2,14 +2,14 @@ import 'package:pdf/pdf.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
-class Lane {
+class ConfigLane {
   final double laneHeight;
   final double laneGapV;
   final double laneGapH;
   final double laneCornerRadius;
   final double lanePadding;
 
-  const Lane({
+  const ConfigLane({
     this.laneHeight = 5 * PdfPageFormat.mm,
     this.laneGapV = 1 * PdfPageFormat.mm,
     this.laneGapH = 0.75 * PdfPageFormat.mm,

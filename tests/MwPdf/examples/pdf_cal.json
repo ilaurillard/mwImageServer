@@ -60,19 +60,22 @@
           "start": "2024-03-27 06:00",
           "end": "2024-03-28 07:15",
           "value": "Bett",
-          "allDay": true
+          "allDay": true,
+          "group": 1
         },
         {
           "start": "2024-03-29 06:00",
           "end": "2024-03-31 07:45",
           "value": "Aufstehen",
-          "allDay": true
+          "allDay": true,
+          "group": 1
         },
         {
           "start": "2024-03-30 23:00",
           "end": "2024-03-31 02:10",
           "value": "Schlafen",
-          "allDay": true
+          "allDay": true,
+          "group": 2
         },
         {
           "start": "2024-03-29",
@@ -91,8 +94,12 @@
           "end": "2024-03-08",
           "value": "this and that",
           "allDay": true
+        },
+        {
+          "start": "2024-03-07 15:15",
+          "end": "2024-03-07 16:45",
+          "value": "xxx"
         }
-
       ]
     }
   }

@@ -59,6 +59,7 @@ class MonthView {
                     left: border,
                     right: index % 7 == 6 ? border : pw.BorderSide.none,
                     bottom: border,
+
                   ),
                 ),
                 child: dayInMonth(

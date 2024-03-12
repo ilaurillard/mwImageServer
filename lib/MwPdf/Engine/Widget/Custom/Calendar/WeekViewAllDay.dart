@@ -1,10 +1,10 @@
 import 'package:intl/intl.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Config.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/CustomCalendar.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Entries.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Entry.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Holiday.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Special.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Config.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -77,7 +77,7 @@ class WeekViewAllDay {
         ? config.colors.textCurrent
         : (weekend ? config.colors.textSpecial : null);
     return pw.Partition(
-      flex: 2,
+      flex: 7,
       child: pw.Container(
         child: pw.Column(
           children: [
@@ -88,7 +88,9 @@ class WeekViewAllDay {
               ),
             ),
             pw.Container(
-              padding: pw.EdgeInsets.symmetric(vertical: 2 * PdfPageFormat.mm),
+              padding: pw.EdgeInsets.symmetric(
+                vertical: 2 * PdfPageFormat.mm,
+              ),
               child: pw.Text(
                 '${dt.day}',
                 style: pw.TextStyle(
@@ -144,7 +146,7 @@ class WeekViewAllDay {
     );
 
     return pw.Partition(
-      flex: 2,
+      flex: 7,
       child: pw.Container(
         padding: pw.EdgeInsets.all(config.cellPadding),
         height: config.lane.laneHeight,
@@ -184,10 +186,11 @@ class WeekViewAllDay {
     pw.Border borderBG = pw.Border(
       left: pw.BorderSide(
         color: config.colors.border,
+        width: config.colors.borderWidth,
       ),
     );
     return pw.Partition(
-      flex: 2,
+      flex: 7,
       child: pw.Container(
         height: height,
         decoration: pw.BoxDecoration(
@@ -201,8 +204,10 @@ class WeekViewAllDay {
   void _prepareAllDayArea(
     DateTime dt,
   ) {
-    _prepareAllDayLanesData(dt: dt,);
-    
+    _prepareAllDayLanesData(
+      dt: dt,
+    );
+
     _prepareAllDayTitleCells(dt);
     _prepareAllDayBgCells(dt);
     _prepareAllDayLaneWidgets();
@@ -213,7 +218,7 @@ class WeekViewAllDay {
   ) {
     allDayTitles = [
       pw.Partition(
-        flex: 1,
+        flex: (1 * config.days).ceil(),
         child: pw.Container(
           child: pw.Text('KW ${dt.weekOfYear.toString().padLeft(2, '0')}'),
         ),
@@ -224,7 +229,8 @@ class WeekViewAllDay {
       allDayTitles.add(
         _titleCell(
           dt: dt,
-          currentDay: dt.year == localDate.year &&
+          currentDay: config.highlightToday &&
+              dt.year == localDate.year &&
               dt.month == localDate.month &&
               dt.day == localDate.day,
           weekend: dt.weekday == 6 || dt.weekday == 7,
@@ -238,7 +244,7 @@ class WeekViewAllDay {
   ) {
     allDayBgCells = [
       pw.Partition(
-        flex: 1,
+        flex: (1 * config.days).ceil(),
         child: pw.Container(),
       )
     ];
@@ -334,7 +340,7 @@ class WeekViewAllDay {
     for (List<int> lane in allDayLanes) {
       List<pw.Partition> row = [
         pw.Partition(
-          flex: 1,
+          flex: (1 * config.days).ceil(),
           child: pw.Container(),
         ),
       ];
@@ -360,7 +366,7 @@ class WeekViewAllDay {
 
         row.add(
           pw.Partition(
-            flex: seg.length * 2,
+            flex: seg.length * 7,
             child: e != null
                 ? pw.Container(
                     height: config.lane.laneHeight,
@@ -371,7 +377,7 @@ class WeekViewAllDay {
                       left: starts ? config.lane.laneGapH : 0,
                     ),
                     decoration: pw.BoxDecoration(
-                      color: PdfColor.fromInt(0x33FF0000),
+                      color: config.groupColor(e.group),
                       borderRadius: pw.BorderRadius.only(
                         topRight: ends
                             ? pw.Radius.circular(config.lane.laneCornerRadius)
@@ -418,7 +424,7 @@ class WeekViewAllDay {
 
     List<pw.Partition> row = [
       pw.Partition(
-        flex: 1,
+        flex: (1 * config.days).ceil(),
         child: pw.Container(),
       ),
     ];

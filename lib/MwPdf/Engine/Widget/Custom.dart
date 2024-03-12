@@ -1,9 +1,12 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/Datasource.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Config.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigDay.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigLane.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/CustomCalendar.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Entries.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Config.dart';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class Custom {
@@ -21,13 +24,16 @@ class Custom {
       day: int.tryParse(json['day'].toString()) ?? 1,
       entries: Entries.fromJson(source.data),
       config: Config(
-          // highlightToday: false,
-          // holidaysDE: false,
-          ),
+        days: 7,
+        // highlightToday: false,
+        lane: ConfigLane(),
+        day: ConfigDay(
+          heightHour: 8 * PdfPageFormat.mm,
+        ),
+      ),
       mode: CustomCalendar.parseMode(
         json['mode'] as String? ?? '',
       ),
     ).build();
   }
 }
-

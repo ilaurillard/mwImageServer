@@ -18,6 +18,7 @@ class Entry {
   final Repeat repeat;
   final Entry? parent;
   final int nr;
+  final int group;
 
   Entry({
     required this.nr,
@@ -27,6 +28,7 @@ class Entry {
     this.allDay = false,
     this.repeat = Repeat.no,
     this.parent,
+    this.group = 0,
   }) {
     if (end.isBefore(start)) {
       throw Exception('End must be after start');
@@ -55,6 +57,7 @@ class Entry {
           allDay: allDay,
           repeat: Repeat.no,
           parent: this,
+          group: group,
         ),
       );
       s = DateTime(s.year, s.month, s.day + 1, 0, 0, 0);
@@ -68,6 +71,7 @@ class Entry {
             allDay: allDay,
             repeat: Repeat.no,
             parent: this,
+            group: group,
           ),
         );
         break;
@@ -141,6 +145,7 @@ class Entry {
       end: end,
       allDay: allDay,
       repeat: repeatEnum(json['repeat'] as String? ?? ''),
+      group: json['group'] as int? ?? 0,
     );
   }
 
@@ -182,5 +187,9 @@ class Entry {
     // }
     // DateFormat df1 = DateFormat('yyyy-MM-dd HH:mm');
     // return label + ': ' + df1.format(start) + ' ' + df.format(end);
+  }
+
+  Duration length() {
+    return end.difference(start);
   }
 }

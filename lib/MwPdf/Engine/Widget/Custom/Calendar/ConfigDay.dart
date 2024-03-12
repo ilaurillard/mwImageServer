@@ -2,7 +2,7 @@ import 'package:pdf/pdf.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
-class Day {
+class ConfigDay {
   final double heightHour;
 
   final int firstHour;
@@ -10,7 +10,7 @@ class Day {
 
   final double entryCornerRadius;
 
-  const Day({
+  const ConfigDay({
     this.heightHour = 7 * PdfPageFormat.mm,
     this.firstHour = 8,
     this.lastHour = 20,

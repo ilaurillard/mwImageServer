@@ -1,8 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Colors.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Day.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigDay.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigLane.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Holiday.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Lane.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -14,9 +14,9 @@ class Config {
   final double iconSize;
   final double cellPadding;
 
-  final Lane lane;
+  final ConfigLane lane;
   final Colors colors;
-  final Day day;
+  final ConfigDay day;
 
   final String locale;
 
@@ -31,11 +31,9 @@ class Config {
     this.iconSize = 3 * PdfPageFormat.mm,
     this.cellPadding = 1 * PdfPageFormat.mm,
     this.days = 7,
-
     this.colors = const Colors(),
-    this.lane = const Lane(),
-    this.day = const Day(),
-
+    this.lane = const ConfigLane(),
+    this.day = const ConfigDay(),
   });
 
   static pw.Widget? label({
@@ -59,5 +57,14 @@ class Config {
       );
     }
     return label;
+  }
+
+  PdfColor groupColor(
+    int group,
+  ) {
+
+
+
+    return PdfColors.grey;
   }
 }

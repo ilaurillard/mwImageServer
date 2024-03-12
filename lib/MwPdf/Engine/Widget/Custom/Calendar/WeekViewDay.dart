@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Config.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Entries.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Entry.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Holiday.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Special.dart';
 import 'package:pdf/pdf.dart';
@@ -34,7 +35,7 @@ class WeekViewDay {
   pw.Widget build() {
     List<pw.Partition> cols = [
       pw.Partition(
-        flex: 1,
+        flex: (1 * config.days).ceil(),
         child: _hours(),
       ),
     ];
@@ -61,9 +62,10 @@ class WeekViewDay {
     required int x,
     required int width,
     required int maxWidth,
+    required Entry entry,
   }) {
-    double b = 10.0;
-    double l = 1.5;
+    double b = entry.start.hour + (entry.start.minute / 60);
+    double l = entry.length().inMinutes / 60;
     double h = config.day.heightHour * l;
     double o = config.day.heightHour * (b - config.day.firstHour);
 
@@ -83,8 +85,23 @@ class WeekViewDay {
           pw.Expanded(
             flex: width,
             child: pw.Container(
+              padding: pw.EdgeInsets.all(1 * PdfPageFormat.mm),
+              child: pw.Align(
+                alignment: pw.Alignment.topLeft,
+                child: pw.Text(
+                  'Meeting',
+                  style: pw.TextStyle(
+                    color: PdfColors.white,
+                  ),
+                ),
+
+              ),
               decoration: pw.BoxDecoration(
-                color: PdfColors.red,
+                color: config.groupColor(entry.group),
+                border: pw.Border.all(
+                  color: PdfColors.white,
+                  width: config.colors.borderWidth,
+                ),
                 borderRadius: pw.BorderRadius.all(
                   pw.Radius.circular(config.day.entryCornerRadius),
                 ),
@@ -118,9 +135,11 @@ class WeekViewDay {
             border: pw.Border(
               top: pw.BorderSide(
                 color: config.colors.border,
+                width: config.colors.borderWidth,
               ),
               right: pw.BorderSide(
                 color: config.colors.border,
+                width: config.colors.borderWidth,
               ),
             ),
           ),
@@ -132,7 +151,7 @@ class WeekViewDay {
     );
   }
 
-  pw.Column _lines() {
+  pw.Widget _lines() {
     List<pw.Container> hours = [];
     for (int n = config.day.firstHour; n <= config.day.lastHour; n++) {
       hours.add(
@@ -143,6 +162,7 @@ class WeekViewDay {
             border: pw.Border(
               top: pw.BorderSide(
                 color: config.colors.border,
+                width: config.colors.borderWidth,
               ),
             ),
           ),
@@ -172,30 +192,55 @@ class WeekViewDay {
     }
 
     return pw.Partition(
-      flex: 2,
+      flex: 7,
       child: pw.Container(
         decoration: pw.BoxDecoration(
           color: color,
           border: pw.Border(
             left: pw.BorderSide(
               color: config.colors.border,
+              width: config.colors.borderWidth,
             ),
           ),
         ),
         height: ((config.day.lastHour - config.day.firstHour + 1) *
-            config.day.heightHour) +
+                config.day.heightHour) +
             0.1 * PdfPageFormat.mm,
         child: pw.Stack(
           children: [
-            _lines(),
-            // _entry(
-            //   x: 2,
-            //   width: 3,
-            //   maxWidth: 6,
-            // ),
-          ],
+                _lines(),
+              ] +
+              _entries(dt),
         ),
       ),
     );
+  }
+
+  List<pw.Widget> _entries(DateTime dt) {
+    List<Entry> some =
+        entries.forDate(dt).where((Entry e) => !e.allDay).toList();
+
+    List<pw.Widget> res = [];
+
+    for (Entry entry in some) {
+      res.add(
+        _entry(
+          x: 0,
+          width: 6,
+          maxWidth: 6,
+          entry: entry,
+        ),
+      );
+      // res.add(
+      //   _entry(
+      //     x: 3,
+      //     width: 3,
+      //     maxWidth: 6,
+      //     entry: entry,
+      //   ),
+      // );
+    }
+
+    return res;
   }
 }

@@ -8,6 +8,8 @@ class Colors {
   final PdfColor textSpecial;
   final PdfColor border;
   final double muteOpacity;
+  final double borderWidth;
+  final List<PdfColor> groups;
 
   const Colors({
     this.border = PdfColors.white,
@@ -17,5 +19,11 @@ class Colors {
     this.textCurrent = PdfColors.blue,
     this.textSpecial = PdfColors.red,
     this.muteOpacity = 0.35,
+    this.borderWidth = 0.1 * PdfPageFormat.mm,
+    this.groups = const [
+      PdfColors.blue,
+      PdfColors.red,
+      PdfColors.green,
+    ],
   });
 }
