@@ -1042,6 +1042,9 @@
         "BarcodeWidget": {
           "$ref": "#/definitions/Widgets/BarcodeWidget"
         },
+        "Puzzle": {
+          "$ref": "#/definitions/Widgets/Puzzle"
+        },
         "Bullet": {
           "$ref": "#/definitions/Widgets/Bullet"
         },
@@ -1253,6 +1256,33 @@
       }
     },
     "Widgets": {
+      "Puzzle": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "seed": {
+            "type": "string"
+          },
+          "solve": {
+            "type": "boolean"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "line1": {
+            "type": "number"
+          },
+          "line2": {
+            "type": "number"
+          },
+          "textStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          }
+        },
+        "type": "object"
+      },
       "Align": {
         "additionalProperties": false,
         "properties": {

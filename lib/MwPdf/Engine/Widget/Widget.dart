@@ -418,6 +418,11 @@ class Widget {
             data,
             state,
           );
+        case 'Puzzle':
+          return Custom.puzzle(
+            data,
+            state,
+          );
 
         // ----------
         /*
