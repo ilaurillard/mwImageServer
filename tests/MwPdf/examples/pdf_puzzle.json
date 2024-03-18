@@ -1,4 +1,17 @@
 {
+  "meta": {
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "orientation": "portrait",
+        "format": {
+          "preset": "a4",
+          "marginAll": 10,
+          "marginLeft": 20
+        }
+      }
+    }
+  },
   "pages": [
     {
       "content": [
@@ -88,11 +101,76 @@
                     }
                   ]
                 }
+              },
+              {
+                "SizedBox": {
+                  "height": 10
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Container": {
+                        "width": 80,
+                        "height": 80,
+                        "child": {
+                          "Puzzle": {
+                            "type": "suchsel",
+                            "size": 13,
+                            "line2": 0.3,
+                            "seed": "65",
+                            "solve": false,
+                            "source": "@words1"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "SizedBox": {
+                        "width": 10
+                      }
+                    },
+                    {
+                      "Container": {
+                        "width": 80,
+                        "height": 80,
+                        "child": {
+                          "Puzzle": {
+                            "type": "suchsel",
+                            "size": 13,
+                            "line2": 0.3,
+                            "seed": "65",
+                            "solve": true,
+                            "source": "@words1"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
               }
             ]
           }
         }
       ]
     }
-  ]
+  ],
+  "sources": {
+    "@words1": {
+      "data": [
+        {"value":  "Banane"},
+        {"value":  "Zitrone"},
+        {"value":  "Melone"},
+        {"value":  "Himbeere"},
+        {"value":  "Apfel"},
+        {"value":  "Birne"},
+        {"value":  "Erdbeere"},
+        {"value":  "Kiwi"},
+        {"value":  "Ananas"},
+        {"value":  "Mango"},
+        {"value":  "Blaubeere"}
+      ]
+    }
+  }
 }

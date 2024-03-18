@@ -1,4 +1,4 @@
-import 'package:mwcdn/MwPdf/Service/Maze/maze_builder.dart';
+import 'package:mwcdn/MwPdf/Service/Puzzle/maze_builder.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 

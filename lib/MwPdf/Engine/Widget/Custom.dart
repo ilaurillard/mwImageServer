@@ -7,6 +7,7 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigLane.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/CustomCalendar.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Entries.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Maze.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Suchsel.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Sudoku.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -16,6 +17,7 @@ import 'Util.dart';
 enum PuzzleType {
   sudoku,
   maze,
+  suchsel,
 }
 
 class Custom {
@@ -38,7 +40,22 @@ class Custom {
       json['type'] as String?,
     );
 
+    Datasource source = state.source(
+      json['source'] as String?,
+    );
+
     switch (type) {
+      case PuzzleType.suchsel:
+        return Suchsel(
+          size: size,
+          solve: solve,
+          seed: seed,
+          color: color,
+          line1Thickness: line1 ?? 1.5,
+          line2Thickness: line2 ?? 0.5,
+          textStyle: ts,
+          source: source,
+        ).build();
       case PuzzleType.sudoku:
         return Sudoku(
           seed: seed,
@@ -71,6 +88,8 @@ class Custom {
         return PuzzleType.sudoku;
       case 'maze':
         return PuzzleType.maze;
+      case 'suchsel':
+        return PuzzleType.suchsel;
     }
     return null;
   }

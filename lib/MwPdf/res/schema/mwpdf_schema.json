@@ -5,7 +5,8 @@
       "PuzzleType": {
         "enum": [
           "sudoku",
-          "maze"
+          "maze",
+          "suchsel"
         ]
       },
       "Alignment": {
@@ -1288,6 +1289,9 @@
           },
           "textStyle": {
             "$ref": "#/definitions/Style/TextStyle"
+          },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
           }
         },
         "type": "object"
