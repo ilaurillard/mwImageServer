@@ -1,4 +1,17 @@
 {
+  "meta": {
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "orientation": "portrait",
+        "format": {
+          "preset": "a4",
+          "marginAll": 10,
+          "marginLeft": 20
+        }
+      }
+    }
+  },
   "pages": [
     {
       "content": [
@@ -15,10 +28,11 @@
                         "child": {
                           "Puzzle": {
                             "type": "sudoku",
+                            "difficulty": 2,
                             "seed": "081205060060019000020700000000500000006102503000600800003000102005000700007053008",
                             "solve": false,
                             "color": "666666",
-                            "line1": 0.75,
+                            "line1": 1,
                             "textStyle": {
                               "color": "000066",
                               "fontSize": 3,
@@ -40,6 +54,7 @@
                         "child": {
                           "Puzzle": {
                             "type": "sudoku",
+                            "difficulty": 2,
                             "seed": "081205060060019000020700000000500000006102503000600800003000102005000700007053008",
                             "solve": true
                           }
@@ -55,14 +70,87 @@
                 }
               },
               {
-                "Container": {
-                  "width": 80,
-                  "height": 80,
-                  "child": {
-                    "Puzzle": {
-                      "type": "sudoku"
+                "Row": {
+                  "children": [
+                    {
+                      "Container": {
+                        "width": 80,
+                        "height": 80,
+                        "child": {
+                          "Puzzle": {
+                            "type": "sudoku",
+                            "difficulty": 5
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "SizedBox": {
+                        "width": 10
+                      }
+                    },
+                    {
+                      "Container": {
+                        "width": 80,
+                        "height": 80,
+                        "child": {
+                          "Puzzle": {
+                            "type": "maze",
+                            "seed": "3",
+                            "size": 15
+                          }
+                        }
+                      }
                     }
-                  }
+                  ]
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 10
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Container": {
+                        "width": 80,
+                        "height": 80,
+                        "child": {
+                          "Puzzle": {
+                            "type": "suchsel",
+                            "size": 13,
+                            "line2": 0.3,
+                            "seed": "65",
+                            "solve": false,
+                            "source": "@words1"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "SizedBox": {
+                        "width": 10
+                      }
+                    },
+                    {
+                      "Container": {
+                        "width": 80,
+                        "height": 80,
+                        "child": {
+                          "Puzzle": {
+                            "type": "suchsel",
+                            "size": 13,
+                            "line2": 0.3,
+                            "seed": "65",
+                            "solve": true,
+                            "source": "@words1"
+                          }
+                        }
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -70,5 +158,22 @@
         }
       ]
     }
-  ]
+  ],
+  "sources": {
+    "@words1": {
+      "data": [
+        {"value":  "Banane"},
+        {"value":  "Zitrone"},
+        {"value":  "Melone"},
+        {"value":  "Himbeere"},
+        {"value":  "Apfel"},
+        {"value":  "Birne"},
+        {"value":  "Erdbeere"},
+        {"value":  "Kiwi"},
+        {"value":  "Ananas"},
+        {"value":  "Mango"},
+        {"value":  "Blaubeere"}
+      ]
+    }
+  }
 }

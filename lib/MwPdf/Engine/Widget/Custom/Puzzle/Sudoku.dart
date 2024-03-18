@@ -9,6 +9,7 @@ class Sudoku {
   final double line1Thickness;
   final double line2Thickness;
   final pw.TextStyle? textStyle;
+  final int difficulty;
 
   Sudoku({
     this.seed = '',
@@ -17,14 +18,29 @@ class Sudoku {
     this.line1Thickness = 1.5,
     this.line2Thickness = 0.5,
     this.textStyle,
+    this.difficulty = 5,
   });
 
   pw.Widget build() {
-    // String seed = (gen.newSudoku.expand((sublist) => sublist).join());
     List<List<int>> sudoku;
 
+    int es = [
+      49,
+      50,
+      51,
+      52,
+      53,
+      54, // diff 5
+      55,
+      56,
+      57,
+      58,
+    ][difficulty];
+
     if (seed.isEmpty) {
-      SudokuGenerator gen = SudokuGenerator(emptySquares: 54);
+      SudokuGenerator gen = SudokuGenerator(
+        emptySquares: es,
+      );
       sudoku = gen.newSudoku;
     } else {
       sudoku = _toList(seed);

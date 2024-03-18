@@ -35,6 +35,7 @@ class Custom {
     String seed = json['seed'] as String? ?? '';
     bool solve = json['solve'] as bool? ?? false;
     int size = int.tryParse(json['size'].toString()) ?? 1;
+    int difficulty = int.tryParse(json['difficulty'].toString()) ?? 5;
 
     PuzzleType? type = Custom.puzzleType(
       json['type'] as String?,
@@ -64,6 +65,7 @@ class Custom {
           line1Thickness: line1 ?? 1.5,
           line2Thickness: line2 ?? 0.5,
           textStyle: ts,
+          difficulty: difficulty,
         ).build();
       case PuzzleType.maze:
         return Maze(
