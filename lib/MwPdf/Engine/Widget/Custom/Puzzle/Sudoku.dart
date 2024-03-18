@@ -10,13 +10,14 @@ class Sudoku {
   final double line2Thickness;
   final pw.TextStyle? textStyle;
 
-  Sudoku(
-      {this.seed = '',
-      this.solve = false,
-      this.color = PdfColors.black,
-      this.line1Thickness = 1.5,
-      this.line2Thickness = 0.5,
-      this.textStyle});
+  Sudoku({
+    this.seed = '',
+    this.solve = false,
+    this.color = PdfColors.black,
+    this.line1Thickness = 1.5,
+    this.line2Thickness = 0.5,
+    this.textStyle,
+  });
 
   pw.Widget build() {
     // String seed = (gen.newSudoku.expand((sublist) => sublist).join());

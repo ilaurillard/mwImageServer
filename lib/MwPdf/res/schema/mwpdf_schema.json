@@ -2,6 +2,12 @@
   "additionalProperties": false,
   "definitions": {
     "Enum": {
+      "PuzzleType": {
+        "enum": [
+          "sudoku",
+          "maze"
+        ]
+      },
       "Alignment": {
         "anyOf": [
           {
@@ -1260,10 +1266,13 @@
         "additionalProperties": false,
         "properties": {
           "type": {
-            "type": "string"
+            "$ref": "#/definitions/Enum/PuzzleType"
           },
           "seed": {
             "type": "string"
+          },
+          "size": {
+            "type": "integer"
           },
           "solve": {
             "type": "boolean"
