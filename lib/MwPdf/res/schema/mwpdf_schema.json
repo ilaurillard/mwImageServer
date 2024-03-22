@@ -6,7 +6,8 @@
         "enum": [
           "sudoku",
           "maze",
-          "suchsel"
+          "suchsel",
+          "kakuro"
         ]
       },
       "Alignment": {

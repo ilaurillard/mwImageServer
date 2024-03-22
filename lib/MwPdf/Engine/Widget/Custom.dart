@@ -12,12 +12,14 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Sudoku.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import 'Custom/Puzzle/Kakuro.dart';
 import 'Util.dart';
 
 enum PuzzleType {
   sudoku,
   maze,
   suchsel,
+  kakuro,
 }
 
 class Custom {
@@ -77,6 +79,15 @@ class Custom {
           line2Thickness: line2 ?? 0.5,
           textStyle: ts,
         ).build();
+      case PuzzleType.kakuro:
+        return Kakuro(
+          size: size,
+          solve: solve,
+          color: color,
+          textStyle: ts,
+          line1Thickness: line1 ?? 0.5,
+          line2Thickness: line2 ?? 0.25,
+        ).build();
       case null:
         return pw.SizedBox();
     }
@@ -92,6 +103,8 @@ class Custom {
         return PuzzleType.maze;
       case 'suchsel':
         return PuzzleType.suchsel;
+      case 'kakuro':
+        return PuzzleType.kakuro;
     }
     return null;
   }

@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "orientation": "portrait",
+        "format": {
+          "preset": "a4",
+          "marginAll": 10,
+          "marginLeft": 20
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Container": {
+                        "width": 80,
+                        "height": 80,
+                        "child": {
+                          "Puzzle": {
+                            "type": "sudoku",
+                            "difficulty": 2,
+                            "seed": "081205060060019000020700000000500000006102503000600800003000102005000700007053008",
+                            "solve": false,
+                            "color": "666666",
+                            "line1": 1,
+                            "textStyle": {
+                              "color": "000066",
+                              "fontSize": 3,
+                              "fontWeight": "bold"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "SizedBox": {
+                        "width": 10
+                      }
+                    },
+                    {
+                      "Container": {
+                        "width": 80,
+                        "height": 80,
+                        "child": {
+                          "Puzzle": {
+                            "type": "kakuro",
+                            "size": 10,
+                            "solve": false,
+                            "color": "000000",
+                            "line1": 0.25,
+                            "textStyle": {
+                              "color": "FFFFFF",
+                              "fontSize": 2.5,
+                              "fontWeight": "bold"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+  }
+}

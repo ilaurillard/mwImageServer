@@ -1,12 +1,5 @@
 import 'dart:math';
 
-Future<void> main() async {
-
-  Board b = makeBoard(8, 8, 0.3);
-
-  print(b);
-}
-
 class Cell {
   bool border;
   String type;
@@ -27,6 +20,10 @@ class Cell {
   String toString() {
     return type == 'hint' ? 'Hint $hintv $hinth' : 'Num $value';
   }
+
+  bool isHint() {
+    return type == 'hint';
+  }
 }
 
 extension ListGetExtension<T> on List<T> {
@@ -45,10 +42,10 @@ int randomInt(int bound) {
 }
 
 List<List<T>> array2d<T>(
-  int width,
-  int height,
-  T Function(int, int) fn,
-) {
+    int width,
+    int height,
+    T Function(int, int) fn,
+    ) {
   return List.generate(width, (x) {
     return List.generate(height, (y) {
       return fn(x, y);
@@ -58,19 +55,19 @@ List<List<T>> array2d<T>(
 
 BoardCheck checkBoard(Board board) {
   return board.map((
-    Row row,
-  ) {
+      Row row,
+      ) {
     return List.filled(row.length, false);
   }).toList();
 }
 
 BoardCalc calcBoard(Board board) {
   return board.map((
-    Row row,
-  ) {
+      Row row,
+      ) {
     return List<Map<int, bool>?>.generate(
       row.length,
-      (int index) => null,
+          (int index) => null,
     );
   }).toList();
 }
@@ -84,13 +81,13 @@ void for2d(Board board, CellFunc fn) {
 }
 
 void for2dType(
-  Board board,
-  String type,
-  CellFunc fn,
-) {
+    Board board,
+    String type,
+    CellFunc fn,
+    ) {
   for2d(
     board,
-    (int x, int y, Cell cell) {
+        (int x, int y, Cell cell) {
       if (cell.type == type) {
         fn(x, y, cell);
       }
@@ -99,14 +96,14 @@ void for2dType(
 }
 
 (int, int, int) forNumGroup(
-  Board board,
-  int x,
-  int y,
-  int xoffs,
-  int yoffs,
-  CellFunc fn,
-  int len,
-) {
+    Board board,
+    int x,
+    int y,
+    int xoffs,
+    int yoffs,
+    CellFunc fn,
+    int len,
+    ) {
   x += xoffs;
   y += yoffs;
 
@@ -127,10 +124,10 @@ void for2dType(
 }
 
 Board makeBoard(
-  int w,
-  int h,
-  double density,
-) {
+    int w,
+    int h,
+    double density,
+    ) {
   Board board;
   bool badBoard;
   int tries = 10;
@@ -159,20 +156,20 @@ void calcNums(Board board) {
   for2dType(
     board,
     'hint',
-    (int x, int y, Cell cell) {
+        (int x, int y, Cell cell) {
       void groupCells(
-        int xoff,
-        int yoff,
-        BoardCalc arr,
-        Map<int, bool>? seen,
-      ) {
+          int xoff,
+          int yoff,
+          BoardCalc arr,
+          Map<int, bool>? seen,
+          ) {
         forNumGroup(
           board,
           x,
           y,
           xoff,
           yoff,
-          (int x, int y, Cell cell) => arr[y][x] = seen,
+              (int x, int y, Cell cell) => arr[y][x] = seen,
           0,
         );
       }
@@ -220,7 +217,7 @@ void fixBoard(Board board) {
     for2dType(
       board,
       'hint',
-      (x, y, cell) {
+          (x, y, cell) {
         // print('+++');
         var (len, ex, ey) = forNumGroup(
           board,
@@ -228,11 +225,11 @@ void fixBoard(Board board) {
           y,
           xoffs,
           yoffs,
-          (
-            int x,
-            int y,
-            Cell cell,
-          ) {},
+              (
+              int x,
+              int y,
+              Cell cell,
+              ) {},
           0,
         );
         // print('$len $ex $ey');
@@ -275,7 +272,7 @@ void fixBoard(Board board) {
   for2dType(
     board,
     'num',
-    (x, y, cell) => (cx, cy, cellCount) = (x, y, cellCount + 1),
+        (x, y, cell) => (cx, cy, cellCount) = (x, y, cellCount + 1),
   );
 
   // pass 2: flood fill from the number, and count
@@ -303,10 +300,10 @@ void fixBoard(Board board) {
 }
 
 Board randomBoard(
-  int w,
-  int h,
-  double density,
-) {
+    int w,
+    int h,
+    double density,
+    ) {
   Board board = array2d(w + 2, h + 2, (int x, int y) {
     if (x == 0 || x == w + 1 || y == 0 || y == h + 1) {
       return Cell(
@@ -325,9 +322,9 @@ Board randomBoard(
   }
 
   bool isValid(
-    int x,
-    int y,
-  ) {
+      int x,
+      int y,
+      ) {
     return [
       [1, 0],
       [0, 1],
