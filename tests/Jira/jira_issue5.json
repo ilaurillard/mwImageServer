@@ -1,0 +1,35 @@
+{
+  "expand": "names,schema",
+  "startAt": 0,
+  "maxResults": 50,
+  "total": 1,
+  "issues": [
+    {
+      "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+      "id": "62504",
+      "self": "https://mindworks.atlassian.net/rest/api/latest/issue/62504",
+      "key": "ALVE-1778",
+      "renderedFields": {
+        "description": "<h5><a name=\"Problembeschreibung\"></a>Problembeschreibung</h5>\n\n<p>Tankstellenfotos mit Umlauten im Namen wurde nicht importiert.</p>\n\n<ul>\n\t<li>Neuer Datenbestand liegt vor → bei Heinz auf dem Rechner</li>\n\t<li>Ablauf\n\t<ul>\n\t\t<li><img class=\"emoticon\" src=\"/images/icons/emoticons/check.png\" height=\"16\" width=\"16\" align=\"absmiddle\" alt=\"\" border=\"0\"/> Daten auf den Elaflex-Server übertragen</li>\n\t\t<li><img class=\"emoticon\" src=\"/images/icons/emoticons/check.png\" height=\"16\" width=\"16\" align=\"absmiddle\" alt=\"\" border=\"0\"/> nicht importierte Fotos identifizieren und zuordnen</li>\n\t\t<li>Import der fehlenden Fotos</li>\n\t</ul>\n\t</li>\n</ul>\n",
+        "status": null
+      },
+      "fields": {
+        "description": "h5. Problembeschreibung\n\nTankstellenfotos mit Umlauten im Namen wurde nicht importiert.\n\n* Neuer Datenbestand liegt vor → bei Heinz auf dem Rechner\n* Ablauf\n** (/) Daten auf den Elaflex-Server übertragen\n** (/) nicht importierte Fotos identifizieren und zuordnen\n** Import der fehlenden Fotos",
+        "status": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/status/3",
+          "description": "This issue is being actively worked on at the moment by the assignee.",
+          "iconUrl": "https://mindworks.atlassian.net/images/icons/statuses/inprogress.png",
+          "name": "In Umsetzung",
+          "id": "3",
+          "statusCategory": {
+            "self": "https://mindworks.atlassian.net/rest/api/2/statuscategory/4",
+            "id": 4,
+            "key": "indeterminate",
+            "colorName": "yellow",
+            "name": "In Progress"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
-import 'package:mwcdn/MwPdf/Service/Facturx/Model/CrossIndustryInvoice.dart';
+import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Model/CrossIndustryInvoice.dart';
 import 'package:xml/xml.dart';
 
 class Invoice {

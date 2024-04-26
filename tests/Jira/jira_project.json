@@ -1,0 +1,1412 @@
+{
+  "expand": "description,lead,issueTypes,url,projectKeys,permissions,insight",
+  "self": "https://mindworks.atlassian.net/rest/api/2/project/13400",
+  "id": "13400",
+  "key": "ALVE",
+  "description": "",
+  "lead": {
+    "self": "https://mindworks.atlassian.net/rest/api/2/user?accountId=5c531a9269dc034ed80b9f7a",
+    "accountId": "5c531a9269dc034ed80b9f7a",
+    "avatarUrls": {
+      "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/48",
+      "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/24",
+      "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/16",
+      "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/32"
+    },
+    "displayName": "Adam Dacko",
+    "active": true
+  },
+  "components": [],
+  "issueTypes": [
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/1",
+      "id": "1",
+      "description": "A problem or error.",
+      "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/11403?size=medium",
+      "name": "Bug",
+      "subtask": false,
+      "avatarId": 11403,
+      "hierarchyLevel": 0
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/5",
+      "id": "5",
+      "description": "A small piece of work that's part of a larger task.",
+      "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/11416?size=medium",
+      "name": "Sub-task",
+      "subtask": true,
+      "avatarId": 11416,
+      "hierarchyLevel": -1
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/10526",
+      "id": "10526",
+      "description": "",
+      "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/16321?size=medium",
+      "name": "Story intern",
+      "subtask": false,
+      "avatarId": 16321,
+      "hierarchyLevel": 0
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/10527",
+      "id": "10527",
+      "description": "",
+      "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/16326?size=medium",
+      "name": "Task intern",
+      "subtask": false,
+      "avatarId": 16326,
+      "hierarchyLevel": 0
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/3",
+      "id": "3",
+      "description": "A small, distinct piece of work.",
+      "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/16325?size=medium",
+      "name": "Task",
+      "subtask": false,
+      "avatarId": 16325,
+      "hierarchyLevel": 0
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/7",
+      "id": "7",
+      "description": "Functionality or a feature expressed as a user goal.",
+      "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/16322?size=medium",
+      "name": "Story",
+      "subtask": false,
+      "avatarId": 16322,
+      "hierarchyLevel": 0
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/6",
+      "id": "6",
+      "description": "A collection of related bugs, stories, and tasks.",
+      "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/11407?size=medium",
+      "name": "Epic",
+      "subtask": false,
+      "avatarId": 11407,
+      "hierarchyLevel": 1
+    }
+  ],
+  "assigneeType": "UNASSIGNED",
+  "versions": [
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20369",
+      "id": "20369",
+      "description": "Achtung .. nach dem Release muss ein Cronjob eingerichtet werden:\n\nsiehe ALVE-1894",
+      "name": "R21",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-06-19",
+      "userReleaseDate": "19.06.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20074",
+      "id": "20074",
+      "description": "Achtung -- Telefonnummer normalisieren! Nach Import - siehe ALVE-637",
+      "name": "preview-71",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-10-26",
+      "userReleaseDate": "26.10.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19631",
+      "id": "19631",
+      "name": "preview-10",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-04-18",
+      "userReleaseDate": "18.04.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19632",
+      "id": "19632",
+      "name": "preview-10b",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-04-20",
+      "userReleaseDate": "20.04.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19635",
+      "id": "19635",
+      "name": "preview-10c",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-04-23",
+      "userReleaseDate": "23.04.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19636",
+      "id": "19636",
+      "name": "preview-10d",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-04-24",
+      "userReleaseDate": "24.04.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19638",
+      "id": "19638",
+      "name": "preview-10e",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-04-26",
+      "userReleaseDate": "26.04.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19640",
+      "id": "19640",
+      "name": "Preview-11a",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-05-08",
+      "userReleaseDate": "08.05.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19643",
+      "id": "19643",
+      "name": "preview-11b",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-05-14",
+      "userReleaseDate": "14.05.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19648",
+      "id": "19648",
+      "name": "preview-12a",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-05-25",
+      "userReleaseDate": "25.05.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19650",
+      "id": "19650",
+      "name": "preview-13a",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-06-05",
+      "userReleaseDate": "05.06.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19657",
+      "id": "19657",
+      "name": "preview-14",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-06-14",
+      "userReleaseDate": "14.06.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19660",
+      "id": "19660",
+      "description": "ca 16:45h",
+      "name": "preview-14a",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-06-19",
+      "userReleaseDate": "19.06.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19663",
+      "id": "19663",
+      "name": "preview-15",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-07-03",
+      "userReleaseDate": "03.07.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19666",
+      "id": "19666",
+      "name": "preview-16",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-07-18",
+      "userReleaseDate": "18.07.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19668",
+      "id": "19668",
+      "name": "preview-17",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-08-01",
+      "userReleaseDate": "01.08.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19674",
+      "id": "19674",
+      "name": "preview-18",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-09-11",
+      "userReleaseDate": "11.09.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19687",
+      "id": "19687",
+      "name": "preview-19",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-09-25",
+      "userReleaseDate": "25.09.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19689",
+      "id": "19689",
+      "name": "preview-20",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-10-09",
+      "userReleaseDate": "09.10.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19695",
+      "id": "19695",
+      "name": "preview-21",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-10-23",
+      "userReleaseDate": "23.10.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19699",
+      "id": "19699",
+      "name": "preview-22",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-10-25",
+      "userReleaseDate": "25.10.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19702",
+      "id": "19702",
+      "description": "freeze!",
+      "name": "preview-23",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-11-07",
+      "userReleaseDate": "07.11.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19704",
+      "id": "19704",
+      "name": "preview-24",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-11-13",
+      "userReleaseDate": "13.11.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19706",
+      "id": "19706",
+      "name": "preview-25",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-12-04",
+      "userReleaseDate": "04.12.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19710",
+      "id": "19710",
+      "name": "preview-26",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2018-12-18",
+      "userReleaseDate": "18.12.18",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19717",
+      "id": "19717",
+      "name": "preview-27",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-01-08",
+      "userReleaseDate": "08.01.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19721",
+      "id": "19721",
+      "name": "preview-28",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-01-22",
+      "userReleaseDate": "22.01.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19726",
+      "id": "19726",
+      "name": "preview-29",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-02-05",
+      "userReleaseDate": "05.02.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19733",
+      "id": "19733",
+      "name": "preview-30",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-02-19",
+      "userReleaseDate": "19.02.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19738",
+      "id": "19738",
+      "name": "preview-31",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-03-05",
+      "userReleaseDate": "05.03.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19741",
+      "id": "19741",
+      "name": "preview-32",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-03-19",
+      "userReleaseDate": "19.03.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19746",
+      "id": "19746",
+      "name": "preview-33",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-04-02",
+      "userReleaseDate": "02.04.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19752",
+      "id": "19752",
+      "name": "preview-34",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-04-11",
+      "userReleaseDate": "11.04.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19757",
+      "id": "19757",
+      "name": "preview-35",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-05-14",
+      "userReleaseDate": "14.05.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19764",
+      "id": "19764",
+      "name": "preview-36",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-06-12",
+      "userReleaseDate": "12.06.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19768",
+      "id": "19768",
+      "name": "preview-37",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-06-25",
+      "userReleaseDate": "25.06.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19770",
+      "id": "19770",
+      "name": "preview-38",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-07-09",
+      "userReleaseDate": "09.07.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19772",
+      "id": "19772",
+      "name": "preview-39",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-07-09",
+      "userReleaseDate": "09.07.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19781",
+      "id": "19781",
+      "name": "preview-40",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-08-20",
+      "userReleaseDate": "20.08.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19784",
+      "id": "19784",
+      "name": "preview-41",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-09-03",
+      "userReleaseDate": "03.09.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19785",
+      "id": "19785",
+      "name": "preview-42",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-09-17",
+      "userReleaseDate": "17.09.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19792",
+      "id": "19792",
+      "name": "preview-43",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-09-30",
+      "userReleaseDate": "30.09.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19794",
+      "id": "19794",
+      "name": "preview-44",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-10-15",
+      "userReleaseDate": "15.10.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19796",
+      "id": "19796",
+      "name": "preview-45",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-10-30",
+      "userReleaseDate": "30.10.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19798",
+      "id": "19798",
+      "name": "preview-46",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-11-18",
+      "userReleaseDate": "18.11.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19802",
+      "id": "19802",
+      "name": "preview-47",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2019-11-26",
+      "userReleaseDate": "26.11.19",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19806",
+      "id": "19806",
+      "name": "preview-48",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-01-24",
+      "userReleaseDate": "24.01.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19822",
+      "id": "19822",
+      "name": "preview-49",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-03-31",
+      "userReleaseDate": "31.03.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19848",
+      "id": "19848",
+      "name": "preview-50",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-04-14",
+      "userReleaseDate": "14.04.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19853",
+      "id": "19853",
+      "name": "preview-51",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-05-05",
+      "userReleaseDate": "05.05.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19860",
+      "id": "19860",
+      "name": "preview-52",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-06-09",
+      "userReleaseDate": "09.06.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19871",
+      "id": "19871",
+      "name": "preview-53",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-06-23",
+      "userReleaseDate": "23.06.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19874",
+      "id": "19874",
+      "description": "Achtung! neu Import erforderlich!",
+      "name": "preview-54",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-08-03",
+      "userReleaseDate": "03.08.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19890",
+      "id": "19890",
+      "description": "Benötigt Vollimport!",
+      "name": "preview-55",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-08-31",
+      "userReleaseDate": "31.08.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19896",
+      "id": "19896",
+      "description": "mit vollimport!",
+      "name": "preview-56",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-09-28",
+      "userReleaseDate": "28.09.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19902",
+      "id": "19902",
+      "name": "preview-57",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-09-28",
+      "userReleaseDate": "28.09.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19903",
+      "id": "19903",
+      "name": "preview-58",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-10-02",
+      "userReleaseDate": "02.10.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19905",
+      "id": "19905",
+      "description": "bitte mit vollimport!",
+      "name": "preview-59",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-11-09",
+      "userReleaseDate": "09.11.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19921",
+      "id": "19921",
+      "name": "preview-60",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-12-14",
+      "userReleaseDate": "14.12.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19935",
+      "id": "19935",
+      "name": "preview-61",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2020-12-23",
+      "userReleaseDate": "23.12.20",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19938",
+      "id": "19938",
+      "name": "preview-62",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-01-19",
+      "userReleaseDate": "19.01.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19951",
+      "id": "19951",
+      "name": "preview-63",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-03-17",
+      "userReleaseDate": "17.03.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19960",
+      "id": "19960",
+      "name": "preview-62-fixes",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-02-01",
+      "userReleaseDate": "01.02.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/19985",
+      "id": "19985",
+      "name": "preview-64",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-04-16",
+      "userReleaseDate": "16.04.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20004",
+      "id": "20004",
+      "name": "preview-65",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-05-11",
+      "userReleaseDate": "11.05.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20014",
+      "id": "20014",
+      "description": "@heinz Achtung neue Bild-Import Aufrufe .. siehe ALVE-362",
+      "name": "preview-66",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-06-23",
+      "userReleaseDate": "23.06.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20031",
+      "id": "20031",
+      "name": "preview-67",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-07-12",
+      "userReleaseDate": "12.07.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20038",
+      "id": "20038",
+      "name": "preview-68",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-07-28",
+      "userReleaseDate": "28.07.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20045",
+      "id": "20045",
+      "name": "preview-69",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-09-06",
+      "userReleaseDate": "06.09.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20064",
+      "id": "20064",
+      "name": "preview-70",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-10-01",
+      "userReleaseDate": "01.10.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20080",
+      "id": "20080",
+      "name": "preview-72",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2021-11-29",
+      "userReleaseDate": "29.11.21",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20098",
+      "id": "20098",
+      "name": "preview-73",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-01-18",
+      "userReleaseDate": "18.01.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20099",
+      "id": "20099",
+      "name": "preview-74",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-02-02",
+      "userReleaseDate": "02.02.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20105",
+      "id": "20105",
+      "description": "achtung full import!",
+      "name": "preview-75",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-03-10",
+      "userReleaseDate": "10.03.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20121",
+      "id": "20121",
+      "name": "preview-76",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-05-09",
+      "userReleaseDate": "09.05.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20158",
+      "id": "20158",
+      "name": "preview-77",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-07-08",
+      "userReleaseDate": "08.07.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20187",
+      "id": "20187",
+      "name": "preview-78",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-09-15",
+      "userReleaseDate": "15.09.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20219",
+      "id": "20219",
+      "name": "preview-79",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-10-10",
+      "userReleaseDate": "10.10.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20237",
+      "id": "20237",
+      "name": "preview-80",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-10-20",
+      "userReleaseDate": "20.10.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20246",
+      "id": "20246",
+      "name": "preview-81",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-11-08",
+      "userReleaseDate": "08.11.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20256",
+      "id": "20256",
+      "name": "R2",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-11-09",
+      "userReleaseDate": "09.11.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20257",
+      "id": "20257",
+      "name": "R1",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-11-08",
+      "userReleaseDate": "08.11.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20259",
+      "id": "20259",
+      "name": "R3",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-11-10",
+      "userReleaseDate": "10.11.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20261",
+      "id": "20261",
+      "name": "R4",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-11-16",
+      "userReleaseDate": "16.11.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20263",
+      "id": "20263",
+      "name": "R5",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-11-29",
+      "userReleaseDate": "29.11.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20271",
+      "id": "20271",
+      "name": "R6",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-11-29",
+      "userReleaseDate": "29.11.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20278",
+      "id": "20278",
+      "name": "R7",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-12-19",
+      "userReleaseDate": "19.12.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20287",
+      "id": "20287",
+      "name": "R8",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-12-19",
+      "userReleaseDate": "19.12.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20289",
+      "id": "20289",
+      "name": "R9",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2022-12-19",
+      "userReleaseDate": "19.12.22",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20297",
+      "id": "20297",
+      "name": "R10",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-01-13",
+      "userReleaseDate": "13.01.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20300",
+      "id": "20300",
+      "name": "R11",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-01-13",
+      "userReleaseDate": "13.01.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20301",
+      "id": "20301",
+      "name": "R12",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-01-13",
+      "userReleaseDate": "13.01.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20305",
+      "id": "20305",
+      "name": "R13",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-01-13",
+      "userReleaseDate": "13.01.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20307",
+      "id": "20307",
+      "name": "R14",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-01-31",
+      "userReleaseDate": "31.01.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20313",
+      "id": "20313",
+      "name": "R15",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-01-31",
+      "userReleaseDate": "31.01.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20318",
+      "id": "20318",
+      "name": "R16",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-03-14",
+      "userReleaseDate": "14.03.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20325",
+      "id": "20325",
+      "name": "R17",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-03-14",
+      "userReleaseDate": "14.03.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20336",
+      "id": "20336",
+      "name": "R18",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-03-29",
+      "userReleaseDate": "29.03.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20350",
+      "id": "20350",
+      "name": "R19",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-04-13",
+      "userReleaseDate": "13.04.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20359",
+      "id": "20359",
+      "name": "r18c",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-03-29",
+      "userReleaseDate": "29.03.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20362",
+      "id": "20362",
+      "name": "R20",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-04-25",
+      "userReleaseDate": "25.04.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20527",
+      "id": "20527",
+      "name": "R20b",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-04-25",
+      "userReleaseDate": "25.04.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20528",
+      "id": "20528",
+      "name": "R22",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-07-03",
+      "userReleaseDate": "03.07.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20546",
+      "id": "20546",
+      "name": "R23",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-07-03",
+      "userReleaseDate": "03.07.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20555",
+      "id": "20555",
+      "name": "R24",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-07-03",
+      "userReleaseDate": "03.07.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20569",
+      "id": "20569",
+      "description": "17.07.2023 auf staging",
+      "name": "R25",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-08-01",
+      "userReleaseDate": "01.08.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20577",
+      "id": "20577",
+      "description": "18.07.2023 auf staging",
+      "name": "R26",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-08-01",
+      "userReleaseDate": "01.08.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20578",
+      "id": "20578",
+      "description": "24.07.2023 auf staging",
+      "name": "R27",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-08-01",
+      "userReleaseDate": "01.08.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20584",
+      "id": "20584",
+      "description": "25.07.2023 auf staging",
+      "name": "R28",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-08-01",
+      "userReleaseDate": "01.08.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20587",
+      "id": "20587",
+      "description": "31.07.2023 auf staging",
+      "name": "R29",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-08-01",
+      "userReleaseDate": "01.08.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20592",
+      "id": "20592",
+      "description": "03.08.2023 auf staging",
+      "name": "R30",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-08-03",
+      "userReleaseDate": "03.08.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20596",
+      "id": "20596",
+      "description": "14.09.2023 auf staging",
+      "name": "R31",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-09-28",
+      "userReleaseDate": "28.09.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20626",
+      "id": "20626",
+      "description": "26.09.2023 auf staging",
+      "name": "R32",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-09-28",
+      "userReleaseDate": "28.09.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20638",
+      "id": "20638",
+      "description": "05.10.2023 auf staging",
+      "name": "R33",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-11-23",
+      "userReleaseDate": "23.11.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20652",
+      "id": "20652",
+      "description": "23.10.2023 auf staging",
+      "name": "R34",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-11-23",
+      "userReleaseDate": "23.11.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20667",
+      "id": "20667",
+      "description": "24.10.2023 auf staging",
+      "name": "R35",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-11-23",
+      "userReleaseDate": "23.11.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20668",
+      "id": "20668",
+      "description": "25.10.2023 auf staging",
+      "name": "R36",
+      "archived": false,
+      "released": true,
+      "releaseDate": "2023-11-23",
+      "userReleaseDate": "23.11.23",
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20669",
+      "id": "20669",
+      "description": "27.11.2023 auf staging",
+      "name": "R37",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20707",
+      "id": "20707",
+      "description": "04.12.2023 auf staging",
+      "name": "R38",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20710",
+      "id": "20710",
+      "description": "05.12.2023 auf staging",
+      "name": "R39",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20714",
+      "id": "20714",
+      "description": "13.12.2023 auf staging",
+      "name": "R40",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20723",
+      "id": "20723",
+      "description": "13.12.2023 auf staging",
+      "name": "R41",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20724",
+      "id": "20724",
+      "description": "09.01.2024 auf staging",
+      "name": "R42",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20741",
+      "id": "20741",
+      "description": "12.01.2024 auf staging",
+      "name": "R43",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20743",
+      "id": "20743",
+      "name": "R42a",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20744",
+      "id": "20744",
+      "name": "NOVERSION",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20754",
+      "id": "20754",
+      "description": "25.01.2024 auf staging",
+      "name": "R44",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20760",
+      "id": "20760",
+      "description": "05.02.2024 auf staging",
+      "name": "R45",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    },
+    {
+      "self": "https://mindworks.atlassian.net/rest/api/2/version/20770",
+      "id": "20770",
+      "name": "R46",
+      "archived": false,
+      "released": false,
+      "projectId": 13400
+    }
+  ],
+  "name": "Alvern Campaign DB Web",
+  "roles": {
+    "atlassian-addons-project-access": "https://mindworks.atlassian.net/rest/api/2/project/13400/role/10400",
+    "Developers": "https://mindworks.atlassian.net/rest/api/2/project/13400/role/10001",
+    "Administrators": "https://mindworks.atlassian.net/rest/api/2/project/13400/role/10002",
+    "Users": "https://mindworks.atlassian.net/rest/api/2/project/13400/role/10000",
+    "Stakeholders": "https://mindworks.atlassian.net/rest/api/2/project/13400/role/10101",
+    "Tempo Project Managers": "https://mindworks.atlassian.net/rest/api/2/project/13400/role/10300"
+  },
+  "avatarUrls": {
+    "48x48": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16226",
+    "24x24": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16226?size=small",
+    "16x16": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16226?size=xsmall",
+    "32x32": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16226?size=medium"
+  },
+  "projectTypeKey": "software",
+  "simplified": false,
+  "style": "classic",
+  "isPrivate": false,
+  "properties": {}
+}

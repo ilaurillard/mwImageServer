@@ -1,0 +1,310 @@
+{
+  "expand": "names,schema",
+  "startAt": 0,
+  "maxResults": 50,
+  "total": 1,
+  "issues": [
+    {
+      "expand": "operations,versionedRepresentations,editmeta,changelog,customfield_11117.properties,renderedFields,customfield_11104.requestTypePractice",
+      "id": "51852",
+      "self": "https://mindworks.atlassian.net/rest/api/latest/issue/51852",
+      "key": "ALVE-1000",
+      "fields": {
+        "statuscategorychangedate": "2019-10-08T15:16:55.291+0200",
+        "issuetype": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/7",
+          "id": "7",
+          "description": "Functionality or a feature expressed as a user goal.",
+          "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/16322?size=medium",
+          "name": "Story",
+          "subtask": false,
+          "avatarId": 16322,
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "47462",
+          "key": "ALVE-8",
+          "self": "https://mindworks.atlassian.net/rest/api/2/issue/47462",
+          "fields": {
+            "summary": "Meilenstein 7: Material (Ausgestaltung)",
+            "status": {
+              "self": "https://mindworks.atlassian.net/rest/api/2/status/6",
+              "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+              "iconUrl": "https://mindworks.atlassian.net/images/icons/statuses/closed.png",
+              "name": "Geschlossen",
+              "id": "6",
+              "statusCategory": {
+                "self": "https://mindworks.atlassian.net/rest/api/2/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://mindworks.atlassian.net/rest/api/2/priority/5",
+              "iconUrl": "https://mindworks.atlassian.net/images/icons/priorities/trivial.svg",
+              "name": "Not prioritized",
+              "id": "5"
+            },
+            "issuetype": {
+              "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/6",
+              "id": "6",
+              "description": "A collection of related bugs, stories, and tasks.",
+              "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/11407?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 11407,
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/project/13400",
+          "id": "13400",
+          "key": "ALVE",
+          "name": "Alvern Campaign DB Web",
+          "projectTypeKey": "software",
+          "simplified": false,
+          "avatarUrls": {
+            "48x48": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16226",
+            "24x24": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16226?size=small",
+            "16x16": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16226?size=xsmall",
+            "32x32": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16226?size=medium"
+          }
+        },
+        "customfield_11120": null,
+        "customfield_11000": null,
+        "customfield_11121": null,
+        "fixVersions": [
+          {
+            "self": "https://mindworks.atlassian.net/rest/api/2/version/19792",
+            "id": "19792",
+            "description": "",
+            "name": "preview-43",
+            "archived": false,
+            "released": true,
+            "releaseDate": "2019-09-30"
+          }
+        ],
+        "customfield_11122": null,
+        "customfield_11123": null,
+        "aggregatetimespent": null,
+        "customfield_11124": null,
+        "resolution": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/resolution/8",
+          "id": "8",
+          "description": "Work has been completed on this issue.",
+          "name": "Done"
+        },
+        "customfield_11125": null,
+        "customfield_11126": null,
+        "customfield_11116": null,
+        "customfield_11117": null,
+        "customfield_10700": {
+          "hasEpicLinkFieldDependency": false,
+          "showField": false,
+          "nonEditableReason": {
+            "reason": "PLUGIN_LICENSE_ERROR",
+            "message": "The Parent Link is only available to Jira Premium users."
+          }
+        },
+        "customfield_10900": null,
+        "resolutiondate": "2019-09-26T10:55:41.423+0200",
+        "workratio": -1,
+        "watches": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/issue/ALVE-1000/watchers",
+          "watchCount": 1,
+          "isWatching": false
+        },
+        "lastViewed": null,
+        "created": "2019-09-26T09:48:26.499+0200",
+        "customfield_11151": null,
+        "customfield_11110": null,
+        "priority": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/priority/5",
+          "iconUrl": "https://mindworks.atlassian.net/images/icons/priorities/trivial.svg",
+          "name": "Not prioritized",
+          "id": "5"
+        },
+        "customfield_11112": null,
+        "customfield_11113": null,
+        "customfield_10024": null,
+        "customfield_11114": null,
+        "labels": [
+          "AlvernQA"
+        ],
+        "customfield_11115": null,
+        "customfield_11149": null,
+        "customfield_11105": [],
+        "customfield_11106": null,
+        "customfield_11107": null,
+        "customfield_11108": null,
+        "timeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "customfield_11109": null,
+        "versions": [],
+        "issuelinks": [
+          {
+            "id": "45845",
+            "self": "https://mindworks.atlassian.net/rest/api/2/issueLink/45845",
+            "type": {
+              "id": "10200",
+              "name": "Problem/Incident",
+              "inward": "is caused by",
+              "outward": "causes",
+              "self": "https://mindworks.atlassian.net/rest/api/2/issueLinkType/10200"
+            },
+            "inwardIssue": {
+              "id": "51705",
+              "key": "ALVE-973",
+              "self": "https://mindworks.atlassian.net/rest/api/2/issue/51705",
+              "fields": {
+                "summary": "Refill Übersichtsseite: Länderkürzel anzeigen",
+                "status": {
+                  "self": "https://mindworks.atlassian.net/rest/api/2/status/6",
+                  "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+                  "iconUrl": "https://mindworks.atlassian.net/images/icons/statuses/closed.png",
+                  "name": "Geschlossen",
+                  "id": "6",
+                  "statusCategory": {
+                    "self": "https://mindworks.atlassian.net/rest/api/2/statuscategory/3",
+                    "id": 3,
+                    "key": "done",
+                    "colorName": "green",
+                    "name": "Done"
+                  }
+                },
+                "priority": {
+                  "self": "https://mindworks.atlassian.net/rest/api/2/priority/5",
+                  "iconUrl": "https://mindworks.atlassian.net/images/icons/priorities/trivial.svg",
+                  "name": "Not prioritized",
+                  "id": "5"
+                },
+                "issuetype": {
+                  "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/7",
+                  "id": "7",
+                  "description": "Functionality or a feature expressed as a user goal.",
+                  "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/16322?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 16322,
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          }
+        ],
+        "assignee": null,
+        "updated": "2021-10-19T14:48:15.845+0200",
+        "status": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/status/6",
+          "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+          "iconUrl": "https://mindworks.atlassian.net/images/icons/statuses/closed.png",
+          "name": "Geschlossen",
+          "id": "6",
+          "statusCategory": {
+            "self": "https://mindworks.atlassian.net/rest/api/2/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "components": [],
+        "timeoriginalestimate": null,
+        "customfield_11140": null,
+        "customfield_11141": null,
+        "description": "h5. Originalanforderungen \r\naus Ticket ALVE-973 \r\n{quote} \r\ndie Anzeige funktioniert soweit, wenn Daten vorhanden sind.\r\n\r\nWas uns hierzu noch aufgefallen ist:\r\n\r\nWenn wir in einem Refill einen Empfänger auswählen, dann wird zwar die Lieferadresse übernommen, jedoch nicht das Feld \"ISO-Ländercode\" befüllt. Somit erhalten wir natürlich keine Einträge in der Spalte. Dies muss noch ergänzt werden!\r\nDies gilt es auch im Rahmen des Tickets für die Übernahme der TS Lieferadressen in die bestehenden Refills zu beachten.\r\n\r\nDieses Ticket kann somit zu und bitte neues Ticket erstellen.\r\n{quote}\r\n\r\nh5. Akzepetanzkriterien \r\n- Wird in einem Refill ein Empfänger ausgewählt, wird das Land aus der Adresse des Empfängers in die Lieferadresse des Refills (Feld: ISO-Ländercode) übernommen.",
+        "customfield_11142": null,
+        "customfield_11143": null,
+        "customfield_11144": null,
+        "customfield_11145": null,
+        "customfield_11146": null,
+        "customfield_11147": null,
+        "customfield_11103": null,
+        "customfield_11148": null,
+        "customfield_11104": null,
+        "customfield_11138": null,
+        "customfield_10005": null,
+        "customfield_10600": null,
+        "customfield_11139": null,
+        "customfield_10007": [
+          {
+            "id": 281,
+            "name": "ALVE Sprint 44",
+            "state": "closed",
+            "boardId": 77,
+            "goal": "",
+            "startDate": "2019-10-01T06:44:03.749Z",
+            "endDate": "2019-10-12T05:44:00.000Z",
+            "completeDate": "2019-12-06T13:08:30.420Z"
+          }
+        ],
+        "security": null,
+        "customfield_10008": "ALVE-8",
+        "customfield_10800": "{pullrequest={dataType=pullrequest, state=MERGED, stateCount=1}, json={\"cachedValue\":{\"errors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":1,\"lastUpdated\":\"2019-09-26T11:07:42.060+0200\",\"stateCount\":1,\"state\":\"MERGED\",\"dataType\":\"pullrequest\",\"open\":false},\"byInstanceType\":{\"bitbucket\":{\"count\":1,\"name\":\"Bitbucket Cloud\"}}}}},\"isStale\":true}}",
+        "aggregatetimeestimate": null,
+        "summary": "Refill: übernehmen des Landes in die Lieferadresse",
+        "creator": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/user?accountId=5c531a9269dc034ed80b9f7a",
+          "accountId": "5c531a9269dc034ed80b9f7a",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/32"
+          },
+          "displayName": "Adam Dacko",
+          "active": true,
+          "timeZone": "Europe/Berlin",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/user?accountId=5c531a9269dc034ed80b9f7a",
+          "accountId": "5c531a9269dc034ed80b9f7a",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/32"
+          },
+          "displayName": "Adam Dacko",
+          "active": true,
+          "timeZone": "Europe/Berlin",
+          "accountType": "atlassian"
+        },
+        "customfield_11133": null,
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "customfield_10000": "10208_*:*_1_*:*_2038_*|*_3_*:*_1_*:*_416822_*|*_5_*:*_1_*:*_1041904701_*|*_6_*:*_1_*:*_0_*|*_10000_*:*_1_*:*_363247_*|*_10002_*:*_1_*:*_3252855_*|*_10004_*:*_1_*:*_10569144",
+        "customfield_10001": null,
+        "customfield_11134": null,
+        "customfield_10200": "1|i019v7:",
+        "customfield_11135": null,
+        "customfield_10002": null,
+        "customfield_10003": null,
+        "customfield_11136": null,
+        "customfield_10400": null,
+        "customfield_11137": null,
+        "customfield_11127": null,
+        "customfield_11129": null,
+        "environment": null,
+        "duedate": null,
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/issue/ALVE-1000/votes",
+          "votes": 0,
+          "hasVoted": false
+        }
+      }
+    }
+  ]
+}

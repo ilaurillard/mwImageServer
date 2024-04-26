@@ -1,0 +1,35 @@
+{
+  "expand": "names,schema",
+  "startAt": 0,
+  "maxResults": 50,
+  "total": 1,
+  "issues": [
+    {
+      "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+      "id": "66272",
+      "self": "https://mindworks.atlassian.net/rest/api/latest/issue/66272",
+      "key": "UVV-1217",
+      "renderedFields": {
+        "description": "<h5><a name=\"Userstory\"></a>Userstory</h5>\n\n<p><em>Als Fahrer möchte ich eine Antwort aufnehmen, um diese an den Disponenten zu schicken.</em> </p>\n\n<h5><a name=\"Akzeptanzkriterien\"></a>Akzeptanzkriterien</h5>\n\n<ul>\n\t<li>Klickt der Fahrer auf “Antworten” in <a href=\"https://mindworks.atlassian.net/browse/UVV-1216\" title=\"smart-link\" class=\"external-link\" rel=\"nofollow noreferrer\">https://mindworks.atlassian.net/browse/UVV-1216</a>\n\t<ul>\n\t\t<li>Hört der Fahrer zunächst einen Signalton.</li>\n\t\t<li>Danach fängt das Gerät über das interne Mikrofon an aufzuzeichnen.</li>\n\t\t<li>Während der Aufzeichnung sieht der Fahrer folgende Auswahlmöglichkeiten in einem Modal:\n\t\t<ul>\n\t\t\t<li>Aufnahme beenden.\n\t\t\t<ul>\n\t\t\t\t<li>Beendet die Aufnahme und der Fahrer hat die Möglichkeit…\n\t\t\t\t<ul>\n\t\t\t\t\t<li>…zu verschicken\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"https://mindworks.atlassian.net/browse/UVV-1218\" title=\"smart-link\" class=\"external-link\" rel=\"nofollow noreferrer\">https://mindworks.atlassian.net/browse/UVV-1218</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li>…die Aufzeichnung abspielen.\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li>Wird die Aufzeichnung einmal abgespielt.</li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li>…eine neue Aufzeichnung zu starten.\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li>Dabei wird die alte Aufzeichnung gelöscht und der Prozess fängt von neuem an.</li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t</li>\n\t\t</ul>\n\t\t</li>\n\t</ul>\n\t</li>\n</ul>\n\n\n\n\n\n\n<h5><a name=\"Hinweis\"></a>Hinweis</h5>\n\n<p>Siehe Ticket <a href=\"https://mindworks.atlassian.net/browse/UVV-1218\" title=\"smart-link\" class=\"external-link\" rel=\"nofollow noreferrer\">https://mindworks.atlassian.net/browse/UVV-1218</a> </p>\n\n<p>“Für das POC wurde ein neuer Endpoint implementiert:<br/>\n”VoiceMessage” /api/docs/mailbox/</p>\n{userMessageId}\n<p>/voice-message <span class=\"error\">&#91;POST&#93;</span></p>\n\n<p>Ähnlich wie bei “MailboxMessageCreate” ist hier die “userMessageId” enthalten für die Nachricht auf die man Antworten möchte, jedoch als Routen-Parameter.</p>\n\n<p>Der Body enthält so wie bei “AttachFile” einfach die Binärdaten der Datei, im Header muss dann auch wie bei “AttachFile” der “Content-Disposition” Wert befüllt sein.</p>\n\n<p>Im Erfolgsfall wird der Status-Code 201 ausgeliefert.”</p>",
+        "status": null
+      },
+      "fields": {
+        "description": "h5. Userstory\n\n_Als Fahrer möchte ich eine Antwort aufnehmen, um diese an den Disponenten zu schicken._ \n\nh5. Akzeptanzkriterien\n\n* Klickt der Fahrer auf “Antworten” in [https://mindworks.atlassian.net/browse/UVV-1216|https://mindworks.atlassian.net/browse/UVV-1216|smart-link]  \n** Hört der Fahrer zunächst einen Signalton.\n** Danach fängt das Gerät über das interne Mikrofon an aufzuzeichnen. \n** Während der Aufzeichnung sieht der Fahrer folgende Auswahlmöglichkeiten in einem Modal: \n*** Aufnahme beenden. \n**** Beendet die Aufnahme und der Fahrer hat die Möglichkeit…\n***** …zu verschicken \n****** [https://mindworks.atlassian.net/browse/UVV-1218|https://mindworks.atlassian.net/browse/UVV-1218|smart-link] \n***** …die Aufzeichnung abspielen.\n****** Wird die Aufzeichnung einmal abgespielt. \n***** …eine neue Aufzeichnung zu starten.\n****** Dabei wird die alte Aufzeichnung gelöscht und der Prozess fängt von neuem an. \n\n\n\n\n\nh5. Hinweis\n\nSiehe Ticket [https://mindworks.atlassian.net/browse/UVV-1218|https://mindworks.atlassian.net/browse/UVV-1218|smart-link] \n\n“Für das POC wurde ein neuer Endpoint implementiert:\n”VoiceMessage” /api/docs/mailbox/{userMessageId}/voice-message [POST]\n\nÄhnlich wie bei “MailboxMessageCreate” ist hier die “userMessageId” enthalten für die Nachricht auf die man Antworten möchte, jedoch als Routen-Parameter.\n\nDer Body enthält so wie bei “AttachFile” einfach die Binärdaten der Datei, im Header muss dann auch wie bei “AttachFile” der “Content-Disposition” Wert befüllt sein.\n\nIm Erfolgsfall wird der Status-Code 201 ausgeliefert.”",
+        "status": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/status/401",
+          "description": "",
+          "iconUrl": "https://mindworks.atlassian.net/images/icons/bamboo-fail.png",
+          "name": "Bereit zum Preview-Deployment",
+          "id": "401",
+          "statusCategory": {
+            "self": "https://mindworks.atlassian.net/rest/api/2/statuscategory/4",
+            "id": 4,
+            "key": "indeterminate",
+            "colorName": "yellow",
+            "name": "In Progress"
+          }
+        }
+      }
+    }
+  ]
+}

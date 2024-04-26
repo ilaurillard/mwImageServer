@@ -89,7 +89,7 @@ class WeekViewDay {
               child: pw.Align(
                 alignment: pw.Alignment.topLeft,
                 child: pw.Text(
-                  'Meeting',
+                  entry.label,
                   style: pw.TextStyle(
                     color: PdfColors.white,
                   ),
@@ -231,14 +231,6 @@ class WeekViewDay {
           entry: entry,
         ),
       );
-      // res.add(
-      //   _entry(
-      //     x: 3,
-      //     width: 3,
-      //     maxWidth: 6,
-      //     entry: entry,
-      //   ),
-      // );
     }
 
     return res;

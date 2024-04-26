@@ -1,0 +1,308 @@
+{
+  "expand": "names,schema",
+  "startAt": 0,
+  "maxResults": 50,
+  "total": 1,
+  "issues": [
+    {
+      "expand": "operations,versionedRepresentations,editmeta,changelog,customfield_11117.properties,renderedFields,customfield_11104.requestTypePractice",
+      "id": "66272",
+      "self": "https://mindworks.atlassian.net/rest/api/latest/issue/66272",
+      "key": "UVV-1217",
+      "fields": {
+        "statuscategorychangedate": "2024-02-07T16:04:39.597+0100",
+        "issuetype": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/7",
+          "id": "7",
+          "description": "Functionality or a feature expressed as a user goal.",
+          "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/16322?size=medium",
+          "name": "Story",
+          "subtask": false,
+          "avatarId": 16322,
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "65826",
+          "key": "UVV-1137",
+          "self": "https://mindworks.atlassian.net/rest/api/2/issue/65826",
+          "fields": {
+            "summary": "Text to Speech",
+            "status": {
+              "self": "https://mindworks.atlassian.net/rest/api/2/status/4",
+              "description": "This issue was once resolved, but the resolution was deemed incorrect. From here issues are either marked assigned or resolved.",
+              "iconUrl": "https://mindworks.atlassian.net/images/icons/statuses/reopened.png",
+              "name": "In Spezifikation",
+              "id": "4",
+              "statusCategory": {
+                "self": "https://mindworks.atlassian.net/rest/api/2/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://mindworks.atlassian.net/rest/api/2/priority/5",
+              "iconUrl": "https://mindworks.atlassian.net/images/icons/priorities/trivial.svg",
+              "name": "Not prioritized",
+              "id": "5"
+            },
+            "issuetype": {
+              "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/6",
+              "id": "6",
+              "description": "A collection of related bugs, stories, and tasks.",
+              "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/11407?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 11407,
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "timespent": 54000,
+        "customfield_11120": null,
+        "project": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/project/13426",
+          "id": "13426",
+          "key": "UVV",
+          "name": "uvauvau-login ",
+          "projectTypeKey": "software",
+          "simplified": false,
+          "avatarUrls": {
+            "48x48": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16252",
+            "24x24": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16252?size=small",
+            "16x16": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16252?size=xsmall",
+            "32x32": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/16252?size=medium"
+          }
+        },
+        "customfield_11121": null,
+        "customfield_11000": null,
+        "fixVersions": [
+          {
+            "self": "https://mindworks.atlassian.net/rest/api/2/version/20774",
+            "id": "20774",
+            "description": "",
+            "name": "2.5.9",
+            "archived": false,
+            "released": false
+          }
+        ],
+        "customfield_11122": null,
+        "customfield_11123": null,
+        "aggregatetimespent": 54000,
+        "customfield_11124": null,
+        "resolution": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/resolution/8",
+          "id": "8",
+          "description": "Work has been completed on this issue.",
+          "name": "Done"
+        },
+        "customfield_11125": null,
+        "customfield_11126": null,
+        "customfield_11116": null,
+        "customfield_11117": null,
+        "customfield_10700": {
+          "hasEpicLinkFieldDependency": false,
+          "showField": false,
+          "nonEditableReason": {
+            "reason": "PLUGIN_LICENSE_ERROR",
+            "message": "The Parent Link is only available to Jira Premium users."
+          }
+        },
+        "customfield_10900": null,
+        "resolutiondate": "2024-02-07T16:05:06.643+0100",
+        "workratio": 75,
+        "watches": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/issue/UVV-1217/watchers",
+          "watchCount": 0,
+          "isWatching": false
+        },
+        "lastViewed": "2024-02-09T12:59:37.376+0100",
+        "created": "2024-01-24T07:39:24.647+0100",
+        "customfield_11151": null,
+        "customfield_11110": null,
+        "customfield_11112": "",
+        "priority": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/priority/5",
+          "iconUrl": "https://mindworks.atlassian.net/images/icons/priorities/trivial.svg",
+          "name": "Not prioritized",
+          "id": "5"
+        },
+        "customfield_11113": 0.0,
+        "customfield_10024": null,
+        "customfield_11114": null,
+        "labels": [],
+        "customfield_11115": null,
+        "customfield_11149": null,
+        "customfield_11105": [],
+        "customfield_11106": null,
+        "customfield_11107": null,
+        "customfield_11108": null,
+        "timeestimate": 18000,
+        "aggregatetimeoriginalestimate": 72000,
+        "customfield_11109": null,
+        "versions": [],
+        "issuelinks": [
+          {
+            "id": "55759",
+            "self": "https://mindworks.atlassian.net/rest/api/2/issueLink/55759",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://mindworks.atlassian.net/rest/api/2/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "66271",
+              "key": "UVV-1216",
+              "self": "https://mindworks.atlassian.net/rest/api/2/issue/66271",
+              "fields": {
+                "summary": "Audiodatei abspielen",
+                "status": {
+                  "self": "https://mindworks.atlassian.net/rest/api/2/status/10516",
+                  "description": "",
+                  "iconUrl": "https://mindworks.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "In Kalkulation",
+                  "id": "10516",
+                  "statusCategory": {
+                    "self": "https://mindworks.atlassian.net/rest/api/2/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://mindworks.atlassian.net/rest/api/2/priority/5",
+                  "iconUrl": "https://mindworks.atlassian.net/images/icons/priorities/trivial.svg",
+                  "name": "Not prioritized",
+                  "id": "5"
+                },
+                "issuetype": {
+                  "self": "https://mindworks.atlassian.net/rest/api/2/issuetype/7",
+                  "id": "7",
+                  "description": "Functionality or a feature expressed as a user goal.",
+                  "iconUrl": "https://mindworks.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/16322?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 16322,
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          }
+        ],
+        "assignee": null,
+        "updated": "2024-02-07T16:50:13.598+0100",
+        "status": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/status/401",
+          "description": "",
+          "iconUrl": "https://mindworks.atlassian.net/images/icons/bamboo-fail.png",
+          "name": "Bereit zum Preview-Deployment",
+          "id": "401",
+          "statusCategory": {
+            "self": "https://mindworks.atlassian.net/rest/api/2/statuscategory/4",
+            "id": 4,
+            "key": "indeterminate",
+            "colorName": "yellow",
+            "name": "In Progress"
+          }
+        },
+        "components": [],
+        "customfield_11140": null,
+        "timeoriginalestimate": 72000,
+        "customfield_11141": null,
+        "customfield_11142": null,
+        "description": "h5. Userstory\n\n_Als Fahrer möchte ich eine Antwort aufnehmen, um diese an den Disponenten zu schicken._ \n\nh5. Akzeptanzkriterien\n\n* Klickt der Fahrer auf “Antworten” in [https://mindworks.atlassian.net/browse/UVV-1216|https://mindworks.atlassian.net/browse/UVV-1216|smart-link]  \n** Hört der Fahrer zunächst einen Signalton.\n** Danach fängt das Gerät über das interne Mikrofon an aufzuzeichnen. \n** Während der Aufzeichnung sieht der Fahrer folgende Auswahlmöglichkeiten in einem Modal: \n*** Aufnahme beenden. \n**** Beendet die Aufnahme und der Fahrer hat die Möglichkeit…\n***** …zu verschicken \n****** [https://mindworks.atlassian.net/browse/UVV-1218|https://mindworks.atlassian.net/browse/UVV-1218|smart-link] \n***** …die Aufzeichnung abspielen.\n****** Wird die Aufzeichnung einmal abgespielt. \n***** …eine neue Aufzeichnung zu starten.\n****** Dabei wird die alte Aufzeichnung gelöscht und der Prozess fängt von neuem an. \n\n\n\n\n\nh5. Hinweis\n\nSiehe Ticket [https://mindworks.atlassian.net/browse/UVV-1218|https://mindworks.atlassian.net/browse/UVV-1218|smart-link] \n\n“Für das POC wurde ein neuer Endpoint implementiert:\n”VoiceMessage” /api/docs/mailbox/{userMessageId}/voice-message [POST]\n\nÄhnlich wie bei “MailboxMessageCreate” ist hier die “userMessageId” enthalten für die Nachricht auf die man Antworten möchte, jedoch als Routen-Parameter.\n\nDer Body enthält so wie bei “AttachFile” einfach die Binärdaten der Datei, im Header muss dann auch wie bei “AttachFile” der “Content-Disposition” Wert befüllt sein.\n\nIm Erfolgsfall wird der Status-Code 201 ausgeliefert.”",
+        "customfield_11143": null,
+        "customfield_11144": null,
+        "customfield_11145": null,
+        "customfield_11146": null,
+        "customfield_11147": null,
+        "customfield_11103": null,
+        "customfield_11104": null,
+        "customfield_11148": null,
+        "customfield_11138": null,
+        "customfield_10005": null,
+        "customfield_10600": null,
+        "customfield_11139": null,
+        "customfield_10007": [
+          {
+            "id": 922,
+            "name": "*UVV Sprint 2024-03",
+            "state": "active",
+            "boardId": 97,
+            "goal": "",
+            "startDate": "2024-02-02T14:32:13.000Z",
+            "endDate": "2024-02-16T14:32:00.000Z"
+          }
+        ],
+        "security": null,
+        "customfield_10008": "UVV-1137",
+        "customfield_10800": "{pullrequest={dataType=pullrequest, state=MERGED, stateCount=1}, json={\"cachedValue\":{\"errors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":1,\"lastUpdated\":\"2024-02-09T12:21:49.816+0100\",\"stateCount\":1,\"state\":\"MERGED\",\"dataType\":\"pullrequest\",\"open\":false},\"byInstanceType\":{\"bitbucket\":{\"count\":1,\"name\":\"Bitbucket Cloud\"}}}}},\"isStale\":false}}",
+        "aggregatetimeestimate": 18000,
+        "summary": "Antworten",
+        "creator": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/user?accountId=5c531a9269dc034ed80b9f7a",
+          "accountId": "5c531a9269dc034ed80b9f7a",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/32"
+          },
+          "displayName": "Adam Dacko",
+          "active": true,
+          "timeZone": "Europe/Berlin",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/user?accountId=5c531a9269dc034ed80b9f7a",
+          "accountId": "5c531a9269dc034ed80b9f7a",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5c531a9269dc034ed80b9f7a/ed11e4a6-0f37-44c4-b0df-552ace91df2d/32"
+          },
+          "displayName": "Adam Dacko",
+          "active": true,
+          "timeZone": "Europe/Berlin",
+          "accountType": "atlassian"
+        },
+        "customfield_11133": null,
+        "customfield_10000": "1_*:*_1_*:*_992422_*|*_10516_*:*_1_*:*_1139263439_*|*_3_*:*_1_*:*_27079_*|*_4_*:*_1_*:*_395636_*|*_400_*:*_1_*:*_0_*|*_10517_*:*_1_*:*_6628869_*|*_10521_*:*_1_*:*_92634608",
+        "aggregateprogress": {
+          "progress": 54000,
+          "total": 72000,
+          "percent": 75
+        },
+        "customfield_11134": null,
+        "customfield_10001": "2024-01-24T11:46:36.667+0100",
+        "customfield_11135": null,
+        "customfield_10200": "1|i03k7f:",
+        "customfield_10002": null,
+        "customfield_11136": null,
+        "customfield_10003": null,
+        "customfield_10400": null,
+        "customfield_11137": null,
+        "customfield_11127": null,
+        "environment": null,
+        "customfield_11129": null,
+        "duedate": null,
+        "progress": {
+          "progress": 54000,
+          "total": 72000,
+          "percent": 75
+        },
+        "votes": {
+          "self": "https://mindworks.atlassian.net/rest/api/2/issue/UVV-1217/votes",
+          "votes": 0,
+          "hasVoted": false
+        }
+      }
+    }
+  ]
+}
