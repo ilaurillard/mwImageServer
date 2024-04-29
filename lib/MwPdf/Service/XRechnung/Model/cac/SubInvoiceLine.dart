@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/LineExtensionAmount.dart';
 import '../cac/Item.dart';
@@ -149,42 +150,105 @@ class SubInvoiceLine {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD.toJson(),
-     'uUID': uUID?.toJson(),
-     'note': note.map((e) => e.toJson()).toList(),
-     'invoicedQuantity': invoicedQuantity?.toJson(),
-     'lineExtensionAmount': lineExtensionAmount.toJson(),
-     'taxPointDate': taxPointDate?.toJson(),
-     'accountingCostCode': accountingCostCode?.toJson(),
-     'accountingCost': accountingCost?.toJson(),
-     'paymentPurposeCode': paymentPurposeCode?.toJson(),
-     'freeOfChargeIndicator': freeOfChargeIndicator?.toJson(),
-     'invoicePeriod': invoicePeriod.map((e) => e.toJson()).toList(),
-     'orderLineReference': orderLineReference.map((e) => e.toJson()).toList(),
-     'despatchLineReference': despatchLineReference.map((e) => e.toJson()).toList(),
-     'receiptLineReference': receiptLineReference.map((e) => e.toJson()).toList(),
-     'billingReference': billingReference.map((e) => e.toJson()).toList(),
-     'documentReference': documentReference.map((e) => e.toJson()).toList(),
-     'pricingReference': pricingReference?.toJson(),
-     'originatorParty': originatorParty?.toJson(),
-     'delivery': delivery.map((e) => e.toJson()).toList(),
-     'paymentTerms': paymentTerms.map((e) => e.toJson()).toList(),
-     'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
-     'taxTotal': taxTotal.map((e) => e.toJson()).toList(),
-     'withholdingTaxTotal': withholdingTaxTotal.map((e) => e.toJson()).toList(),
-     'item': item.toJson(),
-     'price': price?.toJson(),
-     'deliveryTerms': deliveryTerms?.toJson(),
-     'subInvoiceLine': subInvoiceLine.map((e) => e.toJson()).toList(),
-     'itemPriceExtension': itemPriceExtension?.toJson(),
+      'iD': iD.toJson(),
+      'uUID': uUID?.toJson(),
+      'note': note.map((e) => e.toJson()).toList(),
+      'invoicedQuantity': invoicedQuantity?.toJson(),
+      'lineExtensionAmount': lineExtensionAmount.toJson(),
+      'taxPointDate': taxPointDate?.toJson(),
+      'accountingCostCode': accountingCostCode?.toJson(),
+      'accountingCost': accountingCost?.toJson(),
+      'paymentPurposeCode': paymentPurposeCode?.toJson(),
+      'freeOfChargeIndicator': freeOfChargeIndicator?.toJson(),
+      'invoicePeriod': invoicePeriod.map((e) => e.toJson()).toList(),
+      'orderLineReference': orderLineReference.map((e) => e.toJson()).toList(),
+      'despatchLineReference': despatchLineReference.map((e) => e.toJson()).toList(),
+      'receiptLineReference': receiptLineReference.map((e) => e.toJson()).toList(),
+      'billingReference': billingReference.map((e) => e.toJson()).toList(),
+      'documentReference': documentReference.map((e) => e.toJson()).toList(),
+      'pricingReference': pricingReference?.toJson(),
+      'originatorParty': originatorParty?.toJson(),
+      'delivery': delivery.map((e) => e.toJson()).toList(),
+      'paymentTerms': paymentTerms.map((e) => e.toJson()).toList(),
+      'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
+      'taxTotal': taxTotal.map((e) => e.toJson()).toList(),
+      'withholdingTaxTotal': withholdingTaxTotal.map((e) => e.toJson()).toList(),
+      'item': item.toJson(),
+      'price': price?.toJson(),
+      'deliveryTerms': deliveryTerms?.toJson(),
+      'subInvoiceLine': subInvoiceLine.map((e) => e.toJson()).toList(),
+      'itemPriceExtension': itemPriceExtension?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  SubInvoiceLine fromJson(Map<String, dynamic> json) {
+  static SubInvoiceLine? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return SubInvoiceLine (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
+      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
+      invoicedQuantity: InvoicedQuantity.fromJson(json['invoicedQuantity'] as Map<String, dynamic>?),
+      lineExtensionAmount: LineExtensionAmount.fromJson(json['lineExtensionAmount'] as Map<String, dynamic>?)!,
+      taxPointDate: TaxPointDate.fromJson(json['taxPointDate'] as Map<String, dynamic>?),
+      accountingCostCode: AccountingCostCode.fromJson(json['accountingCostCode'] as Map<String, dynamic>?),
+      accountingCost: AccountingCost.fromJson(json['accountingCost'] as Map<String, dynamic>?),
+      paymentPurposeCode: PaymentPurposeCode.fromJson(json['paymentPurposeCode'] as Map<String, dynamic>?),
+      freeOfChargeIndicator: FreeOfChargeIndicator.fromJson(json['freeOfChargeIndicator'] as Map<String, dynamic>?),
+      invoicePeriod: (json['invoicePeriod'] as List? ?? []).map((dynamic d) => InvoicePeriod.fromJson(d as Map<String, dynamic>?)!).toList(),
+      orderLineReference: (json['orderLineReference'] as List? ?? []).map((dynamic d) => OrderLineReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      despatchLineReference: (json['despatchLineReference'] as List? ?? []).map((dynamic d) => DespatchLineReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      receiptLineReference: (json['receiptLineReference'] as List? ?? []).map((dynamic d) => ReceiptLineReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      billingReference: (json['billingReference'] as List? ?? []).map((dynamic d) => BillingReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      pricingReference: PricingReference.fromJson(json['pricingReference'] as Map<String, dynamic>?),
+      originatorParty: OriginatorParty.fromJson(json['originatorParty'] as Map<String, dynamic>?),
+      delivery: (json['delivery'] as List? ?? []).map((dynamic d) => Delivery.fromJson(d as Map<String, dynamic>?)!).toList(),
+      paymentTerms: (json['paymentTerms'] as List? ?? []).map((dynamic d) => PaymentTerms.fromJson(d as Map<String, dynamic>?)!).toList(),
+      allowanceCharge: (json['allowanceCharge'] as List? ?? []).map((dynamic d) => AllowanceCharge.fromJson(d as Map<String, dynamic>?)!).toList(),
+      taxTotal: (json['taxTotal'] as List? ?? []).map((dynamic d) => TaxTotal.fromJson(d as Map<String, dynamic>?)!).toList(),
+      withholdingTaxTotal: (json['withholdingTaxTotal'] as List? ?? []).map((dynamic d) => WithholdingTaxTotal.fromJson(d as Map<String, dynamic>?)!).toList(),
+      item: Item.fromJson(json['item'] as Map<String, dynamic>?)!,
+      price: Price.fromJson(json['price'] as Map<String, dynamic>?),
+      deliveryTerms: DeliveryTerms.fromJson(json['deliveryTerms'] as Map<String, dynamic>?),
+      subInvoiceLine: (json['subInvoiceLine'] as List? ?? []).map((dynamic d) => SubInvoiceLine.fromJson(d as Map<String, dynamic>?)!).toList(),
+      itemPriceExtension: ItemPriceExtension.fromJson(json['itemPriceExtension'] as Map<String, dynamic>?),
+    );
+  }
+
+  static SubInvoiceLine? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return SubInvoiceLine (
+      iD: null,
+      uUID: null,
+      note: null,
+      invoicedQuantity: null,
+      lineExtensionAmount: null,
+      taxPointDate: null,
+      accountingCostCode: null,
+      accountingCost: null,
+      paymentPurposeCode: null,
+      freeOfChargeIndicator: null,
+      invoicePeriod: null,
+      orderLineReference: null,
+      despatchLineReference: null,
+      receiptLineReference: null,
+      billingReference: null,
+      documentReference: null,
+      pricingReference: null,
+      originatorParty: null,
+      delivery: null,
+      paymentTerms: null,
+      allowanceCharge: null,
+      taxTotal: null,
+      withholdingTaxTotal: null,
+      item: null,
+      price: null,
+      deliveryTerms: null,
+      subInvoiceLine: null,
+      itemPriceExtension: null,
     );
   }
 

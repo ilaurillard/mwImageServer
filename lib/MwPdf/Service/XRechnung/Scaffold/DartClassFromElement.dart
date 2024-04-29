@@ -4,8 +4,8 @@ import 'package:path/path.dart';
 
 import 'Attribute.dart';
 import 'ComplexType.dart';
-
 import 'Element.dart';
+
 class DartClassFromElement {
   final Element _element;
   late final ComplexType _type;
@@ -20,6 +20,7 @@ class DartClassFromElement {
     _type = _element.type!;
     _imports.add("import 'dart:convert';");
     _imports.add("import '../../Etc/Util.dart';");
+    _imports.add("import 'package:xml/xml.dart';");
   }
 
   String _lcfirst(String input) {
@@ -97,8 +98,8 @@ class DartClassFromElement {
         }
 
         String s = a.type.scalarType();
-        _attributes.add(
-            '  final $s${o ? '?' : ''} ${a.name}; // (${a.type.name})');
+        _attributes
+            .add('  final $s${o ? '?' : ''} ${a.name}; // (${a.type.name})');
         if (required) {
           _constructorMembers.add(
             '    required this.${a.name}',
@@ -204,10 +205,10 @@ class DartClassFromElement {
     toJson += '    Map<String, dynamic> map = {\n';
 
     if (_type.bodyType != null) {
-      toJson += "     'value': value,\n";
+      toJson += "      'value': value,\n";
     }
     for (Attribute a in _type.attributes.values) {
-      toJson += "     '${a.name}': ${a.name},\n";
+      toJson += "      '${a.name}': ${a.name},\n";
     }
     for (Element childElement in _type.elements.values) {
       int minOccurs = childElement.minOccurs;
@@ -217,10 +218,10 @@ class DartClassFromElement {
       bool o = minOccurs == 0;
       if (maxOccurs == 0) {
         toJson +=
-            "     '$elementVarName': $elementVarName.map((e) => e.toJson()).toList(),\n";
+            "      '$elementVarName': $elementVarName.map((e) => e.toJson()).toList(),\n";
       } else {
         toJson +=
-            "     '$elementVarName': $elementVarName${o ? '?' : ''}.toJson(),\n";
+            "      '$elementVarName': $elementVarName${o ? '?' : ''}.toJson(),\n";
       }
     }
 
@@ -228,25 +229,49 @@ class DartClassFromElement {
     toJson +=
         '    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));\n';
     toJson += '    return map;\n';
-    toJson += '  }\n\n';
+    toJson += '  }\n';
 
     _methods.add(toJson);
 
-    // ------
+    // --------------------------
 
-    String fromJson = '  ${_element.name} fromJson(Map<String, dynamic> json) {\n';
-    fromJson += "    return ${_element.name} (\n";
-
-    // if (_type.bodyType != null) {
-    //   toJson += "      'value': json['value'] ?? '',\n";
-    // }
+    String fromJson =
+        '  static ${_element.name}? fromJson(Map<String, dynamic>? json) {\n';
+    fromJson += '    if (json == null) { return null; }\n';
+    fromJson += '    return ${_element.name} (\n';
+    if (_type.bodyType != null) {
+      fromJson += '      value: ${_type.bodyType!.fromDef("json['value']")},\n';
+    }
+    for (Attribute a in _type.attributes.values) {
+      bool o = a.optional();
+      fromJson +=
+          '      ${a.name}: ${a.type.fromDef("json['${a.name}']", optional: o)},\n';
+    }
+    for (Element childElement in _type.elements.values) {
+      String elementClassName = childElement.name;
+      String elementVarName = _lcfirst(elementClassName);
+      if (childElement.type != null) {
+        int minOccurs = childElement.minOccurs;
+        int maxOccurs = childElement.maxOccurs;
+        bool o = minOccurs == 0;
+        if (maxOccurs == 0) {
+          fromJson +=
+              "      $elementVarName: (json['$elementVarName'] as List? ?? []).map((dynamic d) => $elementClassName.fromJson(d as Map<String, dynamic>?)!).toList(),\n";
+        } else {
+          fromJson +=
+              "      $elementVarName: $elementClassName.fromJson(json['$elementVarName'] as Map<String, dynamic>?)${(o ? '' : '!')},\n";
+        }
+      } else {
+        fromJson += '      $elementVarName: null, // missing type!!,\n';
+      }
+    }
 
     fromJson += '    );\n';
-    fromJson += '  }\n\n';
+    fromJson += '  }\n';
 
     _methods.add(fromJson);
 
-    // ------
+    // --------------------------
 
     // String toXml = ' String toXml() {\n';
     //
@@ -254,13 +279,36 @@ class DartClassFromElement {
     //
     // _methods.add(toXml);
 
-    // ------
+    // --------------------------
 
-    // String fromXml = ' fromXml() {\n';
-    //
-    // fromXml += ' }\n\n';
-    //
-    // _methods.add(fromXml);
+    String fromXml = '  static ${_element.name}? fromXml(XmlElement? xml) {\n';
+    fromXml += '    if (xml == null) { return null; }\n';
+    // fromXml += '    XmlNodeList<XmlAttribute> attr = xml.attributes;\n';
+    fromXml += '    return ${_element.name} (\n';
+
+    if (_type.bodyType != null) {
+      fromXml += '      value: null,\n';
+    }
+    for (Attribute a in _type.attributes.values) {
+      fromXml += '      ${a.name}: null,\n';
+    }
+    for (Element childElement in _type.elements.values) {
+      int minOccurs = childElement.minOccurs;
+      int maxOccurs = childElement.maxOccurs;
+      String elementClassName = childElement.name;
+      String elementVarName = _lcfirst(elementClassName);
+      bool o = minOccurs == 0;
+      if (maxOccurs == 0) {
+        fromXml += '      $elementVarName: null,\n';
+      } else {
+        fromXml += '      $elementVarName: null,\n';
+      }
+    }
+
+    fromXml += '    );\n';
+    fromXml += '  }\n\n';
+
+    _methods.add(fromXml);
   }
 
   String _render() {
@@ -303,5 +351,3 @@ class DartClassFromElement {
     return res;
   }
 }
-
-

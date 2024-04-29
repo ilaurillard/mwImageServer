@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/TrainID.dart';
 import '../cbc/RailCarID.dart';
 
@@ -20,16 +21,27 @@ class RailTransport {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'trainID': trainID.toJson(),
-     'railCarID': railCarID?.toJson(),
+      'trainID': trainID.toJson(),
+      'railCarID': railCarID?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  RailTransport fromJson(Map<String, dynamic> json) {
+  static RailTransport? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return RailTransport (
+      trainID: TrainID.fromJson(json['trainID'] as Map<String, dynamic>?)!,
+      railCarID: RailCarID.fromJson(json['railCarID'] as Map<String, dynamic>?),
+    );
+  }
+
+  static RailTransport? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return RailTransport (
+      trainID: null,
+      railCarID: null,
     );
   }
 

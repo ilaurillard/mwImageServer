@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../cbc/Telephone.dart';
@@ -45,21 +46,42 @@ class Contact {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'name': name?.toJson(),
-     'telephone': telephone?.toJson(),
-     'telefax': telefax?.toJson(),
-     'electronicMail': electronicMail?.toJson(),
-     'note': note.map((e) => e.toJson()).toList(),
-     'otherCommunication': otherCommunication.map((e) => e.toJson()).toList(),
+      'iD': iD?.toJson(),
+      'name': name?.toJson(),
+      'telephone': telephone?.toJson(),
+      'telefax': telefax?.toJson(),
+      'electronicMail': electronicMail?.toJson(),
+      'note': note.map((e) => e.toJson()).toList(),
+      'otherCommunication': otherCommunication.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  Contact fromJson(Map<String, dynamic> json) {
+  static Contact? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return Contact (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      telephone: Telephone.fromJson(json['telephone'] as Map<String, dynamic>?),
+      telefax: Telefax.fromJson(json['telefax'] as Map<String, dynamic>?),
+      electronicMail: ElectronicMail.fromJson(json['electronicMail'] as Map<String, dynamic>?),
+      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
+      otherCommunication: (json['otherCommunication'] as List? ?? []).map((dynamic d) => OtherCommunication.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static Contact? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return Contact (
+      iD: null,
+      name: null,
+      telephone: null,
+      telefax: null,
+      electronicMail: null,
+      note: null,
+      otherCommunication: null,
     );
   }
 

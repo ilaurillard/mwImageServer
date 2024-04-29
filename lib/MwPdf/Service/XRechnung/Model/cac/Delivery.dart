@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/Quantity.dart';
 import '../cbc/MinimumQuantity.dart';
@@ -130,38 +131,93 @@ class Delivery {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'quantity': quantity?.toJson(),
-     'minimumQuantity': minimumQuantity?.toJson(),
-     'maximumQuantity': maximumQuantity?.toJson(),
-     'actualDeliveryDate': actualDeliveryDate?.toJson(),
-     'actualDeliveryTime': actualDeliveryTime?.toJson(),
-     'latestDeliveryDate': latestDeliveryDate?.toJson(),
-     'latestDeliveryTime': latestDeliveryTime?.toJson(),
-     'releaseID': releaseID?.toJson(),
-     'trackingID': trackingID?.toJson(),
-     'deliveryAddress': deliveryAddress?.toJson(),
-     'deliveryLocation': deliveryLocation?.toJson(),
-     'alternativeDeliveryLocation': alternativeDeliveryLocation?.toJson(),
-     'requestedDeliveryPeriod': requestedDeliveryPeriod?.toJson(),
-     'promisedDeliveryPeriod': promisedDeliveryPeriod?.toJson(),
-     'estimatedDeliveryPeriod': estimatedDeliveryPeriod?.toJson(),
-     'carrierParty': carrierParty?.toJson(),
-     'deliveryParty': deliveryParty?.toJson(),
-     'notifyParty': notifyParty.map((e) => e.toJson()).toList(),
-     'despatch': despatch?.toJson(),
-     'deliveryTerms': deliveryTerms.map((e) => e.toJson()).toList(),
-     'minimumDeliveryUnit': minimumDeliveryUnit?.toJson(),
-     'maximumDeliveryUnit': maximumDeliveryUnit?.toJson(),
-     'shipment': shipment?.toJson(),
+      'iD': iD?.toJson(),
+      'quantity': quantity?.toJson(),
+      'minimumQuantity': minimumQuantity?.toJson(),
+      'maximumQuantity': maximumQuantity?.toJson(),
+      'actualDeliveryDate': actualDeliveryDate?.toJson(),
+      'actualDeliveryTime': actualDeliveryTime?.toJson(),
+      'latestDeliveryDate': latestDeliveryDate?.toJson(),
+      'latestDeliveryTime': latestDeliveryTime?.toJson(),
+      'releaseID': releaseID?.toJson(),
+      'trackingID': trackingID?.toJson(),
+      'deliveryAddress': deliveryAddress?.toJson(),
+      'deliveryLocation': deliveryLocation?.toJson(),
+      'alternativeDeliveryLocation': alternativeDeliveryLocation?.toJson(),
+      'requestedDeliveryPeriod': requestedDeliveryPeriod?.toJson(),
+      'promisedDeliveryPeriod': promisedDeliveryPeriod?.toJson(),
+      'estimatedDeliveryPeriod': estimatedDeliveryPeriod?.toJson(),
+      'carrierParty': carrierParty?.toJson(),
+      'deliveryParty': deliveryParty?.toJson(),
+      'notifyParty': notifyParty.map((e) => e.toJson()).toList(),
+      'despatch': despatch?.toJson(),
+      'deliveryTerms': deliveryTerms.map((e) => e.toJson()).toList(),
+      'minimumDeliveryUnit': minimumDeliveryUnit?.toJson(),
+      'maximumDeliveryUnit': maximumDeliveryUnit?.toJson(),
+      'shipment': shipment?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  Delivery fromJson(Map<String, dynamic> json) {
+  static Delivery? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return Delivery (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      quantity: Quantity.fromJson(json['quantity'] as Map<String, dynamic>?),
+      minimumQuantity: MinimumQuantity.fromJson(json['minimumQuantity'] as Map<String, dynamic>?),
+      maximumQuantity: MaximumQuantity.fromJson(json['maximumQuantity'] as Map<String, dynamic>?),
+      actualDeliveryDate: ActualDeliveryDate.fromJson(json['actualDeliveryDate'] as Map<String, dynamic>?),
+      actualDeliveryTime: ActualDeliveryTime.fromJson(json['actualDeliveryTime'] as Map<String, dynamic>?),
+      latestDeliveryDate: LatestDeliveryDate.fromJson(json['latestDeliveryDate'] as Map<String, dynamic>?),
+      latestDeliveryTime: LatestDeliveryTime.fromJson(json['latestDeliveryTime'] as Map<String, dynamic>?),
+      releaseID: ReleaseID.fromJson(json['releaseID'] as Map<String, dynamic>?),
+      trackingID: TrackingID.fromJson(json['trackingID'] as Map<String, dynamic>?),
+      deliveryAddress: DeliveryAddress.fromJson(json['deliveryAddress'] as Map<String, dynamic>?),
+      deliveryLocation: DeliveryLocation.fromJson(json['deliveryLocation'] as Map<String, dynamic>?),
+      alternativeDeliveryLocation: AlternativeDeliveryLocation.fromJson(json['alternativeDeliveryLocation'] as Map<String, dynamic>?),
+      requestedDeliveryPeriod: RequestedDeliveryPeriod.fromJson(json['requestedDeliveryPeriod'] as Map<String, dynamic>?),
+      promisedDeliveryPeriod: PromisedDeliveryPeriod.fromJson(json['promisedDeliveryPeriod'] as Map<String, dynamic>?),
+      estimatedDeliveryPeriod: EstimatedDeliveryPeriod.fromJson(json['estimatedDeliveryPeriod'] as Map<String, dynamic>?),
+      carrierParty: CarrierParty.fromJson(json['carrierParty'] as Map<String, dynamic>?),
+      deliveryParty: DeliveryParty.fromJson(json['deliveryParty'] as Map<String, dynamic>?),
+      notifyParty: (json['notifyParty'] as List? ?? []).map((dynamic d) => NotifyParty.fromJson(d as Map<String, dynamic>?)!).toList(),
+      despatch: Despatch.fromJson(json['despatch'] as Map<String, dynamic>?),
+      deliveryTerms: (json['deliveryTerms'] as List? ?? []).map((dynamic d) => DeliveryTerms.fromJson(d as Map<String, dynamic>?)!).toList(),
+      minimumDeliveryUnit: MinimumDeliveryUnit.fromJson(json['minimumDeliveryUnit'] as Map<String, dynamic>?),
+      maximumDeliveryUnit: MaximumDeliveryUnit.fromJson(json['maximumDeliveryUnit'] as Map<String, dynamic>?),
+      shipment: Shipment.fromJson(json['shipment'] as Map<String, dynamic>?),
+    );
+  }
+
+  static Delivery? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return Delivery (
+      iD: null,
+      quantity: null,
+      minimumQuantity: null,
+      maximumQuantity: null,
+      actualDeliveryDate: null,
+      actualDeliveryTime: null,
+      latestDeliveryDate: null,
+      latestDeliveryTime: null,
+      releaseID: null,
+      trackingID: null,
+      deliveryAddress: null,
+      deliveryLocation: null,
+      alternativeDeliveryLocation: null,
+      requestedDeliveryPeriod: null,
+      promisedDeliveryPeriod: null,
+      estimatedDeliveryPeriod: null,
+      carrierParty: null,
+      deliveryParty: null,
+      notifyParty: null,
+      despatch: null,
+      deliveryTerms: null,
+      minimumDeliveryUnit: null,
+      maximumDeliveryUnit: null,
+      shipment: null,
     );
   }
 

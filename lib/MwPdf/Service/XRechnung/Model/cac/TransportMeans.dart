@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/JourneyID.dart';
 import '../cbc/RegistrationNationalityID.dart';
 import '../cbc/RegistrationNationality.dart';
@@ -75,27 +76,60 @@ class TransportMeans {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'journeyID': journeyID?.toJson(),
-     'registrationNationalityID': registrationNationalityID?.toJson(),
-     'registrationNationality': registrationNationality.map((e) => e.toJson()).toList(),
-     'directionCode': directionCode?.toJson(),
-     'transportMeansTypeCode': transportMeansTypeCode?.toJson(),
-     'tradeServiceCode': tradeServiceCode?.toJson(),
-     'stowage': stowage?.toJson(),
-     'airTransport': airTransport?.toJson(),
-     'roadTransport': roadTransport?.toJson(),
-     'railTransport': railTransport?.toJson(),
-     'maritimeTransport': maritimeTransport?.toJson(),
-     'ownerParty': ownerParty?.toJson(),
-     'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
+      'journeyID': journeyID?.toJson(),
+      'registrationNationalityID': registrationNationalityID?.toJson(),
+      'registrationNationality': registrationNationality.map((e) => e.toJson()).toList(),
+      'directionCode': directionCode?.toJson(),
+      'transportMeansTypeCode': transportMeansTypeCode?.toJson(),
+      'tradeServiceCode': tradeServiceCode?.toJson(),
+      'stowage': stowage?.toJson(),
+      'airTransport': airTransport?.toJson(),
+      'roadTransport': roadTransport?.toJson(),
+      'railTransport': railTransport?.toJson(),
+      'maritimeTransport': maritimeTransport?.toJson(),
+      'ownerParty': ownerParty?.toJson(),
+      'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  TransportMeans fromJson(Map<String, dynamic> json) {
+  static TransportMeans? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return TransportMeans (
+      journeyID: JourneyID.fromJson(json['journeyID'] as Map<String, dynamic>?),
+      registrationNationalityID: RegistrationNationalityID.fromJson(json['registrationNationalityID'] as Map<String, dynamic>?),
+      registrationNationality: (json['registrationNationality'] as List? ?? []).map((dynamic d) => RegistrationNationality.fromJson(d as Map<String, dynamic>?)!).toList(),
+      directionCode: DirectionCode.fromJson(json['directionCode'] as Map<String, dynamic>?),
+      transportMeansTypeCode: TransportMeansTypeCode.fromJson(json['transportMeansTypeCode'] as Map<String, dynamic>?),
+      tradeServiceCode: TradeServiceCode.fromJson(json['tradeServiceCode'] as Map<String, dynamic>?),
+      stowage: Stowage.fromJson(json['stowage'] as Map<String, dynamic>?),
+      airTransport: AirTransport.fromJson(json['airTransport'] as Map<String, dynamic>?),
+      roadTransport: RoadTransport.fromJson(json['roadTransport'] as Map<String, dynamic>?),
+      railTransport: RailTransport.fromJson(json['railTransport'] as Map<String, dynamic>?),
+      maritimeTransport: MaritimeTransport.fromJson(json['maritimeTransport'] as Map<String, dynamic>?),
+      ownerParty: OwnerParty.fromJson(json['ownerParty'] as Map<String, dynamic>?),
+      measurementDimension: (json['measurementDimension'] as List? ?? []).map((dynamic d) => MeasurementDimension.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static TransportMeans? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return TransportMeans (
+      journeyID: null,
+      registrationNationalityID: null,
+      registrationNationality: null,
+      directionCode: null,
+      transportMeansTypeCode: null,
+      tradeServiceCode: null,
+      stowage: null,
+      airTransport: null,
+      roadTransport: null,
+      railTransport: null,
+      maritimeTransport: null,
+      ownerParty: null,
+      measurementDimension: null,
     );
   }
 

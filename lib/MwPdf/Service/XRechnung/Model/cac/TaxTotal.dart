@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/TaxAmount.dart';
 import '../cbc/RoundingAmount.dart';
 import '../cbc/TaxEvidenceIndicator.dart';
@@ -35,19 +36,36 @@ class TaxTotal {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'taxAmount': taxAmount.toJson(),
-     'roundingAmount': roundingAmount?.toJson(),
-     'taxEvidenceIndicator': taxEvidenceIndicator?.toJson(),
-     'taxIncludedIndicator': taxIncludedIndicator?.toJson(),
-     'taxSubtotal': taxSubtotal.map((e) => e.toJson()).toList(),
+      'taxAmount': taxAmount.toJson(),
+      'roundingAmount': roundingAmount?.toJson(),
+      'taxEvidenceIndicator': taxEvidenceIndicator?.toJson(),
+      'taxIncludedIndicator': taxIncludedIndicator?.toJson(),
+      'taxSubtotal': taxSubtotal.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  TaxTotal fromJson(Map<String, dynamic> json) {
+  static TaxTotal? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return TaxTotal (
+      taxAmount: TaxAmount.fromJson(json['taxAmount'] as Map<String, dynamic>?)!,
+      roundingAmount: RoundingAmount.fromJson(json['roundingAmount'] as Map<String, dynamic>?),
+      taxEvidenceIndicator: TaxEvidenceIndicator.fromJson(json['taxEvidenceIndicator'] as Map<String, dynamic>?),
+      taxIncludedIndicator: TaxIncludedIndicator.fromJson(json['taxIncludedIndicator'] as Map<String, dynamic>?),
+      taxSubtotal: (json['taxSubtotal'] as List? ?? []).map((dynamic d) => TaxSubtotal.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static TaxTotal? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return TaxTotal (
+      taxAmount: null,
+      roundingAmount: null,
+      taxEvidenceIndicator: null,
+      taxIncludedIndicator: null,
+      taxSubtotal: null,
     );
   }
 

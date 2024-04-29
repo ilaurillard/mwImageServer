@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 
 // A character string (letters, figures, or symbols) that for brevity and/or language independence may be used to represent or replace a definitive value or text of an attribute, together with relevant supplementary information.
 class PreferenceCriterionCode {
@@ -50,24 +51,51 @@ class PreferenceCriterionCode {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'value': value,
-     'listID': listID,
-     'listAgencyID': listAgencyID,
-     'listAgencyName': listAgencyName,
-     'listName': listName,
-     'listVersionID': listVersionID,
-     'name': name,
-     'languageID': languageID,
-     'listURI': listURI,
-     'listSchemeURI': listSchemeURI,
+      'value': value,
+      'listID': listID,
+      'listAgencyID': listAgencyID,
+      'listAgencyName': listAgencyName,
+      'listName': listName,
+      'listVersionID': listVersionID,
+      'name': name,
+      'languageID': languageID,
+      'listURI': listURI,
+      'listSchemeURI': listSchemeURI,
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  PreferenceCriterionCode fromJson(Map<String, dynamic> json) {
+  static PreferenceCriterionCode? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return PreferenceCriterionCode (
+      value: json['value'] as String? ?? '',
+      listID: json['listID'] as String?,
+      listAgencyID: json['listAgencyID'] as String?,
+      listAgencyName: json['listAgencyName'] as String?,
+      listName: json['listName'] as String?,
+      listVersionID: json['listVersionID'] as String?,
+      name: json['name'] as String?,
+      languageID: json['languageID'] as String?,
+      listURI: json['listURI'] as String?,
+      listSchemeURI: json['listSchemeURI'] as String?,
+    );
+  }
+
+  static PreferenceCriterionCode? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return PreferenceCriterionCode (
+      value: null,
+      listID: null,
+      listAgencyID: null,
+      listAgencyName: null,
+      listName: null,
+      listVersionID: null,
+      name: null,
+      languageID: null,
+      listURI: null,
+      listSchemeURI: null,
     );
   }
 

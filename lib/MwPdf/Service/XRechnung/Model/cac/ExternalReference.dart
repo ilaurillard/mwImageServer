@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/URI.dart';
 import '../cbc/DocumentHash.dart';
 import '../cbc/HashAlgorithmMethod.dart';
@@ -65,25 +66,54 @@ class ExternalReference {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'uRI': uRI?.toJson(),
-     'documentHash': documentHash?.toJson(),
-     'hashAlgorithmMethod': hashAlgorithmMethod?.toJson(),
-     'expiryDate': expiryDate?.toJson(),
-     'expiryTime': expiryTime?.toJson(),
-     'mimeCode': mimeCode?.toJson(),
-     'formatCode': formatCode?.toJson(),
-     'encodingCode': encodingCode?.toJson(),
-     'characterSetCode': characterSetCode?.toJson(),
-     'fileName': fileName?.toJson(),
-     'description': description.map((e) => e.toJson()).toList(),
+      'uRI': uRI?.toJson(),
+      'documentHash': documentHash?.toJson(),
+      'hashAlgorithmMethod': hashAlgorithmMethod?.toJson(),
+      'expiryDate': expiryDate?.toJson(),
+      'expiryTime': expiryTime?.toJson(),
+      'mimeCode': mimeCode?.toJson(),
+      'formatCode': formatCode?.toJson(),
+      'encodingCode': encodingCode?.toJson(),
+      'characterSetCode': characterSetCode?.toJson(),
+      'fileName': fileName?.toJson(),
+      'description': description.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  ExternalReference fromJson(Map<String, dynamic> json) {
+  static ExternalReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return ExternalReference (
+      uRI: URI.fromJson(json['uRI'] as Map<String, dynamic>?),
+      documentHash: DocumentHash.fromJson(json['documentHash'] as Map<String, dynamic>?),
+      hashAlgorithmMethod: HashAlgorithmMethod.fromJson(json['hashAlgorithmMethod'] as Map<String, dynamic>?),
+      expiryDate: ExpiryDate.fromJson(json['expiryDate'] as Map<String, dynamic>?),
+      expiryTime: ExpiryTime.fromJson(json['expiryTime'] as Map<String, dynamic>?),
+      mimeCode: MimeCode.fromJson(json['mimeCode'] as Map<String, dynamic>?),
+      formatCode: FormatCode.fromJson(json['formatCode'] as Map<String, dynamic>?),
+      encodingCode: EncodingCode.fromJson(json['encodingCode'] as Map<String, dynamic>?),
+      characterSetCode: CharacterSetCode.fromJson(json['characterSetCode'] as Map<String, dynamic>?),
+      fileName: FileName.fromJson(json['fileName'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static ExternalReference? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return ExternalReference (
+      uRI: null,
+      documentHash: null,
+      hashAlgorithmMethod: null,
+      expiryDate: null,
+      expiryTime: null,
+      mimeCode: null,
+      formatCode: null,
+      encodingCode: null,
+      characterSetCode: null,
+      fileName: null,
+      description: null,
     );
   }
 

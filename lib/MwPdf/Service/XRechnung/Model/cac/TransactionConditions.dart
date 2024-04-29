@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/ActionCode.dart';
 import '../cbc/Description.dart';
@@ -30,18 +31,33 @@ class TransactionConditions {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'actionCode': actionCode?.toJson(),
-     'description': description.map((e) => e.toJson()).toList(),
-     'documentReference': documentReference.map((e) => e.toJson()).toList(),
+      'iD': iD?.toJson(),
+      'actionCode': actionCode?.toJson(),
+      'description': description.map((e) => e.toJson()).toList(),
+      'documentReference': documentReference.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  TransactionConditions fromJson(Map<String, dynamic> json) {
+  static TransactionConditions? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return TransactionConditions (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      actionCode: ActionCode.fromJson(json['actionCode'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static TransactionConditions? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return TransactionConditions (
+      iD: null,
+      actionCode: null,
+      description: null,
+      documentReference: null,
     );
   }
 

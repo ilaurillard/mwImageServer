@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 
 // A character string that constitutes the distinctive designation of a person, place, thing or concept.
 class BlockName {
@@ -22,17 +23,30 @@ class BlockName {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'value': value,
-     'languageID': languageID,
-     'languageLocaleID': languageLocaleID,
+      'value': value,
+      'languageID': languageID,
+      'languageLocaleID': languageLocaleID,
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  BlockName fromJson(Map<String, dynamic> json) {
+  static BlockName? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return BlockName (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
+  static BlockName? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return BlockName (
+      value: null,
+      languageID: null,
+      languageLocaleID: null,
     );
   }
 

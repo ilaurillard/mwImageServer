@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/SourceCurrencyCode.dart';
 import '../cbc/TargetCurrencyCode.dart';
 import '../cbc/SourceCurrencyBaseRate.dart';
@@ -55,23 +56,48 @@ class PricingExchangeRate {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'sourceCurrencyCode': sourceCurrencyCode.toJson(),
-     'sourceCurrencyBaseRate': sourceCurrencyBaseRate?.toJson(),
-     'targetCurrencyCode': targetCurrencyCode.toJson(),
-     'targetCurrencyBaseRate': targetCurrencyBaseRate?.toJson(),
-     'exchangeMarketID': exchangeMarketID?.toJson(),
-     'calculationRate': calculationRate?.toJson(),
-     'mathematicOperatorCode': mathematicOperatorCode?.toJson(),
-     'date': date?.toJson(),
-     'foreignExchangeContract': foreignExchangeContract?.toJson(),
+      'sourceCurrencyCode': sourceCurrencyCode.toJson(),
+      'sourceCurrencyBaseRate': sourceCurrencyBaseRate?.toJson(),
+      'targetCurrencyCode': targetCurrencyCode.toJson(),
+      'targetCurrencyBaseRate': targetCurrencyBaseRate?.toJson(),
+      'exchangeMarketID': exchangeMarketID?.toJson(),
+      'calculationRate': calculationRate?.toJson(),
+      'mathematicOperatorCode': mathematicOperatorCode?.toJson(),
+      'date': date?.toJson(),
+      'foreignExchangeContract': foreignExchangeContract?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  PricingExchangeRate fromJson(Map<String, dynamic> json) {
+  static PricingExchangeRate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return PricingExchangeRate (
+      sourceCurrencyCode: SourceCurrencyCode.fromJson(json['sourceCurrencyCode'] as Map<String, dynamic>?)!,
+      sourceCurrencyBaseRate: SourceCurrencyBaseRate.fromJson(json['sourceCurrencyBaseRate'] as Map<String, dynamic>?),
+      targetCurrencyCode: TargetCurrencyCode.fromJson(json['targetCurrencyCode'] as Map<String, dynamic>?)!,
+      targetCurrencyBaseRate: TargetCurrencyBaseRate.fromJson(json['targetCurrencyBaseRate'] as Map<String, dynamic>?),
+      exchangeMarketID: ExchangeMarketID.fromJson(json['exchangeMarketID'] as Map<String, dynamic>?),
+      calculationRate: CalculationRate.fromJson(json['calculationRate'] as Map<String, dynamic>?),
+      mathematicOperatorCode: MathematicOperatorCode.fromJson(json['mathematicOperatorCode'] as Map<String, dynamic>?),
+      date: Date.fromJson(json['date'] as Map<String, dynamic>?),
+      foreignExchangeContract: ForeignExchangeContract.fromJson(json['foreignExchangeContract'] as Map<String, dynamic>?),
+    );
+  }
+
+  static PricingExchangeRate? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return PricingExchangeRate (
+      sourceCurrencyCode: null,
+      sourceCurrencyBaseRate: null,
+      targetCurrencyCode: null,
+      targetCurrencyBaseRate: null,
+      exchangeMarketID: null,
+      calculationRate: null,
+      mathematicOperatorCode: null,
+      date: null,
+      foreignExchangeContract: null,
     );
   }
 

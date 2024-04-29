@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/RequestedDespatchDate.dart';
 import '../cbc/RequestedDespatchTime.dart';
@@ -105,33 +106,78 @@ class Despatch {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'requestedDespatchDate': requestedDespatchDate?.toJson(),
-     'requestedDespatchTime': requestedDespatchTime?.toJson(),
-     'estimatedDespatchDate': estimatedDespatchDate?.toJson(),
-     'estimatedDespatchTime': estimatedDespatchTime?.toJson(),
-     'actualDespatchDate': actualDespatchDate?.toJson(),
-     'actualDespatchTime': actualDespatchTime?.toJson(),
-     'guaranteedDespatchDate': guaranteedDespatchDate?.toJson(),
-     'guaranteedDespatchTime': guaranteedDespatchTime?.toJson(),
-     'releaseID': releaseID?.toJson(),
-     'instructions': instructions.map((e) => e.toJson()).toList(),
-     'despatchAddress': despatchAddress?.toJson(),
-     'despatchLocation': despatchLocation?.toJson(),
-     'despatchParty': despatchParty?.toJson(),
-     'carrierParty': carrierParty?.toJson(),
-     'notifyParty': notifyParty.map((e) => e.toJson()).toList(),
-     'contact': contact?.toJson(),
-     'estimatedDespatchPeriod': estimatedDespatchPeriod?.toJson(),
-     'requestedDespatchPeriod': requestedDespatchPeriod?.toJson(),
+      'iD': iD?.toJson(),
+      'requestedDespatchDate': requestedDespatchDate?.toJson(),
+      'requestedDespatchTime': requestedDespatchTime?.toJson(),
+      'estimatedDespatchDate': estimatedDespatchDate?.toJson(),
+      'estimatedDespatchTime': estimatedDespatchTime?.toJson(),
+      'actualDespatchDate': actualDespatchDate?.toJson(),
+      'actualDespatchTime': actualDespatchTime?.toJson(),
+      'guaranteedDespatchDate': guaranteedDespatchDate?.toJson(),
+      'guaranteedDespatchTime': guaranteedDespatchTime?.toJson(),
+      'releaseID': releaseID?.toJson(),
+      'instructions': instructions.map((e) => e.toJson()).toList(),
+      'despatchAddress': despatchAddress?.toJson(),
+      'despatchLocation': despatchLocation?.toJson(),
+      'despatchParty': despatchParty?.toJson(),
+      'carrierParty': carrierParty?.toJson(),
+      'notifyParty': notifyParty.map((e) => e.toJson()).toList(),
+      'contact': contact?.toJson(),
+      'estimatedDespatchPeriod': estimatedDespatchPeriod?.toJson(),
+      'requestedDespatchPeriod': requestedDespatchPeriod?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  Despatch fromJson(Map<String, dynamic> json) {
+  static Despatch? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return Despatch (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      requestedDespatchDate: RequestedDespatchDate.fromJson(json['requestedDespatchDate'] as Map<String, dynamic>?),
+      requestedDespatchTime: RequestedDespatchTime.fromJson(json['requestedDespatchTime'] as Map<String, dynamic>?),
+      estimatedDespatchDate: EstimatedDespatchDate.fromJson(json['estimatedDespatchDate'] as Map<String, dynamic>?),
+      estimatedDespatchTime: EstimatedDespatchTime.fromJson(json['estimatedDespatchTime'] as Map<String, dynamic>?),
+      actualDespatchDate: ActualDespatchDate.fromJson(json['actualDespatchDate'] as Map<String, dynamic>?),
+      actualDespatchTime: ActualDespatchTime.fromJson(json['actualDespatchTime'] as Map<String, dynamic>?),
+      guaranteedDespatchDate: GuaranteedDespatchDate.fromJson(json['guaranteedDespatchDate'] as Map<String, dynamic>?),
+      guaranteedDespatchTime: GuaranteedDespatchTime.fromJson(json['guaranteedDespatchTime'] as Map<String, dynamic>?),
+      releaseID: ReleaseID.fromJson(json['releaseID'] as Map<String, dynamic>?),
+      instructions: (json['instructions'] as List? ?? []).map((dynamic d) => Instructions.fromJson(d as Map<String, dynamic>?)!).toList(),
+      despatchAddress: DespatchAddress.fromJson(json['despatchAddress'] as Map<String, dynamic>?),
+      despatchLocation: DespatchLocation.fromJson(json['despatchLocation'] as Map<String, dynamic>?),
+      despatchParty: DespatchParty.fromJson(json['despatchParty'] as Map<String, dynamic>?),
+      carrierParty: CarrierParty.fromJson(json['carrierParty'] as Map<String, dynamic>?),
+      notifyParty: (json['notifyParty'] as List? ?? []).map((dynamic d) => NotifyParty.fromJson(d as Map<String, dynamic>?)!).toList(),
+      contact: Contact.fromJson(json['contact'] as Map<String, dynamic>?),
+      estimatedDespatchPeriod: EstimatedDespatchPeriod.fromJson(json['estimatedDespatchPeriod'] as Map<String, dynamic>?),
+      requestedDespatchPeriod: RequestedDespatchPeriod.fromJson(json['requestedDespatchPeriod'] as Map<String, dynamic>?),
+    );
+  }
+
+  static Despatch? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return Despatch (
+      iD: null,
+      requestedDespatchDate: null,
+      requestedDespatchTime: null,
+      estimatedDespatchDate: null,
+      estimatedDespatchTime: null,
+      actualDespatchDate: null,
+      actualDespatchTime: null,
+      guaranteedDespatchDate: null,
+      guaranteedDespatchTime: null,
+      releaseID: null,
+      instructions: null,
+      despatchAddress: null,
+      despatchLocation: null,
+      despatchParty: null,
+      carrierParty: null,
+      notifyParty: null,
+      contact: null,
+      estimatedDespatchPeriod: null,
+      requestedDespatchPeriod: null,
     );
   }
 

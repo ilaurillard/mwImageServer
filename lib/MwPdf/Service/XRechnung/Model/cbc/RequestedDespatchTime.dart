@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 
 // An instance of time that occurs every day.
 class RequestedDespatchTime {
@@ -12,15 +13,24 @@ class RequestedDespatchTime {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'value': value,
+      'value': value,
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  RequestedDespatchTime fromJson(Map<String, dynamic> json) {
+  static RequestedDespatchTime? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return RequestedDespatchTime (
+      value: XsdTime.fromJson(json['value'] as String?)!,
+    );
+  }
+
+  static RequestedDespatchTime? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return RequestedDespatchTime (
+      value: null,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/NatureCode.dart';
 import '../cbc/CargoTypeCode.dart';
 import '../cbc/CommodityCode.dart';
@@ -30,18 +31,33 @@ class UnsupportedCommodityClassification {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'natureCode': natureCode?.toJson(),
-     'cargoTypeCode': cargoTypeCode?.toJson(),
-     'commodityCode': commodityCode?.toJson(),
-     'itemClassificationCode': itemClassificationCode?.toJson(),
+      'natureCode': natureCode?.toJson(),
+      'cargoTypeCode': cargoTypeCode?.toJson(),
+      'commodityCode': commodityCode?.toJson(),
+      'itemClassificationCode': itemClassificationCode?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  UnsupportedCommodityClassification fromJson(Map<String, dynamic> json) {
+  static UnsupportedCommodityClassification? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return UnsupportedCommodityClassification (
+      natureCode: NatureCode.fromJson(json['natureCode'] as Map<String, dynamic>?),
+      cargoTypeCode: CargoTypeCode.fromJson(json['cargoTypeCode'] as Map<String, dynamic>?),
+      commodityCode: CommodityCode.fromJson(json['commodityCode'] as Map<String, dynamic>?),
+      itemClassificationCode: ItemClassificationCode.fromJson(json['itemClassificationCode'] as Map<String, dynamic>?),
+    );
+  }
+
+  static UnsupportedCommodityClassification? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return UnsupportedCommodityClassification (
+      natureCode: null,
+      cargoTypeCode: null,
+      commodityCode: null,
+      itemClassificationCode: null,
     );
   }
 

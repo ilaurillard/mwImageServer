@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/Description.dart';
 import '../cbc/Conditions.dart';
@@ -70,26 +71,57 @@ class FreightChargeLocation {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'description': description.map((e) => e.toJson()).toList(),
-     'conditions': conditions.map((e) => e.toJson()).toList(),
-     'countrySubentity': countrySubentity?.toJson(),
-     'countrySubentityCode': countrySubentityCode?.toJson(),
-     'locationTypeCode': locationTypeCode?.toJson(),
-     'informationURI': informationURI?.toJson(),
-     'name': name?.toJson(),
-     'validityPeriod': validityPeriod.map((e) => e.toJson()).toList(),
-     'address': address?.toJson(),
-     'subsidiaryLocation': subsidiaryLocation.map((e) => e.toJson()).toList(),
-     'locationCoordinate': locationCoordinate.map((e) => e.toJson()).toList(),
+      'iD': iD?.toJson(),
+      'description': description.map((e) => e.toJson()).toList(),
+      'conditions': conditions.map((e) => e.toJson()).toList(),
+      'countrySubentity': countrySubentity?.toJson(),
+      'countrySubentityCode': countrySubentityCode?.toJson(),
+      'locationTypeCode': locationTypeCode?.toJson(),
+      'informationURI': informationURI?.toJson(),
+      'name': name?.toJson(),
+      'validityPeriod': validityPeriod.map((e) => e.toJson()).toList(),
+      'address': address?.toJson(),
+      'subsidiaryLocation': subsidiaryLocation.map((e) => e.toJson()).toList(),
+      'locationCoordinate': locationCoordinate.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  FreightChargeLocation fromJson(Map<String, dynamic> json) {
+  static FreightChargeLocation? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return FreightChargeLocation (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      conditions: (json['conditions'] as List? ?? []).map((dynamic d) => Conditions.fromJson(d as Map<String, dynamic>?)!).toList(),
+      countrySubentity: CountrySubentity.fromJson(json['countrySubentity'] as Map<String, dynamic>?),
+      countrySubentityCode: CountrySubentityCode.fromJson(json['countrySubentityCode'] as Map<String, dynamic>?),
+      locationTypeCode: LocationTypeCode.fromJson(json['locationTypeCode'] as Map<String, dynamic>?),
+      informationURI: InformationURI.fromJson(json['informationURI'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      validityPeriod: (json['validityPeriod'] as List? ?? []).map((dynamic d) => ValidityPeriod.fromJson(d as Map<String, dynamic>?)!).toList(),
+      address: Address.fromJson(json['address'] as Map<String, dynamic>?),
+      subsidiaryLocation: (json['subsidiaryLocation'] as List? ?? []).map((dynamic d) => SubsidiaryLocation.fromJson(d as Map<String, dynamic>?)!).toList(),
+      locationCoordinate: (json['locationCoordinate'] as List? ?? []).map((dynamic d) => LocationCoordinate.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static FreightChargeLocation? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return FreightChargeLocation (
+      iD: null,
+      description: null,
+      conditions: null,
+      countrySubentity: null,
+      countrySubentityCode: null,
+      locationTypeCode: null,
+      informationURI: null,
+      name: null,
+      validityPeriod: null,
+      address: null,
+      subsidiaryLocation: null,
+      locationCoordinate: null,
     );
   }
 

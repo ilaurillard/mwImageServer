@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/CalculationMethodCode.dart';
 import '../cbc/FullnessIndicationCode.dart';
 import '../cac/MeasurementFromLocation.dart';
@@ -30,18 +31,33 @@ class EmissionCalculationMethod {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'calculationMethodCode': calculationMethodCode?.toJson(),
-     'fullnessIndicationCode': fullnessIndicationCode?.toJson(),
-     'measurementFromLocation': measurementFromLocation?.toJson(),
-     'measurementToLocation': measurementToLocation?.toJson(),
+      'calculationMethodCode': calculationMethodCode?.toJson(),
+      'fullnessIndicationCode': fullnessIndicationCode?.toJson(),
+      'measurementFromLocation': measurementFromLocation?.toJson(),
+      'measurementToLocation': measurementToLocation?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  EmissionCalculationMethod fromJson(Map<String, dynamic> json) {
+  static EmissionCalculationMethod? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return EmissionCalculationMethod (
+      calculationMethodCode: CalculationMethodCode.fromJson(json['calculationMethodCode'] as Map<String, dynamic>?),
+      fullnessIndicationCode: FullnessIndicationCode.fromJson(json['fullnessIndicationCode'] as Map<String, dynamic>?),
+      measurementFromLocation: MeasurementFromLocation.fromJson(json['measurementFromLocation'] as Map<String, dynamic>?),
+      measurementToLocation: MeasurementToLocation.fromJson(json['measurementToLocation'] as Map<String, dynamic>?),
+    );
+  }
+
+  static EmissionCalculationMethod? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return EmissionCalculationMethod (
+      calculationMethodCode: null,
+      fullnessIndicationCode: null,
+      measurementFromLocation: null,
+      measurementToLocation: null,
     );
   }
 

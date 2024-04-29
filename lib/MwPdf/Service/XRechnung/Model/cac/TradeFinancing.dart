@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cac/FinancingParty.dart';
 import '../cbc/ID.dart';
 import '../cbc/FinancingInstrumentCode.dart';
@@ -45,21 +46,42 @@ class TradeFinancing {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'financingInstrumentCode': financingInstrumentCode?.toJson(),
-     'contractDocumentReference': contractDocumentReference?.toJson(),
-     'documentReference': documentReference.map((e) => e.toJson()).toList(),
-     'financingParty': financingParty.toJson(),
-     'financingFinancialAccount': financingFinancialAccount?.toJson(),
-     'clause': clause.map((e) => e.toJson()).toList(),
+      'iD': iD?.toJson(),
+      'financingInstrumentCode': financingInstrumentCode?.toJson(),
+      'contractDocumentReference': contractDocumentReference?.toJson(),
+      'documentReference': documentReference.map((e) => e.toJson()).toList(),
+      'financingParty': financingParty.toJson(),
+      'financingFinancialAccount': financingFinancialAccount?.toJson(),
+      'clause': clause.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  TradeFinancing fromJson(Map<String, dynamic> json) {
+  static TradeFinancing? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return TradeFinancing (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      financingInstrumentCode: FinancingInstrumentCode.fromJson(json['financingInstrumentCode'] as Map<String, dynamic>?),
+      contractDocumentReference: ContractDocumentReference.fromJson(json['contractDocumentReference'] as Map<String, dynamic>?),
+      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      financingParty: FinancingParty.fromJson(json['financingParty'] as Map<String, dynamic>?)!,
+      financingFinancialAccount: FinancingFinancialAccount.fromJson(json['financingFinancialAccount'] as Map<String, dynamic>?),
+      clause: (json['clause'] as List? ?? []).map((dynamic d) => Clause.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static TradeFinancing? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return TradeFinancing (
+      iD: null,
+      financingInstrumentCode: null,
+      contractDocumentReference: null,
+      documentReference: null,
+      financingParty: null,
+      financingFinancialAccount: null,
+      clause: null,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ValidatorID.dart';
 import '../cbc/ValidationResultCode.dart';
 import '../cbc/ValidationDate.dart';
@@ -50,22 +51,45 @@ class ResultOfVerification {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'validatorID': validatorID?.toJson(),
-     'validationResultCode': validationResultCode?.toJson(),
-     'validationDate': validationDate?.toJson(),
-     'validationTime': validationTime?.toJson(),
-     'validateProcess': validateProcess?.toJson(),
-     'validateTool': validateTool?.toJson(),
-     'validateToolVersion': validateToolVersion?.toJson(),
-     'signatoryParty': signatoryParty?.toJson(),
+      'validatorID': validatorID?.toJson(),
+      'validationResultCode': validationResultCode?.toJson(),
+      'validationDate': validationDate?.toJson(),
+      'validationTime': validationTime?.toJson(),
+      'validateProcess': validateProcess?.toJson(),
+      'validateTool': validateTool?.toJson(),
+      'validateToolVersion': validateToolVersion?.toJson(),
+      'signatoryParty': signatoryParty?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  ResultOfVerification fromJson(Map<String, dynamic> json) {
+  static ResultOfVerification? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return ResultOfVerification (
+      validatorID: ValidatorID.fromJson(json['validatorID'] as Map<String, dynamic>?),
+      validationResultCode: ValidationResultCode.fromJson(json['validationResultCode'] as Map<String, dynamic>?),
+      validationDate: ValidationDate.fromJson(json['validationDate'] as Map<String, dynamic>?),
+      validationTime: ValidationTime.fromJson(json['validationTime'] as Map<String, dynamic>?),
+      validateProcess: ValidateProcess.fromJson(json['validateProcess'] as Map<String, dynamic>?),
+      validateTool: ValidateTool.fromJson(json['validateTool'] as Map<String, dynamic>?),
+      validateToolVersion: ValidateToolVersion.fromJson(json['validateToolVersion'] as Map<String, dynamic>?),
+      signatoryParty: SignatoryParty.fromJson(json['signatoryParty'] as Map<String, dynamic>?),
+    );
+  }
+
+  static ResultOfVerification? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return ResultOfVerification (
+      validatorID: null,
+      validationResultCode: null,
+      validationDate: null,
+      validationTime: null,
+      validateProcess: null,
+      validateTool: null,
+      validateToolVersion: null,
+      signatoryParty: null,
     );
   }
 

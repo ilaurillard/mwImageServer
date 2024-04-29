@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 
 // A number of monetary units specified using a given unit of currency.
 class TaxInclusiveAmount {
@@ -22,17 +23,30 @@ class TaxInclusiveAmount {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'value': value,
-     'currencyID': currencyID,
-     'currencyCodeListVersionID': currencyCodeListVersionID,
+      'value': value,
+      'currencyID': currencyID,
+      'currencyCodeListVersionID': currencyCodeListVersionID,
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  TaxInclusiveAmount fromJson(Map<String, dynamic> json) {
+  static TaxInclusiveAmount? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return TaxInclusiveAmount (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      currencyID: json['currencyID'] as String? ?? '',
+      currencyCodeListVersionID: json['currencyCodeListVersionID'] as String?,
+    );
+  }
+
+  static TaxInclusiveAmount? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return TaxInclusiveAmount (
+      value: null,
+      currencyID: null,
+      currencyCodeListVersionID: null,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/Name.dart';
 import '../cbc/ID.dart';
 import '../cbc/NameCode.dart';
@@ -75,27 +76,60 @@ class AdditionalItemProperty {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'name': name.toJson(),
-     'nameCode': nameCode?.toJson(),
-     'testMethod': testMethod?.toJson(),
-     'value': value?.toJson(),
-     'valueQuantity': valueQuantity?.toJson(),
-     'valueQualifier': valueQualifier.map((e) => e.toJson()).toList(),
-     'importanceCode': importanceCode?.toJson(),
-     'listValue': listValue.map((e) => e.toJson()).toList(),
-     'usabilityPeriod': usabilityPeriod?.toJson(),
-     'itemPropertyGroup': itemPropertyGroup.map((e) => e.toJson()).toList(),
-     'rangeDimension': rangeDimension?.toJson(),
-     'itemPropertyRange': itemPropertyRange?.toJson(),
+      'iD': iD?.toJson(),
+      'name': name.toJson(),
+      'nameCode': nameCode?.toJson(),
+      'testMethod': testMethod?.toJson(),
+      'value': value?.toJson(),
+      'valueQuantity': valueQuantity?.toJson(),
+      'valueQualifier': valueQualifier.map((e) => e.toJson()).toList(),
+      'importanceCode': importanceCode?.toJson(),
+      'listValue': listValue.map((e) => e.toJson()).toList(),
+      'usabilityPeriod': usabilityPeriod?.toJson(),
+      'itemPropertyGroup': itemPropertyGroup.map((e) => e.toJson()).toList(),
+      'rangeDimension': rangeDimension?.toJson(),
+      'itemPropertyRange': itemPropertyRange?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  AdditionalItemProperty fromJson(Map<String, dynamic> json) {
+  static AdditionalItemProperty? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return AdditionalItemProperty (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?)!,
+      nameCode: NameCode.fromJson(json['nameCode'] as Map<String, dynamic>?),
+      testMethod: TestMethod.fromJson(json['testMethod'] as Map<String, dynamic>?),
+      value: Value.fromJson(json['value'] as Map<String, dynamic>?),
+      valueQuantity: ValueQuantity.fromJson(json['valueQuantity'] as Map<String, dynamic>?),
+      valueQualifier: (json['valueQualifier'] as List? ?? []).map((dynamic d) => ValueQualifier.fromJson(d as Map<String, dynamic>?)!).toList(),
+      importanceCode: ImportanceCode.fromJson(json['importanceCode'] as Map<String, dynamic>?),
+      listValue: (json['listValue'] as List? ?? []).map((dynamic d) => ListValue.fromJson(d as Map<String, dynamic>?)!).toList(),
+      usabilityPeriod: UsabilityPeriod.fromJson(json['usabilityPeriod'] as Map<String, dynamic>?),
+      itemPropertyGroup: (json['itemPropertyGroup'] as List? ?? []).map((dynamic d) => ItemPropertyGroup.fromJson(d as Map<String, dynamic>?)!).toList(),
+      rangeDimension: RangeDimension.fromJson(json['rangeDimension'] as Map<String, dynamic>?),
+      itemPropertyRange: ItemPropertyRange.fromJson(json['itemPropertyRange'] as Map<String, dynamic>?),
+    );
+  }
+
+  static AdditionalItemProperty? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return AdditionalItemProperty (
+      iD: null,
+      name: null,
+      nameCode: null,
+      testMethod: null,
+      value: null,
+      valueQuantity: null,
+      valueQualifier: null,
+      importanceCode: null,
+      listValue: null,
+      usabilityPeriod: null,
+      itemPropertyGroup: null,
+      rangeDimension: null,
+      itemPropertyRange: null,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/UUID.dart';
 import '../cbc/Note.dart';
@@ -110,34 +111,81 @@ class ReceivedHandlingUnitReceiptLine {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD.toJson(),
-     'uUID': uUID?.toJson(),
-     'note': note.map((e) => e.toJson()).toList(),
-     'receivedQuantity': receivedQuantity?.toJson(),
-     'shortQuantity': shortQuantity?.toJson(),
-     'shortageActionCode': shortageActionCode?.toJson(),
-     'rejectedQuantity': rejectedQuantity?.toJson(),
-     'rejectReasonCode': rejectReasonCode?.toJson(),
-     'rejectReason': rejectReason.map((e) => e.toJson()).toList(),
-     'rejectActionCode': rejectActionCode?.toJson(),
-     'quantityDiscrepancyCode': quantityDiscrepancyCode?.toJson(),
-     'oversupplyQuantity': oversupplyQuantity?.toJson(),
-     'receivedDate': receivedDate?.toJson(),
-     'timingComplaintCode': timingComplaintCode?.toJson(),
-     'timingComplaint': timingComplaint?.toJson(),
-     'orderLineReference': orderLineReference?.toJson(),
-     'despatchLineReference': despatchLineReference.map((e) => e.toJson()).toList(),
-     'documentReference': documentReference.map((e) => e.toJson()).toList(),
-     'item': item.map((e) => e.toJson()).toList(),
-     'shipment': shipment.map((e) => e.toJson()).toList(),
+      'iD': iD.toJson(),
+      'uUID': uUID?.toJson(),
+      'note': note.map((e) => e.toJson()).toList(),
+      'receivedQuantity': receivedQuantity?.toJson(),
+      'shortQuantity': shortQuantity?.toJson(),
+      'shortageActionCode': shortageActionCode?.toJson(),
+      'rejectedQuantity': rejectedQuantity?.toJson(),
+      'rejectReasonCode': rejectReasonCode?.toJson(),
+      'rejectReason': rejectReason.map((e) => e.toJson()).toList(),
+      'rejectActionCode': rejectActionCode?.toJson(),
+      'quantityDiscrepancyCode': quantityDiscrepancyCode?.toJson(),
+      'oversupplyQuantity': oversupplyQuantity?.toJson(),
+      'receivedDate': receivedDate?.toJson(),
+      'timingComplaintCode': timingComplaintCode?.toJson(),
+      'timingComplaint': timingComplaint?.toJson(),
+      'orderLineReference': orderLineReference?.toJson(),
+      'despatchLineReference': despatchLineReference.map((e) => e.toJson()).toList(),
+      'documentReference': documentReference.map((e) => e.toJson()).toList(),
+      'item': item.map((e) => e.toJson()).toList(),
+      'shipment': shipment.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  ReceivedHandlingUnitReceiptLine fromJson(Map<String, dynamic> json) {
+  static ReceivedHandlingUnitReceiptLine? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return ReceivedHandlingUnitReceiptLine (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
+      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
+      receivedQuantity: ReceivedQuantity.fromJson(json['receivedQuantity'] as Map<String, dynamic>?),
+      shortQuantity: ShortQuantity.fromJson(json['shortQuantity'] as Map<String, dynamic>?),
+      shortageActionCode: ShortageActionCode.fromJson(json['shortageActionCode'] as Map<String, dynamic>?),
+      rejectedQuantity: RejectedQuantity.fromJson(json['rejectedQuantity'] as Map<String, dynamic>?),
+      rejectReasonCode: RejectReasonCode.fromJson(json['rejectReasonCode'] as Map<String, dynamic>?),
+      rejectReason: (json['rejectReason'] as List? ?? []).map((dynamic d) => RejectReason.fromJson(d as Map<String, dynamic>?)!).toList(),
+      rejectActionCode: RejectActionCode.fromJson(json['rejectActionCode'] as Map<String, dynamic>?),
+      quantityDiscrepancyCode: QuantityDiscrepancyCode.fromJson(json['quantityDiscrepancyCode'] as Map<String, dynamic>?),
+      oversupplyQuantity: OversupplyQuantity.fromJson(json['oversupplyQuantity'] as Map<String, dynamic>?),
+      receivedDate: ReceivedDate.fromJson(json['receivedDate'] as Map<String, dynamic>?),
+      timingComplaintCode: TimingComplaintCode.fromJson(json['timingComplaintCode'] as Map<String, dynamic>?),
+      timingComplaint: TimingComplaint.fromJson(json['timingComplaint'] as Map<String, dynamic>?),
+      orderLineReference: OrderLineReference.fromJson(json['orderLineReference'] as Map<String, dynamic>?),
+      despatchLineReference: (json['despatchLineReference'] as List? ?? []).map((dynamic d) => DespatchLineReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      item: (json['item'] as List? ?? []).map((dynamic d) => Item.fromJson(d as Map<String, dynamic>?)!).toList(),
+      shipment: (json['shipment'] as List? ?? []).map((dynamic d) => Shipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static ReceivedHandlingUnitReceiptLine? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return ReceivedHandlingUnitReceiptLine (
+      iD: null,
+      uUID: null,
+      note: null,
+      receivedQuantity: null,
+      shortQuantity: null,
+      shortageActionCode: null,
+      rejectedQuantity: null,
+      rejectReasonCode: null,
+      rejectReason: null,
+      rejectActionCode: null,
+      quantityDiscrepancyCode: null,
+      oversupplyQuantity: null,
+      receivedDate: null,
+      timingComplaintCode: null,
+      timingComplaint: null,
+      orderLineReference: null,
+      despatchLineReference: null,
+      documentReference: null,
+      item: null,
+      shipment: null,
     );
   }
 

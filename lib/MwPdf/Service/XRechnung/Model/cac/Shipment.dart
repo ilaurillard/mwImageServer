@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/ShippingPriorityLevelCode.dart';
 import '../cbc/HandlingCode.dart';
@@ -170,46 +171,117 @@ class Shipment {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD.toJson(),
-     'shippingPriorityLevelCode': shippingPriorityLevelCode?.toJson(),
-     'handlingCode': handlingCode?.toJson(),
-     'handlingInstructions': handlingInstructions.map((e) => e.toJson()).toList(),
-     'information': information.map((e) => e.toJson()).toList(),
-     'grossWeightMeasure': grossWeightMeasure?.toJson(),
-     'netWeightMeasure': netWeightMeasure?.toJson(),
-     'netNetWeightMeasure': netNetWeightMeasure?.toJson(),
-     'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
-     'netVolumeMeasure': netVolumeMeasure?.toJson(),
-     'totalGoodsItemQuantity': totalGoodsItemQuantity?.toJson(),
-     'totalTransportHandlingUnitQuantity': totalTransportHandlingUnitQuantity?.toJson(),
-     'insuranceValueAmount': insuranceValueAmount?.toJson(),
-     'declaredCustomsValueAmount': declaredCustomsValueAmount?.toJson(),
-     'declaredForCarriageValueAmount': declaredForCarriageValueAmount?.toJson(),
-     'declaredStatisticsValueAmount': declaredStatisticsValueAmount?.toJson(),
-     'freeOnBoardValueAmount': freeOnBoardValueAmount?.toJson(),
-     'specialInstructions': specialInstructions.map((e) => e.toJson()).toList(),
-     'deliveryInstructions': deliveryInstructions.map((e) => e.toJson()).toList(),
-     'splitConsignmentIndicator': splitConsignmentIndicator?.toJson(),
-     'consignmentQuantity': consignmentQuantity?.toJson(),
-     'consignment': consignment.map((e) => e.toJson()).toList(),
-     'goodsItem': goodsItem.map((e) => e.toJson()).toList(),
-     'shipmentStage': shipmentStage.map((e) => e.toJson()).toList(),
-     'delivery': delivery?.toJson(),
-     'transportHandlingUnit': transportHandlingUnit.map((e) => e.toJson()).toList(),
-     'returnAddress': returnAddress?.toJson(),
-     'originAddress': originAddress?.toJson(),
-     'firstArrivalPortLocation': firstArrivalPortLocation?.toJson(),
-     'lastExitPortLocation': lastExitPortLocation?.toJson(),
-     'exportCountry': exportCountry?.toJson(),
-     'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
+      'iD': iD.toJson(),
+      'shippingPriorityLevelCode': shippingPriorityLevelCode?.toJson(),
+      'handlingCode': handlingCode?.toJson(),
+      'handlingInstructions': handlingInstructions.map((e) => e.toJson()).toList(),
+      'information': information.map((e) => e.toJson()).toList(),
+      'grossWeightMeasure': grossWeightMeasure?.toJson(),
+      'netWeightMeasure': netWeightMeasure?.toJson(),
+      'netNetWeightMeasure': netNetWeightMeasure?.toJson(),
+      'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
+      'netVolumeMeasure': netVolumeMeasure?.toJson(),
+      'totalGoodsItemQuantity': totalGoodsItemQuantity?.toJson(),
+      'totalTransportHandlingUnitQuantity': totalTransportHandlingUnitQuantity?.toJson(),
+      'insuranceValueAmount': insuranceValueAmount?.toJson(),
+      'declaredCustomsValueAmount': declaredCustomsValueAmount?.toJson(),
+      'declaredForCarriageValueAmount': declaredForCarriageValueAmount?.toJson(),
+      'declaredStatisticsValueAmount': declaredStatisticsValueAmount?.toJson(),
+      'freeOnBoardValueAmount': freeOnBoardValueAmount?.toJson(),
+      'specialInstructions': specialInstructions.map((e) => e.toJson()).toList(),
+      'deliveryInstructions': deliveryInstructions.map((e) => e.toJson()).toList(),
+      'splitConsignmentIndicator': splitConsignmentIndicator?.toJson(),
+      'consignmentQuantity': consignmentQuantity?.toJson(),
+      'consignment': consignment.map((e) => e.toJson()).toList(),
+      'goodsItem': goodsItem.map((e) => e.toJson()).toList(),
+      'shipmentStage': shipmentStage.map((e) => e.toJson()).toList(),
+      'delivery': delivery?.toJson(),
+      'transportHandlingUnit': transportHandlingUnit.map((e) => e.toJson()).toList(),
+      'returnAddress': returnAddress?.toJson(),
+      'originAddress': originAddress?.toJson(),
+      'firstArrivalPortLocation': firstArrivalPortLocation?.toJson(),
+      'lastExitPortLocation': lastExitPortLocation?.toJson(),
+      'exportCountry': exportCountry?.toJson(),
+      'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  Shipment fromJson(Map<String, dynamic> json) {
+  static Shipment? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return Shipment (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      shippingPriorityLevelCode: ShippingPriorityLevelCode.fromJson(json['shippingPriorityLevelCode'] as Map<String, dynamic>?),
+      handlingCode: HandlingCode.fromJson(json['handlingCode'] as Map<String, dynamic>?),
+      handlingInstructions: (json['handlingInstructions'] as List? ?? []).map((dynamic d) => HandlingInstructions.fromJson(d as Map<String, dynamic>?)!).toList(),
+      information: (json['information'] as List? ?? []).map((dynamic d) => Information.fromJson(d as Map<String, dynamic>?)!).toList(),
+      grossWeightMeasure: GrossWeightMeasure.fromJson(json['grossWeightMeasure'] as Map<String, dynamic>?),
+      netWeightMeasure: NetWeightMeasure.fromJson(json['netWeightMeasure'] as Map<String, dynamic>?),
+      netNetWeightMeasure: NetNetWeightMeasure.fromJson(json['netNetWeightMeasure'] as Map<String, dynamic>?),
+      grossVolumeMeasure: GrossVolumeMeasure.fromJson(json['grossVolumeMeasure'] as Map<String, dynamic>?),
+      netVolumeMeasure: NetVolumeMeasure.fromJson(json['netVolumeMeasure'] as Map<String, dynamic>?),
+      totalGoodsItemQuantity: TotalGoodsItemQuantity.fromJson(json['totalGoodsItemQuantity'] as Map<String, dynamic>?),
+      totalTransportHandlingUnitQuantity: TotalTransportHandlingUnitQuantity.fromJson(json['totalTransportHandlingUnitQuantity'] as Map<String, dynamic>?),
+      insuranceValueAmount: InsuranceValueAmount.fromJson(json['insuranceValueAmount'] as Map<String, dynamic>?),
+      declaredCustomsValueAmount: DeclaredCustomsValueAmount.fromJson(json['declaredCustomsValueAmount'] as Map<String, dynamic>?),
+      declaredForCarriageValueAmount: DeclaredForCarriageValueAmount.fromJson(json['declaredForCarriageValueAmount'] as Map<String, dynamic>?),
+      declaredStatisticsValueAmount: DeclaredStatisticsValueAmount.fromJson(json['declaredStatisticsValueAmount'] as Map<String, dynamic>?),
+      freeOnBoardValueAmount: FreeOnBoardValueAmount.fromJson(json['freeOnBoardValueAmount'] as Map<String, dynamic>?),
+      specialInstructions: (json['specialInstructions'] as List? ?? []).map((dynamic d) => SpecialInstructions.fromJson(d as Map<String, dynamic>?)!).toList(),
+      deliveryInstructions: (json['deliveryInstructions'] as List? ?? []).map((dynamic d) => DeliveryInstructions.fromJson(d as Map<String, dynamic>?)!).toList(),
+      splitConsignmentIndicator: SplitConsignmentIndicator.fromJson(json['splitConsignmentIndicator'] as Map<String, dynamic>?),
+      consignmentQuantity: ConsignmentQuantity.fromJson(json['consignmentQuantity'] as Map<String, dynamic>?),
+      consignment: (json['consignment'] as List? ?? []).map((dynamic d) => Consignment.fromJson(d as Map<String, dynamic>?)!).toList(),
+      goodsItem: (json['goodsItem'] as List? ?? []).map((dynamic d) => GoodsItem.fromJson(d as Map<String, dynamic>?)!).toList(),
+      shipmentStage: (json['shipmentStage'] as List? ?? []).map((dynamic d) => ShipmentStage.fromJson(d as Map<String, dynamic>?)!).toList(),
+      delivery: Delivery.fromJson(json['delivery'] as Map<String, dynamic>?),
+      transportHandlingUnit: (json['transportHandlingUnit'] as List? ?? []).map((dynamic d) => TransportHandlingUnit.fromJson(d as Map<String, dynamic>?)!).toList(),
+      returnAddress: ReturnAddress.fromJson(json['returnAddress'] as Map<String, dynamic>?),
+      originAddress: OriginAddress.fromJson(json['originAddress'] as Map<String, dynamic>?),
+      firstArrivalPortLocation: FirstArrivalPortLocation.fromJson(json['firstArrivalPortLocation'] as Map<String, dynamic>?),
+      lastExitPortLocation: LastExitPortLocation.fromJson(json['lastExitPortLocation'] as Map<String, dynamic>?),
+      exportCountry: ExportCountry.fromJson(json['exportCountry'] as Map<String, dynamic>?),
+      freightAllowanceCharge: (json['freightAllowanceCharge'] as List? ?? []).map((dynamic d) => FreightAllowanceCharge.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static Shipment? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return Shipment (
+      iD: null,
+      shippingPriorityLevelCode: null,
+      handlingCode: null,
+      handlingInstructions: null,
+      information: null,
+      grossWeightMeasure: null,
+      netWeightMeasure: null,
+      netNetWeightMeasure: null,
+      grossVolumeMeasure: null,
+      netVolumeMeasure: null,
+      totalGoodsItemQuantity: null,
+      totalTransportHandlingUnitQuantity: null,
+      insuranceValueAmount: null,
+      declaredCustomsValueAmount: null,
+      declaredForCarriageValueAmount: null,
+      declaredStatisticsValueAmount: null,
+      freeOnBoardValueAmount: null,
+      specialInstructions: null,
+      deliveryInstructions: null,
+      splitConsignmentIndicator: null,
+      consignmentQuantity: null,
+      consignment: null,
+      goodsItem: null,
+      shipmentStage: null,
+      delivery: null,
+      transportHandlingUnit: null,
+      returnAddress: null,
+      originAddress: null,
+      firstArrivalPortLocation: null,
+      lastExitPortLocation: null,
+      exportCountry: null,
+      freightAllowanceCharge: null,
     );
   }
 

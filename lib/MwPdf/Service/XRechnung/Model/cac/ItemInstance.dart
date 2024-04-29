@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ProductTraceID.dart';
 import '../cbc/ManufactureDate.dart';
 import '../cbc/ManufactureTime.dart';
@@ -50,22 +51,45 @@ class ItemInstance {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'productTraceID': productTraceID?.toJson(),
-     'manufactureDate': manufactureDate?.toJson(),
-     'manufactureTime': manufactureTime?.toJson(),
-     'bestBeforeDate': bestBeforeDate?.toJson(),
-     'registrationID': registrationID?.toJson(),
-     'serialID': serialID?.toJson(),
-     'additionalItemProperty': additionalItemProperty.map((e) => e.toJson()).toList(),
-     'lotIdentification': lotIdentification?.toJson(),
+      'productTraceID': productTraceID?.toJson(),
+      'manufactureDate': manufactureDate?.toJson(),
+      'manufactureTime': manufactureTime?.toJson(),
+      'bestBeforeDate': bestBeforeDate?.toJson(),
+      'registrationID': registrationID?.toJson(),
+      'serialID': serialID?.toJson(),
+      'additionalItemProperty': additionalItemProperty.map((e) => e.toJson()).toList(),
+      'lotIdentification': lotIdentification?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  ItemInstance fromJson(Map<String, dynamic> json) {
+  static ItemInstance? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return ItemInstance (
+      productTraceID: ProductTraceID.fromJson(json['productTraceID'] as Map<String, dynamic>?),
+      manufactureDate: ManufactureDate.fromJson(json['manufactureDate'] as Map<String, dynamic>?),
+      manufactureTime: ManufactureTime.fromJson(json['manufactureTime'] as Map<String, dynamic>?),
+      bestBeforeDate: BestBeforeDate.fromJson(json['bestBeforeDate'] as Map<String, dynamic>?),
+      registrationID: RegistrationID.fromJson(json['registrationID'] as Map<String, dynamic>?),
+      serialID: SerialID.fromJson(json['serialID'] as Map<String, dynamic>?),
+      additionalItemProperty: (json['additionalItemProperty'] as List? ?? []).map((dynamic d) => AdditionalItemProperty.fromJson(d as Map<String, dynamic>?)!).toList(),
+      lotIdentification: LotIdentification.fromJson(json['lotIdentification'] as Map<String, dynamic>?),
+    );
+  }
+
+  static ItemInstance? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return ItemInstance (
+      productTraceID: null,
+      manufactureDate: null,
+      manufactureTime: null,
+      bestBeforeDate: null,
+      registrationID: null,
+      serialID: null,
+      additionalItemProperty: null,
+      lotIdentification: null,
     );
   }
 

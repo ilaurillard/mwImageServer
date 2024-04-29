@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/TransportHandlingUnitTypeCode.dart';
 import '../cbc/HandlingCode.dart';
@@ -145,41 +146,102 @@ class PackagedTransportHandlingUnit {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'transportHandlingUnitTypeCode': transportHandlingUnitTypeCode?.toJson(),
-     'handlingCode': handlingCode?.toJson(),
-     'handlingInstructions': handlingInstructions.map((e) => e.toJson()).toList(),
-     'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
-     'totalGoodsItemQuantity': totalGoodsItemQuantity?.toJson(),
-     'totalPackageQuantity': totalPackageQuantity?.toJson(),
-     'damageRemarks': damageRemarks.map((e) => e.toJson()).toList(),
-     'shippingMarks': shippingMarks.map((e) => e.toJson()).toList(),
-     'traceID': traceID?.toJson(),
-     'handlingUnitDespatchLine': handlingUnitDespatchLine.map((e) => e.toJson()).toList(),
-     'actualPackage': actualPackage.map((e) => e.toJson()).toList(),
-     'receivedHandlingUnitReceiptLine': receivedHandlingUnitReceiptLine.map((e) => e.toJson()).toList(),
-     'transportEquipment': transportEquipment.map((e) => e.toJson()).toList(),
-     'transportMeans': transportMeans.map((e) => e.toJson()).toList(),
-     'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
-     'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
-     'minimumTemperature': minimumTemperature?.toJson(),
-     'maximumTemperature': maximumTemperature?.toJson(),
-     'goodsItem': goodsItem.map((e) => e.toJson()).toList(),
-     'floorSpaceMeasurementDimension': floorSpaceMeasurementDimension?.toJson(),
-     'palletSpaceMeasurementDimension': palletSpaceMeasurementDimension?.toJson(),
-     'shipmentDocumentReference': shipmentDocumentReference.map((e) => e.toJson()).toList(),
-     'status': status.map((e) => e.toJson()).toList(),
-     'customsDeclaration': customsDeclaration.map((e) => e.toJson()).toList(),
-     'referencedShipment': referencedShipment.map((e) => e.toJson()).toList(),
-     'package': package.map((e) => e.toJson()).toList(),
+      'iD': iD?.toJson(),
+      'transportHandlingUnitTypeCode': transportHandlingUnitTypeCode?.toJson(),
+      'handlingCode': handlingCode?.toJson(),
+      'handlingInstructions': handlingInstructions.map((e) => e.toJson()).toList(),
+      'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+      'totalGoodsItemQuantity': totalGoodsItemQuantity?.toJson(),
+      'totalPackageQuantity': totalPackageQuantity?.toJson(),
+      'damageRemarks': damageRemarks.map((e) => e.toJson()).toList(),
+      'shippingMarks': shippingMarks.map((e) => e.toJson()).toList(),
+      'traceID': traceID?.toJson(),
+      'handlingUnitDespatchLine': handlingUnitDespatchLine.map((e) => e.toJson()).toList(),
+      'actualPackage': actualPackage.map((e) => e.toJson()).toList(),
+      'receivedHandlingUnitReceiptLine': receivedHandlingUnitReceiptLine.map((e) => e.toJson()).toList(),
+      'transportEquipment': transportEquipment.map((e) => e.toJson()).toList(),
+      'transportMeans': transportMeans.map((e) => e.toJson()).toList(),
+      'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
+      'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
+      'minimumTemperature': minimumTemperature?.toJson(),
+      'maximumTemperature': maximumTemperature?.toJson(),
+      'goodsItem': goodsItem.map((e) => e.toJson()).toList(),
+      'floorSpaceMeasurementDimension': floorSpaceMeasurementDimension?.toJson(),
+      'palletSpaceMeasurementDimension': palletSpaceMeasurementDimension?.toJson(),
+      'shipmentDocumentReference': shipmentDocumentReference.map((e) => e.toJson()).toList(),
+      'status': status.map((e) => e.toJson()).toList(),
+      'customsDeclaration': customsDeclaration.map((e) => e.toJson()).toList(),
+      'referencedShipment': referencedShipment.map((e) => e.toJson()).toList(),
+      'package': package.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  PackagedTransportHandlingUnit fromJson(Map<String, dynamic> json) {
+  static PackagedTransportHandlingUnit? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return PackagedTransportHandlingUnit (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      transportHandlingUnitTypeCode: TransportHandlingUnitTypeCode.fromJson(json['transportHandlingUnitTypeCode'] as Map<String, dynamic>?),
+      handlingCode: HandlingCode.fromJson(json['handlingCode'] as Map<String, dynamic>?),
+      handlingInstructions: (json['handlingInstructions'] as List? ?? []).map((dynamic d) => HandlingInstructions.fromJson(d as Map<String, dynamic>?)!).toList(),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromJson(json['hazardousRiskIndicator'] as Map<String, dynamic>?),
+      totalGoodsItemQuantity: TotalGoodsItemQuantity.fromJson(json['totalGoodsItemQuantity'] as Map<String, dynamic>?),
+      totalPackageQuantity: TotalPackageQuantity.fromJson(json['totalPackageQuantity'] as Map<String, dynamic>?),
+      damageRemarks: (json['damageRemarks'] as List? ?? []).map((dynamic d) => DamageRemarks.fromJson(d as Map<String, dynamic>?)!).toList(),
+      shippingMarks: (json['shippingMarks'] as List? ?? []).map((dynamic d) => ShippingMarks.fromJson(d as Map<String, dynamic>?)!).toList(),
+      traceID: TraceID.fromJson(json['traceID'] as Map<String, dynamic>?),
+      handlingUnitDespatchLine: (json['handlingUnitDespatchLine'] as List? ?? []).map((dynamic d) => HandlingUnitDespatchLine.fromJson(d as Map<String, dynamic>?)!).toList(),
+      actualPackage: (json['actualPackage'] as List? ?? []).map((dynamic d) => ActualPackage.fromJson(d as Map<String, dynamic>?)!).toList(),
+      receivedHandlingUnitReceiptLine: (json['receivedHandlingUnitReceiptLine'] as List? ?? []).map((dynamic d) => ReceivedHandlingUnitReceiptLine.fromJson(d as Map<String, dynamic>?)!).toList(),
+      transportEquipment: (json['transportEquipment'] as List? ?? []).map((dynamic d) => TransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+      transportMeans: (json['transportMeans'] as List? ?? []).map((dynamic d) => TransportMeans.fromJson(d as Map<String, dynamic>?)!).toList(),
+      hazardousGoodsTransit: (json['hazardousGoodsTransit'] as List? ?? []).map((dynamic d) => HazardousGoodsTransit.fromJson(d as Map<String, dynamic>?)!).toList(),
+      measurementDimension: (json['measurementDimension'] as List? ?? []).map((dynamic d) => MeasurementDimension.fromJson(d as Map<String, dynamic>?)!).toList(),
+      minimumTemperature: MinimumTemperature.fromJson(json['minimumTemperature'] as Map<String, dynamic>?),
+      maximumTemperature: MaximumTemperature.fromJson(json['maximumTemperature'] as Map<String, dynamic>?),
+      goodsItem: (json['goodsItem'] as List? ?? []).map((dynamic d) => GoodsItem.fromJson(d as Map<String, dynamic>?)!).toList(),
+      floorSpaceMeasurementDimension: FloorSpaceMeasurementDimension.fromJson(json['floorSpaceMeasurementDimension'] as Map<String, dynamic>?),
+      palletSpaceMeasurementDimension: PalletSpaceMeasurementDimension.fromJson(json['palletSpaceMeasurementDimension'] as Map<String, dynamic>?),
+      shipmentDocumentReference: (json['shipmentDocumentReference'] as List? ?? []).map((dynamic d) => ShipmentDocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      status: (json['status'] as List? ?? []).map((dynamic d) => Status.fromJson(d as Map<String, dynamic>?)!).toList(),
+      customsDeclaration: (json['customsDeclaration'] as List? ?? []).map((dynamic d) => CustomsDeclaration.fromJson(d as Map<String, dynamic>?)!).toList(),
+      referencedShipment: (json['referencedShipment'] as List? ?? []).map((dynamic d) => ReferencedShipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+      package: (json['package'] as List? ?? []).map((dynamic d) => Package.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static PackagedTransportHandlingUnit? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return PackagedTransportHandlingUnit (
+      iD: null,
+      transportHandlingUnitTypeCode: null,
+      handlingCode: null,
+      handlingInstructions: null,
+      hazardousRiskIndicator: null,
+      totalGoodsItemQuantity: null,
+      totalPackageQuantity: null,
+      damageRemarks: null,
+      shippingMarks: null,
+      traceID: null,
+      handlingUnitDespatchLine: null,
+      actualPackage: null,
+      receivedHandlingUnitReceiptLine: null,
+      transportEquipment: null,
+      transportMeans: null,
+      hazardousGoodsTransit: null,
+      measurementDimension: null,
+      minimumTemperature: null,
+      maximumTemperature: null,
+      goodsItem: null,
+      floorSpaceMeasurementDimension: null,
+      palletSpaceMeasurementDimension: null,
+      shipmentDocumentReference: null,
+      status: null,
+      customsDeclaration: null,
+      referencedShipment: null,
+      package: null,
     );
   }
 

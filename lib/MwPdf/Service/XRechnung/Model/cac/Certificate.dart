@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/CertificateTypeCode.dart';
 import '../cbc/CertificateType.dart';
@@ -45,21 +46,42 @@ class Certificate {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD.toJson(),
-     'certificateTypeCode': certificateTypeCode.toJson(),
-     'certificateType': certificateType.toJson(),
-     'remarks': remarks.map((e) => e.toJson()).toList(),
-     'issuerParty': issuerParty.toJson(),
-     'documentReference': documentReference.map((e) => e.toJson()).toList(),
-     'signature': signature.map((e) => e.toJson()).toList(),
+      'iD': iD.toJson(),
+      'certificateTypeCode': certificateTypeCode.toJson(),
+      'certificateType': certificateType.toJson(),
+      'remarks': remarks.map((e) => e.toJson()).toList(),
+      'issuerParty': issuerParty.toJson(),
+      'documentReference': documentReference.map((e) => e.toJson()).toList(),
+      'signature': signature.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  Certificate fromJson(Map<String, dynamic> json) {
+  static Certificate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return Certificate (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      certificateTypeCode: CertificateTypeCode.fromJson(json['certificateTypeCode'] as Map<String, dynamic>?)!,
+      certificateType: CertificateType.fromJson(json['certificateType'] as Map<String, dynamic>?)!,
+      remarks: (json['remarks'] as List? ?? []).map((dynamic d) => Remarks.fromJson(d as Map<String, dynamic>?)!).toList(),
+      issuerParty: IssuerParty.fromJson(json['issuerParty'] as Map<String, dynamic>?)!,
+      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      signature: (json['signature'] as List? ?? []).map((dynamic d) => Signature.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static Certificate? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return Certificate (
+      iD: null,
+      certificateTypeCode: null,
+      certificateType: null,
+      remarks: null,
+      issuerParty: null,
+      documentReference: null,
+      signature: null,
     );
   }
 

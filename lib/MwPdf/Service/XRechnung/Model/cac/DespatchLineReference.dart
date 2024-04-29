@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/LineID.dart';
 import '../cbc/UUID.dart';
 import '../cbc/LineStatusCode.dart';
@@ -30,18 +31,33 @@ class DespatchLineReference {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'lineID': lineID.toJson(),
-     'uUID': uUID?.toJson(),
-     'lineStatusCode': lineStatusCode?.toJson(),
-     'documentReference': documentReference?.toJson(),
+      'lineID': lineID.toJson(),
+      'uUID': uUID?.toJson(),
+      'lineStatusCode': lineStatusCode?.toJson(),
+      'documentReference': documentReference?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  DespatchLineReference fromJson(Map<String, dynamic> json) {
+  static DespatchLineReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return DespatchLineReference (
+      lineID: LineID.fromJson(json['lineID'] as Map<String, dynamic>?)!,
+      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
+      lineStatusCode: LineStatusCode.fromJson(json['lineStatusCode'] as Map<String, dynamic>?),
+      documentReference: DocumentReference.fromJson(json['documentReference'] as Map<String, dynamic>?),
+    );
+  }
+
+  static DespatchLineReference? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return DespatchLineReference (
+      lineID: null,
+      uUID: null,
+      lineStatusCode: null,
+      documentReference: null,
     );
   }
 

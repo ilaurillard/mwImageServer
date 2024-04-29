@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 
 // A counted number of non-monetary units, possibly including a fractional part.
 class DeliveredQuantity {
@@ -28,19 +29,36 @@ class DeliveredQuantity {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'value': value,
-     'unitCode': unitCode,
-     'unitCodeListID': unitCodeListID,
-     'unitCodeListAgencyID': unitCodeListAgencyID,
-     'unitCodeListAgencyName': unitCodeListAgencyName,
+      'value': value,
+      'unitCode': unitCode,
+      'unitCodeListID': unitCodeListID,
+      'unitCodeListAgencyID': unitCodeListAgencyID,
+      'unitCodeListAgencyName': unitCodeListAgencyName,
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  DeliveredQuantity fromJson(Map<String, dynamic> json) {
+  static DeliveredQuantity? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return DeliveredQuantity (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      unitCode: json['unitCode'] as String?,
+      unitCodeListID: json['unitCodeListID'] as String?,
+      unitCodeListAgencyID: json['unitCodeListAgencyID'] as String?,
+      unitCodeListAgencyName: json['unitCodeListAgencyName'] as String?,
+    );
+  }
+
+  static DeliveredQuantity? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return DeliveredQuantity (
+      value: null,
+      unitCode: null,
+      unitCodeListID: null,
+      unitCodeListAgencyID: null,
+      unitCodeListAgencyName: null,
     );
   }
 

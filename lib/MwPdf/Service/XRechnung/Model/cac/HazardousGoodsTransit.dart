@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/TransportEmergencyCardCode.dart';
 import '../cbc/PackingCriteriaCode.dart';
 import '../cbc/HazardousRegulationCode.dart';
@@ -45,21 +46,42 @@ class HazardousGoodsTransit {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'transportEmergencyCardCode': transportEmergencyCardCode?.toJson(),
-     'packingCriteriaCode': packingCriteriaCode?.toJson(),
-     'hazardousRegulationCode': hazardousRegulationCode?.toJson(),
-     'inhalationToxicityZoneCode': inhalationToxicityZoneCode?.toJson(),
-     'transportAuthorizationCode': transportAuthorizationCode?.toJson(),
-     'maximumTemperature': maximumTemperature?.toJson(),
-     'minimumTemperature': minimumTemperature?.toJson(),
+      'transportEmergencyCardCode': transportEmergencyCardCode?.toJson(),
+      'packingCriteriaCode': packingCriteriaCode?.toJson(),
+      'hazardousRegulationCode': hazardousRegulationCode?.toJson(),
+      'inhalationToxicityZoneCode': inhalationToxicityZoneCode?.toJson(),
+      'transportAuthorizationCode': transportAuthorizationCode?.toJson(),
+      'maximumTemperature': maximumTemperature?.toJson(),
+      'minimumTemperature': minimumTemperature?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  HazardousGoodsTransit fromJson(Map<String, dynamic> json) {
+  static HazardousGoodsTransit? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return HazardousGoodsTransit (
+      transportEmergencyCardCode: TransportEmergencyCardCode.fromJson(json['transportEmergencyCardCode'] as Map<String, dynamic>?),
+      packingCriteriaCode: PackingCriteriaCode.fromJson(json['packingCriteriaCode'] as Map<String, dynamic>?),
+      hazardousRegulationCode: HazardousRegulationCode.fromJson(json['hazardousRegulationCode'] as Map<String, dynamic>?),
+      inhalationToxicityZoneCode: InhalationToxicityZoneCode.fromJson(json['inhalationToxicityZoneCode'] as Map<String, dynamic>?),
+      transportAuthorizationCode: TransportAuthorizationCode.fromJson(json['transportAuthorizationCode'] as Map<String, dynamic>?),
+      maximumTemperature: MaximumTemperature.fromJson(json['maximumTemperature'] as Map<String, dynamic>?),
+      minimumTemperature: MinimumTemperature.fromJson(json['minimumTemperature'] as Map<String, dynamic>?),
+    );
+  }
+
+  static HazardousGoodsTransit? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return HazardousGoodsTransit (
+      transportEmergencyCardCode: null,
+      packingCriteriaCode: null,
+      hazardousRegulationCode: null,
+      inhalationToxicityZoneCode: null,
+      transportAuthorizationCode: null,
+      maximumTemperature: null,
+      minimumTemperature: null,
     );
   }
 

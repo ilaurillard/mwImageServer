@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/CopyIndicator.dart';
 import '../cbc/UUID.dart';
@@ -95,31 +96,72 @@ class IdentityDocumentReference {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD.toJson(),
-     'copyIndicator': copyIndicator?.toJson(),
-     'uUID': uUID?.toJson(),
-     'issueDate': issueDate?.toJson(),
-     'issueTime': issueTime?.toJson(),
-     'documentTypeCode': documentTypeCode?.toJson(),
-     'documentType': documentType?.toJson(),
-     'xPath': xPath.map((e) => e.toJson()).toList(),
-     'languageID': languageID?.toJson(),
-     'localeCode': localeCode?.toJson(),
-     'versionID': versionID?.toJson(),
-     'documentStatusCode': documentStatusCode?.toJson(),
-     'documentDescription': documentDescription.map((e) => e.toJson()).toList(),
-     'attachment': attachment?.toJson(),
-     'validityPeriod': validityPeriod?.toJson(),
-     'issuerParty': issuerParty?.toJson(),
-     'resultOfVerification': resultOfVerification?.toJson(),
+      'iD': iD.toJson(),
+      'copyIndicator': copyIndicator?.toJson(),
+      'uUID': uUID?.toJson(),
+      'issueDate': issueDate?.toJson(),
+      'issueTime': issueTime?.toJson(),
+      'documentTypeCode': documentTypeCode?.toJson(),
+      'documentType': documentType?.toJson(),
+      'xPath': xPath.map((e) => e.toJson()).toList(),
+      'languageID': languageID?.toJson(),
+      'localeCode': localeCode?.toJson(),
+      'versionID': versionID?.toJson(),
+      'documentStatusCode': documentStatusCode?.toJson(),
+      'documentDescription': documentDescription.map((e) => e.toJson()).toList(),
+      'attachment': attachment?.toJson(),
+      'validityPeriod': validityPeriod?.toJson(),
+      'issuerParty': issuerParty?.toJson(),
+      'resultOfVerification': resultOfVerification?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  IdentityDocumentReference fromJson(Map<String, dynamic> json) {
+  static IdentityDocumentReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return IdentityDocumentReference (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      copyIndicator: CopyIndicator.fromJson(json['copyIndicator'] as Map<String, dynamic>?),
+      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
+      issueDate: IssueDate.fromJson(json['issueDate'] as Map<String, dynamic>?),
+      issueTime: IssueTime.fromJson(json['issueTime'] as Map<String, dynamic>?),
+      documentTypeCode: DocumentTypeCode.fromJson(json['documentTypeCode'] as Map<String, dynamic>?),
+      documentType: DocumentType.fromJson(json['documentType'] as Map<String, dynamic>?),
+      xPath: (json['xPath'] as List? ?? []).map((dynamic d) => XPath.fromJson(d as Map<String, dynamic>?)!).toList(),
+      languageID: LanguageID.fromJson(json['languageID'] as Map<String, dynamic>?),
+      localeCode: LocaleCode.fromJson(json['localeCode'] as Map<String, dynamic>?),
+      versionID: VersionID.fromJson(json['versionID'] as Map<String, dynamic>?),
+      documentStatusCode: DocumentStatusCode.fromJson(json['documentStatusCode'] as Map<String, dynamic>?),
+      documentDescription: (json['documentDescription'] as List? ?? []).map((dynamic d) => DocumentDescription.fromJson(d as Map<String, dynamic>?)!).toList(),
+      attachment: Attachment.fromJson(json['attachment'] as Map<String, dynamic>?),
+      validityPeriod: ValidityPeriod.fromJson(json['validityPeriod'] as Map<String, dynamic>?),
+      issuerParty: IssuerParty.fromJson(json['issuerParty'] as Map<String, dynamic>?),
+      resultOfVerification: ResultOfVerification.fromJson(json['resultOfVerification'] as Map<String, dynamic>?),
+    );
+  }
+
+  static IdentityDocumentReference? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return IdentityDocumentReference (
+      iD: null,
+      copyIndicator: null,
+      uUID: null,
+      issueDate: null,
+      issueTime: null,
+      documentTypeCode: null,
+      documentType: null,
+      xPath: null,
+      languageID: null,
+      localeCode: null,
+      versionID: null,
+      documentStatusCode: null,
+      documentDescription: null,
+      attachment: null,
+      validityPeriod: null,
+      issuerParty: null,
+      resultOfVerification: null,
     );
   }
 

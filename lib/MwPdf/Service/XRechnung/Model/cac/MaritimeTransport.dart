@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/VesselID.dart';
 import '../cbc/VesselName.dart';
 import '../cbc/RadioCallSignID.dart';
@@ -50,22 +51,45 @@ class MaritimeTransport {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'vesselID': vesselID?.toJson(),
-     'vesselName': vesselName?.toJson(),
-     'radioCallSignID': radioCallSignID?.toJson(),
-     'shipsRequirements': shipsRequirements.map((e) => e.toJson()).toList(),
-     'grossTonnageMeasure': grossTonnageMeasure?.toJson(),
-     'netTonnageMeasure': netTonnageMeasure?.toJson(),
-     'registryCertificateDocumentReference': registryCertificateDocumentReference?.toJson(),
-     'registryPortLocation': registryPortLocation?.toJson(),
+      'vesselID': vesselID?.toJson(),
+      'vesselName': vesselName?.toJson(),
+      'radioCallSignID': radioCallSignID?.toJson(),
+      'shipsRequirements': shipsRequirements.map((e) => e.toJson()).toList(),
+      'grossTonnageMeasure': grossTonnageMeasure?.toJson(),
+      'netTonnageMeasure': netTonnageMeasure?.toJson(),
+      'registryCertificateDocumentReference': registryCertificateDocumentReference?.toJson(),
+      'registryPortLocation': registryPortLocation?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  MaritimeTransport fromJson(Map<String, dynamic> json) {
+  static MaritimeTransport? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return MaritimeTransport (
+      vesselID: VesselID.fromJson(json['vesselID'] as Map<String, dynamic>?),
+      vesselName: VesselName.fromJson(json['vesselName'] as Map<String, dynamic>?),
+      radioCallSignID: RadioCallSignID.fromJson(json['radioCallSignID'] as Map<String, dynamic>?),
+      shipsRequirements: (json['shipsRequirements'] as List? ?? []).map((dynamic d) => ShipsRequirements.fromJson(d as Map<String, dynamic>?)!).toList(),
+      grossTonnageMeasure: GrossTonnageMeasure.fromJson(json['grossTonnageMeasure'] as Map<String, dynamic>?),
+      netTonnageMeasure: NetTonnageMeasure.fromJson(json['netTonnageMeasure'] as Map<String, dynamic>?),
+      registryCertificateDocumentReference: RegistryCertificateDocumentReference.fromJson(json['registryCertificateDocumentReference'] as Map<String, dynamic>?),
+      registryPortLocation: RegistryPortLocation.fromJson(json['registryPortLocation'] as Map<String, dynamic>?),
+    );
+  }
+
+  static MaritimeTransport? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return MaritimeTransport (
+      vesselID: null,
+      vesselName: null,
+      radioCallSignID: null,
+      shipsRequirements: null,
+      grossTonnageMeasure: null,
+      netTonnageMeasure: null,
+      registryCertificateDocumentReference: null,
+      registryPortLocation: null,
     );
   }
 

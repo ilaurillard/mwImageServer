@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/CustomerAssignedAccountID.dart';
 import '../cbc/SupplierAssignedAccountID.dart';
 import '../cbc/AdditionalAccountID.dart';
@@ -45,21 +46,42 @@ class AccountingCustomerParty {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'customerAssignedAccountID': customerAssignedAccountID?.toJson(),
-     'supplierAssignedAccountID': supplierAssignedAccountID?.toJson(),
-     'additionalAccountID': additionalAccountID.map((e) => e.toJson()).toList(),
-     'party': party?.toJson(),
-     'deliveryContact': deliveryContact?.toJson(),
-     'accountingContact': accountingContact?.toJson(),
-     'buyerContact': buyerContact?.toJson(),
+      'customerAssignedAccountID': customerAssignedAccountID?.toJson(),
+      'supplierAssignedAccountID': supplierAssignedAccountID?.toJson(),
+      'additionalAccountID': additionalAccountID.map((e) => e.toJson()).toList(),
+      'party': party?.toJson(),
+      'deliveryContact': deliveryContact?.toJson(),
+      'accountingContact': accountingContact?.toJson(),
+      'buyerContact': buyerContact?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  AccountingCustomerParty fromJson(Map<String, dynamic> json) {
+  static AccountingCustomerParty? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return AccountingCustomerParty (
+      customerAssignedAccountID: CustomerAssignedAccountID.fromJson(json['customerAssignedAccountID'] as Map<String, dynamic>?),
+      supplierAssignedAccountID: SupplierAssignedAccountID.fromJson(json['supplierAssignedAccountID'] as Map<String, dynamic>?),
+      additionalAccountID: (json['additionalAccountID'] as List? ?? []).map((dynamic d) => AdditionalAccountID.fromJson(d as Map<String, dynamic>?)!).toList(),
+      party: Party.fromJson(json['party'] as Map<String, dynamic>?),
+      deliveryContact: DeliveryContact.fromJson(json['deliveryContact'] as Map<String, dynamic>?),
+      accountingContact: AccountingContact.fromJson(json['accountingContact'] as Map<String, dynamic>?),
+      buyerContact: BuyerContact.fromJson(json['buyerContact'] as Map<String, dynamic>?),
+    );
+  }
+
+  static AccountingCustomerParty? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return AccountingCustomerParty (
+      customerAssignedAccountID: null,
+      supplierAssignedAccountID: null,
+      additionalAccountID: null,
+      party: null,
+      deliveryContact: null,
+      accountingContact: null,
+      buyerContact: null,
     );
   }
 

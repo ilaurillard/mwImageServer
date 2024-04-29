@@ -5,11 +5,22 @@ class XsdTime {
   XsdTime({
     required this.value,
   }) {
-    // TODO assert
+    assert(value.isNotEmpty);
+  }
+
+  static XsdTime? fromJson(String? json) {
+    if (json != null) {
+      return XsdTime(value: json);
+    }
+    return null;
   }
 
   @override
   String toString() {
+    return value;
+  }
+
+  String toJson() {
     return value;
   }
 }
@@ -21,11 +32,22 @@ class XsdDate {
   XsdDate({
     required this.value,
   }) {
-    // TODO assert
+    assert(value.isNotEmpty);
+  }
+
+  static XsdDate? fromJson(String? json) {
+    if (json != null) {
+      return XsdDate(value: json);
+    }
+    return null;
   }
 
   @override
   String toString() {
+    return value;
+  }
+
+  String toJson() {
     return value;
   }
 }

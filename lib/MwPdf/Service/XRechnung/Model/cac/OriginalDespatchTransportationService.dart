@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/TransportServiceCode.dart';
 import '../cbc/TariffClassCode.dart';
 import '../cbc/Priority.dart';
@@ -125,37 +126,90 @@ class OriginalDespatchTransportationService {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'transportServiceCode': transportServiceCode.toJson(),
-     'tariffClassCode': tariffClassCode?.toJson(),
-     'priority': priority?.toJson(),
-     'freightRateClassCode': freightRateClassCode?.toJson(),
-     'transportationServiceDescription': transportationServiceDescription.map((e) => e.toJson()).toList(),
-     'transportationServiceDetailsURI': transportationServiceDetailsURI?.toJson(),
-     'nominationDate': nominationDate?.toJson(),
-     'nominationTime': nominationTime?.toJson(),
-     'name': name?.toJson(),
-     'sequenceNumeric': sequenceNumeric?.toJson(),
-     'transportEquipment': transportEquipment.map((e) => e.toJson()).toList(),
-     'supportedTransportEquipment': supportedTransportEquipment.map((e) => e.toJson()).toList(),
-     'unsupportedTransportEquipment': unsupportedTransportEquipment.map((e) => e.toJson()).toList(),
-     'commodityClassification': commodityClassification.map((e) => e.toJson()).toList(),
-     'supportedCommodityClassification': supportedCommodityClassification.map((e) => e.toJson()).toList(),
-     'unsupportedCommodityClassification': unsupportedCommodityClassification.map((e) => e.toJson()).toList(),
-     'totalCapacityDimension': totalCapacityDimension?.toJson(),
-     'shipmentStage': shipmentStage.map((e) => e.toJson()).toList(),
-     'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
-     'responsibleTransportServiceProviderParty': responsibleTransportServiceProviderParty?.toJson(),
-     'environmentalEmission': environmentalEmission.map((e) => e.toJson()).toList(),
-     'estimatedDurationPeriod': estimatedDurationPeriod?.toJson(),
-     'scheduledServiceFrequency': scheduledServiceFrequency.map((e) => e.toJson()).toList(),
+      'transportServiceCode': transportServiceCode.toJson(),
+      'tariffClassCode': tariffClassCode?.toJson(),
+      'priority': priority?.toJson(),
+      'freightRateClassCode': freightRateClassCode?.toJson(),
+      'transportationServiceDescription': transportationServiceDescription.map((e) => e.toJson()).toList(),
+      'transportationServiceDetailsURI': transportationServiceDetailsURI?.toJson(),
+      'nominationDate': nominationDate?.toJson(),
+      'nominationTime': nominationTime?.toJson(),
+      'name': name?.toJson(),
+      'sequenceNumeric': sequenceNumeric?.toJson(),
+      'transportEquipment': transportEquipment.map((e) => e.toJson()).toList(),
+      'supportedTransportEquipment': supportedTransportEquipment.map((e) => e.toJson()).toList(),
+      'unsupportedTransportEquipment': unsupportedTransportEquipment.map((e) => e.toJson()).toList(),
+      'commodityClassification': commodityClassification.map((e) => e.toJson()).toList(),
+      'supportedCommodityClassification': supportedCommodityClassification.map((e) => e.toJson()).toList(),
+      'unsupportedCommodityClassification': unsupportedCommodityClassification.map((e) => e.toJson()).toList(),
+      'totalCapacityDimension': totalCapacityDimension?.toJson(),
+      'shipmentStage': shipmentStage.map((e) => e.toJson()).toList(),
+      'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
+      'responsibleTransportServiceProviderParty': responsibleTransportServiceProviderParty?.toJson(),
+      'environmentalEmission': environmentalEmission.map((e) => e.toJson()).toList(),
+      'estimatedDurationPeriod': estimatedDurationPeriod?.toJson(),
+      'scheduledServiceFrequency': scheduledServiceFrequency.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  OriginalDespatchTransportationService fromJson(Map<String, dynamic> json) {
+  static OriginalDespatchTransportationService? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return OriginalDespatchTransportationService (
+      transportServiceCode: TransportServiceCode.fromJson(json['transportServiceCode'] as Map<String, dynamic>?)!,
+      tariffClassCode: TariffClassCode.fromJson(json['tariffClassCode'] as Map<String, dynamic>?),
+      priority: Priority.fromJson(json['priority'] as Map<String, dynamic>?),
+      freightRateClassCode: FreightRateClassCode.fromJson(json['freightRateClassCode'] as Map<String, dynamic>?),
+      transportationServiceDescription: (json['transportationServiceDescription'] as List? ?? []).map((dynamic d) => TransportationServiceDescription.fromJson(d as Map<String, dynamic>?)!).toList(),
+      transportationServiceDetailsURI: TransportationServiceDetailsURI.fromJson(json['transportationServiceDetailsURI'] as Map<String, dynamic>?),
+      nominationDate: NominationDate.fromJson(json['nominationDate'] as Map<String, dynamic>?),
+      nominationTime: NominationTime.fromJson(json['nominationTime'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      sequenceNumeric: SequenceNumeric.fromJson(json['sequenceNumeric'] as Map<String, dynamic>?),
+      transportEquipment: (json['transportEquipment'] as List? ?? []).map((dynamic d) => TransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+      supportedTransportEquipment: (json['supportedTransportEquipment'] as List? ?? []).map((dynamic d) => SupportedTransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+      unsupportedTransportEquipment: (json['unsupportedTransportEquipment'] as List? ?? []).map((dynamic d) => UnsupportedTransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+      commodityClassification: (json['commodityClassification'] as List? ?? []).map((dynamic d) => CommodityClassification.fromJson(d as Map<String, dynamic>?)!).toList(),
+      supportedCommodityClassification: (json['supportedCommodityClassification'] as List? ?? []).map((dynamic d) => SupportedCommodityClassification.fromJson(d as Map<String, dynamic>?)!).toList(),
+      unsupportedCommodityClassification: (json['unsupportedCommodityClassification'] as List? ?? []).map((dynamic d) => UnsupportedCommodityClassification.fromJson(d as Map<String, dynamic>?)!).toList(),
+      totalCapacityDimension: TotalCapacityDimension.fromJson(json['totalCapacityDimension'] as Map<String, dynamic>?),
+      shipmentStage: (json['shipmentStage'] as List? ?? []).map((dynamic d) => ShipmentStage.fromJson(d as Map<String, dynamic>?)!).toList(),
+      transportEvent: (json['transportEvent'] as List? ?? []).map((dynamic d) => TransportEvent.fromJson(d as Map<String, dynamic>?)!).toList(),
+      responsibleTransportServiceProviderParty: ResponsibleTransportServiceProviderParty.fromJson(json['responsibleTransportServiceProviderParty'] as Map<String, dynamic>?),
+      environmentalEmission: (json['environmentalEmission'] as List? ?? []).map((dynamic d) => EnvironmentalEmission.fromJson(d as Map<String, dynamic>?)!).toList(),
+      estimatedDurationPeriod: EstimatedDurationPeriod.fromJson(json['estimatedDurationPeriod'] as Map<String, dynamic>?),
+      scheduledServiceFrequency: (json['scheduledServiceFrequency'] as List? ?? []).map((dynamic d) => ScheduledServiceFrequency.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static OriginalDespatchTransportationService? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return OriginalDespatchTransportationService (
+      transportServiceCode: null,
+      tariffClassCode: null,
+      priority: null,
+      freightRateClassCode: null,
+      transportationServiceDescription: null,
+      transportationServiceDetailsURI: null,
+      nominationDate: null,
+      nominationTime: null,
+      name: null,
+      sequenceNumeric: null,
+      transportEquipment: null,
+      supportedTransportEquipment: null,
+      unsupportedTransportEquipment: null,
+      commodityClassification: null,
+      supportedCommodityClassification: null,
+      unsupportedCommodityClassification: null,
+      totalCapacityDimension: null,
+      shipmentStage: null,
+      transportEvent: null,
+      responsibleTransportServiceProviderParty: null,
+      environmentalEmission: null,
+      estimatedDurationPeriod: null,
+      scheduledServiceFrequency: null,
     );
   }
 

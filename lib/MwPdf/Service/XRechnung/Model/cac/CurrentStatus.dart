@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ConditionCode.dart';
 import '../cbc/ReferenceDate.dart';
 import '../cbc/ReferenceTime.dart';
@@ -70,26 +71,57 @@ class CurrentStatus {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'conditionCode': conditionCode?.toJson(),
-     'referenceDate': referenceDate?.toJson(),
-     'referenceTime': referenceTime?.toJson(),
-     'description': description.map((e) => e.toJson()).toList(),
-     'statusReasonCode': statusReasonCode?.toJson(),
-     'statusReason': statusReason.map((e) => e.toJson()).toList(),
-     'sequenceID': sequenceID?.toJson(),
-     'text': text.map((e) => e.toJson()).toList(),
-     'indicationIndicator': indicationIndicator?.toJson(),
-     'percent': percent?.toJson(),
-     'reliabilityPercent': reliabilityPercent?.toJson(),
-     'condition': condition.map((e) => e.toJson()).toList(),
+      'conditionCode': conditionCode?.toJson(),
+      'referenceDate': referenceDate?.toJson(),
+      'referenceTime': referenceTime?.toJson(),
+      'description': description.map((e) => e.toJson()).toList(),
+      'statusReasonCode': statusReasonCode?.toJson(),
+      'statusReason': statusReason.map((e) => e.toJson()).toList(),
+      'sequenceID': sequenceID?.toJson(),
+      'text': text.map((e) => e.toJson()).toList(),
+      'indicationIndicator': indicationIndicator?.toJson(),
+      'percent': percent?.toJson(),
+      'reliabilityPercent': reliabilityPercent?.toJson(),
+      'condition': condition.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  CurrentStatus fromJson(Map<String, dynamic> json) {
+  static CurrentStatus? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return CurrentStatus (
+      conditionCode: ConditionCode.fromJson(json['conditionCode'] as Map<String, dynamic>?),
+      referenceDate: ReferenceDate.fromJson(json['referenceDate'] as Map<String, dynamic>?),
+      referenceTime: ReferenceTime.fromJson(json['referenceTime'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      statusReasonCode: StatusReasonCode.fromJson(json['statusReasonCode'] as Map<String, dynamic>?),
+      statusReason: (json['statusReason'] as List? ?? []).map((dynamic d) => StatusReason.fromJson(d as Map<String, dynamic>?)!).toList(),
+      sequenceID: SequenceID.fromJson(json['sequenceID'] as Map<String, dynamic>?),
+      text: (json['text'] as List? ?? []).map((dynamic d) => Text.fromJson(d as Map<String, dynamic>?)!).toList(),
+      indicationIndicator: IndicationIndicator.fromJson(json['indicationIndicator'] as Map<String, dynamic>?),
+      percent: Percent.fromJson(json['percent'] as Map<String, dynamic>?),
+      reliabilityPercent: ReliabilityPercent.fromJson(json['reliabilityPercent'] as Map<String, dynamic>?),
+      condition: (json['condition'] as List? ?? []).map((dynamic d) => Condition.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static CurrentStatus? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return CurrentStatus (
+      conditionCode: null,
+      referenceDate: null,
+      referenceTime: null,
+      description: null,
+      statusReasonCode: null,
+      statusReason: null,
+      sequenceID: null,
+      text: null,
+      indicationIndicator: null,
+      percent: null,
+      reliabilityPercent: null,
+      condition: null,
     );
   }
 

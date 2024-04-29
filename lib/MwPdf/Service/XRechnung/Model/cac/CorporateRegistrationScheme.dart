@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../cbc/CorporateRegistrationTypeCode.dart';
@@ -30,18 +31,33 @@ class CorporateRegistrationScheme {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'name': name?.toJson(),
-     'corporateRegistrationTypeCode': corporateRegistrationTypeCode?.toJson(),
-     'jurisdictionRegionAddress': jurisdictionRegionAddress.map((e) => e.toJson()).toList(),
+      'iD': iD?.toJson(),
+      'name': name?.toJson(),
+      'corporateRegistrationTypeCode': corporateRegistrationTypeCode?.toJson(),
+      'jurisdictionRegionAddress': jurisdictionRegionAddress.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  CorporateRegistrationScheme fromJson(Map<String, dynamic> json) {
+  static CorporateRegistrationScheme? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return CorporateRegistrationScheme (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      corporateRegistrationTypeCode: CorporateRegistrationTypeCode.fromJson(json['corporateRegistrationTypeCode'] as Map<String, dynamic>?),
+      jurisdictionRegionAddress: (json['jurisdictionRegionAddress'] as List? ?? []).map((dynamic d) => JurisdictionRegionAddress.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static CorporateRegistrationScheme? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return CorporateRegistrationScheme (
+      iD: null,
+      name: null,
+      corporateRegistrationTypeCode: null,
+      jurisdictionRegionAddress: null,
     );
   }
 

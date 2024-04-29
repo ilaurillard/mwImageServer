@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 
 // A character string to identify and uniquely distinguish one instance of an object in an identification scheme from all other objects in the same scheme, together with relevant supplementary information.
 class AircraftID {
@@ -42,22 +43,45 @@ class AircraftID {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'value': value,
-     'schemeID': schemeID,
-     'schemeName': schemeName,
-     'schemeAgencyID': schemeAgencyID,
-     'schemeAgencyName': schemeAgencyName,
-     'schemeVersionID': schemeVersionID,
-     'schemeDataURI': schemeDataURI,
-     'schemeURI': schemeURI,
+      'value': value,
+      'schemeID': schemeID,
+      'schemeName': schemeName,
+      'schemeAgencyID': schemeAgencyID,
+      'schemeAgencyName': schemeAgencyName,
+      'schemeVersionID': schemeVersionID,
+      'schemeDataURI': schemeDataURI,
+      'schemeURI': schemeURI,
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  AircraftID fromJson(Map<String, dynamic> json) {
+  static AircraftID? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return AircraftID (
+      value: json['value'] as String? ?? '',
+      schemeID: json['schemeID'] as String?,
+      schemeName: json['schemeName'] as String?,
+      schemeAgencyID: json['schemeAgencyID'] as String?,
+      schemeAgencyName: json['schemeAgencyName'] as String?,
+      schemeVersionID: json['schemeVersionID'] as String?,
+      schemeDataURI: json['schemeDataURI'] as String?,
+      schemeURI: json['schemeURI'] as String?,
+    );
+  }
+
+  static AircraftID? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return AircraftID (
+      value: null,
+      schemeID: null,
+      schemeName: null,
+      schemeAgencyID: null,
+      schemeAgencyName: null,
+      schemeVersionID: null,
+      schemeDataURI: null,
+      schemeURI: null,
     );
   }
 

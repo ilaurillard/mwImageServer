@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/FirstName.dart';
 import '../cbc/FamilyName.dart';
@@ -95,31 +96,72 @@ class SecurityOfficerPerson {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'firstName': firstName?.toJson(),
-     'familyName': familyName?.toJson(),
-     'title': title?.toJson(),
-     'middleName': middleName?.toJson(),
-     'otherName': otherName?.toJson(),
-     'nameSuffix': nameSuffix?.toJson(),
-     'jobTitle': jobTitle?.toJson(),
-     'nationalityID': nationalityID?.toJson(),
-     'genderCode': genderCode?.toJson(),
-     'birthDate': birthDate?.toJson(),
-     'birthplaceName': birthplaceName?.toJson(),
-     'organizationDepartment': organizationDepartment?.toJson(),
-     'contact': contact?.toJson(),
-     'financialAccount': financialAccount?.toJson(),
-     'identityDocumentReference': identityDocumentReference.map((e) => e.toJson()).toList(),
-     'residenceAddress': residenceAddress?.toJson(),
+      'iD': iD?.toJson(),
+      'firstName': firstName?.toJson(),
+      'familyName': familyName?.toJson(),
+      'title': title?.toJson(),
+      'middleName': middleName?.toJson(),
+      'otherName': otherName?.toJson(),
+      'nameSuffix': nameSuffix?.toJson(),
+      'jobTitle': jobTitle?.toJson(),
+      'nationalityID': nationalityID?.toJson(),
+      'genderCode': genderCode?.toJson(),
+      'birthDate': birthDate?.toJson(),
+      'birthplaceName': birthplaceName?.toJson(),
+      'organizationDepartment': organizationDepartment?.toJson(),
+      'contact': contact?.toJson(),
+      'financialAccount': financialAccount?.toJson(),
+      'identityDocumentReference': identityDocumentReference.map((e) => e.toJson()).toList(),
+      'residenceAddress': residenceAddress?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  SecurityOfficerPerson fromJson(Map<String, dynamic> json) {
+  static SecurityOfficerPerson? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return SecurityOfficerPerson (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      firstName: FirstName.fromJson(json['firstName'] as Map<String, dynamic>?),
+      familyName: FamilyName.fromJson(json['familyName'] as Map<String, dynamic>?),
+      title: Title.fromJson(json['title'] as Map<String, dynamic>?),
+      middleName: MiddleName.fromJson(json['middleName'] as Map<String, dynamic>?),
+      otherName: OtherName.fromJson(json['otherName'] as Map<String, dynamic>?),
+      nameSuffix: NameSuffix.fromJson(json['nameSuffix'] as Map<String, dynamic>?),
+      jobTitle: JobTitle.fromJson(json['jobTitle'] as Map<String, dynamic>?),
+      nationalityID: NationalityID.fromJson(json['nationalityID'] as Map<String, dynamic>?),
+      genderCode: GenderCode.fromJson(json['genderCode'] as Map<String, dynamic>?),
+      birthDate: BirthDate.fromJson(json['birthDate'] as Map<String, dynamic>?),
+      birthplaceName: BirthplaceName.fromJson(json['birthplaceName'] as Map<String, dynamic>?),
+      organizationDepartment: OrganizationDepartment.fromJson(json['organizationDepartment'] as Map<String, dynamic>?),
+      contact: Contact.fromJson(json['contact'] as Map<String, dynamic>?),
+      financialAccount: FinancialAccount.fromJson(json['financialAccount'] as Map<String, dynamic>?),
+      identityDocumentReference: (json['identityDocumentReference'] as List? ?? []).map((dynamic d) => IdentityDocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      residenceAddress: ResidenceAddress.fromJson(json['residenceAddress'] as Map<String, dynamic>?),
+    );
+  }
+
+  static SecurityOfficerPerson? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return SecurityOfficerPerson (
+      iD: null,
+      firstName: null,
+      familyName: null,
+      title: null,
+      middleName: null,
+      otherName: null,
+      nameSuffix: null,
+      jobTitle: null,
+      nationalityID: null,
+      genderCode: null,
+      birthDate: null,
+      birthplaceName: null,
+      organizationDepartment: null,
+      contact: null,
+      financialAccount: null,
+      identityDocumentReference: null,
+      residenceAddress: null,
     );
   }
 

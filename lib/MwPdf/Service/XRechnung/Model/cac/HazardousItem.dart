@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/PlacardNotation.dart';
 import '../cbc/PlacardEndorsement.dart';
@@ -125,37 +126,90 @@ class HazardousItem {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'placardNotation': placardNotation?.toJson(),
-     'placardEndorsement': placardEndorsement?.toJson(),
-     'additionalInformation': additionalInformation.map((e) => e.toJson()).toList(),
-     'uNDGCode': uNDGCode?.toJson(),
-     'emergencyProceduresCode': emergencyProceduresCode?.toJson(),
-     'medicalFirstAidGuideCode': medicalFirstAidGuideCode?.toJson(),
-     'technicalName': technicalName?.toJson(),
-     'categoryName': categoryName?.toJson(),
-     'hazardousCategoryCode': hazardousCategoryCode?.toJson(),
-     'upperOrangeHazardPlacardID': upperOrangeHazardPlacardID?.toJson(),
-     'lowerOrangeHazardPlacardID': lowerOrangeHazardPlacardID?.toJson(),
-     'markingID': markingID?.toJson(),
-     'hazardClassID': hazardClassID?.toJson(),
-     'netWeightMeasure': netWeightMeasure?.toJson(),
-     'netVolumeMeasure': netVolumeMeasure?.toJson(),
-     'quantity': quantity?.toJson(),
-     'contactParty': contactParty?.toJson(),
-     'secondaryHazard': secondaryHazard.map((e) => e.toJson()).toList(),
-     'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
-     'emergencyTemperature': emergencyTemperature?.toJson(),
-     'flashpointTemperature': flashpointTemperature?.toJson(),
-     'additionalTemperature': additionalTemperature.map((e) => e.toJson()).toList(),
+      'iD': iD?.toJson(),
+      'placardNotation': placardNotation?.toJson(),
+      'placardEndorsement': placardEndorsement?.toJson(),
+      'additionalInformation': additionalInformation.map((e) => e.toJson()).toList(),
+      'uNDGCode': uNDGCode?.toJson(),
+      'emergencyProceduresCode': emergencyProceduresCode?.toJson(),
+      'medicalFirstAidGuideCode': medicalFirstAidGuideCode?.toJson(),
+      'technicalName': technicalName?.toJson(),
+      'categoryName': categoryName?.toJson(),
+      'hazardousCategoryCode': hazardousCategoryCode?.toJson(),
+      'upperOrangeHazardPlacardID': upperOrangeHazardPlacardID?.toJson(),
+      'lowerOrangeHazardPlacardID': lowerOrangeHazardPlacardID?.toJson(),
+      'markingID': markingID?.toJson(),
+      'hazardClassID': hazardClassID?.toJson(),
+      'netWeightMeasure': netWeightMeasure?.toJson(),
+      'netVolumeMeasure': netVolumeMeasure?.toJson(),
+      'quantity': quantity?.toJson(),
+      'contactParty': contactParty?.toJson(),
+      'secondaryHazard': secondaryHazard.map((e) => e.toJson()).toList(),
+      'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
+      'emergencyTemperature': emergencyTemperature?.toJson(),
+      'flashpointTemperature': flashpointTemperature?.toJson(),
+      'additionalTemperature': additionalTemperature.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  HazardousItem fromJson(Map<String, dynamic> json) {
+  static HazardousItem? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return HazardousItem (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      placardNotation: PlacardNotation.fromJson(json['placardNotation'] as Map<String, dynamic>?),
+      placardEndorsement: PlacardEndorsement.fromJson(json['placardEndorsement'] as Map<String, dynamic>?),
+      additionalInformation: (json['additionalInformation'] as List? ?? []).map((dynamic d) => AdditionalInformation.fromJson(d as Map<String, dynamic>?)!).toList(),
+      uNDGCode: UNDGCode.fromJson(json['uNDGCode'] as Map<String, dynamic>?),
+      emergencyProceduresCode: EmergencyProceduresCode.fromJson(json['emergencyProceduresCode'] as Map<String, dynamic>?),
+      medicalFirstAidGuideCode: MedicalFirstAidGuideCode.fromJson(json['medicalFirstAidGuideCode'] as Map<String, dynamic>?),
+      technicalName: TechnicalName.fromJson(json['technicalName'] as Map<String, dynamic>?),
+      categoryName: CategoryName.fromJson(json['categoryName'] as Map<String, dynamic>?),
+      hazardousCategoryCode: HazardousCategoryCode.fromJson(json['hazardousCategoryCode'] as Map<String, dynamic>?),
+      upperOrangeHazardPlacardID: UpperOrangeHazardPlacardID.fromJson(json['upperOrangeHazardPlacardID'] as Map<String, dynamic>?),
+      lowerOrangeHazardPlacardID: LowerOrangeHazardPlacardID.fromJson(json['lowerOrangeHazardPlacardID'] as Map<String, dynamic>?),
+      markingID: MarkingID.fromJson(json['markingID'] as Map<String, dynamic>?),
+      hazardClassID: HazardClassID.fromJson(json['hazardClassID'] as Map<String, dynamic>?),
+      netWeightMeasure: NetWeightMeasure.fromJson(json['netWeightMeasure'] as Map<String, dynamic>?),
+      netVolumeMeasure: NetVolumeMeasure.fromJson(json['netVolumeMeasure'] as Map<String, dynamic>?),
+      quantity: Quantity.fromJson(json['quantity'] as Map<String, dynamic>?),
+      contactParty: ContactParty.fromJson(json['contactParty'] as Map<String, dynamic>?),
+      secondaryHazard: (json['secondaryHazard'] as List? ?? []).map((dynamic d) => SecondaryHazard.fromJson(d as Map<String, dynamic>?)!).toList(),
+      hazardousGoodsTransit: (json['hazardousGoodsTransit'] as List? ?? []).map((dynamic d) => HazardousGoodsTransit.fromJson(d as Map<String, dynamic>?)!).toList(),
+      emergencyTemperature: EmergencyTemperature.fromJson(json['emergencyTemperature'] as Map<String, dynamic>?),
+      flashpointTemperature: FlashpointTemperature.fromJson(json['flashpointTemperature'] as Map<String, dynamic>?),
+      additionalTemperature: (json['additionalTemperature'] as List? ?? []).map((dynamic d) => AdditionalTemperature.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static HazardousItem? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return HazardousItem (
+      iD: null,
+      placardNotation: null,
+      placardEndorsement: null,
+      additionalInformation: null,
+      uNDGCode: null,
+      emergencyProceduresCode: null,
+      medicalFirstAidGuideCode: null,
+      technicalName: null,
+      categoryName: null,
+      hazardousCategoryCode: null,
+      upperOrangeHazardPlacardID: null,
+      lowerOrangeHazardPlacardID: null,
+      markingID: null,
+      hazardClassID: null,
+      netWeightMeasure: null,
+      netVolumeMeasure: null,
+      quantity: null,
+      contactParty: null,
+      secondaryHazard: null,
+      hazardousGoodsTransit: null,
+      emergencyTemperature: null,
+      flashpointTemperature: null,
+      additionalTemperature: null,
     );
   }
 

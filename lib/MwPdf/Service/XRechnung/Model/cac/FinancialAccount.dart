@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../cbc/AliasName.dart';
@@ -55,23 +56,48 @@ class FinancialAccount {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'name': name?.toJson(),
-     'aliasName': aliasName?.toJson(),
-     'accountTypeCode': accountTypeCode?.toJson(),
-     'accountFormatCode': accountFormatCode?.toJson(),
-     'currencyCode': currencyCode?.toJson(),
-     'paymentNote': paymentNote.map((e) => e.toJson()).toList(),
-     'financialInstitutionBranch': financialInstitutionBranch?.toJson(),
-     'country': country?.toJson(),
+      'iD': iD?.toJson(),
+      'name': name?.toJson(),
+      'aliasName': aliasName?.toJson(),
+      'accountTypeCode': accountTypeCode?.toJson(),
+      'accountFormatCode': accountFormatCode?.toJson(),
+      'currencyCode': currencyCode?.toJson(),
+      'paymentNote': paymentNote.map((e) => e.toJson()).toList(),
+      'financialInstitutionBranch': financialInstitutionBranch?.toJson(),
+      'country': country?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  FinancialAccount fromJson(Map<String, dynamic> json) {
+  static FinancialAccount? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return FinancialAccount (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      aliasName: AliasName.fromJson(json['aliasName'] as Map<String, dynamic>?),
+      accountTypeCode: AccountTypeCode.fromJson(json['accountTypeCode'] as Map<String, dynamic>?),
+      accountFormatCode: AccountFormatCode.fromJson(json['accountFormatCode'] as Map<String, dynamic>?),
+      currencyCode: CurrencyCode.fromJson(json['currencyCode'] as Map<String, dynamic>?),
+      paymentNote: (json['paymentNote'] as List? ?? []).map((dynamic d) => PaymentNote.fromJson(d as Map<String, dynamic>?)!).toList(),
+      financialInstitutionBranch: FinancialInstitutionBranch.fromJson(json['financialInstitutionBranch'] as Map<String, dynamic>?),
+      country: Country.fromJson(json['country'] as Map<String, dynamic>?),
+    );
+  }
+
+  static FinancialAccount? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return FinancialAccount (
+      iD: null,
+      name: null,
+      aliasName: null,
+      accountTypeCode: null,
+      accountFormatCode: null,
+      currencyCode: null,
+      paymentNote: null,
+      financialInstitutionBranch: null,
+      country: null,
     );
   }
 

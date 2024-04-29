@@ -8,9 +8,8 @@ class InternalType extends XsdType {
     super.name = name;
   }
 
-  String scalarType()
-  {
-    switch(name) {
+  String scalarType() {
+    switch (name) {
       case 'decimal':
         return 'double';
       case 'boolean':
@@ -23,10 +22,27 @@ class InternalType extends XsdType {
     return 'String';
   }
 
+  String fromDef(
+    String source, {
+    bool optional = false,
+  }) {
+    switch (name) {
+      case 'decimal':
+        return 'double.tryParse($source.toString())${optional ? '' : " ?? 0"}';
+      case 'boolean':
+        return '$source as bool?${optional ? '' : " ?? false"}';
+      case 'date':
+        return 'XsdDate.fromJson($source as String?)${optional ? '' : '!'}';
+      case 'time':
+        return 'XsdTime.fromJson($source as String?)${optional ? '' : '!'}';
+    }
+    return '$source as String?${optional ? '' : " ?? ''"}';
+  }
+
   static InternalType from(
     String name,
   ) {
-    switch(name) {
+    switch (name) {
       case 'xsd:decimal':
         break;
       case 'xsd:normalizedString':

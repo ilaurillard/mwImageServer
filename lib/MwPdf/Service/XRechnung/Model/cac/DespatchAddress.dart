@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/AddressTypeCode.dart';
 import '../cbc/AddressFormatCode.dart';
@@ -145,41 +146,102 @@ class DespatchAddress {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'addressTypeCode': addressTypeCode?.toJson(),
-     'addressFormatCode': addressFormatCode?.toJson(),
-     'postbox': postbox?.toJson(),
-     'floor': floor?.toJson(),
-     'room': room?.toJson(),
-     'streetName': streetName?.toJson(),
-     'additionalStreetName': additionalStreetName?.toJson(),
-     'blockName': blockName?.toJson(),
-     'buildingName': buildingName?.toJson(),
-     'buildingNumber': buildingNumber?.toJson(),
-     'inhouseMail': inhouseMail?.toJson(),
-     'department': department?.toJson(),
-     'markAttention': markAttention?.toJson(),
-     'markCare': markCare?.toJson(),
-     'plotIdentification': plotIdentification?.toJson(),
-     'citySubdivisionName': citySubdivisionName?.toJson(),
-     'cityName': cityName?.toJson(),
-     'postalZone': postalZone?.toJson(),
-     'countrySubentity': countrySubentity?.toJson(),
-     'countrySubentityCode': countrySubentityCode?.toJson(),
-     'region': region?.toJson(),
-     'district': district?.toJson(),
-     'timezoneOffset': timezoneOffset?.toJson(),
-     'addressLine': addressLine.map((e) => e.toJson()).toList(),
-     'country': country?.toJson(),
-     'locationCoordinate': locationCoordinate.map((e) => e.toJson()).toList(),
+      'iD': iD?.toJson(),
+      'addressTypeCode': addressTypeCode?.toJson(),
+      'addressFormatCode': addressFormatCode?.toJson(),
+      'postbox': postbox?.toJson(),
+      'floor': floor?.toJson(),
+      'room': room?.toJson(),
+      'streetName': streetName?.toJson(),
+      'additionalStreetName': additionalStreetName?.toJson(),
+      'blockName': blockName?.toJson(),
+      'buildingName': buildingName?.toJson(),
+      'buildingNumber': buildingNumber?.toJson(),
+      'inhouseMail': inhouseMail?.toJson(),
+      'department': department?.toJson(),
+      'markAttention': markAttention?.toJson(),
+      'markCare': markCare?.toJson(),
+      'plotIdentification': plotIdentification?.toJson(),
+      'citySubdivisionName': citySubdivisionName?.toJson(),
+      'cityName': cityName?.toJson(),
+      'postalZone': postalZone?.toJson(),
+      'countrySubentity': countrySubentity?.toJson(),
+      'countrySubentityCode': countrySubentityCode?.toJson(),
+      'region': region?.toJson(),
+      'district': district?.toJson(),
+      'timezoneOffset': timezoneOffset?.toJson(),
+      'addressLine': addressLine.map((e) => e.toJson()).toList(),
+      'country': country?.toJson(),
+      'locationCoordinate': locationCoordinate.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  DespatchAddress fromJson(Map<String, dynamic> json) {
+  static DespatchAddress? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return DespatchAddress (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      addressTypeCode: AddressTypeCode.fromJson(json['addressTypeCode'] as Map<String, dynamic>?),
+      addressFormatCode: AddressFormatCode.fromJson(json['addressFormatCode'] as Map<String, dynamic>?),
+      postbox: Postbox.fromJson(json['postbox'] as Map<String, dynamic>?),
+      floor: Floor.fromJson(json['floor'] as Map<String, dynamic>?),
+      room: Room.fromJson(json['room'] as Map<String, dynamic>?),
+      streetName: StreetName.fromJson(json['streetName'] as Map<String, dynamic>?),
+      additionalStreetName: AdditionalStreetName.fromJson(json['additionalStreetName'] as Map<String, dynamic>?),
+      blockName: BlockName.fromJson(json['blockName'] as Map<String, dynamic>?),
+      buildingName: BuildingName.fromJson(json['buildingName'] as Map<String, dynamic>?),
+      buildingNumber: BuildingNumber.fromJson(json['buildingNumber'] as Map<String, dynamic>?),
+      inhouseMail: InhouseMail.fromJson(json['inhouseMail'] as Map<String, dynamic>?),
+      department: Department.fromJson(json['department'] as Map<String, dynamic>?),
+      markAttention: MarkAttention.fromJson(json['markAttention'] as Map<String, dynamic>?),
+      markCare: MarkCare.fromJson(json['markCare'] as Map<String, dynamic>?),
+      plotIdentification: PlotIdentification.fromJson(json['plotIdentification'] as Map<String, dynamic>?),
+      citySubdivisionName: CitySubdivisionName.fromJson(json['citySubdivisionName'] as Map<String, dynamic>?),
+      cityName: CityName.fromJson(json['cityName'] as Map<String, dynamic>?),
+      postalZone: PostalZone.fromJson(json['postalZone'] as Map<String, dynamic>?),
+      countrySubentity: CountrySubentity.fromJson(json['countrySubentity'] as Map<String, dynamic>?),
+      countrySubentityCode: CountrySubentityCode.fromJson(json['countrySubentityCode'] as Map<String, dynamic>?),
+      region: Region.fromJson(json['region'] as Map<String, dynamic>?),
+      district: District.fromJson(json['district'] as Map<String, dynamic>?),
+      timezoneOffset: TimezoneOffset.fromJson(json['timezoneOffset'] as Map<String, dynamic>?),
+      addressLine: (json['addressLine'] as List? ?? []).map((dynamic d) => AddressLine.fromJson(d as Map<String, dynamic>?)!).toList(),
+      country: Country.fromJson(json['country'] as Map<String, dynamic>?),
+      locationCoordinate: (json['locationCoordinate'] as List? ?? []).map((dynamic d) => LocationCoordinate.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static DespatchAddress? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return DespatchAddress (
+      iD: null,
+      addressTypeCode: null,
+      addressFormatCode: null,
+      postbox: null,
+      floor: null,
+      room: null,
+      streetName: null,
+      additionalStreetName: null,
+      blockName: null,
+      buildingName: null,
+      buildingNumber: null,
+      inhouseMail: null,
+      department: null,
+      markAttention: null,
+      markCare: null,
+      plotIdentification: null,
+      citySubdivisionName: null,
+      cityName: null,
+      postalZone: null,
+      countrySubentity: null,
+      countrySubentityCode: null,
+      region: null,
+      district: null,
+      timezoneOffset: null,
+      addressLine: null,
+      country: null,
+      locationCoordinate: null,
     );
   }
 

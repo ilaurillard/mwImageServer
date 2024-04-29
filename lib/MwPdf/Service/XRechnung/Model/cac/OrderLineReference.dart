@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/LineID.dart';
 import '../cbc/SalesOrderLineID.dart';
 import '../cbc/UUID.dart';
@@ -35,19 +36,36 @@ class OrderLineReference {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'lineID': lineID.toJson(),
-     'salesOrderLineID': salesOrderLineID?.toJson(),
-     'uUID': uUID?.toJson(),
-     'lineStatusCode': lineStatusCode?.toJson(),
-     'orderReference': orderReference?.toJson(),
+      'lineID': lineID.toJson(),
+      'salesOrderLineID': salesOrderLineID?.toJson(),
+      'uUID': uUID?.toJson(),
+      'lineStatusCode': lineStatusCode?.toJson(),
+      'orderReference': orderReference?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  OrderLineReference fromJson(Map<String, dynamic> json) {
+  static OrderLineReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return OrderLineReference (
+      lineID: LineID.fromJson(json['lineID'] as Map<String, dynamic>?)!,
+      salesOrderLineID: SalesOrderLineID.fromJson(json['salesOrderLineID'] as Map<String, dynamic>?),
+      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
+      lineStatusCode: LineStatusCode.fromJson(json['lineStatusCode'] as Map<String, dynamic>?),
+      orderReference: OrderReference.fromJson(json['orderReference'] as Map<String, dynamic>?),
+    );
+  }
+
+  static OrderLineReference? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return OrderLineReference (
+      lineID: null,
+      salesOrderLineID: null,
+      uUID: null,
+      lineStatusCode: null,
+      orderReference: null,
     );
   }
 

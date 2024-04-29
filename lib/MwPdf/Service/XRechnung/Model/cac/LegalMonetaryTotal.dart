@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/PayableAmount.dart';
 import '../cbc/LineExtensionAmount.dart';
 import '../cbc/TaxExclusiveAmount.dart';
@@ -55,23 +56,48 @@ class LegalMonetaryTotal {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'lineExtensionAmount': lineExtensionAmount?.toJson(),
-     'taxExclusiveAmount': taxExclusiveAmount?.toJson(),
-     'taxInclusiveAmount': taxInclusiveAmount?.toJson(),
-     'allowanceTotalAmount': allowanceTotalAmount?.toJson(),
-     'chargeTotalAmount': chargeTotalAmount?.toJson(),
-     'prepaidAmount': prepaidAmount?.toJson(),
-     'payableRoundingAmount': payableRoundingAmount?.toJson(),
-     'payableAmount': payableAmount.toJson(),
-     'payableAlternativeAmount': payableAlternativeAmount?.toJson(),
+      'lineExtensionAmount': lineExtensionAmount?.toJson(),
+      'taxExclusiveAmount': taxExclusiveAmount?.toJson(),
+      'taxInclusiveAmount': taxInclusiveAmount?.toJson(),
+      'allowanceTotalAmount': allowanceTotalAmount?.toJson(),
+      'chargeTotalAmount': chargeTotalAmount?.toJson(),
+      'prepaidAmount': prepaidAmount?.toJson(),
+      'payableRoundingAmount': payableRoundingAmount?.toJson(),
+      'payableAmount': payableAmount.toJson(),
+      'payableAlternativeAmount': payableAlternativeAmount?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  LegalMonetaryTotal fromJson(Map<String, dynamic> json) {
+  static LegalMonetaryTotal? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return LegalMonetaryTotal (
+      lineExtensionAmount: LineExtensionAmount.fromJson(json['lineExtensionAmount'] as Map<String, dynamic>?),
+      taxExclusiveAmount: TaxExclusiveAmount.fromJson(json['taxExclusiveAmount'] as Map<String, dynamic>?),
+      taxInclusiveAmount: TaxInclusiveAmount.fromJson(json['taxInclusiveAmount'] as Map<String, dynamic>?),
+      allowanceTotalAmount: AllowanceTotalAmount.fromJson(json['allowanceTotalAmount'] as Map<String, dynamic>?),
+      chargeTotalAmount: ChargeTotalAmount.fromJson(json['chargeTotalAmount'] as Map<String, dynamic>?),
+      prepaidAmount: PrepaidAmount.fromJson(json['prepaidAmount'] as Map<String, dynamic>?),
+      payableRoundingAmount: PayableRoundingAmount.fromJson(json['payableRoundingAmount'] as Map<String, dynamic>?),
+      payableAmount: PayableAmount.fromJson(json['payableAmount'] as Map<String, dynamic>?)!,
+      payableAlternativeAmount: PayableAlternativeAmount.fromJson(json['payableAlternativeAmount'] as Map<String, dynamic>?),
+    );
+  }
+
+  static LegalMonetaryTotal? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return LegalMonetaryTotal (
+      lineExtensionAmount: null,
+      taxExclusiveAmount: null,
+      taxInclusiveAmount: null,
+      allowanceTotalAmount: null,
+      chargeTotalAmount: null,
+      prepaidAmount: null,
+      payableRoundingAmount: null,
+      payableAmount: null,
+      payableAlternativeAmount: null,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/PlacardNotation.dart';
 import '../cbc/PlacardEndorsement.dart';
@@ -35,19 +36,36 @@ class SecondaryHazard {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'placardNotation': placardNotation?.toJson(),
-     'placardEndorsement': placardEndorsement?.toJson(),
-     'emergencyProceduresCode': emergencyProceduresCode?.toJson(),
-     'extension': extension.map((e) => e.toJson()).toList(),
+      'iD': iD?.toJson(),
+      'placardNotation': placardNotation?.toJson(),
+      'placardEndorsement': placardEndorsement?.toJson(),
+      'emergencyProceduresCode': emergencyProceduresCode?.toJson(),
+      'extension': extension.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  SecondaryHazard fromJson(Map<String, dynamic> json) {
+  static SecondaryHazard? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return SecondaryHazard (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      placardNotation: PlacardNotation.fromJson(json['placardNotation'] as Map<String, dynamic>?),
+      placardEndorsement: PlacardEndorsement.fromJson(json['placardEndorsement'] as Map<String, dynamic>?),
+      emergencyProceduresCode: EmergencyProceduresCode.fromJson(json['emergencyProceduresCode'] as Map<String, dynamic>?),
+      extension: (json['extension'] as List? ?? []).map((dynamic d) => Extension.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static SecondaryHazard? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return SecondaryHazard (
+      iD: null,
+      placardNotation: null,
+      placardEndorsement: null,
+      emergencyProceduresCode: null,
+      extension: null,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ChargeIndicator.dart';
 import '../cbc/Amount.dart';
 import '../cbc/ID.dart';
@@ -85,29 +86,66 @@ class ServiceAllowanceCharge {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'chargeIndicator': chargeIndicator.toJson(),
-     'allowanceChargeReasonCode': allowanceChargeReasonCode?.toJson(),
-     'allowanceChargeReason': allowanceChargeReason.map((e) => e.toJson()).toList(),
-     'multiplierFactorNumeric': multiplierFactorNumeric?.toJson(),
-     'prepaidIndicator': prepaidIndicator?.toJson(),
-     'sequenceNumeric': sequenceNumeric?.toJson(),
-     'amount': amount.toJson(),
-     'baseAmount': baseAmount?.toJson(),
-     'accountingCostCode': accountingCostCode?.toJson(),
-     'accountingCost': accountingCost?.toJson(),
-     'perUnitAmount': perUnitAmount?.toJson(),
-     'taxCategory': taxCategory.map((e) => e.toJson()).toList(),
-     'taxTotal': taxTotal?.toJson(),
-     'paymentMeans': paymentMeans.map((e) => e.toJson()).toList(),
+      'iD': iD?.toJson(),
+      'chargeIndicator': chargeIndicator.toJson(),
+      'allowanceChargeReasonCode': allowanceChargeReasonCode?.toJson(),
+      'allowanceChargeReason': allowanceChargeReason.map((e) => e.toJson()).toList(),
+      'multiplierFactorNumeric': multiplierFactorNumeric?.toJson(),
+      'prepaidIndicator': prepaidIndicator?.toJson(),
+      'sequenceNumeric': sequenceNumeric?.toJson(),
+      'amount': amount.toJson(),
+      'baseAmount': baseAmount?.toJson(),
+      'accountingCostCode': accountingCostCode?.toJson(),
+      'accountingCost': accountingCost?.toJson(),
+      'perUnitAmount': perUnitAmount?.toJson(),
+      'taxCategory': taxCategory.map((e) => e.toJson()).toList(),
+      'taxTotal': taxTotal?.toJson(),
+      'paymentMeans': paymentMeans.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  ServiceAllowanceCharge fromJson(Map<String, dynamic> json) {
+  static ServiceAllowanceCharge? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return ServiceAllowanceCharge (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      chargeIndicator: ChargeIndicator.fromJson(json['chargeIndicator'] as Map<String, dynamic>?)!,
+      allowanceChargeReasonCode: AllowanceChargeReasonCode.fromJson(json['allowanceChargeReasonCode'] as Map<String, dynamic>?),
+      allowanceChargeReason: (json['allowanceChargeReason'] as List? ?? []).map((dynamic d) => AllowanceChargeReason.fromJson(d as Map<String, dynamic>?)!).toList(),
+      multiplierFactorNumeric: MultiplierFactorNumeric.fromJson(json['multiplierFactorNumeric'] as Map<String, dynamic>?),
+      prepaidIndicator: PrepaidIndicator.fromJson(json['prepaidIndicator'] as Map<String, dynamic>?),
+      sequenceNumeric: SequenceNumeric.fromJson(json['sequenceNumeric'] as Map<String, dynamic>?),
+      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?)!,
+      baseAmount: BaseAmount.fromJson(json['baseAmount'] as Map<String, dynamic>?),
+      accountingCostCode: AccountingCostCode.fromJson(json['accountingCostCode'] as Map<String, dynamic>?),
+      accountingCost: AccountingCost.fromJson(json['accountingCost'] as Map<String, dynamic>?),
+      perUnitAmount: PerUnitAmount.fromJson(json['perUnitAmount'] as Map<String, dynamic>?),
+      taxCategory: (json['taxCategory'] as List? ?? []).map((dynamic d) => TaxCategory.fromJson(d as Map<String, dynamic>?)!).toList(),
+      taxTotal: TaxTotal.fromJson(json['taxTotal'] as Map<String, dynamic>?),
+      paymentMeans: (json['paymentMeans'] as List? ?? []).map((dynamic d) => PaymentMeans.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static ServiceAllowanceCharge? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return ServiceAllowanceCharge (
+      iD: null,
+      chargeIndicator: null,
+      allowanceChargeReasonCode: null,
+      allowanceChargeReason: null,
+      multiplierFactorNumeric: null,
+      prepaidIndicator: null,
+      sequenceNumeric: null,
+      amount: null,
+      baseAmount: null,
+      accountingCostCode: null,
+      accountingCost: null,
+      perUnitAmount: null,
+      taxCategory: null,
+      taxTotal: null,
+      paymentMeans: null,
     );
   }
 

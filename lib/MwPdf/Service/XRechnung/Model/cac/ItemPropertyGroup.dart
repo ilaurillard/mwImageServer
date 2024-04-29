@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../cbc/ImportanceCode.dart';
@@ -25,17 +26,30 @@ class ItemPropertyGroup {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD.toJson(),
-     'name': name?.toJson(),
-     'importanceCode': importanceCode?.toJson(),
+      'iD': iD.toJson(),
+      'name': name?.toJson(),
+      'importanceCode': importanceCode?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  ItemPropertyGroup fromJson(Map<String, dynamic> json) {
+  static ItemPropertyGroup? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return ItemPropertyGroup (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      importanceCode: ImportanceCode.fromJson(json['importanceCode'] as Map<String, dynamic>?),
+    );
+  }
+
+  static ItemPropertyGroup? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return ItemPropertyGroup (
+      iD: null,
+      name: null,
+      importanceCode: null,
     );
   }
 

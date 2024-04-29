@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/CoordinateSystemCode.dart';
 import '../cbc/LatitudeDegreesMeasure.dart';
 import '../cbc/LatitudeMinutesMeasure.dart';
@@ -50,22 +51,45 @@ class LocationCoordinate {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'coordinateSystemCode': coordinateSystemCode?.toJson(),
-     'latitudeDegreesMeasure': latitudeDegreesMeasure?.toJson(),
-     'latitudeMinutesMeasure': latitudeMinutesMeasure?.toJson(),
-     'latitudeDirectionCode': latitudeDirectionCode?.toJson(),
-     'longitudeDegreesMeasure': longitudeDegreesMeasure?.toJson(),
-     'longitudeMinutesMeasure': longitudeMinutesMeasure?.toJson(),
-     'longitudeDirectionCode': longitudeDirectionCode?.toJson(),
-     'altitudeMeasure': altitudeMeasure?.toJson(),
+      'coordinateSystemCode': coordinateSystemCode?.toJson(),
+      'latitudeDegreesMeasure': latitudeDegreesMeasure?.toJson(),
+      'latitudeMinutesMeasure': latitudeMinutesMeasure?.toJson(),
+      'latitudeDirectionCode': latitudeDirectionCode?.toJson(),
+      'longitudeDegreesMeasure': longitudeDegreesMeasure?.toJson(),
+      'longitudeMinutesMeasure': longitudeMinutesMeasure?.toJson(),
+      'longitudeDirectionCode': longitudeDirectionCode?.toJson(),
+      'altitudeMeasure': altitudeMeasure?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  LocationCoordinate fromJson(Map<String, dynamic> json) {
+  static LocationCoordinate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return LocationCoordinate (
+      coordinateSystemCode: CoordinateSystemCode.fromJson(json['coordinateSystemCode'] as Map<String, dynamic>?),
+      latitudeDegreesMeasure: LatitudeDegreesMeasure.fromJson(json['latitudeDegreesMeasure'] as Map<String, dynamic>?),
+      latitudeMinutesMeasure: LatitudeMinutesMeasure.fromJson(json['latitudeMinutesMeasure'] as Map<String, dynamic>?),
+      latitudeDirectionCode: LatitudeDirectionCode.fromJson(json['latitudeDirectionCode'] as Map<String, dynamic>?),
+      longitudeDegreesMeasure: LongitudeDegreesMeasure.fromJson(json['longitudeDegreesMeasure'] as Map<String, dynamic>?),
+      longitudeMinutesMeasure: LongitudeMinutesMeasure.fromJson(json['longitudeMinutesMeasure'] as Map<String, dynamic>?),
+      longitudeDirectionCode: LongitudeDirectionCode.fromJson(json['longitudeDirectionCode'] as Map<String, dynamic>?),
+      altitudeMeasure: AltitudeMeasure.fromJson(json['altitudeMeasure'] as Map<String, dynamic>?),
+    );
+  }
+
+  static LocationCoordinate? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return LocationCoordinate (
+      coordinateSystemCode: null,
+      latitudeDegreesMeasure: null,
+      latitudeMinutesMeasure: null,
+      latitudeDirectionCode: null,
+      longitudeDegreesMeasure: null,
+      longitudeMinutesMeasure: null,
+      longitudeDirectionCode: null,
+      altitudeMeasure: null,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/Note.dart';
 import '../cbc/ValidationDate.dart';
@@ -60,24 +61,51 @@ class Signature {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD.toJson(),
-     'note': note.map((e) => e.toJson()).toList(),
-     'validationDate': validationDate?.toJson(),
-     'validationTime': validationTime?.toJson(),
-     'validatorID': validatorID?.toJson(),
-     'canonicalizationMethod': canonicalizationMethod?.toJson(),
-     'signatureMethod': signatureMethod?.toJson(),
-     'signatoryParty': signatoryParty?.toJson(),
-     'digitalSignatureAttachment': digitalSignatureAttachment?.toJson(),
-     'originalDocumentReference': originalDocumentReference?.toJson(),
+      'iD': iD.toJson(),
+      'note': note.map((e) => e.toJson()).toList(),
+      'validationDate': validationDate?.toJson(),
+      'validationTime': validationTime?.toJson(),
+      'validatorID': validatorID?.toJson(),
+      'canonicalizationMethod': canonicalizationMethod?.toJson(),
+      'signatureMethod': signatureMethod?.toJson(),
+      'signatoryParty': signatoryParty?.toJson(),
+      'digitalSignatureAttachment': digitalSignatureAttachment?.toJson(),
+      'originalDocumentReference': originalDocumentReference?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  Signature fromJson(Map<String, dynamic> json) {
+  static Signature? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return Signature (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
+      validationDate: ValidationDate.fromJson(json['validationDate'] as Map<String, dynamic>?),
+      validationTime: ValidationTime.fromJson(json['validationTime'] as Map<String, dynamic>?),
+      validatorID: ValidatorID.fromJson(json['validatorID'] as Map<String, dynamic>?),
+      canonicalizationMethod: CanonicalizationMethod.fromJson(json['canonicalizationMethod'] as Map<String, dynamic>?),
+      signatureMethod: SignatureMethod.fromJson(json['signatureMethod'] as Map<String, dynamic>?),
+      signatoryParty: SignatoryParty.fromJson(json['signatoryParty'] as Map<String, dynamic>?),
+      digitalSignatureAttachment: DigitalSignatureAttachment.fromJson(json['digitalSignatureAttachment'] as Map<String, dynamic>?),
+      originalDocumentReference: OriginalDocumentReference.fromJson(json['originalDocumentReference'] as Map<String, dynamic>?),
+    );
+  }
+
+  static Signature? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return Signature (
+      iD: null,
+      note: null,
+      validationDate: null,
+      validationTime: null,
+      validatorID: null,
+      canonicalizationMethod: null,
+      signatureMethod: null,
+      signatoryParty: null,
+      digitalSignatureAttachment: null,
+      originalDocumentReference: null,
     );
   }
 

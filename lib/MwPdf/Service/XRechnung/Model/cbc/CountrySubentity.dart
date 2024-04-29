@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 
 // A character string (i.e. a finite set of characters), generally in the form of words of a language.
 class CountrySubentity {
@@ -22,17 +23,30 @@ class CountrySubentity {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'value': value,
-     'languageID': languageID,
-     'languageLocaleID': languageLocaleID,
+      'value': value,
+      'languageID': languageID,
+      'languageLocaleID': languageLocaleID,
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  CountrySubentity fromJson(Map<String, dynamic> json) {
+  static CountrySubentity? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return CountrySubentity (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
+  static CountrySubentity? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return CountrySubentity (
+      value: null,
+      languageID: null,
+      languageLocaleID: null,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/SalesOrderID.dart';
 import '../cbc/CopyIndicator.dart';
@@ -55,23 +56,48 @@ class OrderReference {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD.toJson(),
-     'salesOrderID': salesOrderID?.toJson(),
-     'copyIndicator': copyIndicator?.toJson(),
-     'uUID': uUID?.toJson(),
-     'issueDate': issueDate?.toJson(),
-     'issueTime': issueTime?.toJson(),
-     'customerReference': customerReference?.toJson(),
-     'orderTypeCode': orderTypeCode?.toJson(),
-     'documentReference': documentReference?.toJson(),
+      'iD': iD.toJson(),
+      'salesOrderID': salesOrderID?.toJson(),
+      'copyIndicator': copyIndicator?.toJson(),
+      'uUID': uUID?.toJson(),
+      'issueDate': issueDate?.toJson(),
+      'issueTime': issueTime?.toJson(),
+      'customerReference': customerReference?.toJson(),
+      'orderTypeCode': orderTypeCode?.toJson(),
+      'documentReference': documentReference?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  OrderReference fromJson(Map<String, dynamic> json) {
+  static OrderReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return OrderReference (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      salesOrderID: SalesOrderID.fromJson(json['salesOrderID'] as Map<String, dynamic>?),
+      copyIndicator: CopyIndicator.fromJson(json['copyIndicator'] as Map<String, dynamic>?),
+      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
+      issueDate: IssueDate.fromJson(json['issueDate'] as Map<String, dynamic>?),
+      issueTime: IssueTime.fromJson(json['issueTime'] as Map<String, dynamic>?),
+      customerReference: CustomerReference.fromJson(json['customerReference'] as Map<String, dynamic>?),
+      orderTypeCode: OrderTypeCode.fromJson(json['orderTypeCode'] as Map<String, dynamic>?),
+      documentReference: DocumentReference.fromJson(json['documentReference'] as Map<String, dynamic>?),
+    );
+  }
+
+  static OrderReference? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return OrderReference (
+      iD: null,
+      salesOrderID: null,
+      copyIndicator: null,
+      uUID: null,
+      issueDate: null,
+      issueTime: null,
+      customerReference: null,
+      orderTypeCode: null,
+      documentReference: null,
     );
   }
 

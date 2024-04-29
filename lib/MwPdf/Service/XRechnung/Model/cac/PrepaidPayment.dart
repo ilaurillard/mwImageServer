@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/PaidAmount.dart';
 import '../cbc/ReceivedDate.dart';
@@ -40,20 +41,39 @@ class PrepaidPayment {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'paidAmount': paidAmount?.toJson(),
-     'receivedDate': receivedDate?.toJson(),
-     'paidDate': paidDate?.toJson(),
-     'paidTime': paidTime?.toJson(),
-     'instructionID': instructionID?.toJson(),
+      'iD': iD?.toJson(),
+      'paidAmount': paidAmount?.toJson(),
+      'receivedDate': receivedDate?.toJson(),
+      'paidDate': paidDate?.toJson(),
+      'paidTime': paidTime?.toJson(),
+      'instructionID': instructionID?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  PrepaidPayment fromJson(Map<String, dynamic> json) {
+  static PrepaidPayment? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return PrepaidPayment (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      paidAmount: PaidAmount.fromJson(json['paidAmount'] as Map<String, dynamic>?),
+      receivedDate: ReceivedDate.fromJson(json['receivedDate'] as Map<String, dynamic>?),
+      paidDate: PaidDate.fromJson(json['paidDate'] as Map<String, dynamic>?),
+      paidTime: PaidTime.fromJson(json['paidTime'] as Map<String, dynamic>?),
+      instructionID: InstructionID.fromJson(json['instructionID'] as Map<String, dynamic>?),
+    );
+  }
+
+  static PrepaidPayment? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return PrepaidPayment (
+      iD: null,
+      paidAmount: null,
+      receivedDate: null,
+      paidDate: null,
+      paidTime: null,
+      instructionID: null,
     );
   }
 

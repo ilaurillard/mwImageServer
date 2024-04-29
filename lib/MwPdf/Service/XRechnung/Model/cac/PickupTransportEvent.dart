@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/IdentificationID.dart';
 import '../cbc/OccurrenceDate.dart';
 import '../cbc/OccurrenceTime.dart';
@@ -70,26 +71,57 @@ class PickupTransportEvent {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'identificationID': identificationID?.toJson(),
-     'occurrenceDate': occurrenceDate?.toJson(),
-     'occurrenceTime': occurrenceTime?.toJson(),
-     'transportEventTypeCode': transportEventTypeCode?.toJson(),
-     'description': description.map((e) => e.toJson()).toList(),
-     'completionIndicator': completionIndicator?.toJson(),
-     'reportedShipment': reportedShipment?.toJson(),
-     'currentStatus': currentStatus.map((e) => e.toJson()).toList(),
-     'contact': contact.map((e) => e.toJson()).toList(),
-     'location': location?.toJson(),
-     'signature': signature?.toJson(),
-     'period': period.map((e) => e.toJson()).toList(),
+      'identificationID': identificationID?.toJson(),
+      'occurrenceDate': occurrenceDate?.toJson(),
+      'occurrenceTime': occurrenceTime?.toJson(),
+      'transportEventTypeCode': transportEventTypeCode?.toJson(),
+      'description': description.map((e) => e.toJson()).toList(),
+      'completionIndicator': completionIndicator?.toJson(),
+      'reportedShipment': reportedShipment?.toJson(),
+      'currentStatus': currentStatus.map((e) => e.toJson()).toList(),
+      'contact': contact.map((e) => e.toJson()).toList(),
+      'location': location?.toJson(),
+      'signature': signature?.toJson(),
+      'period': period.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  PickupTransportEvent fromJson(Map<String, dynamic> json) {
+  static PickupTransportEvent? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return PickupTransportEvent (
+      identificationID: IdentificationID.fromJson(json['identificationID'] as Map<String, dynamic>?),
+      occurrenceDate: OccurrenceDate.fromJson(json['occurrenceDate'] as Map<String, dynamic>?),
+      occurrenceTime: OccurrenceTime.fromJson(json['occurrenceTime'] as Map<String, dynamic>?),
+      transportEventTypeCode: TransportEventTypeCode.fromJson(json['transportEventTypeCode'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      completionIndicator: CompletionIndicator.fromJson(json['completionIndicator'] as Map<String, dynamic>?),
+      reportedShipment: ReportedShipment.fromJson(json['reportedShipment'] as Map<String, dynamic>?),
+      currentStatus: (json['currentStatus'] as List? ?? []).map((dynamic d) => CurrentStatus.fromJson(d as Map<String, dynamic>?)!).toList(),
+      contact: (json['contact'] as List? ?? []).map((dynamic d) => Contact.fromJson(d as Map<String, dynamic>?)!).toList(),
+      location: Location.fromJson(json['location'] as Map<String, dynamic>?),
+      signature: Signature.fromJson(json['signature'] as Map<String, dynamic>?),
+      period: (json['period'] as List? ?? []).map((dynamic d) => Period.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static PickupTransportEvent? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return PickupTransportEvent (
+      identificationID: null,
+      occurrenceDate: null,
+      occurrenceTime: null,
+      transportEventTypeCode: null,
+      description: null,
+      completionIndicator: null,
+      reportedShipment: null,
+      currentStatus: null,
+      contact: null,
+      location: null,
+      signature: null,
+      period: null,
     );
   }
 

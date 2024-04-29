@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/Description.dart';
 import '../cbc/PackQuantity.dart';
 import '../cbc/PackSizeNumeric.dart';
@@ -160,44 +161,111 @@ class Item {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'description': description.map((e) => e.toJson()).toList(),
-     'packQuantity': packQuantity?.toJson(),
-     'packSizeNumeric': packSizeNumeric?.toJson(),
-     'catalogueIndicator': catalogueIndicator?.toJson(),
-     'name': name?.toJson(),
-     'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
-     'additionalInformation': additionalInformation.map((e) => e.toJson()).toList(),
-     'keyword': keyword.map((e) => e.toJson()).toList(),
-     'brandName': brandName.map((e) => e.toJson()).toList(),
-     'modelName': modelName.map((e) => e.toJson()).toList(),
-     'buyersItemIdentification': buyersItemIdentification?.toJson(),
-     'sellersItemIdentification': sellersItemIdentification?.toJson(),
-     'manufacturersItemIdentification': manufacturersItemIdentification.map((e) => e.toJson()).toList(),
-     'standardItemIdentification': standardItemIdentification?.toJson(),
-     'catalogueItemIdentification': catalogueItemIdentification?.toJson(),
-     'additionalItemIdentification': additionalItemIdentification.map((e) => e.toJson()).toList(),
-     'catalogueDocumentReference': catalogueDocumentReference?.toJson(),
-     'itemSpecificationDocumentReference': itemSpecificationDocumentReference.map((e) => e.toJson()).toList(),
-     'originCountry': originCountry?.toJson(),
-     'commodityClassification': commodityClassification.map((e) => e.toJson()).toList(),
-     'transactionConditions': transactionConditions.map((e) => e.toJson()).toList(),
-     'hazardousItem': hazardousItem.map((e) => e.toJson()).toList(),
-     'classifiedTaxCategory': classifiedTaxCategory.map((e) => e.toJson()).toList(),
-     'additionalItemProperty': additionalItemProperty.map((e) => e.toJson()).toList(),
-     'manufacturerParty': manufacturerParty.map((e) => e.toJson()).toList(),
-     'informationContentProviderParty': informationContentProviderParty?.toJson(),
-     'originAddress': originAddress.map((e) => e.toJson()).toList(),
-     'itemInstance': itemInstance.map((e) => e.toJson()).toList(),
-     'certificate': certificate.map((e) => e.toJson()).toList(),
-     'dimension': dimension.map((e) => e.toJson()).toList(),
+      'description': description.map((e) => e.toJson()).toList(),
+      'packQuantity': packQuantity?.toJson(),
+      'packSizeNumeric': packSizeNumeric?.toJson(),
+      'catalogueIndicator': catalogueIndicator?.toJson(),
+      'name': name?.toJson(),
+      'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+      'additionalInformation': additionalInformation.map((e) => e.toJson()).toList(),
+      'keyword': keyword.map((e) => e.toJson()).toList(),
+      'brandName': brandName.map((e) => e.toJson()).toList(),
+      'modelName': modelName.map((e) => e.toJson()).toList(),
+      'buyersItemIdentification': buyersItemIdentification?.toJson(),
+      'sellersItemIdentification': sellersItemIdentification?.toJson(),
+      'manufacturersItemIdentification': manufacturersItemIdentification.map((e) => e.toJson()).toList(),
+      'standardItemIdentification': standardItemIdentification?.toJson(),
+      'catalogueItemIdentification': catalogueItemIdentification?.toJson(),
+      'additionalItemIdentification': additionalItemIdentification.map((e) => e.toJson()).toList(),
+      'catalogueDocumentReference': catalogueDocumentReference?.toJson(),
+      'itemSpecificationDocumentReference': itemSpecificationDocumentReference.map((e) => e.toJson()).toList(),
+      'originCountry': originCountry?.toJson(),
+      'commodityClassification': commodityClassification.map((e) => e.toJson()).toList(),
+      'transactionConditions': transactionConditions.map((e) => e.toJson()).toList(),
+      'hazardousItem': hazardousItem.map((e) => e.toJson()).toList(),
+      'classifiedTaxCategory': classifiedTaxCategory.map((e) => e.toJson()).toList(),
+      'additionalItemProperty': additionalItemProperty.map((e) => e.toJson()).toList(),
+      'manufacturerParty': manufacturerParty.map((e) => e.toJson()).toList(),
+      'informationContentProviderParty': informationContentProviderParty?.toJson(),
+      'originAddress': originAddress.map((e) => e.toJson()).toList(),
+      'itemInstance': itemInstance.map((e) => e.toJson()).toList(),
+      'certificate': certificate.map((e) => e.toJson()).toList(),
+      'dimension': dimension.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  Item fromJson(Map<String, dynamic> json) {
+  static Item? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return Item (
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      packQuantity: PackQuantity.fromJson(json['packQuantity'] as Map<String, dynamic>?),
+      packSizeNumeric: PackSizeNumeric.fromJson(json['packSizeNumeric'] as Map<String, dynamic>?),
+      catalogueIndicator: CatalogueIndicator.fromJson(json['catalogueIndicator'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromJson(json['hazardousRiskIndicator'] as Map<String, dynamic>?),
+      additionalInformation: (json['additionalInformation'] as List? ?? []).map((dynamic d) => AdditionalInformation.fromJson(d as Map<String, dynamic>?)!).toList(),
+      keyword: (json['keyword'] as List? ?? []).map((dynamic d) => Keyword.fromJson(d as Map<String, dynamic>?)!).toList(),
+      brandName: (json['brandName'] as List? ?? []).map((dynamic d) => BrandName.fromJson(d as Map<String, dynamic>?)!).toList(),
+      modelName: (json['modelName'] as List? ?? []).map((dynamic d) => ModelName.fromJson(d as Map<String, dynamic>?)!).toList(),
+      buyersItemIdentification: BuyersItemIdentification.fromJson(json['buyersItemIdentification'] as Map<String, dynamic>?),
+      sellersItemIdentification: SellersItemIdentification.fromJson(json['sellersItemIdentification'] as Map<String, dynamic>?),
+      manufacturersItemIdentification: (json['manufacturersItemIdentification'] as List? ?? []).map((dynamic d) => ManufacturersItemIdentification.fromJson(d as Map<String, dynamic>?)!).toList(),
+      standardItemIdentification: StandardItemIdentification.fromJson(json['standardItemIdentification'] as Map<String, dynamic>?),
+      catalogueItemIdentification: CatalogueItemIdentification.fromJson(json['catalogueItemIdentification'] as Map<String, dynamic>?),
+      additionalItemIdentification: (json['additionalItemIdentification'] as List? ?? []).map((dynamic d) => AdditionalItemIdentification.fromJson(d as Map<String, dynamic>?)!).toList(),
+      catalogueDocumentReference: CatalogueDocumentReference.fromJson(json['catalogueDocumentReference'] as Map<String, dynamic>?),
+      itemSpecificationDocumentReference: (json['itemSpecificationDocumentReference'] as List? ?? []).map((dynamic d) => ItemSpecificationDocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      originCountry: OriginCountry.fromJson(json['originCountry'] as Map<String, dynamic>?),
+      commodityClassification: (json['commodityClassification'] as List? ?? []).map((dynamic d) => CommodityClassification.fromJson(d as Map<String, dynamic>?)!).toList(),
+      transactionConditions: (json['transactionConditions'] as List? ?? []).map((dynamic d) => TransactionConditions.fromJson(d as Map<String, dynamic>?)!).toList(),
+      hazardousItem: (json['hazardousItem'] as List? ?? []).map((dynamic d) => HazardousItem.fromJson(d as Map<String, dynamic>?)!).toList(),
+      classifiedTaxCategory: (json['classifiedTaxCategory'] as List? ?? []).map((dynamic d) => ClassifiedTaxCategory.fromJson(d as Map<String, dynamic>?)!).toList(),
+      additionalItemProperty: (json['additionalItemProperty'] as List? ?? []).map((dynamic d) => AdditionalItemProperty.fromJson(d as Map<String, dynamic>?)!).toList(),
+      manufacturerParty: (json['manufacturerParty'] as List? ?? []).map((dynamic d) => ManufacturerParty.fromJson(d as Map<String, dynamic>?)!).toList(),
+      informationContentProviderParty: InformationContentProviderParty.fromJson(json['informationContentProviderParty'] as Map<String, dynamic>?),
+      originAddress: (json['originAddress'] as List? ?? []).map((dynamic d) => OriginAddress.fromJson(d as Map<String, dynamic>?)!).toList(),
+      itemInstance: (json['itemInstance'] as List? ?? []).map((dynamic d) => ItemInstance.fromJson(d as Map<String, dynamic>?)!).toList(),
+      certificate: (json['certificate'] as List? ?? []).map((dynamic d) => Certificate.fromJson(d as Map<String, dynamic>?)!).toList(),
+      dimension: (json['dimension'] as List? ?? []).map((dynamic d) => Dimension.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static Item? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return Item (
+      description: null,
+      packQuantity: null,
+      packSizeNumeric: null,
+      catalogueIndicator: null,
+      name: null,
+      hazardousRiskIndicator: null,
+      additionalInformation: null,
+      keyword: null,
+      brandName: null,
+      modelName: null,
+      buyersItemIdentification: null,
+      sellersItemIdentification: null,
+      manufacturersItemIdentification: null,
+      standardItemIdentification: null,
+      catalogueItemIdentification: null,
+      additionalItemIdentification: null,
+      catalogueDocumentReference: null,
+      itemSpecificationDocumentReference: null,
+      originCountry: null,
+      commodityClassification: null,
+      transactionConditions: null,
+      hazardousItem: null,
+      classifiedTaxCategory: null,
+      additionalItemProperty: null,
+      manufacturerParty: null,
+      informationContentProviderParty: null,
+      originAddress: null,
+      itemInstance: null,
+      certificate: null,
+      dimension: null,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/SealIssuerTypeCode.dart';
 import '../cbc/Condition.dart';
@@ -35,19 +36,36 @@ class TransportEquipmentSeal {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD.toJson(),
-     'sealIssuerTypeCode': sealIssuerTypeCode?.toJson(),
-     'condition': condition?.toJson(),
-     'sealStatusCode': sealStatusCode?.toJson(),
-     'sealingPartyType': sealingPartyType?.toJson(),
+      'iD': iD.toJson(),
+      'sealIssuerTypeCode': sealIssuerTypeCode?.toJson(),
+      'condition': condition?.toJson(),
+      'sealStatusCode': sealStatusCode?.toJson(),
+      'sealingPartyType': sealingPartyType?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  TransportEquipmentSeal fromJson(Map<String, dynamic> json) {
+  static TransportEquipmentSeal? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return TransportEquipmentSeal (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      sealIssuerTypeCode: SealIssuerTypeCode.fromJson(json['sealIssuerTypeCode'] as Map<String, dynamic>?),
+      condition: Condition.fromJson(json['condition'] as Map<String, dynamic>?),
+      sealStatusCode: SealStatusCode.fromJson(json['sealStatusCode'] as Map<String, dynamic>?),
+      sealingPartyType: SealingPartyType.fromJson(json['sealingPartyType'] as Map<String, dynamic>?),
+    );
+  }
+
+  static TransportEquipmentSeal? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return TransportEquipmentSeal (
+      iD: null,
+      sealIssuerTypeCode: null,
+      condition: null,
+      sealStatusCode: null,
+      sealingPartyType: null,
     );
   }
 

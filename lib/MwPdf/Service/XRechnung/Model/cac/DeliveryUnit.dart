@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/BatchQuantity.dart';
 import '../cbc/ConsumerUnitQuantity.dart';
 import '../cbc/HazardousRiskIndicator.dart';
@@ -25,17 +26,30 @@ class DeliveryUnit {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'batchQuantity': batchQuantity.toJson(),
-     'consumerUnitQuantity': consumerUnitQuantity?.toJson(),
-     'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+      'batchQuantity': batchQuantity.toJson(),
+      'consumerUnitQuantity': consumerUnitQuantity?.toJson(),
+      'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  DeliveryUnit fromJson(Map<String, dynamic> json) {
+  static DeliveryUnit? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return DeliveryUnit (
+      batchQuantity: BatchQuantity.fromJson(json['batchQuantity'] as Map<String, dynamic>?)!,
+      consumerUnitQuantity: ConsumerUnitQuantity.fromJson(json['consumerUnitQuantity'] as Map<String, dynamic>?),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromJson(json['hazardousRiskIndicator'] as Map<String, dynamic>?),
+    );
+  }
+
+  static DeliveryUnit? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return DeliveryUnit (
+      batchQuantity: null,
+      consumerUnitQuantity: null,
+      hazardousRiskIndicator: null,
     );
   }
 

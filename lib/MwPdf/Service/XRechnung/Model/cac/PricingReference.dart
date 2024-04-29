@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cac/OriginalItemLocationQuantity.dart';
 import '../cac/AlternativeConditionPrice.dart';
 
@@ -20,16 +21,27 @@ class PricingReference {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'originalItemLocationQuantity': originalItemLocationQuantity?.toJson(),
-     'alternativeConditionPrice': alternativeConditionPrice.map((e) => e.toJson()).toList(),
+      'originalItemLocationQuantity': originalItemLocationQuantity?.toJson(),
+      'alternativeConditionPrice': alternativeConditionPrice.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  PricingReference fromJson(Map<String, dynamic> json) {
+  static PricingReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return PricingReference (
+      originalItemLocationQuantity: OriginalItemLocationQuantity.fromJson(json['originalItemLocationQuantity'] as Map<String, dynamic>?),
+      alternativeConditionPrice: (json['alternativeConditionPrice'] as List? ?? []).map((dynamic d) => AlternativeConditionPrice.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
+  static PricingReference? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return PricingReference (
+      originalItemLocationQuantity: null,
+      alternativeConditionPrice: null,
     );
   }
 

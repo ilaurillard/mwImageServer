@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/SpecialTerms.dart';
 import '../cbc/LossRiskResponsibilityCode.dart';
@@ -45,21 +46,42 @@ class DeliveryTerms {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'specialTerms': specialTerms.map((e) => e.toJson()).toList(),
-     'lossRiskResponsibilityCode': lossRiskResponsibilityCode?.toJson(),
-     'lossRisk': lossRisk.map((e) => e.toJson()).toList(),
-     'amount': amount?.toJson(),
-     'deliveryLocation': deliveryLocation?.toJson(),
-     'allowanceCharge': allowanceCharge?.toJson(),
+      'iD': iD?.toJson(),
+      'specialTerms': specialTerms.map((e) => e.toJson()).toList(),
+      'lossRiskResponsibilityCode': lossRiskResponsibilityCode?.toJson(),
+      'lossRisk': lossRisk.map((e) => e.toJson()).toList(),
+      'amount': amount?.toJson(),
+      'deliveryLocation': deliveryLocation?.toJson(),
+      'allowanceCharge': allowanceCharge?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  DeliveryTerms fromJson(Map<String, dynamic> json) {
+  static DeliveryTerms? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return DeliveryTerms (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      specialTerms: (json['specialTerms'] as List? ?? []).map((dynamic d) => SpecialTerms.fromJson(d as Map<String, dynamic>?)!).toList(),
+      lossRiskResponsibilityCode: LossRiskResponsibilityCode.fromJson(json['lossRiskResponsibilityCode'] as Map<String, dynamic>?),
+      lossRisk: (json['lossRisk'] as List? ?? []).map((dynamic d) => LossRisk.fromJson(d as Map<String, dynamic>?)!).toList(),
+      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?),
+      deliveryLocation: DeliveryLocation.fromJson(json['deliveryLocation'] as Map<String, dynamic>?),
+      allowanceCharge: AllowanceCharge.fromJson(json['allowanceCharge'] as Map<String, dynamic>?),
+    );
+  }
+
+  static DeliveryTerms? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return DeliveryTerms (
+      iD: null,
+      specialTerms: null,
+      lossRiskResponsibilityCode: null,
+      lossRisk: null,
+      amount: null,
+      deliveryLocation: null,
+      allowanceCharge: null,
     );
   }
 

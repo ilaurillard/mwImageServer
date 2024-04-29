@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/TaxAmount.dart';
 import '../cac/TaxCategory.dart';
 import '../cbc/TaxableAmount.dart';
@@ -60,24 +61,51 @@ class TaxSubtotal {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'taxableAmount': taxableAmount?.toJson(),
-     'taxAmount': taxAmount.toJson(),
-     'calculationSequenceNumeric': calculationSequenceNumeric?.toJson(),
-     'transactionCurrencyTaxAmount': transactionCurrencyTaxAmount?.toJson(),
-     'percent': percent?.toJson(),
-     'baseUnitMeasure': baseUnitMeasure?.toJson(),
-     'perUnitAmount': perUnitAmount?.toJson(),
-     'tierRange': tierRange?.toJson(),
-     'tierRatePercent': tierRatePercent?.toJson(),
-     'taxCategory': taxCategory.toJson(),
+      'taxableAmount': taxableAmount?.toJson(),
+      'taxAmount': taxAmount.toJson(),
+      'calculationSequenceNumeric': calculationSequenceNumeric?.toJson(),
+      'transactionCurrencyTaxAmount': transactionCurrencyTaxAmount?.toJson(),
+      'percent': percent?.toJson(),
+      'baseUnitMeasure': baseUnitMeasure?.toJson(),
+      'perUnitAmount': perUnitAmount?.toJson(),
+      'tierRange': tierRange?.toJson(),
+      'tierRatePercent': tierRatePercent?.toJson(),
+      'taxCategory': taxCategory.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  TaxSubtotal fromJson(Map<String, dynamic> json) {
+  static TaxSubtotal? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return TaxSubtotal (
+      taxableAmount: TaxableAmount.fromJson(json['taxableAmount'] as Map<String, dynamic>?),
+      taxAmount: TaxAmount.fromJson(json['taxAmount'] as Map<String, dynamic>?)!,
+      calculationSequenceNumeric: CalculationSequenceNumeric.fromJson(json['calculationSequenceNumeric'] as Map<String, dynamic>?),
+      transactionCurrencyTaxAmount: TransactionCurrencyTaxAmount.fromJson(json['transactionCurrencyTaxAmount'] as Map<String, dynamic>?),
+      percent: Percent.fromJson(json['percent'] as Map<String, dynamic>?),
+      baseUnitMeasure: BaseUnitMeasure.fromJson(json['baseUnitMeasure'] as Map<String, dynamic>?),
+      perUnitAmount: PerUnitAmount.fromJson(json['perUnitAmount'] as Map<String, dynamic>?),
+      tierRange: TierRange.fromJson(json['tierRange'] as Map<String, dynamic>?),
+      tierRatePercent: TierRatePercent.fromJson(json['tierRatePercent'] as Map<String, dynamic>?),
+      taxCategory: TaxCategory.fromJson(json['taxCategory'] as Map<String, dynamic>?)!,
+    );
+  }
+
+  static TaxSubtotal? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return TaxSubtotal (
+      taxableAmount: null,
+      taxAmount: null,
+      calculationSequenceNumeric: null,
+      transactionCurrencyTaxAmount: null,
+      percent: null,
+      baseUnitMeasure: null,
+      perUnitAmount: null,
+      tierRange: null,
+      tierRatePercent: null,
+      taxCategory: null,
     );
   }
 

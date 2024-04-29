@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 
 // A character string (i.e. a finite set of characters), generally in the form of words of a language.
 class CanonicalizationMethod {
@@ -22,17 +23,30 @@ class CanonicalizationMethod {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'value': value,
-     'languageID': languageID,
-     'languageLocaleID': languageLocaleID,
+      'value': value,
+      'languageID': languageID,
+      'languageLocaleID': languageLocaleID,
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  CanonicalizationMethod fromJson(Map<String, dynamic> json) {
+  static CanonicalizationMethod? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return CanonicalizationMethod (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
+  static CanonicalizationMethod? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return CanonicalizationMethod (
+      value: null,
+      languageID: null,
+      languageLocaleID: null,
     );
   }
 

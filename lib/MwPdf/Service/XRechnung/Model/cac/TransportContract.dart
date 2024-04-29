@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/IssueDate.dart';
 import '../cbc/IssueTime.dart';
@@ -80,28 +81,63 @@ class TransportContract {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-     'iD': iD?.toJson(),
-     'issueDate': issueDate?.toJson(),
-     'issueTime': issueTime?.toJson(),
-     'nominationDate': nominationDate?.toJson(),
-     'nominationTime': nominationTime?.toJson(),
-     'contractTypeCode': contractTypeCode?.toJson(),
-     'contractType': contractType?.toJson(),
-     'note': note.map((e) => e.toJson()).toList(),
-     'versionID': versionID?.toJson(),
-     'description': description.map((e) => e.toJson()).toList(),
-     'validityPeriod': validityPeriod?.toJson(),
-     'contractDocumentReference': contractDocumentReference.map((e) => e.toJson()).toList(),
-     'nominationPeriod': nominationPeriod?.toJson(),
-     'contractualDelivery': contractualDelivery?.toJson(),
+      'iD': iD?.toJson(),
+      'issueDate': issueDate?.toJson(),
+      'issueTime': issueTime?.toJson(),
+      'nominationDate': nominationDate?.toJson(),
+      'nominationTime': nominationTime?.toJson(),
+      'contractTypeCode': contractTypeCode?.toJson(),
+      'contractType': contractType?.toJson(),
+      'note': note.map((e) => e.toJson()).toList(),
+      'versionID': versionID?.toJson(),
+      'description': description.map((e) => e.toJson()).toList(),
+      'validityPeriod': validityPeriod?.toJson(),
+      'contractDocumentReference': contractDocumentReference.map((e) => e.toJson()).toList(),
+      'nominationPeriod': nominationPeriod?.toJson(),
+      'contractualDelivery': contractualDelivery?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
   }
 
-
-  TransportContract fromJson(Map<String, dynamic> json) {
+  static TransportContract? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
     return TransportContract (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      issueDate: IssueDate.fromJson(json['issueDate'] as Map<String, dynamic>?),
+      issueTime: IssueTime.fromJson(json['issueTime'] as Map<String, dynamic>?),
+      nominationDate: NominationDate.fromJson(json['nominationDate'] as Map<String, dynamic>?),
+      nominationTime: NominationTime.fromJson(json['nominationTime'] as Map<String, dynamic>?),
+      contractTypeCode: ContractTypeCode.fromJson(json['contractTypeCode'] as Map<String, dynamic>?),
+      contractType: ContractType.fromJson(json['contractType'] as Map<String, dynamic>?),
+      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
+      versionID: VersionID.fromJson(json['versionID'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      validityPeriod: ValidityPeriod.fromJson(json['validityPeriod'] as Map<String, dynamic>?),
+      contractDocumentReference: (json['contractDocumentReference'] as List? ?? []).map((dynamic d) => ContractDocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      nominationPeriod: NominationPeriod.fromJson(json['nominationPeriod'] as Map<String, dynamic>?),
+      contractualDelivery: ContractualDelivery.fromJson(json['contractualDelivery'] as Map<String, dynamic>?),
+    );
+  }
+
+  static TransportContract? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    XmlNodeList<XmlAttribute> attr = xml.attributes;
+    return TransportContract (
+      iD: null,
+      issueDate: null,
+      issueTime: null,
+      nominationDate: null,
+      nominationTime: null,
+      contractTypeCode: null,
+      contractType: null,
+      note: null,
+      versionID: null,
+      description: null,
+      validityPeriod: null,
+      contractDocumentReference: null,
+      nominationPeriod: null,
+      contractualDelivery: null,
     );
   }
 
