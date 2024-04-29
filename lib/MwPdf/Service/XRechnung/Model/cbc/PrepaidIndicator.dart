@@ -3,7 +3,7 @@ import 'dart:convert';
 // A list of two mutually exclusive Boolean values that express the only possible states of a property.
 class PrepaidIndicator {
 
-  final String value; // (boolean)
+  final bool value; // (boolean)
 
   PrepaidIndicator ({
     required this.value,

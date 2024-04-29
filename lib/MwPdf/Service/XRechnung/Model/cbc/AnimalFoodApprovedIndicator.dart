@@ -3,7 +3,7 @@ import 'dart:convert';
 // A list of two mutually exclusive Boolean values that express the only possible states of a property.
 class AnimalFoodApprovedIndicator {
 
-  final String value; // (boolean)
+  final bool value; // (boolean)
 
   AnimalFoodApprovedIndicator ({
     required this.value,

@@ -17,7 +17,7 @@ Future<void> main() async {
     accountingCustomerParty: AccountingCustomerParty(),
     legalMonetaryTotal: LegalMonetaryTotal(
       payableAmount: PayableAmount(
-        value: '123',
+        value: 123,
         currencyID: 'EUR',
       ),
     ),
@@ -25,7 +25,7 @@ Future<void> main() async {
       InvoiceLine(
         iD: ID(value: 'xx'),
         lineExtensionAmount: LineExtensionAmount(
-          value: '123',
+          value: 123,
           currencyID: 'EUR',
         ),
         item: Item(),

@@ -13,6 +13,10 @@ class InternalType extends XsdType {
     switch(name) {
       case 'decimal':
         return 'double';
+      case 'boolean':
+        return 'bool';
+      // case 'dateTime':
+      //   return 'DateTime';
     }
     return 'String';
   }

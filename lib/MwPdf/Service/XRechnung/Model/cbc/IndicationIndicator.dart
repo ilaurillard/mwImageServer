@@ -3,7 +3,7 @@ import 'dart:convert';
 // A list of two mutually exclusive Boolean values that express the only possible states of a property.
 class IndicationIndicator {
 
-  final String value; // (boolean)
+  final bool value; // (boolean)
 
   IndicationIndicator ({
     required this.value,
