@@ -1,13 +1,15 @@
-import 'dart:io';
-
 import 'lib/Attribute.dart';
 import 'lib/ComplexType.dart';
+import 'lib/DartClassFromElement.dart';
 import 'lib/Element.dart';
 import 'lib/Schema.dart';
 import 'lib/XsdParser.dart';
 import 'lib/XsdType.dart';
 
 Future<void> main() async {
+  // String dir = '/home/ilja/PhpstormProjects/mwcdn/tests/zugferd/xrechnung/output';
+  String dir = '/home/ilja/PhpstormProjects/mwcdn/lib/MwPdf/Service/XRechnung/Model';
+
   String identifier = 'ubl';
   // String url =
   //     'http://docs.oasis-open.org/ubl/os-UBL-2.3/xsd/maindoc/UBL-Invoice-2.3.xsd';
@@ -25,69 +27,68 @@ Future<void> main() async {
   Schema ubl = XsdParser.schemaForIdentifier(identifier);
   ComplexType? mainType = ubl.schemaType();
 
-  showType(mainType, 0, []);
+  Element mainElement = mainType.elements.values.first;
+  traverse(mainElement, 0, [], dir);
 
   print('\n\nTHANKYOU');
 }
 
-void showType(
-  XsdType type,
+void traverse(
+  Element element,
   int depth,
   List<String> visited,
+  String dir,
 ) {
+  String elementName = element.fullname;
+  XsdType? type = element.type;
+  if (type == null) {
+
+    print('!! WARNING, element $elementName has no type');
+
+    return;
+  }
+
   String tab = (' ' * (depth * 2));
   if (type is ComplexType) {
     String typeName = type.fullname;
 
-    if (visited.contains(typeName)) {
-
-      print('$tab<$typeName> *skip*');
-
+    if (visited.contains(elementName)) {
+      // print('$tab$elementName <$typeName> *skip*');
     } else {
+      visited.add(elementName);
 
-      print('$tab<$typeName>');
+      // print('${visited.length}. class ${element.name} (${element.schemaId})');
 
-      visited.add(typeName);
+      DartClassFromElement dc = DartClassFromElement(
+        element,
+      );
+      String code = (dc.render());
+      dc.write(
+        dir,
+        code,
+      );
 
+      // print('$tab$elementName <$typeName>');
+
+      // ATTRIBUTES
       for (Attribute a in type.attributes.values) {
-        print('$tab --${a.name} (${a.type.name})');
+        // print('$tab --${a.name} (${a.type.name})');
       }
 
-      for (Element e in type.elements.values) {
-
+      // CHILDREN
+      for (Element childElement in type.elements.values) {
         if (type.bodyType != null) {
           // cannot have children AND cdata
           throw Exception('??? ${type.name}');
         }
 
-        String elementName = e.fullname;
-
-        print('$tab $elementName');
-
-        XsdType? t = e.type;
-        if (t == null) {
-          // print('  ???');
-        } else {
-          showType(
-            t,
-            depth + 1,
-            visited,
-          );
-        }
+        traverse(
+          childElement,
+          depth + 1,
+          visited,
+          dir,
+        );
       }
-
-      if (type.bodyType != null) {
-        print('$tab (${type.bodyType!.fullname})');
-      }
-
-      // if (type.body != null) {
-      //   // print('$tab  X:' + (type.parent?.fullname ?? ''));
-      //   showType(
-      //     type.body!,
-      //     depth + 1,
-      //     visited,
-      //   );
-      // }
     }
   } else {
     throw Exception('??? ${type.name}');

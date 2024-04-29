@@ -1,6 +1,7 @@
 import 'package:xml/xml.dart';
 
 import 'InternalType.dart';
+import 'XsdParser.dart';
 
 class Attribute {
   final XmlElement xml;
@@ -11,9 +12,15 @@ class Attribute {
 
   late final InternalType type;
 
+  String docString = '';
+
   Attribute(
     this.xml,
   );
+
+  bool optional() {
+    return use == 'optional';
+  }
 
   void parse() {
     name = xml.getAttribute('name') ?? '';
@@ -23,5 +30,21 @@ class Attribute {
     type = InternalType.from(
       typeName,
     );
+
+    Iterable<XmlElement> docs = xml.findAllElements(
+      'xsd:documentation',
+    );
+    if (docs.isNotEmpty) {
+      XmlElement doc = docs.first;
+      docString = doc.text.trim();
+      Iterable<XmlElement> defs = doc.findAllElements(
+        'ccts:Definition',
+      );
+      if (defs.isNotEmpty) {
+        XmlElement def = defs.first;
+        docString = def.text.trim();
+      }
+    }
+
   }
 }

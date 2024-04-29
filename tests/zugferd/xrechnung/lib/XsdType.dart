@@ -8,6 +8,8 @@ class XsdType {
 
   Map<String, Attribute> attributes = {};
 
+  String docString = '';
+
   String get fullname {
     return '$schemaId.$name';
   }

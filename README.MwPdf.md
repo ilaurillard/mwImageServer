@@ -59,6 +59,10 @@ http://www.fpdf.org/en/script/script95.php
 http://fpdf.org/en/script/script103.php
 https://github.com/konik-io/js-konik/blob/master/ZUGFeRD-Comfort-Schema.json
 
-
-
+XRechnung:
+https://xrechnungsgenerator.nortal.com/
+http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-Invoice-2.1.xsd
+cac: http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/common/UBL-CommonAggregateComponents-2.1.xsd
+cbc: http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/common/UBL-CommonBasicComponents-2.1.xsd
+http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/common/UBL-CommonExtensionComponents-2.1.xsd
 

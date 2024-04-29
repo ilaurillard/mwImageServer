@@ -1,0 +1,169 @@
+import '../cac/ID.dart';
+import '../cac/ShippingPriorityLevelCode.dart';
+import '../cac/HandlingCode.dart';
+import '../cac/HandlingInstructions.dart';
+import '../cac/Information.dart';
+import '../cac/GrossWeightMeasure.dart';
+import '../cac/NetWeightMeasure.dart';
+import '../cac/NetNetWeightMeasure.dart';
+import '../cac/GrossVolumeMeasure.dart';
+import '../cac/NetVolumeMeasure.dart';
+import '../cac/TotalGoodsItemQuantity.dart';
+import '../cac/TotalTransportHandlingUnitQuantity.dart';
+import '../cac/InsuranceValueAmount.dart';
+import '../cac/DeclaredCustomsValueAmount.dart';
+import '../cac/DeclaredForCarriageValueAmount.dart';
+import '../cac/DeclaredStatisticsValueAmount.dart';
+import '../cac/FreeOnBoardValueAmount.dart';
+import '../cac/SpecialInstructions.dart';
+import '../cac/DeliveryInstructions.dart';
+import '../cac/SplitConsignmentIndicator.dart';
+import '../cac/ConsignmentQuantity.dart';
+import '../cac/Consignment.dart';
+import '../cac/GoodsItem.dart';
+import '../cac/ShipmentStage.dart';
+import '../cac/Delivery.dart';
+import '../cac/TransportHandlingUnit.dart';
+import '../cac/ReturnAddress.dart';
+import '../cac/OriginAddress.dart';
+import '../cac/FirstArrivalPortLocation.dart';
+import '../cac/LastExitPortLocation.dart';
+import '../cac/ExportCountry.dart';
+import '../cac/FreightAllowanceCharge.dart';
+
+// A class defining an identifiable collection of one or more goods items to be transported between the seller party and the buyer party. This information may be defined within a commercial contract. A shipment can be transported in different consignments (e.g., split for logistical purposes).
+class Shipment {
+
+
+  // An identifier for this shipment.
+  final ID iD;
+
+  // A code signifying the priority or level of service required for this shipment.
+  final ShippingPriorityLevelCode? shippingPriorityLevelCode;
+
+  // The handling required for this shipment, expressed as a code.
+  final HandlingCode? handlingCode;
+
+  // The handling required for this shipment, expressed as text.
+  final List<HandlingInstructions> handlingInstructions;
+
+  // Free-form text pertinent to this shipment, conveying information that is not contained explicitly in other structures.
+  final List<Information> information;
+
+  // The total gross weight of a shipment; the weight of the goods plus packaging plus transport equipment.
+  final GrossWeightMeasure? grossWeightMeasure;
+
+  // The net weight of this shipment, excluding packaging.
+  final NetWeightMeasure? netWeightMeasure;
+
+  // The total net weight of this shipment, excluding packaging and transport equipment.
+  final NetNetWeightMeasure? netNetWeightMeasure;
+
+  // The total volume of the goods in this shipment, including packaging.
+  final GrossVolumeMeasure? grossVolumeMeasure;
+
+  // The total volume of the goods in this shipment, excluding packaging and transport equipment.
+  final NetVolumeMeasure? netVolumeMeasure;
+
+  // The total number of goods items in this shipment.
+  final TotalGoodsItemQuantity? totalGoodsItemQuantity;
+
+  // The number of pieces of transport handling equipment (pallets, boxes, cases, etc.) in this shipment.
+  final TotalTransportHandlingUnitQuantity? totalTransportHandlingUnitQuantity;
+
+  // The amount covered by insurance for this shipment.
+  final InsuranceValueAmount? insuranceValueAmount;
+
+  // The total declared value for customs purposes of those goods in this shipment that are subject to the same customs procedure and have the same tariff/statistical heading, country information, and duty regime.
+  final DeclaredCustomsValueAmount? declaredCustomsValueAmount;
+
+  // The value of this shipment, declared by the shipper or his agent solely for the purpose of varying the carrier's level of liability from that provided in the contract of carriage, in case of loss or damage to goods or delayed delivery.
+  final DeclaredForCarriageValueAmount? declaredForCarriageValueAmount;
+
+  // The value, declared for statistical purposes, of those goods in this shipment that have the same statistical heading.
+  final DeclaredStatisticsValueAmount? declaredStatisticsValueAmount;
+
+  // The monetary amount that has to be or has been paid as calculated under the applicable trade delivery.
+  final FreeOnBoardValueAmount? freeOnBoardValueAmount;
+
+  // Special instructions relating to this shipment.
+  final List<SpecialInstructions> specialInstructions;
+
+  // Delivery instructions relating to this shipment.
+  final List<DeliveryInstructions> deliveryInstructions;
+
+  // An indicator that the consignment has been split in transit (true) or not (false).
+  final SplitConsignmentIndicator? splitConsignmentIndicator;
+
+  // The total number of consignments within this shipment.
+  final ConsignmentQuantity? consignmentQuantity;
+
+  // A consignment covering this shipment.
+  final List<Consignment> consignment;
+
+  // A goods item included in this shipment.
+  final List<GoodsItem> goodsItem;
+
+  // A stage in the transport movement of this shipment.
+  final List<ShipmentStage> shipmentStage;
+
+  // The delivery of this shipment.
+  final Delivery? delivery;
+
+  // A transport handling unit associated with this shipment.
+  final List<TransportHandlingUnit> transportHandlingUnit;
+
+  // The address to which a shipment should be returned.
+  final ReturnAddress? returnAddress;
+
+  // The region in which the goods have been produced or manufactured, according to criteria laid down for the purposes of application of the customs tariff, or of quantitative restrictions, or of any other measure related to trade.
+  final OriginAddress? originAddress;
+
+  // The first arrival location of a shipment. This would be a port for sea, an airport for air, a terminal for rail, or a border post for land crossing.
+  final FirstArrivalPortLocation? firstArrivalPortLocation;
+
+  // The final exporting location for a shipment. This would be a port for sea, an airport for air, a terminal for rail, or a border post for land crossing.
+  final LastExitPortLocation? lastExitPortLocation;
+
+  // The country from which the goods were originally exported, without any commercial transaction taking place in intermediate countries.
+  final ExportCountry? exportCountry;
+
+  // A cost incurred by the shipper in moving goods, by whatever means, from one place to another under the terms of the contract of carriage. In addition to transport costs, this may include such elements as packing, documentation, loading, unloading, and insurance to the extent that they relate to the freight costs.
+  final List<FreightAllowanceCharge> freightAllowanceCharge;
+
+  Shipment ({
+    required this.iD,
+    this.shippingPriorityLevelCode,
+    this.handlingCode,
+    this.handlingInstructions = const [],
+    this.information = const [],
+    this.grossWeightMeasure,
+    this.netWeightMeasure,
+    this.netNetWeightMeasure,
+    this.grossVolumeMeasure,
+    this.netVolumeMeasure,
+    this.totalGoodsItemQuantity,
+    this.totalTransportHandlingUnitQuantity,
+    this.insuranceValueAmount,
+    this.declaredCustomsValueAmount,
+    this.declaredForCarriageValueAmount,
+    this.declaredStatisticsValueAmount,
+    this.freeOnBoardValueAmount,
+    this.specialInstructions = const [],
+    this.deliveryInstructions = const [],
+    this.splitConsignmentIndicator,
+    this.consignmentQuantity,
+    this.consignment = const [],
+    this.goodsItem = const [],
+    this.shipmentStage = const [],
+    this.delivery,
+    this.transportHandlingUnit = const [],
+    this.returnAddress,
+    this.originAddress,
+    this.firstArrivalPortLocation,
+    this.lastExitPortLocation,
+    this.exportCountry,
+    this.freightAllowanceCharge = const [],
+  });
+}
+

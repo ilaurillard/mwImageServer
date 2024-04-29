@@ -16,6 +16,8 @@ class Element {
 
   ComplexType? type;
 
+  String docString = '';
+
   Element(
     this.xml,
     this.parentType,
@@ -59,7 +61,7 @@ class Element {
       ComplexType? ct = refElem.type;
 
       if (ct == null) {
-        print('    WARNING, ref "$ref" has no type!');
+        print('!! WARNING, ref "$ref" has no type!');
       }
 
       type = ct;
@@ -67,11 +69,30 @@ class Element {
       // print('   Element name=$name type=$typeName');
       ComplexType? ct = parentType.schema.typeByName(typeName);
       if (ct == null) {
-        print('    WARNING, "$typeName" not found!');
+        print('!! WARNING, "$typeName" not found!');
       } else {
         type = ct;
       }
     }
+
+    Iterable<XmlElement> docs = xml.findAllElements(
+      'xsd:documentation',
+    );
+    if (docs.isNotEmpty) {
+      XmlElement doc = docs.first;
+      docString = doc.text.trim();
+      Iterable<XmlElement> defs = doc.findAllElements(
+        'ccts:Definition',
+      );
+      if (defs.isNotEmpty) {
+        XmlElement def = defs.first;
+        docString = def.text.trim();
+      }
+    }
+
+    // if (minOccurs == 1 && maxOccurs == 0) {
+    //   print(fullname);
+    // }
 
     // print('    Element "$name" type "${type?.name}"');
   }

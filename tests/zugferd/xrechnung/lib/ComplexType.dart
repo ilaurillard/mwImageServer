@@ -61,6 +61,21 @@ class ComplexType extends XsdType {
       attributes[ax.name] = ax;
       print(ax.name);
     }
+
+    Iterable<XmlElement> docs = xml.findAllElements(
+      'xsd:documentation',
+    );
+    if (docs.isNotEmpty) {
+      XmlElement doc = docs.first;
+      docString = doc.text.trim();
+      Iterable<XmlElement> defs = doc.findAllElements(
+        'ccts:Definition',
+      );
+      if (defs.isNotEmpty) {
+        XmlElement def = defs.first;
+        docString = def.text.trim();
+      }
+    }
   }
 
   // @override
@@ -142,6 +157,10 @@ class ComplexType extends XsdType {
     // collect attributes
     for (Attribute ax in parent!.attributes.values) {
       attributes[ax.name] = ax;
+    }
+
+    if (parent!.docString.isNotEmpty) {
+      docString = parent!.docString;
     }
 
     // override attributes
