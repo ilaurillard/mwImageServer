@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/PaidAmount.dart';
 import '../cbc/ReceivedDate.dart';
@@ -48,7 +49,12 @@ class PrepaidPayment {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PrepaidPayment fromJson(Map<String, dynamic> json) {
+    return PrepaidPayment (
+    );
   }
 
 }

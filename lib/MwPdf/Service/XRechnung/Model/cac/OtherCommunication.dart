@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ChannelCode.dart';
 import '../cbc/Channel.dart';
 import '../cbc/Value.dart';
@@ -30,7 +31,12 @@ class OtherCommunication {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  OtherCommunication fromJson(Map<String, dynamic> json) {
+    return OtherCommunication (
+    );
   }
 
 }

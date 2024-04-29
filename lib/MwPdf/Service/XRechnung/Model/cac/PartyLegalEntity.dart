@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/RegistrationName.dart';
 import '../cbc/CompanyID.dart';
 import '../cbc/RegistrationDate.dart';
@@ -96,7 +97,12 @@ class PartyLegalEntity {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PartyLegalEntity fromJson(Map<String, dynamic> json) {
+    return PartyLegalEntity (
+    );
   }
 
 }

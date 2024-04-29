@@ -1,9 +1,10 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // One calendar day according the Gregorian calendar.
 class TaxPointDate {
 
-  final String value; // (date)
+  final XsdDate value; // (date)
 
   TaxPointDate ({
     required this.value,
@@ -15,7 +16,12 @@ class TaxPointDate {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  TaxPointDate fromJson(Map<String, dynamic> json) {
+    return TaxPointDate (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 
 // A class to define an identifier for a party.
@@ -18,7 +19,12 @@ class PartyIdentification {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PartyIdentification fromJson(Map<String, dynamic> json) {
+    return PartyIdentification (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/Name.dart';
 import '../cbc/ID.dart';
 import '../cbc/NameCode.dart';
@@ -90,7 +91,12 @@ class AdditionalItemProperty {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  AdditionalItemProperty fromJson(Map<String, dynamic> json) {
+    return AdditionalItemProperty (
+    );
   }
 
 }

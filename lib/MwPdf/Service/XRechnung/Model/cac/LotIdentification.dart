@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/LotNumberID.dart';
 import '../cbc/ExpiryDate.dart';
 import '../cac/AdditionalItemProperty.dart';
@@ -30,7 +31,12 @@ class LotIdentification {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  LotIdentification fromJson(Map<String, dynamic> json) {
+    return LotIdentification (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/StatusCode.dart';
 import '../cac/ValidityPeriod.dart';
@@ -36,7 +37,12 @@ class PriceList {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PriceList fromJson(Map<String, dynamic> json) {
+    return PriceList (
+    );
   }
 
 }

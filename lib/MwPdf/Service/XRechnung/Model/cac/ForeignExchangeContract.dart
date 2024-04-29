@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/IssueDate.dart';
 import '../cbc/IssueTime.dart';
@@ -96,7 +97,12 @@ class ForeignExchangeContract {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ForeignExchangeContract fromJson(Map<String, dynamic> json) {
+    return ForeignExchangeContract (
+    );
   }
 
 }

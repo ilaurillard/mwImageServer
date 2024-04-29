@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ValidatorID.dart';
 import '../cbc/ValidationResultCode.dart';
 import '../cbc/ValidationDate.dart';
@@ -60,7 +61,12 @@ class ResultOfVerification {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ResultOfVerification fromJson(Map<String, dynamic> json) {
+    return ResultOfVerification (
+    );
   }
 
 }

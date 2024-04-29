@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/AircraftID.dart';
 
 // A class to identify a specific aircraft used for transportation.
@@ -18,7 +19,12 @@ class AirTransport {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  AirTransport fromJson(Map<String, dynamic> json) {
+    return AirTransport (
+    );
   }
 
 }

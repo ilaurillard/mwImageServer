@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/PaymentMeansCode.dart';
 import '../cbc/ID.dart';
 import '../cbc/PaymentDueDate.dart';
@@ -90,7 +91,12 @@ class PaymentMeans {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PaymentMeans fromJson(Map<String, dynamic> json) {
+    return PaymentMeans (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../ext/ExtensionAgencyID.dart';
@@ -71,7 +72,12 @@ class UBLExtension {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  UBLExtension fromJson(Map<String, dynamic> json) {
+    return UBLExtension (
+    );
   }
 
 }

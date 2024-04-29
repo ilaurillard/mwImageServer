@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/CoordinateSystemCode.dart';
 import '../cbc/LatitudeDegreesMeasure.dart';
 import '../cbc/LatitudeMinutesMeasure.dart';
@@ -60,7 +61,12 @@ class LocationCoordinate {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  LocationCoordinate fromJson(Map<String, dynamic> json) {
+    return LocationCoordinate (
+    );
   }
 
 }

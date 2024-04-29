@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/TrainID.dart';
 import '../cbc/RailCarID.dart';
 
@@ -24,7 +25,12 @@ class RailTransport {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  RailTransport fromJson(Map<String, dynamic> json) {
+    return RailTransport (
+    );
   }
 
 }

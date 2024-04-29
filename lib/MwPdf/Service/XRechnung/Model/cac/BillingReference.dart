@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cac/InvoiceDocumentReference.dart';
 import '../cac/SelfBilledInvoiceDocumentReference.dart';
 import '../cac/CreditNoteDocumentReference.dart';
@@ -60,7 +61,12 @@ class BillingReference {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  BillingReference fromJson(Map<String, dynamic> json) {
+    return BillingReference (
+    );
   }
 
 }

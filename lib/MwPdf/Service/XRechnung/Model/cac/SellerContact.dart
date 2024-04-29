@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../cbc/Telephone.dart';
@@ -54,7 +55,12 @@ class SellerContact {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  SellerContact fromJson(Map<String, dynamic> json) {
+    return SellerContact (
+    );
   }
 
 }

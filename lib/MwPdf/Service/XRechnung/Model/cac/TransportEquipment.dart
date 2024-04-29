@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/ReferencedConsignmentID.dart';
 import '../cbc/TransportEquipmentTypeCode.dart';
@@ -378,7 +379,12 @@ class TransportEquipment {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  TransportEquipment fromJson(Map<String, dynamic> json) {
+    return TransportEquipment (
+    );
   }
 
 }

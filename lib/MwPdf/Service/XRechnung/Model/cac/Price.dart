@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/PriceAmount.dart';
 import '../cbc/BaseQuantity.dart';
 import '../cbc/PriceChangeReason.dart';
@@ -72,7 +73,12 @@ class Price {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  Price fromJson(Map<String, dynamic> json) {
+    return Price (
+    );
   }
 
 }

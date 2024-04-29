@@ -1,9 +1,10 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // One calendar day according the Gregorian calendar.
 class ActualDespatchDate {
 
-  final String value; // (date)
+  final XsdDate value; // (date)
 
   ActualDespatchDate ({
     required this.value,
@@ -15,7 +16,12 @@ class ActualDespatchDate {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ActualDespatchDate fromJson(Map<String, dynamic> json) {
+    return ActualDespatchDate (
+    );
   }
 
 }

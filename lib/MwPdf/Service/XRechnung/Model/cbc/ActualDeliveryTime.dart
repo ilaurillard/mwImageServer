@@ -1,9 +1,10 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // An instance of time that occurs every day.
 class ActualDeliveryTime {
 
-  final String value; // (time)
+  final XsdTime value; // (time)
 
   ActualDeliveryTime ({
     required this.value,
@@ -15,7 +16,12 @@ class ActualDeliveryTime {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ActualDeliveryTime fromJson(Map<String, dynamic> json) {
+    return ActualDeliveryTime (
+    );
   }
 
 }

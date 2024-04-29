@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cac/FinancingParty.dart';
 import '../cbc/ID.dart';
 import '../cbc/FinancingInstrumentCode.dart';
@@ -54,7 +55,12 @@ class TradeFinancing {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  TradeFinancing fromJson(Map<String, dynamic> json) {
+    return TradeFinancing (
+    );
   }
 
 }

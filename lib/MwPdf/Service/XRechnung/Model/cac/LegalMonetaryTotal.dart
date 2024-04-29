@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/PayableAmount.dart';
 import '../cbc/LineExtensionAmount.dart';
 import '../cbc/TaxExclusiveAmount.dart';
@@ -66,7 +67,12 @@ class LegalMonetaryTotal {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  LegalMonetaryTotal fromJson(Map<String, dynamic> json) {
+    return LegalMonetaryTotal (
+    );
   }
 
 }

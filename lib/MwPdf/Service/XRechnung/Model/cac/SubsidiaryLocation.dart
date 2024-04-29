@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/Description.dart';
 import '../cbc/Conditions.dart';
@@ -83,7 +84,12 @@ class SubsidiaryLocation {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  SubsidiaryLocation fromJson(Map<String, dynamic> json) {
+    return SubsidiaryLocation (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // A character string (letters, figures, or symbols) that for brevity and/or language independence may be used to represent or replace a definitive value or text of an attribute, together with relevant supplementary information.
 class TaxCurrencyCode {
@@ -43,7 +44,9 @@ class TaxCurrencyCode {
     this.languageID,
     this.listURI,
     this.listSchemeURI,
-  });
+  }) {
+    assert(value.isNotEmpty);
+  }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
@@ -60,7 +63,12 @@ class TaxCurrencyCode {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  TaxCurrencyCode fromJson(Map<String, dynamic> json) {
+    return TaxCurrencyCode (
+    );
   }
 
 }

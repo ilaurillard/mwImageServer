@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/UUID.dart';
 import '../cbc/Note.dart';
@@ -132,7 +133,12 @@ class ReceivedHandlingUnitReceiptLine {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ReceivedHandlingUnitReceiptLine fromJson(Map<String, dynamic> json) {
+    return ReceivedHandlingUnitReceiptLine (
+    );
   }
 
 }

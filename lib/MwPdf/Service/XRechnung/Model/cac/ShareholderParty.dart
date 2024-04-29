@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/PartecipationPercent.dart';
 import '../cac/Party.dart';
 
@@ -24,7 +25,12 @@ class ShareholderParty {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ShareholderParty fromJson(Map<String, dynamic> json) {
+    return ShareholderParty (
+    );
   }
 
 }

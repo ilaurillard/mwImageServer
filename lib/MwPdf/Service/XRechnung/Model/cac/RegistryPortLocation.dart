@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/Description.dart';
 import '../cbc/Conditions.dart';
@@ -84,7 +85,12 @@ class RegistryPortLocation {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  RegistryPortLocation fromJson(Map<String, dynamic> json) {
+    return RegistryPortLocation (
+    );
   }
 
 }

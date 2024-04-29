@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/IdentificationID.dart';
 import '../cbc/OccurrenceDate.dart';
 import '../cbc/OccurrenceTime.dart';
@@ -84,7 +85,12 @@ class PickupTransportEvent {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PickupTransportEvent fromJson(Map<String, dynamic> json) {
+    return PickupTransportEvent (
+    );
   }
 
 }

@@ -15,8 +15,10 @@ class InternalType extends XsdType {
         return 'double';
       case 'boolean':
         return 'bool';
-      // case 'dateTime':
-      //   return 'DateTime';
+      case 'date':
+        return 'XsdDate';
+      case 'time':
+        return 'XsdTime';
     }
     return 'String';
   }

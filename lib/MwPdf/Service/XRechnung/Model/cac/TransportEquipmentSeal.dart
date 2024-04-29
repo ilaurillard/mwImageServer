@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/SealIssuerTypeCode.dart';
 import '../cbc/Condition.dart';
@@ -42,7 +43,12 @@ class TransportEquipmentSeal {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  TransportEquipmentSeal fromJson(Map<String, dynamic> json) {
+    return TransportEquipmentSeal (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/AddressTypeCode.dart';
 import '../cbc/AddressFormatCode.dart';
@@ -174,7 +175,12 @@ class ApplicableAddress {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ApplicableAddress fromJson(Map<String, dynamic> json) {
+    return ApplicableAddress (
+    );
   }
 
 }

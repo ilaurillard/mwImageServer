@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/TaxAmount.dart';
 import '../cac/TaxCategory.dart';
 import '../cbc/TaxableAmount.dart';
@@ -72,7 +73,12 @@ class TaxSubtotal {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  TaxSubtotal fromJson(Map<String, dynamic> json) {
+    return TaxSubtotal (
+    );
   }
 
 }

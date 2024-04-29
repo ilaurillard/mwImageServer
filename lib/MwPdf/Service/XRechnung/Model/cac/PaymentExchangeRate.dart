@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/SourceCurrencyCode.dart';
 import '../cbc/TargetCurrencyCode.dart';
 import '../cbc/SourceCurrencyBaseRate.dart';
@@ -66,7 +67,12 @@ class PaymentExchangeRate {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PaymentExchangeRate fromJson(Map<String, dynamic> json) {
+    return PaymentExchangeRate (
+    );
   }
 
 }

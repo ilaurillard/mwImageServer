@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cac/OriginalItemLocationQuantity.dart';
 import '../cac/AlternativeConditionPrice.dart';
 
@@ -24,7 +25,12 @@ class PricingReference {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PricingReference fromJson(Map<String, dynamic> json) {
+    return PricingReference (
+    );
   }
 
 }

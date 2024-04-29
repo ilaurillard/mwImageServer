@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/MinimumValue.dart';
 import '../cbc/MaximumValue.dart';
 
@@ -24,7 +25,12 @@ class ItemPropertyRange {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ItemPropertyRange fromJson(Map<String, dynamic> json) {
+    return ItemPropertyRange (
+    );
   }
 
 }

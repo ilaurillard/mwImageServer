@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/Percent.dart';
 import '../cac/LocationAddress.dart';
 import '../cac/DependentLineReference.dart';
@@ -30,7 +31,12 @@ class DependentPriceReference {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  DependentPriceReference fromJson(Map<String, dynamic> json) {
+    return DependentPriceReference (
+    );
   }
 
 }

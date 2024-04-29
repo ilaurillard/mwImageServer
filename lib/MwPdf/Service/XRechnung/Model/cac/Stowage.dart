@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/LocationID.dart';
 import '../cbc/Location.dart';
 import '../cac/MeasurementDimension.dart';
@@ -30,7 +31,12 @@ class Stowage {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  Stowage fromJson(Map<String, dynamic> json) {
+    return Stowage (
+    );
   }
 
 }

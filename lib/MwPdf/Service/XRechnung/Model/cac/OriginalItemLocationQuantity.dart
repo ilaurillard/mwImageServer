@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/LeadTimeMeasure.dart';
 import '../cbc/MinimumQuantity.dart';
 import '../cbc/MaximumQuantity.dart';
@@ -84,7 +85,12 @@ class OriginalItemLocationQuantity {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  OriginalItemLocationQuantity fromJson(Map<String, dynamic> json) {
+    return OriginalItemLocationQuantity (
+    );
   }
 
 }

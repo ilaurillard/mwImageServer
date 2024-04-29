@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../ext/UBLExtension.dart';
 
 // A container for all extensions present in the document.
@@ -20,7 +21,12 @@ class UBLExtensions {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  UBLExtensions fromJson(Map<String, dynamic> json) {
+    return UBLExtensions (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // A character string to identify and uniquely distinguish one instance of an object in an identification scheme from all other objects in the same scheme, together with relevant supplementary information.
 class ContractedCarrierAssignedID {
@@ -35,7 +36,9 @@ class ContractedCarrierAssignedID {
     this.schemeVersionID,
     this.schemeDataURI,
     this.schemeURI,
-  });
+  }) {
+    assert(value.isNotEmpty);
+  }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
@@ -50,7 +53,12 @@ class ContractedCarrierAssignedID {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ContractedCarrierAssignedID fromJson(Map<String, dynamic> json) {
+    return ContractedCarrierAssignedID (
+    );
   }
 
 }

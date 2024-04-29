@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // A list of two mutually exclusive Boolean values that express the only possible states of a property.
 class FullyPaidSharesIndicator {
@@ -15,7 +16,12 @@ class FullyPaidSharesIndicator {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  FullyPaidSharesIndicator fromJson(Map<String, dynamic> json) {
+    return FullyPaidSharesIndicator (
+    );
   }
 
 }

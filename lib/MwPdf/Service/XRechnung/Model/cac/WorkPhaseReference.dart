@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/WorkPhaseCode.dart';
 import '../cbc/WorkPhase.dart';
@@ -54,7 +55,12 @@ class WorkPhaseReference {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  WorkPhaseReference fromJson(Map<String, dynamic> json) {
+    return WorkPhaseReference (
+    );
   }
 
 }

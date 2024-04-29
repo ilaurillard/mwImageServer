@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/LineID.dart';
 import '../cbc/SalesOrderLineID.dart';
 import '../cbc/UUID.dart';
@@ -42,7 +43,12 @@ class OrderLineReference {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  OrderLineReference fromJson(Map<String, dynamic> json) {
+    return OrderLineReference (
+    );
   }
 
 }

@@ -1,9 +1,10 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // An instance of time that occurs every day.
 class LatestPickupTime {
 
-  final String value; // (time)
+  final XsdTime value; // (time)
 
   LatestPickupTime ({
     required this.value,
@@ -15,7 +16,12 @@ class LatestPickupTime {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  LatestPickupTime fromJson(Map<String, dynamic> json) {
+    return LatestPickupTime (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/LineID.dart';
 import '../cbc/UUID.dart';
 import '../cbc/LineStatusCode.dart';
@@ -36,7 +37,12 @@ class DespatchLineReference {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  DespatchLineReference fromJson(Map<String, dynamic> json) {
+    return DespatchLineReference (
+    );
   }
 
 }

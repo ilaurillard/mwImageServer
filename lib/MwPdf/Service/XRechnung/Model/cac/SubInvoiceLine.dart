@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/LineExtensionAmount.dart';
 import '../cac/Item.dart';
@@ -179,7 +180,12 @@ class SubInvoiceLine {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  SubInvoiceLine fromJson(Map<String, dynamic> json) {
+    return SubInvoiceLine (
+    );
   }
 
 }

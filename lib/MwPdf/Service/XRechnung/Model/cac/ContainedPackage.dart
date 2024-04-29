@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/Quantity.dart';
 import '../cbc/ReturnableMaterialIndicator.dart';
@@ -101,7 +102,12 @@ class ContainedPackage {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ContainedPackage fromJson(Map<String, dynamic> json) {
+    return ContainedPackage (
+    );
   }
 
 }

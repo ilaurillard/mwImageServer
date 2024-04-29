@@ -1,3 +1,4 @@
+import 'package:mwcdn/MwPdf/Service/XRechnung/Etc/Util.dart';
 import 'package:mwcdn/MwPdf/Service/XRechnung/Model/cac/AccountingCustomerParty.dart';
 import 'package:mwcdn/MwPdf/Service/XRechnung/Model/cac/AccountingSupplierParty.dart';
 import 'package:mwcdn/MwPdf/Service/XRechnung/Model/cac/InvoiceLine.dart';
@@ -12,7 +13,7 @@ import 'package:mwcdn/MwPdf/Service/XRechnung/Model/ubl/Invoice.dart';
 Future<void> main() async {
   Invoice i = Invoice(
     iD: ID(value: '333'),
-    issueDate: IssueDate(value: '2024-04-24'),
+    issueDate: IssueDate(value: XsdDate(value: '2024-02-06')),
     accountingSupplierParty: AccountingSupplierParty(),
     accountingCustomerParty: AccountingCustomerParty(),
     legalMonetaryTotal: LegalMonetaryTotal(

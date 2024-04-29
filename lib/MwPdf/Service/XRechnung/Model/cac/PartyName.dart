@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/Name.dart';
 
 // A class for defining the name of a party.
@@ -18,7 +19,12 @@ class PartyName {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PartyName fromJson(Map<String, dynamic> json) {
+    return PartyName (
+    );
   }
 
 }

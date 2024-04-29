@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/TransportEmergencyCardCode.dart';
 import '../cbc/PackingCriteriaCode.dart';
 import '../cbc/HazardousRegulationCode.dart';
@@ -54,7 +55,12 @@ class HazardousGoodsTransit {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  HazardousGoodsTransit fromJson(Map<String, dynamic> json) {
+    return HazardousGoodsTransit (
+    );
   }
 
 }

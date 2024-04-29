@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/CopyIndicator.dart';
 import '../cbc/UUID.dart';
@@ -114,7 +115,12 @@ class DocumentReference {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  DocumentReference fromJson(Map<String, dynamic> json) {
+    return DocumentReference (
+    );
   }
 
 }

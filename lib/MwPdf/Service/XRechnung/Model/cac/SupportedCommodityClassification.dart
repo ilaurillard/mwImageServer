@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/NatureCode.dart';
 import '../cbc/CargoTypeCode.dart';
 import '../cbc/CommodityCode.dart';
@@ -36,7 +37,12 @@ class SupportedCommodityClassification {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  SupportedCommodityClassification fromJson(Map<String, dynamic> json) {
+    return SupportedCommodityClassification (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/EmbeddedDocumentBinaryObject.dart';
 import '../cac/ExternalReference.dart';
 
@@ -24,7 +25,12 @@ class DigitalSignatureAttachment {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  DigitalSignatureAttachment fromJson(Map<String, dynamic> json) {
+    return DigitalSignatureAttachment (
+    );
   }
 
 }

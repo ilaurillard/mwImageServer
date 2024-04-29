@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/Quantity.dart';
 import '../cbc/MinimumQuantity.dart';
@@ -156,7 +157,12 @@ class Delivery {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  Delivery fromJson(Map<String, dynamic> json) {
+    return Delivery (
+    );
   }
 
 }

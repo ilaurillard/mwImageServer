@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // A number of monetary units specified using a given unit of currency.
 class PayableAlternativeAmount {
@@ -15,7 +16,9 @@ class PayableAlternativeAmount {
     required this.value,
     required this.currencyID,
     this.currencyCodeListVersionID,
-  });
+  }) {
+    assert(currencyID.isNotEmpty);
+  }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
@@ -25,7 +28,12 @@ class PayableAlternativeAmount {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PayableAlternativeAmount fromJson(Map<String, dynamic> json) {
+    return PayableAlternativeAmount (
+    );
   }
 
 }

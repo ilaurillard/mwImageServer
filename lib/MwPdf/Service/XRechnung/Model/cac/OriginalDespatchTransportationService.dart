@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/TransportServiceCode.dart';
 import '../cbc/TariffClassCode.dart';
 import '../cbc/Priority.dart';
@@ -150,7 +151,12 @@ class OriginalDespatchTransportationService {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  OriginalDespatchTransportationService fromJson(Map<String, dynamic> json) {
+    return OriginalDespatchTransportationService (
+    );
   }
 
 }

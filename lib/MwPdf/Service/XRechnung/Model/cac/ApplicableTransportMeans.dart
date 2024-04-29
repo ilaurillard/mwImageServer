@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/JourneyID.dart';
 import '../cbc/RegistrationNationalityID.dart';
 import '../cbc/RegistrationNationality.dart';
@@ -90,7 +91,12 @@ class ApplicableTransportMeans {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ApplicableTransportMeans fromJson(Map<String, dynamic> json) {
+    return ApplicableTransportMeans (
+    );
   }
 
 }

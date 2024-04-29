@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/WeekDayCode.dart';
 
 // A class to specify which day of the week a transport service is operational.
@@ -18,7 +19,12 @@ class ScheduledServiceFrequency {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ScheduledServiceFrequency fromJson(Map<String, dynamic> json) {
+    return ScheduledServiceFrequency (
+    );
   }
 
 }

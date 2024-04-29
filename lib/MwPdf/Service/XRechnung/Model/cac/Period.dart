@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/StartDate.dart';
 import '../cbc/StartTime.dart';
 import '../cbc/EndDate.dart';
@@ -54,7 +55,12 @@ class Period {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  Period fromJson(Map<String, dynamic> json) {
+    return Period (
+    );
   }
 
 }

@@ -4,8 +4,8 @@ import 'package:path/path.dart';
 
 import 'Attribute.dart';
 import 'ComplexType.dart';
-import 'Element.dart';
 
+import 'Element.dart';
 class DartClassFromElement {
   final Element _element;
   late final ComplexType _type;
@@ -19,6 +19,7 @@ class DartClassFromElement {
   DartClassFromElement(this._element) {
     _type = _element.type!;
     _imports.add("import 'dart:convert';");
+    _imports.add("import '../../Etc/Util.dart';");
   }
 
   String _lcfirst(String input) {
@@ -75,6 +76,11 @@ class DartClassFromElement {
           '    required this.value',
         );
         // TODO assert not empty??
+        if (s == 'String') {
+          _assertions.add(
+            '    assert(value.isNotEmpty);',
+          );
+        }
       }
     }
   }
@@ -98,6 +104,11 @@ class DartClassFromElement {
             '    required this.${a.name}',
           );
           // TODO assert not empty??
+          if (s == 'String' && !o) {
+            _assertions.add(
+              '    assert(${a.name}.isNotEmpty);',
+            );
+          }
         } else {
           _constructorMembers.add(
             '    this.${a.name}',
@@ -195,11 +206,9 @@ class DartClassFromElement {
     if (_type.bodyType != null) {
       toJson += "     'value': value,\n";
     }
-
     for (Attribute a in _type.attributes.values) {
       toJson += "     '${a.name}': ${a.name},\n";
     }
-
     for (Element childElement in _type.elements.values) {
       int minOccurs = childElement.minOccurs;
       int maxOccurs = childElement.maxOccurs;
@@ -218,19 +227,24 @@ class DartClassFromElement {
     toJson += '    };\n';
     toJson +=
         '    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));\n';
-    toJson += '    return map;\n\n';
+    toJson += '    return map;\n';
     toJson += '  }\n\n';
 
     _methods.add(toJson);
 
     // ------
 
-    // String fromJson = '  fromJson() {\n';
-    //
-    // fromJson += "   return '';\n";
-    // fromJson += ' }\n\n';
-    //
-    // _methods.add(fromJson);
+    String fromJson = '  ${_element.name} fromJson(Map<String, dynamic> json) {\n';
+    fromJson += "    return ${_element.name} (\n";
+
+    // if (_type.bodyType != null) {
+    //   toJson += "      'value': json['value'] ?? '',\n";
+    // }
+
+    fromJson += '    );\n';
+    fromJson += '  }\n\n';
+
+    _methods.add(fromJson);
 
     // ------
 
@@ -274,7 +288,7 @@ class DartClassFromElement {
 
       if (_assertions.isNotEmpty) {
         res += (' {\n');
-        res += '${_assertions.join(',\n')}\n';
+        res += '${_assertions.join('\n')}\n';
         res += ('  }\n');
       } else {
         res += (';\n');
@@ -289,3 +303,5 @@ class DartClassFromElement {
     return res;
   }
 }
+
+

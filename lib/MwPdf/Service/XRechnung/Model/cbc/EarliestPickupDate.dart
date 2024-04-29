@@ -1,9 +1,10 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // One calendar day according the Gregorian calendar.
 class EarliestPickupDate {
 
-  final String value; // (date)
+  final XsdDate value; // (date)
 
   EarliestPickupDate ({
     required this.value,
@@ -15,7 +16,12 @@ class EarliestPickupDate {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  EarliestPickupDate fromJson(Map<String, dynamic> json) {
+    return EarliestPickupDate (
+    );
   }
 
 }

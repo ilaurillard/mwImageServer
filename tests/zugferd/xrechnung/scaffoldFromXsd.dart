@@ -1,9 +1,9 @@
-import 'lib/ComplexType.dart';
-import 'lib/DartClassFromElement.dart';
-import 'lib/Element.dart';
-import 'lib/Schema.dart';
-import 'lib/XsdParser.dart';
-import 'lib/XsdType.dart';
+import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/ComplexType.dart';
+import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/DartClassFromElement.dart';
+import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/Element.dart';
+import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/Schema.dart';
+import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/XsdParser.dart';
+import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/XsdType.dart';
 
 Future<void> main() async {
   // String dir = '/home/ilja/PhpstormProjects/mwcdn/tests/zugferd/xrechnung/output';

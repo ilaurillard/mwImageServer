@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // Numeric information that is assigned or is determined by calculation, counting, or sequencing. It does not require a unit of quantity or unit of measure.
 class SequenceNumeric {
@@ -20,7 +21,12 @@ class SequenceNumeric {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  SequenceNumeric fromJson(Map<String, dynamic> json) {
+    return SequenceNumeric (
+    );
   }
 
 }

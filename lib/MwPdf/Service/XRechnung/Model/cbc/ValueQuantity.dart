@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // A counted number of non-monetary units, possibly including a fractional part.
 class ValueQuantity {
@@ -35,7 +36,12 @@ class ValueQuantity {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ValueQuantity fromJson(Map<String, dynamic> json) {
+    return ValueQuantity (
+    );
   }
 
 }

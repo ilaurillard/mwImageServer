@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/AccountID.dart';
 
 // A class to identify a credit account for sales on account.
@@ -18,7 +19,12 @@ class CreditAccount {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  CreditAccount fromJson(Map<String, dynamic> json) {
+    return CreditAccount (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/Information.dart';
 import '../cbc/Reference.dart';
 import '../cac/ApplicableAddress.dart';
@@ -30,7 +31,12 @@ class HaulageTradingTerms {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  HaulageTradingTerms fromJson(Map<String, dynamic> json) {
+    return HaulageTradingTerms (
+    );
   }
 
 }

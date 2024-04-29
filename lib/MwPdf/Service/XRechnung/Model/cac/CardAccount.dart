@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/PrimaryAccountNumberID.dart';
 import '../cbc/NetworkID.dart';
 import '../cbc/CardTypeCode.dart';
@@ -78,7 +79,12 @@ class CardAccount {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  CardAccount fromJson(Map<String, dynamic> json) {
+    return CardAccount (
+    );
   }
 
 }

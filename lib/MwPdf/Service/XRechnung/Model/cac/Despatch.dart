@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/RequestedDespatchDate.dart';
 import '../cbc/RequestedDespatchTime.dart';
@@ -126,7 +127,12 @@ class Despatch {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  Despatch fromJson(Map<String, dynamic> json) {
+    return Despatch (
+    );
   }
 
 }

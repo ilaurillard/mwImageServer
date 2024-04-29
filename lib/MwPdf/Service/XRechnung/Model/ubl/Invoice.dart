@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/IssueDate.dart';
 import '../cac/AccountingSupplierParty.dart';
@@ -338,7 +339,12 @@ class Invoice {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  Invoice fromJson(Map<String, dynamic> json) {
+    return Invoice (
+    );
   }
 
 }

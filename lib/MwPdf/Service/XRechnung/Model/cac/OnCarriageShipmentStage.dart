@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/TransportModeCode.dart';
 import '../cbc/TransportMeansTypeCode.dart';
@@ -378,7 +379,12 @@ class OnCarriageShipmentStage {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  OnCarriageShipmentStage fromJson(Map<String, dynamic> json) {
+    return OnCarriageShipmentStage (
+    );
   }
 
 }

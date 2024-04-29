@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/BatchQuantity.dart';
 import '../cbc/ConsumerUnitQuantity.dart';
 import '../cbc/HazardousRiskIndicator.dart';
@@ -30,7 +31,12 @@ class MaximumDeliveryUnit {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  MaximumDeliveryUnit fromJson(Map<String, dynamic> json) {
+    return MaximumDeliveryUnit (
+    );
   }
 
 }

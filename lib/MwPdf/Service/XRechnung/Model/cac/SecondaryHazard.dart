@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/PlacardNotation.dart';
 import '../cbc/PlacardEndorsement.dart';
@@ -42,7 +43,12 @@ class SecondaryHazard {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  SecondaryHazard fromJson(Map<String, dynamic> json) {
+    return SecondaryHazard (
+    );
   }
 
 }

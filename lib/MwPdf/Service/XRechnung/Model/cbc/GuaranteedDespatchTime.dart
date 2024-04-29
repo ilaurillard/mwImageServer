@@ -1,9 +1,10 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // An instance of time that occurs every day.
 class GuaranteedDespatchTime {
 
-  final String value; // (time)
+  final XsdTime value; // (time)
 
   GuaranteedDespatchTime ({
     required this.value,
@@ -15,7 +16,12 @@ class GuaranteedDespatchTime {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  GuaranteedDespatchTime fromJson(Map<String, dynamic> json) {
+    return GuaranteedDespatchTime (
+    );
   }
 
 }

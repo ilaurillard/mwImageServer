@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cac/OrderLineReference.dart';
 import '../cac/Item.dart';
@@ -98,7 +99,12 @@ class HandlingUnitDespatchLine {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  HandlingUnitDespatchLine fromJson(Map<String, dynamic> json) {
+    return HandlingUnitDespatchLine (
+    );
   }
 
 }

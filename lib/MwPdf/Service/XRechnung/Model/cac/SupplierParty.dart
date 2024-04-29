@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/CustomerAssignedAccountID.dart';
 import '../cbc/AdditionalAccountID.dart';
 import '../cbc/DataSendingCapability.dart';
@@ -54,7 +55,12 @@ class SupplierParty {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  SupplierParty fromJson(Map<String, dynamic> json) {
+    return SupplierParty (
+    );
   }
 
 }

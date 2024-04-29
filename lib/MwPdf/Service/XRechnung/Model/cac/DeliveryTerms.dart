@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/SpecialTerms.dart';
 import '../cbc/LossRiskResponsibilityCode.dart';
@@ -54,7 +55,12 @@ class DeliveryTerms {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  DeliveryTerms fromJson(Map<String, dynamic> json) {
+    return DeliveryTerms (
+    );
   }
 
 }

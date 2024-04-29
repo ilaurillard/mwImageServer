@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/TransportHandlingUnitTypeCode.dart';
 import '../cbc/HandlingCode.dart';
@@ -174,7 +175,12 @@ class PackagedTransportHandlingUnit {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PackagedTransportHandlingUnit fromJson(Map<String, dynamic> json) {
+    return PackagedTransportHandlingUnit (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../cbc/TaxTypeCode.dart';
@@ -42,7 +43,12 @@ class TaxScheme {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  TaxScheme fromJson(Map<String, dynamic> json) {
+    return TaxScheme (
+    );
   }
 
 }

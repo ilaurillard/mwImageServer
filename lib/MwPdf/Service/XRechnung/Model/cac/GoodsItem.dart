@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/SequenceNumberID.dart';
 import '../cbc/Description.dart';
@@ -252,7 +253,12 @@ class GoodsItem {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  GoodsItem fromJson(Map<String, dynamic> json) {
+    return GoodsItem (
+    );
   }
 
 }

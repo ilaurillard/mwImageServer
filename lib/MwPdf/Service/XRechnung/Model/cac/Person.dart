@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/FirstName.dart';
 import '../cbc/FamilyName.dart';
@@ -114,7 +115,12 @@ class Person {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  Person fromJson(Map<String, dynamic> json) {
+    return Person (
+    );
   }
 
 }

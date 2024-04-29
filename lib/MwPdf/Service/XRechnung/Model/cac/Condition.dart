@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/AttributeID.dart';
 import '../cbc/Measure.dart';
 import '../cbc/Description.dart';
@@ -42,7 +43,12 @@ class Condition {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  Condition fromJson(Map<String, dynamic> json) {
+    return Condition (
+    );
   }
 
 }

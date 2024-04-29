@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/IdentificationCode.dart';
 import '../cbc/Name.dart';
 
@@ -24,7 +25,12 @@ class FinalDestinationCountry {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  FinalDestinationCountry fromJson(Map<String, dynamic> json) {
+    return FinalDestinationCountry (
+    );
   }
 
 }

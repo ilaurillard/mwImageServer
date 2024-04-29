@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // A set of finite-length sequences of binary octets.
 class EmbeddedDocumentBinaryObject {
@@ -31,7 +32,10 @@ class EmbeddedDocumentBinaryObject {
     this.characterSetCode,
     this.uri,
     this.filename,
-  });
+  }) {
+    assert(value.isNotEmpty);
+    assert(mimeCode.isNotEmpty);
+  }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
@@ -45,7 +49,12 @@ class EmbeddedDocumentBinaryObject {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  EmbeddedDocumentBinaryObject fromJson(Map<String, dynamic> json) {
+    return EmbeddedDocumentBinaryObject (
+    );
   }
 
 }

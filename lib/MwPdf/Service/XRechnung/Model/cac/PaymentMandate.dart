@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/MandateTypeCode.dart';
 import '../cbc/MaximumPaymentInstructionsNumeric.dart';
@@ -72,7 +73,12 @@ class PaymentMandate {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PaymentMandate fromJson(Map<String, dynamic> json) {
+    return PaymentMandate (
+    );
   }
 
 }

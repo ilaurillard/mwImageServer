@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cac/AgentParty.dart';
 import '../cbc/ID.dart';
 import '../cbc/IssueDate.dart';
@@ -60,7 +61,12 @@ class PowerOfAttorney {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PowerOfAttorney fromJson(Map<String, dynamic> json) {
+    return PowerOfAttorney (
+    );
   }
 
 }

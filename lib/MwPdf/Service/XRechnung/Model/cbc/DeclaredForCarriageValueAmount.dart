@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // A number of monetary units specified using a given unit of currency.
 class DeclaredForCarriageValueAmount {
@@ -15,7 +16,9 @@ class DeclaredForCarriageValueAmount {
     required this.value,
     required this.currencyID,
     this.currencyCodeListVersionID,
-  });
+  }) {
+    assert(currencyID.isNotEmpty);
+  }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
@@ -25,7 +28,12 @@ class DeclaredForCarriageValueAmount {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  DeclaredForCarriageValueAmount fromJson(Map<String, dynamic> json) {
+    return DeclaredForCarriageValueAmount (
+    );
   }
 
 }

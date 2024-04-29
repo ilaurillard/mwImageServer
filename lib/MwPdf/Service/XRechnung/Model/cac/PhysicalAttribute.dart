@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/AttributeID.dart';
 import '../cbc/PositionCode.dart';
 import '../cbc/DescriptionCode.dart';
@@ -36,7 +37,12 @@ class PhysicalAttribute {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PhysicalAttribute fromJson(Map<String, dynamic> json) {
+    return PhysicalAttribute (
+    );
   }
 
 }

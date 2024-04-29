@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/MarkCareIndicator.dart';
 import '../cbc/MarkAttentionIndicator.dart';
 import '../cbc/WebsiteURI.dart';
@@ -126,7 +127,12 @@ class ManufacturerParty {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ManufacturerParty fromJson(Map<String, dynamic> json) {
+    return ManufacturerParty (
+    );
   }
 
 }

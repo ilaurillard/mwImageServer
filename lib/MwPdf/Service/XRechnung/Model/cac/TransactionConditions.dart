@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/ActionCode.dart';
 import '../cbc/Description.dart';
@@ -36,7 +37,12 @@ class TransactionConditions {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  TransactionConditions fromJson(Map<String, dynamic> json) {
+    return TransactionConditions (
+    );
   }
 
 }

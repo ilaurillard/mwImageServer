@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // A character string that constitutes the distinctive designation of a person, place, thing or concept.
 class BuildingName {
@@ -15,7 +16,9 @@ class BuildingName {
     required this.value,
     this.languageID,
     this.languageLocaleID,
-  });
+  }) {
+    assert(value.isNotEmpty);
+  }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
@@ -25,7 +28,12 @@ class BuildingName {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  BuildingName fromJson(Map<String, dynamic> json) {
+    return BuildingName (
+    );
   }
 
 }

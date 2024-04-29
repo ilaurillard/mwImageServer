@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../cbc/AliasName.dart';
@@ -66,7 +67,12 @@ class PayeeFinancialAccount {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  PayeeFinancialAccount fromJson(Map<String, dynamic> json) {
+    return PayeeFinancialAccount (
+    );
   }
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/Amount.dart';
 import '../cac/TaxTotal.dart';
 
@@ -24,7 +25,12 @@ class ItemPriceExtension {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ItemPriceExtension fromJson(Map<String, dynamic> json) {
+    return ItemPriceExtension (
+    );
   }
 
 }

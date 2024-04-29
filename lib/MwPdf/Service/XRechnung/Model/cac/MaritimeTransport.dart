@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/VesselID.dart';
 import '../cbc/VesselName.dart';
 import '../cbc/RadioCallSignID.dart';
@@ -60,7 +61,12 @@ class MaritimeTransport {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  MaritimeTransport fromJson(Map<String, dynamic> json) {
+    return MaritimeTransport (
+    );
   }
 
 }

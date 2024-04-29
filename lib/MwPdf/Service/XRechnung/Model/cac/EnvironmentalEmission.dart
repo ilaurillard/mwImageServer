@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/EnvironmentalEmissionTypeCode.dart';
 import '../cbc/ValueMeasure.dart';
 import '../cbc/Description.dart';
@@ -36,7 +37,12 @@ class EnvironmentalEmission {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  EnvironmentalEmission fromJson(Map<String, dynamic> json) {
+    return EnvironmentalEmission (
+    );
   }
 
 }

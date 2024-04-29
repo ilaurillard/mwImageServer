@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cac/Party.dart';
 import '../cbc/ID.dart';
 import '../cbc/ServiceTypeCode.dart';
@@ -42,7 +43,12 @@ class ServiceProviderParty {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ServiceProviderParty fromJson(Map<String, dynamic> json) {
+    return ServiceProviderParty (
+    );
   }
 
 }

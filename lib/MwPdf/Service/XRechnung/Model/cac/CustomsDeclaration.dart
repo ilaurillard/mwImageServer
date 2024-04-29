@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cac/IssuerParty.dart';
 
@@ -24,7 +25,12 @@ class CustomsDeclaration {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  CustomsDeclaration fromJson(Map<String, dynamic> json) {
+    return CustomsDeclaration (
+    );
   }
 
 }

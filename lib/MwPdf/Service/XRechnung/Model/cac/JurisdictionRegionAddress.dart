@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/AddressTypeCode.dart';
 import '../cbc/AddressFormatCode.dart';
@@ -174,7 +175,12 @@ class JurisdictionRegionAddress {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  JurisdictionRegionAddress fromJson(Map<String, dynamic> json) {
+    return JurisdictionRegionAddress (
+    );
   }
 
 }

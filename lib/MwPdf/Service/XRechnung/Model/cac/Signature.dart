@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/Note.dart';
 import '../cbc/ValidationDate.dart';
@@ -72,7 +73,12 @@ class Signature {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  Signature fromJson(Map<String, dynamic> json) {
+    return Signature (
+    );
   }
 
 }

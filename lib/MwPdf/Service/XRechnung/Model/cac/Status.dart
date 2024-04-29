@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ConditionCode.dart';
 import '../cbc/ReferenceDate.dart';
 import '../cbc/ReferenceTime.dart';
@@ -84,7 +85,12 @@ class Status {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  Status fromJson(Map<String, dynamic> json) {
+    return Status (
+    );
   }
 
 }

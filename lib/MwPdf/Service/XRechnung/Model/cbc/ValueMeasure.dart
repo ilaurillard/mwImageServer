@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 
 // A numeric value determined by measuring an object using a specified unit of measure.
 class ValueMeasure {
@@ -15,7 +16,9 @@ class ValueMeasure {
     required this.value,
     required this.unitCode,
     this.unitCodeListVersionID,
-  });
+  }) {
+    assert(unitCode.isNotEmpty);
+  }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
@@ -25,7 +28,12 @@ class ValueMeasure {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  ValueMeasure fromJson(Map<String, dynamic> json) {
+    return ValueMeasure (
+    );
   }
 
 }

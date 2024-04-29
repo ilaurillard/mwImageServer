@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../Etc/Util.dart';
 import '../cbc/ID.dart';
 import '../cbc/ExtendedID.dart';
 import '../cbc/BarcodeSymbologyID.dart';
@@ -48,7 +49,12 @@ class CatalogueItemIdentification {
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
+  }
 
+
+  CatalogueItemIdentification fromJson(Map<String, dynamic> json) {
+    return CatalogueItemIdentification (
+    );
   }
 
 }
