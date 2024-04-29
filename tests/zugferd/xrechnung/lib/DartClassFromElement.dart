@@ -90,8 +90,9 @@ class DartClassFromElement {
           );
         }
 
+        String s = a.type.scalarType();
         _attributes.add(
-            '  final String${o ? '?' : ''} ${a.name}; // (${a.type.name})');
+            '  final $s${o ? '?' : ''} ${a.name}; // (${a.type.name})');
         if (required) {
           _constructorMembers.add(
             '    required this.${a.name}',

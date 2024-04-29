@@ -3,7 +3,7 @@ import 'dart:convert';
 // A number of monetary units specified using a given unit of currency.
 class TotalInvoiceAmount {
 
-  final String value; // (decimal)
+  final double value; // (decimal)
 
   // The currency of the amount.
   final String currencyID; // (normalizedString)

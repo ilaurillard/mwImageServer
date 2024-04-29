@@ -10,6 +10,10 @@ class InternalType extends XsdType {
 
   String scalarType()
   {
+    switch(name) {
+      case 'decimal':
+        return 'double';
+    }
     return 'String';
   }
 

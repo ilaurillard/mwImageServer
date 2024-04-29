@@ -3,7 +3,7 @@ import 'dart:convert';
 // A numeric value determined by measuring an object using a specified unit of measure.
 class LatitudeDegreesMeasure {
 
-  final String value; // (decimal)
+  final double value; // (decimal)
 
   // The type of unit of measure.
   final String unitCode; // (normalizedString)

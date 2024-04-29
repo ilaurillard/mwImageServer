@@ -3,7 +3,7 @@ import 'dart:convert';
 // A counted number of non-monetary units, possibly including a fractional part.
 class ChargeableQuantity {
 
-  final String value; // (decimal)
+  final double value; // (decimal)
 
   // The unit of the quantity
   final String? unitCode; // (normalizedString)
