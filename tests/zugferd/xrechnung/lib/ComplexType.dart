@@ -67,13 +67,13 @@ class ComplexType extends XsdType {
     );
     if (docs.isNotEmpty) {
       XmlElement doc = docs.first;
-      docString = doc.text.trim();
+      docString = doc.innerText.trim();
       Iterable<XmlElement> defs = doc.findAllElements(
         'ccts:Definition',
       );
       if (defs.isNotEmpty) {
         XmlElement def = defs.first;
-        docString = def.text.trim();
+        docString = def.innerText.trim();
       }
     }
   }

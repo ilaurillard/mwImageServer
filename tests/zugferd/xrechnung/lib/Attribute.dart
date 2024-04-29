@@ -1,7 +1,6 @@
 import 'package:xml/xml.dart';
 
 import 'InternalType.dart';
-import 'XsdParser.dart';
 
 class Attribute {
   final XmlElement xml;
@@ -36,13 +35,13 @@ class Attribute {
     );
     if (docs.isNotEmpty) {
       XmlElement doc = docs.first;
-      docString = doc.text.trim();
+      docString = doc.innerText.trim();
       Iterable<XmlElement> defs = doc.findAllElements(
         'ccts:Definition',
       );
       if (defs.isNotEmpty) {
         XmlElement def = defs.first;
-        docString = def.text.trim();
+        docString = def.innerText.trim();
       }
     }
 

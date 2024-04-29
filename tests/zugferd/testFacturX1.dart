@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Model/Amount.dart';
 import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Model/CreditorFinancialAccount.dart';
 import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Model/CreditorFinancialInstitution.dart';
@@ -34,7 +32,6 @@ import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Model/TradeSettlementLi
 import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Model/TradeSettlementPaymentMeans.dart';
 import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Model/TradeTax.dart';
 import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Model/UniversalCommunication.dart';
-import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Util.dart';
 import 'package:xml/xml.dart';
 
 Future<void> main() async {

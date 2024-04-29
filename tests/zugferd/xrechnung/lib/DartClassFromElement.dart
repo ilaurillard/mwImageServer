@@ -9,7 +9,16 @@ import 'Element.dart';
 class DartClassFromElement {
   final Element element;
 
-  DartClassFromElement(this.element);
+  final List<String> imports = [];
+  final List<String> attributes = [];
+  final List<String> constructorMembers = [];
+  final List<String> assertions = [];
+
+  late final ComplexType type;
+
+  DartClassFromElement(this.element) {
+    type = element.type!;
+  }
 
   String _lcfirst(String input) {
     if (input.isEmpty) return input;
@@ -17,141 +26,158 @@ class DartClassFromElement {
   }
 
   String render() {
-    ComplexType type = element.type!;
-
-    List<String> imports = [];
-    List<String> attributes = [];
-    List<String> constructorMembers = [];
-    List<String> assertions = [];
-
-    // ---------------------------------------------
-
     for (bool required in [true, false]) {
-      if (required) {
-        // BODY todo
-        if (type.bodyType != null) {
+      _value(required);
+      _attributes(required);
+      _children(required);
+    }
 
-          if (type.bodyType!.docString.isNotEmpty) {
-            attributes.add(
-              '\n  // ${type.bodyType!.docString}',
-            );
-          }
+    return _render();
+  }
 
+  void write(
+    String dir,
+    String code,
+  ) {
+    File f = File(
+      join(
+        dir,
+        element.schemaId,
+        '${element.name}.dart',
+      ),
+    );
+    if (f.existsSync()) {
+      f.deleteSync();
+    }
+    f.createSync(recursive: true);
+    f.writeAsStringSync(code);
+  }
+
+  void _value(bool required) {
+    // CDATA/VALUE ATTRIBUTE
+    if (required) {
+      // BODY todo
+      if (type.bodyType != null) {
+        if (type.bodyType!.docString.isNotEmpty) {
           attributes.add(
-            '  final String value; // (${type.bodyType!.name})',
+            '\n  // ${type.bodyType!.docString}',
           );
+        }
+
+        attributes.add(
+          '  final String value; // (${type.bodyType!.name})',
+        );
+        constructorMembers.add(
+          '    required this.value',
+        );
+        // TODO assert not empty??
+      }
+    }
+  }
+
+  void _attributes(bool required) {
+    // ATTRIBUTES (only internal types / scalars)
+    for (Attribute a in type.attributes.values) {
+      bool o = a.optional();
+      if ((required && !o) || (!required && o)) {
+        if (a.docString.isNotEmpty) {
+          attributes.add(
+            '\n  // ${a.docString}',
+          );
+        }
+
+        attributes.add(
+            '  final String${o ? '?' : ''} ${a.name}; // (${a.type.name})');
+        if (required) {
           constructorMembers.add(
-            '    required this.value',
+            '    required this.${a.name}',
           );
           // TODO assert not empty??
+        } else {
+          constructorMembers.add(
+            '    this.${a.name}',
+          );
         }
       }
+    }
+  }
 
-      // ---------------------------------------------
+  void _children(bool required) {
+    // CHILDREN/ELEMENTS
+    for (Element childElement in type.elements.values) {
+      int minOccurs = childElement.minOccurs;
+      int maxOccurs = childElement.maxOccurs;
 
-      // ATTRIBUTES (only internal types / scalars)
-      for (Attribute a in type.attributes.values) {
-        bool o = a.optional();
-        if ((required && !o) || (!required && o)) {
+      if (maxOccurs > 1 || maxOccurs < 0) {
+        throw Exception(
+            'Can only handle maxOccurs = 0/1 in element ${childElement.fullname}');
+      }
 
-          if (a.docString.isNotEmpty) {
-            attributes.add(
-              '\n  // ${a.docString}',
-            );
+      String elementClassName = childElement.name;
+      String elementVarName = _lcfirst(elementClassName);
+      if (childElement.type == null) {
+        print('!! WARNING, element ${childElement.fullname} has no type');
+      } else {
+        imports.add(
+            "import '../${childElement.schemaId}/$elementClassName.dart';");
+      }
+
+      bool o = minOccurs == 0;
+      if ((required && !o) || (!required && o)) {
+        if (childElement.docString.isNotEmpty) {
+          attributes.add(
+            '\n  // ${childElement.docString}',
+          );
+        }
+
+        if (maxOccurs == 0) {
+          // unbounded -- means: list
+          if (childElement.type == null) {
+            throw Exception('Cannot handle');
           }
 
           attributes.add(
-              '  final String${o ? '?' : ''} ${a.name}; // (${a.type.name})');
+            '  final List<$elementClassName> $elementVarName;',
+          );
+
           if (required) {
             constructorMembers.add(
-              '    required this.${a.name}',
+              '    required this.$elementVarName',
             );
-            // TODO assert not empty??
+            assertions.add(
+              '    assert($elementVarName.isNotEmpty);',
+            );
           } else {
             constructorMembers.add(
-              '    this.${a.name}',
+              '    this.$elementVarName = const []',
             );
           }
-        }
-      }
-
-      // ---------------------------------------------
-
-      // CHILDREN/ELEMENTS
-      for (Element childElement in type.elements.values) {
-        int minOccurs = childElement.minOccurs;
-        int maxOccurs = childElement.maxOccurs;
-
-        if (maxOccurs > 1 || maxOccurs < 0) {
-          throw Exception(
-              'Can only handle maxOccurs = 0/1 in element ${childElement.fullname}');
-        }
-
-        String elementClassName = childElement.name;
-        String elementVarName = _lcfirst(elementClassName);
-        if (childElement.type == null) {
-          print('!! WARNING, element ${childElement.fullname} has no type');
         } else {
-          imports.add(
-              "import '../${childElement.schemaId}/$elementClassName.dart';");
-        }
-
-        bool o = minOccurs == 0;
-        if ((required && !o) || (!required && o)) {
-
-          if (childElement.docString.isNotEmpty) {
+          if (childElement.type == null) {
             attributes.add(
-              '\n  // ${childElement.docString}',
+              '  final $elementVarName; // missing type $elementClassName',
+            );
+          } else {
+            attributes.add(
+              '  final $elementClassName${o ? '?' : ''} $elementVarName;',
             );
           }
 
-          if (maxOccurs == 0) {
-            // unbounded -- means: list
-            if (childElement.type == null) {
-              throw Exception('Cannot handle');
-            }
-
-            attributes.add(
-              '  final List<$elementClassName> $elementVarName;',
+          if (required) {
+            constructorMembers.add(
+              '    required this.$elementVarName',
             );
-
-            if (required) {
-              constructorMembers.add(
-                '    required this.$elementVarName',
-              );
-              assertions.add(
-                '    assert($elementVarName.isNotEmpty);',
-              );
-            } else {
-              constructorMembers.add(
-                '    this.$elementVarName = const []',
-              );
-            }
           } else {
-            if (childElement.type == null) {
-              attributes.add(
-                '  final $elementVarName; // missing type $elementClassName',
-              );
-            } else {
-              attributes.add(
-                '  final $elementClassName${o ? '?' : ''} $elementVarName;',
-              );
-            }
-
-            if (required) {
-              constructorMembers.add(
-                '    required this.$elementVarName',
-              );
-            } else {
-              constructorMembers.add(
-                '    this.$elementVarName',
-              );
-            }
+            constructorMembers.add(
+              '    this.$elementVarName',
+            );
           }
         }
       }
     }
+  }
 
+  String _render() {
     String res = '';
 
     if (imports.isNotEmpty) {
@@ -187,23 +213,5 @@ class DartClassFromElement {
     res += ('}\n\n');
 
     return res;
-  }
-
-  void write(
-    String dir,
-    String code,
-  ) {
-    File f = File(
-      join(
-        dir,
-        element.schemaId,
-        '${element.name}.dart',
-      ),
-    );
-    if (f.existsSync()) {
-      f.deleteSync();
-    }
-    f.createSync(recursive: true);
-    f.writeAsStringSync(code);
   }
 }

@@ -182,7 +182,7 @@ class ApiPdf {
       );
     } on ResponseException catch (e) {
       return e.response;
-    } on TooManyPagesException catch (e) {
+    } on TooManyPagesException {
       return Util.rError(
         message:
             'TooManyPagesException, a widget is probably too big for one page!',

@@ -1,7 +1,5 @@
 import 'package:pdf/pdf.dart';
 
-import 'package:pdf/widgets.dart' as pw;
-
 class ConfigLane {
   final double laneHeight;
   final double laneGapV;

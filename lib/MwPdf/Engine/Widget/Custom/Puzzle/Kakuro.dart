@@ -32,7 +32,7 @@ class Kakuro {
     List<pw.Widget> cellWidgets = [];
 
     double line1Thickness = this.line1Thickness * PdfPageFormat.mm;
-    double line2Thickness = this.line2Thickness * PdfPageFormat.mm;
+    // double line2Thickness = this.line2Thickness * PdfPageFormat.mm;
 
     for (int y = 0; y < board.length; y++) {
       for (int x = 0; x < board[y].length; x++) {
