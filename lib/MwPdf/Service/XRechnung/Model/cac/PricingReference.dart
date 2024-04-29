@@ -1,3 +1,4 @@
+import 'dart:convert';
 import '../cac/OriginalItemLocationQuantity.dart';
 import '../cac/AlternativeConditionPrice.dart';
 
@@ -15,5 +16,16 @@ class PricingReference {
     this.originalItemLocationQuantity,
     this.alternativeConditionPrice = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'originalItemLocationQuantity': originalItemLocationQuantity?.toJson(),
+     'alternativeConditionPrice': alternativeConditionPrice.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

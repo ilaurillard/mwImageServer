@@ -1,9 +1,10 @@
-import '../cac/ProductTraceID.dart';
-import '../cac/ManufactureDate.dart';
-import '../cac/ManufactureTime.dart';
-import '../cac/BestBeforeDate.dart';
-import '../cac/RegistrationID.dart';
-import '../cac/SerialID.dart';
+import 'dart:convert';
+import '../cbc/ProductTraceID.dart';
+import '../cbc/ManufactureDate.dart';
+import '../cbc/ManufactureTime.dart';
+import '../cbc/BestBeforeDate.dart';
+import '../cbc/RegistrationID.dart';
+import '../cbc/SerialID.dart';
 import '../cac/AdditionalItemProperty.dart';
 import '../cac/LotIdentification.dart';
 
@@ -45,5 +46,22 @@ class ItemInstance {
     this.additionalItemProperty = const [],
     this.lotIdentification,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'productTraceID': productTraceID?.toJson(),
+     'manufactureDate': manufactureDate?.toJson(),
+     'manufactureTime': manufactureTime?.toJson(),
+     'bestBeforeDate': bestBeforeDate?.toJson(),
+     'registrationID': registrationID?.toJson(),
+     'serialID': serialID?.toJson(),
+     'additionalItemProperty': additionalItemProperty.map((e) => e.toJson()).toList(),
+     'lotIdentification': lotIdentification?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

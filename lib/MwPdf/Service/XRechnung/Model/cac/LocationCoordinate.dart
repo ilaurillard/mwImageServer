@@ -1,11 +1,12 @@
-import '../cac/CoordinateSystemCode.dart';
-import '../cac/LatitudeDegreesMeasure.dart';
-import '../cac/LatitudeMinutesMeasure.dart';
-import '../cac/LatitudeDirectionCode.dart';
-import '../cac/LongitudeDegreesMeasure.dart';
-import '../cac/LongitudeMinutesMeasure.dart';
-import '../cac/LongitudeDirectionCode.dart';
-import '../cac/AltitudeMeasure.dart';
+import 'dart:convert';
+import '../cbc/CoordinateSystemCode.dart';
+import '../cbc/LatitudeDegreesMeasure.dart';
+import '../cbc/LatitudeMinutesMeasure.dart';
+import '../cbc/LatitudeDirectionCode.dart';
+import '../cbc/LongitudeDegreesMeasure.dart';
+import '../cbc/LongitudeMinutesMeasure.dart';
+import '../cbc/LongitudeDirectionCode.dart';
+import '../cbc/AltitudeMeasure.dart';
 
 // A class for defining a set of geographical coordinates (apparently misnamed).
 class LocationCoordinate {
@@ -45,5 +46,22 @@ class LocationCoordinate {
     this.longitudeDirectionCode,
     this.altitudeMeasure,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'coordinateSystemCode': coordinateSystemCode?.toJson(),
+     'latitudeDegreesMeasure': latitudeDegreesMeasure?.toJson(),
+     'latitudeMinutesMeasure': latitudeMinutesMeasure?.toJson(),
+     'latitudeDirectionCode': latitudeDirectionCode?.toJson(),
+     'longitudeDegreesMeasure': longitudeDegreesMeasure?.toJson(),
+     'longitudeMinutesMeasure': longitudeMinutesMeasure?.toJson(),
+     'longitudeDirectionCode': longitudeDirectionCode?.toJson(),
+     'altitudeMeasure': altitudeMeasure?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

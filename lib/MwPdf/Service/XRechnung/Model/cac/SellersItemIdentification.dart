@@ -1,6 +1,7 @@
-import '../cac/ID.dart';
-import '../cac/ExtendedID.dart';
-import '../cac/BarcodeSymbologyID.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/ExtendedID.dart';
+import '../cbc/BarcodeSymbologyID.dart';
 import '../cac/PhysicalAttribute.dart';
 import '../cac/MeasurementDimension.dart';
 import '../cac/IssuerParty.dart';
@@ -35,5 +36,20 @@ class SellersItemIdentification {
     this.measurementDimension = const [],
     this.issuerParty,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'extendedID': extendedID?.toJson(),
+     'barcodeSymbologyID': barcodeSymbologyID?.toJson(),
+     'physicalAttribute': physicalAttribute.map((e) => e.toJson()).toList(),
+     'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
+     'issuerParty': issuerParty?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

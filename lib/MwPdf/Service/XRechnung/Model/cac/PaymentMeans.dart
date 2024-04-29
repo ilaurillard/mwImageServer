@@ -1,10 +1,11 @@
-import '../cac/ID.dart';
-import '../cac/PaymentMeansCode.dart';
-import '../cac/PaymentDueDate.dart';
-import '../cac/PaymentChannelCode.dart';
-import '../cac/InstructionID.dart';
-import '../cac/InstructionNote.dart';
-import '../cac/PaymentID.dart';
+import 'dart:convert';
+import '../cbc/PaymentMeansCode.dart';
+import '../cbc/ID.dart';
+import '../cbc/PaymentDueDate.dart';
+import '../cbc/PaymentChannelCode.dart';
+import '../cbc/InstructionID.dart';
+import '../cbc/InstructionNote.dart';
+import '../cbc/PaymentID.dart';
 import '../cac/CardAccount.dart';
 import '../cac/PayerFinancialAccount.dart';
 import '../cac/PayeeFinancialAccount.dart';
@@ -70,5 +71,27 @@ class PaymentMeans {
     this.paymentMandate,
     this.tradeFinancing,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'paymentMeansCode': paymentMeansCode.toJson(),
+     'paymentDueDate': paymentDueDate?.toJson(),
+     'paymentChannelCode': paymentChannelCode?.toJson(),
+     'instructionID': instructionID?.toJson(),
+     'instructionNote': instructionNote.map((e) => e.toJson()).toList(),
+     'paymentID': paymentID.map((e) => e.toJson()).toList(),
+     'cardAccount': cardAccount?.toJson(),
+     'payerFinancialAccount': payerFinancialAccount?.toJson(),
+     'payeeFinancialAccount': payeeFinancialAccount?.toJson(),
+     'creditAccount': creditAccount?.toJson(),
+     'paymentMandate': paymentMandate?.toJson(),
+     'tradeFinancing': tradeFinancing?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,11 +1,10 @@
-import 'dart:io';
 import 'dart:math';
 
+// ignore: implementation_imports
 import 'package:archive/src/archive_file.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwXls/Engine/Model/Datasource.dart';
 import 'package:mwcdn/MwXls/Engine/Model/State.dart';
-import 'package:mwcdn/MwXls/Engine/ex/SheetStream.dart';
 
 import 'Model/CellIndex.dart';
 import 'Model/ColIndex.dart';
@@ -56,8 +55,7 @@ class Sheet {
           ColIndex.fromValue(cell - 1),
           row,
         );
-      }
-      else {
+      } else {
         _maxCell = CellIndex('A1');
       }
     }
@@ -86,7 +84,6 @@ class Sheet {
     int amountSheets,
     Styles styles,
   ) async {
-
     String rightToLeftValue = 'false'; // NTH?
     String tabselected = amountSheets == 1 ? 'true' : 'false';
 
@@ -108,13 +105,12 @@ class Sheet {
 
     xml += '<sheetViews>';
     xml +=
-    '  <sheetView colorId="64" defaultGridColor="true" rightToLeft="$rightToLeftValue" showFormulas="false" showGridLines="true" showOutlineSymbols="true" showRowColHeaders="true" showZeros="true" tabSelected="$tabselected" topLeftCell="A1" view="normal" windowProtection="false" workbookViewId="0" zoomScale="100" zoomScaleNormal="100" zoomScalePageLayoutView="100">';
+        '  <sheetView colorId="64" defaultGridColor="true" rightToLeft="$rightToLeftValue" showFormulas="false" showGridLines="true" showOutlineSymbols="true" showRowColHeaders="true" showZeros="true" tabSelected="$tabselected" topLeftCell="A1" view="normal" windowProtection="false" workbookViewId="0" zoomScale="100" zoomScaleNormal="100" zoomScalePageLayoutView="100">';
     xml += sheetStyle.freezeXml();
     xml += '  </sheetView>\n';
     xml += '</sheetViews>\n';
 
     xml += _colsXml();
-
 
     // ---------------
 

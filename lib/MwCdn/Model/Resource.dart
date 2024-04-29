@@ -47,6 +47,7 @@ class Resource implements JsonSerializable, Entity, ResourceInterface {
   }
 
   // --> public/77/ff/aa/ffaa112233334444ffaa112233334444
+  @override
   String path({
     bool absolute = true,
   }) {

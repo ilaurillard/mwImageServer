@@ -1,11 +1,12 @@
-import '../cac/ID.dart';
-import '../cac/Description.dart';
-import '../cac/Conditions.dart';
-import '../cac/CountrySubentity.dart';
-import '../cac/CountrySubentityCode.dart';
-import '../cac/LocationTypeCode.dart';
-import '../cac/InformationURI.dart';
-import '../cac/Name.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Description.dart';
+import '../cbc/Conditions.dart';
+import '../cbc/CountrySubentity.dart';
+import '../cbc/CountrySubentityCode.dart';
+import '../cbc/LocationTypeCode.dart';
+import '../cbc/InformationURI.dart';
+import '../cbc/Name.dart';
 import '../cac/ValidityPeriod.dart';
 import '../cac/Address.dart';
 import '../cac/SubsidiaryLocation.dart';
@@ -65,5 +66,26 @@ class TransshipPortLocation {
     this.subsidiaryLocation = const [],
     this.locationCoordinate = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+     'conditions': conditions.map((e) => e.toJson()).toList(),
+     'countrySubentity': countrySubentity?.toJson(),
+     'countrySubentityCode': countrySubentityCode?.toJson(),
+     'locationTypeCode': locationTypeCode?.toJson(),
+     'informationURI': informationURI?.toJson(),
+     'name': name?.toJson(),
+     'validityPeriod': validityPeriod.map((e) => e.toJson()).toList(),
+     'address': address?.toJson(),
+     'subsidiaryLocation': subsidiaryLocation.map((e) => e.toJson()).toList(),
+     'locationCoordinate': locationCoordinate.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

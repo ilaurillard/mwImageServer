@@ -1,13 +1,14 @@
-import '../cac/ID.dart';
-import '../cac/IssueDate.dart';
-import '../cac/IssueTime.dart';
-import '../cac/NominationDate.dart';
-import '../cac/NominationTime.dart';
-import '../cac/ContractTypeCode.dart';
-import '../cac/ContractType.dart';
-import '../cac/Note.dart';
-import '../cac/VersionID.dart';
-import '../cac/Description.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/IssueDate.dart';
+import '../cbc/IssueTime.dart';
+import '../cbc/NominationDate.dart';
+import '../cbc/NominationTime.dart';
+import '../cbc/ContractTypeCode.dart';
+import '../cbc/ContractType.dart';
+import '../cbc/Note.dart';
+import '../cbc/VersionID.dart';
+import '../cbc/Description.dart';
 import '../cac/ValidityPeriod.dart';
 import '../cac/ContractDocumentReference.dart';
 import '../cac/NominationPeriod.dart';
@@ -75,5 +76,28 @@ class TransportContract {
     this.nominationPeriod,
     this.contractualDelivery,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'issueDate': issueDate?.toJson(),
+     'issueTime': issueTime?.toJson(),
+     'nominationDate': nominationDate?.toJson(),
+     'nominationTime': nominationTime?.toJson(),
+     'contractTypeCode': contractTypeCode?.toJson(),
+     'contractType': contractType?.toJson(),
+     'note': note.map((e) => e.toJson()).toList(),
+     'versionID': versionID?.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+     'validityPeriod': validityPeriod?.toJson(),
+     'contractDocumentReference': contractDocumentReference.map((e) => e.toJson()).toList(),
+     'nominationPeriod': nominationPeriod?.toJson(),
+     'contractualDelivery': contractualDelivery?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

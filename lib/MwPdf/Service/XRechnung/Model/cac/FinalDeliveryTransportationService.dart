@@ -1,13 +1,14 @@
-import '../cac/TransportServiceCode.dart';
-import '../cac/TariffClassCode.dart';
-import '../cac/Priority.dart';
-import '../cac/FreightRateClassCode.dart';
-import '../cac/TransportationServiceDescription.dart';
-import '../cac/TransportationServiceDetailsURI.dart';
-import '../cac/NominationDate.dart';
-import '../cac/NominationTime.dart';
-import '../cac/Name.dart';
-import '../cac/SequenceNumeric.dart';
+import 'dart:convert';
+import '../cbc/TransportServiceCode.dart';
+import '../cbc/TariffClassCode.dart';
+import '../cbc/Priority.dart';
+import '../cbc/FreightRateClassCode.dart';
+import '../cbc/TransportationServiceDescription.dart';
+import '../cbc/TransportationServiceDetailsURI.dart';
+import '../cbc/NominationDate.dart';
+import '../cbc/NominationTime.dart';
+import '../cbc/Name.dart';
+import '../cbc/SequenceNumeric.dart';
 import '../cac/TransportEquipment.dart';
 import '../cac/SupportedTransportEquipment.dart';
 import '../cac/UnsupportedTransportEquipment.dart';
@@ -120,5 +121,37 @@ class FinalDeliveryTransportationService {
     this.estimatedDurationPeriod,
     this.scheduledServiceFrequency = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'transportServiceCode': transportServiceCode.toJson(),
+     'tariffClassCode': tariffClassCode?.toJson(),
+     'priority': priority?.toJson(),
+     'freightRateClassCode': freightRateClassCode?.toJson(),
+     'transportationServiceDescription': transportationServiceDescription.map((e) => e.toJson()).toList(),
+     'transportationServiceDetailsURI': transportationServiceDetailsURI?.toJson(),
+     'nominationDate': nominationDate?.toJson(),
+     'nominationTime': nominationTime?.toJson(),
+     'name': name?.toJson(),
+     'sequenceNumeric': sequenceNumeric?.toJson(),
+     'transportEquipment': transportEquipment.map((e) => e.toJson()).toList(),
+     'supportedTransportEquipment': supportedTransportEquipment.map((e) => e.toJson()).toList(),
+     'unsupportedTransportEquipment': unsupportedTransportEquipment.map((e) => e.toJson()).toList(),
+     'commodityClassification': commodityClassification.map((e) => e.toJson()).toList(),
+     'supportedCommodityClassification': supportedCommodityClassification.map((e) => e.toJson()).toList(),
+     'unsupportedCommodityClassification': unsupportedCommodityClassification.map((e) => e.toJson()).toList(),
+     'totalCapacityDimension': totalCapacityDimension?.toJson(),
+     'shipmentStage': shipmentStage.map((e) => e.toJson()).toList(),
+     'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
+     'responsibleTransportServiceProviderParty': responsibleTransportServiceProviderParty?.toJson(),
+     'environmentalEmission': environmentalEmission.map((e) => e.toJson()).toList(),
+     'estimatedDurationPeriod': estimatedDurationPeriod?.toJson(),
+     'scheduledServiceFrequency': scheduledServiceFrequency.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

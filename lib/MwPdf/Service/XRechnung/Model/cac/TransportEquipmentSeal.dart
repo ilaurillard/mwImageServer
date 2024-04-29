@@ -1,8 +1,9 @@
-import '../cac/ID.dart';
-import '../cac/SealIssuerTypeCode.dart';
-import '../cac/Condition.dart';
-import '../cac/SealStatusCode.dart';
-import '../cac/SealingPartyType.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/SealIssuerTypeCode.dart';
+import '../cbc/Condition.dart';
+import '../cbc/SealStatusCode.dart';
+import '../cbc/SealingPartyType.dart';
 
 // A class to describe a device (a transport equipment seal) for securing the doors of a shipping container.
 class TransportEquipmentSeal {
@@ -30,5 +31,19 @@ class TransportEquipmentSeal {
     this.sealStatusCode,
     this.sealingPartyType,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'sealIssuerTypeCode': sealIssuerTypeCode?.toJson(),
+     'condition': condition?.toJson(),
+     'sealStatusCode': sealStatusCode?.toJson(),
+     'sealingPartyType': sealingPartyType?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

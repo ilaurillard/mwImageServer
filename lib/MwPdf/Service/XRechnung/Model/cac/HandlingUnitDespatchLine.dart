@@ -1,16 +1,17 @@
-import '../cac/ID.dart';
-import '../cac/UUID.dart';
-import '../cac/Note.dart';
-import '../cac/LineStatusCode.dart';
-import '../cac/DeliveredQuantity.dart';
-import '../cac/BackorderQuantity.dart';
-import '../cac/BackorderReason.dart';
-import '../cac/OutstandingQuantity.dart';
-import '../cac/OutstandingReason.dart';
-import '../cac/OversupplyQuantity.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
 import '../cac/OrderLineReference.dart';
-import '../cac/DocumentReference.dart';
 import '../cac/Item.dart';
+import '../cbc/UUID.dart';
+import '../cbc/Note.dart';
+import '../cbc/LineStatusCode.dart';
+import '../cbc/DeliveredQuantity.dart';
+import '../cbc/BackorderQuantity.dart';
+import '../cbc/BackorderReason.dart';
+import '../cbc/OutstandingQuantity.dart';
+import '../cbc/OutstandingReason.dart';
+import '../cbc/OversupplyQuantity.dart';
+import '../cac/DocumentReference.dart';
 import '../cac/Shipment.dart';
 
 // A class to define a line in a Despatch Advice.
@@ -75,6 +76,30 @@ class HandlingUnitDespatchLine {
     this.documentReference = const [],
     this.shipment = const [],
   }) {
-    assert(orderLineReference.isNotEmpty);  }
+    assert(orderLineReference.isNotEmpty);
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'uUID': uUID?.toJson(),
+     'note': note.map((e) => e.toJson()).toList(),
+     'lineStatusCode': lineStatusCode?.toJson(),
+     'deliveredQuantity': deliveredQuantity?.toJson(),
+     'backorderQuantity': backorderQuantity?.toJson(),
+     'backorderReason': backorderReason.map((e) => e.toJson()).toList(),
+     'outstandingQuantity': outstandingQuantity?.toJson(),
+     'outstandingReason': outstandingReason.map((e) => e.toJson()).toList(),
+     'oversupplyQuantity': oversupplyQuantity?.toJson(),
+     'orderLineReference': orderLineReference.map((e) => e.toJson()).toList(),
+     'documentReference': documentReference.map((e) => e.toJson()).toList(),
+     'item': item.toJson(),
+     'shipment': shipment.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

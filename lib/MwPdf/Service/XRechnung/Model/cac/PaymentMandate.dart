@@ -1,8 +1,9 @@
-import '../cac/ID.dart';
-import '../cac/MandateTypeCode.dart';
-import '../cac/MaximumPaymentInstructionsNumeric.dart';
-import '../cac/MaximumPaidAmount.dart';
-import '../cac/SignatureID.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/MandateTypeCode.dart';
+import '../cbc/MaximumPaymentInstructionsNumeric.dart';
+import '../cbc/MaximumPaidAmount.dart';
+import '../cbc/SignatureID.dart';
 import '../cac/PayerParty.dart';
 import '../cac/PayerFinancialAccount.dart';
 import '../cac/ValidityPeriod.dart';
@@ -55,5 +56,24 @@ class PaymentMandate {
     this.paymentReversalPeriod,
     this.clause = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'mandateTypeCode': mandateTypeCode?.toJson(),
+     'maximumPaymentInstructionsNumeric': maximumPaymentInstructionsNumeric?.toJson(),
+     'maximumPaidAmount': maximumPaidAmount?.toJson(),
+     'signatureID': signatureID?.toJson(),
+     'payerParty': payerParty?.toJson(),
+     'payerFinancialAccount': payerFinancialAccount?.toJson(),
+     'validityPeriod': validityPeriod?.toJson(),
+     'paymentReversalPeriod': paymentReversalPeriod?.toJson(),
+     'clause': clause.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

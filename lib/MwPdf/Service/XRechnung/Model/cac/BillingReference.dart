@@ -1,3 +1,4 @@
+import 'dart:convert';
 import '../cac/InvoiceDocumentReference.dart';
 import '../cac/SelfBilledInvoiceDocumentReference.dart';
 import '../cac/CreditNoteDocumentReference.dart';
@@ -45,5 +46,22 @@ class BillingReference {
     this.additionalDocumentReference,
     this.billingReferenceLine = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'invoiceDocumentReference': invoiceDocumentReference?.toJson(),
+     'selfBilledInvoiceDocumentReference': selfBilledInvoiceDocumentReference?.toJson(),
+     'creditNoteDocumentReference': creditNoteDocumentReference?.toJson(),
+     'selfBilledCreditNoteDocumentReference': selfBilledCreditNoteDocumentReference?.toJson(),
+     'debitNoteDocumentReference': debitNoteDocumentReference?.toJson(),
+     'reminderDocumentReference': reminderDocumentReference?.toJson(),
+     'additionalDocumentReference': additionalDocumentReference?.toJson(),
+     'billingReferenceLine': billingReferenceLine.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

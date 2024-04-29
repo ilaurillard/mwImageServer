@@ -1,27 +1,28 @@
-import '../cac/ID.dart';
-import '../cac/AddressTypeCode.dart';
-import '../cac/AddressFormatCode.dart';
-import '../cac/Postbox.dart';
-import '../cac/Floor.dart';
-import '../cac/Room.dart';
-import '../cac/StreetName.dart';
-import '../cac/AdditionalStreetName.dart';
-import '../cac/BlockName.dart';
-import '../cac/BuildingName.dart';
-import '../cac/BuildingNumber.dart';
-import '../cac/InhouseMail.dart';
-import '../cac/Department.dart';
-import '../cac/MarkAttention.dart';
-import '../cac/MarkCare.dart';
-import '../cac/PlotIdentification.dart';
-import '../cac/CitySubdivisionName.dart';
-import '../cac/CityName.dart';
-import '../cac/PostalZone.dart';
-import '../cac/CountrySubentity.dart';
-import '../cac/CountrySubentityCode.dart';
-import '../cac/Region.dart';
-import '../cac/District.dart';
-import '../cac/TimezoneOffset.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/AddressTypeCode.dart';
+import '../cbc/AddressFormatCode.dart';
+import '../cbc/Postbox.dart';
+import '../cbc/Floor.dart';
+import '../cbc/Room.dart';
+import '../cbc/StreetName.dart';
+import '../cbc/AdditionalStreetName.dart';
+import '../cbc/BlockName.dart';
+import '../cbc/BuildingName.dart';
+import '../cbc/BuildingNumber.dart';
+import '../cbc/InhouseMail.dart';
+import '../cbc/Department.dart';
+import '../cbc/MarkAttention.dart';
+import '../cbc/MarkCare.dart';
+import '../cbc/PlotIdentification.dart';
+import '../cbc/CitySubdivisionName.dart';
+import '../cbc/CityName.dart';
+import '../cbc/PostalZone.dart';
+import '../cbc/CountrySubentity.dart';
+import '../cbc/CountrySubentityCode.dart';
+import '../cbc/Region.dart';
+import '../cbc/District.dart';
+import '../cbc/TimezoneOffset.dart';
 import '../cac/AddressLine.dart';
 import '../cac/Country.dart';
 import '../cac/LocationCoordinate.dart';
@@ -140,5 +141,41 @@ class JurisdictionRegionAddress {
     this.country,
     this.locationCoordinate = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'addressTypeCode': addressTypeCode?.toJson(),
+     'addressFormatCode': addressFormatCode?.toJson(),
+     'postbox': postbox?.toJson(),
+     'floor': floor?.toJson(),
+     'room': room?.toJson(),
+     'streetName': streetName?.toJson(),
+     'additionalStreetName': additionalStreetName?.toJson(),
+     'blockName': blockName?.toJson(),
+     'buildingName': buildingName?.toJson(),
+     'buildingNumber': buildingNumber?.toJson(),
+     'inhouseMail': inhouseMail?.toJson(),
+     'department': department?.toJson(),
+     'markAttention': markAttention?.toJson(),
+     'markCare': markCare?.toJson(),
+     'plotIdentification': plotIdentification?.toJson(),
+     'citySubdivisionName': citySubdivisionName?.toJson(),
+     'cityName': cityName?.toJson(),
+     'postalZone': postalZone?.toJson(),
+     'countrySubentity': countrySubentity?.toJson(),
+     'countrySubentityCode': countrySubentityCode?.toJson(),
+     'region': region?.toJson(),
+     'district': district?.toJson(),
+     'timezoneOffset': timezoneOffset?.toJson(),
+     'addressLine': addressLine.map((e) => e.toJson()).toList(),
+     'country': country?.toJson(),
+     'locationCoordinate': locationCoordinate.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

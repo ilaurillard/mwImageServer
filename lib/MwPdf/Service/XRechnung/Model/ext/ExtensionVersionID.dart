@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 // A character string to identify and uniquely distinguish one instance of an object in an identification scheme from all other objects in the same scheme, together with relevant supplementary information.
 class ExtensionVersionID {
 
@@ -34,5 +36,22 @@ class ExtensionVersionID {
     this.schemeDataURI,
     this.schemeURI,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'value': value,
+     'schemeID': schemeID,
+     'schemeName': schemeName,
+     'schemeAgencyID': schemeAgencyID,
+     'schemeAgencyName': schemeAgencyName,
+     'schemeVersionID': schemeVersionID,
+     'schemeDataURI': schemeDataURI,
+     'schemeURI': schemeURI,
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

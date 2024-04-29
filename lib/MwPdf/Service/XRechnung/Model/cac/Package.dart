@@ -1,10 +1,11 @@
-import '../cac/ID.dart';
-import '../cac/Quantity.dart';
-import '../cac/ReturnableMaterialIndicator.dart';
-import '../cac/PackageLevelCode.dart';
-import '../cac/PackagingTypeCode.dart';
-import '../cac/PackingMaterial.dart';
-import '../cac/TraceID.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Quantity.dart';
+import '../cbc/ReturnableMaterialIndicator.dart';
+import '../cbc/PackageLevelCode.dart';
+import '../cbc/PackagingTypeCode.dart';
+import '../cbc/PackingMaterial.dart';
+import '../cbc/TraceID.dart';
 import '../cac/ContainedPackage.dart';
 import '../cac/ContainingTransportEquipment.dart';
 import '../cac/GoodsItem.dart';
@@ -80,5 +81,29 @@ class Package {
     this.pickup,
     this.despatch,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'quantity': quantity?.toJson(),
+     'returnableMaterialIndicator': returnableMaterialIndicator?.toJson(),
+     'packageLevelCode': packageLevelCode?.toJson(),
+     'packagingTypeCode': packagingTypeCode?.toJson(),
+     'packingMaterial': packingMaterial.map((e) => e.toJson()).toList(),
+     'traceID': traceID?.toJson(),
+     'containedPackage': containedPackage.map((e) => e.toJson()).toList(),
+     'containingTransportEquipment': containingTransportEquipment?.toJson(),
+     'goodsItem': goodsItem.map((e) => e.toJson()).toList(),
+     'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
+     'deliveryUnit': deliveryUnit.map((e) => e.toJson()).toList(),
+     'delivery': delivery?.toJson(),
+     'pickup': pickup?.toJson(),
+     'despatch': despatch?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,9 +1,10 @@
-import '../cac/ID.dart';
-import '../cac/Name.dart';
-import '../cac/Telephone.dart';
-import '../cac/Telefax.dart';
-import '../cac/ElectronicMail.dart';
-import '../cac/Note.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Name.dart';
+import '../cbc/Telephone.dart';
+import '../cbc/Telefax.dart';
+import '../cbc/ElectronicMail.dart';
+import '../cbc/Note.dart';
 import '../cac/OtherCommunication.dart';
 
 // A class to describe a contactable person or department in an organization.
@@ -40,5 +41,21 @@ class DeliveryContact {
     this.note = const [],
     this.otherCommunication = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'name': name?.toJson(),
+     'telephone': telephone?.toJson(),
+     'telefax': telefax?.toJson(),
+     'electronicMail': electronicMail?.toJson(),
+     'note': note.map((e) => e.toJson()).toList(),
+     'otherCommunication': otherCommunication.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

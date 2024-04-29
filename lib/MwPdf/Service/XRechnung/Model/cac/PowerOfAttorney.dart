@@ -1,9 +1,10 @@
-import '../cac/ID.dart';
-import '../cac/IssueDate.dart';
-import '../cac/IssueTime.dart';
-import '../cac/Description.dart';
-import '../cac/NotaryParty.dart';
+import 'dart:convert';
 import '../cac/AgentParty.dart';
+import '../cbc/ID.dart';
+import '../cbc/IssueDate.dart';
+import '../cbc/IssueTime.dart';
+import '../cbc/Description.dart';
+import '../cac/NotaryParty.dart';
 import '../cac/WitnessParty.dart';
 import '../cac/MandateDocumentReference.dart';
 
@@ -45,5 +46,22 @@ class PowerOfAttorney {
     this.witnessParty = const [],
     this.mandateDocumentReference = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'issueDate': issueDate?.toJson(),
+     'issueTime': issueTime?.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+     'notaryParty': notaryParty?.toJson(),
+     'agentParty': agentParty.toJson(),
+     'witnessParty': witnessParty.map((e) => e.toJson()).toList(),
+     'mandateDocumentReference': mandateDocumentReference.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

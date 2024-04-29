@@ -1,13 +1,14 @@
-import '../cac/TaxableAmount.dart';
-import '../cac/TaxAmount.dart';
-import '../cac/CalculationSequenceNumeric.dart';
-import '../cac/TransactionCurrencyTaxAmount.dart';
-import '../cac/Percent.dart';
-import '../cac/BaseUnitMeasure.dart';
-import '../cac/PerUnitAmount.dart';
-import '../cac/TierRange.dart';
-import '../cac/TierRatePercent.dart';
+import 'dart:convert';
+import '../cbc/TaxAmount.dart';
 import '../cac/TaxCategory.dart';
+import '../cbc/TaxableAmount.dart';
+import '../cbc/CalculationSequenceNumeric.dart';
+import '../cbc/TransactionCurrencyTaxAmount.dart';
+import '../cbc/Percent.dart';
+import '../cbc/BaseUnitMeasure.dart';
+import '../cbc/PerUnitAmount.dart';
+import '../cbc/TierRange.dart';
+import '../cbc/TierRatePercent.dart';
 
 // A class to define the subtotal for a particular tax category within a particular taxation scheme, such as standard rate within VAT.
 class TaxSubtotal {
@@ -55,5 +56,24 @@ class TaxSubtotal {
     this.tierRange,
     this.tierRatePercent,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'taxableAmount': taxableAmount?.toJson(),
+     'taxAmount': taxAmount.toJson(),
+     'calculationSequenceNumeric': calculationSequenceNumeric?.toJson(),
+     'transactionCurrencyTaxAmount': transactionCurrencyTaxAmount?.toJson(),
+     'percent': percent?.toJson(),
+     'baseUnitMeasure': baseUnitMeasure?.toJson(),
+     'perUnitAmount': perUnitAmount?.toJson(),
+     'tierRange': tierRange?.toJson(),
+     'tierRatePercent': tierRatePercent?.toJson(),
+     'taxCategory': taxCategory.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

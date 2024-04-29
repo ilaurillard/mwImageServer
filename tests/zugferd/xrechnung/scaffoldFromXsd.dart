@@ -1,4 +1,3 @@
-import 'lib/Attribute.dart';
 import 'lib/ComplexType.dart';
 import 'lib/DartClassFromElement.dart';
 import 'lib/Element.dart';
@@ -48,9 +47,9 @@ void traverse(
     return;
   }
 
-  String tab = (' ' * (depth * 2));
+  // String tab = (' ' * (depth * 2));
   if (type is ComplexType) {
-    String typeName = type.fullname;
+    // String typeName = type.fullname;
 
     if (visited.contains(elementName)) {
       // print('$tab$elementName <$typeName> *skip*');
@@ -71,9 +70,9 @@ void traverse(
       // print('$tab$elementName <$typeName>');
 
       // ATTRIBUTES
-      for (Attribute a in type.attributes.values) {
+      // for (Attribute a in type.attributes.values) {
         // print('$tab --${a.name} (${a.type.name})');
-      }
+      // }
 
       // CHILDREN
       for (Element childElement in type.elements.values) {

@@ -1,31 +1,32 @@
-import '../cac/ID.dart';
-import '../cac/ReferencedConsignmentID.dart';
-import '../cac/TransportEquipmentTypeCode.dart';
-import '../cac/ProviderTypeCode.dart';
-import '../cac/OwnerTypeCode.dart';
-import '../cac/SizeTypeCode.dart';
-import '../cac/DispositionCode.dart';
-import '../cac/FullnessIndicationCode.dart';
-import '../cac/RefrigerationOnIndicator.dart';
-import '../cac/Information.dart';
-import '../cac/ReturnabilityIndicator.dart';
-import '../cac/LegalStatusIndicator.dart';
-import '../cac/AirFlowPercent.dart';
-import '../cac/HumidityPercent.dart';
-import '../cac/AnimalFoodApprovedIndicator.dart';
-import '../cac/HumanFoodApprovedIndicator.dart';
-import '../cac/DangerousGoodsApprovedIndicator.dart';
-import '../cac/RefrigeratedIndicator.dart';
-import '../cac/Characteristics.dart';
-import '../cac/DamageRemarks.dart';
-import '../cac/Description.dart';
-import '../cac/SpecialTransportRequirements.dart';
-import '../cac/GrossWeightMeasure.dart';
-import '../cac/GrossVolumeMeasure.dart';
-import '../cac/TareWeightMeasure.dart';
-import '../cac/TrackingDeviceCode.dart';
-import '../cac/PowerIndicator.dart';
-import '../cac/TraceID.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/ReferencedConsignmentID.dart';
+import '../cbc/TransportEquipmentTypeCode.dart';
+import '../cbc/ProviderTypeCode.dart';
+import '../cbc/OwnerTypeCode.dart';
+import '../cbc/SizeTypeCode.dart';
+import '../cbc/DispositionCode.dart';
+import '../cbc/FullnessIndicationCode.dart';
+import '../cbc/RefrigerationOnIndicator.dart';
+import '../cbc/Information.dart';
+import '../cbc/ReturnabilityIndicator.dart';
+import '../cbc/LegalStatusIndicator.dart';
+import '../cbc/AirFlowPercent.dart';
+import '../cbc/HumidityPercent.dart';
+import '../cbc/AnimalFoodApprovedIndicator.dart';
+import '../cbc/HumanFoodApprovedIndicator.dart';
+import '../cbc/DangerousGoodsApprovedIndicator.dart';
+import '../cbc/RefrigeratedIndicator.dart';
+import '../cbc/Characteristics.dart';
+import '../cbc/DamageRemarks.dart';
+import '../cbc/Description.dart';
+import '../cbc/SpecialTransportRequirements.dart';
+import '../cbc/GrossWeightMeasure.dart';
+import '../cbc/GrossVolumeMeasure.dart';
+import '../cbc/TareWeightMeasure.dart';
+import '../cbc/TrackingDeviceCode.dart';
+import '../cbc/PowerIndicator.dart';
+import '../cbc/TraceID.dart';
 import '../cac/MeasurementDimension.dart';
 import '../cac/TransportEquipmentSeal.dart';
 import '../cac/MinimumTemperature.dart';
@@ -51,7 +52,6 @@ import '../cac/HazardousGoodsTransit.dart';
 import '../cac/PackagedTransportHandlingUnit.dart';
 import '../cac/ServiceAllowanceCharge.dart';
 import '../cac/FreightAllowanceCharge.dart';
-import '../cac/AttachedTransportEquipment.dart';
 import '../cac/Delivery.dart';
 import '../cac/Pickup.dart';
 import '../cac/Despatch.dart';
@@ -310,5 +310,75 @@ class AttachedTransportEquipment {
     this.package = const [],
     this.goodsItem = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'referencedConsignmentID': referencedConsignmentID.map((e) => e.toJson()).toList(),
+     'transportEquipmentTypeCode': transportEquipmentTypeCode?.toJson(),
+     'providerTypeCode': providerTypeCode?.toJson(),
+     'ownerTypeCode': ownerTypeCode?.toJson(),
+     'sizeTypeCode': sizeTypeCode?.toJson(),
+     'dispositionCode': dispositionCode?.toJson(),
+     'fullnessIndicationCode': fullnessIndicationCode?.toJson(),
+     'refrigerationOnIndicator': refrigerationOnIndicator?.toJson(),
+     'information': information.map((e) => e.toJson()).toList(),
+     'returnabilityIndicator': returnabilityIndicator?.toJson(),
+     'legalStatusIndicator': legalStatusIndicator?.toJson(),
+     'airFlowPercent': airFlowPercent?.toJson(),
+     'humidityPercent': humidityPercent?.toJson(),
+     'animalFoodApprovedIndicator': animalFoodApprovedIndicator?.toJson(),
+     'humanFoodApprovedIndicator': humanFoodApprovedIndicator?.toJson(),
+     'dangerousGoodsApprovedIndicator': dangerousGoodsApprovedIndicator?.toJson(),
+     'refrigeratedIndicator': refrigeratedIndicator?.toJson(),
+     'characteristics': characteristics?.toJson(),
+     'damageRemarks': damageRemarks.map((e) => e.toJson()).toList(),
+     'description': description.map((e) => e.toJson()).toList(),
+     'specialTransportRequirements': specialTransportRequirements.map((e) => e.toJson()).toList(),
+     'grossWeightMeasure': grossWeightMeasure?.toJson(),
+     'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
+     'tareWeightMeasure': tareWeightMeasure?.toJson(),
+     'trackingDeviceCode': trackingDeviceCode?.toJson(),
+     'powerIndicator': powerIndicator?.toJson(),
+     'traceID': traceID?.toJson(),
+     'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
+     'transportEquipmentSeal': transportEquipmentSeal.map((e) => e.toJson()).toList(),
+     'minimumTemperature': minimumTemperature?.toJson(),
+     'maximumTemperature': maximumTemperature?.toJson(),
+     'providerParty': providerParty?.toJson(),
+     'loadingProofParty': loadingProofParty?.toJson(),
+     'supplierParty': supplierParty?.toJson(),
+     'ownerParty': ownerParty?.toJson(),
+     'operatingParty': operatingParty?.toJson(),
+     'loadingLocation': loadingLocation?.toJson(),
+     'unloadingLocation': unloadingLocation?.toJson(),
+     'storageLocation': storageLocation?.toJson(),
+     'positioningTransportEvent': positioningTransportEvent.map((e) => e.toJson()).toList(),
+     'quarantineTransportEvent': quarantineTransportEvent.map((e) => e.toJson()).toList(),
+     'deliveryTransportEvent': deliveryTransportEvent.map((e) => e.toJson()).toList(),
+     'pickupTransportEvent': pickupTransportEvent.map((e) => e.toJson()).toList(),
+     'handlingTransportEvent': handlingTransportEvent.map((e) => e.toJson()).toList(),
+     'loadingTransportEvent': loadingTransportEvent.map((e) => e.toJson()).toList(),
+     'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
+     'applicableTransportMeans': applicableTransportMeans?.toJson(),
+     'haulageTradingTerms': haulageTradingTerms.map((e) => e.toJson()).toList(),
+     'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
+     'packagedTransportHandlingUnit': packagedTransportHandlingUnit.map((e) => e.toJson()).toList(),
+     'serviceAllowanceCharge': serviceAllowanceCharge.map((e) => e.toJson()).toList(),
+     'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
+     'attachedTransportEquipment': attachedTransportEquipment.map((e) => e.toJson()).toList(),
+     'delivery': delivery?.toJson(),
+     'pickup': pickup?.toJson(),
+     'despatch': despatch?.toJson(),
+     'shipmentDocumentReference': shipmentDocumentReference.map((e) => e.toJson()).toList(),
+     'containedInTransportEquipment': containedInTransportEquipment.map((e) => e.toJson()).toList(),
+     'package': package.map((e) => e.toJson()).toList(),
+     'goodsItem': goodsItem.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

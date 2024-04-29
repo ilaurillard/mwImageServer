@@ -1,7 +1,8 @@
-import '../cac/AttributeID.dart';
-import '../cac/PositionCode.dart';
-import '../cac/DescriptionCode.dart';
-import '../cac/Description.dart';
+import 'dart:convert';
+import '../cbc/AttributeID.dart';
+import '../cbc/PositionCode.dart';
+import '../cbc/DescriptionCode.dart';
+import '../cbc/Description.dart';
 
 // A class to describe a physical attribute.
 class PhysicalAttribute {
@@ -25,5 +26,18 @@ class PhysicalAttribute {
     this.descriptionCode,
     this.description = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'attributeID': attributeID.toJson(),
+     'positionCode': positionCode?.toJson(),
+     'descriptionCode': descriptionCode?.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

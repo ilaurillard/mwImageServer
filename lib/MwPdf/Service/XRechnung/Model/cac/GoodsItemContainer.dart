@@ -1,5 +1,6 @@
-import '../cac/ID.dart';
-import '../cac/Quantity.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Quantity.dart';
 import '../cac/TransportEquipment.dart';
 
 // A class defining how goods items are split across transport equipment.
@@ -20,5 +21,17 @@ class GoodsItemContainer {
     this.quantity,
     this.transportEquipment = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'quantity': quantity?.toJson(),
+     'transportEquipment': transportEquipment.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

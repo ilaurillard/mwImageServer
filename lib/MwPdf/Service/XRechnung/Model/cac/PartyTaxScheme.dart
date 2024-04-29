@@ -1,10 +1,11 @@
-import '../cac/RegistrationName.dart';
-import '../cac/CompanyID.dart';
-import '../cac/TaxLevelCode.dart';
-import '../cac/ExemptionReasonCode.dart';
-import '../cac/ExemptionReason.dart';
-import '../cac/RegistrationAddress.dart';
+import 'dart:convert';
 import '../cac/TaxScheme.dart';
+import '../cbc/RegistrationName.dart';
+import '../cbc/CompanyID.dart';
+import '../cbc/TaxLevelCode.dart';
+import '../cbc/ExemptionReasonCode.dart';
+import '../cbc/ExemptionReason.dart';
+import '../cac/RegistrationAddress.dart';
 
 // A class to describe a taxation scheme applying to a party.
 class PartyTaxScheme {
@@ -40,5 +41,21 @@ class PartyTaxScheme {
     this.exemptionReason = const [],
     this.registrationAddress,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'registrationName': registrationName?.toJson(),
+     'companyID': companyID?.toJson(),
+     'taxLevelCode': taxLevelCode?.toJson(),
+     'exemptionReasonCode': exemptionReasonCode?.toJson(),
+     'exemptionReason': exemptionReason.map((e) => e.toJson()).toList(),
+     'registrationAddress': registrationAddress?.toJson(),
+     'taxScheme': taxScheme.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,8 +1,9 @@
-import '../cac/AttributeID.dart';
-import '../cac/Measure.dart';
-import '../cac/Description.dart';
-import '../cac/MinimumMeasure.dart';
-import '../cac/MaximumMeasure.dart';
+import 'dart:convert';
+import '../cbc/AttributeID.dart';
+import '../cbc/Measure.dart';
+import '../cbc/Description.dart';
+import '../cbc/MinimumMeasure.dart';
+import '../cbc/MaximumMeasure.dart';
 
 // A class to define a measurable dimension (length, mass, weight, volume, or area) of an item.
 class PalletSpaceMeasurementDimension {
@@ -30,5 +31,19 @@ class PalletSpaceMeasurementDimension {
     this.minimumMeasure,
     this.maximumMeasure,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'attributeID': attributeID.toJson(),
+     'measure': measure?.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+     'minimumMeasure': minimumMeasure?.toJson(),
+     'maximumMeasure': maximumMeasure?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -78,31 +78,25 @@ class ComplexType extends XsdType {
     }
   }
 
-  // @override
-  // ComplexType copy() {
-  //   ComplexType ct = ComplexType(
-  //     xml,
-  //     schema,
-  //   );
-  //
-  //   ct.attributes = {...attributes};
-  //   ct.elements = {...elements};
-  //
-  //   return ct;
+  void _parseElements(
+    XmlElement e,
+  //     {
+  //   bool refferred = false,
   // }
-
-  void _parseElements(XmlElement e) {
+  ) {
     Iterable<XmlElement> elems = _allElements(e);
     for (XmlElement e in elems) {
       Element elem = Element(
         e,
         this,
+        // refferred: refferred,
       );
       elem.parse();
 
       if (elem.name.isEmpty) {
         throw Exception();
       }
+
       if (elements[elem.name] != null) {
         throw Exception();
       }
@@ -112,12 +106,17 @@ class ComplexType extends XsdType {
 
   void _parseSchema(XmlElement e) {
     // print('  [schema]');
-    _parseElements(e);
+    _parseElements(
+      e,
+      // refferred: true,
+    );
   }
 
   void _parseSequence(XmlElement e) {
     // print('  [sequence]');
-    _parseElements(e);
+    _parseElements(
+      e,
+    );
   }
 
   void _parseSimpleContent(XmlElement e) {
@@ -179,7 +178,7 @@ class ComplexType extends XsdType {
         .whereType<XmlElement>()
         .where((element) => element.name.qualified == 'xsd:element');
     for (XmlElement e in elems) {
-      throw Exception('Unsupported');
+      throw Exception('Unsupported element $e');
     }
   }
 

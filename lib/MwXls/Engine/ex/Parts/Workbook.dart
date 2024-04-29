@@ -1,6 +1,5 @@
 import 'package:archive/archive.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Model/CellIndex.dart';
-import 'package:mwcdn/MwXls/Engine/ex/Model/ColIndex.dart';
 
 import '../Sheet.dart';
 import '../Util.dart';

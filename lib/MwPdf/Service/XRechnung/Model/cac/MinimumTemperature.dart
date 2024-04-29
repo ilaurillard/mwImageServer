@@ -1,6 +1,7 @@
-import '../cac/AttributeID.dart';
-import '../cac/Measure.dart';
-import '../cac/Description.dart';
+import 'dart:convert';
+import '../cbc/AttributeID.dart';
+import '../cbc/Measure.dart';
+import '../cbc/Description.dart';
 
 // A class to describe a measurement of temperature.
 class MinimumTemperature {
@@ -20,5 +21,17 @@ class MinimumTemperature {
     required this.measure,
     this.description = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'attributeID': attributeID.toJson(),
+     'measure': measure.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

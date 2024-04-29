@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 // A character string (i.e. a finite set of characters), generally in the form of words of a language.
 class ExtensionReason {
 
@@ -14,5 +16,17 @@ class ExtensionReason {
     this.languageID,
     this.languageLocaleID,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'value': value,
+     'languageID': languageID,
+     'languageLocaleID': languageLocaleID,
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

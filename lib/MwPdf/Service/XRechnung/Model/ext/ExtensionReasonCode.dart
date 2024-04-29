@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 // A character string (letters, figures, or symbols) that for brevity and/or language independence may be used to represent or replace a definitive value or text of an attribute, together with relevant supplementary information.
 class ExtensionReasonCode {
 
@@ -42,5 +44,24 @@ class ExtensionReasonCode {
     this.listURI,
     this.listSchemeURI,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'value': value,
+     'listID': listID,
+     'listAgencyID': listAgencyID,
+     'listAgencyName': listAgencyName,
+     'listName': listName,
+     'listVersionID': listVersionID,
+     'name': name,
+     'languageID': languageID,
+     'listURI': listURI,
+     'listSchemeURI': listSchemeURI,
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,7 +1,8 @@
-import '../cac/TaxAmount.dart';
-import '../cac/RoundingAmount.dart';
-import '../cac/TaxEvidenceIndicator.dart';
-import '../cac/TaxIncludedIndicator.dart';
+import 'dart:convert';
+import '../cbc/TaxAmount.dart';
+import '../cbc/RoundingAmount.dart';
+import '../cbc/TaxEvidenceIndicator.dart';
+import '../cbc/TaxIncludedIndicator.dart';
 import '../cac/TaxSubtotal.dart';
 
 // A class to describe the total tax for a particular taxation scheme.
@@ -30,5 +31,19 @@ class WithholdingTaxTotal {
     this.taxIncludedIndicator,
     this.taxSubtotal = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'taxAmount': taxAmount.toJson(),
+     'roundingAmount': roundingAmount?.toJson(),
+     'taxEvidenceIndicator': taxEvidenceIndicator?.toJson(),
+     'taxIncludedIndicator': taxIncludedIndicator?.toJson(),
+     'taxSubtotal': taxSubtotal.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

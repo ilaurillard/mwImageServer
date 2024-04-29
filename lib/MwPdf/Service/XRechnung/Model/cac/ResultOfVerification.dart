@@ -1,10 +1,11 @@
-import '../cac/ValidatorID.dart';
-import '../cac/ValidationResultCode.dart';
-import '../cac/ValidationDate.dart';
-import '../cac/ValidationTime.dart';
-import '../cac/ValidateProcess.dart';
-import '../cac/ValidateTool.dart';
-import '../cac/ValidateToolVersion.dart';
+import 'dart:convert';
+import '../cbc/ValidatorID.dart';
+import '../cbc/ValidationResultCode.dart';
+import '../cbc/ValidationDate.dart';
+import '../cbc/ValidationTime.dart';
+import '../cbc/ValidateProcess.dart';
+import '../cbc/ValidateTool.dart';
+import '../cbc/ValidateToolVersion.dart';
 import '../cac/SignatoryParty.dart';
 
 // A class to describe the result of an attempt to verify a signature.
@@ -45,5 +46,22 @@ class ResultOfVerification {
     this.validateToolVersion,
     this.signatoryParty,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'validatorID': validatorID?.toJson(),
+     'validationResultCode': validationResultCode?.toJson(),
+     'validationDate': validationDate?.toJson(),
+     'validationTime': validationTime?.toJson(),
+     'validateProcess': validateProcess?.toJson(),
+     'validateTool': validateTool?.toJson(),
+     'validateToolVersion': validateToolVersion?.toJson(),
+     'signatoryParty': signatoryParty?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

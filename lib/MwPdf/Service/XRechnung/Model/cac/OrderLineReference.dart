@@ -1,7 +1,8 @@
-import '../cac/LineID.dart';
-import '../cac/SalesOrderLineID.dart';
-import '../cac/UUID.dart';
-import '../cac/LineStatusCode.dart';
+import 'dart:convert';
+import '../cbc/LineID.dart';
+import '../cbc/SalesOrderLineID.dart';
+import '../cbc/UUID.dart';
+import '../cbc/LineStatusCode.dart';
 import '../cac/OrderReference.dart';
 
 // A class to define a reference to an order line.
@@ -30,5 +31,19 @@ class OrderLineReference {
     this.lineStatusCode,
     this.orderReference,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'lineID': lineID.toJson(),
+     'salesOrderLineID': salesOrderLineID?.toJson(),
+     'uUID': uUID?.toJson(),
+     'lineStatusCode': lineStatusCode?.toJson(),
+     'orderReference': orderReference?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

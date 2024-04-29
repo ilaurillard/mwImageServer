@@ -1,5 +1,6 @@
-import '../cac/CalculationMethodCode.dart';
-import '../cac/FullnessIndicationCode.dart';
+import 'dart:convert';
+import '../cbc/CalculationMethodCode.dart';
+import '../cbc/FullnessIndicationCode.dart';
 import '../cac/MeasurementFromLocation.dart';
 import '../cac/MeasurementToLocation.dart';
 
@@ -25,5 +26,18 @@ class EmissionCalculationMethod {
     this.measurementFromLocation,
     this.measurementToLocation,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'calculationMethodCode': calculationMethodCode?.toJson(),
+     'fullnessIndicationCode': fullnessIndicationCode?.toJson(),
+     'measurementFromLocation': measurementFromLocation?.toJson(),
+     'measurementToLocation': measurementToLocation?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

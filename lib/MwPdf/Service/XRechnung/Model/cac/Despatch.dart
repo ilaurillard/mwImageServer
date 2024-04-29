@@ -1,14 +1,15 @@
-import '../cac/ID.dart';
-import '../cac/RequestedDespatchDate.dart';
-import '../cac/RequestedDespatchTime.dart';
-import '../cac/EstimatedDespatchDate.dart';
-import '../cac/EstimatedDespatchTime.dart';
-import '../cac/ActualDespatchDate.dart';
-import '../cac/ActualDespatchTime.dart';
-import '../cac/GuaranteedDespatchDate.dart';
-import '../cac/GuaranteedDespatchTime.dart';
-import '../cac/ReleaseID.dart';
-import '../cac/Instructions.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/RequestedDespatchDate.dart';
+import '../cbc/RequestedDespatchTime.dart';
+import '../cbc/EstimatedDespatchDate.dart';
+import '../cbc/EstimatedDespatchTime.dart';
+import '../cbc/ActualDespatchDate.dart';
+import '../cbc/ActualDespatchTime.dart';
+import '../cbc/GuaranteedDespatchDate.dart';
+import '../cbc/GuaranteedDespatchTime.dart';
+import '../cbc/ReleaseID.dart';
+import '../cbc/Instructions.dart';
 import '../cac/DespatchAddress.dart';
 import '../cac/DespatchLocation.dart';
 import '../cac/DespatchParty.dart';
@@ -100,5 +101,33 @@ class Despatch {
     this.estimatedDespatchPeriod,
     this.requestedDespatchPeriod,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'requestedDespatchDate': requestedDespatchDate?.toJson(),
+     'requestedDespatchTime': requestedDespatchTime?.toJson(),
+     'estimatedDespatchDate': estimatedDespatchDate?.toJson(),
+     'estimatedDespatchTime': estimatedDespatchTime?.toJson(),
+     'actualDespatchDate': actualDespatchDate?.toJson(),
+     'actualDespatchTime': actualDespatchTime?.toJson(),
+     'guaranteedDespatchDate': guaranteedDespatchDate?.toJson(),
+     'guaranteedDespatchTime': guaranteedDespatchTime?.toJson(),
+     'releaseID': releaseID?.toJson(),
+     'instructions': instructions.map((e) => e.toJson()).toList(),
+     'despatchAddress': despatchAddress?.toJson(),
+     'despatchLocation': despatchLocation?.toJson(),
+     'despatchParty': despatchParty?.toJson(),
+     'carrierParty': carrierParty?.toJson(),
+     'notifyParty': notifyParty.map((e) => e.toJson()).toList(),
+     'contact': contact?.toJson(),
+     'estimatedDespatchPeriod': estimatedDespatchPeriod?.toJson(),
+     'requestedDespatchPeriod': requestedDespatchPeriod?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

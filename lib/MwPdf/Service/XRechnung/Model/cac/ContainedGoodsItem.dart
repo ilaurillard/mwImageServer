@@ -1,34 +1,34 @@
-import '../cac/ID.dart';
-import '../cac/SequenceNumberID.dart';
-import '../cac/Description.dart';
-import '../cac/HazardousRiskIndicator.dart';
-import '../cac/DeclaredCustomsValueAmount.dart';
-import '../cac/DeclaredForCarriageValueAmount.dart';
-import '../cac/DeclaredStatisticsValueAmount.dart';
-import '../cac/FreeOnBoardValueAmount.dart';
-import '../cac/InsuranceValueAmount.dart';
-import '../cac/ValueAmount.dart';
-import '../cac/GrossWeightMeasure.dart';
-import '../cac/NetWeightMeasure.dart';
-import '../cac/NetNetWeightMeasure.dart';
-import '../cac/ChargeableWeightMeasure.dart';
-import '../cac/GrossVolumeMeasure.dart';
-import '../cac/NetVolumeMeasure.dart';
-import '../cac/Quantity.dart';
-import '../cac/PreferenceCriterionCode.dart';
-import '../cac/RequiredCustomsID.dart';
-import '../cac/CustomsStatusCode.dart';
-import '../cac/CustomsTariffQuantity.dart';
-import '../cac/CustomsImportClassifiedIndicator.dart';
-import '../cac/ChargeableQuantity.dart';
-import '../cac/ReturnableQuantity.dart';
-import '../cac/TraceID.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/SequenceNumberID.dart';
+import '../cbc/Description.dart';
+import '../cbc/HazardousRiskIndicator.dart';
+import '../cbc/DeclaredCustomsValueAmount.dart';
+import '../cbc/DeclaredForCarriageValueAmount.dart';
+import '../cbc/DeclaredStatisticsValueAmount.dart';
+import '../cbc/FreeOnBoardValueAmount.dart';
+import '../cbc/InsuranceValueAmount.dart';
+import '../cbc/ValueAmount.dart';
+import '../cbc/GrossWeightMeasure.dart';
+import '../cbc/NetWeightMeasure.dart';
+import '../cbc/NetNetWeightMeasure.dart';
+import '../cbc/ChargeableWeightMeasure.dart';
+import '../cbc/GrossVolumeMeasure.dart';
+import '../cbc/NetVolumeMeasure.dart';
+import '../cbc/Quantity.dart';
+import '../cbc/PreferenceCriterionCode.dart';
+import '../cbc/RequiredCustomsID.dart';
+import '../cbc/CustomsStatusCode.dart';
+import '../cbc/CustomsTariffQuantity.dart';
+import '../cbc/CustomsImportClassifiedIndicator.dart';
+import '../cbc/ChargeableQuantity.dart';
+import '../cbc/ReturnableQuantity.dart';
+import '../cbc/TraceID.dart';
 import '../cac/Item.dart';
 import '../cac/GoodsItemContainer.dart';
 import '../cac/FreightAllowanceCharge.dart';
 import '../cac/InvoiceLine.dart';
 import '../cac/Temperature.dart';
-import '../cac/ContainedGoodsItem.dart';
 import '../cac/OriginAddress.dart';
 import '../cac/Delivery.dart';
 import '../cac/Pickup.dart';
@@ -205,5 +205,54 @@ class ContainedGoodsItem {
     this.minimumTemperature,
     this.maximumTemperature,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'sequenceNumberID': sequenceNumberID?.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+     'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+     'declaredCustomsValueAmount': declaredCustomsValueAmount?.toJson(),
+     'declaredForCarriageValueAmount': declaredForCarriageValueAmount?.toJson(),
+     'declaredStatisticsValueAmount': declaredStatisticsValueAmount?.toJson(),
+     'freeOnBoardValueAmount': freeOnBoardValueAmount?.toJson(),
+     'insuranceValueAmount': insuranceValueAmount?.toJson(),
+     'valueAmount': valueAmount?.toJson(),
+     'grossWeightMeasure': grossWeightMeasure?.toJson(),
+     'netWeightMeasure': netWeightMeasure?.toJson(),
+     'netNetWeightMeasure': netNetWeightMeasure?.toJson(),
+     'chargeableWeightMeasure': chargeableWeightMeasure?.toJson(),
+     'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
+     'netVolumeMeasure': netVolumeMeasure?.toJson(),
+     'quantity': quantity?.toJson(),
+     'preferenceCriterionCode': preferenceCriterionCode?.toJson(),
+     'requiredCustomsID': requiredCustomsID?.toJson(),
+     'customsStatusCode': customsStatusCode?.toJson(),
+     'customsTariffQuantity': customsTariffQuantity?.toJson(),
+     'customsImportClassifiedIndicator': customsImportClassifiedIndicator?.toJson(),
+     'chargeableQuantity': chargeableQuantity?.toJson(),
+     'returnableQuantity': returnableQuantity?.toJson(),
+     'traceID': traceID?.toJson(),
+     'item': item.map((e) => e.toJson()).toList(),
+     'goodsItemContainer': goodsItemContainer.map((e) => e.toJson()).toList(),
+     'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
+     'invoiceLine': invoiceLine.map((e) => e.toJson()).toList(),
+     'temperature': temperature.map((e) => e.toJson()).toList(),
+     'containedGoodsItem': containedGoodsItem.map((e) => e.toJson()).toList(),
+     'originAddress': originAddress?.toJson(),
+     'delivery': delivery?.toJson(),
+     'pickup': pickup?.toJson(),
+     'despatch': despatch?.toJson(),
+     'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
+     'containingPackage': containingPackage.map((e) => e.toJson()).toList(),
+     'shipmentDocumentReference': shipmentDocumentReference?.toJson(),
+     'minimumTemperature': minimumTemperature?.toJson(),
+     'maximumTemperature': maximumTemperature?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

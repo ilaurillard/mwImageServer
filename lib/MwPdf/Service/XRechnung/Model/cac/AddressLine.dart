@@ -1,4 +1,5 @@
-import '../cac/Line.dart';
+import 'dart:convert';
+import '../cbc/Line.dart';
 
 // A class to define an unstructured address line.
 class AddressLine {
@@ -10,5 +11,15 @@ class AddressLine {
   AddressLine ({
     required this.line,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'line': line.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,6 +1,7 @@
-import '../cac/ID.dart';
-import '../cac/Name.dart';
-import '../cac/LocaleCode.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Name.dart';
+import '../cbc/LocaleCode.dart';
 
 // A class to describe a language.
 class Language {
@@ -20,5 +21,17 @@ class Language {
     this.name,
     this.localeCode,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'name': name?.toJson(),
+     'localeCode': localeCode?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

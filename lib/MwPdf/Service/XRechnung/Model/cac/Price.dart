@@ -1,9 +1,10 @@
-import '../cac/PriceAmount.dart';
-import '../cac/BaseQuantity.dart';
-import '../cac/PriceChangeReason.dart';
-import '../cac/PriceTypeCode.dart';
-import '../cac/PriceType.dart';
-import '../cac/OrderableUnitFactorRate.dart';
+import 'dart:convert';
+import '../cbc/PriceAmount.dart';
+import '../cbc/BaseQuantity.dart';
+import '../cbc/PriceChangeReason.dart';
+import '../cbc/PriceTypeCode.dart';
+import '../cbc/PriceType.dart';
+import '../cbc/OrderableUnitFactorRate.dart';
 import '../cac/ValidityPeriod.dart';
 import '../cac/PriceList.dart';
 import '../cac/AllowanceCharge.dart';
@@ -55,5 +56,24 @@ class Price {
     this.allowanceCharge = const [],
     this.pricingExchangeRate,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'priceAmount': priceAmount.toJson(),
+     'baseQuantity': baseQuantity?.toJson(),
+     'priceChangeReason': priceChangeReason.map((e) => e.toJson()).toList(),
+     'priceTypeCode': priceTypeCode?.toJson(),
+     'priceType': priceType?.toJson(),
+     'orderableUnitFactorRate': orderableUnitFactorRate?.toJson(),
+     'validityPeriod': validityPeriod.map((e) => e.toJson()).toList(),
+     'priceList': priceList?.toJson(),
+     'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
+     'pricingExchangeRate': pricingExchangeRate?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

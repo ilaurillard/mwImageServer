@@ -1,11 +1,12 @@
-import '../cac/ID.dart';
-import '../cac/SalesOrderID.dart';
-import '../cac/CopyIndicator.dart';
-import '../cac/UUID.dart';
-import '../cac/IssueDate.dart';
-import '../cac/IssueTime.dart';
-import '../cac/CustomerReference.dart';
-import '../cac/OrderTypeCode.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/SalesOrderID.dart';
+import '../cbc/CopyIndicator.dart';
+import '../cbc/UUID.dart';
+import '../cbc/IssueDate.dart';
+import '../cbc/IssueTime.dart';
+import '../cbc/CustomerReference.dart';
+import '../cbc/OrderTypeCode.dart';
 import '../cac/DocumentReference.dart';
 
 // A class to define a reference to an Order.
@@ -50,5 +51,23 @@ class OrderReference {
     this.orderTypeCode,
     this.documentReference,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'salesOrderID': salesOrderID?.toJson(),
+     'copyIndicator': copyIndicator?.toJson(),
+     'uUID': uUID?.toJson(),
+     'issueDate': issueDate?.toJson(),
+     'issueTime': issueTime?.toJson(),
+     'customerReference': customerReference?.toJson(),
+     'orderTypeCode': orderTypeCode?.toJson(),
+     'documentReference': documentReference?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

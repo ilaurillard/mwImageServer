@@ -1,15 +1,16 @@
-import '../cac/ID.dart';
-import '../cac/ChargeIndicator.dart';
-import '../cac/AllowanceChargeReasonCode.dart';
-import '../cac/AllowanceChargeReason.dart';
-import '../cac/MultiplierFactorNumeric.dart';
-import '../cac/PrepaidIndicator.dart';
-import '../cac/SequenceNumeric.dart';
-import '../cac/Amount.dart';
-import '../cac/BaseAmount.dart';
-import '../cac/AccountingCostCode.dart';
-import '../cac/AccountingCost.dart';
-import '../cac/PerUnitAmount.dart';
+import 'dart:convert';
+import '../cbc/ChargeIndicator.dart';
+import '../cbc/Amount.dart';
+import '../cbc/ID.dart';
+import '../cbc/AllowanceChargeReasonCode.dart';
+import '../cbc/AllowanceChargeReason.dart';
+import '../cbc/MultiplierFactorNumeric.dart';
+import '../cbc/PrepaidIndicator.dart';
+import '../cbc/SequenceNumeric.dart';
+import '../cbc/BaseAmount.dart';
+import '../cbc/AccountingCostCode.dart';
+import '../cbc/AccountingCost.dart';
+import '../cbc/PerUnitAmount.dart';
 import '../cac/TaxCategory.dart';
 import '../cac/TaxTotal.dart';
 import '../cac/PaymentMeans.dart';
@@ -80,5 +81,29 @@ class AllowanceCharge {
     this.taxTotal,
     this.paymentMeans = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'chargeIndicator': chargeIndicator.toJson(),
+     'allowanceChargeReasonCode': allowanceChargeReasonCode?.toJson(),
+     'allowanceChargeReason': allowanceChargeReason.map((e) => e.toJson()).toList(),
+     'multiplierFactorNumeric': multiplierFactorNumeric?.toJson(),
+     'prepaidIndicator': prepaidIndicator?.toJson(),
+     'sequenceNumeric': sequenceNumeric?.toJson(),
+     'amount': amount.toJson(),
+     'baseAmount': baseAmount?.toJson(),
+     'accountingCostCode': accountingCostCode?.toJson(),
+     'accountingCost': accountingCost?.toJson(),
+     'perUnitAmount': perUnitAmount?.toJson(),
+     'taxCategory': taxCategory.map((e) => e.toJson()).toList(),
+     'taxTotal': taxTotal?.toJson(),
+     'paymentMeans': paymentMeans.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -7,8 +7,10 @@ import 'XsdParser.dart';
 class Element {
   final XmlElement xml;
   final ComplexType parentType;
+  // final bool refferred;
 
   String schemaId = '';
+  String refSchemaId = '';
   String name = '';
 
   late final int minOccurs;
@@ -21,12 +23,16 @@ class Element {
   Element(
     this.xml,
     this.parentType,
+  //     {
+  //   this.refferred = false,
+  // }
   ) {
     schemaId = parentType.schemaId;
+    refSchemaId = schemaId;
   }
 
   String get fullname {
-    return '$schemaId.$name';
+    return '$refSchemaId.$name';
   }
 
   void parse() {
@@ -39,13 +45,21 @@ class Element {
 
     if (ref.isNotEmpty) {
       // print('   Element ref=$ref');
-
       Schema refSchema;
 
       List<String> tmp = ref.split(':');
       if (tmp.length == 2) {
         String refId = tmp[0];
         name = tmp[1];
+        if (refId != parentType.schemaId) {
+        //   print('###Elem: $name $schemaId $refId ${parentType.name} ${parentType
+        //       .schemaId}');
+        // }
+        // if (name == 'Condition') {
+        //   if (refId == 'cbc') {
+            refSchemaId = refId;
+          // }
+        }
         refSchema = XsdParser.schemaForIdentifier(refId);
       } else if (tmp.length == 1) {
         String refId = parentType.schema.identifier;

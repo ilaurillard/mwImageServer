@@ -1,10 +1,11 @@
-import '../cac/ID.dart';
-import '../cac/Name.dart';
-import '../cac/AliasName.dart';
-import '../cac/AccountTypeCode.dart';
-import '../cac/AccountFormatCode.dart';
-import '../cac/CurrencyCode.dart';
-import '../cac/PaymentNote.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Name.dart';
+import '../cbc/AliasName.dart';
+import '../cbc/AccountTypeCode.dart';
+import '../cbc/AccountFormatCode.dart';
+import '../cbc/CurrencyCode.dart';
+import '../cbc/PaymentNote.dart';
 import '../cac/FinancialInstitutionBranch.dart';
 import '../cac/Country.dart';
 
@@ -50,5 +51,23 @@ class FinancingFinancialAccount {
     this.financialInstitutionBranch,
     this.country,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'name': name?.toJson(),
+     'aliasName': aliasName?.toJson(),
+     'accountTypeCode': accountTypeCode?.toJson(),
+     'accountFormatCode': accountFormatCode?.toJson(),
+     'currencyCode': currencyCode?.toJson(),
+     'paymentNote': paymentNote.map((e) => e.toJson()).toList(),
+     'financialInstitutionBranch': financialInstitutionBranch?.toJson(),
+     'country': country?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,24 +1,25 @@
-import '../cac/ID.dart';
-import '../cac/ShippingPriorityLevelCode.dart';
-import '../cac/HandlingCode.dart';
-import '../cac/HandlingInstructions.dart';
-import '../cac/Information.dart';
-import '../cac/GrossWeightMeasure.dart';
-import '../cac/NetWeightMeasure.dart';
-import '../cac/NetNetWeightMeasure.dart';
-import '../cac/GrossVolumeMeasure.dart';
-import '../cac/NetVolumeMeasure.dart';
-import '../cac/TotalGoodsItemQuantity.dart';
-import '../cac/TotalTransportHandlingUnitQuantity.dart';
-import '../cac/InsuranceValueAmount.dart';
-import '../cac/DeclaredCustomsValueAmount.dart';
-import '../cac/DeclaredForCarriageValueAmount.dart';
-import '../cac/DeclaredStatisticsValueAmount.dart';
-import '../cac/FreeOnBoardValueAmount.dart';
-import '../cac/SpecialInstructions.dart';
-import '../cac/DeliveryInstructions.dart';
-import '../cac/SplitConsignmentIndicator.dart';
-import '../cac/ConsignmentQuantity.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/ShippingPriorityLevelCode.dart';
+import '../cbc/HandlingCode.dart';
+import '../cbc/HandlingInstructions.dart';
+import '../cbc/Information.dart';
+import '../cbc/GrossWeightMeasure.dart';
+import '../cbc/NetWeightMeasure.dart';
+import '../cbc/NetNetWeightMeasure.dart';
+import '../cbc/GrossVolumeMeasure.dart';
+import '../cbc/NetVolumeMeasure.dart';
+import '../cbc/TotalGoodsItemQuantity.dart';
+import '../cbc/TotalTransportHandlingUnitQuantity.dart';
+import '../cbc/InsuranceValueAmount.dart';
+import '../cbc/DeclaredCustomsValueAmount.dart';
+import '../cbc/DeclaredForCarriageValueAmount.dart';
+import '../cbc/DeclaredStatisticsValueAmount.dart';
+import '../cbc/FreeOnBoardValueAmount.dart';
+import '../cbc/SpecialInstructions.dart';
+import '../cbc/DeliveryInstructions.dart';
+import '../cbc/SplitConsignmentIndicator.dart';
+import '../cbc/ConsignmentQuantity.dart';
 import '../cac/Consignment.dart';
 import '../cac/GoodsItem.dart';
 import '../cac/ShipmentStage.dart';
@@ -165,5 +166,46 @@ class ReportedShipment {
     this.exportCountry,
     this.freightAllowanceCharge = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'shippingPriorityLevelCode': shippingPriorityLevelCode?.toJson(),
+     'handlingCode': handlingCode?.toJson(),
+     'handlingInstructions': handlingInstructions.map((e) => e.toJson()).toList(),
+     'information': information.map((e) => e.toJson()).toList(),
+     'grossWeightMeasure': grossWeightMeasure?.toJson(),
+     'netWeightMeasure': netWeightMeasure?.toJson(),
+     'netNetWeightMeasure': netNetWeightMeasure?.toJson(),
+     'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
+     'netVolumeMeasure': netVolumeMeasure?.toJson(),
+     'totalGoodsItemQuantity': totalGoodsItemQuantity?.toJson(),
+     'totalTransportHandlingUnitQuantity': totalTransportHandlingUnitQuantity?.toJson(),
+     'insuranceValueAmount': insuranceValueAmount?.toJson(),
+     'declaredCustomsValueAmount': declaredCustomsValueAmount?.toJson(),
+     'declaredForCarriageValueAmount': declaredForCarriageValueAmount?.toJson(),
+     'declaredStatisticsValueAmount': declaredStatisticsValueAmount?.toJson(),
+     'freeOnBoardValueAmount': freeOnBoardValueAmount?.toJson(),
+     'specialInstructions': specialInstructions.map((e) => e.toJson()).toList(),
+     'deliveryInstructions': deliveryInstructions.map((e) => e.toJson()).toList(),
+     'splitConsignmentIndicator': splitConsignmentIndicator?.toJson(),
+     'consignmentQuantity': consignmentQuantity?.toJson(),
+     'consignment': consignment.map((e) => e.toJson()).toList(),
+     'goodsItem': goodsItem.map((e) => e.toJson()).toList(),
+     'shipmentStage': shipmentStage.map((e) => e.toJson()).toList(),
+     'delivery': delivery?.toJson(),
+     'transportHandlingUnit': transportHandlingUnit.map((e) => e.toJson()).toList(),
+     'returnAddress': returnAddress?.toJson(),
+     'originAddress': originAddress?.toJson(),
+     'firstArrivalPortLocation': firstArrivalPortLocation?.toJson(),
+     'lastExitPortLocation': lastExitPortLocation?.toJson(),
+     'exportCountry': exportCountry?.toJson(),
+     'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

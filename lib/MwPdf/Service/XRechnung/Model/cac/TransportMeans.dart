@@ -1,9 +1,10 @@
-import '../cac/JourneyID.dart';
-import '../cac/RegistrationNationalityID.dart';
-import '../cac/RegistrationNationality.dart';
-import '../cac/DirectionCode.dart';
-import '../cac/TransportMeansTypeCode.dart';
-import '../cac/TradeServiceCode.dart';
+import 'dart:convert';
+import '../cbc/JourneyID.dart';
+import '../cbc/RegistrationNationalityID.dart';
+import '../cbc/RegistrationNationality.dart';
+import '../cbc/DirectionCode.dart';
+import '../cbc/TransportMeansTypeCode.dart';
+import '../cbc/TradeServiceCode.dart';
 import '../cac/Stowage.dart';
 import '../cac/AirTransport.dart';
 import '../cac/RoadTransport.dart';
@@ -70,5 +71,27 @@ class TransportMeans {
     this.ownerParty,
     this.measurementDimension = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'journeyID': journeyID?.toJson(),
+     'registrationNationalityID': registrationNationalityID?.toJson(),
+     'registrationNationality': registrationNationality.map((e) => e.toJson()).toList(),
+     'directionCode': directionCode?.toJson(),
+     'transportMeansTypeCode': transportMeansTypeCode?.toJson(),
+     'tradeServiceCode': tradeServiceCode?.toJson(),
+     'stowage': stowage?.toJson(),
+     'airTransport': airTransport?.toJson(),
+     'roadTransport': roadTransport?.toJson(),
+     'railTransport': railTransport?.toJson(),
+     'maritimeTransport': maritimeTransport?.toJson(),
+     'ownerParty': ownerParty?.toJson(),
+     'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

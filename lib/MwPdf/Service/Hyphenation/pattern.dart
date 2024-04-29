@@ -8,7 +8,7 @@ extension StringAsInt on String {
 
 extension StringIsLetter on String {
   bool get isLetter {
-    assert(this.length == 1);
+    assert(length == 1);
 
     final c = this[0];
 

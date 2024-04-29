@@ -8,6 +8,11 @@ class InternalType extends XsdType {
     super.name = name;
   }
 
+  String scalarType()
+  {
+    return 'String';
+  }
+
   static InternalType from(
     String name,
   ) {
@@ -35,7 +40,6 @@ class InternalType extends XsdType {
       default:
         throw Exception('unsupported');
     }
-
 
     return InternalType(name.substring(name.indexOf(':') + 1));
   }

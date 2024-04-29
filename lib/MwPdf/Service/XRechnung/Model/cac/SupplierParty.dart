@@ -1,6 +1,7 @@
-import '../cac/CustomerAssignedAccountID.dart';
-import '../cac/AdditionalAccountID.dart';
-import '../cac/DataSendingCapability.dart';
+import 'dart:convert';
+import '../cbc/CustomerAssignedAccountID.dart';
+import '../cbc/AdditionalAccountID.dart';
+import '../cbc/DataSendingCapability.dart';
 import '../cac/Party.dart';
 import '../cac/DespatchContact.dart';
 import '../cac/AccountingContact.dart';
@@ -40,5 +41,21 @@ class SupplierParty {
     this.accountingContact,
     this.sellerContact,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'customerAssignedAccountID': customerAssignedAccountID?.toJson(),
+     'additionalAccountID': additionalAccountID.map((e) => e.toJson()).toList(),
+     'dataSendingCapability': dataSendingCapability?.toJson(),
+     'party': party?.toJson(),
+     'despatchContact': despatchContact?.toJson(),
+     'accountingContact': accountingContact?.toJson(),
+     'sellerContact': sellerContact?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

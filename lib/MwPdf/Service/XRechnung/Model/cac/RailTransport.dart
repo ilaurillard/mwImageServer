@@ -1,5 +1,6 @@
-import '../cac/TrainID.dart';
-import '../cac/RailCarID.dart';
+import 'dart:convert';
+import '../cbc/TrainID.dart';
+import '../cbc/RailCarID.dart';
 
 // A class defining details about a train wagon used as a means of transport.
 class RailTransport {
@@ -15,5 +16,16 @@ class RailTransport {
     required this.trainID,
     this.railCarID,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'trainID': trainID.toJson(),
+     'railCarID': railCarID?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

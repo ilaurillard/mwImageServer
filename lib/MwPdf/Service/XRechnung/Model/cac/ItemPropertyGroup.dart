@@ -1,6 +1,7 @@
-import '../cac/ID.dart';
-import '../cac/Name.dart';
-import '../cac/ImportanceCode.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Name.dart';
+import '../cbc/ImportanceCode.dart';
 
 // A class to describe a property group or classification.
 class ItemPropertyGroup {
@@ -20,5 +21,17 @@ class ItemPropertyGroup {
     this.name,
     this.importanceCode,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'name': name?.toJson(),
+     'importanceCode': importanceCode?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

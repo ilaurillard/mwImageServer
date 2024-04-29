@@ -1,13 +1,14 @@
-import '../cac/Description.dart';
-import '../cac/PackQuantity.dart';
-import '../cac/PackSizeNumeric.dart';
-import '../cac/CatalogueIndicator.dart';
-import '../cac/Name.dart';
-import '../cac/HazardousRiskIndicator.dart';
-import '../cac/AdditionalInformation.dart';
-import '../cac/Keyword.dart';
-import '../cac/BrandName.dart';
-import '../cac/ModelName.dart';
+import 'dart:convert';
+import '../cbc/Description.dart';
+import '../cbc/PackQuantity.dart';
+import '../cbc/PackSizeNumeric.dart';
+import '../cbc/CatalogueIndicator.dart';
+import '../cbc/Name.dart';
+import '../cbc/HazardousRiskIndicator.dart';
+import '../cbc/AdditionalInformation.dart';
+import '../cbc/Keyword.dart';
+import '../cbc/BrandName.dart';
+import '../cbc/ModelName.dart';
 import '../cac/BuyersItemIdentification.dart';
 import '../cac/SellersItemIdentification.dart';
 import '../cac/ManufacturersItemIdentification.dart';
@@ -155,5 +156,44 @@ class Item {
     this.certificate = const [],
     this.dimension = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'description': description.map((e) => e.toJson()).toList(),
+     'packQuantity': packQuantity?.toJson(),
+     'packSizeNumeric': packSizeNumeric?.toJson(),
+     'catalogueIndicator': catalogueIndicator?.toJson(),
+     'name': name?.toJson(),
+     'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+     'additionalInformation': additionalInformation.map((e) => e.toJson()).toList(),
+     'keyword': keyword.map((e) => e.toJson()).toList(),
+     'brandName': brandName.map((e) => e.toJson()).toList(),
+     'modelName': modelName.map((e) => e.toJson()).toList(),
+     'buyersItemIdentification': buyersItemIdentification?.toJson(),
+     'sellersItemIdentification': sellersItemIdentification?.toJson(),
+     'manufacturersItemIdentification': manufacturersItemIdentification.map((e) => e.toJson()).toList(),
+     'standardItemIdentification': standardItemIdentification?.toJson(),
+     'catalogueItemIdentification': catalogueItemIdentification?.toJson(),
+     'additionalItemIdentification': additionalItemIdentification.map((e) => e.toJson()).toList(),
+     'catalogueDocumentReference': catalogueDocumentReference?.toJson(),
+     'itemSpecificationDocumentReference': itemSpecificationDocumentReference.map((e) => e.toJson()).toList(),
+     'originCountry': originCountry?.toJson(),
+     'commodityClassification': commodityClassification.map((e) => e.toJson()).toList(),
+     'transactionConditions': transactionConditions.map((e) => e.toJson()).toList(),
+     'hazardousItem': hazardousItem.map((e) => e.toJson()).toList(),
+     'classifiedTaxCategory': classifiedTaxCategory.map((e) => e.toJson()).toList(),
+     'additionalItemProperty': additionalItemProperty.map((e) => e.toJson()).toList(),
+     'manufacturerParty': manufacturerParty.map((e) => e.toJson()).toList(),
+     'informationContentProviderParty': informationContentProviderParty?.toJson(),
+     'originAddress': originAddress.map((e) => e.toJson()).toList(),
+     'itemInstance': itemInstance.map((e) => e.toJson()).toList(),
+     'certificate': certificate.map((e) => e.toJson()).toList(),
+     'dimension': dimension.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,8 +1,9 @@
-import '../cac/ID.dart';
-import '../cac/CertificateTypeCode.dart';
-import '../cac/CertificateType.dart';
-import '../cac/Remarks.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/CertificateTypeCode.dart';
+import '../cbc/CertificateType.dart';
 import '../cac/IssuerParty.dart';
+import '../cbc/Remarks.dart';
 import '../cac/DocumentReference.dart';
 import '../cac/Signature.dart';
 
@@ -40,5 +41,21 @@ class Certificate {
     this.documentReference = const [],
     this.signature = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'certificateTypeCode': certificateTypeCode.toJson(),
+     'certificateType': certificateType.toJson(),
+     'remarks': remarks.map((e) => e.toJson()).toList(),
+     'issuerParty': issuerParty.toJson(),
+     'documentReference': documentReference.map((e) => e.toJson()).toList(),
+     'signature': signature.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

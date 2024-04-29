@@ -1,9 +1,10 @@
-import '../cac/ID.dart';
-import '../cac/WorkPhaseCode.dart';
-import '../cac/WorkPhase.dart';
-import '../cac/ProgressPercent.dart';
-import '../cac/StartDate.dart';
-import '../cac/EndDate.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/WorkPhaseCode.dart';
+import '../cbc/WorkPhase.dart';
+import '../cbc/ProgressPercent.dart';
+import '../cbc/StartDate.dart';
+import '../cbc/EndDate.dart';
 import '../cac/WorkOrderDocumentReference.dart';
 
 // A class that refers to a phase of work. Used for instance to specify what part of the contract the billing is referring to.
@@ -40,5 +41,21 @@ class WorkPhaseReference {
     this.endDate,
     this.workOrderDocumentReference = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'workPhaseCode': workPhaseCode?.toJson(),
+     'workPhase': workPhase.map((e) => e.toJson()).toList(),
+     'progressPercent': progressPercent?.toJson(),
+     'startDate': startDate?.toJson(),
+     'endDate': endDate?.toJson(),
+     'workOrderDocumentReference': workOrderDocumentReference.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

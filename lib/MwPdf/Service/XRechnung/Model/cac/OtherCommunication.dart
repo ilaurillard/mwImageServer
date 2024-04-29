@@ -1,6 +1,7 @@
-import '../cac/ChannelCode.dart';
-import '../cac/Channel.dart';
-import '../cac/Value.dart';
+import 'dart:convert';
+import '../cbc/ChannelCode.dart';
+import '../cbc/Channel.dart';
+import '../cbc/Value.dart';
 
 // A class to describe a means of communication.
 class OtherCommunication {
@@ -20,5 +21,17 @@ class OtherCommunication {
     this.channel,
     this.value,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'channelCode': channelCode?.toJson(),
+     'channel': channel?.toJson(),
+     'value': value?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

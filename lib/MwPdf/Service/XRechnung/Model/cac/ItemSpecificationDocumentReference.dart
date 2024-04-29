@@ -1,16 +1,17 @@
-import '../cac/ID.dart';
-import '../cac/CopyIndicator.dart';
-import '../cac/UUID.dart';
-import '../cac/IssueDate.dart';
-import '../cac/IssueTime.dart';
-import '../cac/DocumentTypeCode.dart';
-import '../cac/DocumentType.dart';
-import '../cac/XPath.dart';
-import '../cac/LanguageID.dart';
-import '../cac/LocaleCode.dart';
-import '../cac/VersionID.dart';
-import '../cac/DocumentStatusCode.dart';
-import '../cac/DocumentDescription.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/CopyIndicator.dart';
+import '../cbc/UUID.dart';
+import '../cbc/IssueDate.dart';
+import '../cbc/IssueTime.dart';
+import '../cbc/DocumentTypeCode.dart';
+import '../cbc/DocumentType.dart';
+import '../cbc/XPath.dart';
+import '../cbc/LanguageID.dart';
+import '../cbc/LocaleCode.dart';
+import '../cbc/VersionID.dart';
+import '../cbc/DocumentStatusCode.dart';
+import '../cbc/DocumentDescription.dart';
 import '../cac/Attachment.dart';
 import '../cac/ValidityPeriod.dart';
 import '../cac/IssuerParty.dart';
@@ -90,5 +91,31 @@ class ItemSpecificationDocumentReference {
     this.issuerParty,
     this.resultOfVerification,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'copyIndicator': copyIndicator?.toJson(),
+     'uUID': uUID?.toJson(),
+     'issueDate': issueDate?.toJson(),
+     'issueTime': issueTime?.toJson(),
+     'documentTypeCode': documentTypeCode?.toJson(),
+     'documentType': documentType?.toJson(),
+     'xPath': xPath.map((e) => e.toJson()).toList(),
+     'languageID': languageID?.toJson(),
+     'localeCode': localeCode?.toJson(),
+     'versionID': versionID?.toJson(),
+     'documentStatusCode': documentStatusCode?.toJson(),
+     'documentDescription': documentDescription.map((e) => e.toJson()).toList(),
+     'attachment': attachment?.toJson(),
+     'validityPeriod': validityPeriod?.toJson(),
+     'issuerParty': issuerParty?.toJson(),
+     'resultOfVerification': resultOfVerification?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

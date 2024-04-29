@@ -1,9 +1,10 @@
-import '../cac/MarkCareIndicator.dart';
-import '../cac/MarkAttentionIndicator.dart';
-import '../cac/WebsiteURI.dart';
-import '../cac/LogoReferenceID.dart';
-import '../cac/EndpointID.dart';
-import '../cac/IndustryClassificationCode.dart';
+import 'dart:convert';
+import '../cbc/MarkCareIndicator.dart';
+import '../cbc/MarkAttentionIndicator.dart';
+import '../cbc/WebsiteURI.dart';
+import '../cbc/LogoReferenceID.dart';
+import '../cbc/EndpointID.dart';
+import '../cbc/IndustryClassificationCode.dart';
 import '../cac/PartyIdentification.dart';
 import '../cac/PartyName.dart';
 import '../cac/Language.dart';
@@ -13,7 +14,6 @@ import '../cac/PartyTaxScheme.dart';
 import '../cac/PartyLegalEntity.dart';
 import '../cac/Contact.dart';
 import '../cac/Person.dart';
-import '../cac/AgentParty.dart';
 import '../cac/ServiceProviderParty.dart';
 import '../cac/PowerOfAttorney.dart';
 import '../cac/FinancialAccount.dart';
@@ -100,5 +100,33 @@ class AgentParty {
     this.powerOfAttorney = const [],
     this.financialAccount,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'markCareIndicator': markCareIndicator?.toJson(),
+     'markAttentionIndicator': markAttentionIndicator?.toJson(),
+     'websiteURI': websiteURI?.toJson(),
+     'logoReferenceID': logoReferenceID?.toJson(),
+     'endpointID': endpointID?.toJson(),
+     'industryClassificationCode': industryClassificationCode?.toJson(),
+     'partyIdentification': partyIdentification.map((e) => e.toJson()).toList(),
+     'partyName': partyName.map((e) => e.toJson()).toList(),
+     'language': language?.toJson(),
+     'postalAddress': postalAddress?.toJson(),
+     'physicalLocation': physicalLocation?.toJson(),
+     'partyTaxScheme': partyTaxScheme.map((e) => e.toJson()).toList(),
+     'partyLegalEntity': partyLegalEntity.map((e) => e.toJson()).toList(),
+     'contact': contact?.toJson(),
+     'person': person.map((e) => e.toJson()).toList(),
+     'agentParty': agentParty?.toJson(),
+     'serviceProviderParty': serviceProviderParty.map((e) => e.toJson()).toList(),
+     'powerOfAttorney': powerOfAttorney.map((e) => e.toJson()).toList(),
+     'financialAccount': financialAccount?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

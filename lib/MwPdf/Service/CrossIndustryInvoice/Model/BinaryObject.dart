@@ -1,5 +1,4 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Util.dart';
 import 'package:xml/xml.dart';
 
 class BinaryObject {

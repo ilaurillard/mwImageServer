@@ -1,9 +1,10 @@
-import '../cac/VesselID.dart';
-import '../cac/VesselName.dart';
-import '../cac/RadioCallSignID.dart';
-import '../cac/ShipsRequirements.dart';
-import '../cac/GrossTonnageMeasure.dart';
-import '../cac/NetTonnageMeasure.dart';
+import 'dart:convert';
+import '../cbc/VesselID.dart';
+import '../cbc/VesselName.dart';
+import '../cbc/RadioCallSignID.dart';
+import '../cbc/ShipsRequirements.dart';
+import '../cbc/GrossTonnageMeasure.dart';
+import '../cbc/NetTonnageMeasure.dart';
 import '../cac/RegistryCertificateDocumentReference.dart';
 import '../cac/RegistryPortLocation.dart';
 
@@ -45,5 +46,22 @@ class MaritimeTransport {
     this.registryCertificateDocumentReference,
     this.registryPortLocation,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'vesselID': vesselID?.toJson(),
+     'vesselName': vesselName?.toJson(),
+     'radioCallSignID': radioCallSignID?.toJson(),
+     'shipsRequirements': shipsRequirements.map((e) => e.toJson()).toList(),
+     'grossTonnageMeasure': grossTonnageMeasure?.toJson(),
+     'netTonnageMeasure': netTonnageMeasure?.toJson(),
+     'registryCertificateDocumentReference': registryCertificateDocumentReference?.toJson(),
+     'registryPortLocation': registryPortLocation?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,11 +1,12 @@
-import '../cac/SourceCurrencyCode.dart';
-import '../cac/SourceCurrencyBaseRate.dart';
-import '../cac/TargetCurrencyCode.dart';
-import '../cac/TargetCurrencyBaseRate.dart';
-import '../cac/ExchangeMarketID.dart';
-import '../cac/CalculationRate.dart';
-import '../cac/MathematicOperatorCode.dart';
-import '../cac/Date.dart';
+import 'dart:convert';
+import '../cbc/SourceCurrencyCode.dart';
+import '../cbc/TargetCurrencyCode.dart';
+import '../cbc/SourceCurrencyBaseRate.dart';
+import '../cbc/TargetCurrencyBaseRate.dart';
+import '../cbc/ExchangeMarketID.dart';
+import '../cbc/CalculationRate.dart';
+import '../cbc/MathematicOperatorCode.dart';
+import '../cbc/Date.dart';
 import '../cac/ForeignExchangeContract.dart';
 
 // A class to define an exchange rate.
@@ -50,5 +51,23 @@ class PricingExchangeRate {
     this.date,
     this.foreignExchangeContract,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'sourceCurrencyCode': sourceCurrencyCode.toJson(),
+     'sourceCurrencyBaseRate': sourceCurrencyBaseRate?.toJson(),
+     'targetCurrencyCode': targetCurrencyCode.toJson(),
+     'targetCurrencyBaseRate': targetCurrencyBaseRate?.toJson(),
+     'exchangeMarketID': exchangeMarketID?.toJson(),
+     'calculationRate': calculationRate?.toJson(),
+     'mathematicOperatorCode': mathematicOperatorCode?.toJson(),
+     'date': date?.toJson(),
+     'foreignExchangeContract': foreignExchangeContract?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

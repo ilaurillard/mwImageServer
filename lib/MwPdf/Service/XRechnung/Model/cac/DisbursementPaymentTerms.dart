@@ -1,18 +1,19 @@
-import '../cac/ID.dart';
-import '../cac/PaymentMeansID.dart';
-import '../cac/PrepaidPaymentReferenceID.dart';
-import '../cac/Note.dart';
-import '../cac/ReferenceEventCode.dart';
-import '../cac/SettlementDiscountPercent.dart';
-import '../cac/PenaltySurchargePercent.dart';
-import '../cac/PaymentPercent.dart';
-import '../cac/Amount.dart';
-import '../cac/SettlementDiscountAmount.dart';
-import '../cac/PenaltyAmount.dart';
-import '../cac/PaymentTermsDetailsURI.dart';
-import '../cac/PaymentDueDate.dart';
-import '../cac/InstallmentDueDate.dart';
-import '../cac/InvoicingPartyReference.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/PaymentMeansID.dart';
+import '../cbc/PrepaidPaymentReferenceID.dart';
+import '../cbc/Note.dart';
+import '../cbc/ReferenceEventCode.dart';
+import '../cbc/SettlementDiscountPercent.dart';
+import '../cbc/PenaltySurchargePercent.dart';
+import '../cbc/PaymentPercent.dart';
+import '../cbc/Amount.dart';
+import '../cbc/SettlementDiscountAmount.dart';
+import '../cbc/PenaltyAmount.dart';
+import '../cbc/PaymentTermsDetailsURI.dart';
+import '../cbc/PaymentDueDate.dart';
+import '../cbc/InstallmentDueDate.dart';
+import '../cbc/InvoicingPartyReference.dart';
 import '../cac/SettlementPeriod.dart';
 import '../cac/PenaltyPeriod.dart';
 import '../cac/ExchangeRate.dart';
@@ -100,5 +101,33 @@ class DisbursementPaymentTerms {
     this.exchangeRate,
     this.validityPeriod,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'paymentMeansID': paymentMeansID.map((e) => e.toJson()).toList(),
+     'prepaidPaymentReferenceID': prepaidPaymentReferenceID?.toJson(),
+     'note': note.map((e) => e.toJson()).toList(),
+     'referenceEventCode': referenceEventCode?.toJson(),
+     'settlementDiscountPercent': settlementDiscountPercent?.toJson(),
+     'penaltySurchargePercent': penaltySurchargePercent?.toJson(),
+     'paymentPercent': paymentPercent?.toJson(),
+     'amount': amount?.toJson(),
+     'settlementDiscountAmount': settlementDiscountAmount?.toJson(),
+     'penaltyAmount': penaltyAmount?.toJson(),
+     'paymentTermsDetailsURI': paymentTermsDetailsURI?.toJson(),
+     'paymentDueDate': paymentDueDate?.toJson(),
+     'installmentDueDate': installmentDueDate?.toJson(),
+     'invoicingPartyReference': invoicingPartyReference?.toJson(),
+     'settlementPeriod': settlementPeriod?.toJson(),
+     'penaltyPeriod': penaltyPeriod?.toJson(),
+     'exchangeRate': exchangeRate?.toJson(),
+     'validityPeriod': validityPeriod?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,13 +1,14 @@
-import '../cac/RegistrationName.dart';
-import '../cac/CompanyID.dart';
-import '../cac/RegistrationDate.dart';
-import '../cac/RegistrationExpirationDate.dart';
-import '../cac/CompanyLegalFormCode.dart';
-import '../cac/CompanyLegalForm.dart';
-import '../cac/SoleProprietorshipIndicator.dart';
-import '../cac/CompanyLiquidationStatusCode.dart';
-import '../cac/CorporateStockAmount.dart';
-import '../cac/FullyPaidSharesIndicator.dart';
+import 'dart:convert';
+import '../cbc/RegistrationName.dart';
+import '../cbc/CompanyID.dart';
+import '../cbc/RegistrationDate.dart';
+import '../cbc/RegistrationExpirationDate.dart';
+import '../cbc/CompanyLegalFormCode.dart';
+import '../cbc/CompanyLegalForm.dart';
+import '../cbc/SoleProprietorshipIndicator.dart';
+import '../cbc/CompanyLiquidationStatusCode.dart';
+import '../cbc/CorporateStockAmount.dart';
+import '../cbc/FullyPaidSharesIndicator.dart';
 import '../cac/RegistrationAddress.dart';
 import '../cac/CorporateRegistrationScheme.dart';
 import '../cac/HeadOfficeParty.dart';
@@ -75,5 +76,28 @@ class PartyLegalEntity {
     this.headOfficeParty,
     this.shareholderParty = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'registrationName': registrationName?.toJson(),
+     'companyID': companyID?.toJson(),
+     'registrationDate': registrationDate?.toJson(),
+     'registrationExpirationDate': registrationExpirationDate?.toJson(),
+     'companyLegalFormCode': companyLegalFormCode?.toJson(),
+     'companyLegalForm': companyLegalForm?.toJson(),
+     'soleProprietorshipIndicator': soleProprietorshipIndicator?.toJson(),
+     'companyLiquidationStatusCode': companyLiquidationStatusCode?.toJson(),
+     'corporateStockAmount': corporateStockAmount?.toJson(),
+     'fullyPaidSharesIndicator': fullyPaidSharesIndicator?.toJson(),
+     'registrationAddress': registrationAddress?.toJson(),
+     'corporateRegistrationScheme': corporateRegistrationScheme?.toJson(),
+     'headOfficeParty': headOfficeParty?.toJson(),
+     'shareholderParty': shareholderParty.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -7,6 +7,8 @@
 
 // curl -H "Authorization: Basic aWxhdXJpbGxhcmRAbWluZHdvcmtzLmRlOkFUQVRUM3hGZkdGMC1YdEVDMEYxdGliOUc1WFV6QTAwMXNUV0o5blJwZnRiRDJUZFE5YXpmN2lqRnJfbUFQNF9IQjFFM1Y3RlFmSXQyMVhuMnpTODF2NUdpaEtpOHIxT2JzeEd1bUF5cndmTF9aQm5QeFd6WHVTUU91cFlKbFY4dDJteng5R1VtMEFhcG8wSG9ESWFXcmVXZDh5X0Y3UElkSlRoNklleXlRNHhveEpndGg4Z2VkTT03OEEwQkRGNg==" "https://mindworks.atlassian.net/rest/api/latest/search?jql=project=ALVE%20AND%20issue=ALVE-1000"
 
+// ignore_for_file: unnecessary_string_escapes
+
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 

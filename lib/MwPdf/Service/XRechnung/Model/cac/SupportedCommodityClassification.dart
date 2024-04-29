@@ -1,7 +1,8 @@
-import '../cac/NatureCode.dart';
-import '../cac/CargoTypeCode.dart';
-import '../cac/CommodityCode.dart';
-import '../cac/ItemClassificationCode.dart';
+import 'dart:convert';
+import '../cbc/NatureCode.dart';
+import '../cbc/CargoTypeCode.dart';
+import '../cbc/CommodityCode.dart';
+import '../cbc/ItemClassificationCode.dart';
 
 // A class to describe the classification of a commodity.
 class SupportedCommodityClassification {
@@ -25,5 +26,18 @@ class SupportedCommodityClassification {
     this.commodityCode,
     this.itemClassificationCode,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'natureCode': natureCode?.toJson(),
+     'cargoTypeCode': cargoTypeCode?.toJson(),
+     'commodityCode': commodityCode?.toJson(),
+     'itemClassificationCode': itemClassificationCode?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

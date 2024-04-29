@@ -1,8 +1,9 @@
-import '../cac/TransportEmergencyCardCode.dart';
-import '../cac/PackingCriteriaCode.dart';
-import '../cac/HazardousRegulationCode.dart';
-import '../cac/InhalationToxicityZoneCode.dart';
-import '../cac/TransportAuthorizationCode.dart';
+import 'dart:convert';
+import '../cbc/TransportEmergencyCardCode.dart';
+import '../cbc/PackingCriteriaCode.dart';
+import '../cbc/HazardousRegulationCode.dart';
+import '../cbc/InhalationToxicityZoneCode.dart';
+import '../cbc/TransportAuthorizationCode.dart';
 import '../cac/MaximumTemperature.dart';
 import '../cac/MinimumTemperature.dart';
 
@@ -40,5 +41,21 @@ class HazardousGoodsTransit {
     this.maximumTemperature,
     this.minimumTemperature,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'transportEmergencyCardCode': transportEmergencyCardCode?.toJson(),
+     'packingCriteriaCode': packingCriteriaCode?.toJson(),
+     'hazardousRegulationCode': hazardousRegulationCode?.toJson(),
+     'inhalationToxicityZoneCode': inhalationToxicityZoneCode?.toJson(),
+     'transportAuthorizationCode': transportAuthorizationCode?.toJson(),
+     'maximumTemperature': maximumTemperature?.toJson(),
+     'minimumTemperature': minimumTemperature?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

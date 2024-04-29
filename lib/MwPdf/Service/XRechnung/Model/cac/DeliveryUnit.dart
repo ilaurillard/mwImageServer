@@ -1,6 +1,7 @@
-import '../cac/BatchQuantity.dart';
-import '../cac/ConsumerUnitQuantity.dart';
-import '../cac/HazardousRiskIndicator.dart';
+import 'dart:convert';
+import '../cbc/BatchQuantity.dart';
+import '../cbc/ConsumerUnitQuantity.dart';
+import '../cbc/HazardousRiskIndicator.dart';
 
 // A class to describe a delivery unit.
 class DeliveryUnit {
@@ -20,5 +21,17 @@ class DeliveryUnit {
     this.consumerUnitQuantity,
     this.hazardousRiskIndicator,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'batchQuantity': batchQuantity.toJson(),
+     'consumerUnitQuantity': consumerUnitQuantity?.toJson(),
+     'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

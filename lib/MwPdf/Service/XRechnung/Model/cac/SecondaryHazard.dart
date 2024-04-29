@@ -1,8 +1,9 @@
-import '../cac/ID.dart';
-import '../cac/PlacardNotation.dart';
-import '../cac/PlacardEndorsement.dart';
-import '../cac/EmergencyProceduresCode.dart';
-import '../cac/Extension.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/PlacardNotation.dart';
+import '../cbc/PlacardEndorsement.dart';
+import '../cbc/EmergencyProceduresCode.dart';
+import '../cbc/Extension.dart';
 
 // A class to describe a secondary hazard associated with a hazardous item.
 class SecondaryHazard {
@@ -30,5 +31,19 @@ class SecondaryHazard {
     this.emergencyProceduresCode,
     this.extension = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'placardNotation': placardNotation?.toJson(),
+     'placardEndorsement': placardEndorsement?.toJson(),
+     'emergencyProceduresCode': emergencyProceduresCode?.toJson(),
+     'extension': extension.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

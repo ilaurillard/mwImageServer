@@ -1,19 +1,20 @@
-import '../cac/ID.dart';
-import '../cac/TransportModeCode.dart';
-import '../cac/TransportMeansTypeCode.dart';
-import '../cac/TransitDirectionCode.dart';
-import '../cac/PreCarriageIndicator.dart';
-import '../cac/OnCarriageIndicator.dart';
-import '../cac/EstimatedDeliveryDate.dart';
-import '../cac/EstimatedDeliveryTime.dart';
-import '../cac/RequiredDeliveryDate.dart';
-import '../cac/RequiredDeliveryTime.dart';
-import '../cac/LoadingSequenceID.dart';
-import '../cac/SuccessiveSequenceID.dart';
-import '../cac/Instructions.dart';
-import '../cac/DemurrageInstructions.dart';
-import '../cac/CrewQuantity.dart';
-import '../cac/PassengerQuantity.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/TransportModeCode.dart';
+import '../cbc/TransportMeansTypeCode.dart';
+import '../cbc/TransitDirectionCode.dart';
+import '../cbc/PreCarriageIndicator.dart';
+import '../cbc/OnCarriageIndicator.dart';
+import '../cbc/EstimatedDeliveryDate.dart';
+import '../cbc/EstimatedDeliveryTime.dart';
+import '../cbc/RequiredDeliveryDate.dart';
+import '../cbc/RequiredDeliveryTime.dart';
+import '../cbc/LoadingSequenceID.dart';
+import '../cbc/SuccessiveSequenceID.dart';
+import '../cbc/Instructions.dart';
+import '../cbc/DemurrageInstructions.dart';
+import '../cbc/CrewQuantity.dart';
+import '../cbc/PassengerQuantity.dart';
 import '../cac/TransitPeriod.dart';
 import '../cac/CarrierParty.dart';
 import '../cac/TransportMeans.dart';
@@ -310,5 +311,75 @@ class MainCarriageShipmentStage {
     this.masterPerson,
     this.shipsSurgeonPerson,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'transportModeCode': transportModeCode?.toJson(),
+     'transportMeansTypeCode': transportMeansTypeCode?.toJson(),
+     'transitDirectionCode': transitDirectionCode?.toJson(),
+     'preCarriageIndicator': preCarriageIndicator?.toJson(),
+     'onCarriageIndicator': onCarriageIndicator?.toJson(),
+     'estimatedDeliveryDate': estimatedDeliveryDate?.toJson(),
+     'estimatedDeliveryTime': estimatedDeliveryTime?.toJson(),
+     'requiredDeliveryDate': requiredDeliveryDate?.toJson(),
+     'requiredDeliveryTime': requiredDeliveryTime?.toJson(),
+     'loadingSequenceID': loadingSequenceID?.toJson(),
+     'successiveSequenceID': successiveSequenceID?.toJson(),
+     'instructions': instructions.map((e) => e.toJson()).toList(),
+     'demurrageInstructions': demurrageInstructions.map((e) => e.toJson()).toList(),
+     'crewQuantity': crewQuantity?.toJson(),
+     'passengerQuantity': passengerQuantity?.toJson(),
+     'transitPeriod': transitPeriod?.toJson(),
+     'carrierParty': carrierParty.map((e) => e.toJson()).toList(),
+     'transportMeans': transportMeans?.toJson(),
+     'loadingPortLocation': loadingPortLocation?.toJson(),
+     'unloadingPortLocation': unloadingPortLocation?.toJson(),
+     'transshipPortLocation': transshipPortLocation?.toJson(),
+     'loadingTransportEvent': loadingTransportEvent?.toJson(),
+     'examinationTransportEvent': examinationTransportEvent?.toJson(),
+     'availabilityTransportEvent': availabilityTransportEvent?.toJson(),
+     'exportationTransportEvent': exportationTransportEvent?.toJson(),
+     'dischargeTransportEvent': dischargeTransportEvent?.toJson(),
+     'warehousingTransportEvent': warehousingTransportEvent?.toJson(),
+     'takeoverTransportEvent': takeoverTransportEvent?.toJson(),
+     'optionalTakeoverTransportEvent': optionalTakeoverTransportEvent?.toJson(),
+     'dropoffTransportEvent': dropoffTransportEvent?.toJson(),
+     'actualPickupTransportEvent': actualPickupTransportEvent?.toJson(),
+     'deliveryTransportEvent': deliveryTransportEvent?.toJson(),
+     'receiptTransportEvent': receiptTransportEvent?.toJson(),
+     'storageTransportEvent': storageTransportEvent?.toJson(),
+     'acceptanceTransportEvent': acceptanceTransportEvent?.toJson(),
+     'terminalOperatorParty': terminalOperatorParty?.toJson(),
+     'customsAgentParty': customsAgentParty?.toJson(),
+     'estimatedTransitPeriod': estimatedTransitPeriod?.toJson(),
+     'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
+     'freightChargeLocation': freightChargeLocation?.toJson(),
+     'detentionTransportEvent': detentionTransportEvent.map((e) => e.toJson()).toList(),
+     'requestedDepartureTransportEvent': requestedDepartureTransportEvent?.toJson(),
+     'requestedArrivalTransportEvent': requestedArrivalTransportEvent?.toJson(),
+     'requestedWaypointTransportEvent': requestedWaypointTransportEvent.map((e) => e.toJson()).toList(),
+     'plannedDepartureTransportEvent': plannedDepartureTransportEvent?.toJson(),
+     'plannedArrivalTransportEvent': plannedArrivalTransportEvent?.toJson(),
+     'plannedWaypointTransportEvent': plannedWaypointTransportEvent.map((e) => e.toJson()).toList(),
+     'actualDepartureTransportEvent': actualDepartureTransportEvent?.toJson(),
+     'actualWaypointTransportEvent': actualWaypointTransportEvent?.toJson(),
+     'actualArrivalTransportEvent': actualArrivalTransportEvent?.toJson(),
+     'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
+     'estimatedDepartureTransportEvent': estimatedDepartureTransportEvent?.toJson(),
+     'estimatedArrivalTransportEvent': estimatedArrivalTransportEvent?.toJson(),
+     'passengerPerson': passengerPerson.map((e) => e.toJson()).toList(),
+     'driverPerson': driverPerson.map((e) => e.toJson()).toList(),
+     'reportingPerson': reportingPerson?.toJson(),
+     'crewMemberPerson': crewMemberPerson.map((e) => e.toJson()).toList(),
+     'securityOfficerPerson': securityOfficerPerson?.toJson(),
+     'masterPerson': masterPerson?.toJson(),
+     'shipsSurgeonPerson': shipsSurgeonPerson?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

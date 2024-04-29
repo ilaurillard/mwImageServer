@@ -1,9 +1,10 @@
-import '../cac/IdentificationID.dart';
-import '../cac/OccurrenceDate.dart';
-import '../cac/OccurrenceTime.dart';
-import '../cac/TransportEventTypeCode.dart';
-import '../cac/Description.dart';
-import '../cac/CompletionIndicator.dart';
+import 'dart:convert';
+import '../cbc/IdentificationID.dart';
+import '../cbc/OccurrenceDate.dart';
+import '../cbc/OccurrenceTime.dart';
+import '../cbc/TransportEventTypeCode.dart';
+import '../cbc/Description.dart';
+import '../cbc/CompletionIndicator.dart';
 import '../cac/ReportedShipment.dart';
 import '../cac/CurrentStatus.dart';
 import '../cac/Contact.dart';
@@ -65,5 +66,26 @@ class ActualWaypointTransportEvent {
     this.signature,
     this.period = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'identificationID': identificationID?.toJson(),
+     'occurrenceDate': occurrenceDate?.toJson(),
+     'occurrenceTime': occurrenceTime?.toJson(),
+     'transportEventTypeCode': transportEventTypeCode?.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+     'completionIndicator': completionIndicator?.toJson(),
+     'reportedShipment': reportedShipment?.toJson(),
+     'currentStatus': currentStatus.map((e) => e.toJson()).toList(),
+     'contact': contact.map((e) => e.toJson()).toList(),
+     'location': location?.toJson(),
+     'signature': signature?.toJson(),
+     'period': period.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

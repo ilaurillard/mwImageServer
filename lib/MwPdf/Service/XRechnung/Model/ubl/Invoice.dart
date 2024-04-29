@@ -1,57 +1,58 @@
-import '../ubl/UBLExtensions.dart';
-import '../ubl/UBLVersionID.dart';
-import '../ubl/CustomizationID.dart';
-import '../ubl/ProfileID.dart';
-import '../ubl/ProfileExecutionID.dart';
-import '../ubl/ID.dart';
-import '../ubl/CopyIndicator.dart';
-import '../ubl/UUID.dart';
-import '../ubl/IssueDate.dart';
-import '../ubl/IssueTime.dart';
-import '../ubl/DueDate.dart';
-import '../ubl/InvoiceTypeCode.dart';
-import '../ubl/Note.dart';
-import '../ubl/TaxPointDate.dart';
-import '../ubl/DocumentCurrencyCode.dart';
-import '../ubl/TaxCurrencyCode.dart';
-import '../ubl/PricingCurrencyCode.dart';
-import '../ubl/PaymentCurrencyCode.dart';
-import '../ubl/PaymentAlternativeCurrencyCode.dart';
-import '../ubl/AccountingCostCode.dart';
-import '../ubl/AccountingCost.dart';
-import '../ubl/LineCountNumeric.dart';
-import '../ubl/BuyerReference.dart';
-import '../ubl/InvoicePeriod.dart';
-import '../ubl/OrderReference.dart';
-import '../ubl/BillingReference.dart';
-import '../ubl/DespatchDocumentReference.dart';
-import '../ubl/ReceiptDocumentReference.dart';
-import '../ubl/StatementDocumentReference.dart';
-import '../ubl/OriginatorDocumentReference.dart';
-import '../ubl/ContractDocumentReference.dart';
-import '../ubl/AdditionalDocumentReference.dart';
-import '../ubl/ProjectReference.dart';
-import '../ubl/Signature.dart';
-import '../ubl/AccountingSupplierParty.dart';
-import '../ubl/AccountingCustomerParty.dart';
-import '../ubl/PayeeParty.dart';
-import '../ubl/BuyerCustomerParty.dart';
-import '../ubl/SellerSupplierParty.dart';
-import '../ubl/TaxRepresentativeParty.dart';
-import '../ubl/Delivery.dart';
-import '../ubl/DeliveryTerms.dart';
-import '../ubl/PaymentMeans.dart';
-import '../ubl/PaymentTerms.dart';
-import '../ubl/PrepaidPayment.dart';
-import '../ubl/AllowanceCharge.dart';
-import '../ubl/TaxExchangeRate.dart';
-import '../ubl/PricingExchangeRate.dart';
-import '../ubl/PaymentExchangeRate.dart';
-import '../ubl/PaymentAlternativeExchangeRate.dart';
-import '../ubl/TaxTotal.dart';
-import '../ubl/WithholdingTaxTotal.dart';
-import '../ubl/LegalMonetaryTotal.dart';
-import '../ubl/InvoiceLine.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/IssueDate.dart';
+import '../cac/AccountingSupplierParty.dart';
+import '../cac/AccountingCustomerParty.dart';
+import '../cac/LegalMonetaryTotal.dart';
+import '../cac/InvoiceLine.dart';
+import '../ext/UBLExtensions.dart';
+import '../cbc/UBLVersionID.dart';
+import '../cbc/CustomizationID.dart';
+import '../cbc/ProfileID.dart';
+import '../cbc/ProfileExecutionID.dart';
+import '../cbc/CopyIndicator.dart';
+import '../cbc/UUID.dart';
+import '../cbc/IssueTime.dart';
+import '../cbc/DueDate.dart';
+import '../cbc/InvoiceTypeCode.dart';
+import '../cbc/Note.dart';
+import '../cbc/TaxPointDate.dart';
+import '../cbc/DocumentCurrencyCode.dart';
+import '../cbc/TaxCurrencyCode.dart';
+import '../cbc/PricingCurrencyCode.dart';
+import '../cbc/PaymentCurrencyCode.dart';
+import '../cbc/PaymentAlternativeCurrencyCode.dart';
+import '../cbc/AccountingCostCode.dart';
+import '../cbc/AccountingCost.dart';
+import '../cbc/LineCountNumeric.dart';
+import '../cbc/BuyerReference.dart';
+import '../cac/InvoicePeriod.dart';
+import '../cac/OrderReference.dart';
+import '../cac/BillingReference.dart';
+import '../cac/DespatchDocumentReference.dart';
+import '../cac/ReceiptDocumentReference.dart';
+import '../cac/StatementDocumentReference.dart';
+import '../cac/OriginatorDocumentReference.dart';
+import '../cac/ContractDocumentReference.dart';
+import '../cac/AdditionalDocumentReference.dart';
+import '../cac/ProjectReference.dart';
+import '../cac/Signature.dart';
+import '../cac/PayeeParty.dart';
+import '../cac/BuyerCustomerParty.dart';
+import '../cac/SellerSupplierParty.dart';
+import '../cac/TaxRepresentativeParty.dart';
+import '../cac/Delivery.dart';
+import '../cac/DeliveryTerms.dart';
+import '../cac/PaymentMeans.dart';
+import '../cac/PaymentTerms.dart';
+import '../cac/PrepaidPayment.dart';
+import '../cac/AllowanceCharge.dart';
+import '../cac/TaxExchangeRate.dart';
+import '../cac/PricingExchangeRate.dart';
+import '../cac/PaymentExchangeRate.dart';
+import '../cac/PaymentAlternativeExchangeRate.dart';
+import '../cac/TaxTotal.dart';
+import '../cac/WithholdingTaxTotal.dart';
 
 // A document used to request payment.
 class Invoice {
@@ -275,6 +276,70 @@ class Invoice {
     this.taxTotal = const [],
     this.withholdingTaxTotal = const [],
   }) {
-    assert(invoiceLine.isNotEmpty);  }
+    assert(invoiceLine.isNotEmpty);
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'uBLExtensions': uBLExtensions?.toJson(),
+     'uBLVersionID': uBLVersionID?.toJson(),
+     'customizationID': customizationID?.toJson(),
+     'profileID': profileID?.toJson(),
+     'profileExecutionID': profileExecutionID?.toJson(),
+     'iD': iD.toJson(),
+     'copyIndicator': copyIndicator?.toJson(),
+     'uUID': uUID?.toJson(),
+     'issueDate': issueDate.toJson(),
+     'issueTime': issueTime?.toJson(),
+     'dueDate': dueDate?.toJson(),
+     'invoiceTypeCode': invoiceTypeCode?.toJson(),
+     'note': note.map((e) => e.toJson()).toList(),
+     'taxPointDate': taxPointDate?.toJson(),
+     'documentCurrencyCode': documentCurrencyCode?.toJson(),
+     'taxCurrencyCode': taxCurrencyCode?.toJson(),
+     'pricingCurrencyCode': pricingCurrencyCode?.toJson(),
+     'paymentCurrencyCode': paymentCurrencyCode?.toJson(),
+     'paymentAlternativeCurrencyCode': paymentAlternativeCurrencyCode?.toJson(),
+     'accountingCostCode': accountingCostCode?.toJson(),
+     'accountingCost': accountingCost?.toJson(),
+     'lineCountNumeric': lineCountNumeric?.toJson(),
+     'buyerReference': buyerReference?.toJson(),
+     'invoicePeriod': invoicePeriod.map((e) => e.toJson()).toList(),
+     'orderReference': orderReference?.toJson(),
+     'billingReference': billingReference.map((e) => e.toJson()).toList(),
+     'despatchDocumentReference': despatchDocumentReference.map((e) => e.toJson()).toList(),
+     'receiptDocumentReference': receiptDocumentReference.map((e) => e.toJson()).toList(),
+     'statementDocumentReference': statementDocumentReference.map((e) => e.toJson()).toList(),
+     'originatorDocumentReference': originatorDocumentReference.map((e) => e.toJson()).toList(),
+     'contractDocumentReference': contractDocumentReference.map((e) => e.toJson()).toList(),
+     'additionalDocumentReference': additionalDocumentReference.map((e) => e.toJson()).toList(),
+     'projectReference': projectReference.map((e) => e.toJson()).toList(),
+     'signature': signature.map((e) => e.toJson()).toList(),
+     'accountingSupplierParty': accountingSupplierParty.toJson(),
+     'accountingCustomerParty': accountingCustomerParty.toJson(),
+     'payeeParty': payeeParty?.toJson(),
+     'buyerCustomerParty': buyerCustomerParty?.toJson(),
+     'sellerSupplierParty': sellerSupplierParty?.toJson(),
+     'taxRepresentativeParty': taxRepresentativeParty?.toJson(),
+     'delivery': delivery.map((e) => e.toJson()).toList(),
+     'deliveryTerms': deliveryTerms?.toJson(),
+     'paymentMeans': paymentMeans.map((e) => e.toJson()).toList(),
+     'paymentTerms': paymentTerms.map((e) => e.toJson()).toList(),
+     'prepaidPayment': prepaidPayment.map((e) => e.toJson()).toList(),
+     'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
+     'taxExchangeRate': taxExchangeRate?.toJson(),
+     'pricingExchangeRate': pricingExchangeRate?.toJson(),
+     'paymentExchangeRate': paymentExchangeRate?.toJson(),
+     'paymentAlternativeExchangeRate': paymentAlternativeExchangeRate?.toJson(),
+     'taxTotal': taxTotal.map((e) => e.toJson()).toList(),
+     'withholdingTaxTotal': withholdingTaxTotal.map((e) => e.toJson()).toList(),
+     'legalMonetaryTotal': legalMonetaryTotal.toJson(),
+     'invoiceLine': invoiceLine.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

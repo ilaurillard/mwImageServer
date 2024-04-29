@@ -1,14 +1,15 @@
-import '../cac/PrimaryAccountNumberID.dart';
-import '../cac/NetworkID.dart';
-import '../cac/CardTypeCode.dart';
-import '../cac/ValidityStartDate.dart';
-import '../cac/ExpiryDate.dart';
-import '../cac/IssuerID.dart';
-import '../cac/IssueNumberID.dart';
-import '../cac/CV2ID.dart';
-import '../cac/CardChipCode.dart';
-import '../cac/ChipApplicationID.dart';
-import '../cac/HolderName.dart';
+import 'dart:convert';
+import '../cbc/PrimaryAccountNumberID.dart';
+import '../cbc/NetworkID.dart';
+import '../cbc/CardTypeCode.dart';
+import '../cbc/ValidityStartDate.dart';
+import '../cbc/ExpiryDate.dart';
+import '../cbc/IssuerID.dart';
+import '../cbc/IssueNumberID.dart';
+import '../cbc/CV2ID.dart';
+import '../cbc/CardChipCode.dart';
+import '../cbc/ChipApplicationID.dart';
+import '../cbc/HolderName.dart';
 
 // A class to define a credit card, debit card, or charge card account.
 class CardAccount {
@@ -60,5 +61,25 @@ class CardAccount {
     this.chipApplicationID,
     this.holderName,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'primaryAccountNumberID': primaryAccountNumberID.toJson(),
+     'networkID': networkID.toJson(),
+     'cardTypeCode': cardTypeCode?.toJson(),
+     'validityStartDate': validityStartDate?.toJson(),
+     'expiryDate': expiryDate?.toJson(),
+     'issuerID': issuerID?.toJson(),
+     'issueNumberID': issueNumberID?.toJson(),
+     'cV2ID': cV2ID?.toJson(),
+     'cardChipCode': cardChipCode?.toJson(),
+     'chipApplicationID': chipApplicationID?.toJson(),
+     'holderName': holderName?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

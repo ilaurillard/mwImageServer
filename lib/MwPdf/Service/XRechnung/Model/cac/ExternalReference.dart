@@ -1,14 +1,15 @@
-import '../cac/URI.dart';
-import '../cac/DocumentHash.dart';
-import '../cac/HashAlgorithmMethod.dart';
-import '../cac/ExpiryDate.dart';
-import '../cac/ExpiryTime.dart';
-import '../cac/MimeCode.dart';
-import '../cac/FormatCode.dart';
-import '../cac/EncodingCode.dart';
-import '../cac/CharacterSetCode.dart';
-import '../cac/FileName.dart';
-import '../cac/Description.dart';
+import 'dart:convert';
+import '../cbc/URI.dart';
+import '../cbc/DocumentHash.dart';
+import '../cbc/HashAlgorithmMethod.dart';
+import '../cbc/ExpiryDate.dart';
+import '../cbc/ExpiryTime.dart';
+import '../cbc/MimeCode.dart';
+import '../cbc/FormatCode.dart';
+import '../cbc/EncodingCode.dart';
+import '../cbc/CharacterSetCode.dart';
+import '../cbc/FileName.dart';
+import '../cbc/Description.dart';
 
 // A class to describe an external object, such as a document stored at a remote location.
 class ExternalReference {
@@ -60,5 +61,25 @@ class ExternalReference {
     this.fileName,
     this.description = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'uRI': uRI?.toJson(),
+     'documentHash': documentHash?.toJson(),
+     'hashAlgorithmMethod': hashAlgorithmMethod?.toJson(),
+     'expiryDate': expiryDate?.toJson(),
+     'expiryTime': expiryTime?.toJson(),
+     'mimeCode': mimeCode?.toJson(),
+     'formatCode': formatCode?.toJson(),
+     'encodingCode': encodingCode?.toJson(),
+     'characterSetCode': characterSetCode?.toJson(),
+     'fileName': fileName?.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

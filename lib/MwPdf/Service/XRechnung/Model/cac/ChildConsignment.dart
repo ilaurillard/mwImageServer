@@ -1,58 +1,59 @@
-import '../cac/ID.dart';
-import '../cac/CarrierAssignedID.dart';
-import '../cac/ConsigneeAssignedID.dart';
-import '../cac/ConsignorAssignedID.dart';
-import '../cac/FreightForwarderAssignedID.dart';
-import '../cac/BrokerAssignedID.dart';
-import '../cac/ContractedCarrierAssignedID.dart';
-import '../cac/PerformingCarrierAssignedID.dart';
-import '../cac/SummaryDescription.dart';
-import '../cac/TotalInvoiceAmount.dart';
-import '../cac/DeclaredCustomsValueAmount.dart';
-import '../cac/TariffDescription.dart';
-import '../cac/TariffCode.dart';
-import '../cac/InsurancePremiumAmount.dart';
-import '../cac/GrossWeightMeasure.dart';
-import '../cac/NetWeightMeasure.dart';
-import '../cac/NetNetWeightMeasure.dart';
-import '../cac/ChargeableWeightMeasure.dart';
-import '../cac/GrossVolumeMeasure.dart';
-import '../cac/NetVolumeMeasure.dart';
-import '../cac/LoadingLengthMeasure.dart';
-import '../cac/Remarks.dart';
-import '../cac/HazardousRiskIndicator.dart';
-import '../cac/AnimalFoodIndicator.dart';
-import '../cac/HumanFoodIndicator.dart';
-import '../cac/LivestockIndicator.dart';
-import '../cac/BulkCargoIndicator.dart';
-import '../cac/ContainerizedIndicator.dart';
-import '../cac/GeneralCargoIndicator.dart';
-import '../cac/SpecialSecurityIndicator.dart';
-import '../cac/ThirdPartyPayerIndicator.dart';
-import '../cac/CarrierServiceInstructions.dart';
-import '../cac/CustomsClearanceServiceInstructions.dart';
-import '../cac/ForwarderServiceInstructions.dart';
-import '../cac/SpecialServiceInstructions.dart';
-import '../cac/SequenceID.dart';
-import '../cac/ShippingPriorityLevelCode.dart';
-import '../cac/HandlingCode.dart';
-import '../cac/HandlingInstructions.dart';
-import '../cac/Information.dart';
-import '../cac/TotalGoodsItemQuantity.dart';
-import '../cac/TotalTransportHandlingUnitQuantity.dart';
-import '../cac/InsuranceValueAmount.dart';
-import '../cac/DeclaredForCarriageValueAmount.dart';
-import '../cac/DeclaredStatisticsValueAmount.dart';
-import '../cac/FreeOnBoardValueAmount.dart';
-import '../cac/SpecialInstructions.dart';
-import '../cac/SplitConsignmentIndicator.dart';
-import '../cac/DeliveryInstructions.dart';
-import '../cac/ConsignmentQuantity.dart';
-import '../cac/ConsolidatableIndicator.dart';
-import '../cac/HaulageInstructions.dart';
-import '../cac/LoadingSequenceID.dart';
-import '../cac/ChildConsignmentQuantity.dart';
-import '../cac/TotalPackagesQuantity.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/CarrierAssignedID.dart';
+import '../cbc/ConsigneeAssignedID.dart';
+import '../cbc/ConsignorAssignedID.dart';
+import '../cbc/FreightForwarderAssignedID.dart';
+import '../cbc/BrokerAssignedID.dart';
+import '../cbc/ContractedCarrierAssignedID.dart';
+import '../cbc/PerformingCarrierAssignedID.dart';
+import '../cbc/SummaryDescription.dart';
+import '../cbc/TotalInvoiceAmount.dart';
+import '../cbc/DeclaredCustomsValueAmount.dart';
+import '../cbc/TariffDescription.dart';
+import '../cbc/TariffCode.dart';
+import '../cbc/InsurancePremiumAmount.dart';
+import '../cbc/GrossWeightMeasure.dart';
+import '../cbc/NetWeightMeasure.dart';
+import '../cbc/NetNetWeightMeasure.dart';
+import '../cbc/ChargeableWeightMeasure.dart';
+import '../cbc/GrossVolumeMeasure.dart';
+import '../cbc/NetVolumeMeasure.dart';
+import '../cbc/LoadingLengthMeasure.dart';
+import '../cbc/Remarks.dart';
+import '../cbc/HazardousRiskIndicator.dart';
+import '../cbc/AnimalFoodIndicator.dart';
+import '../cbc/HumanFoodIndicator.dart';
+import '../cbc/LivestockIndicator.dart';
+import '../cbc/BulkCargoIndicator.dart';
+import '../cbc/ContainerizedIndicator.dart';
+import '../cbc/GeneralCargoIndicator.dart';
+import '../cbc/SpecialSecurityIndicator.dart';
+import '../cbc/ThirdPartyPayerIndicator.dart';
+import '../cbc/CarrierServiceInstructions.dart';
+import '../cbc/CustomsClearanceServiceInstructions.dart';
+import '../cbc/ForwarderServiceInstructions.dart';
+import '../cbc/SpecialServiceInstructions.dart';
+import '../cbc/SequenceID.dart';
+import '../cbc/ShippingPriorityLevelCode.dart';
+import '../cbc/HandlingCode.dart';
+import '../cbc/HandlingInstructions.dart';
+import '../cbc/Information.dart';
+import '../cbc/TotalGoodsItemQuantity.dart';
+import '../cbc/TotalTransportHandlingUnitQuantity.dart';
+import '../cbc/InsuranceValueAmount.dart';
+import '../cbc/DeclaredForCarriageValueAmount.dart';
+import '../cbc/DeclaredStatisticsValueAmount.dart';
+import '../cbc/FreeOnBoardValueAmount.dart';
+import '../cbc/SpecialInstructions.dart';
+import '../cbc/SplitConsignmentIndicator.dart';
+import '../cbc/DeliveryInstructions.dart';
+import '../cbc/ConsignmentQuantity.dart';
+import '../cbc/ConsolidatableIndicator.dart';
+import '../cbc/HaulageInstructions.dart';
+import '../cbc/LoadingSequenceID.dart';
+import '../cbc/ChildConsignmentQuantity.dart';
+import '../cbc/TotalPackagesQuantity.dart';
 import '../cac/ConsolidatedShipment.dart';
 import '../cac/CustomsDeclaration.dart';
 import '../cac/RequestedPickupTransportEvent.dart';
@@ -60,7 +61,6 @@ import '../cac/RequestedDeliveryTransportEvent.dart';
 import '../cac/PlannedPickupTransportEvent.dart';
 import '../cac/PlannedDeliveryTransportEvent.dart';
 import '../cac/Status.dart';
-import '../cac/ChildConsignment.dart';
 import '../cac/ConsigneeParty.dart';
 import '../cac/ExporterParty.dart';
 import '../cac/ConsignorParty.dart';
@@ -505,5 +505,114 @@ class ChildConsignment {
     this.firstArrivalPortLocation,
     this.lastExitPortLocation,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'carrierAssignedID': carrierAssignedID?.toJson(),
+     'consigneeAssignedID': consigneeAssignedID?.toJson(),
+     'consignorAssignedID': consignorAssignedID?.toJson(),
+     'freightForwarderAssignedID': freightForwarderAssignedID?.toJson(),
+     'brokerAssignedID': brokerAssignedID?.toJson(),
+     'contractedCarrierAssignedID': contractedCarrierAssignedID?.toJson(),
+     'performingCarrierAssignedID': performingCarrierAssignedID?.toJson(),
+     'summaryDescription': summaryDescription.map((e) => e.toJson()).toList(),
+     'totalInvoiceAmount': totalInvoiceAmount?.toJson(),
+     'declaredCustomsValueAmount': declaredCustomsValueAmount?.toJson(),
+     'tariffDescription': tariffDescription.map((e) => e.toJson()).toList(),
+     'tariffCode': tariffCode?.toJson(),
+     'insurancePremiumAmount': insurancePremiumAmount?.toJson(),
+     'grossWeightMeasure': grossWeightMeasure?.toJson(),
+     'netWeightMeasure': netWeightMeasure?.toJson(),
+     'netNetWeightMeasure': netNetWeightMeasure?.toJson(),
+     'chargeableWeightMeasure': chargeableWeightMeasure?.toJson(),
+     'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
+     'netVolumeMeasure': netVolumeMeasure?.toJson(),
+     'loadingLengthMeasure': loadingLengthMeasure?.toJson(),
+     'remarks': remarks.map((e) => e.toJson()).toList(),
+     'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+     'animalFoodIndicator': animalFoodIndicator?.toJson(),
+     'humanFoodIndicator': humanFoodIndicator?.toJson(),
+     'livestockIndicator': livestockIndicator?.toJson(),
+     'bulkCargoIndicator': bulkCargoIndicator?.toJson(),
+     'containerizedIndicator': containerizedIndicator?.toJson(),
+     'generalCargoIndicator': generalCargoIndicator?.toJson(),
+     'specialSecurityIndicator': specialSecurityIndicator?.toJson(),
+     'thirdPartyPayerIndicator': thirdPartyPayerIndicator?.toJson(),
+     'carrierServiceInstructions': carrierServiceInstructions.map((e) => e.toJson()).toList(),
+     'customsClearanceServiceInstructions': customsClearanceServiceInstructions.map((e) => e.toJson()).toList(),
+     'forwarderServiceInstructions': forwarderServiceInstructions.map((e) => e.toJson()).toList(),
+     'specialServiceInstructions': specialServiceInstructions.map((e) => e.toJson()).toList(),
+     'sequenceID': sequenceID?.toJson(),
+     'shippingPriorityLevelCode': shippingPriorityLevelCode?.toJson(),
+     'handlingCode': handlingCode?.toJson(),
+     'handlingInstructions': handlingInstructions.map((e) => e.toJson()).toList(),
+     'information': information.map((e) => e.toJson()).toList(),
+     'totalGoodsItemQuantity': totalGoodsItemQuantity?.toJson(),
+     'totalTransportHandlingUnitQuantity': totalTransportHandlingUnitQuantity?.toJson(),
+     'insuranceValueAmount': insuranceValueAmount?.toJson(),
+     'declaredForCarriageValueAmount': declaredForCarriageValueAmount?.toJson(),
+     'declaredStatisticsValueAmount': declaredStatisticsValueAmount?.toJson(),
+     'freeOnBoardValueAmount': freeOnBoardValueAmount?.toJson(),
+     'specialInstructions': specialInstructions.map((e) => e.toJson()).toList(),
+     'splitConsignmentIndicator': splitConsignmentIndicator?.toJson(),
+     'deliveryInstructions': deliveryInstructions.map((e) => e.toJson()).toList(),
+     'consignmentQuantity': consignmentQuantity?.toJson(),
+     'consolidatableIndicator': consolidatableIndicator?.toJson(),
+     'haulageInstructions': haulageInstructions.map((e) => e.toJson()).toList(),
+     'loadingSequenceID': loadingSequenceID?.toJson(),
+     'childConsignmentQuantity': childConsignmentQuantity?.toJson(),
+     'totalPackagesQuantity': totalPackagesQuantity?.toJson(),
+     'consolidatedShipment': consolidatedShipment.map((e) => e.toJson()).toList(),
+     'customsDeclaration': customsDeclaration.map((e) => e.toJson()).toList(),
+     'requestedPickupTransportEvent': requestedPickupTransportEvent?.toJson(),
+     'requestedDeliveryTransportEvent': requestedDeliveryTransportEvent?.toJson(),
+     'plannedPickupTransportEvent': plannedPickupTransportEvent?.toJson(),
+     'plannedDeliveryTransportEvent': plannedDeliveryTransportEvent?.toJson(),
+     'status': status.map((e) => e.toJson()).toList(),
+     'childConsignment': childConsignment.map((e) => e.toJson()).toList(),
+     'consigneeParty': consigneeParty?.toJson(),
+     'exporterParty': exporterParty?.toJson(),
+     'consignorParty': consignorParty?.toJson(),
+     'importerParty': importerParty?.toJson(),
+     'carrierParty': carrierParty?.toJson(),
+     'freightForwarderParty': freightForwarderParty?.toJson(),
+     'notifyParty': notifyParty?.toJson(),
+     'originalDespatchParty': originalDespatchParty?.toJson(),
+     'finalDeliveryParty': finalDeliveryParty?.toJson(),
+     'performingCarrierParty': performingCarrierParty?.toJson(),
+     'substituteCarrierParty': substituteCarrierParty?.toJson(),
+     'logisticsOperatorParty': logisticsOperatorParty?.toJson(),
+     'transportAdvisorParty': transportAdvisorParty?.toJson(),
+     'hazardousItemNotificationParty': hazardousItemNotificationParty?.toJson(),
+     'insuranceParty': insuranceParty?.toJson(),
+     'mortgageHolderParty': mortgageHolderParty?.toJson(),
+     'billOfLadingHolderParty': billOfLadingHolderParty?.toJson(),
+     'originalDepartureCountry': originalDepartureCountry?.toJson(),
+     'finalDestinationCountry': finalDestinationCountry?.toJson(),
+     'transitCountry': transitCountry.map((e) => e.toJson()).toList(),
+     'transportContract': transportContract?.toJson(),
+     'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
+     'originalDespatchTransportationService': originalDespatchTransportationService?.toJson(),
+     'finalDeliveryTransportationService': finalDeliveryTransportationService?.toJson(),
+     'deliveryTerms': deliveryTerms?.toJson(),
+     'paymentTerms': paymentTerms?.toJson(),
+     'collectPaymentTerms': collectPaymentTerms?.toJson(),
+     'disbursementPaymentTerms': disbursementPaymentTerms?.toJson(),
+     'prepaidPaymentTerms': prepaidPaymentTerms?.toJson(),
+     'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
+     'extraAllowanceCharge': extraAllowanceCharge.map((e) => e.toJson()).toList(),
+     'mainCarriageShipmentStage': mainCarriageShipmentStage.map((e) => e.toJson()).toList(),
+     'preCarriageShipmentStage': preCarriageShipmentStage.map((e) => e.toJson()).toList(),
+     'onCarriageShipmentStage': onCarriageShipmentStage.map((e) => e.toJson()).toList(),
+     'transportHandlingUnit': transportHandlingUnit.map((e) => e.toJson()).toList(),
+     'firstArrivalPortLocation': firstArrivalPortLocation?.toJson(),
+     'lastExitPortLocation': lastExitPortLocation?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,4 +1,5 @@
-import '../cac/ID.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
 import '../cac/IssuerParty.dart';
 
 // A class describing identifiers or references relating to customs procedures.
@@ -15,5 +16,16 @@ class CustomsDeclaration {
     required this.iD,
     this.issuerParty,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'issuerParty': issuerParty?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

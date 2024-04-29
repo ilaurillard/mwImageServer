@@ -1,7 +1,6 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwXls/Engine/Model/State.dart';
 
-import 'Excel.dart';
 import 'Model/CellIndex.dart';
 import 'Model/CellStyle.dart';
 import 'Styles.dart';

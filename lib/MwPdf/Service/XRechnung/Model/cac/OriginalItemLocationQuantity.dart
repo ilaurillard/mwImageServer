@@ -1,8 +1,9 @@
-import '../cac/LeadTimeMeasure.dart';
-import '../cac/MinimumQuantity.dart';
-import '../cac/MaximumQuantity.dart';
-import '../cac/HazardousRiskIndicator.dart';
-import '../cac/TradingRestrictions.dart';
+import 'dart:convert';
+import '../cbc/LeadTimeMeasure.dart';
+import '../cbc/MinimumQuantity.dart';
+import '../cbc/MaximumQuantity.dart';
+import '../cbc/HazardousRiskIndicator.dart';
+import '../cbc/TradingRestrictions.dart';
 import '../cac/ApplicableTerritoryAddress.dart';
 import '../cac/Price.dart';
 import '../cac/DeliveryUnit.dart';
@@ -65,5 +66,26 @@ class OriginalItemLocationQuantity {
     this.allowanceCharge = const [],
     this.dependentPriceReference,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'leadTimeMeasure': leadTimeMeasure?.toJson(),
+     'minimumQuantity': minimumQuantity?.toJson(),
+     'maximumQuantity': maximumQuantity?.toJson(),
+     'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+     'tradingRestrictions': tradingRestrictions.map((e) => e.toJson()).toList(),
+     'applicableTerritoryAddress': applicableTerritoryAddress.map((e) => e.toJson()).toList(),
+     'price': price?.toJson(),
+     'deliveryUnit': deliveryUnit.map((e) => e.toJson()).toList(),
+     'applicableTaxCategory': applicableTaxCategory.map((e) => e.toJson()).toList(),
+     'package': package?.toJson(),
+     'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
+     'dependentPriceReference': dependentPriceReference?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

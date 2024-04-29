@@ -1,13 +1,14 @@
-import '../cac/ID.dart';
-import '../cac/TransportHandlingUnitTypeCode.dart';
-import '../cac/HandlingCode.dart';
-import '../cac/HandlingInstructions.dart';
-import '../cac/HazardousRiskIndicator.dart';
-import '../cac/TotalGoodsItemQuantity.dart';
-import '../cac/TotalPackageQuantity.dart';
-import '../cac/DamageRemarks.dart';
-import '../cac/ShippingMarks.dart';
-import '../cac/TraceID.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/TransportHandlingUnitTypeCode.dart';
+import '../cbc/HandlingCode.dart';
+import '../cbc/HandlingInstructions.dart';
+import '../cbc/HazardousRiskIndicator.dart';
+import '../cbc/TotalGoodsItemQuantity.dart';
+import '../cbc/TotalPackageQuantity.dart';
+import '../cbc/DamageRemarks.dart';
+import '../cbc/ShippingMarks.dart';
+import '../cbc/TraceID.dart';
 import '../cac/HandlingUnitDespatchLine.dart';
 import '../cac/ActualPackage.dart';
 import '../cac/ReceivedHandlingUnitReceiptLine.dart';
@@ -140,5 +141,41 @@ class TransportHandlingUnit {
     this.referencedShipment = const [],
     this.package = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'transportHandlingUnitTypeCode': transportHandlingUnitTypeCode?.toJson(),
+     'handlingCode': handlingCode?.toJson(),
+     'handlingInstructions': handlingInstructions.map((e) => e.toJson()).toList(),
+     'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+     'totalGoodsItemQuantity': totalGoodsItemQuantity?.toJson(),
+     'totalPackageQuantity': totalPackageQuantity?.toJson(),
+     'damageRemarks': damageRemarks.map((e) => e.toJson()).toList(),
+     'shippingMarks': shippingMarks.map((e) => e.toJson()).toList(),
+     'traceID': traceID?.toJson(),
+     'handlingUnitDespatchLine': handlingUnitDespatchLine.map((e) => e.toJson()).toList(),
+     'actualPackage': actualPackage.map((e) => e.toJson()).toList(),
+     'receivedHandlingUnitReceiptLine': receivedHandlingUnitReceiptLine.map((e) => e.toJson()).toList(),
+     'transportEquipment': transportEquipment.map((e) => e.toJson()).toList(),
+     'transportMeans': transportMeans.map((e) => e.toJson()).toList(),
+     'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
+     'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
+     'minimumTemperature': minimumTemperature?.toJson(),
+     'maximumTemperature': maximumTemperature?.toJson(),
+     'goodsItem': goodsItem.map((e) => e.toJson()).toList(),
+     'floorSpaceMeasurementDimension': floorSpaceMeasurementDimension?.toJson(),
+     'palletSpaceMeasurementDimension': palletSpaceMeasurementDimension?.toJson(),
+     'shipmentDocumentReference': shipmentDocumentReference.map((e) => e.toJson()).toList(),
+     'status': status.map((e) => e.toJson()).toList(),
+     'customsDeclaration': customsDeclaration.map((e) => e.toJson()).toList(),
+     'referencedShipment': referencedShipment.map((e) => e.toJson()).toList(),
+     'package': package.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

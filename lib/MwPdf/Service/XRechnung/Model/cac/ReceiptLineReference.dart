@@ -1,6 +1,7 @@
-import '../cac/LineID.dart';
-import '../cac/UUID.dart';
-import '../cac/LineStatusCode.dart';
+import 'dart:convert';
+import '../cbc/LineID.dart';
+import '../cbc/UUID.dart';
+import '../cbc/LineStatusCode.dart';
 import '../cac/DocumentReference.dart';
 
 // A class to define a reference to a line in a document.
@@ -25,5 +26,18 @@ class ReceiptLineReference {
     this.lineStatusCode,
     this.documentReference,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'lineID': lineID.toJson(),
+     'uUID': uUID?.toJson(),
+     'lineStatusCode': lineStatusCode?.toJson(),
+     'documentReference': documentReference?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

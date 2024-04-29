@@ -1,5 +1,6 @@
-import '../cac/ID.dart';
-import '../cac/Name.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Name.dart';
 import '../cac/FinancialInstitution.dart';
 import '../cac/Address.dart';
 
@@ -25,5 +26,18 @@ class FinancialInstitutionBranch {
     this.financialInstitution,
     this.address,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'name': name?.toJson(),
+     'financialInstitution': financialInstitution?.toJson(),
+     'address': address?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -444,12 +444,13 @@ class Chart {
     } else {
       values = {0: '0.0', 5: '5.0', 10: '10.0'};
 
-      for (pw.Dataset set in datasets.whereType<pw.PointDataSet>()) {
-        pw.PointDataSet s2 = set as pw.PointDataSet;
-        for (pw.PointChartValue e in s2.data) {
+      // for (pw.Dataset set in datasets.whereType<pw.PointDataSet>()) {
+        // pw.PointDataSet s2 = set as pw.PointDataSet;
+        // TODO
+        // for (pw.PointChartValue e in s2.data) {
           //values[e.x] = e.x.toString();
-        }
-      }
+        // }
+      // }
     }
 
     return values;

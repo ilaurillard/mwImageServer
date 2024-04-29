@@ -1,5 +1,6 @@
-import '../ext/ID.dart';
-import '../ext/Name.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Name.dart';
 import '../ext/ExtensionAgencyID.dart';
 import '../ext/ExtensionAgencyName.dart';
 import '../ext/ExtensionVersionID.dart';
@@ -54,5 +55,24 @@ class UBLExtension {
     this.extensionReasonCode,
     this.extensionReason,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'name': name?.toJson(),
+     'extensionAgencyID': extensionAgencyID?.toJson(),
+     'extensionAgencyName': extensionAgencyName?.toJson(),
+     'extensionVersionID': extensionVersionID?.toJson(),
+     'extensionAgencyURI': extensionAgencyURI?.toJson(),
+     'extensionURI': extensionURI?.toJson(),
+     'extensionReasonCode': extensionReasonCode?.toJson(),
+     'extensionReason': extensionReason?.toJson(),
+     'extensionContent': extensionContent.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,8 +1,9 @@
-import '../cac/ID.dart';
-import '../cac/SpecialTerms.dart';
-import '../cac/LossRiskResponsibilityCode.dart';
-import '../cac/LossRisk.dart';
-import '../cac/Amount.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/SpecialTerms.dart';
+import '../cbc/LossRiskResponsibilityCode.dart';
+import '../cbc/LossRisk.dart';
+import '../cbc/Amount.dart';
 import '../cac/DeliveryLocation.dart';
 import '../cac/AllowanceCharge.dart';
 
@@ -40,5 +41,21 @@ class DeliveryTerms {
     this.deliveryLocation,
     this.allowanceCharge,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'specialTerms': specialTerms.map((e) => e.toJson()).toList(),
+     'lossRiskResponsibilityCode': lossRiskResponsibilityCode?.toJson(),
+     'lossRisk': lossRisk.map((e) => e.toJson()).toList(),
+     'amount': amount?.toJson(),
+     'deliveryLocation': deliveryLocation?.toJson(),
+     'allowanceCharge': allowanceCharge?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

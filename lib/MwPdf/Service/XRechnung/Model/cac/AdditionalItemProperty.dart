@@ -1,12 +1,13 @@
-import '../cac/ID.dart';
-import '../cac/Name.dart';
-import '../cac/NameCode.dart';
-import '../cac/TestMethod.dart';
-import '../cac/Value.dart';
-import '../cac/ValueQuantity.dart';
-import '../cac/ValueQualifier.dart';
-import '../cac/ImportanceCode.dart';
-import '../cac/ListValue.dart';
+import 'dart:convert';
+import '../cbc/Name.dart';
+import '../cbc/ID.dart';
+import '../cbc/NameCode.dart';
+import '../cbc/TestMethod.dart';
+import '../cbc/Value.dart';
+import '../cbc/ValueQuantity.dart';
+import '../cbc/ValueQualifier.dart';
+import '../cbc/ImportanceCode.dart';
+import '../cbc/ListValue.dart';
 import '../cac/UsabilityPeriod.dart';
 import '../cac/ItemPropertyGroup.dart';
 import '../cac/RangeDimension.dart';
@@ -70,5 +71,27 @@ class AdditionalItemProperty {
     this.rangeDimension,
     this.itemPropertyRange,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'name': name.toJson(),
+     'nameCode': nameCode?.toJson(),
+     'testMethod': testMethod?.toJson(),
+     'value': value?.toJson(),
+     'valueQuantity': valueQuantity?.toJson(),
+     'valueQualifier': valueQualifier.map((e) => e.toJson()).toList(),
+     'importanceCode': importanceCode?.toJson(),
+     'listValue': listValue.map((e) => e.toJson()).toList(),
+     'usabilityPeriod': usabilityPeriod?.toJson(),
+     'itemPropertyGroup': itemPropertyGroup.map((e) => e.toJson()).toList(),
+     'rangeDimension': rangeDimension?.toJson(),
+     'itemPropertyRange': itemPropertyRange?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

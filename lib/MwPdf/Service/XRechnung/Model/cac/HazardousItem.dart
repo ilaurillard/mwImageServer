@@ -1,20 +1,21 @@
-import '../cac/ID.dart';
-import '../cac/PlacardNotation.dart';
-import '../cac/PlacardEndorsement.dart';
-import '../cac/AdditionalInformation.dart';
-import '../cac/UNDGCode.dart';
-import '../cac/EmergencyProceduresCode.dart';
-import '../cac/MedicalFirstAidGuideCode.dart';
-import '../cac/TechnicalName.dart';
-import '../cac/CategoryName.dart';
-import '../cac/HazardousCategoryCode.dart';
-import '../cac/UpperOrangeHazardPlacardID.dart';
-import '../cac/LowerOrangeHazardPlacardID.dart';
-import '../cac/MarkingID.dart';
-import '../cac/HazardClassID.dart';
-import '../cac/NetWeightMeasure.dart';
-import '../cac/NetVolumeMeasure.dart';
-import '../cac/Quantity.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/PlacardNotation.dart';
+import '../cbc/PlacardEndorsement.dart';
+import '../cbc/AdditionalInformation.dart';
+import '../cbc/UNDGCode.dart';
+import '../cbc/EmergencyProceduresCode.dart';
+import '../cbc/MedicalFirstAidGuideCode.dart';
+import '../cbc/TechnicalName.dart';
+import '../cbc/CategoryName.dart';
+import '../cbc/HazardousCategoryCode.dart';
+import '../cbc/UpperOrangeHazardPlacardID.dart';
+import '../cbc/LowerOrangeHazardPlacardID.dart';
+import '../cbc/MarkingID.dart';
+import '../cbc/HazardClassID.dart';
+import '../cbc/NetWeightMeasure.dart';
+import '../cbc/NetVolumeMeasure.dart';
+import '../cbc/Quantity.dart';
 import '../cac/ContactParty.dart';
 import '../cac/SecondaryHazard.dart';
 import '../cac/HazardousGoodsTransit.dart';
@@ -120,5 +121,37 @@ class HazardousItem {
     this.flashpointTemperature,
     this.additionalTemperature = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'placardNotation': placardNotation?.toJson(),
+     'placardEndorsement': placardEndorsement?.toJson(),
+     'additionalInformation': additionalInformation.map((e) => e.toJson()).toList(),
+     'uNDGCode': uNDGCode?.toJson(),
+     'emergencyProceduresCode': emergencyProceduresCode?.toJson(),
+     'medicalFirstAidGuideCode': medicalFirstAidGuideCode?.toJson(),
+     'technicalName': technicalName?.toJson(),
+     'categoryName': categoryName?.toJson(),
+     'hazardousCategoryCode': hazardousCategoryCode?.toJson(),
+     'upperOrangeHazardPlacardID': upperOrangeHazardPlacardID?.toJson(),
+     'lowerOrangeHazardPlacardID': lowerOrangeHazardPlacardID?.toJson(),
+     'markingID': markingID?.toJson(),
+     'hazardClassID': hazardClassID?.toJson(),
+     'netWeightMeasure': netWeightMeasure?.toJson(),
+     'netVolumeMeasure': netVolumeMeasure?.toJson(),
+     'quantity': quantity?.toJson(),
+     'contactParty': contactParty?.toJson(),
+     'secondaryHazard': secondaryHazard.map((e) => e.toJson()).toList(),
+     'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
+     'emergencyTemperature': emergencyTemperature?.toJson(),
+     'flashpointTemperature': flashpointTemperature?.toJson(),
+     'additionalTemperature': additionalTemperature.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

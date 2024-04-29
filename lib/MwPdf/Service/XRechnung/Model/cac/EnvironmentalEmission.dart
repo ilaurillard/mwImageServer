@@ -1,6 +1,7 @@
-import '../cac/EnvironmentalEmissionTypeCode.dart';
-import '../cac/ValueMeasure.dart';
-import '../cac/Description.dart';
+import 'dart:convert';
+import '../cbc/EnvironmentalEmissionTypeCode.dart';
+import '../cbc/ValueMeasure.dart';
+import '../cbc/Description.dart';
 import '../cac/EmissionCalculationMethod.dart';
 
 // A class to describe an environmental emission.
@@ -25,5 +26,18 @@ class EnvironmentalEmission {
     this.description = const [],
     this.emissionCalculationMethod = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'environmentalEmissionTypeCode': environmentalEmissionTypeCode.toJson(),
+     'valueMeasure': valueMeasure.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+     'emissionCalculationMethod': emissionCalculationMethod.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

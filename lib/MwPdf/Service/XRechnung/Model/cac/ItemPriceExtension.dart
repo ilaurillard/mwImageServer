@@ -1,4 +1,5 @@
-import '../cac/Amount.dart';
+import 'dart:convert';
+import '../cbc/Amount.dart';
 import '../cac/TaxTotal.dart';
 
 // A class to describe a price extension, calculated by multiplying the price per unit by the quantity of items.
@@ -15,5 +16,16 @@ class ItemPriceExtension {
     required this.amount,
     this.taxTotal = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'amount': amount.toJson(),
+     'taxTotal': taxTotal.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

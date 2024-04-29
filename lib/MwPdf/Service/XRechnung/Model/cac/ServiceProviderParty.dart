@@ -1,7 +1,8 @@
-import '../cac/ID.dart';
-import '../cac/ServiceTypeCode.dart';
-import '../cac/ServiceType.dart';
+import 'dart:convert';
 import '../cac/Party.dart';
+import '../cbc/ID.dart';
+import '../cbc/ServiceTypeCode.dart';
+import '../cbc/ServiceType.dart';
 import '../cac/SellerContact.dart';
 
 // A class to describe a party contracting to provide services, such as transportation, finance, etc.
@@ -30,5 +31,19 @@ class ServiceProviderParty {
     this.serviceType = const [],
     this.sellerContact,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'serviceTypeCode': serviceTypeCode?.toJson(),
+     'serviceType': serviceType.map((e) => e.toJson()).toList(),
+     'party': party.toJson(),
+     'sellerContact': sellerContact?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

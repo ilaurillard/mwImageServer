@@ -1,10 +1,11 @@
-import '../cac/ID.dart';
-import '../cac/Note.dart';
-import '../cac/ValidationDate.dart';
-import '../cac/ValidationTime.dart';
-import '../cac/ValidatorID.dart';
-import '../cac/CanonicalizationMethod.dart';
-import '../cac/SignatureMethod.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Note.dart';
+import '../cbc/ValidationDate.dart';
+import '../cbc/ValidationTime.dart';
+import '../cbc/ValidatorID.dart';
+import '../cbc/CanonicalizationMethod.dart';
+import '../cbc/SignatureMethod.dart';
 import '../cac/SignatoryParty.dart';
 import '../cac/DigitalSignatureAttachment.dart';
 import '../cac/OriginalDocumentReference.dart';
@@ -55,5 +56,24 @@ class Signature {
     this.digitalSignatureAttachment,
     this.originalDocumentReference,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'note': note.map((e) => e.toJson()).toList(),
+     'validationDate': validationDate?.toJson(),
+     'validationTime': validationTime?.toJson(),
+     'validatorID': validatorID?.toJson(),
+     'canonicalizationMethod': canonicalizationMethod?.toJson(),
+     'signatureMethod': signatureMethod?.toJson(),
+     'signatoryParty': signatoryParty?.toJson(),
+     'digitalSignatureAttachment': digitalSignatureAttachment?.toJson(),
+     'originalDocumentReference': originalDocumentReference?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,8 +1,9 @@
-import '../cac/ID.dart';
-import '../cac/FinancingInstrumentCode.dart';
+import 'dart:convert';
+import '../cac/FinancingParty.dart';
+import '../cbc/ID.dart';
+import '../cbc/FinancingInstrumentCode.dart';
 import '../cac/ContractDocumentReference.dart';
 import '../cac/DocumentReference.dart';
-import '../cac/FinancingParty.dart';
 import '../cac/FinancingFinancialAccount.dart';
 import '../cac/Clause.dart';
 
@@ -40,5 +41,21 @@ class TradeFinancing {
     this.financingFinancialAccount,
     this.clause = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'financingInstrumentCode': financingInstrumentCode?.toJson(),
+     'contractDocumentReference': contractDocumentReference?.toJson(),
+     'documentReference': documentReference.map((e) => e.toJson()).toList(),
+     'financingParty': financingParty.toJson(),
+     'financingFinancialAccount': financingFinancialAccount?.toJson(),
+     'clause': clause.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -194,7 +194,7 @@ Future<Uint8List> generateCalendar(
   //Create a PDF document.
   final document = pw.Document();
   final date = DateTime.now();
-  String? bg;
+  // String? bg;
 
   switch (date.month) {
     case 12:

@@ -1,13 +1,14 @@
-import '../cac/ID.dart';
-import '../cac/Quantity.dart';
-import '../cac/MinimumQuantity.dart';
-import '../cac/MaximumQuantity.dart';
-import '../cac/ActualDeliveryDate.dart';
-import '../cac/ActualDeliveryTime.dart';
-import '../cac/LatestDeliveryDate.dart';
-import '../cac/LatestDeliveryTime.dart';
-import '../cac/ReleaseID.dart';
-import '../cac/TrackingID.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Quantity.dart';
+import '../cbc/MinimumQuantity.dart';
+import '../cbc/MaximumQuantity.dart';
+import '../cbc/ActualDeliveryDate.dart';
+import '../cbc/ActualDeliveryTime.dart';
+import '../cbc/LatestDeliveryDate.dart';
+import '../cbc/LatestDeliveryTime.dart';
+import '../cbc/ReleaseID.dart';
+import '../cbc/TrackingID.dart';
 import '../cac/DeliveryAddress.dart';
 import '../cac/DeliveryLocation.dart';
 import '../cac/AlternativeDeliveryLocation.dart';
@@ -125,5 +126,38 @@ class ContractualDelivery {
     this.maximumDeliveryUnit,
     this.shipment,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'quantity': quantity?.toJson(),
+     'minimumQuantity': minimumQuantity?.toJson(),
+     'maximumQuantity': maximumQuantity?.toJson(),
+     'actualDeliveryDate': actualDeliveryDate?.toJson(),
+     'actualDeliveryTime': actualDeliveryTime?.toJson(),
+     'latestDeliveryDate': latestDeliveryDate?.toJson(),
+     'latestDeliveryTime': latestDeliveryTime?.toJson(),
+     'releaseID': releaseID?.toJson(),
+     'trackingID': trackingID?.toJson(),
+     'deliveryAddress': deliveryAddress?.toJson(),
+     'deliveryLocation': deliveryLocation?.toJson(),
+     'alternativeDeliveryLocation': alternativeDeliveryLocation?.toJson(),
+     'requestedDeliveryPeriod': requestedDeliveryPeriod?.toJson(),
+     'promisedDeliveryPeriod': promisedDeliveryPeriod?.toJson(),
+     'estimatedDeliveryPeriod': estimatedDeliveryPeriod?.toJson(),
+     'carrierParty': carrierParty?.toJson(),
+     'deliveryParty': deliveryParty?.toJson(),
+     'notifyParty': notifyParty.map((e) => e.toJson()).toList(),
+     'despatch': despatch?.toJson(),
+     'deliveryTerms': deliveryTerms.map((e) => e.toJson()).toList(),
+     'minimumDeliveryUnit': minimumDeliveryUnit?.toJson(),
+     'maximumDeliveryUnit': maximumDeliveryUnit?.toJson(),
+     'shipment': shipment?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,6 +1,7 @@
-import '../cac/ID.dart';
-import '../cac/ActionCode.dart';
-import '../cac/Description.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/ActionCode.dart';
+import '../cbc/Description.dart';
 import '../cac/DocumentReference.dart';
 
 // A class to describe purchasing, sales, or payment conditions.
@@ -25,5 +26,18 @@ class TransactionConditions {
     this.description = const [],
     this.documentReference = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'actionCode': actionCode?.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+     'documentReference': documentReference.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

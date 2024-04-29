@@ -1,6 +1,7 @@
-import '../cac/ID.dart';
-import '../cac/Name.dart';
-import '../cac/CorporateRegistrationTypeCode.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/Name.dart';
+import '../cbc/CorporateRegistrationTypeCode.dart';
 import '../cac/JurisdictionRegionAddress.dart';
 
 // A class to describe a scheme for corporate registration.
@@ -25,5 +26,18 @@ class CorporateRegistrationScheme {
     this.corporateRegistrationTypeCode,
     this.jurisdictionRegionAddress = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'name': name?.toJson(),
+     'corporateRegistrationTypeCode': corporateRegistrationTypeCode?.toJson(),
+     'jurisdictionRegionAddress': jurisdictionRegionAddress.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

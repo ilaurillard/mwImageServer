@@ -1,7 +1,7 @@
-import '../cac/ID.dart';
-import '../cac/StatusCode.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/StatusCode.dart';
 import '../cac/ValidityPeriod.dart';
-import '../cac/PreviousPriceList.dart';
 
 // A class to describe a price list.
 class PreviousPriceList {
@@ -25,5 +25,18 @@ class PreviousPriceList {
     this.validityPeriod = const [],
     this.previousPriceList,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'statusCode': statusCode?.toJson(),
+     'validityPeriod': validityPeriod.map((e) => e.toJson()).toList(),
+     'previousPriceList': previousPriceList?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

@@ -1,4 +1,5 @@
-import '../cac/Percent.dart';
+import 'dart:convert';
+import '../cbc/Percent.dart';
 import '../cac/LocationAddress.dart';
 import '../cac/DependentLineReference.dart';
 
@@ -20,5 +21,17 @@ class DependentPriceReference {
     this.locationAddress,
     this.dependentLineReference,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'percent': percent?.toJson(),
+     'locationAddress': locationAddress?.toJson(),
+     'dependentLineReference': dependentLineReference?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

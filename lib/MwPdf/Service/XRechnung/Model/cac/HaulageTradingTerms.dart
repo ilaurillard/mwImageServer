@@ -1,5 +1,6 @@
-import '../cac/Information.dart';
-import '../cac/Reference.dart';
+import 'dart:convert';
+import '../cbc/Information.dart';
+import '../cbc/Reference.dart';
 import '../cac/ApplicableAddress.dart';
 
 // A class for describing the terms of a trade agreement.
@@ -20,5 +21,17 @@ class HaulageTradingTerms {
     this.reference,
     this.applicableAddress,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'information': information.map((e) => e.toJson()).toList(),
+     'reference': reference?.toJson(),
+     'applicableAddress': applicableAddress?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

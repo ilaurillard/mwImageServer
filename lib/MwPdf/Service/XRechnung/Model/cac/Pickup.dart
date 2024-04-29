@@ -1,10 +1,11 @@
-import '../cac/ID.dart';
-import '../cac/ActualPickupDate.dart';
-import '../cac/ActualPickupTime.dart';
-import '../cac/EarliestPickupDate.dart';
-import '../cac/EarliestPickupTime.dart';
-import '../cac/LatestPickupDate.dart';
-import '../cac/LatestPickupTime.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/ActualPickupDate.dart';
+import '../cbc/ActualPickupTime.dart';
+import '../cbc/EarliestPickupDate.dart';
+import '../cbc/EarliestPickupTime.dart';
+import '../cbc/LatestPickupDate.dart';
+import '../cbc/LatestPickupTime.dart';
 import '../cac/PickupLocation.dart';
 import '../cac/PickupParty.dart';
 
@@ -50,5 +51,23 @@ class Pickup {
     this.pickupLocation,
     this.pickupParty,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'actualPickupDate': actualPickupDate?.toJson(),
+     'actualPickupTime': actualPickupTime?.toJson(),
+     'earliestPickupDate': earliestPickupDate?.toJson(),
+     'earliestPickupTime': earliestPickupTime?.toJson(),
+     'latestPickupDate': latestPickupDate?.toJson(),
+     'latestPickupTime': latestPickupTime?.toJson(),
+     'pickupLocation': pickupLocation?.toJson(),
+     'pickupParty': pickupParty?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

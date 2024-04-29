@@ -1,18 +1,19 @@
-import '../cac/ID.dart';
-import '../cac/UUID.dart';
-import '../cac/Note.dart';
-import '../cac/ReceivedQuantity.dart';
-import '../cac/ShortQuantity.dart';
-import '../cac/ShortageActionCode.dart';
-import '../cac/RejectedQuantity.dart';
-import '../cac/RejectReasonCode.dart';
-import '../cac/RejectReason.dart';
-import '../cac/RejectActionCode.dart';
-import '../cac/QuantityDiscrepancyCode.dart';
-import '../cac/OversupplyQuantity.dart';
-import '../cac/ReceivedDate.dart';
-import '../cac/TimingComplaintCode.dart';
-import '../cac/TimingComplaint.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/UUID.dart';
+import '../cbc/Note.dart';
+import '../cbc/ReceivedQuantity.dart';
+import '../cbc/ShortQuantity.dart';
+import '../cbc/ShortageActionCode.dart';
+import '../cbc/RejectedQuantity.dart';
+import '../cbc/RejectReasonCode.dart';
+import '../cbc/RejectReason.dart';
+import '../cbc/RejectActionCode.dart';
+import '../cbc/QuantityDiscrepancyCode.dart';
+import '../cbc/OversupplyQuantity.dart';
+import '../cbc/ReceivedDate.dart';
+import '../cbc/TimingComplaintCode.dart';
+import '../cbc/TimingComplaint.dart';
 import '../cac/OrderLineReference.dart';
 import '../cac/DespatchLineReference.dart';
 import '../cac/DocumentReference.dart';
@@ -105,5 +106,34 @@ class ReceivedHandlingUnitReceiptLine {
     this.item = const [],
     this.shipment = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'uUID': uUID?.toJson(),
+     'note': note.map((e) => e.toJson()).toList(),
+     'receivedQuantity': receivedQuantity?.toJson(),
+     'shortQuantity': shortQuantity?.toJson(),
+     'shortageActionCode': shortageActionCode?.toJson(),
+     'rejectedQuantity': rejectedQuantity?.toJson(),
+     'rejectReasonCode': rejectReasonCode?.toJson(),
+     'rejectReason': rejectReason.map((e) => e.toJson()).toList(),
+     'rejectActionCode': rejectActionCode?.toJson(),
+     'quantityDiscrepancyCode': quantityDiscrepancyCode?.toJson(),
+     'oversupplyQuantity': oversupplyQuantity?.toJson(),
+     'receivedDate': receivedDate?.toJson(),
+     'timingComplaintCode': timingComplaintCode?.toJson(),
+     'timingComplaint': timingComplaint?.toJson(),
+     'orderLineReference': orderLineReference?.toJson(),
+     'despatchLineReference': despatchLineReference.map((e) => e.toJson()).toList(),
+     'documentReference': documentReference.map((e) => e.toJson()).toList(),
+     'item': item.map((e) => e.toJson()).toList(),
+     'shipment': shipment.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

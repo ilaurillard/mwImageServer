@@ -1,10 +1,11 @@
-import '../cac/StartDate.dart';
-import '../cac/StartTime.dart';
-import '../cac/EndDate.dart';
-import '../cac/EndTime.dart';
-import '../cac/DurationMeasure.dart';
-import '../cac/DescriptionCode.dart';
-import '../cac/Description.dart';
+import 'dart:convert';
+import '../cbc/StartDate.dart';
+import '../cbc/StartTime.dart';
+import '../cbc/EndDate.dart';
+import '../cbc/EndTime.dart';
+import '../cbc/DurationMeasure.dart';
+import '../cbc/DescriptionCode.dart';
+import '../cbc/Description.dart';
 
 // A class to describe a period of time.
 class EstimatedDespatchPeriod {
@@ -40,5 +41,21 @@ class EstimatedDespatchPeriod {
     this.descriptionCode = const [],
     this.description = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'startDate': startDate?.toJson(),
+     'startTime': startTime?.toJson(),
+     'endDate': endDate?.toJson(),
+     'endTime': endTime?.toJson(),
+     'durationMeasure': durationMeasure?.toJson(),
+     'descriptionCode': descriptionCode.map((e) => e.toJson()).toList(),
+     'description': description.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

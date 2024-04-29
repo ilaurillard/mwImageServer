@@ -1,14 +1,15 @@
-import '../cac/ConditionCode.dart';
-import '../cac/ReferenceDate.dart';
-import '../cac/ReferenceTime.dart';
-import '../cac/Description.dart';
-import '../cac/StatusReasonCode.dart';
-import '../cac/StatusReason.dart';
-import '../cac/SequenceID.dart';
-import '../cac/Text.dart';
-import '../cac/IndicationIndicator.dart';
-import '../cac/Percent.dart';
-import '../cac/ReliabilityPercent.dart';
+import 'dart:convert';
+import '../cbc/ConditionCode.dart';
+import '../cbc/ReferenceDate.dart';
+import '../cbc/ReferenceTime.dart';
+import '../cbc/Description.dart';
+import '../cbc/StatusReasonCode.dart';
+import '../cbc/StatusReason.dart';
+import '../cbc/SequenceID.dart';
+import '../cbc/Text.dart';
+import '../cbc/IndicationIndicator.dart';
+import '../cbc/Percent.dart';
+import '../cbc/ReliabilityPercent.dart';
 import '../cac/Condition.dart';
 
 // A class to describe the condition or position of an object.
@@ -65,5 +66,26 @@ class CurrentStatus {
     this.reliabilityPercent,
     this.condition = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'conditionCode': conditionCode?.toJson(),
+     'referenceDate': referenceDate?.toJson(),
+     'referenceTime': referenceTime?.toJson(),
+     'description': description.map((e) => e.toJson()).toList(),
+     'statusReasonCode': statusReasonCode?.toJson(),
+     'statusReason': statusReason.map((e) => e.toJson()).toList(),
+     'sequenceID': sequenceID?.toJson(),
+     'text': text.map((e) => e.toJson()).toList(),
+     'indicationIndicator': indicationIndicator?.toJson(),
+     'percent': percent?.toJson(),
+     'reliabilityPercent': reliabilityPercent?.toJson(),
+     'condition': condition.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

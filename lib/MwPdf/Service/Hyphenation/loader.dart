@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:path/path.dart';
-
 // see https://tug.org/tex-hyphen/
 // see https://github.com/hyphenation/tex-hyphen/tree/master/hyph-utf8/tex/generic/hyph-utf8/patterns/tex
 class Loader {

@@ -1,16 +1,17 @@
-import '../cac/ID.dart';
-import '../cac/FirstName.dart';
-import '../cac/FamilyName.dart';
-import '../cac/Title.dart';
-import '../cac/MiddleName.dart';
-import '../cac/OtherName.dart';
-import '../cac/NameSuffix.dart';
-import '../cac/JobTitle.dart';
-import '../cac/NationalityID.dart';
-import '../cac/GenderCode.dart';
-import '../cac/BirthDate.dart';
-import '../cac/BirthplaceName.dart';
-import '../cac/OrganizationDepartment.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/FirstName.dart';
+import '../cbc/FamilyName.dart';
+import '../cbc/Title.dart';
+import '../cbc/MiddleName.dart';
+import '../cbc/OtherName.dart';
+import '../cbc/NameSuffix.dart';
+import '../cbc/JobTitle.dart';
+import '../cbc/NationalityID.dart';
+import '../cbc/GenderCode.dart';
+import '../cbc/BirthDate.dart';
+import '../cbc/BirthplaceName.dart';
+import '../cbc/OrganizationDepartment.dart';
 import '../cac/Contact.dart';
 import '../cac/FinancialAccount.dart';
 import '../cac/IdentityDocumentReference.dart';
@@ -90,5 +91,31 @@ class SecurityOfficerPerson {
     this.identityDocumentReference = const [],
     this.residenceAddress,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'firstName': firstName?.toJson(),
+     'familyName': familyName?.toJson(),
+     'title': title?.toJson(),
+     'middleName': middleName?.toJson(),
+     'otherName': otherName?.toJson(),
+     'nameSuffix': nameSuffix?.toJson(),
+     'jobTitle': jobTitle?.toJson(),
+     'nationalityID': nationalityID?.toJson(),
+     'genderCode': genderCode?.toJson(),
+     'birthDate': birthDate?.toJson(),
+     'birthplaceName': birthplaceName?.toJson(),
+     'organizationDepartment': organizationDepartment?.toJson(),
+     'contact': contact?.toJson(),
+     'financialAccount': financialAccount?.toJson(),
+     'identityDocumentReference': identityDocumentReference.map((e) => e.toJson()).toList(),
+     'residenceAddress': residenceAddress?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

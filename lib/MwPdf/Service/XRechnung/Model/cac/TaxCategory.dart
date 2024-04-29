@@ -1,13 +1,14 @@
-import '../cac/ID.dart';
-import '../cac/Name.dart';
-import '../cac/Percent.dart';
-import '../cac/BaseUnitMeasure.dart';
-import '../cac/PerUnitAmount.dart';
-import '../cac/TaxExemptionReasonCode.dart';
-import '../cac/TaxExemptionReason.dart';
-import '../cac/TierRange.dart';
-import '../cac/TierRatePercent.dart';
+import 'dart:convert';
 import '../cac/TaxScheme.dart';
+import '../cbc/ID.dart';
+import '../cbc/Name.dart';
+import '../cbc/Percent.dart';
+import '../cbc/BaseUnitMeasure.dart';
+import '../cbc/PerUnitAmount.dart';
+import '../cbc/TaxExemptionReasonCode.dart';
+import '../cbc/TaxExemptionReason.dart';
+import '../cbc/TierRange.dart';
+import '../cbc/TierRatePercent.dart';
 
 // A class to describe one of the tax categories within a taxation scheme (e.g., High Rate VAT, Low Rate VAT).
 class TaxCategory {
@@ -55,5 +56,24 @@ class TaxCategory {
     this.tierRange,
     this.tierRatePercent,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD?.toJson(),
+     'name': name?.toJson(),
+     'percent': percent?.toJson(),
+     'baseUnitMeasure': baseUnitMeasure?.toJson(),
+     'perUnitAmount': perUnitAmount?.toJson(),
+     'taxExemptionReasonCode': taxExemptionReasonCode?.toJson(),
+     'taxExemptionReason': taxExemptionReason.map((e) => e.toJson()).toList(),
+     'tierRange': tierRange?.toJson(),
+     'tierRatePercent': tierRatePercent?.toJson(),
+     'taxScheme': taxScheme.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 

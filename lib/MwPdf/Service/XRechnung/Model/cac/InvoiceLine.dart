@@ -1,13 +1,15 @@
-import '../cac/ID.dart';
-import '../cac/UUID.dart';
-import '../cac/Note.dart';
-import '../cac/InvoicedQuantity.dart';
-import '../cac/LineExtensionAmount.dart';
-import '../cac/TaxPointDate.dart';
-import '../cac/AccountingCostCode.dart';
-import '../cac/AccountingCost.dart';
-import '../cac/PaymentPurposeCode.dart';
-import '../cac/FreeOfChargeIndicator.dart';
+import 'dart:convert';
+import '../cbc/ID.dart';
+import '../cbc/LineExtensionAmount.dart';
+import '../cac/Item.dart';
+import '../cbc/UUID.dart';
+import '../cbc/Note.dart';
+import '../cbc/InvoicedQuantity.dart';
+import '../cbc/TaxPointDate.dart';
+import '../cbc/AccountingCostCode.dart';
+import '../cbc/AccountingCost.dart';
+import '../cbc/PaymentPurposeCode.dart';
+import '../cbc/FreeOfChargeIndicator.dart';
 import '../cac/InvoicePeriod.dart';
 import '../cac/OrderLineReference.dart';
 import '../cac/DespatchLineReference.dart';
@@ -21,7 +23,6 @@ import '../cac/PaymentTerms.dart';
 import '../cac/AllowanceCharge.dart';
 import '../cac/TaxTotal.dart';
 import '../cac/WithholdingTaxTotal.dart';
-import '../cac/Item.dart';
 import '../cac/Price.dart';
 import '../cac/DeliveryTerms.dart';
 import '../cac/SubInvoiceLine.dart';
@@ -145,5 +146,42 @@ class InvoiceLine {
     this.subInvoiceLine = const [],
     this.itemPriceExtension,
   });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+     'iD': iD.toJson(),
+     'uUID': uUID?.toJson(),
+     'note': note.map((e) => e.toJson()).toList(),
+     'invoicedQuantity': invoicedQuantity?.toJson(),
+     'lineExtensionAmount': lineExtensionAmount.toJson(),
+     'taxPointDate': taxPointDate?.toJson(),
+     'accountingCostCode': accountingCostCode?.toJson(),
+     'accountingCost': accountingCost?.toJson(),
+     'paymentPurposeCode': paymentPurposeCode?.toJson(),
+     'freeOfChargeIndicator': freeOfChargeIndicator?.toJson(),
+     'invoicePeriod': invoicePeriod.map((e) => e.toJson()).toList(),
+     'orderLineReference': orderLineReference.map((e) => e.toJson()).toList(),
+     'despatchLineReference': despatchLineReference.map((e) => e.toJson()).toList(),
+     'receiptLineReference': receiptLineReference.map((e) => e.toJson()).toList(),
+     'billingReference': billingReference.map((e) => e.toJson()).toList(),
+     'documentReference': documentReference.map((e) => e.toJson()).toList(),
+     'pricingReference': pricingReference?.toJson(),
+     'originatorParty': originatorParty?.toJson(),
+     'delivery': delivery.map((e) => e.toJson()).toList(),
+     'paymentTerms': paymentTerms.map((e) => e.toJson()).toList(),
+     'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
+     'taxTotal': taxTotal.map((e) => e.toJson()).toList(),
+     'withholdingTaxTotal': withholdingTaxTotal.map((e) => e.toJson()).toList(),
+     'item': item.toJson(),
+     'price': price?.toJson(),
+     'deliveryTerms': deliveryTerms?.toJson(),
+     'subInvoiceLine': subInvoiceLine.map((e) => e.toJson()).toList(),
+     'itemPriceExtension': itemPriceExtension?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+
+  }
+
 }
 
