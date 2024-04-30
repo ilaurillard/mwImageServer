@@ -11,6 +11,13 @@ class GeneralCargoIndicator {
     required this.value,
   });
 
+  static GeneralCargoIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return GeneralCargoIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class GeneralCargoIndicator {
     return map;
   }
 
-  static GeneralCargoIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return GeneralCargoIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static GeneralCargoIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return GeneralCargoIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'GeneralCargoIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

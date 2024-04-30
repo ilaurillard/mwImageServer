@@ -11,6 +11,13 @@ class RefrigerationOnIndicator {
     required this.value,
   });
 
+  static RefrigerationOnIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return RefrigerationOnIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class RefrigerationOnIndicator {
     return map;
   }
 
-  static RefrigerationOnIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return RefrigerationOnIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static RefrigerationOnIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return RefrigerationOnIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'RefrigerationOnIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

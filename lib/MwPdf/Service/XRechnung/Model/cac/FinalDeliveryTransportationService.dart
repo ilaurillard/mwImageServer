@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/TransportServiceCode.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/TariffClassCode.dart';
 import '../cbc/Priority.dart';
 import '../cbc/FreightRateClassCode.dart';
@@ -31,6 +32,9 @@ class FinalDeliveryTransportationService {
 
   // A code signifying the extent of this transportation service (e.g., door-to-door, port-to-port).
   final TransportServiceCode transportServiceCode;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A code signifying the tariff class applicable to this transportation service.
   final TariffClassCode? tariffClassCode;
@@ -100,6 +104,7 @@ class FinalDeliveryTransportationService {
 
   FinalDeliveryTransportationService ({
     required this.transportServiceCode,
+    this.uBLExtensions,
     this.tariffClassCode,
     this.priority,
     this.freightRateClassCode,
@@ -124,8 +129,39 @@ class FinalDeliveryTransportationService {
     this.scheduledServiceFrequency = const [],
   });
 
+  static FinalDeliveryTransportationService? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return FinalDeliveryTransportationService (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      transportServiceCode: TransportServiceCode.fromJson(json['transportServiceCode'] as Map<String, dynamic>?)!,
+      tariffClassCode: TariffClassCode.fromJson(json['tariffClassCode'] as Map<String, dynamic>?),
+      priority: Priority.fromJson(json['priority'] as Map<String, dynamic>?),
+      freightRateClassCode: FreightRateClassCode.fromJson(json['freightRateClassCode'] as Map<String, dynamic>?),
+      transportationServiceDescription: (json['transportationServiceDescription'] as List? ?? []).map((dynamic d) => TransportationServiceDescription.fromJson(d as Map<String, dynamic>?)!).toList(),
+      transportationServiceDetailsURI: TransportationServiceDetailsURI.fromJson(json['transportationServiceDetailsURI'] as Map<String, dynamic>?),
+      nominationDate: NominationDate.fromJson(json['nominationDate'] as Map<String, dynamic>?),
+      nominationTime: NominationTime.fromJson(json['nominationTime'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      sequenceNumeric: SequenceNumeric.fromJson(json['sequenceNumeric'] as Map<String, dynamic>?),
+      transportEquipment: (json['transportEquipment'] as List? ?? []).map((dynamic d) => TransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+      supportedTransportEquipment: (json['supportedTransportEquipment'] as List? ?? []).map((dynamic d) => SupportedTransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+      unsupportedTransportEquipment: (json['unsupportedTransportEquipment'] as List? ?? []).map((dynamic d) => UnsupportedTransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+      commodityClassification: (json['commodityClassification'] as List? ?? []).map((dynamic d) => CommodityClassification.fromJson(d as Map<String, dynamic>?)!).toList(),
+      supportedCommodityClassification: (json['supportedCommodityClassification'] as List? ?? []).map((dynamic d) => SupportedCommodityClassification.fromJson(d as Map<String, dynamic>?)!).toList(),
+      unsupportedCommodityClassification: (json['unsupportedCommodityClassification'] as List? ?? []).map((dynamic d) => UnsupportedCommodityClassification.fromJson(d as Map<String, dynamic>?)!).toList(),
+      totalCapacityDimension: TotalCapacityDimension.fromJson(json['totalCapacityDimension'] as Map<String, dynamic>?),
+      shipmentStage: (json['shipmentStage'] as List? ?? []).map((dynamic d) => ShipmentStage.fromJson(d as Map<String, dynamic>?)!).toList(),
+      transportEvent: (json['transportEvent'] as List? ?? []).map((dynamic d) => TransportEvent.fromJson(d as Map<String, dynamic>?)!).toList(),
+      responsibleTransportServiceProviderParty: ResponsibleTransportServiceProviderParty.fromJson(json['responsibleTransportServiceProviderParty'] as Map<String, dynamic>?),
+      environmentalEmission: (json['environmentalEmission'] as List? ?? []).map((dynamic d) => EnvironmentalEmission.fromJson(d as Map<String, dynamic>?)!).toList(),
+      estimatedDurationPeriod: EstimatedDurationPeriod.fromJson(json['estimatedDurationPeriod'] as Map<String, dynamic>?),
+      scheduledServiceFrequency: (json['scheduledServiceFrequency'] as List? ?? []).map((dynamic d) => ScheduledServiceFrequency.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'transportServiceCode': transportServiceCode.toJson(),
       'tariffClassCode': tariffClassCode?.toJson(),
       'priority': priority?.toJson(),
@@ -154,64 +190,43 @@ class FinalDeliveryTransportationService {
     return map;
   }
 
-  static FinalDeliveryTransportationService? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return FinalDeliveryTransportationService (
-      transportServiceCode: TransportServiceCode.fromJson(json['transportServiceCode'] as Map<String, dynamic>?)!,
-      tariffClassCode: TariffClassCode.fromJson(json['tariffClassCode'] as Map<String, dynamic>?),
-      priority: Priority.fromJson(json['priority'] as Map<String, dynamic>?),
-      freightRateClassCode: FreightRateClassCode.fromJson(json['freightRateClassCode'] as Map<String, dynamic>?),
-      transportationServiceDescription: (json['transportationServiceDescription'] as List? ?? []).map((dynamic d) => TransportationServiceDescription.fromJson(d as Map<String, dynamic>?)!).toList(),
-      transportationServiceDetailsURI: TransportationServiceDetailsURI.fromJson(json['transportationServiceDetailsURI'] as Map<String, dynamic>?),
-      nominationDate: NominationDate.fromJson(json['nominationDate'] as Map<String, dynamic>?),
-      nominationTime: NominationTime.fromJson(json['nominationTime'] as Map<String, dynamic>?),
-      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
-      sequenceNumeric: SequenceNumeric.fromJson(json['sequenceNumeric'] as Map<String, dynamic>?),
-      transportEquipment: (json['transportEquipment'] as List? ?? []).map((dynamic d) => TransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
-      supportedTransportEquipment: (json['supportedTransportEquipment'] as List? ?? []).map((dynamic d) => SupportedTransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
-      unsupportedTransportEquipment: (json['unsupportedTransportEquipment'] as List? ?? []).map((dynamic d) => UnsupportedTransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
-      commodityClassification: (json['commodityClassification'] as List? ?? []).map((dynamic d) => CommodityClassification.fromJson(d as Map<String, dynamic>?)!).toList(),
-      supportedCommodityClassification: (json['supportedCommodityClassification'] as List? ?? []).map((dynamic d) => SupportedCommodityClassification.fromJson(d as Map<String, dynamic>?)!).toList(),
-      unsupportedCommodityClassification: (json['unsupportedCommodityClassification'] as List? ?? []).map((dynamic d) => UnsupportedCommodityClassification.fromJson(d as Map<String, dynamic>?)!).toList(),
-      totalCapacityDimension: TotalCapacityDimension.fromJson(json['totalCapacityDimension'] as Map<String, dynamic>?),
-      shipmentStage: (json['shipmentStage'] as List? ?? []).map((dynamic d) => ShipmentStage.fromJson(d as Map<String, dynamic>?)!).toList(),
-      transportEvent: (json['transportEvent'] as List? ?? []).map((dynamic d) => TransportEvent.fromJson(d as Map<String, dynamic>?)!).toList(),
-      responsibleTransportServiceProviderParty: ResponsibleTransportServiceProviderParty.fromJson(json['responsibleTransportServiceProviderParty'] as Map<String, dynamic>?),
-      environmentalEmission: (json['environmentalEmission'] as List? ?? []).map((dynamic d) => EnvironmentalEmission.fromJson(d as Map<String, dynamic>?)!).toList(),
-      estimatedDurationPeriod: EstimatedDurationPeriod.fromJson(json['estimatedDurationPeriod'] as Map<String, dynamic>?),
-      scheduledServiceFrequency: (json['scheduledServiceFrequency'] as List? ?? []).map((dynamic d) => ScheduledServiceFrequency.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static FinalDeliveryTransportationService? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return FinalDeliveryTransportationService (
-      transportServiceCode: null,
-      tariffClassCode: null,
-      priority: null,
-      freightRateClassCode: null,
-      transportationServiceDescription: null,
-      transportationServiceDetailsURI: null,
-      nominationDate: null,
-      nominationTime: null,
-      name: null,
-      sequenceNumeric: null,
-      transportEquipment: null,
-      supportedTransportEquipment: null,
-      unsupportedTransportEquipment: null,
-      commodityClassification: null,
-      supportedCommodityClassification: null,
-      unsupportedCommodityClassification: null,
-      totalCapacityDimension: null,
-      shipmentStage: null,
-      transportEvent: null,
-      responsibleTransportServiceProviderParty: null,
-      environmentalEmission: null,
-      estimatedDurationPeriod: null,
-      scheduledServiceFrequency: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      transportServiceCode: TransportServiceCode.fromXml(xml.findElements('cbc:TransportServiceCode').singleOrNull)!,
+      tariffClassCode: TariffClassCode.fromXml(xml.findElements('cbc:TariffClassCode').singleOrNull),
+      priority: Priority.fromXml(xml.findElements('cbc:Priority').singleOrNull),
+      freightRateClassCode: FreightRateClassCode.fromXml(xml.findElements('cbc:FreightRateClassCode').singleOrNull),
+      transportationServiceDescription: xml.findElements('cbc:TransportationServiceDescription').map((XmlElement e) => TransportationServiceDescription.fromXml(e)!).toList(),
+      transportationServiceDetailsURI: TransportationServiceDetailsURI.fromXml(xml.findElements('cbc:TransportationServiceDetailsURI').singleOrNull),
+      nominationDate: NominationDate.fromXml(xml.findElements('cbc:NominationDate').singleOrNull),
+      nominationTime: NominationTime.fromXml(xml.findElements('cbc:NominationTime').singleOrNull),
+      name: Name.fromXml(xml.findElements('cbc:Name').singleOrNull),
+      sequenceNumeric: SequenceNumeric.fromXml(xml.findElements('cbc:SequenceNumeric').singleOrNull),
+      transportEquipment: xml.findElements('cac:TransportEquipment').map((XmlElement e) => TransportEquipment.fromXml(e)!).toList(),
+      supportedTransportEquipment: xml.findElements('cac:SupportedTransportEquipment').map((XmlElement e) => SupportedTransportEquipment.fromXml(e)!).toList(),
+      unsupportedTransportEquipment: xml.findElements('cac:UnsupportedTransportEquipment').map((XmlElement e) => UnsupportedTransportEquipment.fromXml(e)!).toList(),
+      commodityClassification: xml.findElements('cac:CommodityClassification').map((XmlElement e) => CommodityClassification.fromXml(e)!).toList(),
+      supportedCommodityClassification: xml.findElements('cac:SupportedCommodityClassification').map((XmlElement e) => SupportedCommodityClassification.fromXml(e)!).toList(),
+      unsupportedCommodityClassification: xml.findElements('cac:UnsupportedCommodityClassification').map((XmlElement e) => UnsupportedCommodityClassification.fromXml(e)!).toList(),
+      totalCapacityDimension: TotalCapacityDimension.fromXml(xml.findElements('cac:TotalCapacityDimension').singleOrNull),
+      shipmentStage: xml.findElements('cac:ShipmentStage').map((XmlElement e) => ShipmentStage.fromXml(e)!).toList(),
+      transportEvent: xml.findElements('cac:TransportEvent').map((XmlElement e) => TransportEvent.fromXml(e)!).toList(),
+      responsibleTransportServiceProviderParty: ResponsibleTransportServiceProviderParty.fromXml(xml.findElements('cac:ResponsibleTransportServiceProviderParty').singleOrNull),
+      environmentalEmission: xml.findElements('cac:EnvironmentalEmission').map((XmlElement e) => EnvironmentalEmission.fromXml(e)!).toList(),
+      estimatedDurationPeriod: EstimatedDurationPeriod.fromXml(xml.findElements('cac:EstimatedDurationPeriod').singleOrNull),
+      scheduledServiceFrequency: xml.findElements('cac:ScheduledServiceFrequency').map((XmlElement e) => ScheduledServiceFrequency.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'FinalDeliveryTransportationService',
+        'cac',
+      ),
+    );
+  }
 }
 

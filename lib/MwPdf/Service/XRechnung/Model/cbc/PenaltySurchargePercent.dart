@@ -15,6 +15,14 @@ class PenaltySurchargePercent {
     this.format,
   });
 
+  static PenaltySurchargePercent? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PenaltySurchargePercent (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      format: json['format'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -24,22 +32,21 @@ class PenaltySurchargePercent {
     return map;
   }
 
-  static PenaltySurchargePercent? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PenaltySurchargePercent (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      format: json['format'] as String?,
-    );
-  }
-
   static PenaltySurchargePercent? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PenaltySurchargePercent (
-      value: null,
-      format: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      format: xml.getAttribute('format'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PenaltySurchargePercent',
+        'cbc',
+      ),
+    );
+  }
 }
 

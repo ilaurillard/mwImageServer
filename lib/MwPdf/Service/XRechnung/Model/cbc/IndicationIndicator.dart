@@ -11,6 +11,13 @@ class IndicationIndicator {
     required this.value,
   });
 
+  static IndicationIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return IndicationIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class IndicationIndicator {
     return map;
   }
 
-  static IndicationIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return IndicationIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static IndicationIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return IndicationIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'IndicationIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

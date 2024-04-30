@@ -21,6 +21,15 @@ class MinimumMeasure {
     assert(unitCode.isNotEmpty);
   }
 
+  static MinimumMeasure? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return MinimumMeasure (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      unitCode: json['unitCode'] as String? ?? '',
+      unitCodeListVersionID: json['unitCodeListVersionID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class MinimumMeasure {
     return map;
   }
 
-  static MinimumMeasure? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return MinimumMeasure (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      unitCode: json['unitCode'] as String? ?? '',
-      unitCodeListVersionID: json['unitCodeListVersionID'] as String?,
-    );
-  }
-
   static MinimumMeasure? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return MinimumMeasure (
-      value: null,
-      unitCode: null,
-      unitCodeListVersionID: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      unitCode: xml.getAttribute('unitCode') ?? '',
+      unitCodeListVersionID: xml.getAttribute('unitCodeListVersionID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'MinimumMeasure',
+        'cbc',
+      ),
+    );
+  }
 }
 

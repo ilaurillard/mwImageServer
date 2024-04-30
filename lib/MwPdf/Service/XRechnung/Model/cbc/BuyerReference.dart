@@ -21,6 +21,15 @@ class BuyerReference {
     assert(value.isNotEmpty);
   }
 
+  static BuyerReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return BuyerReference (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class BuyerReference {
     return map;
   }
 
-  static BuyerReference? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return BuyerReference (
-      value: json['value'] as String? ?? '',
-      languageID: json['languageID'] as String?,
-      languageLocaleID: json['languageLocaleID'] as String?,
-    );
-  }
-
   static BuyerReference? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return BuyerReference (
-      value: null,
-      languageID: null,
-      languageLocaleID: null,
+      value: xml.innerText,
+      languageID: xml.getAttribute('languageID'),
+      languageLocaleID: xml.getAttribute('languageLocaleID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'BuyerReference',
+        'cbc',
+      ),
+    );
+  }
 }
 

@@ -11,6 +11,13 @@ class LivestockIndicator {
     required this.value,
   });
 
+  static LivestockIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return LivestockIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class LivestockIndicator {
     return map;
   }
 
-  static LivestockIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return LivestockIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static LivestockIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return LivestockIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'LivestockIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

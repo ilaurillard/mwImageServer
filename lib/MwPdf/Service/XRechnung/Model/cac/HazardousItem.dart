@@ -1,13 +1,18 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/PlacardNotation.dart';
 import '../cbc/PlacardEndorsement.dart';
 import '../cbc/AdditionalInformation.dart';
 import '../cbc/UNDGCode.dart';
+import '../cbc/UNPackingGroupCode.dart';
+import '../cbc/UNPackingGroup.dart';
 import '../cbc/EmergencyProceduresCode.dart';
 import '../cbc/MedicalFirstAidGuideCode.dart';
+import '../cbc/TunnelRestrictionCode.dart';
+import '../cbc/MaritimePollutantCode.dart';
 import '../cbc/TechnicalName.dart';
 import '../cbc/CategoryName.dart';
 import '../cbc/HazardousCategoryCode.dart';
@@ -24,10 +29,14 @@ import '../cac/HazardousGoodsTransit.dart';
 import '../cac/EmergencyTemperature.dart';
 import '../cac/FlashpointTemperature.dart';
 import '../cac/AdditionalTemperature.dart';
+import '../cac/PositionOnBoardStowage.dart';
 
 // A class to describe a hazardous item.
 class HazardousItem {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this hazardous item.
   final ID? iD;
@@ -44,11 +53,23 @@ class HazardousItem {
   // The UN code for this kind of hazardous item.
   final UNDGCode? uNDGCode;
 
+  // A code signifying the UN Packing Group protective packaging requirements for this hazardous item.
+  final UNPackingGroupCode? uNPackingGroupCode;
+
+  // A text describing the UN Packing Group protective packaging requirements for this hazardous item.
+  final List<UNPackingGroup> uNPackingGroup;
+
   // A code signifying the emergency procedures for this hazardous item.
   final EmergencyProceduresCode? emergencyProceduresCode;
 
   // A code signifying a medical first aid guide appropriate to this hazardous item.
   final MedicalFirstAidGuideCode? medicalFirstAidGuideCode;
+
+  // A code signifying the restrictions for this hazardous item for passing through a tunnel.
+  final TunnelRestrictionCode? tunnelRestrictionCode;
+
+  // A code for specifying the maritime pollutant for this hazardous item.
+  final MaritimePollutantCode? maritimePollutantCode;
 
   // The full technical name of a specific hazardous substance contained in this goods item.
   final TechnicalName? technicalName;
@@ -98,14 +119,22 @@ class HazardousItem {
   // Another temperature relevant to the handling of this hazardous item.
   final List<AdditionalTemperature> additionalTemperature;
 
+  // A stowage indicating where to find this hazardous item.
+  final PositionOnBoardStowage? positionOnBoardStowage;
+
   HazardousItem ({
+    this.uBLExtensions,
     this.iD,
     this.placardNotation,
     this.placardEndorsement,
     this.additionalInformation = const [],
     this.uNDGCode,
+    this.uNPackingGroupCode,
+    this.uNPackingGroup = const [],
     this.emergencyProceduresCode,
     this.medicalFirstAidGuideCode,
+    this.tunnelRestrictionCode,
+    this.maritimePollutantCode,
     this.technicalName,
     this.categoryName,
     this.hazardousCategoryCode,
@@ -122,48 +151,24 @@ class HazardousItem {
     this.emergencyTemperature,
     this.flashpointTemperature,
     this.additionalTemperature = const [],
+    this.positionOnBoardStowage,
   });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'iD': iD?.toJson(),
-      'placardNotation': placardNotation?.toJson(),
-      'placardEndorsement': placardEndorsement?.toJson(),
-      'additionalInformation': additionalInformation.map((e) => e.toJson()).toList(),
-      'uNDGCode': uNDGCode?.toJson(),
-      'emergencyProceduresCode': emergencyProceduresCode?.toJson(),
-      'medicalFirstAidGuideCode': medicalFirstAidGuideCode?.toJson(),
-      'technicalName': technicalName?.toJson(),
-      'categoryName': categoryName?.toJson(),
-      'hazardousCategoryCode': hazardousCategoryCode?.toJson(),
-      'upperOrangeHazardPlacardID': upperOrangeHazardPlacardID?.toJson(),
-      'lowerOrangeHazardPlacardID': lowerOrangeHazardPlacardID?.toJson(),
-      'markingID': markingID?.toJson(),
-      'hazardClassID': hazardClassID?.toJson(),
-      'netWeightMeasure': netWeightMeasure?.toJson(),
-      'netVolumeMeasure': netVolumeMeasure?.toJson(),
-      'quantity': quantity?.toJson(),
-      'contactParty': contactParty?.toJson(),
-      'secondaryHazard': secondaryHazard.map((e) => e.toJson()).toList(),
-      'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
-      'emergencyTemperature': emergencyTemperature?.toJson(),
-      'flashpointTemperature': flashpointTemperature?.toJson(),
-      'additionalTemperature': additionalTemperature.map((e) => e.toJson()).toList(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
-  }
 
   static HazardousItem? fromJson(Map<String, dynamic>? json) {
     if (json == null) { return null; }
     return HazardousItem (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
       placardNotation: PlacardNotation.fromJson(json['placardNotation'] as Map<String, dynamic>?),
       placardEndorsement: PlacardEndorsement.fromJson(json['placardEndorsement'] as Map<String, dynamic>?),
       additionalInformation: (json['additionalInformation'] as List? ?? []).map((dynamic d) => AdditionalInformation.fromJson(d as Map<String, dynamic>?)!).toList(),
       uNDGCode: UNDGCode.fromJson(json['uNDGCode'] as Map<String, dynamic>?),
+      uNPackingGroupCode: UNPackingGroupCode.fromJson(json['uNPackingGroupCode'] as Map<String, dynamic>?),
+      uNPackingGroup: (json['uNPackingGroup'] as List? ?? []).map((dynamic d) => UNPackingGroup.fromJson(d as Map<String, dynamic>?)!).toList(),
       emergencyProceduresCode: EmergencyProceduresCode.fromJson(json['emergencyProceduresCode'] as Map<String, dynamic>?),
       medicalFirstAidGuideCode: MedicalFirstAidGuideCode.fromJson(json['medicalFirstAidGuideCode'] as Map<String, dynamic>?),
+      tunnelRestrictionCode: TunnelRestrictionCode.fromJson(json['tunnelRestrictionCode'] as Map<String, dynamic>?),
+      maritimePollutantCode: MaritimePollutantCode.fromJson(json['maritimePollutantCode'] as Map<String, dynamic>?),
       technicalName: TechnicalName.fromJson(json['technicalName'] as Map<String, dynamic>?),
       categoryName: CategoryName.fromJson(json['categoryName'] as Map<String, dynamic>?),
       hazardousCategoryCode: HazardousCategoryCode.fromJson(json['hazardousCategoryCode'] as Map<String, dynamic>?),
@@ -180,38 +185,88 @@ class HazardousItem {
       emergencyTemperature: EmergencyTemperature.fromJson(json['emergencyTemperature'] as Map<String, dynamic>?),
       flashpointTemperature: FlashpointTemperature.fromJson(json['flashpointTemperature'] as Map<String, dynamic>?),
       additionalTemperature: (json['additionalTemperature'] as List? ?? []).map((dynamic d) => AdditionalTemperature.fromJson(d as Map<String, dynamic>?)!).toList(),
+      positionOnBoardStowage: PositionOnBoardStowage.fromJson(json['positionOnBoardStowage'] as Map<String, dynamic>?),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'iD': iD?.toJson(),
+      'placardNotation': placardNotation?.toJson(),
+      'placardEndorsement': placardEndorsement?.toJson(),
+      'additionalInformation': additionalInformation.map((e) => e.toJson()).toList(),
+      'uNDGCode': uNDGCode?.toJson(),
+      'uNPackingGroupCode': uNPackingGroupCode?.toJson(),
+      'uNPackingGroup': uNPackingGroup.map((e) => e.toJson()).toList(),
+      'emergencyProceduresCode': emergencyProceduresCode?.toJson(),
+      'medicalFirstAidGuideCode': medicalFirstAidGuideCode?.toJson(),
+      'tunnelRestrictionCode': tunnelRestrictionCode?.toJson(),
+      'maritimePollutantCode': maritimePollutantCode?.toJson(),
+      'technicalName': technicalName?.toJson(),
+      'categoryName': categoryName?.toJson(),
+      'hazardousCategoryCode': hazardousCategoryCode?.toJson(),
+      'upperOrangeHazardPlacardID': upperOrangeHazardPlacardID?.toJson(),
+      'lowerOrangeHazardPlacardID': lowerOrangeHazardPlacardID?.toJson(),
+      'markingID': markingID?.toJson(),
+      'hazardClassID': hazardClassID?.toJson(),
+      'netWeightMeasure': netWeightMeasure?.toJson(),
+      'netVolumeMeasure': netVolumeMeasure?.toJson(),
+      'quantity': quantity?.toJson(),
+      'contactParty': contactParty?.toJson(),
+      'secondaryHazard': secondaryHazard.map((e) => e.toJson()).toList(),
+      'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
+      'emergencyTemperature': emergencyTemperature?.toJson(),
+      'flashpointTemperature': flashpointTemperature?.toJson(),
+      'additionalTemperature': additionalTemperature.map((e) => e.toJson()).toList(),
+      'positionOnBoardStowage': positionOnBoardStowage?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
   }
 
   static HazardousItem? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return HazardousItem (
-      iD: null,
-      placardNotation: null,
-      placardEndorsement: null,
-      additionalInformation: null,
-      uNDGCode: null,
-      emergencyProceduresCode: null,
-      medicalFirstAidGuideCode: null,
-      technicalName: null,
-      categoryName: null,
-      hazardousCategoryCode: null,
-      upperOrangeHazardPlacardID: null,
-      lowerOrangeHazardPlacardID: null,
-      markingID: null,
-      hazardClassID: null,
-      netWeightMeasure: null,
-      netVolumeMeasure: null,
-      quantity: null,
-      contactParty: null,
-      secondaryHazard: null,
-      hazardousGoodsTransit: null,
-      emergencyTemperature: null,
-      flashpointTemperature: null,
-      additionalTemperature: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      placardNotation: PlacardNotation.fromXml(xml.findElements('cbc:PlacardNotation').singleOrNull),
+      placardEndorsement: PlacardEndorsement.fromXml(xml.findElements('cbc:PlacardEndorsement').singleOrNull),
+      additionalInformation: xml.findElements('cbc:AdditionalInformation').map((XmlElement e) => AdditionalInformation.fromXml(e)!).toList(),
+      uNDGCode: UNDGCode.fromXml(xml.findElements('cbc:UNDGCode').singleOrNull),
+      uNPackingGroupCode: UNPackingGroupCode.fromXml(xml.findElements('cbc:UNPackingGroupCode').singleOrNull),
+      uNPackingGroup: xml.findElements('cbc:UNPackingGroup').map((XmlElement e) => UNPackingGroup.fromXml(e)!).toList(),
+      emergencyProceduresCode: EmergencyProceduresCode.fromXml(xml.findElements('cbc:EmergencyProceduresCode').singleOrNull),
+      medicalFirstAidGuideCode: MedicalFirstAidGuideCode.fromXml(xml.findElements('cbc:MedicalFirstAidGuideCode').singleOrNull),
+      tunnelRestrictionCode: TunnelRestrictionCode.fromXml(xml.findElements('cbc:TunnelRestrictionCode').singleOrNull),
+      maritimePollutantCode: MaritimePollutantCode.fromXml(xml.findElements('cbc:MaritimePollutantCode').singleOrNull),
+      technicalName: TechnicalName.fromXml(xml.findElements('cbc:TechnicalName').singleOrNull),
+      categoryName: CategoryName.fromXml(xml.findElements('cbc:CategoryName').singleOrNull),
+      hazardousCategoryCode: HazardousCategoryCode.fromXml(xml.findElements('cbc:HazardousCategoryCode').singleOrNull),
+      upperOrangeHazardPlacardID: UpperOrangeHazardPlacardID.fromXml(xml.findElements('cbc:UpperOrangeHazardPlacardID').singleOrNull),
+      lowerOrangeHazardPlacardID: LowerOrangeHazardPlacardID.fromXml(xml.findElements('cbc:LowerOrangeHazardPlacardID').singleOrNull),
+      markingID: MarkingID.fromXml(xml.findElements('cbc:MarkingID').singleOrNull),
+      hazardClassID: HazardClassID.fromXml(xml.findElements('cbc:HazardClassID').singleOrNull),
+      netWeightMeasure: NetWeightMeasure.fromXml(xml.findElements('cbc:NetWeightMeasure').singleOrNull),
+      netVolumeMeasure: NetVolumeMeasure.fromXml(xml.findElements('cbc:NetVolumeMeasure').singleOrNull),
+      quantity: Quantity.fromXml(xml.findElements('cbc:Quantity').singleOrNull),
+      contactParty: ContactParty.fromXml(xml.findElements('cac:ContactParty').singleOrNull),
+      secondaryHazard: xml.findElements('cac:SecondaryHazard').map((XmlElement e) => SecondaryHazard.fromXml(e)!).toList(),
+      hazardousGoodsTransit: xml.findElements('cac:HazardousGoodsTransit').map((XmlElement e) => HazardousGoodsTransit.fromXml(e)!).toList(),
+      emergencyTemperature: EmergencyTemperature.fromXml(xml.findElements('cac:EmergencyTemperature').singleOrNull),
+      flashpointTemperature: FlashpointTemperature.fromXml(xml.findElements('cac:FlashpointTemperature').singleOrNull),
+      additionalTemperature: xml.findElements('cac:AdditionalTemperature').map((XmlElement e) => AdditionalTemperature.fromXml(e)!).toList(),
+      positionOnBoardStowage: PositionOnBoardStowage.fromXml(xml.findElements('cac:PositionOnBoardStowage').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'HazardousItem',
+        'cac',
+      ),
+    );
+  }
 }
 

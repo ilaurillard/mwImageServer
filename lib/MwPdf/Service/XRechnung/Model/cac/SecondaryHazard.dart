@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/PlacardNotation.dart';
 import '../cbc/PlacardEndorsement.dart';
@@ -10,6 +11,9 @@ import '../cbc/Extension.dart';
 // A class to describe a secondary hazard associated with a hazardous item.
 class SecondaryHazard {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this secondary hazard.
   final ID? iD;
@@ -27,6 +31,7 @@ class SecondaryHazard {
   final List<Extension> extension;
 
   SecondaryHazard ({
+    this.uBLExtensions,
     this.iD,
     this.placardNotation,
     this.placardEndorsement,
@@ -34,8 +39,21 @@ class SecondaryHazard {
     this.extension = const [],
   });
 
+  static SecondaryHazard? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return SecondaryHazard (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      placardNotation: PlacardNotation.fromJson(json['placardNotation'] as Map<String, dynamic>?),
+      placardEndorsement: PlacardEndorsement.fromJson(json['placardEndorsement'] as Map<String, dynamic>?),
+      emergencyProceduresCode: EmergencyProceduresCode.fromJson(json['emergencyProceduresCode'] as Map<String, dynamic>?),
+      extension: (json['extension'] as List? ?? []).map((dynamic d) => Extension.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'placardNotation': placardNotation?.toJson(),
       'placardEndorsement': placardEndorsement?.toJson(),
@@ -46,28 +64,25 @@ class SecondaryHazard {
     return map;
   }
 
-  static SecondaryHazard? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return SecondaryHazard (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      placardNotation: PlacardNotation.fromJson(json['placardNotation'] as Map<String, dynamic>?),
-      placardEndorsement: PlacardEndorsement.fromJson(json['placardEndorsement'] as Map<String, dynamic>?),
-      emergencyProceduresCode: EmergencyProceduresCode.fromJson(json['emergencyProceduresCode'] as Map<String, dynamic>?),
-      extension: (json['extension'] as List? ?? []).map((dynamic d) => Extension.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static SecondaryHazard? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return SecondaryHazard (
-      iD: null,
-      placardNotation: null,
-      placardEndorsement: null,
-      emergencyProceduresCode: null,
-      extension: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      placardNotation: PlacardNotation.fromXml(xml.findElements('cbc:PlacardNotation').singleOrNull),
+      placardEndorsement: PlacardEndorsement.fromXml(xml.findElements('cbc:PlacardEndorsement').singleOrNull),
+      emergencyProceduresCode: EmergencyProceduresCode.fromXml(xml.findElements('cbc:EmergencyProceduresCode').singleOrNull),
+      extension: xml.findElements('cbc:Extension').map((XmlElement e) => Extension.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'SecondaryHazard',
+        'cac',
+      ),
+    );
+  }
 }
 

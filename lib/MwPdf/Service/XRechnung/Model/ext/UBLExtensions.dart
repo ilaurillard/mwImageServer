@@ -16,6 +16,13 @@ class UBLExtensions {
     assert(uBLExtension.isNotEmpty);
   }
 
+  static UBLExtensions? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return UBLExtensions (
+      uBLExtension: (json['uBLExtension'] as List? ?? []).map((dynamic d) => UBLExtension.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'uBLExtension': uBLExtension.map((e) => e.toJson()).toList(),
@@ -24,20 +31,20 @@ class UBLExtensions {
     return map;
   }
 
-  static UBLExtensions? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return UBLExtensions (
-      uBLExtension: (json['uBLExtension'] as List? ?? []).map((dynamic d) => UBLExtension.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static UBLExtensions? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return UBLExtensions (
-      uBLExtension: null,
+      uBLExtension: xml.findElements('ext:UBLExtension').map((XmlElement e) => UBLExtension.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'UBLExtensions',
+        'ext',
+      ),
+    );
+  }
 }
 

@@ -21,6 +21,15 @@ class PayableRoundingAmount {
     assert(currencyID.isNotEmpty);
   }
 
+  static PayableRoundingAmount? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PayableRoundingAmount (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      currencyID: json['currencyID'] as String? ?? '',
+      currencyCodeListVersionID: json['currencyCodeListVersionID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class PayableRoundingAmount {
     return map;
   }
 
-  static PayableRoundingAmount? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PayableRoundingAmount (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      currencyID: json['currencyID'] as String? ?? '',
-      currencyCodeListVersionID: json['currencyCodeListVersionID'] as String?,
-    );
-  }
-
   static PayableRoundingAmount? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PayableRoundingAmount (
-      value: null,
-      currencyID: null,
-      currencyCodeListVersionID: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      currencyID: xml.getAttribute('currencyID') ?? '',
+      currencyCodeListVersionID: xml.getAttribute('currencyCodeListVersionID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PayableRoundingAmount',
+        'cbc',
+      ),
+    );
+  }
 }
 

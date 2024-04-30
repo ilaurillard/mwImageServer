@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/WorkPhaseCode.dart';
 import '../cbc/WorkPhase.dart';
@@ -12,6 +13,9 @@ import '../cac/WorkOrderDocumentReference.dart';
 // A class that refers to a phase of work. Used for instance to specify what part of the contract the billing is referring to.
 class WorkPhaseReference {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this phase of work.
   final ID? iD;
@@ -35,6 +39,7 @@ class WorkPhaseReference {
   final List<WorkOrderDocumentReference> workOrderDocumentReference;
 
   WorkPhaseReference ({
+    this.uBLExtensions,
     this.iD,
     this.workPhaseCode,
     this.workPhase = const [],
@@ -44,8 +49,23 @@ class WorkPhaseReference {
     this.workOrderDocumentReference = const [],
   });
 
+  static WorkPhaseReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return WorkPhaseReference (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      workPhaseCode: WorkPhaseCode.fromJson(json['workPhaseCode'] as Map<String, dynamic>?),
+      workPhase: (json['workPhase'] as List? ?? []).map((dynamic d) => WorkPhase.fromJson(d as Map<String, dynamic>?)!).toList(),
+      progressPercent: ProgressPercent.fromJson(json['progressPercent'] as Map<String, dynamic>?),
+      startDate: StartDate.fromJson(json['startDate'] as Map<String, dynamic>?),
+      endDate: EndDate.fromJson(json['endDate'] as Map<String, dynamic>?),
+      workOrderDocumentReference: (json['workOrderDocumentReference'] as List? ?? []).map((dynamic d) => WorkOrderDocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'workPhaseCode': workPhaseCode?.toJson(),
       'workPhase': workPhase.map((e) => e.toJson()).toList(),
@@ -58,32 +78,27 @@ class WorkPhaseReference {
     return map;
   }
 
-  static WorkPhaseReference? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return WorkPhaseReference (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      workPhaseCode: WorkPhaseCode.fromJson(json['workPhaseCode'] as Map<String, dynamic>?),
-      workPhase: (json['workPhase'] as List? ?? []).map((dynamic d) => WorkPhase.fromJson(d as Map<String, dynamic>?)!).toList(),
-      progressPercent: ProgressPercent.fromJson(json['progressPercent'] as Map<String, dynamic>?),
-      startDate: StartDate.fromJson(json['startDate'] as Map<String, dynamic>?),
-      endDate: EndDate.fromJson(json['endDate'] as Map<String, dynamic>?),
-      workOrderDocumentReference: (json['workOrderDocumentReference'] as List? ?? []).map((dynamic d) => WorkOrderDocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static WorkPhaseReference? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return WorkPhaseReference (
-      iD: null,
-      workPhaseCode: null,
-      workPhase: null,
-      progressPercent: null,
-      startDate: null,
-      endDate: null,
-      workOrderDocumentReference: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      workPhaseCode: WorkPhaseCode.fromXml(xml.findElements('cbc:WorkPhaseCode').singleOrNull),
+      workPhase: xml.findElements('cbc:WorkPhase').map((XmlElement e) => WorkPhase.fromXml(e)!).toList(),
+      progressPercent: ProgressPercent.fromXml(xml.findElements('cbc:ProgressPercent').singleOrNull),
+      startDate: StartDate.fromXml(xml.findElements('cbc:StartDate').singleOrNull),
+      endDate: EndDate.fromXml(xml.findElements('cbc:EndDate').singleOrNull),
+      workOrderDocumentReference: xml.findElements('cac:WorkOrderDocumentReference').map((XmlElement e) => WorkOrderDocumentReference.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'WorkPhaseReference',
+        'cac',
+      ),
+    );
+  }
 }
 

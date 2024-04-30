@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/URI.dart';
 import '../cbc/DocumentHash.dart';
 import '../cbc/HashAlgorithmMethod.dart';
@@ -16,6 +17,9 @@ import '../cbc/Description.dart';
 // A class to describe an external object, such as a document stored at a remote location.
 class ExternalReference {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // The Uniform Resource Identifier (URI) that identifies the external object as an Internet resource.
   final URI? uRI;
@@ -51,6 +55,7 @@ class ExternalReference {
   final List<Description> description;
 
   ExternalReference ({
+    this.uBLExtensions,
     this.uRI,
     this.documentHash,
     this.hashAlgorithmMethod,
@@ -64,8 +69,27 @@ class ExternalReference {
     this.description = const [],
   });
 
+  static ExternalReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ExternalReference (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      uRI: URI.fromJson(json['uRI'] as Map<String, dynamic>?),
+      documentHash: DocumentHash.fromJson(json['documentHash'] as Map<String, dynamic>?),
+      hashAlgorithmMethod: HashAlgorithmMethod.fromJson(json['hashAlgorithmMethod'] as Map<String, dynamic>?),
+      expiryDate: ExpiryDate.fromJson(json['expiryDate'] as Map<String, dynamic>?),
+      expiryTime: ExpiryTime.fromJson(json['expiryTime'] as Map<String, dynamic>?),
+      mimeCode: MimeCode.fromJson(json['mimeCode'] as Map<String, dynamic>?),
+      formatCode: FormatCode.fromJson(json['formatCode'] as Map<String, dynamic>?),
+      encodingCode: EncodingCode.fromJson(json['encodingCode'] as Map<String, dynamic>?),
+      characterSetCode: CharacterSetCode.fromJson(json['characterSetCode'] as Map<String, dynamic>?),
+      fileName: FileName.fromJson(json['fileName'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'uRI': uRI?.toJson(),
       'documentHash': documentHash?.toJson(),
       'hashAlgorithmMethod': hashAlgorithmMethod?.toJson(),
@@ -82,40 +106,31 @@ class ExternalReference {
     return map;
   }
 
-  static ExternalReference? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ExternalReference (
-      uRI: URI.fromJson(json['uRI'] as Map<String, dynamic>?),
-      documentHash: DocumentHash.fromJson(json['documentHash'] as Map<String, dynamic>?),
-      hashAlgorithmMethod: HashAlgorithmMethod.fromJson(json['hashAlgorithmMethod'] as Map<String, dynamic>?),
-      expiryDate: ExpiryDate.fromJson(json['expiryDate'] as Map<String, dynamic>?),
-      expiryTime: ExpiryTime.fromJson(json['expiryTime'] as Map<String, dynamic>?),
-      mimeCode: MimeCode.fromJson(json['mimeCode'] as Map<String, dynamic>?),
-      formatCode: FormatCode.fromJson(json['formatCode'] as Map<String, dynamic>?),
-      encodingCode: EncodingCode.fromJson(json['encodingCode'] as Map<String, dynamic>?),
-      characterSetCode: CharacterSetCode.fromJson(json['characterSetCode'] as Map<String, dynamic>?),
-      fileName: FileName.fromJson(json['fileName'] as Map<String, dynamic>?),
-      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static ExternalReference? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ExternalReference (
-      uRI: null,
-      documentHash: null,
-      hashAlgorithmMethod: null,
-      expiryDate: null,
-      expiryTime: null,
-      mimeCode: null,
-      formatCode: null,
-      encodingCode: null,
-      characterSetCode: null,
-      fileName: null,
-      description: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      uRI: URI.fromXml(xml.findElements('cbc:URI').singleOrNull),
+      documentHash: DocumentHash.fromXml(xml.findElements('cbc:DocumentHash').singleOrNull),
+      hashAlgorithmMethod: HashAlgorithmMethod.fromXml(xml.findElements('cbc:HashAlgorithmMethod').singleOrNull),
+      expiryDate: ExpiryDate.fromXml(xml.findElements('cbc:ExpiryDate').singleOrNull),
+      expiryTime: ExpiryTime.fromXml(xml.findElements('cbc:ExpiryTime').singleOrNull),
+      mimeCode: MimeCode.fromXml(xml.findElements('cbc:MimeCode').singleOrNull),
+      formatCode: FormatCode.fromXml(xml.findElements('cbc:FormatCode').singleOrNull),
+      encodingCode: EncodingCode.fromXml(xml.findElements('cbc:EncodingCode').singleOrNull),
+      characterSetCode: CharacterSetCode.fromXml(xml.findElements('cbc:CharacterSetCode').singleOrNull),
+      fileName: FileName.fromXml(xml.findElements('cbc:FileName').singleOrNull),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ExternalReference',
+        'cac',
+      ),
+    );
+  }
 }
 

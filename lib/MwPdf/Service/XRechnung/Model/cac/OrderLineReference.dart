@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/LineID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/SalesOrderLineID.dart';
 import '../cbc/UUID.dart';
 import '../cbc/LineStatusCode.dart';
@@ -13,6 +14,9 @@ class OrderLineReference {
 
   // An identifier for the referenced order line, assigned by the buyer.
   final LineID lineID;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for the referenced order line, assigned by the seller.
   final SalesOrderLineID? salesOrderLineID;
@@ -28,14 +32,28 @@ class OrderLineReference {
 
   OrderLineReference ({
     required this.lineID,
+    this.uBLExtensions,
     this.salesOrderLineID,
     this.uUID,
     this.lineStatusCode,
     this.orderReference,
   });
 
+  static OrderLineReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return OrderLineReference (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      lineID: LineID.fromJson(json['lineID'] as Map<String, dynamic>?)!,
+      salesOrderLineID: SalesOrderLineID.fromJson(json['salesOrderLineID'] as Map<String, dynamic>?),
+      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
+      lineStatusCode: LineStatusCode.fromJson(json['lineStatusCode'] as Map<String, dynamic>?),
+      orderReference: OrderReference.fromJson(json['orderReference'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'lineID': lineID.toJson(),
       'salesOrderLineID': salesOrderLineID?.toJson(),
       'uUID': uUID?.toJson(),
@@ -46,28 +64,25 @@ class OrderLineReference {
     return map;
   }
 
-  static OrderLineReference? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return OrderLineReference (
-      lineID: LineID.fromJson(json['lineID'] as Map<String, dynamic>?)!,
-      salesOrderLineID: SalesOrderLineID.fromJson(json['salesOrderLineID'] as Map<String, dynamic>?),
-      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
-      lineStatusCode: LineStatusCode.fromJson(json['lineStatusCode'] as Map<String, dynamic>?),
-      orderReference: OrderReference.fromJson(json['orderReference'] as Map<String, dynamic>?),
-    );
-  }
-
   static OrderLineReference? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return OrderLineReference (
-      lineID: null,
-      salesOrderLineID: null,
-      uUID: null,
-      lineStatusCode: null,
-      orderReference: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      lineID: LineID.fromXml(xml.findElements('cbc:LineID').singleOrNull)!,
+      salesOrderLineID: SalesOrderLineID.fromXml(xml.findElements('cbc:SalesOrderLineID').singleOrNull),
+      uUID: UUID.fromXml(xml.findElements('cbc:UUID').singleOrNull),
+      lineStatusCode: LineStatusCode.fromXml(xml.findElements('cbc:LineStatusCode').singleOrNull),
+      orderReference: OrderReference.fromXml(xml.findElements('cac:OrderReference').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'OrderLineReference',
+        'cac',
+      ),
+    );
+  }
 }
 

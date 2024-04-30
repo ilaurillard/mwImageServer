@@ -21,6 +21,15 @@ class DeclaredCustomsValueAmount {
     assert(currencyID.isNotEmpty);
   }
 
+  static DeclaredCustomsValueAmount? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return DeclaredCustomsValueAmount (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      currencyID: json['currencyID'] as String? ?? '',
+      currencyCodeListVersionID: json['currencyCodeListVersionID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class DeclaredCustomsValueAmount {
     return map;
   }
 
-  static DeclaredCustomsValueAmount? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return DeclaredCustomsValueAmount (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      currencyID: json['currencyID'] as String? ?? '',
-      currencyCodeListVersionID: json['currencyCodeListVersionID'] as String?,
-    );
-  }
-
   static DeclaredCustomsValueAmount? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return DeclaredCustomsValueAmount (
-      value: null,
-      currencyID: null,
-      currencyCodeListVersionID: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      currencyID: xml.getAttribute('currencyID') ?? '',
+      currencyCodeListVersionID: xml.getAttribute('currencyCodeListVersionID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'DeclaredCustomsValueAmount',
+        'cbc',
+      ),
+    );
+  }
 }
 

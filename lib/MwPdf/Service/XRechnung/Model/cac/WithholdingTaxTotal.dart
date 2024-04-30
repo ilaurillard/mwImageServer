@@ -2,6 +2,8 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/TaxAmount.dart';
+import '../ext/UBLExtensions.dart';
+import '../cbc/CalculationSequenceNumeric.dart';
 import '../cbc/RoundingAmount.dart';
 import '../cbc/TaxEvidenceIndicator.dart';
 import '../cbc/TaxIncludedIndicator.dart';
@@ -13,6 +15,12 @@ class WithholdingTaxTotal {
 
   // The total tax amount for a particular taxation scheme, e.g., VAT; the sum of the tax subtotals for each tax category within the taxation scheme.
   final TaxAmount taxAmount;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
+  // The number of this tax total in the sequence of tax totals corresponding to the order in which multiple taxes are applied. If all taxes are applied to the same taxable amount (i.e., their order of application is inconsequential), then CalculationSequenceNumeric is 1 for all tax totals applied to a given amount.
+  final CalculationSequenceNumeric? calculationSequenceNumeric;
 
   // The rounding amount (positive or negative) added to the calculated tax total to produce the rounded TaxAmount.
   final RoundingAmount? roundingAmount;
@@ -28,15 +36,32 @@ class WithholdingTaxTotal {
 
   WithholdingTaxTotal ({
     required this.taxAmount,
+    this.uBLExtensions,
+    this.calculationSequenceNumeric,
     this.roundingAmount,
     this.taxEvidenceIndicator,
     this.taxIncludedIndicator,
     this.taxSubtotal = const [],
   });
 
+  static WithholdingTaxTotal? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return WithholdingTaxTotal (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      taxAmount: TaxAmount.fromJson(json['taxAmount'] as Map<String, dynamic>?)!,
+      calculationSequenceNumeric: CalculationSequenceNumeric.fromJson(json['calculationSequenceNumeric'] as Map<String, dynamic>?),
+      roundingAmount: RoundingAmount.fromJson(json['roundingAmount'] as Map<String, dynamic>?),
+      taxEvidenceIndicator: TaxEvidenceIndicator.fromJson(json['taxEvidenceIndicator'] as Map<String, dynamic>?),
+      taxIncludedIndicator: TaxIncludedIndicator.fromJson(json['taxIncludedIndicator'] as Map<String, dynamic>?),
+      taxSubtotal: (json['taxSubtotal'] as List? ?? []).map((dynamic d) => TaxSubtotal.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'taxAmount': taxAmount.toJson(),
+      'calculationSequenceNumeric': calculationSequenceNumeric?.toJson(),
       'roundingAmount': roundingAmount?.toJson(),
       'taxEvidenceIndicator': taxEvidenceIndicator?.toJson(),
       'taxIncludedIndicator': taxIncludedIndicator?.toJson(),
@@ -46,28 +71,26 @@ class WithholdingTaxTotal {
     return map;
   }
 
-  static WithholdingTaxTotal? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return WithholdingTaxTotal (
-      taxAmount: TaxAmount.fromJson(json['taxAmount'] as Map<String, dynamic>?)!,
-      roundingAmount: RoundingAmount.fromJson(json['roundingAmount'] as Map<String, dynamic>?),
-      taxEvidenceIndicator: TaxEvidenceIndicator.fromJson(json['taxEvidenceIndicator'] as Map<String, dynamic>?),
-      taxIncludedIndicator: TaxIncludedIndicator.fromJson(json['taxIncludedIndicator'] as Map<String, dynamic>?),
-      taxSubtotal: (json['taxSubtotal'] as List? ?? []).map((dynamic d) => TaxSubtotal.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static WithholdingTaxTotal? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return WithholdingTaxTotal (
-      taxAmount: null,
-      roundingAmount: null,
-      taxEvidenceIndicator: null,
-      taxIncludedIndicator: null,
-      taxSubtotal: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      taxAmount: TaxAmount.fromXml(xml.findElements('cbc:TaxAmount').singleOrNull)!,
+      calculationSequenceNumeric: CalculationSequenceNumeric.fromXml(xml.findElements('cbc:CalculationSequenceNumeric').singleOrNull),
+      roundingAmount: RoundingAmount.fromXml(xml.findElements('cbc:RoundingAmount').singleOrNull),
+      taxEvidenceIndicator: TaxEvidenceIndicator.fromXml(xml.findElements('cbc:TaxEvidenceIndicator').singleOrNull),
+      taxIncludedIndicator: TaxIncludedIndicator.fromXml(xml.findElements('cbc:TaxIncludedIndicator').singleOrNull),
+      taxSubtotal: xml.findElements('cac:TaxSubtotal').map((XmlElement e) => TaxSubtotal.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'WithholdingTaxTotal',
+        'cac',
+      ),
+    );
+  }
 }
 

@@ -2,7 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 
-// A character string (i.e. a finite set of characters), generally in the form of words of a language.
+// A character string that constitutes the distinctive designation of a person, place, thing or concept.
 class ExtensionAgencyName {
 
   final String value; // (string)
@@ -21,6 +21,15 @@ class ExtensionAgencyName {
     assert(value.isNotEmpty);
   }
 
+  static ExtensionAgencyName? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ExtensionAgencyName (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class ExtensionAgencyName {
     return map;
   }
 
-  static ExtensionAgencyName? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ExtensionAgencyName (
-      value: json['value'] as String? ?? '',
-      languageID: json['languageID'] as String?,
-      languageLocaleID: json['languageLocaleID'] as String?,
-    );
-  }
-
   static ExtensionAgencyName? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ExtensionAgencyName (
-      value: null,
-      languageID: null,
-      languageLocaleID: null,
+      value: xml.innerText,
+      languageID: xml.getAttribute('languageID'),
+      languageLocaleID: xml.getAttribute('languageLocaleID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ExtensionAgencyName',
+        'ext',
+      ),
+    );
+  }
 }
 

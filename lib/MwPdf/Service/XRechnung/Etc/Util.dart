@@ -6,6 +6,8 @@ class XsdTime {
     required this.value,
   }) {
     assert(value.isNotEmpty);
+    assert(value.split(':').length == 2);
+    assert(RegExp(r'^\d{2}:\d{2}$').hasMatch(value));
   }
 
   static XsdTime? fromJson(String? json) {
@@ -33,6 +35,8 @@ class XsdDate {
     required this.value,
   }) {
     assert(value.isNotEmpty);
+    assert(value.split('-').length == 3);
+    assert(RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(value));
   }
 
   static XsdDate? fromJson(String? json) {

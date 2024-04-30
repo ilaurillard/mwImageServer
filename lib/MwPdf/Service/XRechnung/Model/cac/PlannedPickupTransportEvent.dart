@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/IdentificationID.dart';
 import '../cbc/OccurrenceDate.dart';
 import '../cbc/OccurrenceTime.dart';
@@ -17,6 +18,9 @@ import '../cac/Period.dart';
 // A class to describe a significant occurrence or happening related to the transportation of goods.
 class PlannedPickupTransportEvent {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this transport event within an agreed event identification scheme.
   final IdentificationID? identificationID;
@@ -55,6 +59,7 @@ class PlannedPickupTransportEvent {
   final List<Period> period;
 
   PlannedPickupTransportEvent ({
+    this.uBLExtensions,
     this.identificationID,
     this.occurrenceDate,
     this.occurrenceTime,
@@ -69,8 +74,28 @@ class PlannedPickupTransportEvent {
     this.period = const [],
   });
 
+  static PlannedPickupTransportEvent? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PlannedPickupTransportEvent (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      identificationID: IdentificationID.fromJson(json['identificationID'] as Map<String, dynamic>?),
+      occurrenceDate: OccurrenceDate.fromJson(json['occurrenceDate'] as Map<String, dynamic>?),
+      occurrenceTime: OccurrenceTime.fromJson(json['occurrenceTime'] as Map<String, dynamic>?),
+      transportEventTypeCode: TransportEventTypeCode.fromJson(json['transportEventTypeCode'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      completionIndicator: CompletionIndicator.fromJson(json['completionIndicator'] as Map<String, dynamic>?),
+      reportedShipment: ReportedShipment.fromJson(json['reportedShipment'] as Map<String, dynamic>?),
+      currentStatus: (json['currentStatus'] as List? ?? []).map((dynamic d) => CurrentStatus.fromJson(d as Map<String, dynamic>?)!).toList(),
+      contact: (json['contact'] as List? ?? []).map((dynamic d) => Contact.fromJson(d as Map<String, dynamic>?)!).toList(),
+      location: Location.fromJson(json['location'] as Map<String, dynamic>?),
+      signature: Signature.fromJson(json['signature'] as Map<String, dynamic>?),
+      period: (json['period'] as List? ?? []).map((dynamic d) => Period.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'identificationID': identificationID?.toJson(),
       'occurrenceDate': occurrenceDate?.toJson(),
       'occurrenceTime': occurrenceTime?.toJson(),
@@ -88,42 +113,32 @@ class PlannedPickupTransportEvent {
     return map;
   }
 
-  static PlannedPickupTransportEvent? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PlannedPickupTransportEvent (
-      identificationID: IdentificationID.fromJson(json['identificationID'] as Map<String, dynamic>?),
-      occurrenceDate: OccurrenceDate.fromJson(json['occurrenceDate'] as Map<String, dynamic>?),
-      occurrenceTime: OccurrenceTime.fromJson(json['occurrenceTime'] as Map<String, dynamic>?),
-      transportEventTypeCode: TransportEventTypeCode.fromJson(json['transportEventTypeCode'] as Map<String, dynamic>?),
-      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
-      completionIndicator: CompletionIndicator.fromJson(json['completionIndicator'] as Map<String, dynamic>?),
-      reportedShipment: ReportedShipment.fromJson(json['reportedShipment'] as Map<String, dynamic>?),
-      currentStatus: (json['currentStatus'] as List? ?? []).map((dynamic d) => CurrentStatus.fromJson(d as Map<String, dynamic>?)!).toList(),
-      contact: (json['contact'] as List? ?? []).map((dynamic d) => Contact.fromJson(d as Map<String, dynamic>?)!).toList(),
-      location: Location.fromJson(json['location'] as Map<String, dynamic>?),
-      signature: Signature.fromJson(json['signature'] as Map<String, dynamic>?),
-      period: (json['period'] as List? ?? []).map((dynamic d) => Period.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static PlannedPickupTransportEvent? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PlannedPickupTransportEvent (
-      identificationID: null,
-      occurrenceDate: null,
-      occurrenceTime: null,
-      transportEventTypeCode: null,
-      description: null,
-      completionIndicator: null,
-      reportedShipment: null,
-      currentStatus: null,
-      contact: null,
-      location: null,
-      signature: null,
-      period: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      identificationID: IdentificationID.fromXml(xml.findElements('cbc:IdentificationID').singleOrNull),
+      occurrenceDate: OccurrenceDate.fromXml(xml.findElements('cbc:OccurrenceDate').singleOrNull),
+      occurrenceTime: OccurrenceTime.fromXml(xml.findElements('cbc:OccurrenceTime').singleOrNull),
+      transportEventTypeCode: TransportEventTypeCode.fromXml(xml.findElements('cbc:TransportEventTypeCode').singleOrNull),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
+      completionIndicator: CompletionIndicator.fromXml(xml.findElements('cbc:CompletionIndicator').singleOrNull),
+      reportedShipment: ReportedShipment.fromXml(xml.findElements('cac:ReportedShipment').singleOrNull),
+      currentStatus: xml.findElements('cac:CurrentStatus').map((XmlElement e) => CurrentStatus.fromXml(e)!).toList(),
+      contact: xml.findElements('cac:Contact').map((XmlElement e) => Contact.fromXml(e)!).toList(),
+      location: Location.fromXml(xml.findElements('cac:Location').singleOrNull),
+      signature: Signature.fromXml(xml.findElements('cac:Signature').singleOrNull),
+      period: xml.findElements('cac:Period').map((XmlElement e) => Period.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PlannedPickupTransportEvent',
+        'cac',
+      ),
+    );
+  }
 }
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/UUID.dart';
 import '../cbc/Note.dart';
 import '../cbc/ReceivedQuantity.dart';
@@ -28,6 +29,9 @@ class ReceivedHandlingUnitReceiptLine {
 
   // An identifier for this receipt line.
   final ID iD;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A universally unique identifier for this receipt line.
   final UUID? uUID;
@@ -88,6 +92,7 @@ class ReceivedHandlingUnitReceiptLine {
 
   ReceivedHandlingUnitReceiptLine ({
     required this.iD,
+    this.uBLExtensions,
     this.uUID,
     this.note = const [],
     this.receivedQuantity,
@@ -109,8 +114,36 @@ class ReceivedHandlingUnitReceiptLine {
     this.shipment = const [],
   });
 
+  static ReceivedHandlingUnitReceiptLine? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ReceivedHandlingUnitReceiptLine (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
+      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
+      receivedQuantity: ReceivedQuantity.fromJson(json['receivedQuantity'] as Map<String, dynamic>?),
+      shortQuantity: ShortQuantity.fromJson(json['shortQuantity'] as Map<String, dynamic>?),
+      shortageActionCode: ShortageActionCode.fromJson(json['shortageActionCode'] as Map<String, dynamic>?),
+      rejectedQuantity: RejectedQuantity.fromJson(json['rejectedQuantity'] as Map<String, dynamic>?),
+      rejectReasonCode: RejectReasonCode.fromJson(json['rejectReasonCode'] as Map<String, dynamic>?),
+      rejectReason: (json['rejectReason'] as List? ?? []).map((dynamic d) => RejectReason.fromJson(d as Map<String, dynamic>?)!).toList(),
+      rejectActionCode: RejectActionCode.fromJson(json['rejectActionCode'] as Map<String, dynamic>?),
+      quantityDiscrepancyCode: QuantityDiscrepancyCode.fromJson(json['quantityDiscrepancyCode'] as Map<String, dynamic>?),
+      oversupplyQuantity: OversupplyQuantity.fromJson(json['oversupplyQuantity'] as Map<String, dynamic>?),
+      receivedDate: ReceivedDate.fromJson(json['receivedDate'] as Map<String, dynamic>?),
+      timingComplaintCode: TimingComplaintCode.fromJson(json['timingComplaintCode'] as Map<String, dynamic>?),
+      timingComplaint: TimingComplaint.fromJson(json['timingComplaint'] as Map<String, dynamic>?),
+      orderLineReference: OrderLineReference.fromJson(json['orderLineReference'] as Map<String, dynamic>?),
+      despatchLineReference: (json['despatchLineReference'] as List? ?? []).map((dynamic d) => DespatchLineReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      item: (json['item'] as List? ?? []).map((dynamic d) => Item.fromJson(d as Map<String, dynamic>?)!).toList(),
+      shipment: (json['shipment'] as List? ?? []).map((dynamic d) => Shipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD.toJson(),
       'uUID': uUID?.toJson(),
       'note': note.map((e) => e.toJson()).toList(),
@@ -136,58 +169,40 @@ class ReceivedHandlingUnitReceiptLine {
     return map;
   }
 
-  static ReceivedHandlingUnitReceiptLine? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ReceivedHandlingUnitReceiptLine (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
-      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
-      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
-      receivedQuantity: ReceivedQuantity.fromJson(json['receivedQuantity'] as Map<String, dynamic>?),
-      shortQuantity: ShortQuantity.fromJson(json['shortQuantity'] as Map<String, dynamic>?),
-      shortageActionCode: ShortageActionCode.fromJson(json['shortageActionCode'] as Map<String, dynamic>?),
-      rejectedQuantity: RejectedQuantity.fromJson(json['rejectedQuantity'] as Map<String, dynamic>?),
-      rejectReasonCode: RejectReasonCode.fromJson(json['rejectReasonCode'] as Map<String, dynamic>?),
-      rejectReason: (json['rejectReason'] as List? ?? []).map((dynamic d) => RejectReason.fromJson(d as Map<String, dynamic>?)!).toList(),
-      rejectActionCode: RejectActionCode.fromJson(json['rejectActionCode'] as Map<String, dynamic>?),
-      quantityDiscrepancyCode: QuantityDiscrepancyCode.fromJson(json['quantityDiscrepancyCode'] as Map<String, dynamic>?),
-      oversupplyQuantity: OversupplyQuantity.fromJson(json['oversupplyQuantity'] as Map<String, dynamic>?),
-      receivedDate: ReceivedDate.fromJson(json['receivedDate'] as Map<String, dynamic>?),
-      timingComplaintCode: TimingComplaintCode.fromJson(json['timingComplaintCode'] as Map<String, dynamic>?),
-      timingComplaint: TimingComplaint.fromJson(json['timingComplaint'] as Map<String, dynamic>?),
-      orderLineReference: OrderLineReference.fromJson(json['orderLineReference'] as Map<String, dynamic>?),
-      despatchLineReference: (json['despatchLineReference'] as List? ?? []).map((dynamic d) => DespatchLineReference.fromJson(d as Map<String, dynamic>?)!).toList(),
-      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
-      item: (json['item'] as List? ?? []).map((dynamic d) => Item.fromJson(d as Map<String, dynamic>?)!).toList(),
-      shipment: (json['shipment'] as List? ?? []).map((dynamic d) => Shipment.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static ReceivedHandlingUnitReceiptLine? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ReceivedHandlingUnitReceiptLine (
-      iD: null,
-      uUID: null,
-      note: null,
-      receivedQuantity: null,
-      shortQuantity: null,
-      shortageActionCode: null,
-      rejectedQuantity: null,
-      rejectReasonCode: null,
-      rejectReason: null,
-      rejectActionCode: null,
-      quantityDiscrepancyCode: null,
-      oversupplyQuantity: null,
-      receivedDate: null,
-      timingComplaintCode: null,
-      timingComplaint: null,
-      orderLineReference: null,
-      despatchLineReference: null,
-      documentReference: null,
-      item: null,
-      shipment: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      uUID: UUID.fromXml(xml.findElements('cbc:UUID').singleOrNull),
+      note: xml.findElements('cbc:Note').map((XmlElement e) => Note.fromXml(e)!).toList(),
+      receivedQuantity: ReceivedQuantity.fromXml(xml.findElements('cbc:ReceivedQuantity').singleOrNull),
+      shortQuantity: ShortQuantity.fromXml(xml.findElements('cbc:ShortQuantity').singleOrNull),
+      shortageActionCode: ShortageActionCode.fromXml(xml.findElements('cbc:ShortageActionCode').singleOrNull),
+      rejectedQuantity: RejectedQuantity.fromXml(xml.findElements('cbc:RejectedQuantity').singleOrNull),
+      rejectReasonCode: RejectReasonCode.fromXml(xml.findElements('cbc:RejectReasonCode').singleOrNull),
+      rejectReason: xml.findElements('cbc:RejectReason').map((XmlElement e) => RejectReason.fromXml(e)!).toList(),
+      rejectActionCode: RejectActionCode.fromXml(xml.findElements('cbc:RejectActionCode').singleOrNull),
+      quantityDiscrepancyCode: QuantityDiscrepancyCode.fromXml(xml.findElements('cbc:QuantityDiscrepancyCode').singleOrNull),
+      oversupplyQuantity: OversupplyQuantity.fromXml(xml.findElements('cbc:OversupplyQuantity').singleOrNull),
+      receivedDate: ReceivedDate.fromXml(xml.findElements('cbc:ReceivedDate').singleOrNull),
+      timingComplaintCode: TimingComplaintCode.fromXml(xml.findElements('cbc:TimingComplaintCode').singleOrNull),
+      timingComplaint: TimingComplaint.fromXml(xml.findElements('cbc:TimingComplaint').singleOrNull),
+      orderLineReference: OrderLineReference.fromXml(xml.findElements('cac:OrderLineReference').singleOrNull),
+      despatchLineReference: xml.findElements('cac:DespatchLineReference').map((XmlElement e) => DespatchLineReference.fromXml(e)!).toList(),
+      documentReference: xml.findElements('cac:DocumentReference').map((XmlElement e) => DocumentReference.fromXml(e)!).toList(),
+      item: xml.findElements('cac:Item').map((XmlElement e) => Item.fromXml(e)!).toList(),
+      shipment: xml.findElements('cac:Shipment').map((XmlElement e) => Shipment.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ReceivedHandlingUnitReceiptLine',
+        'cac',
+      ),
+    );
+  }
 }
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/PriceAmount.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/BaseQuantity.dart';
 import '../cbc/PriceChangeReason.dart';
 import '../cbc/PriceTypeCode.dart';
@@ -11,6 +12,7 @@ import '../cac/ValidityPeriod.dart';
 import '../cac/PriceList.dart';
 import '../cac/AllowanceCharge.dart';
 import '../cac/PricingExchangeRate.dart';
+import '../cac/AlternativeCurrencyPrice.dart';
 
 // A class to describe a price, expressed in a data structure containing multiple properties (compare with UnstructuredPrice).
 class AlternativeConditionPrice {
@@ -18,6 +20,9 @@ class AlternativeConditionPrice {
 
   // The amount of the price.
   final PriceAmount priceAmount;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // The quantity at which this price applies.
   final BaseQuantity? baseQuantity;
@@ -46,8 +51,12 @@ class AlternativeConditionPrice {
   // The exchange rate applicable to this price, if it differs from the exchange rate applicable to the document as a whole.
   final PricingExchangeRate? pricingExchangeRate;
 
+  // The price expressed in an alternative currency
+  final List<AlternativeCurrencyPrice> alternativeCurrencyPrice;
+
   AlternativeConditionPrice ({
     required this.priceAmount,
+    this.uBLExtensions,
     this.baseQuantity,
     this.priceChangeReason = const [],
     this.priceTypeCode,
@@ -57,28 +66,13 @@ class AlternativeConditionPrice {
     this.priceList,
     this.allowanceCharge = const [],
     this.pricingExchangeRate,
+    this.alternativeCurrencyPrice = const [],
   });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'priceAmount': priceAmount.toJson(),
-      'baseQuantity': baseQuantity?.toJson(),
-      'priceChangeReason': priceChangeReason.map((e) => e.toJson()).toList(),
-      'priceTypeCode': priceTypeCode?.toJson(),
-      'priceType': priceType?.toJson(),
-      'orderableUnitFactorRate': orderableUnitFactorRate?.toJson(),
-      'validityPeriod': validityPeriod.map((e) => e.toJson()).toList(),
-      'priceList': priceList?.toJson(),
-      'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
-      'pricingExchangeRate': pricingExchangeRate?.toJson(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
-  }
 
   static AlternativeConditionPrice? fromJson(Map<String, dynamic>? json) {
     if (json == null) { return null; }
     return AlternativeConditionPrice (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       priceAmount: PriceAmount.fromJson(json['priceAmount'] as Map<String, dynamic>?)!,
       baseQuantity: BaseQuantity.fromJson(json['baseQuantity'] as Map<String, dynamic>?),
       priceChangeReason: (json['priceChangeReason'] as List? ?? []).map((dynamic d) => PriceChangeReason.fromJson(d as Map<String, dynamic>?)!).toList(),
@@ -89,25 +83,54 @@ class AlternativeConditionPrice {
       priceList: PriceList.fromJson(json['priceList'] as Map<String, dynamic>?),
       allowanceCharge: (json['allowanceCharge'] as List? ?? []).map((dynamic d) => AllowanceCharge.fromJson(d as Map<String, dynamic>?)!).toList(),
       pricingExchangeRate: PricingExchangeRate.fromJson(json['pricingExchangeRate'] as Map<String, dynamic>?),
+      alternativeCurrencyPrice: (json['alternativeCurrencyPrice'] as List? ?? []).map((dynamic d) => AlternativeCurrencyPrice.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'priceAmount': priceAmount.toJson(),
+      'baseQuantity': baseQuantity?.toJson(),
+      'priceChangeReason': priceChangeReason.map((e) => e.toJson()).toList(),
+      'priceTypeCode': priceTypeCode?.toJson(),
+      'priceType': priceType?.toJson(),
+      'orderableUnitFactorRate': orderableUnitFactorRate?.toJson(),
+      'validityPeriod': validityPeriod.map((e) => e.toJson()).toList(),
+      'priceList': priceList?.toJson(),
+      'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
+      'pricingExchangeRate': pricingExchangeRate?.toJson(),
+      'alternativeCurrencyPrice': alternativeCurrencyPrice.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
   }
 
   static AlternativeConditionPrice? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return AlternativeConditionPrice (
-      priceAmount: null,
-      baseQuantity: null,
-      priceChangeReason: null,
-      priceTypeCode: null,
-      priceType: null,
-      orderableUnitFactorRate: null,
-      validityPeriod: null,
-      priceList: null,
-      allowanceCharge: null,
-      pricingExchangeRate: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      priceAmount: PriceAmount.fromXml(xml.findElements('cbc:PriceAmount').singleOrNull)!,
+      baseQuantity: BaseQuantity.fromXml(xml.findElements('cbc:BaseQuantity').singleOrNull),
+      priceChangeReason: xml.findElements('cbc:PriceChangeReason').map((XmlElement e) => PriceChangeReason.fromXml(e)!).toList(),
+      priceTypeCode: PriceTypeCode.fromXml(xml.findElements('cbc:PriceTypeCode').singleOrNull),
+      priceType: PriceType.fromXml(xml.findElements('cbc:PriceType').singleOrNull),
+      orderableUnitFactorRate: OrderableUnitFactorRate.fromXml(xml.findElements('cbc:OrderableUnitFactorRate').singleOrNull),
+      validityPeriod: xml.findElements('cac:ValidityPeriod').map((XmlElement e) => ValidityPeriod.fromXml(e)!).toList(),
+      priceList: PriceList.fromXml(xml.findElements('cac:PriceList').singleOrNull),
+      allowanceCharge: xml.findElements('cac:AllowanceCharge').map((XmlElement e) => AllowanceCharge.fromXml(e)!).toList(),
+      pricingExchangeRate: PricingExchangeRate.fromXml(xml.findElements('cac:PricingExchangeRate').singleOrNull),
+      alternativeCurrencyPrice: xml.findElements('cac:AlternativeCurrencyPrice').map((XmlElement e) => AlternativeCurrencyPrice.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'AlternativeConditionPrice',
+        'cac',
+      ),
+    );
+  }
 }
 

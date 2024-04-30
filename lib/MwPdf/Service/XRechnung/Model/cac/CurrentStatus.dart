@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ConditionCode.dart';
 import '../cbc/ReferenceDate.dart';
 import '../cbc/ReferenceTime.dart';
@@ -12,11 +13,15 @@ import '../cbc/Text.dart';
 import '../cbc/IndicationIndicator.dart';
 import '../cbc/Percent.dart';
 import '../cbc/ReliabilityPercent.dart';
+import '../cac/SubStatus.dart';
 import '../cac/Condition.dart';
 
 // A class to describe the condition or position of an object.
 class CurrentStatus {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // Specifies the status condition of the related object.
   final ConditionCode? conditionCode;
@@ -51,10 +56,14 @@ class CurrentStatus {
   // The reliability of this status, expressed as a percentage.
   final ReliabilityPercent? reliabilityPercent;
 
+  // An additional sub status to clarify or ellaborate on the status
+  final List<SubStatus> subStatus;
+
   // Measurements that quantify the condition of the objects covered by the status.
   final List<Condition> condition;
 
   CurrentStatus ({
+    this.uBLExtensions,
     this.conditionCode,
     this.referenceDate,
     this.referenceTime,
@@ -66,31 +75,14 @@ class CurrentStatus {
     this.indicationIndicator,
     this.percent,
     this.reliabilityPercent,
+    this.subStatus = const [],
     this.condition = const [],
   });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'conditionCode': conditionCode?.toJson(),
-      'referenceDate': referenceDate?.toJson(),
-      'referenceTime': referenceTime?.toJson(),
-      'description': description.map((e) => e.toJson()).toList(),
-      'statusReasonCode': statusReasonCode?.toJson(),
-      'statusReason': statusReason.map((e) => e.toJson()).toList(),
-      'sequenceID': sequenceID?.toJson(),
-      'text': text.map((e) => e.toJson()).toList(),
-      'indicationIndicator': indicationIndicator?.toJson(),
-      'percent': percent?.toJson(),
-      'reliabilityPercent': reliabilityPercent?.toJson(),
-      'condition': condition.map((e) => e.toJson()).toList(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
-  }
 
   static CurrentStatus? fromJson(Map<String, dynamic>? json) {
     if (json == null) { return null; }
     return CurrentStatus (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       conditionCode: ConditionCode.fromJson(json['conditionCode'] as Map<String, dynamic>?),
       referenceDate: ReferenceDate.fromJson(json['referenceDate'] as Map<String, dynamic>?),
       referenceTime: ReferenceTime.fromJson(json['referenceTime'] as Map<String, dynamic>?),
@@ -102,28 +94,59 @@ class CurrentStatus {
       indicationIndicator: IndicationIndicator.fromJson(json['indicationIndicator'] as Map<String, dynamic>?),
       percent: Percent.fromJson(json['percent'] as Map<String, dynamic>?),
       reliabilityPercent: ReliabilityPercent.fromJson(json['reliabilityPercent'] as Map<String, dynamic>?),
+      subStatus: (json['subStatus'] as List? ?? []).map((dynamic d) => SubStatus.fromJson(d as Map<String, dynamic>?)!).toList(),
       condition: (json['condition'] as List? ?? []).map((dynamic d) => Condition.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
   }
 
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'conditionCode': conditionCode?.toJson(),
+      'referenceDate': referenceDate?.toJson(),
+      'referenceTime': referenceTime?.toJson(),
+      'description': description.map((e) => e.toJson()).toList(),
+      'statusReasonCode': statusReasonCode?.toJson(),
+      'statusReason': statusReason.map((e) => e.toJson()).toList(),
+      'sequenceID': sequenceID?.toJson(),
+      'text': text.map((e) => e.toJson()).toList(),
+      'indicationIndicator': indicationIndicator?.toJson(),
+      'percent': percent?.toJson(),
+      'reliabilityPercent': reliabilityPercent?.toJson(),
+      'subStatus': subStatus.map((e) => e.toJson()).toList(),
+      'condition': condition.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+  }
+
   static CurrentStatus? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return CurrentStatus (
-      conditionCode: null,
-      referenceDate: null,
-      referenceTime: null,
-      description: null,
-      statusReasonCode: null,
-      statusReason: null,
-      sequenceID: null,
-      text: null,
-      indicationIndicator: null,
-      percent: null,
-      reliabilityPercent: null,
-      condition: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      conditionCode: ConditionCode.fromXml(xml.findElements('cbc:ConditionCode').singleOrNull),
+      referenceDate: ReferenceDate.fromXml(xml.findElements('cbc:ReferenceDate').singleOrNull),
+      referenceTime: ReferenceTime.fromXml(xml.findElements('cbc:ReferenceTime').singleOrNull),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
+      statusReasonCode: StatusReasonCode.fromXml(xml.findElements('cbc:StatusReasonCode').singleOrNull),
+      statusReason: xml.findElements('cbc:StatusReason').map((XmlElement e) => StatusReason.fromXml(e)!).toList(),
+      sequenceID: SequenceID.fromXml(xml.findElements('cbc:SequenceID').singleOrNull),
+      text: xml.findElements('cbc:Text').map((XmlElement e) => Text.fromXml(e)!).toList(),
+      indicationIndicator: IndicationIndicator.fromXml(xml.findElements('cbc:IndicationIndicator').singleOrNull),
+      percent: Percent.fromXml(xml.findElements('cbc:Percent').singleOrNull),
+      reliabilityPercent: ReliabilityPercent.fromXml(xml.findElements('cbc:ReliabilityPercent').singleOrNull),
+      subStatus: xml.findElements('cac:SubStatus').map((XmlElement e) => SubStatus.fromXml(e)!).toList(),
+      condition: xml.findElements('cac:Condition').map((XmlElement e) => Condition.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'CurrentStatus',
+        'cac',
+      ),
+    );
+  }
 }
 

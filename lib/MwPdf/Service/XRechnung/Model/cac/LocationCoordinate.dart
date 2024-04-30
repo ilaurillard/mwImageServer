@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/CoordinateSystemCode.dart';
 import '../cbc/LatitudeDegreesMeasure.dart';
 import '../cbc/LatitudeMinutesMeasure.dart';
@@ -13,6 +14,9 @@ import '../cbc/AltitudeMeasure.dart';
 // A class for defining a set of geographical coordinates (apparently misnamed).
 class LocationCoordinate {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A code signifying the location system used.
   final CoordinateSystemCode? coordinateSystemCode;
@@ -39,6 +43,7 @@ class LocationCoordinate {
   final AltitudeMeasure? altitudeMeasure;
 
   LocationCoordinate ({
+    this.uBLExtensions,
     this.coordinateSystemCode,
     this.latitudeDegreesMeasure,
     this.latitudeMinutesMeasure,
@@ -49,8 +54,24 @@ class LocationCoordinate {
     this.altitudeMeasure,
   });
 
+  static LocationCoordinate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return LocationCoordinate (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      coordinateSystemCode: CoordinateSystemCode.fromJson(json['coordinateSystemCode'] as Map<String, dynamic>?),
+      latitudeDegreesMeasure: LatitudeDegreesMeasure.fromJson(json['latitudeDegreesMeasure'] as Map<String, dynamic>?),
+      latitudeMinutesMeasure: LatitudeMinutesMeasure.fromJson(json['latitudeMinutesMeasure'] as Map<String, dynamic>?),
+      latitudeDirectionCode: LatitudeDirectionCode.fromJson(json['latitudeDirectionCode'] as Map<String, dynamic>?),
+      longitudeDegreesMeasure: LongitudeDegreesMeasure.fromJson(json['longitudeDegreesMeasure'] as Map<String, dynamic>?),
+      longitudeMinutesMeasure: LongitudeMinutesMeasure.fromJson(json['longitudeMinutesMeasure'] as Map<String, dynamic>?),
+      longitudeDirectionCode: LongitudeDirectionCode.fromJson(json['longitudeDirectionCode'] as Map<String, dynamic>?),
+      altitudeMeasure: AltitudeMeasure.fromJson(json['altitudeMeasure'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'coordinateSystemCode': coordinateSystemCode?.toJson(),
       'latitudeDegreesMeasure': latitudeDegreesMeasure?.toJson(),
       'latitudeMinutesMeasure': latitudeMinutesMeasure?.toJson(),
@@ -64,34 +85,28 @@ class LocationCoordinate {
     return map;
   }
 
-  static LocationCoordinate? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return LocationCoordinate (
-      coordinateSystemCode: CoordinateSystemCode.fromJson(json['coordinateSystemCode'] as Map<String, dynamic>?),
-      latitudeDegreesMeasure: LatitudeDegreesMeasure.fromJson(json['latitudeDegreesMeasure'] as Map<String, dynamic>?),
-      latitudeMinutesMeasure: LatitudeMinutesMeasure.fromJson(json['latitudeMinutesMeasure'] as Map<String, dynamic>?),
-      latitudeDirectionCode: LatitudeDirectionCode.fromJson(json['latitudeDirectionCode'] as Map<String, dynamic>?),
-      longitudeDegreesMeasure: LongitudeDegreesMeasure.fromJson(json['longitudeDegreesMeasure'] as Map<String, dynamic>?),
-      longitudeMinutesMeasure: LongitudeMinutesMeasure.fromJson(json['longitudeMinutesMeasure'] as Map<String, dynamic>?),
-      longitudeDirectionCode: LongitudeDirectionCode.fromJson(json['longitudeDirectionCode'] as Map<String, dynamic>?),
-      altitudeMeasure: AltitudeMeasure.fromJson(json['altitudeMeasure'] as Map<String, dynamic>?),
-    );
-  }
-
   static LocationCoordinate? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return LocationCoordinate (
-      coordinateSystemCode: null,
-      latitudeDegreesMeasure: null,
-      latitudeMinutesMeasure: null,
-      latitudeDirectionCode: null,
-      longitudeDegreesMeasure: null,
-      longitudeMinutesMeasure: null,
-      longitudeDirectionCode: null,
-      altitudeMeasure: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      coordinateSystemCode: CoordinateSystemCode.fromXml(xml.findElements('cbc:CoordinateSystemCode').singleOrNull),
+      latitudeDegreesMeasure: LatitudeDegreesMeasure.fromXml(xml.findElements('cbc:LatitudeDegreesMeasure').singleOrNull),
+      latitudeMinutesMeasure: LatitudeMinutesMeasure.fromXml(xml.findElements('cbc:LatitudeMinutesMeasure').singleOrNull),
+      latitudeDirectionCode: LatitudeDirectionCode.fromXml(xml.findElements('cbc:LatitudeDirectionCode').singleOrNull),
+      longitudeDegreesMeasure: LongitudeDegreesMeasure.fromXml(xml.findElements('cbc:LongitudeDegreesMeasure').singleOrNull),
+      longitudeMinutesMeasure: LongitudeMinutesMeasure.fromXml(xml.findElements('cbc:LongitudeMinutesMeasure').singleOrNull),
+      longitudeDirectionCode: LongitudeDirectionCode.fromXml(xml.findElements('cbc:LongitudeDirectionCode').singleOrNull),
+      altitudeMeasure: AltitudeMeasure.fromXml(xml.findElements('cbc:AltitudeMeasure').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'LocationCoordinate',
+        'cac',
+      ),
+    );
+  }
 }
 

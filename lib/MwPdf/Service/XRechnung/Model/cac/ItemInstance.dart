@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ProductTraceID.dart';
 import '../cbc/ManufactureDate.dart';
 import '../cbc/ManufactureTime.dart';
@@ -13,6 +14,9 @@ import '../cac/LotIdentification.dart';
 // A class to describe a specific, trackable instance of an item.
 class ItemInstance {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier used for tracing this item instance, such as the EPC number used in RFID.
   final ProductTraceID? productTraceID;
@@ -39,6 +43,7 @@ class ItemInstance {
   final LotIdentification? lotIdentification;
 
   ItemInstance ({
+    this.uBLExtensions,
     this.productTraceID,
     this.manufactureDate,
     this.manufactureTime,
@@ -49,8 +54,24 @@ class ItemInstance {
     this.lotIdentification,
   });
 
+  static ItemInstance? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ItemInstance (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      productTraceID: ProductTraceID.fromJson(json['productTraceID'] as Map<String, dynamic>?),
+      manufactureDate: ManufactureDate.fromJson(json['manufactureDate'] as Map<String, dynamic>?),
+      manufactureTime: ManufactureTime.fromJson(json['manufactureTime'] as Map<String, dynamic>?),
+      bestBeforeDate: BestBeforeDate.fromJson(json['bestBeforeDate'] as Map<String, dynamic>?),
+      registrationID: RegistrationID.fromJson(json['registrationID'] as Map<String, dynamic>?),
+      serialID: SerialID.fromJson(json['serialID'] as Map<String, dynamic>?),
+      additionalItemProperty: (json['additionalItemProperty'] as List? ?? []).map((dynamic d) => AdditionalItemProperty.fromJson(d as Map<String, dynamic>?)!).toList(),
+      lotIdentification: LotIdentification.fromJson(json['lotIdentification'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'productTraceID': productTraceID?.toJson(),
       'manufactureDate': manufactureDate?.toJson(),
       'manufactureTime': manufactureTime?.toJson(),
@@ -64,34 +85,28 @@ class ItemInstance {
     return map;
   }
 
-  static ItemInstance? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ItemInstance (
-      productTraceID: ProductTraceID.fromJson(json['productTraceID'] as Map<String, dynamic>?),
-      manufactureDate: ManufactureDate.fromJson(json['manufactureDate'] as Map<String, dynamic>?),
-      manufactureTime: ManufactureTime.fromJson(json['manufactureTime'] as Map<String, dynamic>?),
-      bestBeforeDate: BestBeforeDate.fromJson(json['bestBeforeDate'] as Map<String, dynamic>?),
-      registrationID: RegistrationID.fromJson(json['registrationID'] as Map<String, dynamic>?),
-      serialID: SerialID.fromJson(json['serialID'] as Map<String, dynamic>?),
-      additionalItemProperty: (json['additionalItemProperty'] as List? ?? []).map((dynamic d) => AdditionalItemProperty.fromJson(d as Map<String, dynamic>?)!).toList(),
-      lotIdentification: LotIdentification.fromJson(json['lotIdentification'] as Map<String, dynamic>?),
-    );
-  }
-
   static ItemInstance? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ItemInstance (
-      productTraceID: null,
-      manufactureDate: null,
-      manufactureTime: null,
-      bestBeforeDate: null,
-      registrationID: null,
-      serialID: null,
-      additionalItemProperty: null,
-      lotIdentification: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      productTraceID: ProductTraceID.fromXml(xml.findElements('cbc:ProductTraceID').singleOrNull),
+      manufactureDate: ManufactureDate.fromXml(xml.findElements('cbc:ManufactureDate').singleOrNull),
+      manufactureTime: ManufactureTime.fromXml(xml.findElements('cbc:ManufactureTime').singleOrNull),
+      bestBeforeDate: BestBeforeDate.fromXml(xml.findElements('cbc:BestBeforeDate').singleOrNull),
+      registrationID: RegistrationID.fromXml(xml.findElements('cbc:RegistrationID').singleOrNull),
+      serialID: SerialID.fromXml(xml.findElements('cbc:SerialID').singleOrNull),
+      additionalItemProperty: xml.findElements('cac:AdditionalItemProperty').map((XmlElement e) => AdditionalItemProperty.fromXml(e)!).toList(),
+      lotIdentification: LotIdentification.fromXml(xml.findElements('cac:LotIdentification').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ItemInstance',
+        'cac',
+      ),
+    );
+  }
 }
 

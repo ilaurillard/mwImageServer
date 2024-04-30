@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/UUID.dart';
 import '../cbc/IssueDate.dart';
 import '../cac/WorkPhaseReference.dart';
@@ -12,6 +13,9 @@ class ProjectReference {
 
   // An identifier for the referenced project.
   final ID iD;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A universally unique identifier for the referenced project.
   final UUID? uUID;
@@ -24,13 +28,26 @@ class ProjectReference {
 
   ProjectReference ({
     required this.iD,
+    this.uBLExtensions,
     this.uUID,
     this.issueDate,
     this.workPhaseReference = const [],
   });
 
+  static ProjectReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ProjectReference (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
+      issueDate: IssueDate.fromJson(json['issueDate'] as Map<String, dynamic>?),
+      workPhaseReference: (json['workPhaseReference'] as List? ?? []).map((dynamic d) => WorkPhaseReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD.toJson(),
       'uUID': uUID?.toJson(),
       'issueDate': issueDate?.toJson(),
@@ -40,26 +57,24 @@ class ProjectReference {
     return map;
   }
 
-  static ProjectReference? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ProjectReference (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
-      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
-      issueDate: IssueDate.fromJson(json['issueDate'] as Map<String, dynamic>?),
-      workPhaseReference: (json['workPhaseReference'] as List? ?? []).map((dynamic d) => WorkPhaseReference.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static ProjectReference? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ProjectReference (
-      iD: null,
-      uUID: null,
-      issueDate: null,
-      workPhaseReference: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      uUID: UUID.fromXml(xml.findElements('cbc:UUID').singleOrNull),
+      issueDate: IssueDate.fromXml(xml.findElements('cbc:IssueDate').singleOrNull),
+      workPhaseReference: xml.findElements('cac:WorkPhaseReference').map((XmlElement e) => WorkPhaseReference.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ProjectReference',
+        'cac',
+      ),
+    );
+  }
 }
 

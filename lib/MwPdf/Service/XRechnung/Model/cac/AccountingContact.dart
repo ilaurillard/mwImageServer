@@ -1,8 +1,11 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
+import '../cbc/JobTitle.dart';
+import '../cbc/Department.dart';
 import '../cbc/Telephone.dart';
 import '../cbc/Telefax.dart';
 import '../cbc/ElectronicMail.dart';
@@ -13,11 +16,20 @@ import '../cac/OtherCommunication.dart';
 class AccountingContact {
 
 
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
   // An identifier for this contact.
   final ID? iD;
 
   // The name of this contact. It is recommended that this be used for a functional name and not a personal name.
   final Name? name;
+
+  // The job title or function of this contact
+  final JobTitle? jobTitle;
+
+  // The department where this contact works
+  final Department? department;
 
   // The primary telephone number of this contact.
   final Telephone? telephone;
@@ -35,8 +47,11 @@ class AccountingContact {
   final List<OtherCommunication> otherCommunication;
 
   AccountingContact ({
+    this.uBLExtensions,
     this.iD,
     this.name,
+    this.jobTitle,
+    this.department,
     this.telephone,
     this.telefax,
     this.electronicMail,
@@ -44,10 +59,29 @@ class AccountingContact {
     this.otherCommunication = const [],
   });
 
+  static AccountingContact? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return AccountingContact (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      jobTitle: JobTitle.fromJson(json['jobTitle'] as Map<String, dynamic>?),
+      department: Department.fromJson(json['department'] as Map<String, dynamic>?),
+      telephone: Telephone.fromJson(json['telephone'] as Map<String, dynamic>?),
+      telefax: Telefax.fromJson(json['telefax'] as Map<String, dynamic>?),
+      electronicMail: ElectronicMail.fromJson(json['electronicMail'] as Map<String, dynamic>?),
+      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
+      otherCommunication: (json['otherCommunication'] as List? ?? []).map((dynamic d) => OtherCommunication.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'name': name?.toJson(),
+      'jobTitle': jobTitle?.toJson(),
+      'department': department?.toJson(),
       'telephone': telephone?.toJson(),
       'telefax': telefax?.toJson(),
       'electronicMail': electronicMail?.toJson(),
@@ -58,32 +92,29 @@ class AccountingContact {
     return map;
   }
 
-  static AccountingContact? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return AccountingContact (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
-      telephone: Telephone.fromJson(json['telephone'] as Map<String, dynamic>?),
-      telefax: Telefax.fromJson(json['telefax'] as Map<String, dynamic>?),
-      electronicMail: ElectronicMail.fromJson(json['electronicMail'] as Map<String, dynamic>?),
-      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
-      otherCommunication: (json['otherCommunication'] as List? ?? []).map((dynamic d) => OtherCommunication.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static AccountingContact? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return AccountingContact (
-      iD: null,
-      name: null,
-      telephone: null,
-      telefax: null,
-      electronicMail: null,
-      note: null,
-      otherCommunication: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      name: Name.fromXml(xml.findElements('cbc:Name').singleOrNull),
+      jobTitle: JobTitle.fromXml(xml.findElements('cbc:JobTitle').singleOrNull),
+      department: Department.fromXml(xml.findElements('cbc:Department').singleOrNull),
+      telephone: Telephone.fromXml(xml.findElements('cbc:Telephone').singleOrNull),
+      telefax: Telefax.fromXml(xml.findElements('cbc:Telefax').singleOrNull),
+      electronicMail: ElectronicMail.fromXml(xml.findElements('cbc:ElectronicMail').singleOrNull),
+      note: xml.findElements('cbc:Note').map((XmlElement e) => Note.fromXml(e)!).toList(),
+      otherCommunication: xml.findElements('cac:OtherCommunication').map((XmlElement e) => OtherCommunication.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'AccountingContact',
+        'cac',
+      ),
+    );
+  }
 }
 

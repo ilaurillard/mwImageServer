@@ -3,6 +3,7 @@ import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ChargeIndicator.dart';
 import '../cbc/Amount.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/AllowanceChargeReasonCode.dart';
 import '../cbc/AllowanceChargeReason.dart';
@@ -26,6 +27,9 @@ class FreightAllowanceCharge {
 
   // The monetary amount of this allowance or charge to be applied.
   final Amount amount;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this allowance or charge.
   final ID? iD;
@@ -69,6 +73,7 @@ class FreightAllowanceCharge {
   FreightAllowanceCharge ({
     required this.chargeIndicator,
     required this.amount,
+    this.uBLExtensions,
     this.iD,
     this.allowanceChargeReasonCode,
     this.allowanceChargeReason = const [],
@@ -84,8 +89,31 @@ class FreightAllowanceCharge {
     this.paymentMeans = const [],
   });
 
+  static FreightAllowanceCharge? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return FreightAllowanceCharge (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      chargeIndicator: ChargeIndicator.fromJson(json['chargeIndicator'] as Map<String, dynamic>?)!,
+      allowanceChargeReasonCode: AllowanceChargeReasonCode.fromJson(json['allowanceChargeReasonCode'] as Map<String, dynamic>?),
+      allowanceChargeReason: (json['allowanceChargeReason'] as List? ?? []).map((dynamic d) => AllowanceChargeReason.fromJson(d as Map<String, dynamic>?)!).toList(),
+      multiplierFactorNumeric: MultiplierFactorNumeric.fromJson(json['multiplierFactorNumeric'] as Map<String, dynamic>?),
+      prepaidIndicator: PrepaidIndicator.fromJson(json['prepaidIndicator'] as Map<String, dynamic>?),
+      sequenceNumeric: SequenceNumeric.fromJson(json['sequenceNumeric'] as Map<String, dynamic>?),
+      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?)!,
+      baseAmount: BaseAmount.fromJson(json['baseAmount'] as Map<String, dynamic>?),
+      accountingCostCode: AccountingCostCode.fromJson(json['accountingCostCode'] as Map<String, dynamic>?),
+      accountingCost: AccountingCost.fromJson(json['accountingCost'] as Map<String, dynamic>?),
+      perUnitAmount: PerUnitAmount.fromJson(json['perUnitAmount'] as Map<String, dynamic>?),
+      taxCategory: (json['taxCategory'] as List? ?? []).map((dynamic d) => TaxCategory.fromJson(d as Map<String, dynamic>?)!).toList(),
+      taxTotal: TaxTotal.fromJson(json['taxTotal'] as Map<String, dynamic>?),
+      paymentMeans: (json['paymentMeans'] as List? ?? []).map((dynamic d) => PaymentMeans.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'chargeIndicator': chargeIndicator.toJson(),
       'allowanceChargeReasonCode': allowanceChargeReasonCode?.toJson(),
@@ -106,48 +134,35 @@ class FreightAllowanceCharge {
     return map;
   }
 
-  static FreightAllowanceCharge? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return FreightAllowanceCharge (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      chargeIndicator: ChargeIndicator.fromJson(json['chargeIndicator'] as Map<String, dynamic>?)!,
-      allowanceChargeReasonCode: AllowanceChargeReasonCode.fromJson(json['allowanceChargeReasonCode'] as Map<String, dynamic>?),
-      allowanceChargeReason: (json['allowanceChargeReason'] as List? ?? []).map((dynamic d) => AllowanceChargeReason.fromJson(d as Map<String, dynamic>?)!).toList(),
-      multiplierFactorNumeric: MultiplierFactorNumeric.fromJson(json['multiplierFactorNumeric'] as Map<String, dynamic>?),
-      prepaidIndicator: PrepaidIndicator.fromJson(json['prepaidIndicator'] as Map<String, dynamic>?),
-      sequenceNumeric: SequenceNumeric.fromJson(json['sequenceNumeric'] as Map<String, dynamic>?),
-      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?)!,
-      baseAmount: BaseAmount.fromJson(json['baseAmount'] as Map<String, dynamic>?),
-      accountingCostCode: AccountingCostCode.fromJson(json['accountingCostCode'] as Map<String, dynamic>?),
-      accountingCost: AccountingCost.fromJson(json['accountingCost'] as Map<String, dynamic>?),
-      perUnitAmount: PerUnitAmount.fromJson(json['perUnitAmount'] as Map<String, dynamic>?),
-      taxCategory: (json['taxCategory'] as List? ?? []).map((dynamic d) => TaxCategory.fromJson(d as Map<String, dynamic>?)!).toList(),
-      taxTotal: TaxTotal.fromJson(json['taxTotal'] as Map<String, dynamic>?),
-      paymentMeans: (json['paymentMeans'] as List? ?? []).map((dynamic d) => PaymentMeans.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static FreightAllowanceCharge? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return FreightAllowanceCharge (
-      iD: null,
-      chargeIndicator: null,
-      allowanceChargeReasonCode: null,
-      allowanceChargeReason: null,
-      multiplierFactorNumeric: null,
-      prepaidIndicator: null,
-      sequenceNumeric: null,
-      amount: null,
-      baseAmount: null,
-      accountingCostCode: null,
-      accountingCost: null,
-      perUnitAmount: null,
-      taxCategory: null,
-      taxTotal: null,
-      paymentMeans: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      chargeIndicator: ChargeIndicator.fromXml(xml.findElements('cbc:ChargeIndicator').singleOrNull)!,
+      allowanceChargeReasonCode: AllowanceChargeReasonCode.fromXml(xml.findElements('cbc:AllowanceChargeReasonCode').singleOrNull),
+      allowanceChargeReason: xml.findElements('cbc:AllowanceChargeReason').map((XmlElement e) => AllowanceChargeReason.fromXml(e)!).toList(),
+      multiplierFactorNumeric: MultiplierFactorNumeric.fromXml(xml.findElements('cbc:MultiplierFactorNumeric').singleOrNull),
+      prepaidIndicator: PrepaidIndicator.fromXml(xml.findElements('cbc:PrepaidIndicator').singleOrNull),
+      sequenceNumeric: SequenceNumeric.fromXml(xml.findElements('cbc:SequenceNumeric').singleOrNull),
+      amount: Amount.fromXml(xml.findElements('cbc:Amount').singleOrNull)!,
+      baseAmount: BaseAmount.fromXml(xml.findElements('cbc:BaseAmount').singleOrNull),
+      accountingCostCode: AccountingCostCode.fromXml(xml.findElements('cbc:AccountingCostCode').singleOrNull),
+      accountingCost: AccountingCost.fromXml(xml.findElements('cbc:AccountingCost').singleOrNull),
+      perUnitAmount: PerUnitAmount.fromXml(xml.findElements('cbc:PerUnitAmount').singleOrNull),
+      taxCategory: xml.findElements('cac:TaxCategory').map((XmlElement e) => TaxCategory.fromXml(e)!).toList(),
+      taxTotal: TaxTotal.fromXml(xml.findElements('cac:TaxTotal').singleOrNull),
+      paymentMeans: xml.findElements('cac:PaymentMeans').map((XmlElement e) => PaymentMeans.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'FreightAllowanceCharge',
+        'cac',
+      ),
+    );
+  }
 }
 

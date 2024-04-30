@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../cbc/AliasName.dart';
@@ -14,6 +15,9 @@ import '../cac/Country.dart';
 // A class to describe a financial account.
 class PayerFinancialAccount {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // The identifier for this financial account; the bank account number.
   final ID? iD;
@@ -43,6 +47,7 @@ class PayerFinancialAccount {
   final Country? country;
 
   PayerFinancialAccount ({
+    this.uBLExtensions,
     this.iD,
     this.name,
     this.aliasName,
@@ -54,8 +59,25 @@ class PayerFinancialAccount {
     this.country,
   });
 
+  static PayerFinancialAccount? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PayerFinancialAccount (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      aliasName: AliasName.fromJson(json['aliasName'] as Map<String, dynamic>?),
+      accountTypeCode: AccountTypeCode.fromJson(json['accountTypeCode'] as Map<String, dynamic>?),
+      accountFormatCode: AccountFormatCode.fromJson(json['accountFormatCode'] as Map<String, dynamic>?),
+      currencyCode: CurrencyCode.fromJson(json['currencyCode'] as Map<String, dynamic>?),
+      paymentNote: (json['paymentNote'] as List? ?? []).map((dynamic d) => PaymentNote.fromJson(d as Map<String, dynamic>?)!).toList(),
+      financialInstitutionBranch: FinancialInstitutionBranch.fromJson(json['financialInstitutionBranch'] as Map<String, dynamic>?),
+      country: Country.fromJson(json['country'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'name': name?.toJson(),
       'aliasName': aliasName?.toJson(),
@@ -70,36 +92,29 @@ class PayerFinancialAccount {
     return map;
   }
 
-  static PayerFinancialAccount? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PayerFinancialAccount (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
-      aliasName: AliasName.fromJson(json['aliasName'] as Map<String, dynamic>?),
-      accountTypeCode: AccountTypeCode.fromJson(json['accountTypeCode'] as Map<String, dynamic>?),
-      accountFormatCode: AccountFormatCode.fromJson(json['accountFormatCode'] as Map<String, dynamic>?),
-      currencyCode: CurrencyCode.fromJson(json['currencyCode'] as Map<String, dynamic>?),
-      paymentNote: (json['paymentNote'] as List? ?? []).map((dynamic d) => PaymentNote.fromJson(d as Map<String, dynamic>?)!).toList(),
-      financialInstitutionBranch: FinancialInstitutionBranch.fromJson(json['financialInstitutionBranch'] as Map<String, dynamic>?),
-      country: Country.fromJson(json['country'] as Map<String, dynamic>?),
-    );
-  }
-
   static PayerFinancialAccount? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PayerFinancialAccount (
-      iD: null,
-      name: null,
-      aliasName: null,
-      accountTypeCode: null,
-      accountFormatCode: null,
-      currencyCode: null,
-      paymentNote: null,
-      financialInstitutionBranch: null,
-      country: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      name: Name.fromXml(xml.findElements('cbc:Name').singleOrNull),
+      aliasName: AliasName.fromXml(xml.findElements('cbc:AliasName').singleOrNull),
+      accountTypeCode: AccountTypeCode.fromXml(xml.findElements('cbc:AccountTypeCode').singleOrNull),
+      accountFormatCode: AccountFormatCode.fromXml(xml.findElements('cbc:AccountFormatCode').singleOrNull),
+      currencyCode: CurrencyCode.fromXml(xml.findElements('cbc:CurrencyCode').singleOrNull),
+      paymentNote: xml.findElements('cbc:PaymentNote').map((XmlElement e) => PaymentNote.fromXml(e)!).toList(),
+      financialInstitutionBranch: FinancialInstitutionBranch.fromXml(xml.findElements('cac:FinancialInstitutionBranch').singleOrNull),
+      country: Country.fromXml(xml.findElements('cac:Country').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PayerFinancialAccount',
+        'cac',
+      ),
+    );
+  }
 }
 

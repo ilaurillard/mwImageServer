@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/Amount.dart';
+import '../ext/UBLExtensions.dart';
 import '../cac/TaxTotal.dart';
 
 // A class to describe a price extension, calculated by multiplying the price per unit by the quantity of items.
@@ -11,16 +12,30 @@ class ItemPriceExtension {
   // The amount of this price extension.
   final Amount amount;
 
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
   // A total amount of taxes of a particular kind applicable to this price extension.
   final List<TaxTotal> taxTotal;
 
   ItemPriceExtension ({
     required this.amount,
+    this.uBLExtensions,
     this.taxTotal = const [],
   });
 
+  static ItemPriceExtension? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ItemPriceExtension (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?)!,
+      taxTotal: (json['taxTotal'] as List? ?? []).map((dynamic d) => TaxTotal.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'amount': amount.toJson(),
       'taxTotal': taxTotal.map((e) => e.toJson()).toList(),
     };
@@ -28,22 +43,22 @@ class ItemPriceExtension {
     return map;
   }
 
-  static ItemPriceExtension? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ItemPriceExtension (
-      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?)!,
-      taxTotal: (json['taxTotal'] as List? ?? []).map((dynamic d) => TaxTotal.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static ItemPriceExtension? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ItemPriceExtension (
-      amount: null,
-      taxTotal: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      amount: Amount.fromXml(xml.findElements('cbc:Amount').singleOrNull)!,
+      taxTotal: xml.findElements('cac:TaxTotal').map((XmlElement e) => TaxTotal.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ItemPriceExtension',
+        'cac',
+      ),
+    );
+  }
 }
 

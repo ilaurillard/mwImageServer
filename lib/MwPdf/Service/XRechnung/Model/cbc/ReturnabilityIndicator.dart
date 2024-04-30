@@ -11,6 +11,13 @@ class ReturnabilityIndicator {
     required this.value,
   });
 
+  static ReturnabilityIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ReturnabilityIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class ReturnabilityIndicator {
     return map;
   }
 
-  static ReturnabilityIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ReturnabilityIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static ReturnabilityIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ReturnabilityIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ReturnabilityIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

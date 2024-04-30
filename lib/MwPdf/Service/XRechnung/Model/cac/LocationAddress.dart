@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/AddressTypeCode.dart';
 import '../cbc/AddressFormatCode.dart';
@@ -12,6 +13,7 @@ import '../cbc/AdditionalStreetName.dart';
 import '../cbc/BlockName.dart';
 import '../cbc/BuildingName.dart';
 import '../cbc/BuildingNumber.dart';
+import '../cbc/Description.dart';
 import '../cbc/InhouseMail.dart';
 import '../cbc/Department.dart';
 import '../cbc/MarkAttention.dart';
@@ -32,6 +34,9 @@ import '../cac/LocationCoordinate.dart';
 // A class to define common information related to an address.
 class LocationAddress {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this address within an agreed scheme of address identifiers.
   final ID? iD;
@@ -65,6 +70,9 @@ class LocationAddress {
 
   // The number of a building within the street.
   final BuildingNumber? buildingNumber;
+
+  // Text describing this address for clarification or specificity
+  final List<Description> description;
 
   // The specific identifable location within a building where mail is delivered.
   final InhouseMail? inhouseMail;
@@ -115,6 +123,7 @@ class LocationAddress {
   final List<LocationCoordinate> locationCoordinate;
 
   LocationAddress ({
+    this.uBLExtensions,
     this.iD,
     this.addressTypeCode,
     this.addressFormatCode,
@@ -126,6 +135,7 @@ class LocationAddress {
     this.blockName,
     this.buildingName,
     this.buildingNumber,
+    this.description = const [],
     this.inhouseMail,
     this.department,
     this.markAttention,
@@ -144,8 +154,44 @@ class LocationAddress {
     this.locationCoordinate = const [],
   });
 
+  static LocationAddress? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return LocationAddress (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      addressTypeCode: AddressTypeCode.fromJson(json['addressTypeCode'] as Map<String, dynamic>?),
+      addressFormatCode: AddressFormatCode.fromJson(json['addressFormatCode'] as Map<String, dynamic>?),
+      postbox: Postbox.fromJson(json['postbox'] as Map<String, dynamic>?),
+      floor: Floor.fromJson(json['floor'] as Map<String, dynamic>?),
+      room: Room.fromJson(json['room'] as Map<String, dynamic>?),
+      streetName: StreetName.fromJson(json['streetName'] as Map<String, dynamic>?),
+      additionalStreetName: AdditionalStreetName.fromJson(json['additionalStreetName'] as Map<String, dynamic>?),
+      blockName: BlockName.fromJson(json['blockName'] as Map<String, dynamic>?),
+      buildingName: BuildingName.fromJson(json['buildingName'] as Map<String, dynamic>?),
+      buildingNumber: BuildingNumber.fromJson(json['buildingNumber'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      inhouseMail: InhouseMail.fromJson(json['inhouseMail'] as Map<String, dynamic>?),
+      department: Department.fromJson(json['department'] as Map<String, dynamic>?),
+      markAttention: MarkAttention.fromJson(json['markAttention'] as Map<String, dynamic>?),
+      markCare: MarkCare.fromJson(json['markCare'] as Map<String, dynamic>?),
+      plotIdentification: PlotIdentification.fromJson(json['plotIdentification'] as Map<String, dynamic>?),
+      citySubdivisionName: CitySubdivisionName.fromJson(json['citySubdivisionName'] as Map<String, dynamic>?),
+      cityName: CityName.fromJson(json['cityName'] as Map<String, dynamic>?),
+      postalZone: PostalZone.fromJson(json['postalZone'] as Map<String, dynamic>?),
+      countrySubentity: CountrySubentity.fromJson(json['countrySubentity'] as Map<String, dynamic>?),
+      countrySubentityCode: CountrySubentityCode.fromJson(json['countrySubentityCode'] as Map<String, dynamic>?),
+      region: Region.fromJson(json['region'] as Map<String, dynamic>?),
+      district: District.fromJson(json['district'] as Map<String, dynamic>?),
+      timezoneOffset: TimezoneOffset.fromJson(json['timezoneOffset'] as Map<String, dynamic>?),
+      addressLine: (json['addressLine'] as List? ?? []).map((dynamic d) => AddressLine.fromJson(d as Map<String, dynamic>?)!).toList(),
+      country: Country.fromJson(json['country'] as Map<String, dynamic>?),
+      locationCoordinate: (json['locationCoordinate'] as List? ?? []).map((dynamic d) => LocationCoordinate.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'addressTypeCode': addressTypeCode?.toJson(),
       'addressFormatCode': addressFormatCode?.toJson(),
@@ -157,6 +203,7 @@ class LocationAddress {
       'blockName': blockName?.toJson(),
       'buildingName': buildingName?.toJson(),
       'buildingNumber': buildingNumber?.toJson(),
+      'description': description.map((e) => e.toJson()).toList(),
       'inhouseMail': inhouseMail?.toJson(),
       'department': department?.toJson(),
       'markAttention': markAttention?.toJson(),
@@ -178,72 +225,48 @@ class LocationAddress {
     return map;
   }
 
-  static LocationAddress? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return LocationAddress (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      addressTypeCode: AddressTypeCode.fromJson(json['addressTypeCode'] as Map<String, dynamic>?),
-      addressFormatCode: AddressFormatCode.fromJson(json['addressFormatCode'] as Map<String, dynamic>?),
-      postbox: Postbox.fromJson(json['postbox'] as Map<String, dynamic>?),
-      floor: Floor.fromJson(json['floor'] as Map<String, dynamic>?),
-      room: Room.fromJson(json['room'] as Map<String, dynamic>?),
-      streetName: StreetName.fromJson(json['streetName'] as Map<String, dynamic>?),
-      additionalStreetName: AdditionalStreetName.fromJson(json['additionalStreetName'] as Map<String, dynamic>?),
-      blockName: BlockName.fromJson(json['blockName'] as Map<String, dynamic>?),
-      buildingName: BuildingName.fromJson(json['buildingName'] as Map<String, dynamic>?),
-      buildingNumber: BuildingNumber.fromJson(json['buildingNumber'] as Map<String, dynamic>?),
-      inhouseMail: InhouseMail.fromJson(json['inhouseMail'] as Map<String, dynamic>?),
-      department: Department.fromJson(json['department'] as Map<String, dynamic>?),
-      markAttention: MarkAttention.fromJson(json['markAttention'] as Map<String, dynamic>?),
-      markCare: MarkCare.fromJson(json['markCare'] as Map<String, dynamic>?),
-      plotIdentification: PlotIdentification.fromJson(json['plotIdentification'] as Map<String, dynamic>?),
-      citySubdivisionName: CitySubdivisionName.fromJson(json['citySubdivisionName'] as Map<String, dynamic>?),
-      cityName: CityName.fromJson(json['cityName'] as Map<String, dynamic>?),
-      postalZone: PostalZone.fromJson(json['postalZone'] as Map<String, dynamic>?),
-      countrySubentity: CountrySubentity.fromJson(json['countrySubentity'] as Map<String, dynamic>?),
-      countrySubentityCode: CountrySubentityCode.fromJson(json['countrySubentityCode'] as Map<String, dynamic>?),
-      region: Region.fromJson(json['region'] as Map<String, dynamic>?),
-      district: District.fromJson(json['district'] as Map<String, dynamic>?),
-      timezoneOffset: TimezoneOffset.fromJson(json['timezoneOffset'] as Map<String, dynamic>?),
-      addressLine: (json['addressLine'] as List? ?? []).map((dynamic d) => AddressLine.fromJson(d as Map<String, dynamic>?)!).toList(),
-      country: Country.fromJson(json['country'] as Map<String, dynamic>?),
-      locationCoordinate: (json['locationCoordinate'] as List? ?? []).map((dynamic d) => LocationCoordinate.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static LocationAddress? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return LocationAddress (
-      iD: null,
-      addressTypeCode: null,
-      addressFormatCode: null,
-      postbox: null,
-      floor: null,
-      room: null,
-      streetName: null,
-      additionalStreetName: null,
-      blockName: null,
-      buildingName: null,
-      buildingNumber: null,
-      inhouseMail: null,
-      department: null,
-      markAttention: null,
-      markCare: null,
-      plotIdentification: null,
-      citySubdivisionName: null,
-      cityName: null,
-      postalZone: null,
-      countrySubentity: null,
-      countrySubentityCode: null,
-      region: null,
-      district: null,
-      timezoneOffset: null,
-      addressLine: null,
-      country: null,
-      locationCoordinate: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      addressTypeCode: AddressTypeCode.fromXml(xml.findElements('cbc:AddressTypeCode').singleOrNull),
+      addressFormatCode: AddressFormatCode.fromXml(xml.findElements('cbc:AddressFormatCode').singleOrNull),
+      postbox: Postbox.fromXml(xml.findElements('cbc:Postbox').singleOrNull),
+      floor: Floor.fromXml(xml.findElements('cbc:Floor').singleOrNull),
+      room: Room.fromXml(xml.findElements('cbc:Room').singleOrNull),
+      streetName: StreetName.fromXml(xml.findElements('cbc:StreetName').singleOrNull),
+      additionalStreetName: AdditionalStreetName.fromXml(xml.findElements('cbc:AdditionalStreetName').singleOrNull),
+      blockName: BlockName.fromXml(xml.findElements('cbc:BlockName').singleOrNull),
+      buildingName: BuildingName.fromXml(xml.findElements('cbc:BuildingName').singleOrNull),
+      buildingNumber: BuildingNumber.fromXml(xml.findElements('cbc:BuildingNumber').singleOrNull),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
+      inhouseMail: InhouseMail.fromXml(xml.findElements('cbc:InhouseMail').singleOrNull),
+      department: Department.fromXml(xml.findElements('cbc:Department').singleOrNull),
+      markAttention: MarkAttention.fromXml(xml.findElements('cbc:MarkAttention').singleOrNull),
+      markCare: MarkCare.fromXml(xml.findElements('cbc:MarkCare').singleOrNull),
+      plotIdentification: PlotIdentification.fromXml(xml.findElements('cbc:PlotIdentification').singleOrNull),
+      citySubdivisionName: CitySubdivisionName.fromXml(xml.findElements('cbc:CitySubdivisionName').singleOrNull),
+      cityName: CityName.fromXml(xml.findElements('cbc:CityName').singleOrNull),
+      postalZone: PostalZone.fromXml(xml.findElements('cbc:PostalZone').singleOrNull),
+      countrySubentity: CountrySubentity.fromXml(xml.findElements('cbc:CountrySubentity').singleOrNull),
+      countrySubentityCode: CountrySubentityCode.fromXml(xml.findElements('cbc:CountrySubentityCode').singleOrNull),
+      region: Region.fromXml(xml.findElements('cbc:Region').singleOrNull),
+      district: District.fromXml(xml.findElements('cbc:District').singleOrNull),
+      timezoneOffset: TimezoneOffset.fromXml(xml.findElements('cbc:TimezoneOffset').singleOrNull),
+      addressLine: xml.findElements('cac:AddressLine').map((XmlElement e) => AddressLine.fromXml(e)!).toList(),
+      country: Country.fromXml(xml.findElements('cac:Country').singleOrNull),
+      locationCoordinate: xml.findElements('cac:LocationCoordinate').map((XmlElement e) => LocationCoordinate.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'LocationAddress',
+        'cac',
+      ),
+    );
+  }
 }
 

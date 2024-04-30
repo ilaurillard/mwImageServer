@@ -11,6 +11,13 @@ class DangerousGoodsApprovedIndicator {
     required this.value,
   });
 
+  static DangerousGoodsApprovedIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return DangerousGoodsApprovedIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class DangerousGoodsApprovedIndicator {
     return map;
   }
 
-  static DangerousGoodsApprovedIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return DangerousGoodsApprovedIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static DangerousGoodsApprovedIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return DangerousGoodsApprovedIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'DangerousGoodsApprovedIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

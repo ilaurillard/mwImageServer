@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/BatchQuantity.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ConsumerUnitQuantity.dart';
 import '../cbc/HazardousRiskIndicator.dart';
 
@@ -12,6 +13,9 @@ class DeliveryUnit {
   // The quantity of ordered Items that constitutes a batch for delivery purposes.
   final BatchQuantity batchQuantity;
 
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
   // The quantity of units in the Delivery Unit expressed in the units used by the consumer.
   final ConsumerUnitQuantity? consumerUnitQuantity;
 
@@ -20,12 +24,24 @@ class DeliveryUnit {
 
   DeliveryUnit ({
     required this.batchQuantity,
+    this.uBLExtensions,
     this.consumerUnitQuantity,
     this.hazardousRiskIndicator,
   });
 
+  static DeliveryUnit? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return DeliveryUnit (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      batchQuantity: BatchQuantity.fromJson(json['batchQuantity'] as Map<String, dynamic>?)!,
+      consumerUnitQuantity: ConsumerUnitQuantity.fromJson(json['consumerUnitQuantity'] as Map<String, dynamic>?),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromJson(json['hazardousRiskIndicator'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'batchQuantity': batchQuantity.toJson(),
       'consumerUnitQuantity': consumerUnitQuantity?.toJson(),
       'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
@@ -34,24 +50,23 @@ class DeliveryUnit {
     return map;
   }
 
-  static DeliveryUnit? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return DeliveryUnit (
-      batchQuantity: BatchQuantity.fromJson(json['batchQuantity'] as Map<String, dynamic>?)!,
-      consumerUnitQuantity: ConsumerUnitQuantity.fromJson(json['consumerUnitQuantity'] as Map<String, dynamic>?),
-      hazardousRiskIndicator: HazardousRiskIndicator.fromJson(json['hazardousRiskIndicator'] as Map<String, dynamic>?),
-    );
-  }
-
   static DeliveryUnit? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return DeliveryUnit (
-      batchQuantity: null,
-      consumerUnitQuantity: null,
-      hazardousRiskIndicator: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      batchQuantity: BatchQuantity.fromXml(xml.findElements('cbc:BatchQuantity').singleOrNull)!,
+      consumerUnitQuantity: ConsumerUnitQuantity.fromXml(xml.findElements('cbc:ConsumerUnitQuantity').singleOrNull),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromXml(xml.findElements('cbc:HazardousRiskIndicator').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'DeliveryUnit',
+        'cac',
+      ),
+    );
+  }
 }
 

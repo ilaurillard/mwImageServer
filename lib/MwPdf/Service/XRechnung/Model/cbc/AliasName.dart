@@ -21,6 +21,15 @@ class AliasName {
     assert(value.isNotEmpty);
   }
 
+  static AliasName? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return AliasName (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class AliasName {
     return map;
   }
 
-  static AliasName? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return AliasName (
-      value: json['value'] as String? ?? '',
-      languageID: json['languageID'] as String?,
-      languageLocaleID: json['languageLocaleID'] as String?,
-    );
-  }
-
   static AliasName? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return AliasName (
-      value: null,
-      languageID: null,
-      languageLocaleID: null,
+      value: xml.innerText,
+      languageID: xml.getAttribute('languageID'),
+      languageLocaleID: xml.getAttribute('languageLocaleID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'AliasName',
+        'cbc',
+      ),
+    );
+  }
 }
 

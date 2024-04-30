@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/CarrierAssignedID.dart';
 import '../cbc/ConsigneeAssignedID.dart';
 import '../cbc/ConsignorAssignedID.dart';
@@ -62,6 +63,8 @@ import '../cac/RequestedPickupTransportEvent.dart';
 import '../cac/RequestedDeliveryTransportEvent.dart';
 import '../cac/PlannedPickupTransportEvent.dart';
 import '../cac/PlannedDeliveryTransportEvent.dart';
+import '../cac/ActualPickupTransportEvent.dart';
+import '../cac/ActualDeliveryTransportEvent.dart';
 import '../cac/Status.dart';
 import '../cac/ChildConsignment.dart';
 import '../cac/ConsigneeParty.dart';
@@ -101,6 +104,14 @@ import '../cac/OnCarriageShipmentStage.dart';
 import '../cac/TransportHandlingUnit.dart';
 import '../cac/FirstArrivalPortLocation.dart';
 import '../cac/LastExitPortLocation.dart';
+import '../cac/OfficeOfEntryLocation.dart';
+import '../cac/OfficeOfSubSequentiallyEntryLocation.dart';
+import '../cac/OfficeOfExitLocation.dart';
+import '../cac/OfficeOfDepartureLocation.dart';
+import '../cac/OfficeOfDestinationLocation.dart';
+import '../cac/OfficeOfImportLocation.dart';
+import '../cac/OfficeOfExportLocation.dart';
+import '../cac/DocumentReference.dart';
 
 // A class to describe an identifiable collection of one or more goods items to be transported between the consignor and the consignee. This information may be defined within a transport contract. A consignment may comprise more than one shipment (e.g., when consolidated by a freight forwarder).
 class Consignment {
@@ -108,6 +119,9 @@ class Consignment {
 
   // An identifier assigned to a collection of goods for both import and export.
   final ID iD;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this consignment, assigned by the carrier.
   final CarrierAssignedID? carrierAssignedID;
@@ -289,6 +303,12 @@ class Consignment {
   // The delivery of this consignment planned by the party responsible for providing the transportation service (the transport service provider).
   final PlannedDeliveryTransportEvent? plannedDeliveryTransportEvent;
 
+  // The actual pickup of this consignment by the party responsible for providing the transportation service (the transport service provider).
+  final ActualPickupTransportEvent? actualPickupTransportEvent;
+
+  // The actual delivery of this consignment by the party responsible for providing the transportation service (the transport service provider).
+  final ActualDeliveryTransportEvent? actualDeliveryTransportEvent;
+
   // The status of a particular condition associated with this consignment.
   final List<Status> status;
 
@@ -406,8 +426,33 @@ class Consignment {
   // The final exporting location in a transport. This would be a port for sea, an airport for air, a terminal for rail, or a border post for land crossing.
   final LastExitPortLocation? lastExitPortLocation;
 
+  // The location of the office of entry of this consignment.
+  final OfficeOfEntryLocation? officeOfEntryLocation;
+
+  // The location of the office of the subsequentially entry of this consignment.
+  final OfficeOfSubSequentiallyEntryLocation? officeOfSubSequentiallyEntryLocation;
+
+  // The location of the office of exit of this consignment.
+  final OfficeOfExitLocation? officeOfExitLocation;
+
+  // The location of the office of departure of this consignment.
+  final OfficeOfDepartureLocation? officeOfDepartureLocation;
+
+  // The location of the office of destination of this consignment.
+  final OfficeOfDestinationLocation? officeOfDestinationLocation;
+
+  // The location of the office of import of this consignment.
+  final OfficeOfImportLocation? officeOfImportLocation;
+
+  // The location of the office of export of this consignment.
+  final OfficeOfExportLocation? officeOfExportLocation;
+
+  // A reference to a document related to or relevant for this consignment.
+  final List<DocumentReference> documentReference;
+
   Consignment ({
     required this.iD,
+    this.uBLExtensions,
     this.carrierAssignedID,
     this.consigneeAssignedID,
     this.consignorAssignedID,
@@ -468,6 +513,8 @@ class Consignment {
     this.requestedDeliveryTransportEvent,
     this.plannedPickupTransportEvent,
     this.plannedDeliveryTransportEvent,
+    this.actualPickupTransportEvent,
+    this.actualDeliveryTransportEvent,
     this.status = const [],
     this.childConsignment = const [],
     this.consigneeParty,
@@ -507,118 +554,20 @@ class Consignment {
     this.transportHandlingUnit = const [],
     this.firstArrivalPortLocation,
     this.lastExitPortLocation,
+    this.officeOfEntryLocation,
+    this.officeOfSubSequentiallyEntryLocation,
+    this.officeOfExitLocation,
+    this.officeOfDepartureLocation,
+    this.officeOfDestinationLocation,
+    this.officeOfImportLocation,
+    this.officeOfExportLocation,
+    this.documentReference = const [],
   });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'iD': iD.toJson(),
-      'carrierAssignedID': carrierAssignedID?.toJson(),
-      'consigneeAssignedID': consigneeAssignedID?.toJson(),
-      'consignorAssignedID': consignorAssignedID?.toJson(),
-      'freightForwarderAssignedID': freightForwarderAssignedID?.toJson(),
-      'brokerAssignedID': brokerAssignedID?.toJson(),
-      'contractedCarrierAssignedID': contractedCarrierAssignedID?.toJson(),
-      'performingCarrierAssignedID': performingCarrierAssignedID?.toJson(),
-      'summaryDescription': summaryDescription.map((e) => e.toJson()).toList(),
-      'totalInvoiceAmount': totalInvoiceAmount?.toJson(),
-      'declaredCustomsValueAmount': declaredCustomsValueAmount?.toJson(),
-      'tariffDescription': tariffDescription.map((e) => e.toJson()).toList(),
-      'tariffCode': tariffCode?.toJson(),
-      'insurancePremiumAmount': insurancePremiumAmount?.toJson(),
-      'grossWeightMeasure': grossWeightMeasure?.toJson(),
-      'netWeightMeasure': netWeightMeasure?.toJson(),
-      'netNetWeightMeasure': netNetWeightMeasure?.toJson(),
-      'chargeableWeightMeasure': chargeableWeightMeasure?.toJson(),
-      'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
-      'netVolumeMeasure': netVolumeMeasure?.toJson(),
-      'loadingLengthMeasure': loadingLengthMeasure?.toJson(),
-      'remarks': remarks.map((e) => e.toJson()).toList(),
-      'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
-      'animalFoodIndicator': animalFoodIndicator?.toJson(),
-      'humanFoodIndicator': humanFoodIndicator?.toJson(),
-      'livestockIndicator': livestockIndicator?.toJson(),
-      'bulkCargoIndicator': bulkCargoIndicator?.toJson(),
-      'containerizedIndicator': containerizedIndicator?.toJson(),
-      'generalCargoIndicator': generalCargoIndicator?.toJson(),
-      'specialSecurityIndicator': specialSecurityIndicator?.toJson(),
-      'thirdPartyPayerIndicator': thirdPartyPayerIndicator?.toJson(),
-      'carrierServiceInstructions': carrierServiceInstructions.map((e) => e.toJson()).toList(),
-      'customsClearanceServiceInstructions': customsClearanceServiceInstructions.map((e) => e.toJson()).toList(),
-      'forwarderServiceInstructions': forwarderServiceInstructions.map((e) => e.toJson()).toList(),
-      'specialServiceInstructions': specialServiceInstructions.map((e) => e.toJson()).toList(),
-      'sequenceID': sequenceID?.toJson(),
-      'shippingPriorityLevelCode': shippingPriorityLevelCode?.toJson(),
-      'handlingCode': handlingCode?.toJson(),
-      'handlingInstructions': handlingInstructions.map((e) => e.toJson()).toList(),
-      'information': information.map((e) => e.toJson()).toList(),
-      'totalGoodsItemQuantity': totalGoodsItemQuantity?.toJson(),
-      'totalTransportHandlingUnitQuantity': totalTransportHandlingUnitQuantity?.toJson(),
-      'insuranceValueAmount': insuranceValueAmount?.toJson(),
-      'declaredForCarriageValueAmount': declaredForCarriageValueAmount?.toJson(),
-      'declaredStatisticsValueAmount': declaredStatisticsValueAmount?.toJson(),
-      'freeOnBoardValueAmount': freeOnBoardValueAmount?.toJson(),
-      'specialInstructions': specialInstructions.map((e) => e.toJson()).toList(),
-      'splitConsignmentIndicator': splitConsignmentIndicator?.toJson(),
-      'deliveryInstructions': deliveryInstructions.map((e) => e.toJson()).toList(),
-      'consignmentQuantity': consignmentQuantity?.toJson(),
-      'consolidatableIndicator': consolidatableIndicator?.toJson(),
-      'haulageInstructions': haulageInstructions.map((e) => e.toJson()).toList(),
-      'loadingSequenceID': loadingSequenceID?.toJson(),
-      'childConsignmentQuantity': childConsignmentQuantity?.toJson(),
-      'totalPackagesQuantity': totalPackagesQuantity?.toJson(),
-      'consolidatedShipment': consolidatedShipment.map((e) => e.toJson()).toList(),
-      'customsDeclaration': customsDeclaration.map((e) => e.toJson()).toList(),
-      'requestedPickupTransportEvent': requestedPickupTransportEvent?.toJson(),
-      'requestedDeliveryTransportEvent': requestedDeliveryTransportEvent?.toJson(),
-      'plannedPickupTransportEvent': plannedPickupTransportEvent?.toJson(),
-      'plannedDeliveryTransportEvent': plannedDeliveryTransportEvent?.toJson(),
-      'status': status.map((e) => e.toJson()).toList(),
-      'childConsignment': childConsignment.map((e) => e.toJson()).toList(),
-      'consigneeParty': consigneeParty?.toJson(),
-      'exporterParty': exporterParty?.toJson(),
-      'consignorParty': consignorParty?.toJson(),
-      'importerParty': importerParty?.toJson(),
-      'carrierParty': carrierParty?.toJson(),
-      'freightForwarderParty': freightForwarderParty?.toJson(),
-      'notifyParty': notifyParty?.toJson(),
-      'originalDespatchParty': originalDespatchParty?.toJson(),
-      'finalDeliveryParty': finalDeliveryParty?.toJson(),
-      'performingCarrierParty': performingCarrierParty?.toJson(),
-      'substituteCarrierParty': substituteCarrierParty?.toJson(),
-      'logisticsOperatorParty': logisticsOperatorParty?.toJson(),
-      'transportAdvisorParty': transportAdvisorParty?.toJson(),
-      'hazardousItemNotificationParty': hazardousItemNotificationParty?.toJson(),
-      'insuranceParty': insuranceParty?.toJson(),
-      'mortgageHolderParty': mortgageHolderParty?.toJson(),
-      'billOfLadingHolderParty': billOfLadingHolderParty?.toJson(),
-      'originalDepartureCountry': originalDepartureCountry?.toJson(),
-      'finalDestinationCountry': finalDestinationCountry?.toJson(),
-      'transitCountry': transitCountry.map((e) => e.toJson()).toList(),
-      'transportContract': transportContract?.toJson(),
-      'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
-      'originalDespatchTransportationService': originalDespatchTransportationService?.toJson(),
-      'finalDeliveryTransportationService': finalDeliveryTransportationService?.toJson(),
-      'deliveryTerms': deliveryTerms?.toJson(),
-      'paymentTerms': paymentTerms?.toJson(),
-      'collectPaymentTerms': collectPaymentTerms?.toJson(),
-      'disbursementPaymentTerms': disbursementPaymentTerms?.toJson(),
-      'prepaidPaymentTerms': prepaidPaymentTerms?.toJson(),
-      'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
-      'extraAllowanceCharge': extraAllowanceCharge.map((e) => e.toJson()).toList(),
-      'mainCarriageShipmentStage': mainCarriageShipmentStage.map((e) => e.toJson()).toList(),
-      'preCarriageShipmentStage': preCarriageShipmentStage.map((e) => e.toJson()).toList(),
-      'onCarriageShipmentStage': onCarriageShipmentStage.map((e) => e.toJson()).toList(),
-      'transportHandlingUnit': transportHandlingUnit.map((e) => e.toJson()).toList(),
-      'firstArrivalPortLocation': firstArrivalPortLocation?.toJson(),
-      'lastExitPortLocation': lastExitPortLocation?.toJson(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
-  }
 
   static Consignment? fromJson(Map<String, dynamic>? json) {
     if (json == null) { return null; }
     return Consignment (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
       carrierAssignedID: CarrierAssignedID.fromJson(json['carrierAssignedID'] as Map<String, dynamic>?),
       consigneeAssignedID: ConsigneeAssignedID.fromJson(json['consigneeAssignedID'] as Map<String, dynamic>?),
@@ -680,6 +629,8 @@ class Consignment {
       requestedDeliveryTransportEvent: RequestedDeliveryTransportEvent.fromJson(json['requestedDeliveryTransportEvent'] as Map<String, dynamic>?),
       plannedPickupTransportEvent: PlannedPickupTransportEvent.fromJson(json['plannedPickupTransportEvent'] as Map<String, dynamic>?),
       plannedDeliveryTransportEvent: PlannedDeliveryTransportEvent.fromJson(json['plannedDeliveryTransportEvent'] as Map<String, dynamic>?),
+      actualPickupTransportEvent: ActualPickupTransportEvent.fromJson(json['actualPickupTransportEvent'] as Map<String, dynamic>?),
+      actualDeliveryTransportEvent: ActualDeliveryTransportEvent.fromJson(json['actualDeliveryTransportEvent'] as Map<String, dynamic>?),
       status: (json['status'] as List? ?? []).map((dynamic d) => Status.fromJson(d as Map<String, dynamic>?)!).toList(),
       childConsignment: (json['childConsignment'] as List? ?? []).map((dynamic d) => ChildConsignment.fromJson(d as Map<String, dynamic>?)!).toList(),
       consigneeParty: ConsigneeParty.fromJson(json['consigneeParty'] as Map<String, dynamic>?),
@@ -719,115 +670,259 @@ class Consignment {
       transportHandlingUnit: (json['transportHandlingUnit'] as List? ?? []).map((dynamic d) => TransportHandlingUnit.fromJson(d as Map<String, dynamic>?)!).toList(),
       firstArrivalPortLocation: FirstArrivalPortLocation.fromJson(json['firstArrivalPortLocation'] as Map<String, dynamic>?),
       lastExitPortLocation: LastExitPortLocation.fromJson(json['lastExitPortLocation'] as Map<String, dynamic>?),
+      officeOfEntryLocation: OfficeOfEntryLocation.fromJson(json['officeOfEntryLocation'] as Map<String, dynamic>?),
+      officeOfSubSequentiallyEntryLocation: OfficeOfSubSequentiallyEntryLocation.fromJson(json['officeOfSubSequentiallyEntryLocation'] as Map<String, dynamic>?),
+      officeOfExitLocation: OfficeOfExitLocation.fromJson(json['officeOfExitLocation'] as Map<String, dynamic>?),
+      officeOfDepartureLocation: OfficeOfDepartureLocation.fromJson(json['officeOfDepartureLocation'] as Map<String, dynamic>?),
+      officeOfDestinationLocation: OfficeOfDestinationLocation.fromJson(json['officeOfDestinationLocation'] as Map<String, dynamic>?),
+      officeOfImportLocation: OfficeOfImportLocation.fromJson(json['officeOfImportLocation'] as Map<String, dynamic>?),
+      officeOfExportLocation: OfficeOfExportLocation.fromJson(json['officeOfExportLocation'] as Map<String, dynamic>?),
+      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'iD': iD.toJson(),
+      'carrierAssignedID': carrierAssignedID?.toJson(),
+      'consigneeAssignedID': consigneeAssignedID?.toJson(),
+      'consignorAssignedID': consignorAssignedID?.toJson(),
+      'freightForwarderAssignedID': freightForwarderAssignedID?.toJson(),
+      'brokerAssignedID': brokerAssignedID?.toJson(),
+      'contractedCarrierAssignedID': contractedCarrierAssignedID?.toJson(),
+      'performingCarrierAssignedID': performingCarrierAssignedID?.toJson(),
+      'summaryDescription': summaryDescription.map((e) => e.toJson()).toList(),
+      'totalInvoiceAmount': totalInvoiceAmount?.toJson(),
+      'declaredCustomsValueAmount': declaredCustomsValueAmount?.toJson(),
+      'tariffDescription': tariffDescription.map((e) => e.toJson()).toList(),
+      'tariffCode': tariffCode?.toJson(),
+      'insurancePremiumAmount': insurancePremiumAmount?.toJson(),
+      'grossWeightMeasure': grossWeightMeasure?.toJson(),
+      'netWeightMeasure': netWeightMeasure?.toJson(),
+      'netNetWeightMeasure': netNetWeightMeasure?.toJson(),
+      'chargeableWeightMeasure': chargeableWeightMeasure?.toJson(),
+      'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
+      'netVolumeMeasure': netVolumeMeasure?.toJson(),
+      'loadingLengthMeasure': loadingLengthMeasure?.toJson(),
+      'remarks': remarks.map((e) => e.toJson()).toList(),
+      'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+      'animalFoodIndicator': animalFoodIndicator?.toJson(),
+      'humanFoodIndicator': humanFoodIndicator?.toJson(),
+      'livestockIndicator': livestockIndicator?.toJson(),
+      'bulkCargoIndicator': bulkCargoIndicator?.toJson(),
+      'containerizedIndicator': containerizedIndicator?.toJson(),
+      'generalCargoIndicator': generalCargoIndicator?.toJson(),
+      'specialSecurityIndicator': specialSecurityIndicator?.toJson(),
+      'thirdPartyPayerIndicator': thirdPartyPayerIndicator?.toJson(),
+      'carrierServiceInstructions': carrierServiceInstructions.map((e) => e.toJson()).toList(),
+      'customsClearanceServiceInstructions': customsClearanceServiceInstructions.map((e) => e.toJson()).toList(),
+      'forwarderServiceInstructions': forwarderServiceInstructions.map((e) => e.toJson()).toList(),
+      'specialServiceInstructions': specialServiceInstructions.map((e) => e.toJson()).toList(),
+      'sequenceID': sequenceID?.toJson(),
+      'shippingPriorityLevelCode': shippingPriorityLevelCode?.toJson(),
+      'handlingCode': handlingCode?.toJson(),
+      'handlingInstructions': handlingInstructions.map((e) => e.toJson()).toList(),
+      'information': information.map((e) => e.toJson()).toList(),
+      'totalGoodsItemQuantity': totalGoodsItemQuantity?.toJson(),
+      'totalTransportHandlingUnitQuantity': totalTransportHandlingUnitQuantity?.toJson(),
+      'insuranceValueAmount': insuranceValueAmount?.toJson(),
+      'declaredForCarriageValueAmount': declaredForCarriageValueAmount?.toJson(),
+      'declaredStatisticsValueAmount': declaredStatisticsValueAmount?.toJson(),
+      'freeOnBoardValueAmount': freeOnBoardValueAmount?.toJson(),
+      'specialInstructions': specialInstructions.map((e) => e.toJson()).toList(),
+      'splitConsignmentIndicator': splitConsignmentIndicator?.toJson(),
+      'deliveryInstructions': deliveryInstructions.map((e) => e.toJson()).toList(),
+      'consignmentQuantity': consignmentQuantity?.toJson(),
+      'consolidatableIndicator': consolidatableIndicator?.toJson(),
+      'haulageInstructions': haulageInstructions.map((e) => e.toJson()).toList(),
+      'loadingSequenceID': loadingSequenceID?.toJson(),
+      'childConsignmentQuantity': childConsignmentQuantity?.toJson(),
+      'totalPackagesQuantity': totalPackagesQuantity?.toJson(),
+      'consolidatedShipment': consolidatedShipment.map((e) => e.toJson()).toList(),
+      'customsDeclaration': customsDeclaration.map((e) => e.toJson()).toList(),
+      'requestedPickupTransportEvent': requestedPickupTransportEvent?.toJson(),
+      'requestedDeliveryTransportEvent': requestedDeliveryTransportEvent?.toJson(),
+      'plannedPickupTransportEvent': plannedPickupTransportEvent?.toJson(),
+      'plannedDeliveryTransportEvent': plannedDeliveryTransportEvent?.toJson(),
+      'actualPickupTransportEvent': actualPickupTransportEvent?.toJson(),
+      'actualDeliveryTransportEvent': actualDeliveryTransportEvent?.toJson(),
+      'status': status.map((e) => e.toJson()).toList(),
+      'childConsignment': childConsignment.map((e) => e.toJson()).toList(),
+      'consigneeParty': consigneeParty?.toJson(),
+      'exporterParty': exporterParty?.toJson(),
+      'consignorParty': consignorParty?.toJson(),
+      'importerParty': importerParty?.toJson(),
+      'carrierParty': carrierParty?.toJson(),
+      'freightForwarderParty': freightForwarderParty?.toJson(),
+      'notifyParty': notifyParty?.toJson(),
+      'originalDespatchParty': originalDespatchParty?.toJson(),
+      'finalDeliveryParty': finalDeliveryParty?.toJson(),
+      'performingCarrierParty': performingCarrierParty?.toJson(),
+      'substituteCarrierParty': substituteCarrierParty?.toJson(),
+      'logisticsOperatorParty': logisticsOperatorParty?.toJson(),
+      'transportAdvisorParty': transportAdvisorParty?.toJson(),
+      'hazardousItemNotificationParty': hazardousItemNotificationParty?.toJson(),
+      'insuranceParty': insuranceParty?.toJson(),
+      'mortgageHolderParty': mortgageHolderParty?.toJson(),
+      'billOfLadingHolderParty': billOfLadingHolderParty?.toJson(),
+      'originalDepartureCountry': originalDepartureCountry?.toJson(),
+      'finalDestinationCountry': finalDestinationCountry?.toJson(),
+      'transitCountry': transitCountry.map((e) => e.toJson()).toList(),
+      'transportContract': transportContract?.toJson(),
+      'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
+      'originalDespatchTransportationService': originalDespatchTransportationService?.toJson(),
+      'finalDeliveryTransportationService': finalDeliveryTransportationService?.toJson(),
+      'deliveryTerms': deliveryTerms?.toJson(),
+      'paymentTerms': paymentTerms?.toJson(),
+      'collectPaymentTerms': collectPaymentTerms?.toJson(),
+      'disbursementPaymentTerms': disbursementPaymentTerms?.toJson(),
+      'prepaidPaymentTerms': prepaidPaymentTerms?.toJson(),
+      'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
+      'extraAllowanceCharge': extraAllowanceCharge.map((e) => e.toJson()).toList(),
+      'mainCarriageShipmentStage': mainCarriageShipmentStage.map((e) => e.toJson()).toList(),
+      'preCarriageShipmentStage': preCarriageShipmentStage.map((e) => e.toJson()).toList(),
+      'onCarriageShipmentStage': onCarriageShipmentStage.map((e) => e.toJson()).toList(),
+      'transportHandlingUnit': transportHandlingUnit.map((e) => e.toJson()).toList(),
+      'firstArrivalPortLocation': firstArrivalPortLocation?.toJson(),
+      'lastExitPortLocation': lastExitPortLocation?.toJson(),
+      'officeOfEntryLocation': officeOfEntryLocation?.toJson(),
+      'officeOfSubSequentiallyEntryLocation': officeOfSubSequentiallyEntryLocation?.toJson(),
+      'officeOfExitLocation': officeOfExitLocation?.toJson(),
+      'officeOfDepartureLocation': officeOfDepartureLocation?.toJson(),
+      'officeOfDestinationLocation': officeOfDestinationLocation?.toJson(),
+      'officeOfImportLocation': officeOfImportLocation?.toJson(),
+      'officeOfExportLocation': officeOfExportLocation?.toJson(),
+      'documentReference': documentReference.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
   }
 
   static Consignment? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return Consignment (
-      iD: null,
-      carrierAssignedID: null,
-      consigneeAssignedID: null,
-      consignorAssignedID: null,
-      freightForwarderAssignedID: null,
-      brokerAssignedID: null,
-      contractedCarrierAssignedID: null,
-      performingCarrierAssignedID: null,
-      summaryDescription: null,
-      totalInvoiceAmount: null,
-      declaredCustomsValueAmount: null,
-      tariffDescription: null,
-      tariffCode: null,
-      insurancePremiumAmount: null,
-      grossWeightMeasure: null,
-      netWeightMeasure: null,
-      netNetWeightMeasure: null,
-      chargeableWeightMeasure: null,
-      grossVolumeMeasure: null,
-      netVolumeMeasure: null,
-      loadingLengthMeasure: null,
-      remarks: null,
-      hazardousRiskIndicator: null,
-      animalFoodIndicator: null,
-      humanFoodIndicator: null,
-      livestockIndicator: null,
-      bulkCargoIndicator: null,
-      containerizedIndicator: null,
-      generalCargoIndicator: null,
-      specialSecurityIndicator: null,
-      thirdPartyPayerIndicator: null,
-      carrierServiceInstructions: null,
-      customsClearanceServiceInstructions: null,
-      forwarderServiceInstructions: null,
-      specialServiceInstructions: null,
-      sequenceID: null,
-      shippingPriorityLevelCode: null,
-      handlingCode: null,
-      handlingInstructions: null,
-      information: null,
-      totalGoodsItemQuantity: null,
-      totalTransportHandlingUnitQuantity: null,
-      insuranceValueAmount: null,
-      declaredForCarriageValueAmount: null,
-      declaredStatisticsValueAmount: null,
-      freeOnBoardValueAmount: null,
-      specialInstructions: null,
-      splitConsignmentIndicator: null,
-      deliveryInstructions: null,
-      consignmentQuantity: null,
-      consolidatableIndicator: null,
-      haulageInstructions: null,
-      loadingSequenceID: null,
-      childConsignmentQuantity: null,
-      totalPackagesQuantity: null,
-      consolidatedShipment: null,
-      customsDeclaration: null,
-      requestedPickupTransportEvent: null,
-      requestedDeliveryTransportEvent: null,
-      plannedPickupTransportEvent: null,
-      plannedDeliveryTransportEvent: null,
-      status: null,
-      childConsignment: null,
-      consigneeParty: null,
-      exporterParty: null,
-      consignorParty: null,
-      importerParty: null,
-      carrierParty: null,
-      freightForwarderParty: null,
-      notifyParty: null,
-      originalDespatchParty: null,
-      finalDeliveryParty: null,
-      performingCarrierParty: null,
-      substituteCarrierParty: null,
-      logisticsOperatorParty: null,
-      transportAdvisorParty: null,
-      hazardousItemNotificationParty: null,
-      insuranceParty: null,
-      mortgageHolderParty: null,
-      billOfLadingHolderParty: null,
-      originalDepartureCountry: null,
-      finalDestinationCountry: null,
-      transitCountry: null,
-      transportContract: null,
-      transportEvent: null,
-      originalDespatchTransportationService: null,
-      finalDeliveryTransportationService: null,
-      deliveryTerms: null,
-      paymentTerms: null,
-      collectPaymentTerms: null,
-      disbursementPaymentTerms: null,
-      prepaidPaymentTerms: null,
-      freightAllowanceCharge: null,
-      extraAllowanceCharge: null,
-      mainCarriageShipmentStage: null,
-      preCarriageShipmentStage: null,
-      onCarriageShipmentStage: null,
-      transportHandlingUnit: null,
-      firstArrivalPortLocation: null,
-      lastExitPortLocation: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      carrierAssignedID: CarrierAssignedID.fromXml(xml.findElements('cbc:CarrierAssignedID').singleOrNull),
+      consigneeAssignedID: ConsigneeAssignedID.fromXml(xml.findElements('cbc:ConsigneeAssignedID').singleOrNull),
+      consignorAssignedID: ConsignorAssignedID.fromXml(xml.findElements('cbc:ConsignorAssignedID').singleOrNull),
+      freightForwarderAssignedID: FreightForwarderAssignedID.fromXml(xml.findElements('cbc:FreightForwarderAssignedID').singleOrNull),
+      brokerAssignedID: BrokerAssignedID.fromXml(xml.findElements('cbc:BrokerAssignedID').singleOrNull),
+      contractedCarrierAssignedID: ContractedCarrierAssignedID.fromXml(xml.findElements('cbc:ContractedCarrierAssignedID').singleOrNull),
+      performingCarrierAssignedID: PerformingCarrierAssignedID.fromXml(xml.findElements('cbc:PerformingCarrierAssignedID').singleOrNull),
+      summaryDescription: xml.findElements('cbc:SummaryDescription').map((XmlElement e) => SummaryDescription.fromXml(e)!).toList(),
+      totalInvoiceAmount: TotalInvoiceAmount.fromXml(xml.findElements('cbc:TotalInvoiceAmount').singleOrNull),
+      declaredCustomsValueAmount: DeclaredCustomsValueAmount.fromXml(xml.findElements('cbc:DeclaredCustomsValueAmount').singleOrNull),
+      tariffDescription: xml.findElements('cbc:TariffDescription').map((XmlElement e) => TariffDescription.fromXml(e)!).toList(),
+      tariffCode: TariffCode.fromXml(xml.findElements('cbc:TariffCode').singleOrNull),
+      insurancePremiumAmount: InsurancePremiumAmount.fromXml(xml.findElements('cbc:InsurancePremiumAmount').singleOrNull),
+      grossWeightMeasure: GrossWeightMeasure.fromXml(xml.findElements('cbc:GrossWeightMeasure').singleOrNull),
+      netWeightMeasure: NetWeightMeasure.fromXml(xml.findElements('cbc:NetWeightMeasure').singleOrNull),
+      netNetWeightMeasure: NetNetWeightMeasure.fromXml(xml.findElements('cbc:NetNetWeightMeasure').singleOrNull),
+      chargeableWeightMeasure: ChargeableWeightMeasure.fromXml(xml.findElements('cbc:ChargeableWeightMeasure').singleOrNull),
+      grossVolumeMeasure: GrossVolumeMeasure.fromXml(xml.findElements('cbc:GrossVolumeMeasure').singleOrNull),
+      netVolumeMeasure: NetVolumeMeasure.fromXml(xml.findElements('cbc:NetVolumeMeasure').singleOrNull),
+      loadingLengthMeasure: LoadingLengthMeasure.fromXml(xml.findElements('cbc:LoadingLengthMeasure').singleOrNull),
+      remarks: xml.findElements('cbc:Remarks').map((XmlElement e) => Remarks.fromXml(e)!).toList(),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromXml(xml.findElements('cbc:HazardousRiskIndicator').singleOrNull),
+      animalFoodIndicator: AnimalFoodIndicator.fromXml(xml.findElements('cbc:AnimalFoodIndicator').singleOrNull),
+      humanFoodIndicator: HumanFoodIndicator.fromXml(xml.findElements('cbc:HumanFoodIndicator').singleOrNull),
+      livestockIndicator: LivestockIndicator.fromXml(xml.findElements('cbc:LivestockIndicator').singleOrNull),
+      bulkCargoIndicator: BulkCargoIndicator.fromXml(xml.findElements('cbc:BulkCargoIndicator').singleOrNull),
+      containerizedIndicator: ContainerizedIndicator.fromXml(xml.findElements('cbc:ContainerizedIndicator').singleOrNull),
+      generalCargoIndicator: GeneralCargoIndicator.fromXml(xml.findElements('cbc:GeneralCargoIndicator').singleOrNull),
+      specialSecurityIndicator: SpecialSecurityIndicator.fromXml(xml.findElements('cbc:SpecialSecurityIndicator').singleOrNull),
+      thirdPartyPayerIndicator: ThirdPartyPayerIndicator.fromXml(xml.findElements('cbc:ThirdPartyPayerIndicator').singleOrNull),
+      carrierServiceInstructions: xml.findElements('cbc:CarrierServiceInstructions').map((XmlElement e) => CarrierServiceInstructions.fromXml(e)!).toList(),
+      customsClearanceServiceInstructions: xml.findElements('cbc:CustomsClearanceServiceInstructions').map((XmlElement e) => CustomsClearanceServiceInstructions.fromXml(e)!).toList(),
+      forwarderServiceInstructions: xml.findElements('cbc:ForwarderServiceInstructions').map((XmlElement e) => ForwarderServiceInstructions.fromXml(e)!).toList(),
+      specialServiceInstructions: xml.findElements('cbc:SpecialServiceInstructions').map((XmlElement e) => SpecialServiceInstructions.fromXml(e)!).toList(),
+      sequenceID: SequenceID.fromXml(xml.findElements('cbc:SequenceID').singleOrNull),
+      shippingPriorityLevelCode: ShippingPriorityLevelCode.fromXml(xml.findElements('cbc:ShippingPriorityLevelCode').singleOrNull),
+      handlingCode: HandlingCode.fromXml(xml.findElements('cbc:HandlingCode').singleOrNull),
+      handlingInstructions: xml.findElements('cbc:HandlingInstructions').map((XmlElement e) => HandlingInstructions.fromXml(e)!).toList(),
+      information: xml.findElements('cbc:Information').map((XmlElement e) => Information.fromXml(e)!).toList(),
+      totalGoodsItemQuantity: TotalGoodsItemQuantity.fromXml(xml.findElements('cbc:TotalGoodsItemQuantity').singleOrNull),
+      totalTransportHandlingUnitQuantity: TotalTransportHandlingUnitQuantity.fromXml(xml.findElements('cbc:TotalTransportHandlingUnitQuantity').singleOrNull),
+      insuranceValueAmount: InsuranceValueAmount.fromXml(xml.findElements('cbc:InsuranceValueAmount').singleOrNull),
+      declaredForCarriageValueAmount: DeclaredForCarriageValueAmount.fromXml(xml.findElements('cbc:DeclaredForCarriageValueAmount').singleOrNull),
+      declaredStatisticsValueAmount: DeclaredStatisticsValueAmount.fromXml(xml.findElements('cbc:DeclaredStatisticsValueAmount').singleOrNull),
+      freeOnBoardValueAmount: FreeOnBoardValueAmount.fromXml(xml.findElements('cbc:FreeOnBoardValueAmount').singleOrNull),
+      specialInstructions: xml.findElements('cbc:SpecialInstructions').map((XmlElement e) => SpecialInstructions.fromXml(e)!).toList(),
+      splitConsignmentIndicator: SplitConsignmentIndicator.fromXml(xml.findElements('cbc:SplitConsignmentIndicator').singleOrNull),
+      deliveryInstructions: xml.findElements('cbc:DeliveryInstructions').map((XmlElement e) => DeliveryInstructions.fromXml(e)!).toList(),
+      consignmentQuantity: ConsignmentQuantity.fromXml(xml.findElements('cbc:ConsignmentQuantity').singleOrNull),
+      consolidatableIndicator: ConsolidatableIndicator.fromXml(xml.findElements('cbc:ConsolidatableIndicator').singleOrNull),
+      haulageInstructions: xml.findElements('cbc:HaulageInstructions').map((XmlElement e) => HaulageInstructions.fromXml(e)!).toList(),
+      loadingSequenceID: LoadingSequenceID.fromXml(xml.findElements('cbc:LoadingSequenceID').singleOrNull),
+      childConsignmentQuantity: ChildConsignmentQuantity.fromXml(xml.findElements('cbc:ChildConsignmentQuantity').singleOrNull),
+      totalPackagesQuantity: TotalPackagesQuantity.fromXml(xml.findElements('cbc:TotalPackagesQuantity').singleOrNull),
+      consolidatedShipment: xml.findElements('cac:ConsolidatedShipment').map((XmlElement e) => ConsolidatedShipment.fromXml(e)!).toList(),
+      customsDeclaration: xml.findElements('cac:CustomsDeclaration').map((XmlElement e) => CustomsDeclaration.fromXml(e)!).toList(),
+      requestedPickupTransportEvent: RequestedPickupTransportEvent.fromXml(xml.findElements('cac:RequestedPickupTransportEvent').singleOrNull),
+      requestedDeliveryTransportEvent: RequestedDeliveryTransportEvent.fromXml(xml.findElements('cac:RequestedDeliveryTransportEvent').singleOrNull),
+      plannedPickupTransportEvent: PlannedPickupTransportEvent.fromXml(xml.findElements('cac:PlannedPickupTransportEvent').singleOrNull),
+      plannedDeliveryTransportEvent: PlannedDeliveryTransportEvent.fromXml(xml.findElements('cac:PlannedDeliveryTransportEvent').singleOrNull),
+      actualPickupTransportEvent: ActualPickupTransportEvent.fromXml(xml.findElements('cac:ActualPickupTransportEvent').singleOrNull),
+      actualDeliveryTransportEvent: ActualDeliveryTransportEvent.fromXml(xml.findElements('cac:ActualDeliveryTransportEvent').singleOrNull),
+      status: xml.findElements('cac:Status').map((XmlElement e) => Status.fromXml(e)!).toList(),
+      childConsignment: xml.findElements('cac:ChildConsignment').map((XmlElement e) => ChildConsignment.fromXml(e)!).toList(),
+      consigneeParty: ConsigneeParty.fromXml(xml.findElements('cac:ConsigneeParty').singleOrNull),
+      exporterParty: ExporterParty.fromXml(xml.findElements('cac:ExporterParty').singleOrNull),
+      consignorParty: ConsignorParty.fromXml(xml.findElements('cac:ConsignorParty').singleOrNull),
+      importerParty: ImporterParty.fromXml(xml.findElements('cac:ImporterParty').singleOrNull),
+      carrierParty: CarrierParty.fromXml(xml.findElements('cac:CarrierParty').singleOrNull),
+      freightForwarderParty: FreightForwarderParty.fromXml(xml.findElements('cac:FreightForwarderParty').singleOrNull),
+      notifyParty: NotifyParty.fromXml(xml.findElements('cac:NotifyParty').singleOrNull),
+      originalDespatchParty: OriginalDespatchParty.fromXml(xml.findElements('cac:OriginalDespatchParty').singleOrNull),
+      finalDeliveryParty: FinalDeliveryParty.fromXml(xml.findElements('cac:FinalDeliveryParty').singleOrNull),
+      performingCarrierParty: PerformingCarrierParty.fromXml(xml.findElements('cac:PerformingCarrierParty').singleOrNull),
+      substituteCarrierParty: SubstituteCarrierParty.fromXml(xml.findElements('cac:SubstituteCarrierParty').singleOrNull),
+      logisticsOperatorParty: LogisticsOperatorParty.fromXml(xml.findElements('cac:LogisticsOperatorParty').singleOrNull),
+      transportAdvisorParty: TransportAdvisorParty.fromXml(xml.findElements('cac:TransportAdvisorParty').singleOrNull),
+      hazardousItemNotificationParty: HazardousItemNotificationParty.fromXml(xml.findElements('cac:HazardousItemNotificationParty').singleOrNull),
+      insuranceParty: InsuranceParty.fromXml(xml.findElements('cac:InsuranceParty').singleOrNull),
+      mortgageHolderParty: MortgageHolderParty.fromXml(xml.findElements('cac:MortgageHolderParty').singleOrNull),
+      billOfLadingHolderParty: BillOfLadingHolderParty.fromXml(xml.findElements('cac:BillOfLadingHolderParty').singleOrNull),
+      originalDepartureCountry: OriginalDepartureCountry.fromXml(xml.findElements('cac:OriginalDepartureCountry').singleOrNull),
+      finalDestinationCountry: FinalDestinationCountry.fromXml(xml.findElements('cac:FinalDestinationCountry').singleOrNull),
+      transitCountry: xml.findElements('cac:TransitCountry').map((XmlElement e) => TransitCountry.fromXml(e)!).toList(),
+      transportContract: TransportContract.fromXml(xml.findElements('cac:TransportContract').singleOrNull),
+      transportEvent: xml.findElements('cac:TransportEvent').map((XmlElement e) => TransportEvent.fromXml(e)!).toList(),
+      originalDespatchTransportationService: OriginalDespatchTransportationService.fromXml(xml.findElements('cac:OriginalDespatchTransportationService').singleOrNull),
+      finalDeliveryTransportationService: FinalDeliveryTransportationService.fromXml(xml.findElements('cac:FinalDeliveryTransportationService').singleOrNull),
+      deliveryTerms: DeliveryTerms.fromXml(xml.findElements('cac:DeliveryTerms').singleOrNull),
+      paymentTerms: PaymentTerms.fromXml(xml.findElements('cac:PaymentTerms').singleOrNull),
+      collectPaymentTerms: CollectPaymentTerms.fromXml(xml.findElements('cac:CollectPaymentTerms').singleOrNull),
+      disbursementPaymentTerms: DisbursementPaymentTerms.fromXml(xml.findElements('cac:DisbursementPaymentTerms').singleOrNull),
+      prepaidPaymentTerms: PrepaidPaymentTerms.fromXml(xml.findElements('cac:PrepaidPaymentTerms').singleOrNull),
+      freightAllowanceCharge: xml.findElements('cac:FreightAllowanceCharge').map((XmlElement e) => FreightAllowanceCharge.fromXml(e)!).toList(),
+      extraAllowanceCharge: xml.findElements('cac:ExtraAllowanceCharge').map((XmlElement e) => ExtraAllowanceCharge.fromXml(e)!).toList(),
+      mainCarriageShipmentStage: xml.findElements('cac:MainCarriageShipmentStage').map((XmlElement e) => MainCarriageShipmentStage.fromXml(e)!).toList(),
+      preCarriageShipmentStage: xml.findElements('cac:PreCarriageShipmentStage').map((XmlElement e) => PreCarriageShipmentStage.fromXml(e)!).toList(),
+      onCarriageShipmentStage: xml.findElements('cac:OnCarriageShipmentStage').map((XmlElement e) => OnCarriageShipmentStage.fromXml(e)!).toList(),
+      transportHandlingUnit: xml.findElements('cac:TransportHandlingUnit').map((XmlElement e) => TransportHandlingUnit.fromXml(e)!).toList(),
+      firstArrivalPortLocation: FirstArrivalPortLocation.fromXml(xml.findElements('cac:FirstArrivalPortLocation').singleOrNull),
+      lastExitPortLocation: LastExitPortLocation.fromXml(xml.findElements('cac:LastExitPortLocation').singleOrNull),
+      officeOfEntryLocation: OfficeOfEntryLocation.fromXml(xml.findElements('cac:OfficeOfEntryLocation').singleOrNull),
+      officeOfSubSequentiallyEntryLocation: OfficeOfSubSequentiallyEntryLocation.fromXml(xml.findElements('cac:OfficeOfSubSequentiallyEntryLocation').singleOrNull),
+      officeOfExitLocation: OfficeOfExitLocation.fromXml(xml.findElements('cac:OfficeOfExitLocation').singleOrNull),
+      officeOfDepartureLocation: OfficeOfDepartureLocation.fromXml(xml.findElements('cac:OfficeOfDepartureLocation').singleOrNull),
+      officeOfDestinationLocation: OfficeOfDestinationLocation.fromXml(xml.findElements('cac:OfficeOfDestinationLocation').singleOrNull),
+      officeOfImportLocation: OfficeOfImportLocation.fromXml(xml.findElements('cac:OfficeOfImportLocation').singleOrNull),
+      officeOfExportLocation: OfficeOfExportLocation.fromXml(xml.findElements('cac:OfficeOfExportLocation').singleOrNull),
+      documentReference: xml.findElements('cac:DocumentReference').map((XmlElement e) => DocumentReference.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'Consignment',
+        'cac',
+      ),
+    );
+  }
 }
 

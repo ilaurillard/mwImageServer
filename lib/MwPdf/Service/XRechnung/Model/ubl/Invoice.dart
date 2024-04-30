@@ -4,7 +4,6 @@ import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cbc/IssueDate.dart';
 import '../cac/AccountingSupplierParty.dart';
-import '../cac/AccountingCustomerParty.dart';
 import '../cac/LegalMonetaryTotal.dart';
 import '../cac/InvoiceLine.dart';
 import '../ext/UBLExtensions.dart';
@@ -39,6 +38,7 @@ import '../cac/ContractDocumentReference.dart';
 import '../cac/AdditionalDocumentReference.dart';
 import '../cac/ProjectReference.dart';
 import '../cac/Signature.dart';
+import '../cac/AccountingCustomerParty.dart';
 import '../cac/PayeeParty.dart';
 import '../cac/BuyerCustomerParty.dart';
 import '../cac/SellerSupplierParty.dart';
@@ -69,16 +69,13 @@ class Invoice {
   // The accounting supplier party.
   final AccountingSupplierParty accountingSupplierParty;
 
-  // The accounting customer party.
-  final AccountingCustomerParty accountingCustomerParty;
-
   // The total amount payable on the Invoice, including Allowances, Charges, and Taxes.
   final LegalMonetaryTotal legalMonetaryTotal;
 
   // A line describing an invoice item.
   final List<InvoiceLine> invoiceLine;
 
-  // A container for all extensions present in the document.
+  // A container for extensions foreign to the document.
   final UBLExtensions? uBLExtensions;
 
   // Identifies the earliest version of the UBL 2 schema for this document type that defines all of the elements that might be encountered in the current instance.
@@ -174,6 +171,9 @@ class Invoice {
   // A signature applied to this document.
   final List<Signature> signature;
 
+  // The accounting customer party.
+  final AccountingCustomerParty? accountingCustomerParty;
+
   // The payee.
   final PayeeParty? payeeParty;
 
@@ -226,7 +226,6 @@ class Invoice {
     required this.iD,
     required this.issueDate,
     required this.accountingSupplierParty,
-    required this.accountingCustomerParty,
     required this.legalMonetaryTotal,
     required this.invoiceLine,
     this.uBLExtensions,
@@ -261,6 +260,7 @@ class Invoice {
     this.additionalDocumentReference = const [],
     this.projectReference = const [],
     this.signature = const [],
+    this.accountingCustomerParty,
     this.payeeParty,
     this.buyerCustomerParty,
     this.sellerSupplierParty,
@@ -279,67 +279,6 @@ class Invoice {
     this.withholdingTaxTotal = const [],
   }) {
     assert(invoiceLine.isNotEmpty);
-  }
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'uBLExtensions': uBLExtensions?.toJson(),
-      'uBLVersionID': uBLVersionID?.toJson(),
-      'customizationID': customizationID?.toJson(),
-      'profileID': profileID?.toJson(),
-      'profileExecutionID': profileExecutionID?.toJson(),
-      'iD': iD.toJson(),
-      'copyIndicator': copyIndicator?.toJson(),
-      'uUID': uUID?.toJson(),
-      'issueDate': issueDate.toJson(),
-      'issueTime': issueTime?.toJson(),
-      'dueDate': dueDate?.toJson(),
-      'invoiceTypeCode': invoiceTypeCode?.toJson(),
-      'note': note.map((e) => e.toJson()).toList(),
-      'taxPointDate': taxPointDate?.toJson(),
-      'documentCurrencyCode': documentCurrencyCode?.toJson(),
-      'taxCurrencyCode': taxCurrencyCode?.toJson(),
-      'pricingCurrencyCode': pricingCurrencyCode?.toJson(),
-      'paymentCurrencyCode': paymentCurrencyCode?.toJson(),
-      'paymentAlternativeCurrencyCode': paymentAlternativeCurrencyCode?.toJson(),
-      'accountingCostCode': accountingCostCode?.toJson(),
-      'accountingCost': accountingCost?.toJson(),
-      'lineCountNumeric': lineCountNumeric?.toJson(),
-      'buyerReference': buyerReference?.toJson(),
-      'invoicePeriod': invoicePeriod.map((e) => e.toJson()).toList(),
-      'orderReference': orderReference?.toJson(),
-      'billingReference': billingReference.map((e) => e.toJson()).toList(),
-      'despatchDocumentReference': despatchDocumentReference.map((e) => e.toJson()).toList(),
-      'receiptDocumentReference': receiptDocumentReference.map((e) => e.toJson()).toList(),
-      'statementDocumentReference': statementDocumentReference.map((e) => e.toJson()).toList(),
-      'originatorDocumentReference': originatorDocumentReference.map((e) => e.toJson()).toList(),
-      'contractDocumentReference': contractDocumentReference.map((e) => e.toJson()).toList(),
-      'additionalDocumentReference': additionalDocumentReference.map((e) => e.toJson()).toList(),
-      'projectReference': projectReference.map((e) => e.toJson()).toList(),
-      'signature': signature.map((e) => e.toJson()).toList(),
-      'accountingSupplierParty': accountingSupplierParty.toJson(),
-      'accountingCustomerParty': accountingCustomerParty.toJson(),
-      'payeeParty': payeeParty?.toJson(),
-      'buyerCustomerParty': buyerCustomerParty?.toJson(),
-      'sellerSupplierParty': sellerSupplierParty?.toJson(),
-      'taxRepresentativeParty': taxRepresentativeParty?.toJson(),
-      'delivery': delivery.map((e) => e.toJson()).toList(),
-      'deliveryTerms': deliveryTerms?.toJson(),
-      'paymentMeans': paymentMeans.map((e) => e.toJson()).toList(),
-      'paymentTerms': paymentTerms.map((e) => e.toJson()).toList(),
-      'prepaidPayment': prepaidPayment.map((e) => e.toJson()).toList(),
-      'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
-      'taxExchangeRate': taxExchangeRate?.toJson(),
-      'pricingExchangeRate': pricingExchangeRate?.toJson(),
-      'paymentExchangeRate': paymentExchangeRate?.toJson(),
-      'paymentAlternativeExchangeRate': paymentAlternativeExchangeRate?.toJson(),
-      'taxTotal': taxTotal.map((e) => e.toJson()).toList(),
-      'withholdingTaxTotal': withholdingTaxTotal.map((e) => e.toJson()).toList(),
-      'legalMonetaryTotal': legalMonetaryTotal.toJson(),
-      'invoiceLine': invoiceLine.map((e) => e.toJson()).toList(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
   }
 
   static Invoice? fromJson(Map<String, dynamic>? json) {
@@ -380,7 +319,7 @@ class Invoice {
       projectReference: (json['projectReference'] as List? ?? []).map((dynamic d) => ProjectReference.fromJson(d as Map<String, dynamic>?)!).toList(),
       signature: (json['signature'] as List? ?? []).map((dynamic d) => Signature.fromJson(d as Map<String, dynamic>?)!).toList(),
       accountingSupplierParty: AccountingSupplierParty.fromJson(json['accountingSupplierParty'] as Map<String, dynamic>?)!,
-      accountingCustomerParty: AccountingCustomerParty.fromJson(json['accountingCustomerParty'] as Map<String, dynamic>?)!,
+      accountingCustomerParty: AccountingCustomerParty.fromJson(json['accountingCustomerParty'] as Map<String, dynamic>?),
       payeeParty: PayeeParty.fromJson(json['payeeParty'] as Map<String, dynamic>?),
       buyerCustomerParty: BuyerCustomerParty.fromJson(json['buyerCustomerParty'] as Map<String, dynamic>?),
       sellerSupplierParty: SellerSupplierParty.fromJson(json['sellerSupplierParty'] as Map<String, dynamic>?),
@@ -402,66 +341,163 @@ class Invoice {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'uBLVersionID': uBLVersionID?.toJson(),
+      'customizationID': customizationID?.toJson(),
+      'profileID': profileID?.toJson(),
+      'profileExecutionID': profileExecutionID?.toJson(),
+      'iD': iD.toJson(),
+      'copyIndicator': copyIndicator?.toJson(),
+      'uUID': uUID?.toJson(),
+      'issueDate': issueDate.toJson(),
+      'issueTime': issueTime?.toJson(),
+      'dueDate': dueDate?.toJson(),
+      'invoiceTypeCode': invoiceTypeCode?.toJson(),
+      'note': note.map((e) => e.toJson()).toList(),
+      'taxPointDate': taxPointDate?.toJson(),
+      'documentCurrencyCode': documentCurrencyCode?.toJson(),
+      'taxCurrencyCode': taxCurrencyCode?.toJson(),
+      'pricingCurrencyCode': pricingCurrencyCode?.toJson(),
+      'paymentCurrencyCode': paymentCurrencyCode?.toJson(),
+      'paymentAlternativeCurrencyCode': paymentAlternativeCurrencyCode?.toJson(),
+      'accountingCostCode': accountingCostCode?.toJson(),
+      'accountingCost': accountingCost?.toJson(),
+      'lineCountNumeric': lineCountNumeric?.toJson(),
+      'buyerReference': buyerReference?.toJson(),
+      'invoicePeriod': invoicePeriod.map((e) => e.toJson()).toList(),
+      'orderReference': orderReference?.toJson(),
+      'billingReference': billingReference.map((e) => e.toJson()).toList(),
+      'despatchDocumentReference': despatchDocumentReference.map((e) => e.toJson()).toList(),
+      'receiptDocumentReference': receiptDocumentReference.map((e) => e.toJson()).toList(),
+      'statementDocumentReference': statementDocumentReference.map((e) => e.toJson()).toList(),
+      'originatorDocumentReference': originatorDocumentReference.map((e) => e.toJson()).toList(),
+      'contractDocumentReference': contractDocumentReference.map((e) => e.toJson()).toList(),
+      'additionalDocumentReference': additionalDocumentReference.map((e) => e.toJson()).toList(),
+      'projectReference': projectReference.map((e) => e.toJson()).toList(),
+      'signature': signature.map((e) => e.toJson()).toList(),
+      'accountingSupplierParty': accountingSupplierParty.toJson(),
+      'accountingCustomerParty': accountingCustomerParty?.toJson(),
+      'payeeParty': payeeParty?.toJson(),
+      'buyerCustomerParty': buyerCustomerParty?.toJson(),
+      'sellerSupplierParty': sellerSupplierParty?.toJson(),
+      'taxRepresentativeParty': taxRepresentativeParty?.toJson(),
+      'delivery': delivery.map((e) => e.toJson()).toList(),
+      'deliveryTerms': deliveryTerms?.toJson(),
+      'paymentMeans': paymentMeans.map((e) => e.toJson()).toList(),
+      'paymentTerms': paymentTerms.map((e) => e.toJson()).toList(),
+      'prepaidPayment': prepaidPayment.map((e) => e.toJson()).toList(),
+      'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
+      'taxExchangeRate': taxExchangeRate?.toJson(),
+      'pricingExchangeRate': pricingExchangeRate?.toJson(),
+      'paymentExchangeRate': paymentExchangeRate?.toJson(),
+      'paymentAlternativeExchangeRate': paymentAlternativeExchangeRate?.toJson(),
+      'taxTotal': taxTotal.map((e) => e.toJson()).toList(),
+      'withholdingTaxTotal': withholdingTaxTotal.map((e) => e.toJson()).toList(),
+      'legalMonetaryTotal': legalMonetaryTotal.toJson(),
+      'invoiceLine': invoiceLine.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+  }
+
   static Invoice? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return Invoice (
-      uBLExtensions: null,
-      uBLVersionID: null,
-      customizationID: null,
-      profileID: null,
-      profileExecutionID: null,
-      iD: null,
-      copyIndicator: null,
-      uUID: null,
-      issueDate: null,
-      issueTime: null,
-      dueDate: null,
-      invoiceTypeCode: null,
-      note: null,
-      taxPointDate: null,
-      documentCurrencyCode: null,
-      taxCurrencyCode: null,
-      pricingCurrencyCode: null,
-      paymentCurrencyCode: null,
-      paymentAlternativeCurrencyCode: null,
-      accountingCostCode: null,
-      accountingCost: null,
-      lineCountNumeric: null,
-      buyerReference: null,
-      invoicePeriod: null,
-      orderReference: null,
-      billingReference: null,
-      despatchDocumentReference: null,
-      receiptDocumentReference: null,
-      statementDocumentReference: null,
-      originatorDocumentReference: null,
-      contractDocumentReference: null,
-      additionalDocumentReference: null,
-      projectReference: null,
-      signature: null,
-      accountingSupplierParty: null,
-      accountingCustomerParty: null,
-      payeeParty: null,
-      buyerCustomerParty: null,
-      sellerSupplierParty: null,
-      taxRepresentativeParty: null,
-      delivery: null,
-      deliveryTerms: null,
-      paymentMeans: null,
-      paymentTerms: null,
-      prepaidPayment: null,
-      allowanceCharge: null,
-      taxExchangeRate: null,
-      pricingExchangeRate: null,
-      paymentExchangeRate: null,
-      paymentAlternativeExchangeRate: null,
-      taxTotal: null,
-      withholdingTaxTotal: null,
-      legalMonetaryTotal: null,
-      invoiceLine: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      uBLVersionID: UBLVersionID.fromXml(xml.findElements('cbc:UBLVersionID').singleOrNull),
+      customizationID: CustomizationID.fromXml(xml.findElements('cbc:CustomizationID').singleOrNull),
+      profileID: ProfileID.fromXml(xml.findElements('cbc:ProfileID').singleOrNull),
+      profileExecutionID: ProfileExecutionID.fromXml(xml.findElements('cbc:ProfileExecutionID').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      copyIndicator: CopyIndicator.fromXml(xml.findElements('cbc:CopyIndicator').singleOrNull),
+      uUID: UUID.fromXml(xml.findElements('cbc:UUID').singleOrNull),
+      issueDate: IssueDate.fromXml(xml.findElements('cbc:IssueDate').singleOrNull)!,
+      issueTime: IssueTime.fromXml(xml.findElements('cbc:IssueTime').singleOrNull),
+      dueDate: DueDate.fromXml(xml.findElements('cbc:DueDate').singleOrNull),
+      invoiceTypeCode: InvoiceTypeCode.fromXml(xml.findElements('cbc:InvoiceTypeCode').singleOrNull),
+      note: xml.findElements('cbc:Note').map((XmlElement e) => Note.fromXml(e)!).toList(),
+      taxPointDate: TaxPointDate.fromXml(xml.findElements('cbc:TaxPointDate').singleOrNull),
+      documentCurrencyCode: DocumentCurrencyCode.fromXml(xml.findElements('cbc:DocumentCurrencyCode').singleOrNull),
+      taxCurrencyCode: TaxCurrencyCode.fromXml(xml.findElements('cbc:TaxCurrencyCode').singleOrNull),
+      pricingCurrencyCode: PricingCurrencyCode.fromXml(xml.findElements('cbc:PricingCurrencyCode').singleOrNull),
+      paymentCurrencyCode: PaymentCurrencyCode.fromXml(xml.findElements('cbc:PaymentCurrencyCode').singleOrNull),
+      paymentAlternativeCurrencyCode: PaymentAlternativeCurrencyCode.fromXml(xml.findElements('cbc:PaymentAlternativeCurrencyCode').singleOrNull),
+      accountingCostCode: AccountingCostCode.fromXml(xml.findElements('cbc:AccountingCostCode').singleOrNull),
+      accountingCost: AccountingCost.fromXml(xml.findElements('cbc:AccountingCost').singleOrNull),
+      lineCountNumeric: LineCountNumeric.fromXml(xml.findElements('cbc:LineCountNumeric').singleOrNull),
+      buyerReference: BuyerReference.fromXml(xml.findElements('cbc:BuyerReference').singleOrNull),
+      invoicePeriod: xml.findElements('cac:InvoicePeriod').map((XmlElement e) => InvoicePeriod.fromXml(e)!).toList(),
+      orderReference: OrderReference.fromXml(xml.findElements('cac:OrderReference').singleOrNull),
+      billingReference: xml.findElements('cac:BillingReference').map((XmlElement e) => BillingReference.fromXml(e)!).toList(),
+      despatchDocumentReference: xml.findElements('cac:DespatchDocumentReference').map((XmlElement e) => DespatchDocumentReference.fromXml(e)!).toList(),
+      receiptDocumentReference: xml.findElements('cac:ReceiptDocumentReference').map((XmlElement e) => ReceiptDocumentReference.fromXml(e)!).toList(),
+      statementDocumentReference: xml.findElements('cac:StatementDocumentReference').map((XmlElement e) => StatementDocumentReference.fromXml(e)!).toList(),
+      originatorDocumentReference: xml.findElements('cac:OriginatorDocumentReference').map((XmlElement e) => OriginatorDocumentReference.fromXml(e)!).toList(),
+      contractDocumentReference: xml.findElements('cac:ContractDocumentReference').map((XmlElement e) => ContractDocumentReference.fromXml(e)!).toList(),
+      additionalDocumentReference: xml.findElements('cac:AdditionalDocumentReference').map((XmlElement e) => AdditionalDocumentReference.fromXml(e)!).toList(),
+      projectReference: xml.findElements('cac:ProjectReference').map((XmlElement e) => ProjectReference.fromXml(e)!).toList(),
+      signature: xml.findElements('cac:Signature').map((XmlElement e) => Signature.fromXml(e)!).toList(),
+      accountingSupplierParty: AccountingSupplierParty.fromXml(xml.findElements('cac:AccountingSupplierParty').singleOrNull)!,
+      accountingCustomerParty: AccountingCustomerParty.fromXml(xml.findElements('cac:AccountingCustomerParty').singleOrNull),
+      payeeParty: PayeeParty.fromXml(xml.findElements('cac:PayeeParty').singleOrNull),
+      buyerCustomerParty: BuyerCustomerParty.fromXml(xml.findElements('cac:BuyerCustomerParty').singleOrNull),
+      sellerSupplierParty: SellerSupplierParty.fromXml(xml.findElements('cac:SellerSupplierParty').singleOrNull),
+      taxRepresentativeParty: TaxRepresentativeParty.fromXml(xml.findElements('cac:TaxRepresentativeParty').singleOrNull),
+      delivery: xml.findElements('cac:Delivery').map((XmlElement e) => Delivery.fromXml(e)!).toList(),
+      deliveryTerms: DeliveryTerms.fromXml(xml.findElements('cac:DeliveryTerms').singleOrNull),
+      paymentMeans: xml.findElements('cac:PaymentMeans').map((XmlElement e) => PaymentMeans.fromXml(e)!).toList(),
+      paymentTerms: xml.findElements('cac:PaymentTerms').map((XmlElement e) => PaymentTerms.fromXml(e)!).toList(),
+      prepaidPayment: xml.findElements('cac:PrepaidPayment').map((XmlElement e) => PrepaidPayment.fromXml(e)!).toList(),
+      allowanceCharge: xml.findElements('cac:AllowanceCharge').map((XmlElement e) => AllowanceCharge.fromXml(e)!).toList(),
+      taxExchangeRate: TaxExchangeRate.fromXml(xml.findElements('cac:TaxExchangeRate').singleOrNull),
+      pricingExchangeRate: PricingExchangeRate.fromXml(xml.findElements('cac:PricingExchangeRate').singleOrNull),
+      paymentExchangeRate: PaymentExchangeRate.fromXml(xml.findElements('cac:PaymentExchangeRate').singleOrNull),
+      paymentAlternativeExchangeRate: PaymentAlternativeExchangeRate.fromXml(xml.findElements('cac:PaymentAlternativeExchangeRate').singleOrNull),
+      taxTotal: xml.findElements('cac:TaxTotal').map((XmlElement e) => TaxTotal.fromXml(e)!).toList(),
+      withholdingTaxTotal: xml.findElements('cac:WithholdingTaxTotal').map((XmlElement e) => WithholdingTaxTotal.fromXml(e)!).toList(),
+      legalMonetaryTotal: LegalMonetaryTotal.fromXml(xml.findElements('cac:LegalMonetaryTotal').singleOrNull)!,
+      invoiceLine: xml.findElements('cac:InvoiceLine').map((XmlElement e) => InvoiceLine.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlDocument([
+      XmlDeclaration([
+        XmlAttribute(XmlName('version'), '1.0'),
+        XmlAttribute(XmlName('encoding'), 'UTF-8')
+      ]),
+      XmlElement(
+        XmlName(
+          'Invoice',
+          'ubl',
+        ),
+        [
+          XmlAttribute(
+            XmlName('xmlns:ext'),
+            'urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2',
+          ),
+          XmlAttribute(
+            XmlName('xmlns:cbc'),
+            'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
+          ),
+          XmlAttribute(
+            XmlName('xmlns:cac'),
+            'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
+          ),
+
+          XmlAttribute(
+            XmlName('xmlns:xsi'),
+            'http://www.w3.org/2001/XMLSchema-instance',
+          ),
+          XmlAttribute(
+            XmlName('xsi:schemaLocation'),
+            'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 http://docs.oasis-open.org/ubl/os-UBL-2.3/xsd/maindoc/UBL-Invoice-2.3.xsd',
+          ),
+        ]
+      ),
+    ]);
+  }
 }
 

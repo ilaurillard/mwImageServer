@@ -1,12 +1,17 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
+import '../cbc/ShipmentStageTypeCode.dart';
+import '../cbc/ShipmentStageType.dart';
 import '../cbc/TransportModeCode.dart';
 import '../cbc/TransportMeansTypeCode.dart';
 import '../cbc/TransitDirectionCode.dart';
 import '../cbc/PreCarriageIndicator.dart';
 import '../cbc/OnCarriageIndicator.dart';
+import '../cbc/CabotageIndicator.dart';
+import '../cbc/HazardousRiskIndicator.dart';
 import '../cbc/EstimatedDeliveryDate.dart';
 import '../cbc/EstimatedDeliveryTime.dart';
 import '../cbc/RequiredDeliveryDate.dart';
@@ -62,13 +67,29 @@ import '../cac/CrewMemberPerson.dart';
 import '../cac/SecurityOfficerPerson.dart';
 import '../cac/MasterPerson.dart';
 import '../cac/ShipsSurgeonPerson.dart';
+import '../cac/DestinationPortCall.dart';
+import '../cac/ShipStoreArticle.dart';
+import '../cac/CrewPersonEffect.dart';
+import '../cac/MaritimeWaste.dart';
+import '../cac/BallastWaterSummary.dart';
+import '../cac/ISPSRequirements.dart';
+import '../cac/MaritimeHealthDeclaration.dart';
 
 // A class to describe one stage of movement in a transport of goods.
 class PreCarriageShipmentStage {
 
 
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
   // An identifier for this shipment stage.
   final ID? iD;
+
+  // The type of shipment stage, expressed as a code.
+  final ShipmentStageTypeCode? shipmentStageTypeCode;
+
+  // The type of shipment stage, expressed as text.
+  final List<ShipmentStageType> shipmentStageType;
 
   // A code signifying the method of transport used for this shipment stage.
   final TransportModeCode? transportModeCode;
@@ -84,6 +105,12 @@ class PreCarriageShipmentStage {
 
   // An indicator that this stage takes place after the main carriage of the shipment (true) or not (false).
   final OnCarriageIndicator? onCarriageIndicator;
+
+  // An indicator that cabotage applies for this shipment stage (true) or not (false).
+  final CabotageIndicator? cabotageIndicator;
+
+  // An indicator that the transported goods in this shipment stage are subject to an international regulation concerning the carriage of dangerous goods (true) or not (false).
+  final HazardousRiskIndicator? hazardousRiskIndicator;
 
   // The estimated date of delivery in this shipment stage.
   final EstimatedDeliveryDate? estimatedDeliveryDate;
@@ -250,13 +277,39 @@ class PreCarriageShipmentStage {
   // The person responsible for the health of the people aboard a ship at sea.
   final ShipsSurgeonPerson? shipsSurgeonPerson;
 
+  // A destination port call for this shipment stage.
+  final DestinationPortCall? destinationPortCall;
+
+  // The ship store articles for this shipment stage.
+  final List<ShipStoreArticle> shipStoreArticle;
+
+  // The crew person effects for this shipment stage.
+  final List<CrewPersonEffect> crewPersonEffect;
+
+  // The maritime waste for this shipment stage.
+  final List<MaritimeWaste> maritimeWaste;
+
+  // A ballast water summary for this shipment stage.
+  final BallastWaterSummary? ballastWaterSummary;
+
+  // The ISPS (International Ship and Port Facility Security Code) requirements for this shipment stage.
+  final ISPSRequirements? iSPSRequirements;
+
+  // A maritime declaration of health for this shipment stage.
+  final MaritimeHealthDeclaration? maritimeHealthDeclaration;
+
   PreCarriageShipmentStage ({
+    this.uBLExtensions,
     this.iD,
+    this.shipmentStageTypeCode,
+    this.shipmentStageType = const [],
     this.transportModeCode,
     this.transportMeansTypeCode,
     this.transitDirectionCode,
     this.preCarriageIndicator,
     this.onCarriageIndicator,
+    this.cabotageIndicator,
+    this.hazardousRiskIndicator,
     this.estimatedDeliveryDate,
     this.estimatedDeliveryTime,
     this.requiredDeliveryDate,
@@ -312,85 +365,29 @@ class PreCarriageShipmentStage {
     this.securityOfficerPerson,
     this.masterPerson,
     this.shipsSurgeonPerson,
+    this.destinationPortCall,
+    this.shipStoreArticle = const [],
+    this.crewPersonEffect = const [],
+    this.maritimeWaste = const [],
+    this.ballastWaterSummary,
+    this.iSPSRequirements,
+    this.maritimeHealthDeclaration,
   });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'iD': iD?.toJson(),
-      'transportModeCode': transportModeCode?.toJson(),
-      'transportMeansTypeCode': transportMeansTypeCode?.toJson(),
-      'transitDirectionCode': transitDirectionCode?.toJson(),
-      'preCarriageIndicator': preCarriageIndicator?.toJson(),
-      'onCarriageIndicator': onCarriageIndicator?.toJson(),
-      'estimatedDeliveryDate': estimatedDeliveryDate?.toJson(),
-      'estimatedDeliveryTime': estimatedDeliveryTime?.toJson(),
-      'requiredDeliveryDate': requiredDeliveryDate?.toJson(),
-      'requiredDeliveryTime': requiredDeliveryTime?.toJson(),
-      'loadingSequenceID': loadingSequenceID?.toJson(),
-      'successiveSequenceID': successiveSequenceID?.toJson(),
-      'instructions': instructions.map((e) => e.toJson()).toList(),
-      'demurrageInstructions': demurrageInstructions.map((e) => e.toJson()).toList(),
-      'crewQuantity': crewQuantity?.toJson(),
-      'passengerQuantity': passengerQuantity?.toJson(),
-      'transitPeriod': transitPeriod?.toJson(),
-      'carrierParty': carrierParty.map((e) => e.toJson()).toList(),
-      'transportMeans': transportMeans?.toJson(),
-      'loadingPortLocation': loadingPortLocation?.toJson(),
-      'unloadingPortLocation': unloadingPortLocation?.toJson(),
-      'transshipPortLocation': transshipPortLocation?.toJson(),
-      'loadingTransportEvent': loadingTransportEvent?.toJson(),
-      'examinationTransportEvent': examinationTransportEvent?.toJson(),
-      'availabilityTransportEvent': availabilityTransportEvent?.toJson(),
-      'exportationTransportEvent': exportationTransportEvent?.toJson(),
-      'dischargeTransportEvent': dischargeTransportEvent?.toJson(),
-      'warehousingTransportEvent': warehousingTransportEvent?.toJson(),
-      'takeoverTransportEvent': takeoverTransportEvent?.toJson(),
-      'optionalTakeoverTransportEvent': optionalTakeoverTransportEvent?.toJson(),
-      'dropoffTransportEvent': dropoffTransportEvent?.toJson(),
-      'actualPickupTransportEvent': actualPickupTransportEvent?.toJson(),
-      'deliveryTransportEvent': deliveryTransportEvent?.toJson(),
-      'receiptTransportEvent': receiptTransportEvent?.toJson(),
-      'storageTransportEvent': storageTransportEvent?.toJson(),
-      'acceptanceTransportEvent': acceptanceTransportEvent?.toJson(),
-      'terminalOperatorParty': terminalOperatorParty?.toJson(),
-      'customsAgentParty': customsAgentParty?.toJson(),
-      'estimatedTransitPeriod': estimatedTransitPeriod?.toJson(),
-      'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
-      'freightChargeLocation': freightChargeLocation?.toJson(),
-      'detentionTransportEvent': detentionTransportEvent.map((e) => e.toJson()).toList(),
-      'requestedDepartureTransportEvent': requestedDepartureTransportEvent?.toJson(),
-      'requestedArrivalTransportEvent': requestedArrivalTransportEvent?.toJson(),
-      'requestedWaypointTransportEvent': requestedWaypointTransportEvent.map((e) => e.toJson()).toList(),
-      'plannedDepartureTransportEvent': plannedDepartureTransportEvent?.toJson(),
-      'plannedArrivalTransportEvent': plannedArrivalTransportEvent?.toJson(),
-      'plannedWaypointTransportEvent': plannedWaypointTransportEvent.map((e) => e.toJson()).toList(),
-      'actualDepartureTransportEvent': actualDepartureTransportEvent?.toJson(),
-      'actualWaypointTransportEvent': actualWaypointTransportEvent?.toJson(),
-      'actualArrivalTransportEvent': actualArrivalTransportEvent?.toJson(),
-      'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
-      'estimatedDepartureTransportEvent': estimatedDepartureTransportEvent?.toJson(),
-      'estimatedArrivalTransportEvent': estimatedArrivalTransportEvent?.toJson(),
-      'passengerPerson': passengerPerson.map((e) => e.toJson()).toList(),
-      'driverPerson': driverPerson.map((e) => e.toJson()).toList(),
-      'reportingPerson': reportingPerson?.toJson(),
-      'crewMemberPerson': crewMemberPerson.map((e) => e.toJson()).toList(),
-      'securityOfficerPerson': securityOfficerPerson?.toJson(),
-      'masterPerson': masterPerson?.toJson(),
-      'shipsSurgeonPerson': shipsSurgeonPerson?.toJson(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
-  }
 
   static PreCarriageShipmentStage? fromJson(Map<String, dynamic>? json) {
     if (json == null) { return null; }
     return PreCarriageShipmentStage (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      shipmentStageTypeCode: ShipmentStageTypeCode.fromJson(json['shipmentStageTypeCode'] as Map<String, dynamic>?),
+      shipmentStageType: (json['shipmentStageType'] as List? ?? []).map((dynamic d) => ShipmentStageType.fromJson(d as Map<String, dynamic>?)!).toList(),
       transportModeCode: TransportModeCode.fromJson(json['transportModeCode'] as Map<String, dynamic>?),
       transportMeansTypeCode: TransportMeansTypeCode.fromJson(json['transportMeansTypeCode'] as Map<String, dynamic>?),
       transitDirectionCode: TransitDirectionCode.fromJson(json['transitDirectionCode'] as Map<String, dynamic>?),
       preCarriageIndicator: PreCarriageIndicator.fromJson(json['preCarriageIndicator'] as Map<String, dynamic>?),
       onCarriageIndicator: OnCarriageIndicator.fromJson(json['onCarriageIndicator'] as Map<String, dynamic>?),
+      cabotageIndicator: CabotageIndicator.fromJson(json['cabotageIndicator'] as Map<String, dynamic>?),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromJson(json['hazardousRiskIndicator'] as Map<String, dynamic>?),
       estimatedDeliveryDate: EstimatedDeliveryDate.fromJson(json['estimatedDeliveryDate'] as Map<String, dynamic>?),
       estimatedDeliveryTime: EstimatedDeliveryTime.fromJson(json['estimatedDeliveryTime'] as Map<String, dynamic>?),
       requiredDeliveryDate: RequiredDeliveryDate.fromJson(json['requiredDeliveryDate'] as Map<String, dynamic>?),
@@ -446,76 +443,182 @@ class PreCarriageShipmentStage {
       securityOfficerPerson: SecurityOfficerPerson.fromJson(json['securityOfficerPerson'] as Map<String, dynamic>?),
       masterPerson: MasterPerson.fromJson(json['masterPerson'] as Map<String, dynamic>?),
       shipsSurgeonPerson: ShipsSurgeonPerson.fromJson(json['shipsSurgeonPerson'] as Map<String, dynamic>?),
+      destinationPortCall: DestinationPortCall.fromJson(json['destinationPortCall'] as Map<String, dynamic>?),
+      shipStoreArticle: (json['shipStoreArticle'] as List? ?? []).map((dynamic d) => ShipStoreArticle.fromJson(d as Map<String, dynamic>?)!).toList(),
+      crewPersonEffect: (json['crewPersonEffect'] as List? ?? []).map((dynamic d) => CrewPersonEffect.fromJson(d as Map<String, dynamic>?)!).toList(),
+      maritimeWaste: (json['maritimeWaste'] as List? ?? []).map((dynamic d) => MaritimeWaste.fromJson(d as Map<String, dynamic>?)!).toList(),
+      ballastWaterSummary: BallastWaterSummary.fromJson(json['ballastWaterSummary'] as Map<String, dynamic>?),
+      iSPSRequirements: ISPSRequirements.fromJson(json['iSPSRequirements'] as Map<String, dynamic>?),
+      maritimeHealthDeclaration: MaritimeHealthDeclaration.fromJson(json['maritimeHealthDeclaration'] as Map<String, dynamic>?),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'iD': iD?.toJson(),
+      'shipmentStageTypeCode': shipmentStageTypeCode?.toJson(),
+      'shipmentStageType': shipmentStageType.map((e) => e.toJson()).toList(),
+      'transportModeCode': transportModeCode?.toJson(),
+      'transportMeansTypeCode': transportMeansTypeCode?.toJson(),
+      'transitDirectionCode': transitDirectionCode?.toJson(),
+      'preCarriageIndicator': preCarriageIndicator?.toJson(),
+      'onCarriageIndicator': onCarriageIndicator?.toJson(),
+      'cabotageIndicator': cabotageIndicator?.toJson(),
+      'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+      'estimatedDeliveryDate': estimatedDeliveryDate?.toJson(),
+      'estimatedDeliveryTime': estimatedDeliveryTime?.toJson(),
+      'requiredDeliveryDate': requiredDeliveryDate?.toJson(),
+      'requiredDeliveryTime': requiredDeliveryTime?.toJson(),
+      'loadingSequenceID': loadingSequenceID?.toJson(),
+      'successiveSequenceID': successiveSequenceID?.toJson(),
+      'instructions': instructions.map((e) => e.toJson()).toList(),
+      'demurrageInstructions': demurrageInstructions.map((e) => e.toJson()).toList(),
+      'crewQuantity': crewQuantity?.toJson(),
+      'passengerQuantity': passengerQuantity?.toJson(),
+      'transitPeriod': transitPeriod?.toJson(),
+      'carrierParty': carrierParty.map((e) => e.toJson()).toList(),
+      'transportMeans': transportMeans?.toJson(),
+      'loadingPortLocation': loadingPortLocation?.toJson(),
+      'unloadingPortLocation': unloadingPortLocation?.toJson(),
+      'transshipPortLocation': transshipPortLocation?.toJson(),
+      'loadingTransportEvent': loadingTransportEvent?.toJson(),
+      'examinationTransportEvent': examinationTransportEvent?.toJson(),
+      'availabilityTransportEvent': availabilityTransportEvent?.toJson(),
+      'exportationTransportEvent': exportationTransportEvent?.toJson(),
+      'dischargeTransportEvent': dischargeTransportEvent?.toJson(),
+      'warehousingTransportEvent': warehousingTransportEvent?.toJson(),
+      'takeoverTransportEvent': takeoverTransportEvent?.toJson(),
+      'optionalTakeoverTransportEvent': optionalTakeoverTransportEvent?.toJson(),
+      'dropoffTransportEvent': dropoffTransportEvent?.toJson(),
+      'actualPickupTransportEvent': actualPickupTransportEvent?.toJson(),
+      'deliveryTransportEvent': deliveryTransportEvent?.toJson(),
+      'receiptTransportEvent': receiptTransportEvent?.toJson(),
+      'storageTransportEvent': storageTransportEvent?.toJson(),
+      'acceptanceTransportEvent': acceptanceTransportEvent?.toJson(),
+      'terminalOperatorParty': terminalOperatorParty?.toJson(),
+      'customsAgentParty': customsAgentParty?.toJson(),
+      'estimatedTransitPeriod': estimatedTransitPeriod?.toJson(),
+      'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
+      'freightChargeLocation': freightChargeLocation?.toJson(),
+      'detentionTransportEvent': detentionTransportEvent.map((e) => e.toJson()).toList(),
+      'requestedDepartureTransportEvent': requestedDepartureTransportEvent?.toJson(),
+      'requestedArrivalTransportEvent': requestedArrivalTransportEvent?.toJson(),
+      'requestedWaypointTransportEvent': requestedWaypointTransportEvent.map((e) => e.toJson()).toList(),
+      'plannedDepartureTransportEvent': plannedDepartureTransportEvent?.toJson(),
+      'plannedArrivalTransportEvent': plannedArrivalTransportEvent?.toJson(),
+      'plannedWaypointTransportEvent': plannedWaypointTransportEvent.map((e) => e.toJson()).toList(),
+      'actualDepartureTransportEvent': actualDepartureTransportEvent?.toJson(),
+      'actualWaypointTransportEvent': actualWaypointTransportEvent?.toJson(),
+      'actualArrivalTransportEvent': actualArrivalTransportEvent?.toJson(),
+      'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
+      'estimatedDepartureTransportEvent': estimatedDepartureTransportEvent?.toJson(),
+      'estimatedArrivalTransportEvent': estimatedArrivalTransportEvent?.toJson(),
+      'passengerPerson': passengerPerson.map((e) => e.toJson()).toList(),
+      'driverPerson': driverPerson.map((e) => e.toJson()).toList(),
+      'reportingPerson': reportingPerson?.toJson(),
+      'crewMemberPerson': crewMemberPerson.map((e) => e.toJson()).toList(),
+      'securityOfficerPerson': securityOfficerPerson?.toJson(),
+      'masterPerson': masterPerson?.toJson(),
+      'shipsSurgeonPerson': shipsSurgeonPerson?.toJson(),
+      'destinationPortCall': destinationPortCall?.toJson(),
+      'shipStoreArticle': shipStoreArticle.map((e) => e.toJson()).toList(),
+      'crewPersonEffect': crewPersonEffect.map((e) => e.toJson()).toList(),
+      'maritimeWaste': maritimeWaste.map((e) => e.toJson()).toList(),
+      'ballastWaterSummary': ballastWaterSummary?.toJson(),
+      'iSPSRequirements': iSPSRequirements?.toJson(),
+      'maritimeHealthDeclaration': maritimeHealthDeclaration?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
   }
 
   static PreCarriageShipmentStage? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PreCarriageShipmentStage (
-      iD: null,
-      transportModeCode: null,
-      transportMeansTypeCode: null,
-      transitDirectionCode: null,
-      preCarriageIndicator: null,
-      onCarriageIndicator: null,
-      estimatedDeliveryDate: null,
-      estimatedDeliveryTime: null,
-      requiredDeliveryDate: null,
-      requiredDeliveryTime: null,
-      loadingSequenceID: null,
-      successiveSequenceID: null,
-      instructions: null,
-      demurrageInstructions: null,
-      crewQuantity: null,
-      passengerQuantity: null,
-      transitPeriod: null,
-      carrierParty: null,
-      transportMeans: null,
-      loadingPortLocation: null,
-      unloadingPortLocation: null,
-      transshipPortLocation: null,
-      loadingTransportEvent: null,
-      examinationTransportEvent: null,
-      availabilityTransportEvent: null,
-      exportationTransportEvent: null,
-      dischargeTransportEvent: null,
-      warehousingTransportEvent: null,
-      takeoverTransportEvent: null,
-      optionalTakeoverTransportEvent: null,
-      dropoffTransportEvent: null,
-      actualPickupTransportEvent: null,
-      deliveryTransportEvent: null,
-      receiptTransportEvent: null,
-      storageTransportEvent: null,
-      acceptanceTransportEvent: null,
-      terminalOperatorParty: null,
-      customsAgentParty: null,
-      estimatedTransitPeriod: null,
-      freightAllowanceCharge: null,
-      freightChargeLocation: null,
-      detentionTransportEvent: null,
-      requestedDepartureTransportEvent: null,
-      requestedArrivalTransportEvent: null,
-      requestedWaypointTransportEvent: null,
-      plannedDepartureTransportEvent: null,
-      plannedArrivalTransportEvent: null,
-      plannedWaypointTransportEvent: null,
-      actualDepartureTransportEvent: null,
-      actualWaypointTransportEvent: null,
-      actualArrivalTransportEvent: null,
-      transportEvent: null,
-      estimatedDepartureTransportEvent: null,
-      estimatedArrivalTransportEvent: null,
-      passengerPerson: null,
-      driverPerson: null,
-      reportingPerson: null,
-      crewMemberPerson: null,
-      securityOfficerPerson: null,
-      masterPerson: null,
-      shipsSurgeonPerson: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      shipmentStageTypeCode: ShipmentStageTypeCode.fromXml(xml.findElements('cbc:ShipmentStageTypeCode').singleOrNull),
+      shipmentStageType: xml.findElements('cbc:ShipmentStageType').map((XmlElement e) => ShipmentStageType.fromXml(e)!).toList(),
+      transportModeCode: TransportModeCode.fromXml(xml.findElements('cbc:TransportModeCode').singleOrNull),
+      transportMeansTypeCode: TransportMeansTypeCode.fromXml(xml.findElements('cbc:TransportMeansTypeCode').singleOrNull),
+      transitDirectionCode: TransitDirectionCode.fromXml(xml.findElements('cbc:TransitDirectionCode').singleOrNull),
+      preCarriageIndicator: PreCarriageIndicator.fromXml(xml.findElements('cbc:PreCarriageIndicator').singleOrNull),
+      onCarriageIndicator: OnCarriageIndicator.fromXml(xml.findElements('cbc:OnCarriageIndicator').singleOrNull),
+      cabotageIndicator: CabotageIndicator.fromXml(xml.findElements('cbc:CabotageIndicator').singleOrNull),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromXml(xml.findElements('cbc:HazardousRiskIndicator').singleOrNull),
+      estimatedDeliveryDate: EstimatedDeliveryDate.fromXml(xml.findElements('cbc:EstimatedDeliveryDate').singleOrNull),
+      estimatedDeliveryTime: EstimatedDeliveryTime.fromXml(xml.findElements('cbc:EstimatedDeliveryTime').singleOrNull),
+      requiredDeliveryDate: RequiredDeliveryDate.fromXml(xml.findElements('cbc:RequiredDeliveryDate').singleOrNull),
+      requiredDeliveryTime: RequiredDeliveryTime.fromXml(xml.findElements('cbc:RequiredDeliveryTime').singleOrNull),
+      loadingSequenceID: LoadingSequenceID.fromXml(xml.findElements('cbc:LoadingSequenceID').singleOrNull),
+      successiveSequenceID: SuccessiveSequenceID.fromXml(xml.findElements('cbc:SuccessiveSequenceID').singleOrNull),
+      instructions: xml.findElements('cbc:Instructions').map((XmlElement e) => Instructions.fromXml(e)!).toList(),
+      demurrageInstructions: xml.findElements('cbc:DemurrageInstructions').map((XmlElement e) => DemurrageInstructions.fromXml(e)!).toList(),
+      crewQuantity: CrewQuantity.fromXml(xml.findElements('cbc:CrewQuantity').singleOrNull),
+      passengerQuantity: PassengerQuantity.fromXml(xml.findElements('cbc:PassengerQuantity').singleOrNull),
+      transitPeriod: TransitPeriod.fromXml(xml.findElements('cac:TransitPeriod').singleOrNull),
+      carrierParty: xml.findElements('cac:CarrierParty').map((XmlElement e) => CarrierParty.fromXml(e)!).toList(),
+      transportMeans: TransportMeans.fromXml(xml.findElements('cac:TransportMeans').singleOrNull),
+      loadingPortLocation: LoadingPortLocation.fromXml(xml.findElements('cac:LoadingPortLocation').singleOrNull),
+      unloadingPortLocation: UnloadingPortLocation.fromXml(xml.findElements('cac:UnloadingPortLocation').singleOrNull),
+      transshipPortLocation: TransshipPortLocation.fromXml(xml.findElements('cac:TransshipPortLocation').singleOrNull),
+      loadingTransportEvent: LoadingTransportEvent.fromXml(xml.findElements('cac:LoadingTransportEvent').singleOrNull),
+      examinationTransportEvent: ExaminationTransportEvent.fromXml(xml.findElements('cac:ExaminationTransportEvent').singleOrNull),
+      availabilityTransportEvent: AvailabilityTransportEvent.fromXml(xml.findElements('cac:AvailabilityTransportEvent').singleOrNull),
+      exportationTransportEvent: ExportationTransportEvent.fromXml(xml.findElements('cac:ExportationTransportEvent').singleOrNull),
+      dischargeTransportEvent: DischargeTransportEvent.fromXml(xml.findElements('cac:DischargeTransportEvent').singleOrNull),
+      warehousingTransportEvent: WarehousingTransportEvent.fromXml(xml.findElements('cac:WarehousingTransportEvent').singleOrNull),
+      takeoverTransportEvent: TakeoverTransportEvent.fromXml(xml.findElements('cac:TakeoverTransportEvent').singleOrNull),
+      optionalTakeoverTransportEvent: OptionalTakeoverTransportEvent.fromXml(xml.findElements('cac:OptionalTakeoverTransportEvent').singleOrNull),
+      dropoffTransportEvent: DropoffTransportEvent.fromXml(xml.findElements('cac:DropoffTransportEvent').singleOrNull),
+      actualPickupTransportEvent: ActualPickupTransportEvent.fromXml(xml.findElements('cac:ActualPickupTransportEvent').singleOrNull),
+      deliveryTransportEvent: DeliveryTransportEvent.fromXml(xml.findElements('cac:DeliveryTransportEvent').singleOrNull),
+      receiptTransportEvent: ReceiptTransportEvent.fromXml(xml.findElements('cac:ReceiptTransportEvent').singleOrNull),
+      storageTransportEvent: StorageTransportEvent.fromXml(xml.findElements('cac:StorageTransportEvent').singleOrNull),
+      acceptanceTransportEvent: AcceptanceTransportEvent.fromXml(xml.findElements('cac:AcceptanceTransportEvent').singleOrNull),
+      terminalOperatorParty: TerminalOperatorParty.fromXml(xml.findElements('cac:TerminalOperatorParty').singleOrNull),
+      customsAgentParty: CustomsAgentParty.fromXml(xml.findElements('cac:CustomsAgentParty').singleOrNull),
+      estimatedTransitPeriod: EstimatedTransitPeriod.fromXml(xml.findElements('cac:EstimatedTransitPeriod').singleOrNull),
+      freightAllowanceCharge: xml.findElements('cac:FreightAllowanceCharge').map((XmlElement e) => FreightAllowanceCharge.fromXml(e)!).toList(),
+      freightChargeLocation: FreightChargeLocation.fromXml(xml.findElements('cac:FreightChargeLocation').singleOrNull),
+      detentionTransportEvent: xml.findElements('cac:DetentionTransportEvent').map((XmlElement e) => DetentionTransportEvent.fromXml(e)!).toList(),
+      requestedDepartureTransportEvent: RequestedDepartureTransportEvent.fromXml(xml.findElements('cac:RequestedDepartureTransportEvent').singleOrNull),
+      requestedArrivalTransportEvent: RequestedArrivalTransportEvent.fromXml(xml.findElements('cac:RequestedArrivalTransportEvent').singleOrNull),
+      requestedWaypointTransportEvent: xml.findElements('cac:RequestedWaypointTransportEvent').map((XmlElement e) => RequestedWaypointTransportEvent.fromXml(e)!).toList(),
+      plannedDepartureTransportEvent: PlannedDepartureTransportEvent.fromXml(xml.findElements('cac:PlannedDepartureTransportEvent').singleOrNull),
+      plannedArrivalTransportEvent: PlannedArrivalTransportEvent.fromXml(xml.findElements('cac:PlannedArrivalTransportEvent').singleOrNull),
+      plannedWaypointTransportEvent: xml.findElements('cac:PlannedWaypointTransportEvent').map((XmlElement e) => PlannedWaypointTransportEvent.fromXml(e)!).toList(),
+      actualDepartureTransportEvent: ActualDepartureTransportEvent.fromXml(xml.findElements('cac:ActualDepartureTransportEvent').singleOrNull),
+      actualWaypointTransportEvent: ActualWaypointTransportEvent.fromXml(xml.findElements('cac:ActualWaypointTransportEvent').singleOrNull),
+      actualArrivalTransportEvent: ActualArrivalTransportEvent.fromXml(xml.findElements('cac:ActualArrivalTransportEvent').singleOrNull),
+      transportEvent: xml.findElements('cac:TransportEvent').map((XmlElement e) => TransportEvent.fromXml(e)!).toList(),
+      estimatedDepartureTransportEvent: EstimatedDepartureTransportEvent.fromXml(xml.findElements('cac:EstimatedDepartureTransportEvent').singleOrNull),
+      estimatedArrivalTransportEvent: EstimatedArrivalTransportEvent.fromXml(xml.findElements('cac:EstimatedArrivalTransportEvent').singleOrNull),
+      passengerPerson: xml.findElements('cac:PassengerPerson').map((XmlElement e) => PassengerPerson.fromXml(e)!).toList(),
+      driverPerson: xml.findElements('cac:DriverPerson').map((XmlElement e) => DriverPerson.fromXml(e)!).toList(),
+      reportingPerson: ReportingPerson.fromXml(xml.findElements('cac:ReportingPerson').singleOrNull),
+      crewMemberPerson: xml.findElements('cac:CrewMemberPerson').map((XmlElement e) => CrewMemberPerson.fromXml(e)!).toList(),
+      securityOfficerPerson: SecurityOfficerPerson.fromXml(xml.findElements('cac:SecurityOfficerPerson').singleOrNull),
+      masterPerson: MasterPerson.fromXml(xml.findElements('cac:MasterPerson').singleOrNull),
+      shipsSurgeonPerson: ShipsSurgeonPerson.fromXml(xml.findElements('cac:ShipsSurgeonPerson').singleOrNull),
+      destinationPortCall: DestinationPortCall.fromXml(xml.findElements('cac:DestinationPortCall').singleOrNull),
+      shipStoreArticle: xml.findElements('cac:ShipStoreArticle').map((XmlElement e) => ShipStoreArticle.fromXml(e)!).toList(),
+      crewPersonEffect: xml.findElements('cac:CrewPersonEffect').map((XmlElement e) => CrewPersonEffect.fromXml(e)!).toList(),
+      maritimeWaste: xml.findElements('cac:MaritimeWaste').map((XmlElement e) => MaritimeWaste.fromXml(e)!).toList(),
+      ballastWaterSummary: BallastWaterSummary.fromXml(xml.findElements('cac:BallastWaterSummary').singleOrNull),
+      iSPSRequirements: ISPSRequirements.fromXml(xml.findElements('cac:ISPSRequirements').singleOrNull),
+      maritimeHealthDeclaration: MaritimeHealthDeclaration.fromXml(xml.findElements('cac:MaritimeHealthDeclaration').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PreCarriageShipmentStage',
+        'cac',
+      ),
+    );
+  }
 }
 

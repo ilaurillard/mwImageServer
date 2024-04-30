@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/StartDate.dart';
 import '../cbc/StartTime.dart';
 import '../cbc/EndDate.dart';
@@ -12,6 +13,9 @@ import '../cbc/Description.dart';
 // A class to describe a period of time.
 class ValidityPeriod {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // The date on which this period begins.
   final StartDate? startDate;
@@ -35,6 +39,7 @@ class ValidityPeriod {
   final List<Description> description;
 
   ValidityPeriod ({
+    this.uBLExtensions,
     this.startDate,
     this.startTime,
     this.endDate,
@@ -44,8 +49,23 @@ class ValidityPeriod {
     this.description = const [],
   });
 
+  static ValidityPeriod? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ValidityPeriod (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      startDate: StartDate.fromJson(json['startDate'] as Map<String, dynamic>?),
+      startTime: StartTime.fromJson(json['startTime'] as Map<String, dynamic>?),
+      endDate: EndDate.fromJson(json['endDate'] as Map<String, dynamic>?),
+      endTime: EndTime.fromJson(json['endTime'] as Map<String, dynamic>?),
+      durationMeasure: DurationMeasure.fromJson(json['durationMeasure'] as Map<String, dynamic>?),
+      descriptionCode: (json['descriptionCode'] as List? ?? []).map((dynamic d) => DescriptionCode.fromJson(d as Map<String, dynamic>?)!).toList(),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'startDate': startDate?.toJson(),
       'startTime': startTime?.toJson(),
       'endDate': endDate?.toJson(),
@@ -58,32 +78,27 @@ class ValidityPeriod {
     return map;
   }
 
-  static ValidityPeriod? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ValidityPeriod (
-      startDate: StartDate.fromJson(json['startDate'] as Map<String, dynamic>?),
-      startTime: StartTime.fromJson(json['startTime'] as Map<String, dynamic>?),
-      endDate: EndDate.fromJson(json['endDate'] as Map<String, dynamic>?),
-      endTime: EndTime.fromJson(json['endTime'] as Map<String, dynamic>?),
-      durationMeasure: DurationMeasure.fromJson(json['durationMeasure'] as Map<String, dynamic>?),
-      descriptionCode: (json['descriptionCode'] as List? ?? []).map((dynamic d) => DescriptionCode.fromJson(d as Map<String, dynamic>?)!).toList(),
-      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static ValidityPeriod? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ValidityPeriod (
-      startDate: null,
-      startTime: null,
-      endDate: null,
-      endTime: null,
-      durationMeasure: null,
-      descriptionCode: null,
-      description: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      startDate: StartDate.fromXml(xml.findElements('cbc:StartDate').singleOrNull),
+      startTime: StartTime.fromXml(xml.findElements('cbc:StartTime').singleOrNull),
+      endDate: EndDate.fromXml(xml.findElements('cbc:EndDate').singleOrNull),
+      endTime: EndTime.fromXml(xml.findElements('cbc:EndTime').singleOrNull),
+      durationMeasure: DurationMeasure.fromXml(xml.findElements('cbc:DurationMeasure').singleOrNull),
+      descriptionCode: xml.findElements('cbc:DescriptionCode').map((XmlElement e) => DescriptionCode.fromXml(e)!).toList(),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ValidityPeriod',
+        'cac',
+      ),
+    );
+  }
 }
 

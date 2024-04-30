@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/Information.dart';
 import '../cbc/Reference.dart';
 import '../cac/ApplicableAddress.dart';
@@ -8,6 +9,9 @@ import '../cac/ApplicableAddress.dart';
 // A class for describing the terms of a trade agreement.
 class HaulageTradingTerms {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // Text describing the terms of a trade agreement.
   final List<Information> information;
@@ -19,13 +23,25 @@ class HaulageTradingTerms {
   final ApplicableAddress? applicableAddress;
 
   HaulageTradingTerms ({
+    this.uBLExtensions,
     this.information = const [],
     this.reference,
     this.applicableAddress,
   });
 
+  static HaulageTradingTerms? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return HaulageTradingTerms (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      information: (json['information'] as List? ?? []).map((dynamic d) => Information.fromJson(d as Map<String, dynamic>?)!).toList(),
+      reference: Reference.fromJson(json['reference'] as Map<String, dynamic>?),
+      applicableAddress: ApplicableAddress.fromJson(json['applicableAddress'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'information': information.map((e) => e.toJson()).toList(),
       'reference': reference?.toJson(),
       'applicableAddress': applicableAddress?.toJson(),
@@ -34,24 +50,23 @@ class HaulageTradingTerms {
     return map;
   }
 
-  static HaulageTradingTerms? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return HaulageTradingTerms (
-      information: (json['information'] as List? ?? []).map((dynamic d) => Information.fromJson(d as Map<String, dynamic>?)!).toList(),
-      reference: Reference.fromJson(json['reference'] as Map<String, dynamic>?),
-      applicableAddress: ApplicableAddress.fromJson(json['applicableAddress'] as Map<String, dynamic>?),
-    );
-  }
-
   static HaulageTradingTerms? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return HaulageTradingTerms (
-      information: null,
-      reference: null,
-      applicableAddress: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      information: xml.findElements('cbc:Information').map((XmlElement e) => Information.fromXml(e)!).toList(),
+      reference: Reference.fromXml(xml.findElements('cbc:Reference').singleOrNull),
+      applicableAddress: ApplicableAddress.fromXml(xml.findElements('cac:ApplicableAddress').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'HaulageTradingTerms',
+        'cac',
+      ),
+    );
+  }
 }
 

@@ -21,6 +21,15 @@ class GrossWeightMeasure {
     assert(unitCode.isNotEmpty);
   }
 
+  static GrossWeightMeasure? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return GrossWeightMeasure (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      unitCode: json['unitCode'] as String? ?? '',
+      unitCodeListVersionID: json['unitCodeListVersionID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class GrossWeightMeasure {
     return map;
   }
 
-  static GrossWeightMeasure? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return GrossWeightMeasure (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      unitCode: json['unitCode'] as String? ?? '',
-      unitCodeListVersionID: json['unitCodeListVersionID'] as String?,
-    );
-  }
-
   static GrossWeightMeasure? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return GrossWeightMeasure (
-      value: null,
-      unitCode: null,
-      unitCodeListVersionID: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      unitCode: xml.getAttribute('unitCode') ?? '',
+      unitCodeListVersionID: xml.getAttribute('unitCodeListVersionID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'GrossWeightMeasure',
+        'cbc',
+      ),
+    );
+  }
 }
 

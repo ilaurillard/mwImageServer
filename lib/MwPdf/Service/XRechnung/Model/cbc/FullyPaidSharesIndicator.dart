@@ -11,6 +11,13 @@ class FullyPaidSharesIndicator {
     required this.value,
   });
 
+  static FullyPaidSharesIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return FullyPaidSharesIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class FullyPaidSharesIndicator {
     return map;
   }
 
-  static FullyPaidSharesIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return FullyPaidSharesIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static FullyPaidSharesIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return FullyPaidSharesIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'FullyPaidSharesIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

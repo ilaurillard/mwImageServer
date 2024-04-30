@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/StatusCode.dart';
 import '../cac/ValidityPeriod.dart';
@@ -9,6 +10,9 @@ import '../cac/PreviousPriceList.dart';
 // A class to describe a price list.
 class PriceList {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this price list.
   final ID? iD;
@@ -23,14 +27,27 @@ class PriceList {
   final PreviousPriceList? previousPriceList;
 
   PriceList ({
+    this.uBLExtensions,
     this.iD,
     this.statusCode,
     this.validityPeriod = const [],
     this.previousPriceList,
   });
 
+  static PriceList? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PriceList (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      statusCode: StatusCode.fromJson(json['statusCode'] as Map<String, dynamic>?),
+      validityPeriod: (json['validityPeriod'] as List? ?? []).map((dynamic d) => ValidityPeriod.fromJson(d as Map<String, dynamic>?)!).toList(),
+      previousPriceList: PreviousPriceList.fromJson(json['previousPriceList'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'statusCode': statusCode?.toJson(),
       'validityPeriod': validityPeriod.map((e) => e.toJson()).toList(),
@@ -40,26 +57,24 @@ class PriceList {
     return map;
   }
 
-  static PriceList? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PriceList (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      statusCode: StatusCode.fromJson(json['statusCode'] as Map<String, dynamic>?),
-      validityPeriod: (json['validityPeriod'] as List? ?? []).map((dynamic d) => ValidityPeriod.fromJson(d as Map<String, dynamic>?)!).toList(),
-      previousPriceList: PreviousPriceList.fromJson(json['previousPriceList'] as Map<String, dynamic>?),
-    );
-  }
-
   static PriceList? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PriceList (
-      iD: null,
-      statusCode: null,
-      validityPeriod: null,
-      previousPriceList: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      statusCode: StatusCode.fromXml(xml.findElements('cbc:StatusCode').singleOrNull),
+      validityPeriod: xml.findElements('cac:ValidityPeriod').map((XmlElement e) => ValidityPeriod.fromXml(e)!).toList(),
+      previousPriceList: PreviousPriceList.fromXml(xml.findElements('cac:PreviousPriceList').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PriceList',
+        'cac',
+      ),
+    );
+  }
 }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/RegistrationName.dart';
 import '../cbc/CompanyID.dart';
 import '../cbc/RegistrationDate.dart';
@@ -20,6 +21,9 @@ import '../cac/ShareholderParty.dart';
 class PartyLegalEntity {
 
 
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
   // The name of the party as registered with the relevant legal authority.
   final RegistrationName? registrationName;
 
@@ -36,7 +40,7 @@ class PartyLegalEntity {
   final CompanyLegalFormCode? companyLegalFormCode;
 
   // The company legal status, expressed as a text.
-  final CompanyLegalForm? companyLegalForm;
+  final List<CompanyLegalForm> companyLegalForm;
 
   // An indicator that the company is owned and controlled by one person (true) or not (false).
   final SoleProprietorshipIndicator? soleProprietorshipIndicator;
@@ -63,12 +67,13 @@ class PartyLegalEntity {
   final List<ShareholderParty> shareholderParty;
 
   PartyLegalEntity ({
+    this.uBLExtensions,
     this.registrationName,
     this.companyID,
     this.registrationDate,
     this.registrationExpirationDate,
     this.companyLegalFormCode,
-    this.companyLegalForm,
+    this.companyLegalForm = const [],
     this.soleProprietorshipIndicator,
     this.companyLiquidationStatusCode,
     this.corporateStockAmount,
@@ -79,14 +84,36 @@ class PartyLegalEntity {
     this.shareholderParty = const [],
   });
 
+  static PartyLegalEntity? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PartyLegalEntity (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      registrationName: RegistrationName.fromJson(json['registrationName'] as Map<String, dynamic>?),
+      companyID: CompanyID.fromJson(json['companyID'] as Map<String, dynamic>?),
+      registrationDate: RegistrationDate.fromJson(json['registrationDate'] as Map<String, dynamic>?),
+      registrationExpirationDate: RegistrationExpirationDate.fromJson(json['registrationExpirationDate'] as Map<String, dynamic>?),
+      companyLegalFormCode: CompanyLegalFormCode.fromJson(json['companyLegalFormCode'] as Map<String, dynamic>?),
+      companyLegalForm: (json['companyLegalForm'] as List? ?? []).map((dynamic d) => CompanyLegalForm.fromJson(d as Map<String, dynamic>?)!).toList(),
+      soleProprietorshipIndicator: SoleProprietorshipIndicator.fromJson(json['soleProprietorshipIndicator'] as Map<String, dynamic>?),
+      companyLiquidationStatusCode: CompanyLiquidationStatusCode.fromJson(json['companyLiquidationStatusCode'] as Map<String, dynamic>?),
+      corporateStockAmount: CorporateStockAmount.fromJson(json['corporateStockAmount'] as Map<String, dynamic>?),
+      fullyPaidSharesIndicator: FullyPaidSharesIndicator.fromJson(json['fullyPaidSharesIndicator'] as Map<String, dynamic>?),
+      registrationAddress: RegistrationAddress.fromJson(json['registrationAddress'] as Map<String, dynamic>?),
+      corporateRegistrationScheme: CorporateRegistrationScheme.fromJson(json['corporateRegistrationScheme'] as Map<String, dynamic>?),
+      headOfficeParty: HeadOfficeParty.fromJson(json['headOfficeParty'] as Map<String, dynamic>?),
+      shareholderParty: (json['shareholderParty'] as List? ?? []).map((dynamic d) => ShareholderParty.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'registrationName': registrationName?.toJson(),
       'companyID': companyID?.toJson(),
       'registrationDate': registrationDate?.toJson(),
       'registrationExpirationDate': registrationExpirationDate?.toJson(),
       'companyLegalFormCode': companyLegalFormCode?.toJson(),
-      'companyLegalForm': companyLegalForm?.toJson(),
+      'companyLegalForm': companyLegalForm.map((e) => e.toJson()).toList(),
       'soleProprietorshipIndicator': soleProprietorshipIndicator?.toJson(),
       'companyLiquidationStatusCode': companyLiquidationStatusCode?.toJson(),
       'corporateStockAmount': corporateStockAmount?.toJson(),
@@ -100,46 +127,34 @@ class PartyLegalEntity {
     return map;
   }
 
-  static PartyLegalEntity? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PartyLegalEntity (
-      registrationName: RegistrationName.fromJson(json['registrationName'] as Map<String, dynamic>?),
-      companyID: CompanyID.fromJson(json['companyID'] as Map<String, dynamic>?),
-      registrationDate: RegistrationDate.fromJson(json['registrationDate'] as Map<String, dynamic>?),
-      registrationExpirationDate: RegistrationExpirationDate.fromJson(json['registrationExpirationDate'] as Map<String, dynamic>?),
-      companyLegalFormCode: CompanyLegalFormCode.fromJson(json['companyLegalFormCode'] as Map<String, dynamic>?),
-      companyLegalForm: CompanyLegalForm.fromJson(json['companyLegalForm'] as Map<String, dynamic>?),
-      soleProprietorshipIndicator: SoleProprietorshipIndicator.fromJson(json['soleProprietorshipIndicator'] as Map<String, dynamic>?),
-      companyLiquidationStatusCode: CompanyLiquidationStatusCode.fromJson(json['companyLiquidationStatusCode'] as Map<String, dynamic>?),
-      corporateStockAmount: CorporateStockAmount.fromJson(json['corporateStockAmount'] as Map<String, dynamic>?),
-      fullyPaidSharesIndicator: FullyPaidSharesIndicator.fromJson(json['fullyPaidSharesIndicator'] as Map<String, dynamic>?),
-      registrationAddress: RegistrationAddress.fromJson(json['registrationAddress'] as Map<String, dynamic>?),
-      corporateRegistrationScheme: CorporateRegistrationScheme.fromJson(json['corporateRegistrationScheme'] as Map<String, dynamic>?),
-      headOfficeParty: HeadOfficeParty.fromJson(json['headOfficeParty'] as Map<String, dynamic>?),
-      shareholderParty: (json['shareholderParty'] as List? ?? []).map((dynamic d) => ShareholderParty.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static PartyLegalEntity? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PartyLegalEntity (
-      registrationName: null,
-      companyID: null,
-      registrationDate: null,
-      registrationExpirationDate: null,
-      companyLegalFormCode: null,
-      companyLegalForm: null,
-      soleProprietorshipIndicator: null,
-      companyLiquidationStatusCode: null,
-      corporateStockAmount: null,
-      fullyPaidSharesIndicator: null,
-      registrationAddress: null,
-      corporateRegistrationScheme: null,
-      headOfficeParty: null,
-      shareholderParty: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      registrationName: RegistrationName.fromXml(xml.findElements('cbc:RegistrationName').singleOrNull),
+      companyID: CompanyID.fromXml(xml.findElements('cbc:CompanyID').singleOrNull),
+      registrationDate: RegistrationDate.fromXml(xml.findElements('cbc:RegistrationDate').singleOrNull),
+      registrationExpirationDate: RegistrationExpirationDate.fromXml(xml.findElements('cbc:RegistrationExpirationDate').singleOrNull),
+      companyLegalFormCode: CompanyLegalFormCode.fromXml(xml.findElements('cbc:CompanyLegalFormCode').singleOrNull),
+      companyLegalForm: xml.findElements('cbc:CompanyLegalForm').map((XmlElement e) => CompanyLegalForm.fromXml(e)!).toList(),
+      soleProprietorshipIndicator: SoleProprietorshipIndicator.fromXml(xml.findElements('cbc:SoleProprietorshipIndicator').singleOrNull),
+      companyLiquidationStatusCode: CompanyLiquidationStatusCode.fromXml(xml.findElements('cbc:CompanyLiquidationStatusCode').singleOrNull),
+      corporateStockAmount: CorporateStockAmount.fromXml(xml.findElements('cbc:CorporateStockAmount').singleOrNull),
+      fullyPaidSharesIndicator: FullyPaidSharesIndicator.fromXml(xml.findElements('cbc:FullyPaidSharesIndicator').singleOrNull),
+      registrationAddress: RegistrationAddress.fromXml(xml.findElements('cac:RegistrationAddress').singleOrNull),
+      corporateRegistrationScheme: CorporateRegistrationScheme.fromXml(xml.findElements('cac:CorporateRegistrationScheme').singleOrNull),
+      headOfficeParty: HeadOfficeParty.fromXml(xml.findElements('cac:HeadOfficeParty').singleOrNull),
+      shareholderParty: xml.findElements('cac:ShareholderParty').map((XmlElement e) => ShareholderParty.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PartyLegalEntity',
+        'cac',
+      ),
+    );
+  }
 }
 

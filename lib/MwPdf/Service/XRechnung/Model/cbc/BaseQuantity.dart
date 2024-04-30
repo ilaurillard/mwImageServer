@@ -27,6 +27,17 @@ class BaseQuantity {
     this.unitCodeListAgencyName,
   });
 
+  static BaseQuantity? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return BaseQuantity (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      unitCode: json['unitCode'] as String?,
+      unitCodeListID: json['unitCodeListID'] as String?,
+      unitCodeListAgencyID: json['unitCodeListAgencyID'] as String?,
+      unitCodeListAgencyName: json['unitCodeListAgencyName'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -39,28 +50,24 @@ class BaseQuantity {
     return map;
   }
 
-  static BaseQuantity? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return BaseQuantity (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      unitCode: json['unitCode'] as String?,
-      unitCodeListID: json['unitCodeListID'] as String?,
-      unitCodeListAgencyID: json['unitCodeListAgencyID'] as String?,
-      unitCodeListAgencyName: json['unitCodeListAgencyName'] as String?,
-    );
-  }
-
   static BaseQuantity? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return BaseQuantity (
-      value: null,
-      unitCode: null,
-      unitCodeListID: null,
-      unitCodeListAgencyID: null,
-      unitCodeListAgencyName: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      unitCode: xml.getAttribute('unitCode'),
+      unitCodeListID: xml.getAttribute('unitCodeListID'),
+      unitCodeListAgencyID: xml.getAttribute('unitCodeListAgencyID'),
+      unitCodeListAgencyName: xml.getAttribute('unitCodeListAgencyName'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'BaseQuantity',
+        'cbc',
+      ),
+    );
+  }
 }
 

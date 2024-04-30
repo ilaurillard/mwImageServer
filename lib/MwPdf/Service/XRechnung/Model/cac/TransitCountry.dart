@@ -1,12 +1,16 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/IdentificationCode.dart';
 import '../cbc/Name.dart';
 
 // A class to describe a country.
 class TransitCountry {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A code signifying this country.
   final IdentificationCode? identificationCode;
@@ -15,12 +19,23 @@ class TransitCountry {
   final Name? name;
 
   TransitCountry ({
+    this.uBLExtensions,
     this.identificationCode,
     this.name,
   });
 
+  static TransitCountry? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return TransitCountry (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      identificationCode: IdentificationCode.fromJson(json['identificationCode'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'identificationCode': identificationCode?.toJson(),
       'name': name?.toJson(),
     };
@@ -28,22 +43,22 @@ class TransitCountry {
     return map;
   }
 
-  static TransitCountry? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return TransitCountry (
-      identificationCode: IdentificationCode.fromJson(json['identificationCode'] as Map<String, dynamic>?),
-      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
-    );
-  }
-
   static TransitCountry? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return TransitCountry (
-      identificationCode: null,
-      name: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      identificationCode: IdentificationCode.fromXml(xml.findElements('cbc:IdentificationCode').singleOrNull),
+      name: Name.fromXml(xml.findElements('cbc:Name').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'TransitCountry',
+        'cac',
+      ),
+    );
+  }
 }
 

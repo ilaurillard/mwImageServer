@@ -11,6 +11,13 @@ class EstimatedDespatchTime {
     required this.value,
   });
 
+  static EstimatedDespatchTime? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return EstimatedDespatchTime (
+      value: XsdTime.fromJson(json['value'] as String?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class EstimatedDespatchTime {
     return map;
   }
 
-  static EstimatedDespatchTime? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return EstimatedDespatchTime (
-      value: XsdTime.fromJson(json['value'] as String?)!,
-    );
-  }
-
   static EstimatedDespatchTime? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return EstimatedDespatchTime (
-      value: null,
+      value: XsdTime.fromJson(xml.innerText)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'EstimatedDespatchTime',
+        'cbc',
+      ),
+    );
+  }
 }
 

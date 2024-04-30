@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/SpecialTerms.dart';
 import '../cbc/LossRiskResponsibilityCode.dart';
@@ -12,6 +13,9 @@ import '../cac/AllowanceCharge.dart';
 // A class for describing the terms and conditions applying to the delivery of goods.
 class DeliveryTerms {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this description of delivery terms.
   final ID? iD;
@@ -35,6 +39,7 @@ class DeliveryTerms {
   final AllowanceCharge? allowanceCharge;
 
   DeliveryTerms ({
+    this.uBLExtensions,
     this.iD,
     this.specialTerms = const [],
     this.lossRiskResponsibilityCode,
@@ -44,8 +49,23 @@ class DeliveryTerms {
     this.allowanceCharge,
   });
 
+  static DeliveryTerms? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return DeliveryTerms (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      specialTerms: (json['specialTerms'] as List? ?? []).map((dynamic d) => SpecialTerms.fromJson(d as Map<String, dynamic>?)!).toList(),
+      lossRiskResponsibilityCode: LossRiskResponsibilityCode.fromJson(json['lossRiskResponsibilityCode'] as Map<String, dynamic>?),
+      lossRisk: (json['lossRisk'] as List? ?? []).map((dynamic d) => LossRisk.fromJson(d as Map<String, dynamic>?)!).toList(),
+      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?),
+      deliveryLocation: DeliveryLocation.fromJson(json['deliveryLocation'] as Map<String, dynamic>?),
+      allowanceCharge: AllowanceCharge.fromJson(json['allowanceCharge'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'specialTerms': specialTerms.map((e) => e.toJson()).toList(),
       'lossRiskResponsibilityCode': lossRiskResponsibilityCode?.toJson(),
@@ -58,32 +78,27 @@ class DeliveryTerms {
     return map;
   }
 
-  static DeliveryTerms? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return DeliveryTerms (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      specialTerms: (json['specialTerms'] as List? ?? []).map((dynamic d) => SpecialTerms.fromJson(d as Map<String, dynamic>?)!).toList(),
-      lossRiskResponsibilityCode: LossRiskResponsibilityCode.fromJson(json['lossRiskResponsibilityCode'] as Map<String, dynamic>?),
-      lossRisk: (json['lossRisk'] as List? ?? []).map((dynamic d) => LossRisk.fromJson(d as Map<String, dynamic>?)!).toList(),
-      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?),
-      deliveryLocation: DeliveryLocation.fromJson(json['deliveryLocation'] as Map<String, dynamic>?),
-      allowanceCharge: AllowanceCharge.fromJson(json['allowanceCharge'] as Map<String, dynamic>?),
-    );
-  }
-
   static DeliveryTerms? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return DeliveryTerms (
-      iD: null,
-      specialTerms: null,
-      lossRiskResponsibilityCode: null,
-      lossRisk: null,
-      amount: null,
-      deliveryLocation: null,
-      allowanceCharge: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      specialTerms: xml.findElements('cbc:SpecialTerms').map((XmlElement e) => SpecialTerms.fromXml(e)!).toList(),
+      lossRiskResponsibilityCode: LossRiskResponsibilityCode.fromXml(xml.findElements('cbc:LossRiskResponsibilityCode').singleOrNull),
+      lossRisk: xml.findElements('cbc:LossRisk').map((XmlElement e) => LossRisk.fromXml(e)!).toList(),
+      amount: Amount.fromXml(xml.findElements('cbc:Amount').singleOrNull),
+      deliveryLocation: DeliveryLocation.fromXml(xml.findElements('cac:DeliveryLocation').singleOrNull),
+      allowanceCharge: AllowanceCharge.fromXml(xml.findElements('cac:AllowanceCharge').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'DeliveryTerms',
+        'cac',
+      ),
+    );
+  }
 }
 

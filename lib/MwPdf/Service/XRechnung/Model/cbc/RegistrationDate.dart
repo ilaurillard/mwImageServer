@@ -11,6 +11,13 @@ class RegistrationDate {
     required this.value,
   });
 
+  static RegistrationDate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return RegistrationDate (
+      value: XsdDate.fromJson(json['value'] as String?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class RegistrationDate {
     return map;
   }
 
-  static RegistrationDate? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return RegistrationDate (
-      value: XsdDate.fromJson(json['value'] as String?)!,
-    );
-  }
-
   static RegistrationDate? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return RegistrationDate (
-      value: null,
+      value: XsdDate.fromJson(xml.innerText)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'RegistrationDate',
+        'cbc',
+      ),
+    );
+  }
 }
 

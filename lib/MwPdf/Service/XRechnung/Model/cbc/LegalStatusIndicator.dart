@@ -11,6 +11,13 @@ class LegalStatusIndicator {
     required this.value,
   });
 
+  static LegalStatusIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return LegalStatusIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class LegalStatusIndicator {
     return map;
   }
 
-  static LegalStatusIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return LegalStatusIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static LegalStatusIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return LegalStatusIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'LegalStatusIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

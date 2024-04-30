@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/SealIssuerTypeCode.dart';
 import '../cbc/Condition.dart';
 import '../cbc/SealStatusCode.dart';
@@ -13,6 +14,9 @@ class TransportEquipmentSeal {
 
   // An identifier for this transport equipment seal.
   final ID iD;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A code signifying the type of party that issues and is responsible for this transport equipment seal.
   final SealIssuerTypeCode? sealIssuerTypeCode;
@@ -28,14 +32,28 @@ class TransportEquipmentSeal {
 
   TransportEquipmentSeal ({
     required this.iD,
+    this.uBLExtensions,
     this.sealIssuerTypeCode,
     this.condition,
     this.sealStatusCode,
     this.sealingPartyType,
   });
 
+  static TransportEquipmentSeal? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return TransportEquipmentSeal (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      sealIssuerTypeCode: SealIssuerTypeCode.fromJson(json['sealIssuerTypeCode'] as Map<String, dynamic>?),
+      condition: Condition.fromJson(json['condition'] as Map<String, dynamic>?),
+      sealStatusCode: SealStatusCode.fromJson(json['sealStatusCode'] as Map<String, dynamic>?),
+      sealingPartyType: SealingPartyType.fromJson(json['sealingPartyType'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD.toJson(),
       'sealIssuerTypeCode': sealIssuerTypeCode?.toJson(),
       'condition': condition?.toJson(),
@@ -46,28 +64,25 @@ class TransportEquipmentSeal {
     return map;
   }
 
-  static TransportEquipmentSeal? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return TransportEquipmentSeal (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
-      sealIssuerTypeCode: SealIssuerTypeCode.fromJson(json['sealIssuerTypeCode'] as Map<String, dynamic>?),
-      condition: Condition.fromJson(json['condition'] as Map<String, dynamic>?),
-      sealStatusCode: SealStatusCode.fromJson(json['sealStatusCode'] as Map<String, dynamic>?),
-      sealingPartyType: SealingPartyType.fromJson(json['sealingPartyType'] as Map<String, dynamic>?),
-    );
-  }
-
   static TransportEquipmentSeal? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return TransportEquipmentSeal (
-      iD: null,
-      sealIssuerTypeCode: null,
-      condition: null,
-      sealStatusCode: null,
-      sealingPartyType: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      sealIssuerTypeCode: SealIssuerTypeCode.fromXml(xml.findElements('cbc:SealIssuerTypeCode').singleOrNull),
+      condition: Condition.fromXml(xml.findElements('cbc:Condition').singleOrNull),
+      sealStatusCode: SealStatusCode.fromXml(xml.findElements('cbc:SealStatusCode').singleOrNull),
+      sealingPartyType: SealingPartyType.fromXml(xml.findElements('cbc:SealingPartyType').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'TransportEquipmentSeal',
+        'cac',
+      ),
+    );
+  }
 }
 

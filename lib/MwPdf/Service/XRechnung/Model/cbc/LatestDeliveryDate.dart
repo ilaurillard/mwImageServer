@@ -11,6 +11,13 @@ class LatestDeliveryDate {
     required this.value,
   });
 
+  static LatestDeliveryDate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return LatestDeliveryDate (
+      value: XsdDate.fromJson(json['value'] as String?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class LatestDeliveryDate {
     return map;
   }
 
-  static LatestDeliveryDate? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return LatestDeliveryDate (
-      value: XsdDate.fromJson(json['value'] as String?)!,
-    );
-  }
-
   static LatestDeliveryDate? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return LatestDeliveryDate (
-      value: null,
+      value: XsdDate.fromJson(xml.innerText)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'LatestDeliveryDate',
+        'cbc',
+      ),
+    );
+  }
 }
 

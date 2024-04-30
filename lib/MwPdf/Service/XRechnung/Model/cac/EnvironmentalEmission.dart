@@ -3,6 +3,7 @@ import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/EnvironmentalEmissionTypeCode.dart';
 import '../cbc/ValueMeasure.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/Description.dart';
 import '../cac/EmissionCalculationMethod.dart';
 
@@ -16,6 +17,9 @@ class EnvironmentalEmission {
   // A value measurement for the environmental emission.
   final ValueMeasure valueMeasure;
 
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
   // Text describing this environmental emission.
   final List<Description> description;
 
@@ -25,12 +29,25 @@ class EnvironmentalEmission {
   EnvironmentalEmission ({
     required this.environmentalEmissionTypeCode,
     required this.valueMeasure,
+    this.uBLExtensions,
     this.description = const [],
     this.emissionCalculationMethod = const [],
   });
 
+  static EnvironmentalEmission? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return EnvironmentalEmission (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      environmentalEmissionTypeCode: EnvironmentalEmissionTypeCode.fromJson(json['environmentalEmissionTypeCode'] as Map<String, dynamic>?)!,
+      valueMeasure: ValueMeasure.fromJson(json['valueMeasure'] as Map<String, dynamic>?)!,
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      emissionCalculationMethod: (json['emissionCalculationMethod'] as List? ?? []).map((dynamic d) => EmissionCalculationMethod.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'environmentalEmissionTypeCode': environmentalEmissionTypeCode.toJson(),
       'valueMeasure': valueMeasure.toJson(),
       'description': description.map((e) => e.toJson()).toList(),
@@ -40,26 +57,24 @@ class EnvironmentalEmission {
     return map;
   }
 
-  static EnvironmentalEmission? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return EnvironmentalEmission (
-      environmentalEmissionTypeCode: EnvironmentalEmissionTypeCode.fromJson(json['environmentalEmissionTypeCode'] as Map<String, dynamic>?)!,
-      valueMeasure: ValueMeasure.fromJson(json['valueMeasure'] as Map<String, dynamic>?)!,
-      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
-      emissionCalculationMethod: (json['emissionCalculationMethod'] as List? ?? []).map((dynamic d) => EmissionCalculationMethod.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static EnvironmentalEmission? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return EnvironmentalEmission (
-      environmentalEmissionTypeCode: null,
-      valueMeasure: null,
-      description: null,
-      emissionCalculationMethod: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      environmentalEmissionTypeCode: EnvironmentalEmissionTypeCode.fromXml(xml.findElements('cbc:EnvironmentalEmissionTypeCode').singleOrNull)!,
+      valueMeasure: ValueMeasure.fromXml(xml.findElements('cbc:ValueMeasure').singleOrNull)!,
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
+      emissionCalculationMethod: xml.findElements('cac:EmissionCalculationMethod').map((XmlElement e) => EmissionCalculationMethod.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'EnvironmentalEmission',
+        'cac',
+      ),
+    );
+  }
 }
 

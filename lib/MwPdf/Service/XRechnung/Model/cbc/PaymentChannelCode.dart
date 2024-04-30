@@ -49,6 +49,22 @@ class PaymentChannelCode {
     assert(value.isNotEmpty);
   }
 
+  static PaymentChannelCode? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PaymentChannelCode (
+      value: json['value'] as String? ?? '',
+      listID: json['listID'] as String?,
+      listAgencyID: json['listAgencyID'] as String?,
+      listAgencyName: json['listAgencyName'] as String?,
+      listName: json['listName'] as String?,
+      listVersionID: json['listVersionID'] as String?,
+      name: json['name'] as String?,
+      languageID: json['languageID'] as String?,
+      listURI: json['listURI'] as String?,
+      listSchemeURI: json['listSchemeURI'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -66,38 +82,29 @@ class PaymentChannelCode {
     return map;
   }
 
-  static PaymentChannelCode? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PaymentChannelCode (
-      value: json['value'] as String? ?? '',
-      listID: json['listID'] as String?,
-      listAgencyID: json['listAgencyID'] as String?,
-      listAgencyName: json['listAgencyName'] as String?,
-      listName: json['listName'] as String?,
-      listVersionID: json['listVersionID'] as String?,
-      name: json['name'] as String?,
-      languageID: json['languageID'] as String?,
-      listURI: json['listURI'] as String?,
-      listSchemeURI: json['listSchemeURI'] as String?,
-    );
-  }
-
   static PaymentChannelCode? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PaymentChannelCode (
-      value: null,
-      listID: null,
-      listAgencyID: null,
-      listAgencyName: null,
-      listName: null,
-      listVersionID: null,
-      name: null,
-      languageID: null,
-      listURI: null,
-      listSchemeURI: null,
+      value: xml.innerText,
+      listID: xml.getAttribute('listID'),
+      listAgencyID: xml.getAttribute('listAgencyID'),
+      listAgencyName: xml.getAttribute('listAgencyName'),
+      listName: xml.getAttribute('listName'),
+      listVersionID: xml.getAttribute('listVersionID'),
+      name: xml.getAttribute('name'),
+      languageID: xml.getAttribute('languageID'),
+      listURI: xml.getAttribute('listURI'),
+      listSchemeURI: xml.getAttribute('listSchemeURI'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PaymentChannelCode',
+        'cbc',
+      ),
+    );
+  }
 }
 

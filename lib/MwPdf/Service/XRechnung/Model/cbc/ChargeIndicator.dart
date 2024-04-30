@@ -11,6 +11,13 @@ class ChargeIndicator {
     required this.value,
   });
 
+  static ChargeIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ChargeIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class ChargeIndicator {
     return map;
   }
 
-  static ChargeIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ChargeIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static ChargeIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ChargeIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ChargeIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

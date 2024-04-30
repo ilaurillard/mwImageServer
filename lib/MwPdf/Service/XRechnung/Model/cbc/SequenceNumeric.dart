@@ -15,6 +15,14 @@ class SequenceNumeric {
     this.format,
   });
 
+  static SequenceNumeric? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return SequenceNumeric (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      format: json['format'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -24,22 +32,21 @@ class SequenceNumeric {
     return map;
   }
 
-  static SequenceNumeric? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return SequenceNumeric (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      format: json['format'] as String?,
-    );
-  }
-
   static SequenceNumeric? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return SequenceNumeric (
-      value: null,
-      format: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      format: xml.getAttribute('format'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'SequenceNumeric',
+        'cbc',
+      ),
+    );
+  }
 }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/CustomerAssignedAccountID.dart';
 import '../cbc/AdditionalAccountID.dart';
 import '../cbc/DataSendingCapability.dart';
@@ -12,6 +13,9 @@ import '../cac/SellerContact.dart';
 // A class to describe a supplier party.
 class SellerSupplierParty {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this supplier party, assigned by the customer.
   final CustomerAssignedAccountID? customerAssignedAccountID;
@@ -35,6 +39,7 @@ class SellerSupplierParty {
   final SellerContact? sellerContact;
 
   SellerSupplierParty ({
+    this.uBLExtensions,
     this.customerAssignedAccountID,
     this.additionalAccountID = const [],
     this.dataSendingCapability,
@@ -44,8 +49,23 @@ class SellerSupplierParty {
     this.sellerContact,
   });
 
+  static SellerSupplierParty? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return SellerSupplierParty (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      customerAssignedAccountID: CustomerAssignedAccountID.fromJson(json['customerAssignedAccountID'] as Map<String, dynamic>?),
+      additionalAccountID: (json['additionalAccountID'] as List? ?? []).map((dynamic d) => AdditionalAccountID.fromJson(d as Map<String, dynamic>?)!).toList(),
+      dataSendingCapability: DataSendingCapability.fromJson(json['dataSendingCapability'] as Map<String, dynamic>?),
+      party: Party.fromJson(json['party'] as Map<String, dynamic>?),
+      despatchContact: DespatchContact.fromJson(json['despatchContact'] as Map<String, dynamic>?),
+      accountingContact: AccountingContact.fromJson(json['accountingContact'] as Map<String, dynamic>?),
+      sellerContact: SellerContact.fromJson(json['sellerContact'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'customerAssignedAccountID': customerAssignedAccountID?.toJson(),
       'additionalAccountID': additionalAccountID.map((e) => e.toJson()).toList(),
       'dataSendingCapability': dataSendingCapability?.toJson(),
@@ -58,32 +78,27 @@ class SellerSupplierParty {
     return map;
   }
 
-  static SellerSupplierParty? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return SellerSupplierParty (
-      customerAssignedAccountID: CustomerAssignedAccountID.fromJson(json['customerAssignedAccountID'] as Map<String, dynamic>?),
-      additionalAccountID: (json['additionalAccountID'] as List? ?? []).map((dynamic d) => AdditionalAccountID.fromJson(d as Map<String, dynamic>?)!).toList(),
-      dataSendingCapability: DataSendingCapability.fromJson(json['dataSendingCapability'] as Map<String, dynamic>?),
-      party: Party.fromJson(json['party'] as Map<String, dynamic>?),
-      despatchContact: DespatchContact.fromJson(json['despatchContact'] as Map<String, dynamic>?),
-      accountingContact: AccountingContact.fromJson(json['accountingContact'] as Map<String, dynamic>?),
-      sellerContact: SellerContact.fromJson(json['sellerContact'] as Map<String, dynamic>?),
-    );
-  }
-
   static SellerSupplierParty? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return SellerSupplierParty (
-      customerAssignedAccountID: null,
-      additionalAccountID: null,
-      dataSendingCapability: null,
-      party: null,
-      despatchContact: null,
-      accountingContact: null,
-      sellerContact: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      customerAssignedAccountID: CustomerAssignedAccountID.fromXml(xml.findElements('cbc:CustomerAssignedAccountID').singleOrNull),
+      additionalAccountID: xml.findElements('cbc:AdditionalAccountID').map((XmlElement e) => AdditionalAccountID.fromXml(e)!).toList(),
+      dataSendingCapability: DataSendingCapability.fromXml(xml.findElements('cbc:DataSendingCapability').singleOrNull),
+      party: Party.fromXml(xml.findElements('cac:Party').singleOrNull),
+      despatchContact: DespatchContact.fromXml(xml.findElements('cac:DespatchContact').singleOrNull),
+      accountingContact: AccountingContact.fromXml(xml.findElements('cac:AccountingContact').singleOrNull),
+      sellerContact: SellerContact.fromXml(xml.findElements('cac:SellerContact').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'SellerSupplierParty',
+        'cac',
+      ),
+    );
+  }
 }
 

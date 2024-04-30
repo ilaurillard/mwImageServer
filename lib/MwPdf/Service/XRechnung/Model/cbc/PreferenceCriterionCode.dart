@@ -49,6 +49,22 @@ class PreferenceCriterionCode {
     assert(value.isNotEmpty);
   }
 
+  static PreferenceCriterionCode? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PreferenceCriterionCode (
+      value: json['value'] as String? ?? '',
+      listID: json['listID'] as String?,
+      listAgencyID: json['listAgencyID'] as String?,
+      listAgencyName: json['listAgencyName'] as String?,
+      listName: json['listName'] as String?,
+      listVersionID: json['listVersionID'] as String?,
+      name: json['name'] as String?,
+      languageID: json['languageID'] as String?,
+      listURI: json['listURI'] as String?,
+      listSchemeURI: json['listSchemeURI'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -66,38 +82,29 @@ class PreferenceCriterionCode {
     return map;
   }
 
-  static PreferenceCriterionCode? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PreferenceCriterionCode (
-      value: json['value'] as String? ?? '',
-      listID: json['listID'] as String?,
-      listAgencyID: json['listAgencyID'] as String?,
-      listAgencyName: json['listAgencyName'] as String?,
-      listName: json['listName'] as String?,
-      listVersionID: json['listVersionID'] as String?,
-      name: json['name'] as String?,
-      languageID: json['languageID'] as String?,
-      listURI: json['listURI'] as String?,
-      listSchemeURI: json['listSchemeURI'] as String?,
-    );
-  }
-
   static PreferenceCriterionCode? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PreferenceCriterionCode (
-      value: null,
-      listID: null,
-      listAgencyID: null,
-      listAgencyName: null,
-      listName: null,
-      listVersionID: null,
-      name: null,
-      languageID: null,
-      listURI: null,
-      listSchemeURI: null,
+      value: xml.innerText,
+      listID: xml.getAttribute('listID'),
+      listAgencyID: xml.getAttribute('listAgencyID'),
+      listAgencyName: xml.getAttribute('listAgencyName'),
+      listName: xml.getAttribute('listName'),
+      listVersionID: xml.getAttribute('listVersionID'),
+      name: xml.getAttribute('name'),
+      languageID: xml.getAttribute('languageID'),
+      listURI: xml.getAttribute('listURI'),
+      listSchemeURI: xml.getAttribute('listSchemeURI'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PreferenceCriterionCode',
+        'cbc',
+      ),
+    );
+  }
 }
 

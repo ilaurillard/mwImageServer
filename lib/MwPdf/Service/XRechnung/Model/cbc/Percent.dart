@@ -15,6 +15,14 @@ class Percent {
     this.format,
   });
 
+  static Percent? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return Percent (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      format: json['format'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -24,22 +32,21 @@ class Percent {
     return map;
   }
 
-  static Percent? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return Percent (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      format: json['format'] as String?,
-    );
-  }
-
   static Percent? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return Percent (
-      value: null,
-      format: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      format: xml.getAttribute('format'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'Percent',
+        'cbc',
+      ),
+    );
+  }
 }
 

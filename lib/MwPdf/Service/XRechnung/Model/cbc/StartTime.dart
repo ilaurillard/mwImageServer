@@ -11,6 +11,13 @@ class StartTime {
     required this.value,
   });
 
+  static StartTime? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return StartTime (
+      value: XsdTime.fromJson(json['value'] as String?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class StartTime {
     return map;
   }
 
-  static StartTime? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return StartTime (
-      value: XsdTime.fromJson(json['value'] as String?)!,
-    );
-  }
-
   static StartTime? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return StartTime (
-      value: null,
+      value: XsdTime.fromJson(xml.innerText)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'StartTime',
+        'cbc',
+      ),
+    );
+  }
 }
 

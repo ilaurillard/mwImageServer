@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/JourneyID.dart';
 import '../cbc/RegistrationNationalityID.dart';
 import '../cbc/RegistrationNationality.dart';
@@ -18,6 +19,9 @@ import '../cac/MeasurementDimension.dart';
 // A class to describe a particular vehicle or vessel used for the conveyance of goods or persons.
 class TransportMeans {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for the regular service schedule of this means of transport.
   final JourneyID? journeyID;
@@ -59,6 +63,7 @@ class TransportMeans {
   final List<MeasurementDimension> measurementDimension;
 
   TransportMeans ({
+    this.uBLExtensions,
     this.journeyID,
     this.registrationNationalityID,
     this.registrationNationality = const [],
@@ -74,8 +79,29 @@ class TransportMeans {
     this.measurementDimension = const [],
   });
 
+  static TransportMeans? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return TransportMeans (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      journeyID: JourneyID.fromJson(json['journeyID'] as Map<String, dynamic>?),
+      registrationNationalityID: RegistrationNationalityID.fromJson(json['registrationNationalityID'] as Map<String, dynamic>?),
+      registrationNationality: (json['registrationNationality'] as List? ?? []).map((dynamic d) => RegistrationNationality.fromJson(d as Map<String, dynamic>?)!).toList(),
+      directionCode: DirectionCode.fromJson(json['directionCode'] as Map<String, dynamic>?),
+      transportMeansTypeCode: TransportMeansTypeCode.fromJson(json['transportMeansTypeCode'] as Map<String, dynamic>?),
+      tradeServiceCode: TradeServiceCode.fromJson(json['tradeServiceCode'] as Map<String, dynamic>?),
+      stowage: Stowage.fromJson(json['stowage'] as Map<String, dynamic>?),
+      airTransport: AirTransport.fromJson(json['airTransport'] as Map<String, dynamic>?),
+      roadTransport: RoadTransport.fromJson(json['roadTransport'] as Map<String, dynamic>?),
+      railTransport: RailTransport.fromJson(json['railTransport'] as Map<String, dynamic>?),
+      maritimeTransport: MaritimeTransport.fromJson(json['maritimeTransport'] as Map<String, dynamic>?),
+      ownerParty: OwnerParty.fromJson(json['ownerParty'] as Map<String, dynamic>?),
+      measurementDimension: (json['measurementDimension'] as List? ?? []).map((dynamic d) => MeasurementDimension.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'journeyID': journeyID?.toJson(),
       'registrationNationalityID': registrationNationalityID?.toJson(),
       'registrationNationality': registrationNationality.map((e) => e.toJson()).toList(),
@@ -94,44 +120,33 @@ class TransportMeans {
     return map;
   }
 
-  static TransportMeans? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return TransportMeans (
-      journeyID: JourneyID.fromJson(json['journeyID'] as Map<String, dynamic>?),
-      registrationNationalityID: RegistrationNationalityID.fromJson(json['registrationNationalityID'] as Map<String, dynamic>?),
-      registrationNationality: (json['registrationNationality'] as List? ?? []).map((dynamic d) => RegistrationNationality.fromJson(d as Map<String, dynamic>?)!).toList(),
-      directionCode: DirectionCode.fromJson(json['directionCode'] as Map<String, dynamic>?),
-      transportMeansTypeCode: TransportMeansTypeCode.fromJson(json['transportMeansTypeCode'] as Map<String, dynamic>?),
-      tradeServiceCode: TradeServiceCode.fromJson(json['tradeServiceCode'] as Map<String, dynamic>?),
-      stowage: Stowage.fromJson(json['stowage'] as Map<String, dynamic>?),
-      airTransport: AirTransport.fromJson(json['airTransport'] as Map<String, dynamic>?),
-      roadTransport: RoadTransport.fromJson(json['roadTransport'] as Map<String, dynamic>?),
-      railTransport: RailTransport.fromJson(json['railTransport'] as Map<String, dynamic>?),
-      maritimeTransport: MaritimeTransport.fromJson(json['maritimeTransport'] as Map<String, dynamic>?),
-      ownerParty: OwnerParty.fromJson(json['ownerParty'] as Map<String, dynamic>?),
-      measurementDimension: (json['measurementDimension'] as List? ?? []).map((dynamic d) => MeasurementDimension.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static TransportMeans? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return TransportMeans (
-      journeyID: null,
-      registrationNationalityID: null,
-      registrationNationality: null,
-      directionCode: null,
-      transportMeansTypeCode: null,
-      tradeServiceCode: null,
-      stowage: null,
-      airTransport: null,
-      roadTransport: null,
-      railTransport: null,
-      maritimeTransport: null,
-      ownerParty: null,
-      measurementDimension: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      journeyID: JourneyID.fromXml(xml.findElements('cbc:JourneyID').singleOrNull),
+      registrationNationalityID: RegistrationNationalityID.fromXml(xml.findElements('cbc:RegistrationNationalityID').singleOrNull),
+      registrationNationality: xml.findElements('cbc:RegistrationNationality').map((XmlElement e) => RegistrationNationality.fromXml(e)!).toList(),
+      directionCode: DirectionCode.fromXml(xml.findElements('cbc:DirectionCode').singleOrNull),
+      transportMeansTypeCode: TransportMeansTypeCode.fromXml(xml.findElements('cbc:TransportMeansTypeCode').singleOrNull),
+      tradeServiceCode: TradeServiceCode.fromXml(xml.findElements('cbc:TradeServiceCode').singleOrNull),
+      stowage: Stowage.fromXml(xml.findElements('cac:Stowage').singleOrNull),
+      airTransport: AirTransport.fromXml(xml.findElements('cac:AirTransport').singleOrNull),
+      roadTransport: RoadTransport.fromXml(xml.findElements('cac:RoadTransport').singleOrNull),
+      railTransport: RailTransport.fromXml(xml.findElements('cac:RailTransport').singleOrNull),
+      maritimeTransport: MaritimeTransport.fromXml(xml.findElements('cac:MaritimeTransport').singleOrNull),
+      ownerParty: OwnerParty.fromXml(xml.findElements('cac:OwnerParty').singleOrNull),
+      measurementDimension: xml.findElements('cac:MeasurementDimension').map((XmlElement e) => MeasurementDimension.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'TransportMeans',
+        'cac',
+      ),
+    );
+  }
 }
 

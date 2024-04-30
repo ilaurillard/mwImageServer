@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/AttributeID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/Measure.dart';
 import '../cbc/Description.dart';
 import '../cbc/MinimumMeasure.dart';
@@ -13,6 +14,9 @@ class MeasurementDimension {
 
   // An identifier for the attribute to which the measure applies.
   final AttributeID attributeID;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // The measurement value.
   final Measure? measure;
@@ -28,14 +32,28 @@ class MeasurementDimension {
 
   MeasurementDimension ({
     required this.attributeID,
+    this.uBLExtensions,
     this.measure,
     this.description = const [],
     this.minimumMeasure,
     this.maximumMeasure,
   });
 
+  static MeasurementDimension? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return MeasurementDimension (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      attributeID: AttributeID.fromJson(json['attributeID'] as Map<String, dynamic>?)!,
+      measure: Measure.fromJson(json['measure'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      minimumMeasure: MinimumMeasure.fromJson(json['minimumMeasure'] as Map<String, dynamic>?),
+      maximumMeasure: MaximumMeasure.fromJson(json['maximumMeasure'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'attributeID': attributeID.toJson(),
       'measure': measure?.toJson(),
       'description': description.map((e) => e.toJson()).toList(),
@@ -46,28 +64,25 @@ class MeasurementDimension {
     return map;
   }
 
-  static MeasurementDimension? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return MeasurementDimension (
-      attributeID: AttributeID.fromJson(json['attributeID'] as Map<String, dynamic>?)!,
-      measure: Measure.fromJson(json['measure'] as Map<String, dynamic>?),
-      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
-      minimumMeasure: MinimumMeasure.fromJson(json['minimumMeasure'] as Map<String, dynamic>?),
-      maximumMeasure: MaximumMeasure.fromJson(json['maximumMeasure'] as Map<String, dynamic>?),
-    );
-  }
-
   static MeasurementDimension? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return MeasurementDimension (
-      attributeID: null,
-      measure: null,
-      description: null,
-      minimumMeasure: null,
-      maximumMeasure: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      attributeID: AttributeID.fromXml(xml.findElements('cbc:AttributeID').singleOrNull)!,
+      measure: Measure.fromXml(xml.findElements('cbc:Measure').singleOrNull),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
+      minimumMeasure: MinimumMeasure.fromXml(xml.findElements('cbc:MinimumMeasure').singleOrNull),
+      maximumMeasure: MaximumMeasure.fromXml(xml.findElements('cbc:MaximumMeasure').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'MeasurementDimension',
+        'cac',
+      ),
+    );
+  }
 }
 

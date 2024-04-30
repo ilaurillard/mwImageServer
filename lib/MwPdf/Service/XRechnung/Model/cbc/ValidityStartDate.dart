@@ -11,6 +11,13 @@ class ValidityStartDate {
     required this.value,
   });
 
+  static ValidityStartDate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ValidityStartDate (
+      value: XsdDate.fromJson(json['value'] as String?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class ValidityStartDate {
     return map;
   }
 
-  static ValidityStartDate? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ValidityStartDate (
-      value: XsdDate.fromJson(json['value'] as String?)!,
-    );
-  }
-
   static ValidityStartDate? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ValidityStartDate (
-      value: null,
+      value: XsdDate.fromJson(xml.innerText)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ValidityStartDate',
+        'cbc',
+      ),
+    );
+  }
 }
 

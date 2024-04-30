@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/LeadTimeMeasure.dart';
 import '../cbc/MinimumQuantity.dart';
 import '../cbc/MaximumQuantity.dart';
@@ -17,6 +18,9 @@ import '../cac/DependentPriceReference.dart';
 // A class for information about pricing structure, lead time, and location associated with an item.
 class OriginalItemLocationQuantity {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // The lead time, i.e., the time taken from the time at which an item is ordered to the time of its delivery.
   final LeadTimeMeasure? leadTimeMeasure;
@@ -55,6 +59,7 @@ class OriginalItemLocationQuantity {
   final DependentPriceReference? dependentPriceReference;
 
   OriginalItemLocationQuantity ({
+    this.uBLExtensions,
     this.leadTimeMeasure,
     this.minimumQuantity,
     this.maximumQuantity,
@@ -69,8 +74,28 @@ class OriginalItemLocationQuantity {
     this.dependentPriceReference,
   });
 
+  static OriginalItemLocationQuantity? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return OriginalItemLocationQuantity (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      leadTimeMeasure: LeadTimeMeasure.fromJson(json['leadTimeMeasure'] as Map<String, dynamic>?),
+      minimumQuantity: MinimumQuantity.fromJson(json['minimumQuantity'] as Map<String, dynamic>?),
+      maximumQuantity: MaximumQuantity.fromJson(json['maximumQuantity'] as Map<String, dynamic>?),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromJson(json['hazardousRiskIndicator'] as Map<String, dynamic>?),
+      tradingRestrictions: (json['tradingRestrictions'] as List? ?? []).map((dynamic d) => TradingRestrictions.fromJson(d as Map<String, dynamic>?)!).toList(),
+      applicableTerritoryAddress: (json['applicableTerritoryAddress'] as List? ?? []).map((dynamic d) => ApplicableTerritoryAddress.fromJson(d as Map<String, dynamic>?)!).toList(),
+      price: Price.fromJson(json['price'] as Map<String, dynamic>?),
+      deliveryUnit: (json['deliveryUnit'] as List? ?? []).map((dynamic d) => DeliveryUnit.fromJson(d as Map<String, dynamic>?)!).toList(),
+      applicableTaxCategory: (json['applicableTaxCategory'] as List? ?? []).map((dynamic d) => ApplicableTaxCategory.fromJson(d as Map<String, dynamic>?)!).toList(),
+      package: Package.fromJson(json['package'] as Map<String, dynamic>?),
+      allowanceCharge: (json['allowanceCharge'] as List? ?? []).map((dynamic d) => AllowanceCharge.fromJson(d as Map<String, dynamic>?)!).toList(),
+      dependentPriceReference: DependentPriceReference.fromJson(json['dependentPriceReference'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'leadTimeMeasure': leadTimeMeasure?.toJson(),
       'minimumQuantity': minimumQuantity?.toJson(),
       'maximumQuantity': maximumQuantity?.toJson(),
@@ -88,42 +113,32 @@ class OriginalItemLocationQuantity {
     return map;
   }
 
-  static OriginalItemLocationQuantity? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return OriginalItemLocationQuantity (
-      leadTimeMeasure: LeadTimeMeasure.fromJson(json['leadTimeMeasure'] as Map<String, dynamic>?),
-      minimumQuantity: MinimumQuantity.fromJson(json['minimumQuantity'] as Map<String, dynamic>?),
-      maximumQuantity: MaximumQuantity.fromJson(json['maximumQuantity'] as Map<String, dynamic>?),
-      hazardousRiskIndicator: HazardousRiskIndicator.fromJson(json['hazardousRiskIndicator'] as Map<String, dynamic>?),
-      tradingRestrictions: (json['tradingRestrictions'] as List? ?? []).map((dynamic d) => TradingRestrictions.fromJson(d as Map<String, dynamic>?)!).toList(),
-      applicableTerritoryAddress: (json['applicableTerritoryAddress'] as List? ?? []).map((dynamic d) => ApplicableTerritoryAddress.fromJson(d as Map<String, dynamic>?)!).toList(),
-      price: Price.fromJson(json['price'] as Map<String, dynamic>?),
-      deliveryUnit: (json['deliveryUnit'] as List? ?? []).map((dynamic d) => DeliveryUnit.fromJson(d as Map<String, dynamic>?)!).toList(),
-      applicableTaxCategory: (json['applicableTaxCategory'] as List? ?? []).map((dynamic d) => ApplicableTaxCategory.fromJson(d as Map<String, dynamic>?)!).toList(),
-      package: Package.fromJson(json['package'] as Map<String, dynamic>?),
-      allowanceCharge: (json['allowanceCharge'] as List? ?? []).map((dynamic d) => AllowanceCharge.fromJson(d as Map<String, dynamic>?)!).toList(),
-      dependentPriceReference: DependentPriceReference.fromJson(json['dependentPriceReference'] as Map<String, dynamic>?),
-    );
-  }
-
   static OriginalItemLocationQuantity? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return OriginalItemLocationQuantity (
-      leadTimeMeasure: null,
-      minimumQuantity: null,
-      maximumQuantity: null,
-      hazardousRiskIndicator: null,
-      tradingRestrictions: null,
-      applicableTerritoryAddress: null,
-      price: null,
-      deliveryUnit: null,
-      applicableTaxCategory: null,
-      package: null,
-      allowanceCharge: null,
-      dependentPriceReference: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      leadTimeMeasure: LeadTimeMeasure.fromXml(xml.findElements('cbc:LeadTimeMeasure').singleOrNull),
+      minimumQuantity: MinimumQuantity.fromXml(xml.findElements('cbc:MinimumQuantity').singleOrNull),
+      maximumQuantity: MaximumQuantity.fromXml(xml.findElements('cbc:MaximumQuantity').singleOrNull),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromXml(xml.findElements('cbc:HazardousRiskIndicator').singleOrNull),
+      tradingRestrictions: xml.findElements('cbc:TradingRestrictions').map((XmlElement e) => TradingRestrictions.fromXml(e)!).toList(),
+      applicableTerritoryAddress: xml.findElements('cac:ApplicableTerritoryAddress').map((XmlElement e) => ApplicableTerritoryAddress.fromXml(e)!).toList(),
+      price: Price.fromXml(xml.findElements('cac:Price').singleOrNull),
+      deliveryUnit: xml.findElements('cac:DeliveryUnit').map((XmlElement e) => DeliveryUnit.fromXml(e)!).toList(),
+      applicableTaxCategory: xml.findElements('cac:ApplicableTaxCategory').map((XmlElement e) => ApplicableTaxCategory.fromXml(e)!).toList(),
+      package: Package.fromXml(xml.findElements('cac:Package').singleOrNull),
+      allowanceCharge: xml.findElements('cac:AllowanceCharge').map((XmlElement e) => AllowanceCharge.fromXml(e)!).toList(),
+      dependentPriceReference: DependentPriceReference.fromXml(xml.findElements('cac:DependentPriceReference').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'OriginalItemLocationQuantity',
+        'cac',
+      ),
+    );
+  }
 }
 

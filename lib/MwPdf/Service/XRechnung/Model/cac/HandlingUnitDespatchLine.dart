@@ -4,6 +4,7 @@ import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../cac/OrderLineReference.dart';
 import '../cac/Item.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/UUID.dart';
 import '../cbc/Note.dart';
 import '../cbc/LineStatusCode.dart';
@@ -15,6 +16,7 @@ import '../cbc/OutstandingReason.dart';
 import '../cbc/OversupplyQuantity.dart';
 import '../cac/DocumentReference.dart';
 import '../cac/Shipment.dart';
+import '../cac/SubDespatchLine.dart';
 
 // A class to define a line in a Despatch Advice.
 class HandlingUnitDespatchLine {
@@ -28,6 +30,9 @@ class HandlingUnitDespatchLine {
 
   // The item associated with this despatch line.
   final Item item;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A universally unique identifier for this despatch line.
   final UUID? uUID;
@@ -62,10 +67,14 @@ class HandlingUnitDespatchLine {
   // A shipment associated with this despatch line.
   final List<Shipment> shipment;
 
+  // A despatch line subsidiary to this despatch line.
+  final List<SubDespatchLine> subDespatchLine;
+
   HandlingUnitDespatchLine ({
     required this.iD,
     required this.orderLineReference,
     required this.item,
+    this.uBLExtensions,
     this.uUID,
     this.note = const [],
     this.lineStatusCode,
@@ -77,34 +86,15 @@ class HandlingUnitDespatchLine {
     this.oversupplyQuantity,
     this.documentReference = const [],
     this.shipment = const [],
+    this.subDespatchLine = const [],
   }) {
     assert(orderLineReference.isNotEmpty);
-  }
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'iD': iD.toJson(),
-      'uUID': uUID?.toJson(),
-      'note': note.map((e) => e.toJson()).toList(),
-      'lineStatusCode': lineStatusCode?.toJson(),
-      'deliveredQuantity': deliveredQuantity?.toJson(),
-      'backorderQuantity': backorderQuantity?.toJson(),
-      'backorderReason': backorderReason.map((e) => e.toJson()).toList(),
-      'outstandingQuantity': outstandingQuantity?.toJson(),
-      'outstandingReason': outstandingReason.map((e) => e.toJson()).toList(),
-      'oversupplyQuantity': oversupplyQuantity?.toJson(),
-      'orderLineReference': orderLineReference.map((e) => e.toJson()).toList(),
-      'documentReference': documentReference.map((e) => e.toJson()).toList(),
-      'item': item.toJson(),
-      'shipment': shipment.map((e) => e.toJson()).toList(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
   }
 
   static HandlingUnitDespatchLine? fromJson(Map<String, dynamic>? json) {
     if (json == null) { return null; }
     return HandlingUnitDespatchLine (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
       uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
       note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
@@ -119,29 +109,62 @@ class HandlingUnitDespatchLine {
       documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
       item: Item.fromJson(json['item'] as Map<String, dynamic>?)!,
       shipment: (json['shipment'] as List? ?? []).map((dynamic d) => Shipment.fromJson(d as Map<String, dynamic>?)!).toList(),
+      subDespatchLine: (json['subDespatchLine'] as List? ?? []).map((dynamic d) => SubDespatchLine.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'iD': iD.toJson(),
+      'uUID': uUID?.toJson(),
+      'note': note.map((e) => e.toJson()).toList(),
+      'lineStatusCode': lineStatusCode?.toJson(),
+      'deliveredQuantity': deliveredQuantity?.toJson(),
+      'backorderQuantity': backorderQuantity?.toJson(),
+      'backorderReason': backorderReason.map((e) => e.toJson()).toList(),
+      'outstandingQuantity': outstandingQuantity?.toJson(),
+      'outstandingReason': outstandingReason.map((e) => e.toJson()).toList(),
+      'oversupplyQuantity': oversupplyQuantity?.toJson(),
+      'orderLineReference': orderLineReference.map((e) => e.toJson()).toList(),
+      'documentReference': documentReference.map((e) => e.toJson()).toList(),
+      'item': item.toJson(),
+      'shipment': shipment.map((e) => e.toJson()).toList(),
+      'subDespatchLine': subDespatchLine.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
   }
 
   static HandlingUnitDespatchLine? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return HandlingUnitDespatchLine (
-      iD: null,
-      uUID: null,
-      note: null,
-      lineStatusCode: null,
-      deliveredQuantity: null,
-      backorderQuantity: null,
-      backorderReason: null,
-      outstandingQuantity: null,
-      outstandingReason: null,
-      oversupplyQuantity: null,
-      orderLineReference: null,
-      documentReference: null,
-      item: null,
-      shipment: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      uUID: UUID.fromXml(xml.findElements('cbc:UUID').singleOrNull),
+      note: xml.findElements('cbc:Note').map((XmlElement e) => Note.fromXml(e)!).toList(),
+      lineStatusCode: LineStatusCode.fromXml(xml.findElements('cbc:LineStatusCode').singleOrNull),
+      deliveredQuantity: DeliveredQuantity.fromXml(xml.findElements('cbc:DeliveredQuantity').singleOrNull),
+      backorderQuantity: BackorderQuantity.fromXml(xml.findElements('cbc:BackorderQuantity').singleOrNull),
+      backorderReason: xml.findElements('cbc:BackorderReason').map((XmlElement e) => BackorderReason.fromXml(e)!).toList(),
+      outstandingQuantity: OutstandingQuantity.fromXml(xml.findElements('cbc:OutstandingQuantity').singleOrNull),
+      outstandingReason: xml.findElements('cbc:OutstandingReason').map((XmlElement e) => OutstandingReason.fromXml(e)!).toList(),
+      oversupplyQuantity: OversupplyQuantity.fromXml(xml.findElements('cbc:OversupplyQuantity').singleOrNull),
+      orderLineReference: xml.findElements('cac:OrderLineReference').map((XmlElement e) => OrderLineReference.fromXml(e)!).toList(),
+      documentReference: xml.findElements('cac:DocumentReference').map((XmlElement e) => DocumentReference.fromXml(e)!).toList(),
+      item: Item.fromXml(xml.findElements('cac:Item').singleOrNull)!,
+      shipment: xml.findElements('cac:Shipment').map((XmlElement e) => Shipment.fromXml(e)!).toList(),
+      subDespatchLine: xml.findElements('cac:SubDespatchLine').map((XmlElement e) => SubDespatchLine.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'HandlingUnitDespatchLine',
+        'cac',
+      ),
+    );
+  }
 }
 

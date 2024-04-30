@@ -58,6 +58,22 @@ class UBLExtension {
     this.extensionReason,
   });
 
+  static UBLExtension? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return UBLExtension (
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      extensionAgencyID: ExtensionAgencyID.fromJson(json['extensionAgencyID'] as Map<String, dynamic>?),
+      extensionAgencyName: ExtensionAgencyName.fromJson(json['extensionAgencyName'] as Map<String, dynamic>?),
+      extensionVersionID: ExtensionVersionID.fromJson(json['extensionVersionID'] as Map<String, dynamic>?),
+      extensionAgencyURI: ExtensionAgencyURI.fromJson(json['extensionAgencyURI'] as Map<String, dynamic>?),
+      extensionURI: ExtensionURI.fromJson(json['extensionURI'] as Map<String, dynamic>?),
+      extensionReasonCode: ExtensionReasonCode.fromJson(json['extensionReasonCode'] as Map<String, dynamic>?),
+      extensionReason: ExtensionReason.fromJson(json['extensionReason'] as Map<String, dynamic>?),
+      extensionContent: null, // missing type!!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'iD': iD?.toJson(),
@@ -75,38 +91,29 @@ class UBLExtension {
     return map;
   }
 
-  static UBLExtension? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
+  static UBLExtension? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
     return UBLExtension (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
-      extensionAgencyID: ExtensionAgencyID.fromJson(json['extensionAgencyID'] as Map<String, dynamic>?),
-      extensionAgencyName: ExtensionAgencyName.fromJson(json['extensionAgencyName'] as Map<String, dynamic>?),
-      extensionVersionID: ExtensionVersionID.fromJson(json['extensionVersionID'] as Map<String, dynamic>?),
-      extensionAgencyURI: ExtensionAgencyURI.fromJson(json['extensionAgencyURI'] as Map<String, dynamic>?),
-      extensionURI: ExtensionURI.fromJson(json['extensionURI'] as Map<String, dynamic>?),
-      extensionReasonCode: ExtensionReasonCode.fromJson(json['extensionReasonCode'] as Map<String, dynamic>?),
-      extensionReason: ExtensionReason.fromJson(json['extensionReason'] as Map<String, dynamic>?),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      name: Name.fromXml(xml.findElements('cbc:Name').singleOrNull),
+      extensionAgencyID: ExtensionAgencyID.fromXml(xml.findElements('ext:ExtensionAgencyID').singleOrNull),
+      extensionAgencyName: ExtensionAgencyName.fromXml(xml.findElements('ext:ExtensionAgencyName').singleOrNull),
+      extensionVersionID: ExtensionVersionID.fromXml(xml.findElements('ext:ExtensionVersionID').singleOrNull),
+      extensionAgencyURI: ExtensionAgencyURI.fromXml(xml.findElements('ext:ExtensionAgencyURI').singleOrNull),
+      extensionURI: ExtensionURI.fromXml(xml.findElements('ext:ExtensionURI').singleOrNull),
+      extensionReasonCode: ExtensionReasonCode.fromXml(xml.findElements('ext:ExtensionReasonCode').singleOrNull),
+      extensionReason: ExtensionReason.fromXml(xml.findElements('ext:ExtensionReason').singleOrNull),
       extensionContent: null, // missing type!!,
     );
   }
 
-  static UBLExtension? fromXml(XmlElement? xml) {
-    if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
-    return UBLExtension (
-      iD: null,
-      name: null,
-      extensionAgencyID: null,
-      extensionAgencyName: null,
-      extensionVersionID: null,
-      extensionAgencyURI: null,
-      extensionURI: null,
-      extensionReasonCode: null,
-      extensionReason: null,
-      extensionContent: null,
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'UBLExtension',
+        'ext',
+      ),
     );
   }
-
 }
 

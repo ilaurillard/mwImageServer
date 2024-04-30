@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../cbc/CorporateRegistrationTypeCode.dart';
@@ -9,6 +10,9 @@ import '../cac/JurisdictionRegionAddress.dart';
 // A class to describe a scheme for corporate registration.
 class CorporateRegistrationScheme {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this registration scheme.
   final ID? iD;
@@ -23,14 +27,27 @@ class CorporateRegistrationScheme {
   final List<JurisdictionRegionAddress> jurisdictionRegionAddress;
 
   CorporateRegistrationScheme ({
+    this.uBLExtensions,
     this.iD,
     this.name,
     this.corporateRegistrationTypeCode,
     this.jurisdictionRegionAddress = const [],
   });
 
+  static CorporateRegistrationScheme? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return CorporateRegistrationScheme (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      corporateRegistrationTypeCode: CorporateRegistrationTypeCode.fromJson(json['corporateRegistrationTypeCode'] as Map<String, dynamic>?),
+      jurisdictionRegionAddress: (json['jurisdictionRegionAddress'] as List? ?? []).map((dynamic d) => JurisdictionRegionAddress.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'name': name?.toJson(),
       'corporateRegistrationTypeCode': corporateRegistrationTypeCode?.toJson(),
@@ -40,26 +57,24 @@ class CorporateRegistrationScheme {
     return map;
   }
 
-  static CorporateRegistrationScheme? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return CorporateRegistrationScheme (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
-      corporateRegistrationTypeCode: CorporateRegistrationTypeCode.fromJson(json['corporateRegistrationTypeCode'] as Map<String, dynamic>?),
-      jurisdictionRegionAddress: (json['jurisdictionRegionAddress'] as List? ?? []).map((dynamic d) => JurisdictionRegionAddress.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static CorporateRegistrationScheme? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return CorporateRegistrationScheme (
-      iD: null,
-      name: null,
-      corporateRegistrationTypeCode: null,
-      jurisdictionRegionAddress: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      name: Name.fromXml(xml.findElements('cbc:Name').singleOrNull),
+      corporateRegistrationTypeCode: CorporateRegistrationTypeCode.fromXml(xml.findElements('cbc:CorporateRegistrationTypeCode').singleOrNull),
+      jurisdictionRegionAddress: xml.findElements('cac:JurisdictionRegionAddress').map((XmlElement e) => JurisdictionRegionAddress.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'CorporateRegistrationScheme',
+        'cac',
+      ),
+    );
+  }
 }
 

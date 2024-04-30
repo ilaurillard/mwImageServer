@@ -11,6 +11,13 @@ class OnCarriageIndicator {
     required this.value,
   });
 
+  static OnCarriageIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return OnCarriageIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class OnCarriageIndicator {
     return map;
   }
 
-  static OnCarriageIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return OnCarriageIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static OnCarriageIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return OnCarriageIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'OnCarriageIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

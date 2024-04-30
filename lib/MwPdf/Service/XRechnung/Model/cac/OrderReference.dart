@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/SalesOrderID.dart';
 import '../cbc/CopyIndicator.dart';
 import '../cbc/UUID.dart';
@@ -17,6 +18,9 @@ class OrderReference {
 
   // An identifier for this order reference, assigned by the buyer.
   final ID iD;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this order reference, assigned by the seller.
   final SalesOrderID? salesOrderID;
@@ -44,6 +48,7 @@ class OrderReference {
 
   OrderReference ({
     required this.iD,
+    this.uBLExtensions,
     this.salesOrderID,
     this.copyIndicator,
     this.uUID,
@@ -54,8 +59,25 @@ class OrderReference {
     this.documentReference,
   });
 
+  static OrderReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return OrderReference (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      salesOrderID: SalesOrderID.fromJson(json['salesOrderID'] as Map<String, dynamic>?),
+      copyIndicator: CopyIndicator.fromJson(json['copyIndicator'] as Map<String, dynamic>?),
+      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
+      issueDate: IssueDate.fromJson(json['issueDate'] as Map<String, dynamic>?),
+      issueTime: IssueTime.fromJson(json['issueTime'] as Map<String, dynamic>?),
+      customerReference: CustomerReference.fromJson(json['customerReference'] as Map<String, dynamic>?),
+      orderTypeCode: OrderTypeCode.fromJson(json['orderTypeCode'] as Map<String, dynamic>?),
+      documentReference: DocumentReference.fromJson(json['documentReference'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD.toJson(),
       'salesOrderID': salesOrderID?.toJson(),
       'copyIndicator': copyIndicator?.toJson(),
@@ -70,36 +92,29 @@ class OrderReference {
     return map;
   }
 
-  static OrderReference? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return OrderReference (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
-      salesOrderID: SalesOrderID.fromJson(json['salesOrderID'] as Map<String, dynamic>?),
-      copyIndicator: CopyIndicator.fromJson(json['copyIndicator'] as Map<String, dynamic>?),
-      uUID: UUID.fromJson(json['uUID'] as Map<String, dynamic>?),
-      issueDate: IssueDate.fromJson(json['issueDate'] as Map<String, dynamic>?),
-      issueTime: IssueTime.fromJson(json['issueTime'] as Map<String, dynamic>?),
-      customerReference: CustomerReference.fromJson(json['customerReference'] as Map<String, dynamic>?),
-      orderTypeCode: OrderTypeCode.fromJson(json['orderTypeCode'] as Map<String, dynamic>?),
-      documentReference: DocumentReference.fromJson(json['documentReference'] as Map<String, dynamic>?),
-    );
-  }
-
   static OrderReference? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return OrderReference (
-      iD: null,
-      salesOrderID: null,
-      copyIndicator: null,
-      uUID: null,
-      issueDate: null,
-      issueTime: null,
-      customerReference: null,
-      orderTypeCode: null,
-      documentReference: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      salesOrderID: SalesOrderID.fromXml(xml.findElements('cbc:SalesOrderID').singleOrNull),
+      copyIndicator: CopyIndicator.fromXml(xml.findElements('cbc:CopyIndicator').singleOrNull),
+      uUID: UUID.fromXml(xml.findElements('cbc:UUID').singleOrNull),
+      issueDate: IssueDate.fromXml(xml.findElements('cbc:IssueDate').singleOrNull),
+      issueTime: IssueTime.fromXml(xml.findElements('cbc:IssueTime').singleOrNull),
+      customerReference: CustomerReference.fromXml(xml.findElements('cbc:CustomerReference').singleOrNull),
+      orderTypeCode: OrderTypeCode.fromXml(xml.findElements('cbc:OrderTypeCode').singleOrNull),
+      documentReference: DocumentReference.fromXml(xml.findElements('cac:DocumentReference').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'OrderReference',
+        'cac',
+      ),
+    );
+  }
 }
 

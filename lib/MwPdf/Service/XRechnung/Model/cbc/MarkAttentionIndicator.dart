@@ -11,6 +11,13 @@ class MarkAttentionIndicator {
     required this.value,
   });
 
+  static MarkAttentionIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return MarkAttentionIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class MarkAttentionIndicator {
     return map;
   }
 
-  static MarkAttentionIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return MarkAttentionIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static MarkAttentionIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return MarkAttentionIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'MarkAttentionIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

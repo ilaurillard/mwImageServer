@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/RequestedDespatchDate.dart';
 import '../cbc/RequestedDespatchTime.dart';
@@ -24,6 +25,9 @@ import '../cac/RequestedDespatchPeriod.dart';
 // A class to describe the despatching of goods (their pickup for delivery).
 class Despatch {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this despatch event.
   final ID? iD;
@@ -83,6 +87,7 @@ class Despatch {
   final RequestedDespatchPeriod? requestedDespatchPeriod;
 
   Despatch ({
+    this.uBLExtensions,
     this.iD,
     this.requestedDespatchDate,
     this.requestedDespatchTime,
@@ -104,8 +109,35 @@ class Despatch {
     this.requestedDespatchPeriod,
   });
 
+  static Despatch? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return Despatch (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      requestedDespatchDate: RequestedDespatchDate.fromJson(json['requestedDespatchDate'] as Map<String, dynamic>?),
+      requestedDespatchTime: RequestedDespatchTime.fromJson(json['requestedDespatchTime'] as Map<String, dynamic>?),
+      estimatedDespatchDate: EstimatedDespatchDate.fromJson(json['estimatedDespatchDate'] as Map<String, dynamic>?),
+      estimatedDespatchTime: EstimatedDespatchTime.fromJson(json['estimatedDespatchTime'] as Map<String, dynamic>?),
+      actualDespatchDate: ActualDespatchDate.fromJson(json['actualDespatchDate'] as Map<String, dynamic>?),
+      actualDespatchTime: ActualDespatchTime.fromJson(json['actualDespatchTime'] as Map<String, dynamic>?),
+      guaranteedDespatchDate: GuaranteedDespatchDate.fromJson(json['guaranteedDespatchDate'] as Map<String, dynamic>?),
+      guaranteedDespatchTime: GuaranteedDespatchTime.fromJson(json['guaranteedDespatchTime'] as Map<String, dynamic>?),
+      releaseID: ReleaseID.fromJson(json['releaseID'] as Map<String, dynamic>?),
+      instructions: (json['instructions'] as List? ?? []).map((dynamic d) => Instructions.fromJson(d as Map<String, dynamic>?)!).toList(),
+      despatchAddress: DespatchAddress.fromJson(json['despatchAddress'] as Map<String, dynamic>?),
+      despatchLocation: DespatchLocation.fromJson(json['despatchLocation'] as Map<String, dynamic>?),
+      despatchParty: DespatchParty.fromJson(json['despatchParty'] as Map<String, dynamic>?),
+      carrierParty: CarrierParty.fromJson(json['carrierParty'] as Map<String, dynamic>?),
+      notifyParty: (json['notifyParty'] as List? ?? []).map((dynamic d) => NotifyParty.fromJson(d as Map<String, dynamic>?)!).toList(),
+      contact: Contact.fromJson(json['contact'] as Map<String, dynamic>?),
+      estimatedDespatchPeriod: EstimatedDespatchPeriod.fromJson(json['estimatedDespatchPeriod'] as Map<String, dynamic>?),
+      requestedDespatchPeriod: RequestedDespatchPeriod.fromJson(json['requestedDespatchPeriod'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'requestedDespatchDate': requestedDespatchDate?.toJson(),
       'requestedDespatchTime': requestedDespatchTime?.toJson(),
@@ -130,56 +162,39 @@ class Despatch {
     return map;
   }
 
-  static Despatch? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return Despatch (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      requestedDespatchDate: RequestedDespatchDate.fromJson(json['requestedDespatchDate'] as Map<String, dynamic>?),
-      requestedDespatchTime: RequestedDespatchTime.fromJson(json['requestedDespatchTime'] as Map<String, dynamic>?),
-      estimatedDespatchDate: EstimatedDespatchDate.fromJson(json['estimatedDespatchDate'] as Map<String, dynamic>?),
-      estimatedDespatchTime: EstimatedDespatchTime.fromJson(json['estimatedDespatchTime'] as Map<String, dynamic>?),
-      actualDespatchDate: ActualDespatchDate.fromJson(json['actualDespatchDate'] as Map<String, dynamic>?),
-      actualDespatchTime: ActualDespatchTime.fromJson(json['actualDespatchTime'] as Map<String, dynamic>?),
-      guaranteedDespatchDate: GuaranteedDespatchDate.fromJson(json['guaranteedDespatchDate'] as Map<String, dynamic>?),
-      guaranteedDespatchTime: GuaranteedDespatchTime.fromJson(json['guaranteedDespatchTime'] as Map<String, dynamic>?),
-      releaseID: ReleaseID.fromJson(json['releaseID'] as Map<String, dynamic>?),
-      instructions: (json['instructions'] as List? ?? []).map((dynamic d) => Instructions.fromJson(d as Map<String, dynamic>?)!).toList(),
-      despatchAddress: DespatchAddress.fromJson(json['despatchAddress'] as Map<String, dynamic>?),
-      despatchLocation: DespatchLocation.fromJson(json['despatchLocation'] as Map<String, dynamic>?),
-      despatchParty: DespatchParty.fromJson(json['despatchParty'] as Map<String, dynamic>?),
-      carrierParty: CarrierParty.fromJson(json['carrierParty'] as Map<String, dynamic>?),
-      notifyParty: (json['notifyParty'] as List? ?? []).map((dynamic d) => NotifyParty.fromJson(d as Map<String, dynamic>?)!).toList(),
-      contact: Contact.fromJson(json['contact'] as Map<String, dynamic>?),
-      estimatedDespatchPeriod: EstimatedDespatchPeriod.fromJson(json['estimatedDespatchPeriod'] as Map<String, dynamic>?),
-      requestedDespatchPeriod: RequestedDespatchPeriod.fromJson(json['requestedDespatchPeriod'] as Map<String, dynamic>?),
-    );
-  }
-
   static Despatch? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return Despatch (
-      iD: null,
-      requestedDespatchDate: null,
-      requestedDespatchTime: null,
-      estimatedDespatchDate: null,
-      estimatedDespatchTime: null,
-      actualDespatchDate: null,
-      actualDespatchTime: null,
-      guaranteedDespatchDate: null,
-      guaranteedDespatchTime: null,
-      releaseID: null,
-      instructions: null,
-      despatchAddress: null,
-      despatchLocation: null,
-      despatchParty: null,
-      carrierParty: null,
-      notifyParty: null,
-      contact: null,
-      estimatedDespatchPeriod: null,
-      requestedDespatchPeriod: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      requestedDespatchDate: RequestedDespatchDate.fromXml(xml.findElements('cbc:RequestedDespatchDate').singleOrNull),
+      requestedDespatchTime: RequestedDespatchTime.fromXml(xml.findElements('cbc:RequestedDespatchTime').singleOrNull),
+      estimatedDespatchDate: EstimatedDespatchDate.fromXml(xml.findElements('cbc:EstimatedDespatchDate').singleOrNull),
+      estimatedDespatchTime: EstimatedDespatchTime.fromXml(xml.findElements('cbc:EstimatedDespatchTime').singleOrNull),
+      actualDespatchDate: ActualDespatchDate.fromXml(xml.findElements('cbc:ActualDespatchDate').singleOrNull),
+      actualDespatchTime: ActualDespatchTime.fromXml(xml.findElements('cbc:ActualDespatchTime').singleOrNull),
+      guaranteedDespatchDate: GuaranteedDespatchDate.fromXml(xml.findElements('cbc:GuaranteedDespatchDate').singleOrNull),
+      guaranteedDespatchTime: GuaranteedDespatchTime.fromXml(xml.findElements('cbc:GuaranteedDespatchTime').singleOrNull),
+      releaseID: ReleaseID.fromXml(xml.findElements('cbc:ReleaseID').singleOrNull),
+      instructions: xml.findElements('cbc:Instructions').map((XmlElement e) => Instructions.fromXml(e)!).toList(),
+      despatchAddress: DespatchAddress.fromXml(xml.findElements('cac:DespatchAddress').singleOrNull),
+      despatchLocation: DespatchLocation.fromXml(xml.findElements('cac:DespatchLocation').singleOrNull),
+      despatchParty: DespatchParty.fromXml(xml.findElements('cac:DespatchParty').singleOrNull),
+      carrierParty: CarrierParty.fromXml(xml.findElements('cac:CarrierParty').singleOrNull),
+      notifyParty: xml.findElements('cac:NotifyParty').map((XmlElement e) => NotifyParty.fromXml(e)!).toList(),
+      contact: Contact.fromXml(xml.findElements('cac:Contact').singleOrNull),
+      estimatedDespatchPeriod: EstimatedDespatchPeriod.fromXml(xml.findElements('cac:EstimatedDespatchPeriod').singleOrNull),
+      requestedDespatchPeriod: RequestedDespatchPeriod.fromXml(xml.findElements('cac:RequestedDespatchPeriod').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'Despatch',
+        'cac',
+      ),
+    );
+  }
 }
 

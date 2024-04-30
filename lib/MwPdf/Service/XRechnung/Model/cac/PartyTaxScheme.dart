@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cac/TaxScheme.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/RegistrationName.dart';
 import '../cbc/CompanyID.dart';
 import '../cbc/TaxLevelCode.dart';
@@ -15,6 +16,9 @@ class PartyTaxScheme {
 
   // The taxation scheme applicable to the party.
   final TaxScheme taxScheme;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // The name of the party as registered with the relevant fiscal authority.
   final RegistrationName? registrationName;
@@ -36,6 +40,7 @@ class PartyTaxScheme {
 
   PartyTaxScheme ({
     required this.taxScheme,
+    this.uBLExtensions,
     this.registrationName,
     this.companyID,
     this.taxLevelCode,
@@ -44,8 +49,23 @@ class PartyTaxScheme {
     this.registrationAddress,
   });
 
+  static PartyTaxScheme? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PartyTaxScheme (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      registrationName: RegistrationName.fromJson(json['registrationName'] as Map<String, dynamic>?),
+      companyID: CompanyID.fromJson(json['companyID'] as Map<String, dynamic>?),
+      taxLevelCode: TaxLevelCode.fromJson(json['taxLevelCode'] as Map<String, dynamic>?),
+      exemptionReasonCode: ExemptionReasonCode.fromJson(json['exemptionReasonCode'] as Map<String, dynamic>?),
+      exemptionReason: (json['exemptionReason'] as List? ?? []).map((dynamic d) => ExemptionReason.fromJson(d as Map<String, dynamic>?)!).toList(),
+      registrationAddress: RegistrationAddress.fromJson(json['registrationAddress'] as Map<String, dynamic>?),
+      taxScheme: TaxScheme.fromJson(json['taxScheme'] as Map<String, dynamic>?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'registrationName': registrationName?.toJson(),
       'companyID': companyID?.toJson(),
       'taxLevelCode': taxLevelCode?.toJson(),
@@ -58,32 +78,27 @@ class PartyTaxScheme {
     return map;
   }
 
-  static PartyTaxScheme? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PartyTaxScheme (
-      registrationName: RegistrationName.fromJson(json['registrationName'] as Map<String, dynamic>?),
-      companyID: CompanyID.fromJson(json['companyID'] as Map<String, dynamic>?),
-      taxLevelCode: TaxLevelCode.fromJson(json['taxLevelCode'] as Map<String, dynamic>?),
-      exemptionReasonCode: ExemptionReasonCode.fromJson(json['exemptionReasonCode'] as Map<String, dynamic>?),
-      exemptionReason: (json['exemptionReason'] as List? ?? []).map((dynamic d) => ExemptionReason.fromJson(d as Map<String, dynamic>?)!).toList(),
-      registrationAddress: RegistrationAddress.fromJson(json['registrationAddress'] as Map<String, dynamic>?),
-      taxScheme: TaxScheme.fromJson(json['taxScheme'] as Map<String, dynamic>?)!,
-    );
-  }
-
   static PartyTaxScheme? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PartyTaxScheme (
-      registrationName: null,
-      companyID: null,
-      taxLevelCode: null,
-      exemptionReasonCode: null,
-      exemptionReason: null,
-      registrationAddress: null,
-      taxScheme: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      registrationName: RegistrationName.fromXml(xml.findElements('cbc:RegistrationName').singleOrNull),
+      companyID: CompanyID.fromXml(xml.findElements('cbc:CompanyID').singleOrNull),
+      taxLevelCode: TaxLevelCode.fromXml(xml.findElements('cbc:TaxLevelCode').singleOrNull),
+      exemptionReasonCode: ExemptionReasonCode.fromXml(xml.findElements('cbc:ExemptionReasonCode').singleOrNull),
+      exemptionReason: xml.findElements('cbc:ExemptionReason').map((XmlElement e) => ExemptionReason.fromXml(e)!).toList(),
+      registrationAddress: RegistrationAddress.fromXml(xml.findElements('cac:RegistrationAddress').singleOrNull),
+      taxScheme: TaxScheme.fromXml(xml.findElements('cac:TaxScheme').singleOrNull)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PartyTaxScheme',
+        'cac',
+      ),
+    );
+  }
 }
 

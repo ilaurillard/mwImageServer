@@ -11,6 +11,13 @@ class MarkCareIndicator {
     required this.value,
   });
 
+  static MarkCareIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return MarkCareIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class MarkCareIndicator {
     return map;
   }
 
-  static MarkCareIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return MarkCareIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static MarkCareIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return MarkCareIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'MarkCareIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

@@ -3,6 +3,7 @@ import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/SourceCurrencyCode.dart';
 import '../cbc/TargetCurrencyCode.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/SourceCurrencyBaseRate.dart';
 import '../cbc/TargetCurrencyBaseRate.dart';
 import '../cbc/ExchangeMarketID.dart';
@@ -20,6 +21,9 @@ class TaxExchangeRate {
 
   // The target currency for this exchange rate; the currency to which the exchange is being made.
   final TargetCurrencyCode targetCurrencyCode;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // In the case of a source currency with denominations of small value, the unit base.
   final SourceCurrencyBaseRate? sourceCurrencyBaseRate;
@@ -45,6 +49,7 @@ class TaxExchangeRate {
   TaxExchangeRate ({
     required this.sourceCurrencyCode,
     required this.targetCurrencyCode,
+    this.uBLExtensions,
     this.sourceCurrencyBaseRate,
     this.targetCurrencyBaseRate,
     this.exchangeMarketID,
@@ -54,8 +59,25 @@ class TaxExchangeRate {
     this.foreignExchangeContract,
   });
 
+  static TaxExchangeRate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return TaxExchangeRate (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      sourceCurrencyCode: SourceCurrencyCode.fromJson(json['sourceCurrencyCode'] as Map<String, dynamic>?)!,
+      sourceCurrencyBaseRate: SourceCurrencyBaseRate.fromJson(json['sourceCurrencyBaseRate'] as Map<String, dynamic>?),
+      targetCurrencyCode: TargetCurrencyCode.fromJson(json['targetCurrencyCode'] as Map<String, dynamic>?)!,
+      targetCurrencyBaseRate: TargetCurrencyBaseRate.fromJson(json['targetCurrencyBaseRate'] as Map<String, dynamic>?),
+      exchangeMarketID: ExchangeMarketID.fromJson(json['exchangeMarketID'] as Map<String, dynamic>?),
+      calculationRate: CalculationRate.fromJson(json['calculationRate'] as Map<String, dynamic>?),
+      mathematicOperatorCode: MathematicOperatorCode.fromJson(json['mathematicOperatorCode'] as Map<String, dynamic>?),
+      date: Date.fromJson(json['date'] as Map<String, dynamic>?),
+      foreignExchangeContract: ForeignExchangeContract.fromJson(json['foreignExchangeContract'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'sourceCurrencyCode': sourceCurrencyCode.toJson(),
       'sourceCurrencyBaseRate': sourceCurrencyBaseRate?.toJson(),
       'targetCurrencyCode': targetCurrencyCode.toJson(),
@@ -70,36 +92,29 @@ class TaxExchangeRate {
     return map;
   }
 
-  static TaxExchangeRate? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return TaxExchangeRate (
-      sourceCurrencyCode: SourceCurrencyCode.fromJson(json['sourceCurrencyCode'] as Map<String, dynamic>?)!,
-      sourceCurrencyBaseRate: SourceCurrencyBaseRate.fromJson(json['sourceCurrencyBaseRate'] as Map<String, dynamic>?),
-      targetCurrencyCode: TargetCurrencyCode.fromJson(json['targetCurrencyCode'] as Map<String, dynamic>?)!,
-      targetCurrencyBaseRate: TargetCurrencyBaseRate.fromJson(json['targetCurrencyBaseRate'] as Map<String, dynamic>?),
-      exchangeMarketID: ExchangeMarketID.fromJson(json['exchangeMarketID'] as Map<String, dynamic>?),
-      calculationRate: CalculationRate.fromJson(json['calculationRate'] as Map<String, dynamic>?),
-      mathematicOperatorCode: MathematicOperatorCode.fromJson(json['mathematicOperatorCode'] as Map<String, dynamic>?),
-      date: Date.fromJson(json['date'] as Map<String, dynamic>?),
-      foreignExchangeContract: ForeignExchangeContract.fromJson(json['foreignExchangeContract'] as Map<String, dynamic>?),
-    );
-  }
-
   static TaxExchangeRate? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return TaxExchangeRate (
-      sourceCurrencyCode: null,
-      sourceCurrencyBaseRate: null,
-      targetCurrencyCode: null,
-      targetCurrencyBaseRate: null,
-      exchangeMarketID: null,
-      calculationRate: null,
-      mathematicOperatorCode: null,
-      date: null,
-      foreignExchangeContract: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      sourceCurrencyCode: SourceCurrencyCode.fromXml(xml.findElements('cbc:SourceCurrencyCode').singleOrNull)!,
+      sourceCurrencyBaseRate: SourceCurrencyBaseRate.fromXml(xml.findElements('cbc:SourceCurrencyBaseRate').singleOrNull),
+      targetCurrencyCode: TargetCurrencyCode.fromXml(xml.findElements('cbc:TargetCurrencyCode').singleOrNull)!,
+      targetCurrencyBaseRate: TargetCurrencyBaseRate.fromXml(xml.findElements('cbc:TargetCurrencyBaseRate').singleOrNull),
+      exchangeMarketID: ExchangeMarketID.fromXml(xml.findElements('cbc:ExchangeMarketID').singleOrNull),
+      calculationRate: CalculationRate.fromXml(xml.findElements('cbc:CalculationRate').singleOrNull),
+      mathematicOperatorCode: MathematicOperatorCode.fromXml(xml.findElements('cbc:MathematicOperatorCode').singleOrNull),
+      date: Date.fromXml(xml.findElements('cbc:Date').singleOrNull),
+      foreignExchangeContract: ForeignExchangeContract.fromXml(xml.findElements('cac:ForeignExchangeContract').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'TaxExchangeRate',
+        'cac',
+      ),
+    );
+  }
 }
 

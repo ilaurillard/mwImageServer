@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/PaymentMeansID.dart';
 import '../cbc/PrepaidPaymentReferenceID.dart';
@@ -24,6 +25,9 @@ import '../cac/ValidityPeriod.dart';
 // A class to describe a set of payment terms.
 class PaymentTerms {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this set of payment terms.
   final ID? iD;
@@ -83,6 +87,7 @@ class PaymentTerms {
   final ValidityPeriod? validityPeriod;
 
   PaymentTerms ({
+    this.uBLExtensions,
     this.iD,
     this.paymentMeansID = const [],
     this.prepaidPaymentReferenceID,
@@ -104,8 +109,35 @@ class PaymentTerms {
     this.validityPeriod,
   });
 
+  static PaymentTerms? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PaymentTerms (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      paymentMeansID: (json['paymentMeansID'] as List? ?? []).map((dynamic d) => PaymentMeansID.fromJson(d as Map<String, dynamic>?)!).toList(),
+      prepaidPaymentReferenceID: PrepaidPaymentReferenceID.fromJson(json['prepaidPaymentReferenceID'] as Map<String, dynamic>?),
+      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
+      referenceEventCode: ReferenceEventCode.fromJson(json['referenceEventCode'] as Map<String, dynamic>?),
+      settlementDiscountPercent: SettlementDiscountPercent.fromJson(json['settlementDiscountPercent'] as Map<String, dynamic>?),
+      penaltySurchargePercent: PenaltySurchargePercent.fromJson(json['penaltySurchargePercent'] as Map<String, dynamic>?),
+      paymentPercent: PaymentPercent.fromJson(json['paymentPercent'] as Map<String, dynamic>?),
+      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?),
+      settlementDiscountAmount: SettlementDiscountAmount.fromJson(json['settlementDiscountAmount'] as Map<String, dynamic>?),
+      penaltyAmount: PenaltyAmount.fromJson(json['penaltyAmount'] as Map<String, dynamic>?),
+      paymentTermsDetailsURI: PaymentTermsDetailsURI.fromJson(json['paymentTermsDetailsURI'] as Map<String, dynamic>?),
+      paymentDueDate: PaymentDueDate.fromJson(json['paymentDueDate'] as Map<String, dynamic>?),
+      installmentDueDate: InstallmentDueDate.fromJson(json['installmentDueDate'] as Map<String, dynamic>?),
+      invoicingPartyReference: InvoicingPartyReference.fromJson(json['invoicingPartyReference'] as Map<String, dynamic>?),
+      settlementPeriod: SettlementPeriod.fromJson(json['settlementPeriod'] as Map<String, dynamic>?),
+      penaltyPeriod: PenaltyPeriod.fromJson(json['penaltyPeriod'] as Map<String, dynamic>?),
+      exchangeRate: ExchangeRate.fromJson(json['exchangeRate'] as Map<String, dynamic>?),
+      validityPeriod: ValidityPeriod.fromJson(json['validityPeriod'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'paymentMeansID': paymentMeansID.map((e) => e.toJson()).toList(),
       'prepaidPaymentReferenceID': prepaidPaymentReferenceID?.toJson(),
@@ -130,56 +162,39 @@ class PaymentTerms {
     return map;
   }
 
-  static PaymentTerms? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PaymentTerms (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      paymentMeansID: (json['paymentMeansID'] as List? ?? []).map((dynamic d) => PaymentMeansID.fromJson(d as Map<String, dynamic>?)!).toList(),
-      prepaidPaymentReferenceID: PrepaidPaymentReferenceID.fromJson(json['prepaidPaymentReferenceID'] as Map<String, dynamic>?),
-      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
-      referenceEventCode: ReferenceEventCode.fromJson(json['referenceEventCode'] as Map<String, dynamic>?),
-      settlementDiscountPercent: SettlementDiscountPercent.fromJson(json['settlementDiscountPercent'] as Map<String, dynamic>?),
-      penaltySurchargePercent: PenaltySurchargePercent.fromJson(json['penaltySurchargePercent'] as Map<String, dynamic>?),
-      paymentPercent: PaymentPercent.fromJson(json['paymentPercent'] as Map<String, dynamic>?),
-      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?),
-      settlementDiscountAmount: SettlementDiscountAmount.fromJson(json['settlementDiscountAmount'] as Map<String, dynamic>?),
-      penaltyAmount: PenaltyAmount.fromJson(json['penaltyAmount'] as Map<String, dynamic>?),
-      paymentTermsDetailsURI: PaymentTermsDetailsURI.fromJson(json['paymentTermsDetailsURI'] as Map<String, dynamic>?),
-      paymentDueDate: PaymentDueDate.fromJson(json['paymentDueDate'] as Map<String, dynamic>?),
-      installmentDueDate: InstallmentDueDate.fromJson(json['installmentDueDate'] as Map<String, dynamic>?),
-      invoicingPartyReference: InvoicingPartyReference.fromJson(json['invoicingPartyReference'] as Map<String, dynamic>?),
-      settlementPeriod: SettlementPeriod.fromJson(json['settlementPeriod'] as Map<String, dynamic>?),
-      penaltyPeriod: PenaltyPeriod.fromJson(json['penaltyPeriod'] as Map<String, dynamic>?),
-      exchangeRate: ExchangeRate.fromJson(json['exchangeRate'] as Map<String, dynamic>?),
-      validityPeriod: ValidityPeriod.fromJson(json['validityPeriod'] as Map<String, dynamic>?),
-    );
-  }
-
   static PaymentTerms? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PaymentTerms (
-      iD: null,
-      paymentMeansID: null,
-      prepaidPaymentReferenceID: null,
-      note: null,
-      referenceEventCode: null,
-      settlementDiscountPercent: null,
-      penaltySurchargePercent: null,
-      paymentPercent: null,
-      amount: null,
-      settlementDiscountAmount: null,
-      penaltyAmount: null,
-      paymentTermsDetailsURI: null,
-      paymentDueDate: null,
-      installmentDueDate: null,
-      invoicingPartyReference: null,
-      settlementPeriod: null,
-      penaltyPeriod: null,
-      exchangeRate: null,
-      validityPeriod: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      paymentMeansID: xml.findElements('cbc:PaymentMeansID').map((XmlElement e) => PaymentMeansID.fromXml(e)!).toList(),
+      prepaidPaymentReferenceID: PrepaidPaymentReferenceID.fromXml(xml.findElements('cbc:PrepaidPaymentReferenceID').singleOrNull),
+      note: xml.findElements('cbc:Note').map((XmlElement e) => Note.fromXml(e)!).toList(),
+      referenceEventCode: ReferenceEventCode.fromXml(xml.findElements('cbc:ReferenceEventCode').singleOrNull),
+      settlementDiscountPercent: SettlementDiscountPercent.fromXml(xml.findElements('cbc:SettlementDiscountPercent').singleOrNull),
+      penaltySurchargePercent: PenaltySurchargePercent.fromXml(xml.findElements('cbc:PenaltySurchargePercent').singleOrNull),
+      paymentPercent: PaymentPercent.fromXml(xml.findElements('cbc:PaymentPercent').singleOrNull),
+      amount: Amount.fromXml(xml.findElements('cbc:Amount').singleOrNull),
+      settlementDiscountAmount: SettlementDiscountAmount.fromXml(xml.findElements('cbc:SettlementDiscountAmount').singleOrNull),
+      penaltyAmount: PenaltyAmount.fromXml(xml.findElements('cbc:PenaltyAmount').singleOrNull),
+      paymentTermsDetailsURI: PaymentTermsDetailsURI.fromXml(xml.findElements('cbc:PaymentTermsDetailsURI').singleOrNull),
+      paymentDueDate: PaymentDueDate.fromXml(xml.findElements('cbc:PaymentDueDate').singleOrNull),
+      installmentDueDate: InstallmentDueDate.fromXml(xml.findElements('cbc:InstallmentDueDate').singleOrNull),
+      invoicingPartyReference: InvoicingPartyReference.fromXml(xml.findElements('cbc:InvoicingPartyReference').singleOrNull),
+      settlementPeriod: SettlementPeriod.fromXml(xml.findElements('cac:SettlementPeriod').singleOrNull),
+      penaltyPeriod: PenaltyPeriod.fromXml(xml.findElements('cac:PenaltyPeriod').singleOrNull),
+      exchangeRate: ExchangeRate.fromXml(xml.findElements('cac:ExchangeRate').singleOrNull),
+      validityPeriod: ValidityPeriod.fromXml(xml.findElements('cac:ValidityPeriod').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PaymentTerms',
+        'cac',
+      ),
+    );
+  }
 }
 

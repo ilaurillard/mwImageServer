@@ -21,6 +21,15 @@ class SpecialInstructions {
     assert(value.isNotEmpty);
   }
 
+  static SpecialInstructions? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return SpecialInstructions (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class SpecialInstructions {
     return map;
   }
 
-  static SpecialInstructions? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return SpecialInstructions (
-      value: json['value'] as String? ?? '',
-      languageID: json['languageID'] as String?,
-      languageLocaleID: json['languageLocaleID'] as String?,
-    );
-  }
-
   static SpecialInstructions? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return SpecialInstructions (
-      value: null,
-      languageID: null,
-      languageLocaleID: null,
+      value: xml.innerText,
+      languageID: xml.getAttribute('languageID'),
+      languageLocaleID: xml.getAttribute('languageLocaleID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'SpecialInstructions',
+        'cbc',
+      ),
+    );
+  }
 }
 

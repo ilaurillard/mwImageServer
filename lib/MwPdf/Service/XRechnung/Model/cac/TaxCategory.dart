@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cac/TaxScheme.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
 import '../cbc/Percent.dart';
@@ -18,6 +19,9 @@ class TaxCategory {
 
   // The taxation scheme within which this tax category is defined.
   final TaxScheme taxScheme;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this tax category.
   final ID? iD;
@@ -48,6 +52,7 @@ class TaxCategory {
 
   TaxCategory ({
     required this.taxScheme,
+    this.uBLExtensions,
     this.iD,
     this.name,
     this.percent,
@@ -59,8 +64,26 @@ class TaxCategory {
     this.tierRatePercent,
   });
 
+  static TaxCategory? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return TaxCategory (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      percent: Percent.fromJson(json['percent'] as Map<String, dynamic>?),
+      baseUnitMeasure: BaseUnitMeasure.fromJson(json['baseUnitMeasure'] as Map<String, dynamic>?),
+      perUnitAmount: PerUnitAmount.fromJson(json['perUnitAmount'] as Map<String, dynamic>?),
+      taxExemptionReasonCode: TaxExemptionReasonCode.fromJson(json['taxExemptionReasonCode'] as Map<String, dynamic>?),
+      taxExemptionReason: (json['taxExemptionReason'] as List? ?? []).map((dynamic d) => TaxExemptionReason.fromJson(d as Map<String, dynamic>?)!).toList(),
+      tierRange: TierRange.fromJson(json['tierRange'] as Map<String, dynamic>?),
+      tierRatePercent: TierRatePercent.fromJson(json['tierRatePercent'] as Map<String, dynamic>?),
+      taxScheme: TaxScheme.fromJson(json['taxScheme'] as Map<String, dynamic>?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'name': name?.toJson(),
       'percent': percent?.toJson(),
@@ -76,38 +99,30 @@ class TaxCategory {
     return map;
   }
 
-  static TaxCategory? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return TaxCategory (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
-      percent: Percent.fromJson(json['percent'] as Map<String, dynamic>?),
-      baseUnitMeasure: BaseUnitMeasure.fromJson(json['baseUnitMeasure'] as Map<String, dynamic>?),
-      perUnitAmount: PerUnitAmount.fromJson(json['perUnitAmount'] as Map<String, dynamic>?),
-      taxExemptionReasonCode: TaxExemptionReasonCode.fromJson(json['taxExemptionReasonCode'] as Map<String, dynamic>?),
-      taxExemptionReason: (json['taxExemptionReason'] as List? ?? []).map((dynamic d) => TaxExemptionReason.fromJson(d as Map<String, dynamic>?)!).toList(),
-      tierRange: TierRange.fromJson(json['tierRange'] as Map<String, dynamic>?),
-      tierRatePercent: TierRatePercent.fromJson(json['tierRatePercent'] as Map<String, dynamic>?),
-      taxScheme: TaxScheme.fromJson(json['taxScheme'] as Map<String, dynamic>?)!,
-    );
-  }
-
   static TaxCategory? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return TaxCategory (
-      iD: null,
-      name: null,
-      percent: null,
-      baseUnitMeasure: null,
-      perUnitAmount: null,
-      taxExemptionReasonCode: null,
-      taxExemptionReason: null,
-      tierRange: null,
-      tierRatePercent: null,
-      taxScheme: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      name: Name.fromXml(xml.findElements('cbc:Name').singleOrNull),
+      percent: Percent.fromXml(xml.findElements('cbc:Percent').singleOrNull),
+      baseUnitMeasure: BaseUnitMeasure.fromXml(xml.findElements('cbc:BaseUnitMeasure').singleOrNull),
+      perUnitAmount: PerUnitAmount.fromXml(xml.findElements('cbc:PerUnitAmount').singleOrNull),
+      taxExemptionReasonCode: TaxExemptionReasonCode.fromXml(xml.findElements('cbc:TaxExemptionReasonCode').singleOrNull),
+      taxExemptionReason: xml.findElements('cbc:TaxExemptionReason').map((XmlElement e) => TaxExemptionReason.fromXml(e)!).toList(),
+      tierRange: TierRange.fromXml(xml.findElements('cbc:TierRange').singleOrNull),
+      tierRatePercent: TierRatePercent.fromXml(xml.findElements('cbc:TierRatePercent').singleOrNull),
+      taxScheme: TaxScheme.fromXml(xml.findElements('cac:TaxScheme').singleOrNull)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'TaxCategory',
+        'cac',
+      ),
+    );
+  }
 }
 

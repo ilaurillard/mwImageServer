@@ -1,11 +1,13 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/Quantity.dart';
 import '../cbc/ReturnableMaterialIndicator.dart';
 import '../cbc/PackageLevelCode.dart';
 import '../cbc/PackagingTypeCode.dart';
+import '../cbc/PackagingType.dart';
 import '../cbc/PackingMaterial.dart';
 import '../cbc/TraceID.dart';
 import '../cac/ContainedPackage.dart';
@@ -21,6 +23,9 @@ import '../cac/Despatch.dart';
 class ActualPackage {
 
 
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
   // An identifier for this package.
   final ID? iD;
 
@@ -35,6 +40,9 @@ class ActualPackage {
 
   // A code signifying a type of packaging.
   final PackagingTypeCode? packagingTypeCode;
+
+  // The type of packaging, described as a text.
+  final List<PackagingType> packagingType;
 
   // Text describing the packaging material.
   final List<PackingMaterial> packingMaterial;
@@ -67,11 +75,13 @@ class ActualPackage {
   final Despatch? despatch;
 
   ActualPackage ({
+    this.uBLExtensions,
     this.iD,
     this.quantity,
     this.returnableMaterialIndicator,
     this.packageLevelCode,
     this.packagingTypeCode,
+    this.packagingType = const [],
     this.packingMaterial = const [],
     this.traceID,
     this.containedPackage = const [],
@@ -84,13 +94,38 @@ class ActualPackage {
     this.despatch,
   });
 
+  static ActualPackage? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ActualPackage (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      quantity: Quantity.fromJson(json['quantity'] as Map<String, dynamic>?),
+      returnableMaterialIndicator: ReturnableMaterialIndicator.fromJson(json['returnableMaterialIndicator'] as Map<String, dynamic>?),
+      packageLevelCode: PackageLevelCode.fromJson(json['packageLevelCode'] as Map<String, dynamic>?),
+      packagingTypeCode: PackagingTypeCode.fromJson(json['packagingTypeCode'] as Map<String, dynamic>?),
+      packagingType: (json['packagingType'] as List? ?? []).map((dynamic d) => PackagingType.fromJson(d as Map<String, dynamic>?)!).toList(),
+      packingMaterial: (json['packingMaterial'] as List? ?? []).map((dynamic d) => PackingMaterial.fromJson(d as Map<String, dynamic>?)!).toList(),
+      traceID: TraceID.fromJson(json['traceID'] as Map<String, dynamic>?),
+      containedPackage: (json['containedPackage'] as List? ?? []).map((dynamic d) => ContainedPackage.fromJson(d as Map<String, dynamic>?)!).toList(),
+      containingTransportEquipment: ContainingTransportEquipment.fromJson(json['containingTransportEquipment'] as Map<String, dynamic>?),
+      goodsItem: (json['goodsItem'] as List? ?? []).map((dynamic d) => GoodsItem.fromJson(d as Map<String, dynamic>?)!).toList(),
+      measurementDimension: (json['measurementDimension'] as List? ?? []).map((dynamic d) => MeasurementDimension.fromJson(d as Map<String, dynamic>?)!).toList(),
+      deliveryUnit: (json['deliveryUnit'] as List? ?? []).map((dynamic d) => DeliveryUnit.fromJson(d as Map<String, dynamic>?)!).toList(),
+      delivery: Delivery.fromJson(json['delivery'] as Map<String, dynamic>?),
+      pickup: Pickup.fromJson(json['pickup'] as Map<String, dynamic>?),
+      despatch: Despatch.fromJson(json['despatch'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'quantity': quantity?.toJson(),
       'returnableMaterialIndicator': returnableMaterialIndicator?.toJson(),
       'packageLevelCode': packageLevelCode?.toJson(),
       'packagingTypeCode': packagingTypeCode?.toJson(),
+      'packagingType': packagingType.map((e) => e.toJson()).toList(),
       'packingMaterial': packingMaterial.map((e) => e.toJson()).toList(),
       'traceID': traceID?.toJson(),
       'containedPackage': containedPackage.map((e) => e.toJson()).toList(),
@@ -106,48 +141,36 @@ class ActualPackage {
     return map;
   }
 
-  static ActualPackage? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ActualPackage (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      quantity: Quantity.fromJson(json['quantity'] as Map<String, dynamic>?),
-      returnableMaterialIndicator: ReturnableMaterialIndicator.fromJson(json['returnableMaterialIndicator'] as Map<String, dynamic>?),
-      packageLevelCode: PackageLevelCode.fromJson(json['packageLevelCode'] as Map<String, dynamic>?),
-      packagingTypeCode: PackagingTypeCode.fromJson(json['packagingTypeCode'] as Map<String, dynamic>?),
-      packingMaterial: (json['packingMaterial'] as List? ?? []).map((dynamic d) => PackingMaterial.fromJson(d as Map<String, dynamic>?)!).toList(),
-      traceID: TraceID.fromJson(json['traceID'] as Map<String, dynamic>?),
-      containedPackage: (json['containedPackage'] as List? ?? []).map((dynamic d) => ContainedPackage.fromJson(d as Map<String, dynamic>?)!).toList(),
-      containingTransportEquipment: ContainingTransportEquipment.fromJson(json['containingTransportEquipment'] as Map<String, dynamic>?),
-      goodsItem: (json['goodsItem'] as List? ?? []).map((dynamic d) => GoodsItem.fromJson(d as Map<String, dynamic>?)!).toList(),
-      measurementDimension: (json['measurementDimension'] as List? ?? []).map((dynamic d) => MeasurementDimension.fromJson(d as Map<String, dynamic>?)!).toList(),
-      deliveryUnit: (json['deliveryUnit'] as List? ?? []).map((dynamic d) => DeliveryUnit.fromJson(d as Map<String, dynamic>?)!).toList(),
-      delivery: Delivery.fromJson(json['delivery'] as Map<String, dynamic>?),
-      pickup: Pickup.fromJson(json['pickup'] as Map<String, dynamic>?),
-      despatch: Despatch.fromJson(json['despatch'] as Map<String, dynamic>?),
-    );
-  }
-
   static ActualPackage? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ActualPackage (
-      iD: null,
-      quantity: null,
-      returnableMaterialIndicator: null,
-      packageLevelCode: null,
-      packagingTypeCode: null,
-      packingMaterial: null,
-      traceID: null,
-      containedPackage: null,
-      containingTransportEquipment: null,
-      goodsItem: null,
-      measurementDimension: null,
-      deliveryUnit: null,
-      delivery: null,
-      pickup: null,
-      despatch: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      quantity: Quantity.fromXml(xml.findElements('cbc:Quantity').singleOrNull),
+      returnableMaterialIndicator: ReturnableMaterialIndicator.fromXml(xml.findElements('cbc:ReturnableMaterialIndicator').singleOrNull),
+      packageLevelCode: PackageLevelCode.fromXml(xml.findElements('cbc:PackageLevelCode').singleOrNull),
+      packagingTypeCode: PackagingTypeCode.fromXml(xml.findElements('cbc:PackagingTypeCode').singleOrNull),
+      packagingType: xml.findElements('cbc:PackagingType').map((XmlElement e) => PackagingType.fromXml(e)!).toList(),
+      packingMaterial: xml.findElements('cbc:PackingMaterial').map((XmlElement e) => PackingMaterial.fromXml(e)!).toList(),
+      traceID: TraceID.fromXml(xml.findElements('cbc:TraceID').singleOrNull),
+      containedPackage: xml.findElements('cac:ContainedPackage').map((XmlElement e) => ContainedPackage.fromXml(e)!).toList(),
+      containingTransportEquipment: ContainingTransportEquipment.fromXml(xml.findElements('cac:ContainingTransportEquipment').singleOrNull),
+      goodsItem: xml.findElements('cac:GoodsItem').map((XmlElement e) => GoodsItem.fromXml(e)!).toList(),
+      measurementDimension: xml.findElements('cac:MeasurementDimension').map((XmlElement e) => MeasurementDimension.fromXml(e)!).toList(),
+      deliveryUnit: xml.findElements('cac:DeliveryUnit').map((XmlElement e) => DeliveryUnit.fromXml(e)!).toList(),
+      delivery: Delivery.fromXml(xml.findElements('cac:Delivery').singleOrNull),
+      pickup: Pickup.fromXml(xml.findElements('cac:Pickup').singleOrNull),
+      despatch: Despatch.fromXml(xml.findElements('cac:Despatch').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ActualPackage',
+        'cac',
+      ),
+    );
+  }
 }
 

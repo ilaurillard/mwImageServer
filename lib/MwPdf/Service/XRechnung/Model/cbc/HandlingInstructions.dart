@@ -21,6 +21,15 @@ class HandlingInstructions {
     assert(value.isNotEmpty);
   }
 
+  static HandlingInstructions? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return HandlingInstructions (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class HandlingInstructions {
     return map;
   }
 
-  static HandlingInstructions? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return HandlingInstructions (
-      value: json['value'] as String? ?? '',
-      languageID: json['languageID'] as String?,
-      languageLocaleID: json['languageLocaleID'] as String?,
-    );
-  }
-
   static HandlingInstructions? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return HandlingInstructions (
-      value: null,
-      languageID: null,
-      languageLocaleID: null,
+      value: xml.innerText,
+      languageID: xml.getAttribute('languageID'),
+      languageLocaleID: xml.getAttribute('languageLocaleID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'HandlingInstructions',
+        'cbc',
+      ),
+    );
+  }
 }
 

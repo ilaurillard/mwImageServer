@@ -2,7 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 
-// A character string (i.e. a finite set of characters), generally in the form of words of a language.
+// A character string that constitutes the distinctive designation of a person, place, thing or concept.
 class BirthplaceName {
 
   final String value; // (string)
@@ -21,6 +21,15 @@ class BirthplaceName {
     assert(value.isNotEmpty);
   }
 
+  static BirthplaceName? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return BirthplaceName (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class BirthplaceName {
     return map;
   }
 
-  static BirthplaceName? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return BirthplaceName (
-      value: json['value'] as String? ?? '',
-      languageID: json['languageID'] as String?,
-      languageLocaleID: json['languageLocaleID'] as String?,
-    );
-  }
-
   static BirthplaceName? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return BirthplaceName (
-      value: null,
-      languageID: null,
-      languageLocaleID: null,
+      value: xml.innerText,
+      languageID: xml.getAttribute('languageID'),
+      languageLocaleID: xml.getAttribute('languageLocaleID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'BirthplaceName',
+        'cbc',
+      ),
+    );
+  }
 }
 

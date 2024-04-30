@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/CalculationMethodCode.dart';
 import '../cbc/FullnessIndicationCode.dart';
 import '../cac/MeasurementFromLocation.dart';
@@ -9,6 +10,9 @@ import '../cac/MeasurementToLocation.dart';
 // A class to define how an environmental emission is calculated.
 class EmissionCalculationMethod {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A code signifying the method used to calculate the emission.
   final CalculationMethodCode? calculationMethodCode;
@@ -23,14 +27,27 @@ class EmissionCalculationMethod {
   final MeasurementToLocation? measurementToLocation;
 
   EmissionCalculationMethod ({
+    this.uBLExtensions,
     this.calculationMethodCode,
     this.fullnessIndicationCode,
     this.measurementFromLocation,
     this.measurementToLocation,
   });
 
+  static EmissionCalculationMethod? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return EmissionCalculationMethod (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      calculationMethodCode: CalculationMethodCode.fromJson(json['calculationMethodCode'] as Map<String, dynamic>?),
+      fullnessIndicationCode: FullnessIndicationCode.fromJson(json['fullnessIndicationCode'] as Map<String, dynamic>?),
+      measurementFromLocation: MeasurementFromLocation.fromJson(json['measurementFromLocation'] as Map<String, dynamic>?),
+      measurementToLocation: MeasurementToLocation.fromJson(json['measurementToLocation'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'calculationMethodCode': calculationMethodCode?.toJson(),
       'fullnessIndicationCode': fullnessIndicationCode?.toJson(),
       'measurementFromLocation': measurementFromLocation?.toJson(),
@@ -40,26 +57,24 @@ class EmissionCalculationMethod {
     return map;
   }
 
-  static EmissionCalculationMethod? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return EmissionCalculationMethod (
-      calculationMethodCode: CalculationMethodCode.fromJson(json['calculationMethodCode'] as Map<String, dynamic>?),
-      fullnessIndicationCode: FullnessIndicationCode.fromJson(json['fullnessIndicationCode'] as Map<String, dynamic>?),
-      measurementFromLocation: MeasurementFromLocation.fromJson(json['measurementFromLocation'] as Map<String, dynamic>?),
-      measurementToLocation: MeasurementToLocation.fromJson(json['measurementToLocation'] as Map<String, dynamic>?),
-    );
-  }
-
   static EmissionCalculationMethod? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return EmissionCalculationMethod (
-      calculationMethodCode: null,
-      fullnessIndicationCode: null,
-      measurementFromLocation: null,
-      measurementToLocation: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      calculationMethodCode: CalculationMethodCode.fromXml(xml.findElements('cbc:CalculationMethodCode').singleOrNull),
+      fullnessIndicationCode: FullnessIndicationCode.fromXml(xml.findElements('cbc:FullnessIndicationCode').singleOrNull),
+      measurementFromLocation: MeasurementFromLocation.fromXml(xml.findElements('cac:MeasurementFromLocation').singleOrNull),
+      measurementToLocation: MeasurementToLocation.fromXml(xml.findElements('cac:MeasurementToLocation').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'EmissionCalculationMethod',
+        'cac',
+      ),
+    );
+  }
 }
 

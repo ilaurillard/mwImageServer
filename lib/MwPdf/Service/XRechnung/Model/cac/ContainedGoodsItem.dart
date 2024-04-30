@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/SequenceNumberID.dart';
 import '../cbc/Description.dart';
@@ -21,6 +22,7 @@ import '../cbc/Quantity.dart';
 import '../cbc/PreferenceCriterionCode.dart';
 import '../cbc/RequiredCustomsID.dart';
 import '../cbc/CustomsStatusCode.dart';
+import '../cbc/CustomsProcedureCode.dart';
 import '../cbc/CustomsTariffQuantity.dart';
 import '../cbc/CustomsImportClassifiedIndicator.dart';
 import '../cbc/ChargeableQuantity.dart';
@@ -30,6 +32,7 @@ import '../cac/Item.dart';
 import '../cac/GoodsItemContainer.dart';
 import '../cac/FreightAllowanceCharge.dart';
 import '../cac/InvoiceLine.dart';
+import '../cac/OrderLineReference.dart';
 import '../cac/Temperature.dart';
 import '../cac/OriginAddress.dart';
 import '../cac/Delivery.dart';
@@ -44,6 +47,9 @@ import '../cac/MaximumTemperature.dart';
 // A class to describe a separately identifiable quantity of goods of a single product type.
 class ContainedGoodsItem {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this goods item.
   final ID? iD;
@@ -105,6 +111,9 @@ class ContainedGoodsItem {
   // A code assigned by customs to signify the status of this goods item.
   final CustomsStatusCode? customsStatusCode;
 
+  // A code assigned by customs to signifying the customs procedure applied to this Goods Item.
+  final CustomsProcedureCode? customsProcedureCode;
+
   // Quantity of the units in this goods item as required by customs for tariff, statistical, or fiscal purposes.
   final CustomsTariffQuantity? customsTariffQuantity;
 
@@ -131,6 +140,9 @@ class ContainedGoodsItem {
 
   // Information about an invoice line relating to this goods item.
   final List<InvoiceLine> invoiceLine;
+
+  // A reference to an order line associated with this goods item.
+  final List<OrderLineReference> orderLineReference;
 
   // The temperature of the goods item.
   final List<Temperature> temperature;
@@ -166,6 +178,7 @@ class ContainedGoodsItem {
   final MaximumTemperature? maximumTemperature;
 
   ContainedGoodsItem ({
+    this.uBLExtensions,
     this.iD,
     this.sequenceNumberID,
     this.description = const [],
@@ -186,6 +199,7 @@ class ContainedGoodsItem {
     this.preferenceCriterionCode,
     this.requiredCustomsID,
     this.customsStatusCode,
+    this.customsProcedureCode,
     this.customsTariffQuantity,
     this.customsImportClassifiedIndicator,
     this.chargeableQuantity,
@@ -195,6 +209,7 @@ class ContainedGoodsItem {
     this.goodsItemContainer = const [],
     this.freightAllowanceCharge = const [],
     this.invoiceLine = const [],
+    this.orderLineReference = const [],
     this.temperature = const [],
     this.containedGoodsItem = const [],
     this.originAddress,
@@ -208,56 +223,10 @@ class ContainedGoodsItem {
     this.maximumTemperature,
   });
 
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'iD': iD?.toJson(),
-      'sequenceNumberID': sequenceNumberID?.toJson(),
-      'description': description.map((e) => e.toJson()).toList(),
-      'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
-      'declaredCustomsValueAmount': declaredCustomsValueAmount?.toJson(),
-      'declaredForCarriageValueAmount': declaredForCarriageValueAmount?.toJson(),
-      'declaredStatisticsValueAmount': declaredStatisticsValueAmount?.toJson(),
-      'freeOnBoardValueAmount': freeOnBoardValueAmount?.toJson(),
-      'insuranceValueAmount': insuranceValueAmount?.toJson(),
-      'valueAmount': valueAmount?.toJson(),
-      'grossWeightMeasure': grossWeightMeasure?.toJson(),
-      'netWeightMeasure': netWeightMeasure?.toJson(),
-      'netNetWeightMeasure': netNetWeightMeasure?.toJson(),
-      'chargeableWeightMeasure': chargeableWeightMeasure?.toJson(),
-      'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
-      'netVolumeMeasure': netVolumeMeasure?.toJson(),
-      'quantity': quantity?.toJson(),
-      'preferenceCriterionCode': preferenceCriterionCode?.toJson(),
-      'requiredCustomsID': requiredCustomsID?.toJson(),
-      'customsStatusCode': customsStatusCode?.toJson(),
-      'customsTariffQuantity': customsTariffQuantity?.toJson(),
-      'customsImportClassifiedIndicator': customsImportClassifiedIndicator?.toJson(),
-      'chargeableQuantity': chargeableQuantity?.toJson(),
-      'returnableQuantity': returnableQuantity?.toJson(),
-      'traceID': traceID?.toJson(),
-      'item': item.map((e) => e.toJson()).toList(),
-      'goodsItemContainer': goodsItemContainer.map((e) => e.toJson()).toList(),
-      'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
-      'invoiceLine': invoiceLine.map((e) => e.toJson()).toList(),
-      'temperature': temperature.map((e) => e.toJson()).toList(),
-      'containedGoodsItem': containedGoodsItem.map((e) => e.toJson()).toList(),
-      'originAddress': originAddress?.toJson(),
-      'delivery': delivery?.toJson(),
-      'pickup': pickup?.toJson(),
-      'despatch': despatch?.toJson(),
-      'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
-      'containingPackage': containingPackage.map((e) => e.toJson()).toList(),
-      'shipmentDocumentReference': shipmentDocumentReference?.toJson(),
-      'minimumTemperature': minimumTemperature?.toJson(),
-      'maximumTemperature': maximumTemperature?.toJson(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
-  }
-
   static ContainedGoodsItem? fromJson(Map<String, dynamic>? json) {
     if (json == null) { return null; }
     return ContainedGoodsItem (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
       sequenceNumberID: SequenceNumberID.fromJson(json['sequenceNumberID'] as Map<String, dynamic>?),
       description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
@@ -278,6 +247,7 @@ class ContainedGoodsItem {
       preferenceCriterionCode: PreferenceCriterionCode.fromJson(json['preferenceCriterionCode'] as Map<String, dynamic>?),
       requiredCustomsID: RequiredCustomsID.fromJson(json['requiredCustomsID'] as Map<String, dynamic>?),
       customsStatusCode: CustomsStatusCode.fromJson(json['customsStatusCode'] as Map<String, dynamic>?),
+      customsProcedureCode: CustomsProcedureCode.fromJson(json['customsProcedureCode'] as Map<String, dynamic>?),
       customsTariffQuantity: CustomsTariffQuantity.fromJson(json['customsTariffQuantity'] as Map<String, dynamic>?),
       customsImportClassifiedIndicator: CustomsImportClassifiedIndicator.fromJson(json['customsImportClassifiedIndicator'] as Map<String, dynamic>?),
       chargeableQuantity: ChargeableQuantity.fromJson(json['chargeableQuantity'] as Map<String, dynamic>?),
@@ -287,6 +257,7 @@ class ContainedGoodsItem {
       goodsItemContainer: (json['goodsItemContainer'] as List? ?? []).map((dynamic d) => GoodsItemContainer.fromJson(d as Map<String, dynamic>?)!).toList(),
       freightAllowanceCharge: (json['freightAllowanceCharge'] as List? ?? []).map((dynamic d) => FreightAllowanceCharge.fromJson(d as Map<String, dynamic>?)!).toList(),
       invoiceLine: (json['invoiceLine'] as List? ?? []).map((dynamic d) => InvoiceLine.fromJson(d as Map<String, dynamic>?)!).toList(),
+      orderLineReference: (json['orderLineReference'] as List? ?? []).map((dynamic d) => OrderLineReference.fromJson(d as Map<String, dynamic>?)!).toList(),
       temperature: (json['temperature'] as List? ?? []).map((dynamic d) => Temperature.fromJson(d as Map<String, dynamic>?)!).toList(),
       containedGoodsItem: (json['containedGoodsItem'] as List? ?? []).map((dynamic d) => ContainedGoodsItem.fromJson(d as Map<String, dynamic>?)!).toList(),
       originAddress: OriginAddress.fromJson(json['originAddress'] as Map<String, dynamic>?),
@@ -301,52 +272,112 @@ class ContainedGoodsItem {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'iD': iD?.toJson(),
+      'sequenceNumberID': sequenceNumberID?.toJson(),
+      'description': description.map((e) => e.toJson()).toList(),
+      'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
+      'declaredCustomsValueAmount': declaredCustomsValueAmount?.toJson(),
+      'declaredForCarriageValueAmount': declaredForCarriageValueAmount?.toJson(),
+      'declaredStatisticsValueAmount': declaredStatisticsValueAmount?.toJson(),
+      'freeOnBoardValueAmount': freeOnBoardValueAmount?.toJson(),
+      'insuranceValueAmount': insuranceValueAmount?.toJson(),
+      'valueAmount': valueAmount?.toJson(),
+      'grossWeightMeasure': grossWeightMeasure?.toJson(),
+      'netWeightMeasure': netWeightMeasure?.toJson(),
+      'netNetWeightMeasure': netNetWeightMeasure?.toJson(),
+      'chargeableWeightMeasure': chargeableWeightMeasure?.toJson(),
+      'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
+      'netVolumeMeasure': netVolumeMeasure?.toJson(),
+      'quantity': quantity?.toJson(),
+      'preferenceCriterionCode': preferenceCriterionCode?.toJson(),
+      'requiredCustomsID': requiredCustomsID?.toJson(),
+      'customsStatusCode': customsStatusCode?.toJson(),
+      'customsProcedureCode': customsProcedureCode?.toJson(),
+      'customsTariffQuantity': customsTariffQuantity?.toJson(),
+      'customsImportClassifiedIndicator': customsImportClassifiedIndicator?.toJson(),
+      'chargeableQuantity': chargeableQuantity?.toJson(),
+      'returnableQuantity': returnableQuantity?.toJson(),
+      'traceID': traceID?.toJson(),
+      'item': item.map((e) => e.toJson()).toList(),
+      'goodsItemContainer': goodsItemContainer.map((e) => e.toJson()).toList(),
+      'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
+      'invoiceLine': invoiceLine.map((e) => e.toJson()).toList(),
+      'orderLineReference': orderLineReference.map((e) => e.toJson()).toList(),
+      'temperature': temperature.map((e) => e.toJson()).toList(),
+      'containedGoodsItem': containedGoodsItem.map((e) => e.toJson()).toList(),
+      'originAddress': originAddress?.toJson(),
+      'delivery': delivery?.toJson(),
+      'pickup': pickup?.toJson(),
+      'despatch': despatch?.toJson(),
+      'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
+      'containingPackage': containingPackage.map((e) => e.toJson()).toList(),
+      'shipmentDocumentReference': shipmentDocumentReference?.toJson(),
+      'minimumTemperature': minimumTemperature?.toJson(),
+      'maximumTemperature': maximumTemperature?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+  }
+
   static ContainedGoodsItem? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ContainedGoodsItem (
-      iD: null,
-      sequenceNumberID: null,
-      description: null,
-      hazardousRiskIndicator: null,
-      declaredCustomsValueAmount: null,
-      declaredForCarriageValueAmount: null,
-      declaredStatisticsValueAmount: null,
-      freeOnBoardValueAmount: null,
-      insuranceValueAmount: null,
-      valueAmount: null,
-      grossWeightMeasure: null,
-      netWeightMeasure: null,
-      netNetWeightMeasure: null,
-      chargeableWeightMeasure: null,
-      grossVolumeMeasure: null,
-      netVolumeMeasure: null,
-      quantity: null,
-      preferenceCriterionCode: null,
-      requiredCustomsID: null,
-      customsStatusCode: null,
-      customsTariffQuantity: null,
-      customsImportClassifiedIndicator: null,
-      chargeableQuantity: null,
-      returnableQuantity: null,
-      traceID: null,
-      item: null,
-      goodsItemContainer: null,
-      freightAllowanceCharge: null,
-      invoiceLine: null,
-      temperature: null,
-      containedGoodsItem: null,
-      originAddress: null,
-      delivery: null,
-      pickup: null,
-      despatch: null,
-      measurementDimension: null,
-      containingPackage: null,
-      shipmentDocumentReference: null,
-      minimumTemperature: null,
-      maximumTemperature: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      sequenceNumberID: SequenceNumberID.fromXml(xml.findElements('cbc:SequenceNumberID').singleOrNull),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
+      hazardousRiskIndicator: HazardousRiskIndicator.fromXml(xml.findElements('cbc:HazardousRiskIndicator').singleOrNull),
+      declaredCustomsValueAmount: DeclaredCustomsValueAmount.fromXml(xml.findElements('cbc:DeclaredCustomsValueAmount').singleOrNull),
+      declaredForCarriageValueAmount: DeclaredForCarriageValueAmount.fromXml(xml.findElements('cbc:DeclaredForCarriageValueAmount').singleOrNull),
+      declaredStatisticsValueAmount: DeclaredStatisticsValueAmount.fromXml(xml.findElements('cbc:DeclaredStatisticsValueAmount').singleOrNull),
+      freeOnBoardValueAmount: FreeOnBoardValueAmount.fromXml(xml.findElements('cbc:FreeOnBoardValueAmount').singleOrNull),
+      insuranceValueAmount: InsuranceValueAmount.fromXml(xml.findElements('cbc:InsuranceValueAmount').singleOrNull),
+      valueAmount: ValueAmount.fromXml(xml.findElements('cbc:ValueAmount').singleOrNull),
+      grossWeightMeasure: GrossWeightMeasure.fromXml(xml.findElements('cbc:GrossWeightMeasure').singleOrNull),
+      netWeightMeasure: NetWeightMeasure.fromXml(xml.findElements('cbc:NetWeightMeasure').singleOrNull),
+      netNetWeightMeasure: NetNetWeightMeasure.fromXml(xml.findElements('cbc:NetNetWeightMeasure').singleOrNull),
+      chargeableWeightMeasure: ChargeableWeightMeasure.fromXml(xml.findElements('cbc:ChargeableWeightMeasure').singleOrNull),
+      grossVolumeMeasure: GrossVolumeMeasure.fromXml(xml.findElements('cbc:GrossVolumeMeasure').singleOrNull),
+      netVolumeMeasure: NetVolumeMeasure.fromXml(xml.findElements('cbc:NetVolumeMeasure').singleOrNull),
+      quantity: Quantity.fromXml(xml.findElements('cbc:Quantity').singleOrNull),
+      preferenceCriterionCode: PreferenceCriterionCode.fromXml(xml.findElements('cbc:PreferenceCriterionCode').singleOrNull),
+      requiredCustomsID: RequiredCustomsID.fromXml(xml.findElements('cbc:RequiredCustomsID').singleOrNull),
+      customsStatusCode: CustomsStatusCode.fromXml(xml.findElements('cbc:CustomsStatusCode').singleOrNull),
+      customsProcedureCode: CustomsProcedureCode.fromXml(xml.findElements('cbc:CustomsProcedureCode').singleOrNull),
+      customsTariffQuantity: CustomsTariffQuantity.fromXml(xml.findElements('cbc:CustomsTariffQuantity').singleOrNull),
+      customsImportClassifiedIndicator: CustomsImportClassifiedIndicator.fromXml(xml.findElements('cbc:CustomsImportClassifiedIndicator').singleOrNull),
+      chargeableQuantity: ChargeableQuantity.fromXml(xml.findElements('cbc:ChargeableQuantity').singleOrNull),
+      returnableQuantity: ReturnableQuantity.fromXml(xml.findElements('cbc:ReturnableQuantity').singleOrNull),
+      traceID: TraceID.fromXml(xml.findElements('cbc:TraceID').singleOrNull),
+      item: xml.findElements('cac:Item').map((XmlElement e) => Item.fromXml(e)!).toList(),
+      goodsItemContainer: xml.findElements('cac:GoodsItemContainer').map((XmlElement e) => GoodsItemContainer.fromXml(e)!).toList(),
+      freightAllowanceCharge: xml.findElements('cac:FreightAllowanceCharge').map((XmlElement e) => FreightAllowanceCharge.fromXml(e)!).toList(),
+      invoiceLine: xml.findElements('cac:InvoiceLine').map((XmlElement e) => InvoiceLine.fromXml(e)!).toList(),
+      orderLineReference: xml.findElements('cac:OrderLineReference').map((XmlElement e) => OrderLineReference.fromXml(e)!).toList(),
+      temperature: xml.findElements('cac:Temperature').map((XmlElement e) => Temperature.fromXml(e)!).toList(),
+      containedGoodsItem: xml.findElements('cac:ContainedGoodsItem').map((XmlElement e) => ContainedGoodsItem.fromXml(e)!).toList(),
+      originAddress: OriginAddress.fromXml(xml.findElements('cac:OriginAddress').singleOrNull),
+      delivery: Delivery.fromXml(xml.findElements('cac:Delivery').singleOrNull),
+      pickup: Pickup.fromXml(xml.findElements('cac:Pickup').singleOrNull),
+      despatch: Despatch.fromXml(xml.findElements('cac:Despatch').singleOrNull),
+      measurementDimension: xml.findElements('cac:MeasurementDimension').map((XmlElement e) => MeasurementDimension.fromXml(e)!).toList(),
+      containingPackage: xml.findElements('cac:ContainingPackage').map((XmlElement e) => ContainingPackage.fromXml(e)!).toList(),
+      shipmentDocumentReference: ShipmentDocumentReference.fromXml(xml.findElements('cac:ShipmentDocumentReference').singleOrNull),
+      minimumTemperature: MinimumTemperature.fromXml(xml.findElements('cac:MinimumTemperature').singleOrNull),
+      maximumTemperature: MaximumTemperature.fromXml(xml.findElements('cac:MaximumTemperature').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ContainedGoodsItem',
+        'cac',
+      ),
+    );
+  }
 }
 

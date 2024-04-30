@@ -41,6 +41,20 @@ class ProfileExecutionID {
     assert(value.isNotEmpty);
   }
 
+  static ProfileExecutionID? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ProfileExecutionID (
+      value: json['value'] as String? ?? '',
+      schemeID: json['schemeID'] as String?,
+      schemeName: json['schemeName'] as String?,
+      schemeAgencyID: json['schemeAgencyID'] as String?,
+      schemeAgencyName: json['schemeAgencyName'] as String?,
+      schemeVersionID: json['schemeVersionID'] as String?,
+      schemeDataURI: json['schemeDataURI'] as String?,
+      schemeURI: json['schemeURI'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -56,34 +70,27 @@ class ProfileExecutionID {
     return map;
   }
 
-  static ProfileExecutionID? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ProfileExecutionID (
-      value: json['value'] as String? ?? '',
-      schemeID: json['schemeID'] as String?,
-      schemeName: json['schemeName'] as String?,
-      schemeAgencyID: json['schemeAgencyID'] as String?,
-      schemeAgencyName: json['schemeAgencyName'] as String?,
-      schemeVersionID: json['schemeVersionID'] as String?,
-      schemeDataURI: json['schemeDataURI'] as String?,
-      schemeURI: json['schemeURI'] as String?,
-    );
-  }
-
   static ProfileExecutionID? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ProfileExecutionID (
-      value: null,
-      schemeID: null,
-      schemeName: null,
-      schemeAgencyID: null,
-      schemeAgencyName: null,
-      schemeVersionID: null,
-      schemeDataURI: null,
-      schemeURI: null,
+      value: xml.innerText,
+      schemeID: xml.getAttribute('schemeID'),
+      schemeName: xml.getAttribute('schemeName'),
+      schemeAgencyID: xml.getAttribute('schemeAgencyID'),
+      schemeAgencyName: xml.getAttribute('schemeAgencyName'),
+      schemeVersionID: xml.getAttribute('schemeVersionID'),
+      schemeDataURI: xml.getAttribute('schemeDataURI'),
+      schemeURI: xml.getAttribute('schemeURI'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ProfileExecutionID',
+        'cbc',
+      ),
+    );
+  }
 }
 

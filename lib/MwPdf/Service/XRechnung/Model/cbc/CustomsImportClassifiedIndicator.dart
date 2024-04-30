@@ -11,6 +11,13 @@ class CustomsImportClassifiedIndicator {
     required this.value,
   });
 
+  static CustomsImportClassifiedIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return CustomsImportClassifiedIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class CustomsImportClassifiedIndicator {
     return map;
   }
 
-  static CustomsImportClassifiedIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return CustomsImportClassifiedIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static CustomsImportClassifiedIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return CustomsImportClassifiedIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'CustomsImportClassifiedIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

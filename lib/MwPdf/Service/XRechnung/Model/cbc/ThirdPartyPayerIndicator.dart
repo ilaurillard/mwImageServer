@@ -11,6 +11,13 @@ class ThirdPartyPayerIndicator {
     required this.value,
   });
 
+  static ThirdPartyPayerIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ThirdPartyPayerIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class ThirdPartyPayerIndicator {
     return map;
   }
 
-  static ThirdPartyPayerIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ThirdPartyPayerIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static ThirdPartyPayerIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ThirdPartyPayerIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ThirdPartyPayerIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

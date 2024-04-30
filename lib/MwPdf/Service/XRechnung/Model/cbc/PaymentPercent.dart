@@ -15,6 +15,14 @@ class PaymentPercent {
     this.format,
   });
 
+  static PaymentPercent? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PaymentPercent (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      format: json['format'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -24,22 +32,21 @@ class PaymentPercent {
     return map;
   }
 
-  static PaymentPercent? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PaymentPercent (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      format: json['format'] as String?,
-    );
-  }
-
   static PaymentPercent? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PaymentPercent (
-      value: null,
-      format: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      format: xml.getAttribute('format'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PaymentPercent',
+        'cbc',
+      ),
+    );
+  }
 }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ValidatorID.dart';
 import '../cbc/ValidationResultCode.dart';
 import '../cbc/ValidationDate.dart';
@@ -13,6 +14,9 @@ import '../cac/SignatoryParty.dart';
 // A class to describe the result of an attempt to verify a signature.
 class ResultOfVerification {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for the organization, person, service, or server that verified the signature.
   final ValidatorID? validatorID;
@@ -39,6 +43,7 @@ class ResultOfVerification {
   final SignatoryParty? signatoryParty;
 
   ResultOfVerification ({
+    this.uBLExtensions,
     this.validatorID,
     this.validationResultCode,
     this.validationDate,
@@ -49,8 +54,24 @@ class ResultOfVerification {
     this.signatoryParty,
   });
 
+  static ResultOfVerification? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ResultOfVerification (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      validatorID: ValidatorID.fromJson(json['validatorID'] as Map<String, dynamic>?),
+      validationResultCode: ValidationResultCode.fromJson(json['validationResultCode'] as Map<String, dynamic>?),
+      validationDate: ValidationDate.fromJson(json['validationDate'] as Map<String, dynamic>?),
+      validationTime: ValidationTime.fromJson(json['validationTime'] as Map<String, dynamic>?),
+      validateProcess: ValidateProcess.fromJson(json['validateProcess'] as Map<String, dynamic>?),
+      validateTool: ValidateTool.fromJson(json['validateTool'] as Map<String, dynamic>?),
+      validateToolVersion: ValidateToolVersion.fromJson(json['validateToolVersion'] as Map<String, dynamic>?),
+      signatoryParty: SignatoryParty.fromJson(json['signatoryParty'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'validatorID': validatorID?.toJson(),
       'validationResultCode': validationResultCode?.toJson(),
       'validationDate': validationDate?.toJson(),
@@ -64,34 +85,28 @@ class ResultOfVerification {
     return map;
   }
 
-  static ResultOfVerification? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ResultOfVerification (
-      validatorID: ValidatorID.fromJson(json['validatorID'] as Map<String, dynamic>?),
-      validationResultCode: ValidationResultCode.fromJson(json['validationResultCode'] as Map<String, dynamic>?),
-      validationDate: ValidationDate.fromJson(json['validationDate'] as Map<String, dynamic>?),
-      validationTime: ValidationTime.fromJson(json['validationTime'] as Map<String, dynamic>?),
-      validateProcess: ValidateProcess.fromJson(json['validateProcess'] as Map<String, dynamic>?),
-      validateTool: ValidateTool.fromJson(json['validateTool'] as Map<String, dynamic>?),
-      validateToolVersion: ValidateToolVersion.fromJson(json['validateToolVersion'] as Map<String, dynamic>?),
-      signatoryParty: SignatoryParty.fromJson(json['signatoryParty'] as Map<String, dynamic>?),
-    );
-  }
-
   static ResultOfVerification? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ResultOfVerification (
-      validatorID: null,
-      validationResultCode: null,
-      validationDate: null,
-      validationTime: null,
-      validateProcess: null,
-      validateTool: null,
-      validateToolVersion: null,
-      signatoryParty: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      validatorID: ValidatorID.fromXml(xml.findElements('cbc:ValidatorID').singleOrNull),
+      validationResultCode: ValidationResultCode.fromXml(xml.findElements('cbc:ValidationResultCode').singleOrNull),
+      validationDate: ValidationDate.fromXml(xml.findElements('cbc:ValidationDate').singleOrNull),
+      validationTime: ValidationTime.fromXml(xml.findElements('cbc:ValidationTime').singleOrNull),
+      validateProcess: ValidateProcess.fromXml(xml.findElements('cbc:ValidateProcess').singleOrNull),
+      validateTool: ValidateTool.fromXml(xml.findElements('cbc:ValidateTool').singleOrNull),
+      validateToolVersion: ValidateToolVersion.fromXml(xml.findElements('cbc:ValidateToolVersion').singleOrNull),
+      signatoryParty: SignatoryParty.fromXml(xml.findElements('cac:SignatoryParty').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ResultOfVerification',
+        'cac',
+      ),
+    );
+  }
 }
 

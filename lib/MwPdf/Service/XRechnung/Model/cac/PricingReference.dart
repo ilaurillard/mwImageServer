@@ -1,12 +1,16 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cac/OriginalItemLocationQuantity.dart';
 import '../cac/AlternativeConditionPrice.dart';
 
 // A reference to the basis for pricing. This may be based on a catalogue or a quoted amount from a price list and include some alternative pricing conditions.
 class PricingReference {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An original set of location-specific properties (e.g., price and quantity) associated with this item.
   final OriginalItemLocationQuantity? originalItemLocationQuantity;
@@ -15,12 +19,23 @@ class PricingReference {
   final List<AlternativeConditionPrice> alternativeConditionPrice;
 
   PricingReference ({
+    this.uBLExtensions,
     this.originalItemLocationQuantity,
     this.alternativeConditionPrice = const [],
   });
 
+  static PricingReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PricingReference (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      originalItemLocationQuantity: OriginalItemLocationQuantity.fromJson(json['originalItemLocationQuantity'] as Map<String, dynamic>?),
+      alternativeConditionPrice: (json['alternativeConditionPrice'] as List? ?? []).map((dynamic d) => AlternativeConditionPrice.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'originalItemLocationQuantity': originalItemLocationQuantity?.toJson(),
       'alternativeConditionPrice': alternativeConditionPrice.map((e) => e.toJson()).toList(),
     };
@@ -28,22 +43,22 @@ class PricingReference {
     return map;
   }
 
-  static PricingReference? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PricingReference (
-      originalItemLocationQuantity: OriginalItemLocationQuantity.fromJson(json['originalItemLocationQuantity'] as Map<String, dynamic>?),
-      alternativeConditionPrice: (json['alternativeConditionPrice'] as List? ?? []).map((dynamic d) => AlternativeConditionPrice.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static PricingReference? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PricingReference (
-      originalItemLocationQuantity: null,
-      alternativeConditionPrice: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      originalItemLocationQuantity: OriginalItemLocationQuantity.fromXml(xml.findElements('cac:OriginalItemLocationQuantity').singleOrNull),
+      alternativeConditionPrice: xml.findElements('cac:AlternativeConditionPrice').map((XmlElement e) => AlternativeConditionPrice.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PricingReference',
+        'cac',
+      ),
+    );
+  }
 }
 

@@ -21,6 +21,15 @@ class ValueAmount {
     assert(currencyID.isNotEmpty);
   }
 
+  static ValueAmount? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ValueAmount (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      currencyID: json['currencyID'] as String? ?? '',
+      currencyCodeListVersionID: json['currencyCodeListVersionID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class ValueAmount {
     return map;
   }
 
-  static ValueAmount? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ValueAmount (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      currencyID: json['currencyID'] as String? ?? '',
-      currencyCodeListVersionID: json['currencyCodeListVersionID'] as String?,
-    );
-  }
-
   static ValueAmount? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ValueAmount (
-      value: null,
-      currencyID: null,
-      currencyCodeListVersionID: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      currencyID: xml.getAttribute('currencyID') ?? '',
+      currencyCodeListVersionID: xml.getAttribute('currencyCodeListVersionID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ValueAmount',
+        'cbc',
+      ),
+    );
+  }
 }
 

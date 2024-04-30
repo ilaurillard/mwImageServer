@@ -1,0 +1,64 @@
+import 'dart:convert';
+import '../../Etc/Util.dart';
+import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
+import '../cbc/IdentificationCode.dart';
+import '../cbc/Name.dart';
+
+// A class to describe a country.
+class CitizenshipCountry {
+
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
+  // A code signifying this country.
+  final IdentificationCode? identificationCode;
+
+  // The name of this country.
+  final Name? name;
+
+  CitizenshipCountry ({
+    this.uBLExtensions,
+    this.identificationCode,
+    this.name,
+  });
+
+  static CitizenshipCountry? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return CitizenshipCountry (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      identificationCode: IdentificationCode.fromJson(json['identificationCode'] as Map<String, dynamic>?),
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'identificationCode': identificationCode?.toJson(),
+      'name': name?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
+  }
+
+  static CitizenshipCountry? fromXml(XmlElement? xml) {
+    if (xml == null) { return null; }
+    return CitizenshipCountry (
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      identificationCode: IdentificationCode.fromXml(xml.findElements('cbc:IdentificationCode').singleOrNull),
+      name: Name.fromXml(xml.findElements('cbc:Name').singleOrNull),
+    );
+  }
+
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'CitizenshipCountry',
+        'cac',
+      ),
+    );
+  }
+}
+

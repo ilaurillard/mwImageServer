@@ -3,6 +3,7 @@ import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/TaxAmount.dart';
 import '../cac/TaxCategory.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/TaxableAmount.dart';
 import '../cbc/CalculationSequenceNumeric.dart';
 import '../cbc/TransactionCurrencyTaxAmount.dart';
@@ -21,6 +22,9 @@ class TaxSubtotal {
 
   // The tax category applicable to this subtotal.
   final TaxCategory taxCategory;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // The net amount to which the tax percent (rate) is applied to calculate the tax amount.
   final TaxableAmount? taxableAmount;
@@ -49,6 +53,7 @@ class TaxSubtotal {
   TaxSubtotal ({
     required this.taxAmount,
     required this.taxCategory,
+    this.uBLExtensions,
     this.taxableAmount,
     this.calculationSequenceNumeric,
     this.transactionCurrencyTaxAmount,
@@ -59,8 +64,26 @@ class TaxSubtotal {
     this.tierRatePercent,
   });
 
+  static TaxSubtotal? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return TaxSubtotal (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      taxableAmount: TaxableAmount.fromJson(json['taxableAmount'] as Map<String, dynamic>?),
+      taxAmount: TaxAmount.fromJson(json['taxAmount'] as Map<String, dynamic>?)!,
+      calculationSequenceNumeric: CalculationSequenceNumeric.fromJson(json['calculationSequenceNumeric'] as Map<String, dynamic>?),
+      transactionCurrencyTaxAmount: TransactionCurrencyTaxAmount.fromJson(json['transactionCurrencyTaxAmount'] as Map<String, dynamic>?),
+      percent: Percent.fromJson(json['percent'] as Map<String, dynamic>?),
+      baseUnitMeasure: BaseUnitMeasure.fromJson(json['baseUnitMeasure'] as Map<String, dynamic>?),
+      perUnitAmount: PerUnitAmount.fromJson(json['perUnitAmount'] as Map<String, dynamic>?),
+      tierRange: TierRange.fromJson(json['tierRange'] as Map<String, dynamic>?),
+      tierRatePercent: TierRatePercent.fromJson(json['tierRatePercent'] as Map<String, dynamic>?),
+      taxCategory: TaxCategory.fromJson(json['taxCategory'] as Map<String, dynamic>?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'taxableAmount': taxableAmount?.toJson(),
       'taxAmount': taxAmount.toJson(),
       'calculationSequenceNumeric': calculationSequenceNumeric?.toJson(),
@@ -76,38 +99,30 @@ class TaxSubtotal {
     return map;
   }
 
-  static TaxSubtotal? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return TaxSubtotal (
-      taxableAmount: TaxableAmount.fromJson(json['taxableAmount'] as Map<String, dynamic>?),
-      taxAmount: TaxAmount.fromJson(json['taxAmount'] as Map<String, dynamic>?)!,
-      calculationSequenceNumeric: CalculationSequenceNumeric.fromJson(json['calculationSequenceNumeric'] as Map<String, dynamic>?),
-      transactionCurrencyTaxAmount: TransactionCurrencyTaxAmount.fromJson(json['transactionCurrencyTaxAmount'] as Map<String, dynamic>?),
-      percent: Percent.fromJson(json['percent'] as Map<String, dynamic>?),
-      baseUnitMeasure: BaseUnitMeasure.fromJson(json['baseUnitMeasure'] as Map<String, dynamic>?),
-      perUnitAmount: PerUnitAmount.fromJson(json['perUnitAmount'] as Map<String, dynamic>?),
-      tierRange: TierRange.fromJson(json['tierRange'] as Map<String, dynamic>?),
-      tierRatePercent: TierRatePercent.fromJson(json['tierRatePercent'] as Map<String, dynamic>?),
-      taxCategory: TaxCategory.fromJson(json['taxCategory'] as Map<String, dynamic>?)!,
-    );
-  }
-
   static TaxSubtotal? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return TaxSubtotal (
-      taxableAmount: null,
-      taxAmount: null,
-      calculationSequenceNumeric: null,
-      transactionCurrencyTaxAmount: null,
-      percent: null,
-      baseUnitMeasure: null,
-      perUnitAmount: null,
-      tierRange: null,
-      tierRatePercent: null,
-      taxCategory: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      taxableAmount: TaxableAmount.fromXml(xml.findElements('cbc:TaxableAmount').singleOrNull),
+      taxAmount: TaxAmount.fromXml(xml.findElements('cbc:TaxAmount').singleOrNull)!,
+      calculationSequenceNumeric: CalculationSequenceNumeric.fromXml(xml.findElements('cbc:CalculationSequenceNumeric').singleOrNull),
+      transactionCurrencyTaxAmount: TransactionCurrencyTaxAmount.fromXml(xml.findElements('cbc:TransactionCurrencyTaxAmount').singleOrNull),
+      percent: Percent.fromXml(xml.findElements('cbc:Percent').singleOrNull),
+      baseUnitMeasure: BaseUnitMeasure.fromXml(xml.findElements('cbc:BaseUnitMeasure').singleOrNull),
+      perUnitAmount: PerUnitAmount.fromXml(xml.findElements('cbc:PerUnitAmount').singleOrNull),
+      tierRange: TierRange.fromXml(xml.findElements('cbc:TierRange').singleOrNull),
+      tierRatePercent: TierRatePercent.fromXml(xml.findElements('cbc:TierRatePercent').singleOrNull),
+      taxCategory: TaxCategory.fromXml(xml.findElements('cac:TaxCategory').singleOrNull)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'TaxSubtotal',
+        'cac',
+      ),
+    );
+  }
 }
 

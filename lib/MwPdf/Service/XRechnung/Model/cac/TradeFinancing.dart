@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cac/FinancingParty.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/FinancingInstrumentCode.dart';
 import '../cac/ContractDocumentReference.dart';
@@ -15,6 +16,9 @@ class TradeFinancing {
 
   // The financing party (bank or other enabled party).
   final FinancingParty financingParty;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this trade financing instrument.
   final ID? iD;
@@ -36,6 +40,7 @@ class TradeFinancing {
 
   TradeFinancing ({
     required this.financingParty,
+    this.uBLExtensions,
     this.iD,
     this.financingInstrumentCode,
     this.contractDocumentReference,
@@ -44,8 +49,23 @@ class TradeFinancing {
     this.clause = const [],
   });
 
+  static TradeFinancing? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return TradeFinancing (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      financingInstrumentCode: FinancingInstrumentCode.fromJson(json['financingInstrumentCode'] as Map<String, dynamic>?),
+      contractDocumentReference: ContractDocumentReference.fromJson(json['contractDocumentReference'] as Map<String, dynamic>?),
+      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      financingParty: FinancingParty.fromJson(json['financingParty'] as Map<String, dynamic>?)!,
+      financingFinancialAccount: FinancingFinancialAccount.fromJson(json['financingFinancialAccount'] as Map<String, dynamic>?),
+      clause: (json['clause'] as List? ?? []).map((dynamic d) => Clause.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'financingInstrumentCode': financingInstrumentCode?.toJson(),
       'contractDocumentReference': contractDocumentReference?.toJson(),
@@ -58,32 +78,27 @@ class TradeFinancing {
     return map;
   }
 
-  static TradeFinancing? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return TradeFinancing (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      financingInstrumentCode: FinancingInstrumentCode.fromJson(json['financingInstrumentCode'] as Map<String, dynamic>?),
-      contractDocumentReference: ContractDocumentReference.fromJson(json['contractDocumentReference'] as Map<String, dynamic>?),
-      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
-      financingParty: FinancingParty.fromJson(json['financingParty'] as Map<String, dynamic>?)!,
-      financingFinancialAccount: FinancingFinancialAccount.fromJson(json['financingFinancialAccount'] as Map<String, dynamic>?),
-      clause: (json['clause'] as List? ?? []).map((dynamic d) => Clause.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static TradeFinancing? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return TradeFinancing (
-      iD: null,
-      financingInstrumentCode: null,
-      contractDocumentReference: null,
-      documentReference: null,
-      financingParty: null,
-      financingFinancialAccount: null,
-      clause: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      financingInstrumentCode: FinancingInstrumentCode.fromXml(xml.findElements('cbc:FinancingInstrumentCode').singleOrNull),
+      contractDocumentReference: ContractDocumentReference.fromXml(xml.findElements('cac:ContractDocumentReference').singleOrNull),
+      documentReference: xml.findElements('cac:DocumentReference').map((XmlElement e) => DocumentReference.fromXml(e)!).toList(),
+      financingParty: FinancingParty.fromXml(xml.findElements('cac:FinancingParty').singleOrNull)!,
+      financingFinancialAccount: FinancingFinancialAccount.fromXml(xml.findElements('cac:FinancingFinancialAccount').singleOrNull),
+      clause: xml.findElements('cac:Clause').map((XmlElement e) => Clause.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'TradeFinancing',
+        'cac',
+      ),
+    );
+  }
 }
 

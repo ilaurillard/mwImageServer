@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/IssueDate.dart';
 import '../cbc/IssueTime.dart';
@@ -10,6 +11,8 @@ import '../cbc/ContractTypeCode.dart';
 import '../cbc/ContractType.dart';
 import '../cbc/Note.dart';
 import '../cbc/VersionID.dart';
+import '../cbc/ModificationReasonCode.dart';
+import '../cbc/ModificationReasonDescription.dart';
 import '../cbc/Description.dart';
 import '../cac/ValidityPeriod.dart';
 import '../cac/ContractDocumentReference.dart';
@@ -19,6 +22,9 @@ import '../cac/ContractualDelivery.dart';
 // A class to describe a contract.
 class ForeignExchangeContract {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this contract.
   final ID? iD;
@@ -47,6 +53,12 @@ class ForeignExchangeContract {
   // An identifier for the current version of this contract.
   final VersionID? versionID;
 
+  // The main reason for modifying the contract expressed as a code.
+  final ModificationReasonCode? modificationReasonCode;
+
+  // Text describing the main reason for modifying the contract
+  final List<ModificationReasonDescription> modificationReasonDescription;
+
   // Text describing this contract.
   final List<Description> description;
 
@@ -63,6 +75,7 @@ class ForeignExchangeContract {
   final ContractualDelivery? contractualDelivery;
 
   ForeignExchangeContract ({
+    this.uBLExtensions,
     this.iD,
     this.issueDate,
     this.issueTime,
@@ -72,6 +85,8 @@ class ForeignExchangeContract {
     this.contractType,
     this.note = const [],
     this.versionID,
+    this.modificationReasonCode,
+    this.modificationReasonDescription = const [],
     this.description = const [],
     this.validityPeriod,
     this.contractDocumentReference = const [],
@@ -79,8 +94,32 @@ class ForeignExchangeContract {
     this.contractualDelivery,
   });
 
+  static ForeignExchangeContract? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ForeignExchangeContract (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      issueDate: IssueDate.fromJson(json['issueDate'] as Map<String, dynamic>?),
+      issueTime: IssueTime.fromJson(json['issueTime'] as Map<String, dynamic>?),
+      nominationDate: NominationDate.fromJson(json['nominationDate'] as Map<String, dynamic>?),
+      nominationTime: NominationTime.fromJson(json['nominationTime'] as Map<String, dynamic>?),
+      contractTypeCode: ContractTypeCode.fromJson(json['contractTypeCode'] as Map<String, dynamic>?),
+      contractType: ContractType.fromJson(json['contractType'] as Map<String, dynamic>?),
+      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
+      versionID: VersionID.fromJson(json['versionID'] as Map<String, dynamic>?),
+      modificationReasonCode: ModificationReasonCode.fromJson(json['modificationReasonCode'] as Map<String, dynamic>?),
+      modificationReasonDescription: (json['modificationReasonDescription'] as List? ?? []).map((dynamic d) => ModificationReasonDescription.fromJson(d as Map<String, dynamic>?)!).toList(),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      validityPeriod: ValidityPeriod.fromJson(json['validityPeriod'] as Map<String, dynamic>?),
+      contractDocumentReference: (json['contractDocumentReference'] as List? ?? []).map((dynamic d) => ContractDocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      nominationPeriod: NominationPeriod.fromJson(json['nominationPeriod'] as Map<String, dynamic>?),
+      contractualDelivery: ContractualDelivery.fromJson(json['contractualDelivery'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'issueDate': issueDate?.toJson(),
       'issueTime': issueTime?.toJson(),
@@ -90,6 +129,8 @@ class ForeignExchangeContract {
       'contractType': contractType?.toJson(),
       'note': note.map((e) => e.toJson()).toList(),
       'versionID': versionID?.toJson(),
+      'modificationReasonCode': modificationReasonCode?.toJson(),
+      'modificationReasonDescription': modificationReasonDescription.map((e) => e.toJson()).toList(),
       'description': description.map((e) => e.toJson()).toList(),
       'validityPeriod': validityPeriod?.toJson(),
       'contractDocumentReference': contractDocumentReference.map((e) => e.toJson()).toList(),
@@ -100,46 +141,36 @@ class ForeignExchangeContract {
     return map;
   }
 
-  static ForeignExchangeContract? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ForeignExchangeContract (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      issueDate: IssueDate.fromJson(json['issueDate'] as Map<String, dynamic>?),
-      issueTime: IssueTime.fromJson(json['issueTime'] as Map<String, dynamic>?),
-      nominationDate: NominationDate.fromJson(json['nominationDate'] as Map<String, dynamic>?),
-      nominationTime: NominationTime.fromJson(json['nominationTime'] as Map<String, dynamic>?),
-      contractTypeCode: ContractTypeCode.fromJson(json['contractTypeCode'] as Map<String, dynamic>?),
-      contractType: ContractType.fromJson(json['contractType'] as Map<String, dynamic>?),
-      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
-      versionID: VersionID.fromJson(json['versionID'] as Map<String, dynamic>?),
-      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
-      validityPeriod: ValidityPeriod.fromJson(json['validityPeriod'] as Map<String, dynamic>?),
-      contractDocumentReference: (json['contractDocumentReference'] as List? ?? []).map((dynamic d) => ContractDocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
-      nominationPeriod: NominationPeriod.fromJson(json['nominationPeriod'] as Map<String, dynamic>?),
-      contractualDelivery: ContractualDelivery.fromJson(json['contractualDelivery'] as Map<String, dynamic>?),
-    );
-  }
-
   static ForeignExchangeContract? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ForeignExchangeContract (
-      iD: null,
-      issueDate: null,
-      issueTime: null,
-      nominationDate: null,
-      nominationTime: null,
-      contractTypeCode: null,
-      contractType: null,
-      note: null,
-      versionID: null,
-      description: null,
-      validityPeriod: null,
-      contractDocumentReference: null,
-      nominationPeriod: null,
-      contractualDelivery: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      issueDate: IssueDate.fromXml(xml.findElements('cbc:IssueDate').singleOrNull),
+      issueTime: IssueTime.fromXml(xml.findElements('cbc:IssueTime').singleOrNull),
+      nominationDate: NominationDate.fromXml(xml.findElements('cbc:NominationDate').singleOrNull),
+      nominationTime: NominationTime.fromXml(xml.findElements('cbc:NominationTime').singleOrNull),
+      contractTypeCode: ContractTypeCode.fromXml(xml.findElements('cbc:ContractTypeCode').singleOrNull),
+      contractType: ContractType.fromXml(xml.findElements('cbc:ContractType').singleOrNull),
+      note: xml.findElements('cbc:Note').map((XmlElement e) => Note.fromXml(e)!).toList(),
+      versionID: VersionID.fromXml(xml.findElements('cbc:VersionID').singleOrNull),
+      modificationReasonCode: ModificationReasonCode.fromXml(xml.findElements('cbc:ModificationReasonCode').singleOrNull),
+      modificationReasonDescription: xml.findElements('cbc:ModificationReasonDescription').map((XmlElement e) => ModificationReasonDescription.fromXml(e)!).toList(),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
+      validityPeriod: ValidityPeriod.fromXml(xml.findElements('cac:ValidityPeriod').singleOrNull),
+      contractDocumentReference: xml.findElements('cac:ContractDocumentReference').map((XmlElement e) => ContractDocumentReference.fromXml(e)!).toList(),
+      nominationPeriod: NominationPeriod.fromXml(xml.findElements('cac:NominationPeriod').singleOrNull),
+      contractualDelivery: ContractualDelivery.fromXml(xml.findElements('cac:ContractualDelivery').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ForeignExchangeContract',
+        'cac',
+      ),
+    );
+  }
 }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/MarkCareIndicator.dart';
 import '../cbc/MarkAttentionIndicator.dart';
 import '../cbc/WebsiteURI.dart';
@@ -19,11 +20,17 @@ import '../cac/Person.dart';
 import '../cac/AgentParty.dart';
 import '../cac/ServiceProviderParty.dart';
 import '../cac/PowerOfAttorney.dart';
+import '../cac/PartyAuthorization.dart';
 import '../cac/FinancialAccount.dart';
+import '../cac/AdditionalWebSite.dart';
+import '../cac/SocialMediaProfile.dart';
 
 // A class to describe an organization, sub-organization, or individual fulfilling a role in a business process.
 class HeadOfficeParty {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An indicator that this party is "care of" (c/o) (true) or not (false).
   final MarkCareIndicator? markCareIndicator;
@@ -79,10 +86,20 @@ class HeadOfficeParty {
   // A power of attorney associated with this party.
   final List<PowerOfAttorney> powerOfAttorney;
 
+  // An authorization issued to this party
+  final List<PartyAuthorization> partyAuthorization;
+
   // The financial account associated with this party.
   final FinancialAccount? financialAccount;
 
+  // An additional web site associated with this party (e.g. a satellite web site).
+  final List<AdditionalWebSite> additionalWebSite;
+
+  // A social media profile associated with this party.
+  final List<SocialMediaProfile> socialMediaProfile;
+
   HeadOfficeParty ({
+    this.uBLExtensions,
     this.markCareIndicator,
     this.markAttentionIndicator,
     this.websiteURI,
@@ -101,38 +118,16 @@ class HeadOfficeParty {
     this.agentParty,
     this.serviceProviderParty = const [],
     this.powerOfAttorney = const [],
+    this.partyAuthorization = const [],
     this.financialAccount,
+    this.additionalWebSite = const [],
+    this.socialMediaProfile = const [],
   });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'markCareIndicator': markCareIndicator?.toJson(),
-      'markAttentionIndicator': markAttentionIndicator?.toJson(),
-      'websiteURI': websiteURI?.toJson(),
-      'logoReferenceID': logoReferenceID?.toJson(),
-      'endpointID': endpointID?.toJson(),
-      'industryClassificationCode': industryClassificationCode?.toJson(),
-      'partyIdentification': partyIdentification.map((e) => e.toJson()).toList(),
-      'partyName': partyName.map((e) => e.toJson()).toList(),
-      'language': language?.toJson(),
-      'postalAddress': postalAddress?.toJson(),
-      'physicalLocation': physicalLocation?.toJson(),
-      'partyTaxScheme': partyTaxScheme.map((e) => e.toJson()).toList(),
-      'partyLegalEntity': partyLegalEntity.map((e) => e.toJson()).toList(),
-      'contact': contact?.toJson(),
-      'person': person.map((e) => e.toJson()).toList(),
-      'agentParty': agentParty?.toJson(),
-      'serviceProviderParty': serviceProviderParty.map((e) => e.toJson()).toList(),
-      'powerOfAttorney': powerOfAttorney.map((e) => e.toJson()).toList(),
-      'financialAccount': financialAccount?.toJson(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
-  }
 
   static HeadOfficeParty? fromJson(Map<String, dynamic>? json) {
     if (json == null) { return null; }
     return HeadOfficeParty (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       markCareIndicator: MarkCareIndicator.fromJson(json['markCareIndicator'] as Map<String, dynamic>?),
       markAttentionIndicator: MarkAttentionIndicator.fromJson(json['markAttentionIndicator'] as Map<String, dynamic>?),
       websiteURI: WebsiteURI.fromJson(json['websiteURI'] as Map<String, dynamic>?),
@@ -151,35 +146,79 @@ class HeadOfficeParty {
       agentParty: AgentParty.fromJson(json['agentParty'] as Map<String, dynamic>?),
       serviceProviderParty: (json['serviceProviderParty'] as List? ?? []).map((dynamic d) => ServiceProviderParty.fromJson(d as Map<String, dynamic>?)!).toList(),
       powerOfAttorney: (json['powerOfAttorney'] as List? ?? []).map((dynamic d) => PowerOfAttorney.fromJson(d as Map<String, dynamic>?)!).toList(),
+      partyAuthorization: (json['partyAuthorization'] as List? ?? []).map((dynamic d) => PartyAuthorization.fromJson(d as Map<String, dynamic>?)!).toList(),
       financialAccount: FinancialAccount.fromJson(json['financialAccount'] as Map<String, dynamic>?),
+      additionalWebSite: (json['additionalWebSite'] as List? ?? []).map((dynamic d) => AdditionalWebSite.fromJson(d as Map<String, dynamic>?)!).toList(),
+      socialMediaProfile: (json['socialMediaProfile'] as List? ?? []).map((dynamic d) => SocialMediaProfile.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'markCareIndicator': markCareIndicator?.toJson(),
+      'markAttentionIndicator': markAttentionIndicator?.toJson(),
+      'websiteURI': websiteURI?.toJson(),
+      'logoReferenceID': logoReferenceID?.toJson(),
+      'endpointID': endpointID?.toJson(),
+      'industryClassificationCode': industryClassificationCode?.toJson(),
+      'partyIdentification': partyIdentification.map((e) => e.toJson()).toList(),
+      'partyName': partyName.map((e) => e.toJson()).toList(),
+      'language': language?.toJson(),
+      'postalAddress': postalAddress?.toJson(),
+      'physicalLocation': physicalLocation?.toJson(),
+      'partyTaxScheme': partyTaxScheme.map((e) => e.toJson()).toList(),
+      'partyLegalEntity': partyLegalEntity.map((e) => e.toJson()).toList(),
+      'contact': contact?.toJson(),
+      'person': person.map((e) => e.toJson()).toList(),
+      'agentParty': agentParty?.toJson(),
+      'serviceProviderParty': serviceProviderParty.map((e) => e.toJson()).toList(),
+      'powerOfAttorney': powerOfAttorney.map((e) => e.toJson()).toList(),
+      'partyAuthorization': partyAuthorization.map((e) => e.toJson()).toList(),
+      'financialAccount': financialAccount?.toJson(),
+      'additionalWebSite': additionalWebSite.map((e) => e.toJson()).toList(),
+      'socialMediaProfile': socialMediaProfile.map((e) => e.toJson()).toList(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
   }
 
   static HeadOfficeParty? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return HeadOfficeParty (
-      markCareIndicator: null,
-      markAttentionIndicator: null,
-      websiteURI: null,
-      logoReferenceID: null,
-      endpointID: null,
-      industryClassificationCode: null,
-      partyIdentification: null,
-      partyName: null,
-      language: null,
-      postalAddress: null,
-      physicalLocation: null,
-      partyTaxScheme: null,
-      partyLegalEntity: null,
-      contact: null,
-      person: null,
-      agentParty: null,
-      serviceProviderParty: null,
-      powerOfAttorney: null,
-      financialAccount: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      markCareIndicator: MarkCareIndicator.fromXml(xml.findElements('cbc:MarkCareIndicator').singleOrNull),
+      markAttentionIndicator: MarkAttentionIndicator.fromXml(xml.findElements('cbc:MarkAttentionIndicator').singleOrNull),
+      websiteURI: WebsiteURI.fromXml(xml.findElements('cbc:WebsiteURI').singleOrNull),
+      logoReferenceID: LogoReferenceID.fromXml(xml.findElements('cbc:LogoReferenceID').singleOrNull),
+      endpointID: EndpointID.fromXml(xml.findElements('cbc:EndpointID').singleOrNull),
+      industryClassificationCode: IndustryClassificationCode.fromXml(xml.findElements('cbc:IndustryClassificationCode').singleOrNull),
+      partyIdentification: xml.findElements('cac:PartyIdentification').map((XmlElement e) => PartyIdentification.fromXml(e)!).toList(),
+      partyName: xml.findElements('cac:PartyName').map((XmlElement e) => PartyName.fromXml(e)!).toList(),
+      language: Language.fromXml(xml.findElements('cac:Language').singleOrNull),
+      postalAddress: PostalAddress.fromXml(xml.findElements('cac:PostalAddress').singleOrNull),
+      physicalLocation: PhysicalLocation.fromXml(xml.findElements('cac:PhysicalLocation').singleOrNull),
+      partyTaxScheme: xml.findElements('cac:PartyTaxScheme').map((XmlElement e) => PartyTaxScheme.fromXml(e)!).toList(),
+      partyLegalEntity: xml.findElements('cac:PartyLegalEntity').map((XmlElement e) => PartyLegalEntity.fromXml(e)!).toList(),
+      contact: Contact.fromXml(xml.findElements('cac:Contact').singleOrNull),
+      person: xml.findElements('cac:Person').map((XmlElement e) => Person.fromXml(e)!).toList(),
+      agentParty: AgentParty.fromXml(xml.findElements('cac:AgentParty').singleOrNull),
+      serviceProviderParty: xml.findElements('cac:ServiceProviderParty').map((XmlElement e) => ServiceProviderParty.fromXml(e)!).toList(),
+      powerOfAttorney: xml.findElements('cac:PowerOfAttorney').map((XmlElement e) => PowerOfAttorney.fromXml(e)!).toList(),
+      partyAuthorization: xml.findElements('cac:PartyAuthorization').map((XmlElement e) => PartyAuthorization.fromXml(e)!).toList(),
+      financialAccount: FinancialAccount.fromXml(xml.findElements('cac:FinancialAccount').singleOrNull),
+      additionalWebSite: xml.findElements('cac:AdditionalWebSite').map((XmlElement e) => AdditionalWebSite.fromXml(e)!).toList(),
+      socialMediaProfile: xml.findElements('cac:SocialMediaProfile').map((XmlElement e) => SocialMediaProfile.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'HeadOfficeParty',
+        'cac',
+      ),
+    );
+  }
 }
 

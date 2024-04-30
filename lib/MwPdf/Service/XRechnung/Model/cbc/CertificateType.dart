@@ -21,6 +21,15 @@ class CertificateType {
     assert(value.isNotEmpty);
   }
 
+  static CertificateType? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return CertificateType (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class CertificateType {
     return map;
   }
 
-  static CertificateType? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return CertificateType (
-      value: json['value'] as String? ?? '',
-      languageID: json['languageID'] as String?,
-      languageLocaleID: json['languageLocaleID'] as String?,
-    );
-  }
-
   static CertificateType? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return CertificateType (
-      value: null,
-      languageID: null,
-      languageLocaleID: null,
+      value: xml.innerText,
+      languageID: xml.getAttribute('languageID'),
+      languageLocaleID: xml.getAttribute('languageLocaleID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'CertificateType',
+        'cbc',
+      ),
+    );
+  }
 }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/ActionCode.dart';
 import '../cbc/Description.dart';
@@ -9,6 +10,9 @@ import '../cac/DocumentReference.dart';
 // A class to describe purchasing, sales, or payment conditions.
 class TransactionConditions {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for conditions of the transaction, typically purchase/sales conditions.
   final ID? iD;
@@ -23,14 +27,27 @@ class TransactionConditions {
   final List<DocumentReference> documentReference;
 
   TransactionConditions ({
+    this.uBLExtensions,
     this.iD,
     this.actionCode,
     this.description = const [],
     this.documentReference = const [],
   });
 
+  static TransactionConditions? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return TransactionConditions (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      actionCode: ActionCode.fromJson(json['actionCode'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'actionCode': actionCode?.toJson(),
       'description': description.map((e) => e.toJson()).toList(),
@@ -40,26 +57,24 @@ class TransactionConditions {
     return map;
   }
 
-  static TransactionConditions? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return TransactionConditions (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      actionCode: ActionCode.fromJson(json['actionCode'] as Map<String, dynamic>?),
-      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
-      documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static TransactionConditions? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return TransactionConditions (
-      iD: null,
-      actionCode: null,
-      description: null,
-      documentReference: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      actionCode: ActionCode.fromXml(xml.findElements('cbc:ActionCode').singleOrNull),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
+      documentReference: xml.findElements('cac:DocumentReference').map((XmlElement e) => DocumentReference.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'TransactionConditions',
+        'cac',
+      ),
+    );
+  }
 }
 

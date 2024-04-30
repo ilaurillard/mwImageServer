@@ -11,6 +11,13 @@ class SpecialSecurityIndicator {
     required this.value,
   });
 
+  static SpecialSecurityIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return SpecialSecurityIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class SpecialSecurityIndicator {
     return map;
   }
 
-  static SpecialSecurityIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return SpecialSecurityIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static SpecialSecurityIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return SpecialSecurityIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'SpecialSecurityIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

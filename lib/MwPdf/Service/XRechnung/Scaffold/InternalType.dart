@@ -22,7 +22,7 @@ class InternalType extends XsdType {
     return 'String';
   }
 
-  String fromDef(
+  String fromJsonDef(
     String source, {
     bool optional = false,
   }) {
@@ -37,6 +37,24 @@ class InternalType extends XsdType {
         return 'XsdTime.fromJson($source as String?)${optional ? '' : '!'}';
     }
     return '$source as String?${optional ? '' : " ?? ''"}';
+  }
+
+  String fromXmlDef(
+    String source, {
+    bool optional = false,
+        bool nullable = false,
+  }) {
+    switch (name) {
+      case 'decimal':
+        return 'double.tryParse($source.toString())${optional ? '' : " ?? 0"}';
+      case 'boolean':
+        return '$source as bool?${optional ? '' : " ?? false"}';
+      case 'date':
+        return 'XsdDate.fromJson($source)${optional ? '' : '!'}';
+      case 'time':
+        return 'XsdTime.fromJson($source)${optional ? '' : '!'}';
+    }
+    return '$source${optional || !nullable ? '' : " ?? ''"}';
   }
 
   static InternalType from(

@@ -11,6 +11,13 @@ class HumanFoodIndicator {
     required this.value,
   });
 
+  static HumanFoodIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return HumanFoodIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class HumanFoodIndicator {
     return map;
   }
 
-  static HumanFoodIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return HumanFoodIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static HumanFoodIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return HumanFoodIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'HumanFoodIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

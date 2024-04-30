@@ -11,6 +11,13 @@ class CatalogueIndicator {
     required this.value,
   });
 
+  static CatalogueIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return CatalogueIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class CatalogueIndicator {
     return map;
   }
 
-  static CatalogueIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return CatalogueIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static CatalogueIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return CatalogueIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'CatalogueIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

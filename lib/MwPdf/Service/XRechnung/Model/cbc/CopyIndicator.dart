@@ -11,6 +11,13 @@ class CopyIndicator {
     required this.value,
   });
 
+  static CopyIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return CopyIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class CopyIndicator {
     return map;
   }
 
-  static CopyIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return CopyIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static CopyIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return CopyIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'CopyIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

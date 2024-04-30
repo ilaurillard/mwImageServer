@@ -7,6 +7,7 @@ import 'XsdParser.dart';
 class Element {
   final XmlElement xml;
   final ComplexType parentType;
+
   // final bool refferred;
 
   String schemaId = '';
@@ -23,9 +24,9 @@ class Element {
   Element(
     this.xml,
     this.parentType,
-  //     {
-  //   this.refferred = false,
-  // }
+    //     {
+    //   this.refferred = false,
+    // }
   ) {
     schemaId = parentType.schemaId;
     refSchemaId = schemaId;
@@ -52,12 +53,12 @@ class Element {
         String refId = tmp[0];
         name = tmp[1];
         if (refId != parentType.schemaId) {
-        //   print('###Elem: $name $schemaId $refId ${parentType.name} ${parentType
-        //       .schemaId}');
-        // }
-        // if (name == 'Condition') {
-        //   if (refId == 'cbc') {
-            refSchemaId = refId;
+          //   print('###Elem: $name $schemaId $refId ${parentType.name} ${parentType
+          //       .schemaId}');
+          // }
+          // if (name == 'Condition') {
+          //   if (refId == 'cbc') {
+          refSchemaId = refId;
           // }
         }
         refSchema = XsdParser.schemaForIdentifier(refId);
@@ -109,5 +110,25 @@ class Element {
     // }
 
     // print('    Element "$name" type "${type?.name}"');
+  }
+
+  List<Schema> referredSchemas() {
+    Map<String, bool> used = {};
+    if (type != null) {
+      for (Element e in type!.elements.values) {
+        used[e.refSchemaId] = true;
+      }
+    }
+    List<Schema> schemas = [];
+    for (String i in used.keys.toList()) {
+      schemas.add(
+        XsdParser.schemaForIdentifier(i),
+      );
+    }
+    return schemas;
+  }
+
+  Schema mainSchema() {
+    return XsdParser.schemaForIdentifier(refSchemaId);
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cac/InvoiceDocumentReference.dart';
 import '../cac/SelfBilledInvoiceDocumentReference.dart';
 import '../cac/CreditNoteDocumentReference.dart';
@@ -13,6 +14,9 @@ import '../cac/BillingReferenceLine.dart';
 // A class to define a reference to a billing document.
 class BillingReference {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A reference to an invoice.
   final InvoiceDocumentReference? invoiceDocumentReference;
@@ -39,6 +43,7 @@ class BillingReference {
   final List<BillingReferenceLine> billingReferenceLine;
 
   BillingReference ({
+    this.uBLExtensions,
     this.invoiceDocumentReference,
     this.selfBilledInvoiceDocumentReference,
     this.creditNoteDocumentReference,
@@ -49,8 +54,24 @@ class BillingReference {
     this.billingReferenceLine = const [],
   });
 
+  static BillingReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return BillingReference (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      invoiceDocumentReference: InvoiceDocumentReference.fromJson(json['invoiceDocumentReference'] as Map<String, dynamic>?),
+      selfBilledInvoiceDocumentReference: SelfBilledInvoiceDocumentReference.fromJson(json['selfBilledInvoiceDocumentReference'] as Map<String, dynamic>?),
+      creditNoteDocumentReference: CreditNoteDocumentReference.fromJson(json['creditNoteDocumentReference'] as Map<String, dynamic>?),
+      selfBilledCreditNoteDocumentReference: SelfBilledCreditNoteDocumentReference.fromJson(json['selfBilledCreditNoteDocumentReference'] as Map<String, dynamic>?),
+      debitNoteDocumentReference: DebitNoteDocumentReference.fromJson(json['debitNoteDocumentReference'] as Map<String, dynamic>?),
+      reminderDocumentReference: ReminderDocumentReference.fromJson(json['reminderDocumentReference'] as Map<String, dynamic>?),
+      additionalDocumentReference: AdditionalDocumentReference.fromJson(json['additionalDocumentReference'] as Map<String, dynamic>?),
+      billingReferenceLine: (json['billingReferenceLine'] as List? ?? []).map((dynamic d) => BillingReferenceLine.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'invoiceDocumentReference': invoiceDocumentReference?.toJson(),
       'selfBilledInvoiceDocumentReference': selfBilledInvoiceDocumentReference?.toJson(),
       'creditNoteDocumentReference': creditNoteDocumentReference?.toJson(),
@@ -64,34 +85,28 @@ class BillingReference {
     return map;
   }
 
-  static BillingReference? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return BillingReference (
-      invoiceDocumentReference: InvoiceDocumentReference.fromJson(json['invoiceDocumentReference'] as Map<String, dynamic>?),
-      selfBilledInvoiceDocumentReference: SelfBilledInvoiceDocumentReference.fromJson(json['selfBilledInvoiceDocumentReference'] as Map<String, dynamic>?),
-      creditNoteDocumentReference: CreditNoteDocumentReference.fromJson(json['creditNoteDocumentReference'] as Map<String, dynamic>?),
-      selfBilledCreditNoteDocumentReference: SelfBilledCreditNoteDocumentReference.fromJson(json['selfBilledCreditNoteDocumentReference'] as Map<String, dynamic>?),
-      debitNoteDocumentReference: DebitNoteDocumentReference.fromJson(json['debitNoteDocumentReference'] as Map<String, dynamic>?),
-      reminderDocumentReference: ReminderDocumentReference.fromJson(json['reminderDocumentReference'] as Map<String, dynamic>?),
-      additionalDocumentReference: AdditionalDocumentReference.fromJson(json['additionalDocumentReference'] as Map<String, dynamic>?),
-      billingReferenceLine: (json['billingReferenceLine'] as List? ?? []).map((dynamic d) => BillingReferenceLine.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static BillingReference? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return BillingReference (
-      invoiceDocumentReference: null,
-      selfBilledInvoiceDocumentReference: null,
-      creditNoteDocumentReference: null,
-      selfBilledCreditNoteDocumentReference: null,
-      debitNoteDocumentReference: null,
-      reminderDocumentReference: null,
-      additionalDocumentReference: null,
-      billingReferenceLine: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      invoiceDocumentReference: InvoiceDocumentReference.fromXml(xml.findElements('cac:InvoiceDocumentReference').singleOrNull),
+      selfBilledInvoiceDocumentReference: SelfBilledInvoiceDocumentReference.fromXml(xml.findElements('cac:SelfBilledInvoiceDocumentReference').singleOrNull),
+      creditNoteDocumentReference: CreditNoteDocumentReference.fromXml(xml.findElements('cac:CreditNoteDocumentReference').singleOrNull),
+      selfBilledCreditNoteDocumentReference: SelfBilledCreditNoteDocumentReference.fromXml(xml.findElements('cac:SelfBilledCreditNoteDocumentReference').singleOrNull),
+      debitNoteDocumentReference: DebitNoteDocumentReference.fromXml(xml.findElements('cac:DebitNoteDocumentReference').singleOrNull),
+      reminderDocumentReference: ReminderDocumentReference.fromXml(xml.findElements('cac:ReminderDocumentReference').singleOrNull),
+      additionalDocumentReference: AdditionalDocumentReference.fromXml(xml.findElements('cac:AdditionalDocumentReference').singleOrNull),
+      billingReferenceLine: xml.findElements('cac:BillingReferenceLine').map((XmlElement e) => BillingReferenceLine.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'BillingReference',
+        'cac',
+      ),
+    );
+  }
 }
 

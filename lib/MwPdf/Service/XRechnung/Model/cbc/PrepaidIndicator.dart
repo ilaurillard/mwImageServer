@@ -11,6 +11,13 @@ class PrepaidIndicator {
     required this.value,
   });
 
+  static PrepaidIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PrepaidIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class PrepaidIndicator {
     return map;
   }
 
-  static PrepaidIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PrepaidIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static PrepaidIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PrepaidIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PrepaidIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

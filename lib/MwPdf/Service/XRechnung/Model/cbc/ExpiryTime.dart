@@ -11,6 +11,13 @@ class ExpiryTime {
     required this.value,
   });
 
+  static ExpiryTime? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ExpiryTime (
+      value: XsdTime.fromJson(json['value'] as String?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class ExpiryTime {
     return map;
   }
 
-  static ExpiryTime? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ExpiryTime (
-      value: XsdTime.fromJson(json['value'] as String?)!,
-    );
-  }
-
   static ExpiryTime? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ExpiryTime (
-      value: null,
+      value: XsdTime.fromJson(xml.innerText)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ExpiryTime',
+        'cbc',
+      ),
+    );
+  }
 }
 

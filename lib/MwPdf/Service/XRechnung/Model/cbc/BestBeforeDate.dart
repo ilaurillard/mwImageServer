@@ -11,6 +11,13 @@ class BestBeforeDate {
     required this.value,
   });
 
+  static BestBeforeDate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return BestBeforeDate (
+      value: XsdDate.fromJson(json['value'] as String?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class BestBeforeDate {
     return map;
   }
 
-  static BestBeforeDate? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return BestBeforeDate (
-      value: XsdDate.fromJson(json['value'] as String?)!,
-    );
-  }
-
   static BestBeforeDate? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return BestBeforeDate (
-      value: null,
+      value: XsdDate.fromJson(xml.innerText)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'BestBeforeDate',
+        'cbc',
+      ),
+    );
+  }
 }
 

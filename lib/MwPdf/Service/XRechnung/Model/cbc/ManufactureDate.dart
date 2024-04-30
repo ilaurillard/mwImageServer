@@ -11,6 +11,13 @@ class ManufactureDate {
     required this.value,
   });
 
+  static ManufactureDate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ManufactureDate (
+      value: XsdDate.fromJson(json['value'] as String?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class ManufactureDate {
     return map;
   }
 
-  static ManufactureDate? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ManufactureDate (
-      value: XsdDate.fromJson(json['value'] as String?)!,
-    );
-  }
-
   static ManufactureDate? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ManufactureDate (
-      value: null,
+      value: XsdDate.fromJson(xml.innerText)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ManufactureDate',
+        'cbc',
+      ),
+    );
+  }
 }
 

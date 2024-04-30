@@ -11,6 +11,13 @@ class FreeOfChargeIndicator {
     required this.value,
   });
 
+  static FreeOfChargeIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return FreeOfChargeIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class FreeOfChargeIndicator {
     return map;
   }
 
-  static FreeOfChargeIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return FreeOfChargeIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static FreeOfChargeIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return FreeOfChargeIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'FreeOfChargeIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/Amount.dart';
 import '../cac/AllowanceCharge.dart';
 
@@ -12,6 +13,9 @@ class BillingReferenceLine {
   // An identifier for this transaction line in a billing document.
   final ID iD;
 
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
   // The monetary amount of the transaction line, including any allowances and charges but excluding taxes.
   final Amount? amount;
 
@@ -20,12 +24,24 @@ class BillingReferenceLine {
 
   BillingReferenceLine ({
     required this.iD,
+    this.uBLExtensions,
     this.amount,
     this.allowanceCharge = const [],
   });
 
+  static BillingReferenceLine? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return BillingReferenceLine (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?),
+      allowanceCharge: (json['allowanceCharge'] as List? ?? []).map((dynamic d) => AllowanceCharge.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD.toJson(),
       'amount': amount?.toJson(),
       'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
@@ -34,24 +50,23 @@ class BillingReferenceLine {
     return map;
   }
 
-  static BillingReferenceLine? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return BillingReferenceLine (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
-      amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?),
-      allowanceCharge: (json['allowanceCharge'] as List? ?? []).map((dynamic d) => AllowanceCharge.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static BillingReferenceLine? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return BillingReferenceLine (
-      iD: null,
-      amount: null,
-      allowanceCharge: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      amount: Amount.fromXml(xml.findElements('cbc:Amount').singleOrNull),
+      allowanceCharge: xml.findElements('cac:AllowanceCharge').map((XmlElement e) => AllowanceCharge.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'BillingReferenceLine',
+        'cac',
+      ),
+    );
+  }
 }
 

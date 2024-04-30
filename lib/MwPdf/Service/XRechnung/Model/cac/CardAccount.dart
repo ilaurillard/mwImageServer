@@ -3,6 +3,7 @@ import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/PrimaryAccountNumberID.dart';
 import '../cbc/NetworkID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/CardTypeCode.dart';
 import '../cbc/ValidityStartDate.dart';
 import '../cbc/ExpiryDate.dart';
@@ -12,6 +13,7 @@ import '../cbc/CV2ID.dart';
 import '../cbc/CardChipCode.dart';
 import '../cbc/ChipApplicationID.dart';
 import '../cbc/HolderName.dart';
+import '../cbc/RoleCode.dart';
 
 // A class to define a credit card, debit card, or charge card account.
 class CardAccount {
@@ -22,6 +24,9 @@ class CardAccount {
 
   // An identifier for the financial service network provider of the card.
   final NetworkID networkID;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A mutually agreed code signifying the type of card. Examples of types are "debit", "credit" and "purchasing"
   final CardTypeCode? cardTypeCode;
@@ -50,9 +55,13 @@ class CardAccount {
   // The name of the cardholder.
   final HolderName? holderName;
 
+  // The role of this card or the card holder (e.g., the buyer, when the card is used as a payment means to pay for an item), expressed as a code.
+  final RoleCode? roleCode;
+
   CardAccount ({
     required this.primaryAccountNumberID,
     required this.networkID,
+    this.uBLExtensions,
     this.cardTypeCode,
     this.validityStartDate,
     this.expiryDate,
@@ -62,29 +71,13 @@ class CardAccount {
     this.cardChipCode,
     this.chipApplicationID,
     this.holderName,
+    this.roleCode,
   });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'primaryAccountNumberID': primaryAccountNumberID.toJson(),
-      'networkID': networkID.toJson(),
-      'cardTypeCode': cardTypeCode?.toJson(),
-      'validityStartDate': validityStartDate?.toJson(),
-      'expiryDate': expiryDate?.toJson(),
-      'issuerID': issuerID?.toJson(),
-      'issueNumberID': issueNumberID?.toJson(),
-      'cV2ID': cV2ID?.toJson(),
-      'cardChipCode': cardChipCode?.toJson(),
-      'chipApplicationID': chipApplicationID?.toJson(),
-      'holderName': holderName?.toJson(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
-  }
 
   static CardAccount? fromJson(Map<String, dynamic>? json) {
     if (json == null) { return null; }
     return CardAccount (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       primaryAccountNumberID: PrimaryAccountNumberID.fromJson(json['primaryAccountNumberID'] as Map<String, dynamic>?)!,
       networkID: NetworkID.fromJson(json['networkID'] as Map<String, dynamic>?)!,
       cardTypeCode: CardTypeCode.fromJson(json['cardTypeCode'] as Map<String, dynamic>?),
@@ -96,26 +89,56 @@ class CardAccount {
       cardChipCode: CardChipCode.fromJson(json['cardChipCode'] as Map<String, dynamic>?),
       chipApplicationID: ChipApplicationID.fromJson(json['chipApplicationID'] as Map<String, dynamic>?),
       holderName: HolderName.fromJson(json['holderName'] as Map<String, dynamic>?),
+      roleCode: RoleCode.fromJson(json['roleCode'] as Map<String, dynamic>?),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'primaryAccountNumberID': primaryAccountNumberID.toJson(),
+      'networkID': networkID.toJson(),
+      'cardTypeCode': cardTypeCode?.toJson(),
+      'validityStartDate': validityStartDate?.toJson(),
+      'expiryDate': expiryDate?.toJson(),
+      'issuerID': issuerID?.toJson(),
+      'issueNumberID': issueNumberID?.toJson(),
+      'cV2ID': cV2ID?.toJson(),
+      'cardChipCode': cardChipCode?.toJson(),
+      'chipApplicationID': chipApplicationID?.toJson(),
+      'holderName': holderName?.toJson(),
+      'roleCode': roleCode?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
   }
 
   static CardAccount? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return CardAccount (
-      primaryAccountNumberID: null,
-      networkID: null,
-      cardTypeCode: null,
-      validityStartDate: null,
-      expiryDate: null,
-      issuerID: null,
-      issueNumberID: null,
-      cV2ID: null,
-      cardChipCode: null,
-      chipApplicationID: null,
-      holderName: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      primaryAccountNumberID: PrimaryAccountNumberID.fromXml(xml.findElements('cbc:PrimaryAccountNumberID').singleOrNull)!,
+      networkID: NetworkID.fromXml(xml.findElements('cbc:NetworkID').singleOrNull)!,
+      cardTypeCode: CardTypeCode.fromXml(xml.findElements('cbc:CardTypeCode').singleOrNull),
+      validityStartDate: ValidityStartDate.fromXml(xml.findElements('cbc:ValidityStartDate').singleOrNull),
+      expiryDate: ExpiryDate.fromXml(xml.findElements('cbc:ExpiryDate').singleOrNull),
+      issuerID: IssuerID.fromXml(xml.findElements('cbc:IssuerID').singleOrNull),
+      issueNumberID: IssueNumberID.fromXml(xml.findElements('cbc:IssueNumberID').singleOrNull),
+      cV2ID: CV2ID.fromXml(xml.findElements('cbc:CV2ID').singleOrNull),
+      cardChipCode: CardChipCode.fromXml(xml.findElements('cbc:CardChipCode').singleOrNull),
+      chipApplicationID: ChipApplicationID.fromXml(xml.findElements('cbc:ChipApplicationID').singleOrNull),
+      holderName: HolderName.fromXml(xml.findElements('cbc:HolderName').singleOrNull),
+      roleCode: RoleCode.fromXml(xml.findElements('cbc:RoleCode').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'CardAccount',
+        'cac',
+      ),
+    );
+  }
 }
 

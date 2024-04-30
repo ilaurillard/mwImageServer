@@ -11,6 +11,13 @@ class SplitConsignmentIndicator {
     required this.value,
   });
 
+  static SplitConsignmentIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return SplitConsignmentIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class SplitConsignmentIndicator {
     return map;
   }
 
-  static SplitConsignmentIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return SplitConsignmentIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static SplitConsignmentIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return SplitConsignmentIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'SplitConsignmentIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

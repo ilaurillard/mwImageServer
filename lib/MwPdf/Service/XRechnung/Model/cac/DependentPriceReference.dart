@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/Percent.dart';
 import '../cac/LocationAddress.dart';
 import '../cac/DependentLineReference.dart';
@@ -8,6 +9,9 @@ import '../cac/DependentLineReference.dart';
 // A class to define the price of an item as a percentage of the price of a different item.
 class DependentPriceReference {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // The percentage by which the price of the different item is multiplied to calculate the price of the item.
   final Percent? percent;
@@ -19,13 +23,25 @@ class DependentPriceReference {
   final DependentLineReference? dependentLineReference;
 
   DependentPriceReference ({
+    this.uBLExtensions,
     this.percent,
     this.locationAddress,
     this.dependentLineReference,
   });
 
+  static DependentPriceReference? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return DependentPriceReference (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      percent: Percent.fromJson(json['percent'] as Map<String, dynamic>?),
+      locationAddress: LocationAddress.fromJson(json['locationAddress'] as Map<String, dynamic>?),
+      dependentLineReference: DependentLineReference.fromJson(json['dependentLineReference'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'percent': percent?.toJson(),
       'locationAddress': locationAddress?.toJson(),
       'dependentLineReference': dependentLineReference?.toJson(),
@@ -34,24 +50,23 @@ class DependentPriceReference {
     return map;
   }
 
-  static DependentPriceReference? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return DependentPriceReference (
-      percent: Percent.fromJson(json['percent'] as Map<String, dynamic>?),
-      locationAddress: LocationAddress.fromJson(json['locationAddress'] as Map<String, dynamic>?),
-      dependentLineReference: DependentLineReference.fromJson(json['dependentLineReference'] as Map<String, dynamic>?),
-    );
-  }
-
   static DependentPriceReference? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return DependentPriceReference (
-      percent: null,
-      locationAddress: null,
-      dependentLineReference: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      percent: Percent.fromXml(xml.findElements('cbc:Percent').singleOrNull),
+      locationAddress: LocationAddress.fromXml(xml.findElements('cac:LocationAddress').singleOrNull),
+      dependentLineReference: DependentLineReference.fromXml(xml.findElements('cac:DependentLineReference').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'DependentPriceReference',
+        'cac',
+      ),
+    );
+  }
 }
 

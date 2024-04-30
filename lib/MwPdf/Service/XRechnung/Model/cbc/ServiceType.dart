@@ -21,6 +21,15 @@ class ServiceType {
     assert(value.isNotEmpty);
   }
 
+  static ServiceType? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ServiceType (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class ServiceType {
     return map;
   }
 
-  static ServiceType? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ServiceType (
-      value: json['value'] as String? ?? '',
-      languageID: json['languageID'] as String?,
-      languageLocaleID: json['languageLocaleID'] as String?,
-    );
-  }
-
   static ServiceType? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ServiceType (
-      value: null,
-      languageID: null,
-      languageLocaleID: null,
+      value: xml.innerText,
+      languageID: xml.getAttribute('languageID'),
+      languageLocaleID: xml.getAttribute('languageLocaleID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ServiceType',
+        'cbc',
+      ),
+    );
+  }
 }
 

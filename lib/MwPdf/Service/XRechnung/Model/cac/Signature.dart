@@ -2,6 +2,8 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
+import '../ext/UBLExtensions.dart';
+import '../cbc/ReasonCode.dart';
 import '../cbc/Note.dart';
 import '../cbc/ValidationDate.dart';
 import '../cbc/ValidationTime.dart';
@@ -18,6 +20,12 @@ class Signature {
 
   // An identifier for this signature.
   final ID iD;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
+  // A code defining the reason or purpose of this signature
+  final ReasonCode? reasonCode;
 
   // Free-form text conveying information that is not contained explicitly in other structures; in particular, information regarding the circumstances in which the signature is being used.
   final List<Note> note;
@@ -48,6 +56,8 @@ class Signature {
 
   Signature ({
     required this.iD,
+    this.uBLExtensions,
+    this.reasonCode,
     this.note = const [],
     this.validationDate,
     this.validationTime,
@@ -59,9 +69,29 @@ class Signature {
     this.originalDocumentReference,
   });
 
+  static Signature? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return Signature (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      reasonCode: ReasonCode.fromJson(json['reasonCode'] as Map<String, dynamic>?),
+      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
+      validationDate: ValidationDate.fromJson(json['validationDate'] as Map<String, dynamic>?),
+      validationTime: ValidationTime.fromJson(json['validationTime'] as Map<String, dynamic>?),
+      validatorID: ValidatorID.fromJson(json['validatorID'] as Map<String, dynamic>?),
+      canonicalizationMethod: CanonicalizationMethod.fromJson(json['canonicalizationMethod'] as Map<String, dynamic>?),
+      signatureMethod: SignatureMethod.fromJson(json['signatureMethod'] as Map<String, dynamic>?),
+      signatoryParty: SignatoryParty.fromJson(json['signatoryParty'] as Map<String, dynamic>?),
+      digitalSignatureAttachment: DigitalSignatureAttachment.fromJson(json['digitalSignatureAttachment'] as Map<String, dynamic>?),
+      originalDocumentReference: OriginalDocumentReference.fromJson(json['originalDocumentReference'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD.toJson(),
+      'reasonCode': reasonCode?.toJson(),
       'note': note.map((e) => e.toJson()).toList(),
       'validationDate': validationDate?.toJson(),
       'validationTime': validationTime?.toJson(),
@@ -76,38 +106,31 @@ class Signature {
     return map;
   }
 
-  static Signature? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return Signature (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
-      note: (json['note'] as List? ?? []).map((dynamic d) => Note.fromJson(d as Map<String, dynamic>?)!).toList(),
-      validationDate: ValidationDate.fromJson(json['validationDate'] as Map<String, dynamic>?),
-      validationTime: ValidationTime.fromJson(json['validationTime'] as Map<String, dynamic>?),
-      validatorID: ValidatorID.fromJson(json['validatorID'] as Map<String, dynamic>?),
-      canonicalizationMethod: CanonicalizationMethod.fromJson(json['canonicalizationMethod'] as Map<String, dynamic>?),
-      signatureMethod: SignatureMethod.fromJson(json['signatureMethod'] as Map<String, dynamic>?),
-      signatoryParty: SignatoryParty.fromJson(json['signatoryParty'] as Map<String, dynamic>?),
-      digitalSignatureAttachment: DigitalSignatureAttachment.fromJson(json['digitalSignatureAttachment'] as Map<String, dynamic>?),
-      originalDocumentReference: OriginalDocumentReference.fromJson(json['originalDocumentReference'] as Map<String, dynamic>?),
-    );
-  }
-
   static Signature? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return Signature (
-      iD: null,
-      note: null,
-      validationDate: null,
-      validationTime: null,
-      validatorID: null,
-      canonicalizationMethod: null,
-      signatureMethod: null,
-      signatoryParty: null,
-      digitalSignatureAttachment: null,
-      originalDocumentReference: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      reasonCode: ReasonCode.fromXml(xml.findElements('cbc:ReasonCode').singleOrNull),
+      note: xml.findElements('cbc:Note').map((XmlElement e) => Note.fromXml(e)!).toList(),
+      validationDate: ValidationDate.fromXml(xml.findElements('cbc:ValidationDate').singleOrNull),
+      validationTime: ValidationTime.fromXml(xml.findElements('cbc:ValidationTime').singleOrNull),
+      validatorID: ValidatorID.fromXml(xml.findElements('cbc:ValidatorID').singleOrNull),
+      canonicalizationMethod: CanonicalizationMethod.fromXml(xml.findElements('cbc:CanonicalizationMethod').singleOrNull),
+      signatureMethod: SignatureMethod.fromXml(xml.findElements('cbc:SignatureMethod').singleOrNull),
+      signatoryParty: SignatoryParty.fromXml(xml.findElements('cac:SignatoryParty').singleOrNull),
+      digitalSignatureAttachment: DigitalSignatureAttachment.fromXml(xml.findElements('cac:DigitalSignatureAttachment').singleOrNull),
+      originalDocumentReference: OriginalDocumentReference.fromXml(xml.findElements('cac:OriginalDocumentReference').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'Signature',
+        'cac',
+      ),
+    );
+  }
 }
 

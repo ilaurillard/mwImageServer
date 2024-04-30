@@ -15,6 +15,14 @@ class LineCountNumeric {
     this.format,
   });
 
+  static LineCountNumeric? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return LineCountNumeric (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      format: json['format'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -24,22 +32,21 @@ class LineCountNumeric {
     return map;
   }
 
-  static LineCountNumeric? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return LineCountNumeric (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      format: json['format'] as String?,
-    );
-  }
-
   static LineCountNumeric? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return LineCountNumeric (
-      value: null,
-      format: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      format: xml.getAttribute('format'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'LineCountNumeric',
+        'cbc',
+      ),
+    );
+  }
 }
 

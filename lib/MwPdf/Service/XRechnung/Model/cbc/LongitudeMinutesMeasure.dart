@@ -21,6 +21,15 @@ class LongitudeMinutesMeasure {
     assert(unitCode.isNotEmpty);
   }
 
+  static LongitudeMinutesMeasure? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return LongitudeMinutesMeasure (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      unitCode: json['unitCode'] as String? ?? '',
+      unitCodeListVersionID: json['unitCodeListVersionID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class LongitudeMinutesMeasure {
     return map;
   }
 
-  static LongitudeMinutesMeasure? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return LongitudeMinutesMeasure (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      unitCode: json['unitCode'] as String? ?? '',
-      unitCodeListVersionID: json['unitCodeListVersionID'] as String?,
-    );
-  }
-
   static LongitudeMinutesMeasure? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return LongitudeMinutesMeasure (
-      value: null,
-      unitCode: null,
-      unitCodeListVersionID: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      unitCode: xml.getAttribute('unitCode') ?? '',
+      unitCodeListVersionID: xml.getAttribute('unitCodeListVersionID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'LongitudeMinutesMeasure',
+        'cbc',
+      ),
+    );
+  }
 }
 

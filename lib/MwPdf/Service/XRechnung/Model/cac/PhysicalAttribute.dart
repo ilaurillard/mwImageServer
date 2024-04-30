@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/AttributeID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/PositionCode.dart';
 import '../cbc/DescriptionCode.dart';
 import '../cbc/Description.dart';
@@ -12,6 +13,9 @@ class PhysicalAttribute {
 
   // An identifier for this physical attribute.
   final AttributeID attributeID;
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // A code signifying the position of this physical attribute.
   final PositionCode? positionCode;
@@ -24,13 +28,26 @@ class PhysicalAttribute {
 
   PhysicalAttribute ({
     required this.attributeID,
+    this.uBLExtensions,
     this.positionCode,
     this.descriptionCode,
     this.description = const [],
   });
 
+  static PhysicalAttribute? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return PhysicalAttribute (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      attributeID: AttributeID.fromJson(json['attributeID'] as Map<String, dynamic>?)!,
+      positionCode: PositionCode.fromJson(json['positionCode'] as Map<String, dynamic>?),
+      descriptionCode: DescriptionCode.fromJson(json['descriptionCode'] as Map<String, dynamic>?),
+      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'attributeID': attributeID.toJson(),
       'positionCode': positionCode?.toJson(),
       'descriptionCode': descriptionCode?.toJson(),
@@ -40,26 +57,24 @@ class PhysicalAttribute {
     return map;
   }
 
-  static PhysicalAttribute? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return PhysicalAttribute (
-      attributeID: AttributeID.fromJson(json['attributeID'] as Map<String, dynamic>?)!,
-      positionCode: PositionCode.fromJson(json['positionCode'] as Map<String, dynamic>?),
-      descriptionCode: DescriptionCode.fromJson(json['descriptionCode'] as Map<String, dynamic>?),
-      description: (json['description'] as List? ?? []).map((dynamic d) => Description.fromJson(d as Map<String, dynamic>?)!).toList(),
-    );
-  }
-
   static PhysicalAttribute? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return PhysicalAttribute (
-      attributeID: null,
-      positionCode: null,
-      descriptionCode: null,
-      description: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      attributeID: AttributeID.fromXml(xml.findElements('cbc:AttributeID').singleOrNull)!,
+      positionCode: PositionCode.fromXml(xml.findElements('cbc:PositionCode').singleOrNull),
+      descriptionCode: DescriptionCode.fromXml(xml.findElements('cbc:DescriptionCode').singleOrNull),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'PhysicalAttribute',
+        'cac',
+      ),
+    );
+  }
 }
 

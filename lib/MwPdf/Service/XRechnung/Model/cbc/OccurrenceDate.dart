@@ -11,6 +11,13 @@ class OccurrenceDate {
     required this.value,
   });
 
+  static OccurrenceDate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return OccurrenceDate (
+      value: XsdDate.fromJson(json['value'] as String?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class OccurrenceDate {
     return map;
   }
 
-  static OccurrenceDate? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return OccurrenceDate (
-      value: XsdDate.fromJson(json['value'] as String?)!,
-    );
-  }
-
   static OccurrenceDate? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return OccurrenceDate (
-      value: null,
+      value: XsdDate.fromJson(xml.innerText)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'OccurrenceDate',
+        'cbc',
+      ),
+    );
+  }
 }
 

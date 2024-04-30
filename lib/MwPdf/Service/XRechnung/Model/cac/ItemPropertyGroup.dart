@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/Name.dart';
 import '../cbc/ImportanceCode.dart';
 
@@ -12,6 +13,9 @@ class ItemPropertyGroup {
   // An identifier for this group of item properties.
   final ID iD;
 
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
+
   // The name of this item property group.
   final Name? name;
 
@@ -20,12 +24,24 @@ class ItemPropertyGroup {
 
   ItemPropertyGroup ({
     required this.iD,
+    this.uBLExtensions,
     this.name,
     this.importanceCode,
   });
 
+  static ItemPropertyGroup? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ItemPropertyGroup (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      importanceCode: ImportanceCode.fromJson(json['importanceCode'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD.toJson(),
       'name': name?.toJson(),
       'importanceCode': importanceCode?.toJson(),
@@ -34,24 +50,23 @@ class ItemPropertyGroup {
     return map;
   }
 
-  static ItemPropertyGroup? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ItemPropertyGroup (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
-      name: Name.fromJson(json['name'] as Map<String, dynamic>?),
-      importanceCode: ImportanceCode.fromJson(json['importanceCode'] as Map<String, dynamic>?),
-    );
-  }
-
   static ItemPropertyGroup? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ItemPropertyGroup (
-      iD: null,
-      name: null,
-      importanceCode: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      name: Name.fromXml(xml.findElements('cbc:Name').singleOrNull),
+      importanceCode: ImportanceCode.fromXml(xml.findElements('cbc:ImportanceCode').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ItemPropertyGroup',
+        'cac',
+      ),
+    );
+  }
 }
 

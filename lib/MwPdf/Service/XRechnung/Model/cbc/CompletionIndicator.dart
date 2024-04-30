@@ -11,6 +11,13 @@ class CompletionIndicator {
     required this.value,
   });
 
+  static CompletionIndicator? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return CompletionIndicator (
+      value: json['value'] as bool? ?? false,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class CompletionIndicator {
     return map;
   }
 
-  static CompletionIndicator? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return CompletionIndicator (
-      value: json['value'] as bool? ?? false,
-    );
-  }
-
   static CompletionIndicator? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return CompletionIndicator (
-      value: null,
+      value: xml.innerText as bool? ?? false,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'CompletionIndicator',
+        'cbc',
+      ),
+    );
+  }
 }
 

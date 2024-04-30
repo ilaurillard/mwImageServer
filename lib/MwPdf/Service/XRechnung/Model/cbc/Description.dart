@@ -21,6 +21,15 @@ class Description {
     assert(value.isNotEmpty);
   }
 
+  static Description? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return Description (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class Description {
     return map;
   }
 
-  static Description? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return Description (
-      value: json['value'] as String? ?? '',
-      languageID: json['languageID'] as String?,
-      languageLocaleID: json['languageLocaleID'] as String?,
-    );
-  }
-
   static Description? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return Description (
-      value: null,
-      languageID: null,
-      languageLocaleID: null,
+      value: xml.innerText,
+      languageID: xml.getAttribute('languageID'),
+      languageLocaleID: xml.getAttribute('languageLocaleID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'Description',
+        'cbc',
+      ),
+    );
+  }
 }
 

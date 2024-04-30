@@ -21,6 +21,15 @@ class GrossTonnageMeasure {
     assert(unitCode.isNotEmpty);
   }
 
+  static GrossTonnageMeasure? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return GrossTonnageMeasure (
+      value: double.tryParse(json['value'].toString()) ?? 0,
+      unitCode: json['unitCode'] as String? ?? '',
+      unitCodeListVersionID: json['unitCodeListVersionID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class GrossTonnageMeasure {
     return map;
   }
 
-  static GrossTonnageMeasure? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return GrossTonnageMeasure (
-      value: double.tryParse(json['value'].toString()) ?? 0,
-      unitCode: json['unitCode'] as String? ?? '',
-      unitCodeListVersionID: json['unitCodeListVersionID'] as String?,
-    );
-  }
-
   static GrossTonnageMeasure? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return GrossTonnageMeasure (
-      value: null,
-      unitCode: null,
-      unitCodeListVersionID: null,
+      value: double.tryParse(xml.innerText.toString()) ?? 0,
+      unitCode: xml.getAttribute('unitCode') ?? '',
+      unitCodeListVersionID: xml.getAttribute('unitCodeListVersionID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'GrossTonnageMeasure',
+        'cbc',
+      ),
+    );
+  }
 }
 

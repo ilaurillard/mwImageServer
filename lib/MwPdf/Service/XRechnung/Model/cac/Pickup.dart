@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/ActualPickupDate.dart';
 import '../cbc/ActualPickupTime.dart';
@@ -14,6 +15,9 @@ import '../cac/PickupParty.dart';
 // A class to describe a pickup for delivery.
 class Pickup {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this pickup.
   final ID? iD;
@@ -43,6 +47,7 @@ class Pickup {
   final PickupParty? pickupParty;
 
   Pickup ({
+    this.uBLExtensions,
     this.iD,
     this.actualPickupDate,
     this.actualPickupTime,
@@ -54,8 +59,25 @@ class Pickup {
     this.pickupParty,
   });
 
+  static Pickup? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return Pickup (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
+      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
+      actualPickupDate: ActualPickupDate.fromJson(json['actualPickupDate'] as Map<String, dynamic>?),
+      actualPickupTime: ActualPickupTime.fromJson(json['actualPickupTime'] as Map<String, dynamic>?),
+      earliestPickupDate: EarliestPickupDate.fromJson(json['earliestPickupDate'] as Map<String, dynamic>?),
+      earliestPickupTime: EarliestPickupTime.fromJson(json['earliestPickupTime'] as Map<String, dynamic>?),
+      latestPickupDate: LatestPickupDate.fromJson(json['latestPickupDate'] as Map<String, dynamic>?),
+      latestPickupTime: LatestPickupTime.fromJson(json['latestPickupTime'] as Map<String, dynamic>?),
+      pickupLocation: PickupLocation.fromJson(json['pickupLocation'] as Map<String, dynamic>?),
+      pickupParty: PickupParty.fromJson(json['pickupParty'] as Map<String, dynamic>?),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'actualPickupDate': actualPickupDate?.toJson(),
       'actualPickupTime': actualPickupTime?.toJson(),
@@ -70,36 +92,29 @@ class Pickup {
     return map;
   }
 
-  static Pickup? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return Pickup (
-      iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
-      actualPickupDate: ActualPickupDate.fromJson(json['actualPickupDate'] as Map<String, dynamic>?),
-      actualPickupTime: ActualPickupTime.fromJson(json['actualPickupTime'] as Map<String, dynamic>?),
-      earliestPickupDate: EarliestPickupDate.fromJson(json['earliestPickupDate'] as Map<String, dynamic>?),
-      earliestPickupTime: EarliestPickupTime.fromJson(json['earliestPickupTime'] as Map<String, dynamic>?),
-      latestPickupDate: LatestPickupDate.fromJson(json['latestPickupDate'] as Map<String, dynamic>?),
-      latestPickupTime: LatestPickupTime.fromJson(json['latestPickupTime'] as Map<String, dynamic>?),
-      pickupLocation: PickupLocation.fromJson(json['pickupLocation'] as Map<String, dynamic>?),
-      pickupParty: PickupParty.fromJson(json['pickupParty'] as Map<String, dynamic>?),
-    );
-  }
-
   static Pickup? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return Pickup (
-      iD: null,
-      actualPickupDate: null,
-      actualPickupTime: null,
-      earliestPickupDate: null,
-      earliestPickupTime: null,
-      latestPickupDate: null,
-      latestPickupTime: null,
-      pickupLocation: null,
-      pickupParty: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      actualPickupDate: ActualPickupDate.fromXml(xml.findElements('cbc:ActualPickupDate').singleOrNull),
+      actualPickupTime: ActualPickupTime.fromXml(xml.findElements('cbc:ActualPickupTime').singleOrNull),
+      earliestPickupDate: EarliestPickupDate.fromXml(xml.findElements('cbc:EarliestPickupDate').singleOrNull),
+      earliestPickupTime: EarliestPickupTime.fromXml(xml.findElements('cbc:EarliestPickupTime').singleOrNull),
+      latestPickupDate: LatestPickupDate.fromXml(xml.findElements('cbc:LatestPickupDate').singleOrNull),
+      latestPickupTime: LatestPickupTime.fromXml(xml.findElements('cbc:LatestPickupTime').singleOrNull),
+      pickupLocation: PickupLocation.fromXml(xml.findElements('cac:PickupLocation').singleOrNull),
+      pickupParty: PickupParty.fromXml(xml.findElements('cac:PickupParty').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'Pickup',
+        'cac',
+      ),
+    );
+  }
 }
 

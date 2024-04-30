@@ -21,6 +21,15 @@ class Department {
     assert(value.isNotEmpty);
   }
 
+  static Department? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return Department (
+      value: json['value'] as String? ?? '',
+      languageID: json['languageID'] as String?,
+      languageLocaleID: json['languageLocaleID'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -31,24 +40,22 @@ class Department {
     return map;
   }
 
-  static Department? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return Department (
-      value: json['value'] as String? ?? '',
-      languageID: json['languageID'] as String?,
-      languageLocaleID: json['languageLocaleID'] as String?,
-    );
-  }
-
   static Department? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return Department (
-      value: null,
-      languageID: null,
-      languageLocaleID: null,
+      value: xml.innerText,
+      languageID: xml.getAttribute('languageID'),
+      languageLocaleID: xml.getAttribute('languageLocaleID'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'Department',
+        'cbc',
+      ),
+    );
+  }
 }
 

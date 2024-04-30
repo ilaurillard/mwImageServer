@@ -11,6 +11,13 @@ class ActualDespatchDate {
     required this.value,
   });
 
+  static ActualDespatchDate? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return ActualDespatchDate (
+      value: XsdDate.fromJson(json['value'] as String?)!,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -19,20 +26,20 @@ class ActualDespatchDate {
     return map;
   }
 
-  static ActualDespatchDate? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return ActualDespatchDate (
-      value: XsdDate.fromJson(json['value'] as String?)!,
-    );
-  }
-
   static ActualDespatchDate? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return ActualDespatchDate (
-      value: null,
+      value: XsdDate.fromJson(xml.innerText)!,
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'ActualDespatchDate',
+        'cbc',
+      ),
+    );
+  }
 }
 

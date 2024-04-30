@@ -38,6 +38,19 @@ class EmbeddedDocumentBinaryObject {
     assert(mimeCode.isNotEmpty);
   }
 
+  static EmbeddedDocumentBinaryObject? fromJson(Map<String, dynamic>? json) {
+    if (json == null) { return null; }
+    return EmbeddedDocumentBinaryObject (
+      value: json['value'] as String? ?? '',
+      format: json['format'] as String?,
+      mimeCode: json['mimeCode'] as String? ?? '',
+      encodingCode: json['encodingCode'] as String?,
+      characterSetCode: json['characterSetCode'] as String?,
+      uri: json['uri'] as String?,
+      filename: json['filename'] as String?,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value,
@@ -52,32 +65,26 @@ class EmbeddedDocumentBinaryObject {
     return map;
   }
 
-  static EmbeddedDocumentBinaryObject? fromJson(Map<String, dynamic>? json) {
-    if (json == null) { return null; }
-    return EmbeddedDocumentBinaryObject (
-      value: json['value'] as String? ?? '',
-      format: json['format'] as String?,
-      mimeCode: json['mimeCode'] as String? ?? '',
-      encodingCode: json['encodingCode'] as String?,
-      characterSetCode: json['characterSetCode'] as String?,
-      uri: json['uri'] as String?,
-      filename: json['filename'] as String?,
-    );
-  }
-
   static EmbeddedDocumentBinaryObject? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return EmbeddedDocumentBinaryObject (
-      value: null,
-      format: null,
-      mimeCode: null,
-      encodingCode: null,
-      characterSetCode: null,
-      uri: null,
-      filename: null,
+      value: xml.innerText,
+      format: xml.getAttribute('format'),
+      mimeCode: xml.getAttribute('mimeCode') ?? '',
+      encodingCode: xml.getAttribute('encodingCode'),
+      characterSetCode: xml.getAttribute('characterSetCode'),
+      uri: xml.getAttribute('uri'),
+      filename: xml.getAttribute('filename'),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'EmbeddedDocumentBinaryObject',
+        'cbc',
+      ),
+    );
+  }
 }
 

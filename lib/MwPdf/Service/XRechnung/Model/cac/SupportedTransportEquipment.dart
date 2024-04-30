@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
+import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/ReferencedConsignmentID.dart';
 import '../cbc/TransportEquipmentTypeCode.dart';
@@ -62,10 +63,14 @@ import '../cac/ShipmentDocumentReference.dart';
 import '../cac/ContainedInTransportEquipment.dart';
 import '../cac/Package.dart';
 import '../cac/GoodsItem.dart';
+import '../cac/VerifiedGrossMass.dart';
 
 // A class to describe a piece of equipment used to transport goods.
 class SupportedTransportEquipment {
 
+
+  // A container for extensions foreign to the document.
+  final UBLExtensions? uBLExtensions;
 
   // An identifier for this piece of transport equipment.
   final ID? iD;
@@ -250,7 +255,11 @@ class SupportedTransportEquipment {
   // A goods item contained in this piece of transport equipment.
   final List<GoodsItem> goodsItem;
 
+  // The verified gross mass of this piece of transport equipment.
+  final VerifiedGrossMass? verifiedGrossMass;
+
   SupportedTransportEquipment ({
+    this.uBLExtensions,
     this.iD,
     this.referencedConsignmentID = const [],
     this.transportEquipmentTypeCode,
@@ -312,79 +321,13 @@ class SupportedTransportEquipment {
     this.containedInTransportEquipment = const [],
     this.package = const [],
     this.goodsItem = const [],
+    this.verifiedGrossMass,
   });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'iD': iD?.toJson(),
-      'referencedConsignmentID': referencedConsignmentID.map((e) => e.toJson()).toList(),
-      'transportEquipmentTypeCode': transportEquipmentTypeCode?.toJson(),
-      'providerTypeCode': providerTypeCode?.toJson(),
-      'ownerTypeCode': ownerTypeCode?.toJson(),
-      'sizeTypeCode': sizeTypeCode?.toJson(),
-      'dispositionCode': dispositionCode?.toJson(),
-      'fullnessIndicationCode': fullnessIndicationCode?.toJson(),
-      'refrigerationOnIndicator': refrigerationOnIndicator?.toJson(),
-      'information': information.map((e) => e.toJson()).toList(),
-      'returnabilityIndicator': returnabilityIndicator?.toJson(),
-      'legalStatusIndicator': legalStatusIndicator?.toJson(),
-      'airFlowPercent': airFlowPercent?.toJson(),
-      'humidityPercent': humidityPercent?.toJson(),
-      'animalFoodApprovedIndicator': animalFoodApprovedIndicator?.toJson(),
-      'humanFoodApprovedIndicator': humanFoodApprovedIndicator?.toJson(),
-      'dangerousGoodsApprovedIndicator': dangerousGoodsApprovedIndicator?.toJson(),
-      'refrigeratedIndicator': refrigeratedIndicator?.toJson(),
-      'characteristics': characteristics?.toJson(),
-      'damageRemarks': damageRemarks.map((e) => e.toJson()).toList(),
-      'description': description.map((e) => e.toJson()).toList(),
-      'specialTransportRequirements': specialTransportRequirements.map((e) => e.toJson()).toList(),
-      'grossWeightMeasure': grossWeightMeasure?.toJson(),
-      'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
-      'tareWeightMeasure': tareWeightMeasure?.toJson(),
-      'trackingDeviceCode': trackingDeviceCode?.toJson(),
-      'powerIndicator': powerIndicator?.toJson(),
-      'traceID': traceID?.toJson(),
-      'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
-      'transportEquipmentSeal': transportEquipmentSeal.map((e) => e.toJson()).toList(),
-      'minimumTemperature': minimumTemperature?.toJson(),
-      'maximumTemperature': maximumTemperature?.toJson(),
-      'providerParty': providerParty?.toJson(),
-      'loadingProofParty': loadingProofParty?.toJson(),
-      'supplierParty': supplierParty?.toJson(),
-      'ownerParty': ownerParty?.toJson(),
-      'operatingParty': operatingParty?.toJson(),
-      'loadingLocation': loadingLocation?.toJson(),
-      'unloadingLocation': unloadingLocation?.toJson(),
-      'storageLocation': storageLocation?.toJson(),
-      'positioningTransportEvent': positioningTransportEvent.map((e) => e.toJson()).toList(),
-      'quarantineTransportEvent': quarantineTransportEvent.map((e) => e.toJson()).toList(),
-      'deliveryTransportEvent': deliveryTransportEvent.map((e) => e.toJson()).toList(),
-      'pickupTransportEvent': pickupTransportEvent.map((e) => e.toJson()).toList(),
-      'handlingTransportEvent': handlingTransportEvent.map((e) => e.toJson()).toList(),
-      'loadingTransportEvent': loadingTransportEvent.map((e) => e.toJson()).toList(),
-      'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
-      'applicableTransportMeans': applicableTransportMeans?.toJson(),
-      'haulageTradingTerms': haulageTradingTerms.map((e) => e.toJson()).toList(),
-      'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
-      'packagedTransportHandlingUnit': packagedTransportHandlingUnit.map((e) => e.toJson()).toList(),
-      'serviceAllowanceCharge': serviceAllowanceCharge.map((e) => e.toJson()).toList(),
-      'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
-      'attachedTransportEquipment': attachedTransportEquipment.map((e) => e.toJson()).toList(),
-      'delivery': delivery?.toJson(),
-      'pickup': pickup?.toJson(),
-      'despatch': despatch?.toJson(),
-      'shipmentDocumentReference': shipmentDocumentReference.map((e) => e.toJson()).toList(),
-      'containedInTransportEquipment': containedInTransportEquipment.map((e) => e.toJson()).toList(),
-      'package': package.map((e) => e.toJson()).toList(),
-      'goodsItem': goodsItem.map((e) => e.toJson()).toList(),
-    };
-    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
-    return map;
-  }
 
   static SupportedTransportEquipment? fromJson(Map<String, dynamic>? json) {
     if (json == null) { return null; }
     return SupportedTransportEquipment (
+      uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
       referencedConsignmentID: (json['referencedConsignmentID'] as List? ?? []).map((dynamic d) => ReferencedConsignmentID.fromJson(d as Map<String, dynamic>?)!).toList(),
       transportEquipmentTypeCode: TransportEquipmentTypeCode.fromJson(json['transportEquipmentTypeCode'] as Map<String, dynamic>?),
@@ -446,76 +389,156 @@ class SupportedTransportEquipment {
       containedInTransportEquipment: (json['containedInTransportEquipment'] as List? ?? []).map((dynamic d) => ContainedInTransportEquipment.fromJson(d as Map<String, dynamic>?)!).toList(),
       package: (json['package'] as List? ?? []).map((dynamic d) => Package.fromJson(d as Map<String, dynamic>?)!).toList(),
       goodsItem: (json['goodsItem'] as List? ?? []).map((dynamic d) => GoodsItem.fromJson(d as Map<String, dynamic>?)!).toList(),
+      verifiedGrossMass: VerifiedGrossMass.fromJson(json['verifiedGrossMass'] as Map<String, dynamic>?),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'uBLExtensions': uBLExtensions?.toJson(),
+      'iD': iD?.toJson(),
+      'referencedConsignmentID': referencedConsignmentID.map((e) => e.toJson()).toList(),
+      'transportEquipmentTypeCode': transportEquipmentTypeCode?.toJson(),
+      'providerTypeCode': providerTypeCode?.toJson(),
+      'ownerTypeCode': ownerTypeCode?.toJson(),
+      'sizeTypeCode': sizeTypeCode?.toJson(),
+      'dispositionCode': dispositionCode?.toJson(),
+      'fullnessIndicationCode': fullnessIndicationCode?.toJson(),
+      'refrigerationOnIndicator': refrigerationOnIndicator?.toJson(),
+      'information': information.map((e) => e.toJson()).toList(),
+      'returnabilityIndicator': returnabilityIndicator?.toJson(),
+      'legalStatusIndicator': legalStatusIndicator?.toJson(),
+      'airFlowPercent': airFlowPercent?.toJson(),
+      'humidityPercent': humidityPercent?.toJson(),
+      'animalFoodApprovedIndicator': animalFoodApprovedIndicator?.toJson(),
+      'humanFoodApprovedIndicator': humanFoodApprovedIndicator?.toJson(),
+      'dangerousGoodsApprovedIndicator': dangerousGoodsApprovedIndicator?.toJson(),
+      'refrigeratedIndicator': refrigeratedIndicator?.toJson(),
+      'characteristics': characteristics?.toJson(),
+      'damageRemarks': damageRemarks.map((e) => e.toJson()).toList(),
+      'description': description.map((e) => e.toJson()).toList(),
+      'specialTransportRequirements': specialTransportRequirements.map((e) => e.toJson()).toList(),
+      'grossWeightMeasure': grossWeightMeasure?.toJson(),
+      'grossVolumeMeasure': grossVolumeMeasure?.toJson(),
+      'tareWeightMeasure': tareWeightMeasure?.toJson(),
+      'trackingDeviceCode': trackingDeviceCode?.toJson(),
+      'powerIndicator': powerIndicator?.toJson(),
+      'traceID': traceID?.toJson(),
+      'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
+      'transportEquipmentSeal': transportEquipmentSeal.map((e) => e.toJson()).toList(),
+      'minimumTemperature': minimumTemperature?.toJson(),
+      'maximumTemperature': maximumTemperature?.toJson(),
+      'providerParty': providerParty?.toJson(),
+      'loadingProofParty': loadingProofParty?.toJson(),
+      'supplierParty': supplierParty?.toJson(),
+      'ownerParty': ownerParty?.toJson(),
+      'operatingParty': operatingParty?.toJson(),
+      'loadingLocation': loadingLocation?.toJson(),
+      'unloadingLocation': unloadingLocation?.toJson(),
+      'storageLocation': storageLocation?.toJson(),
+      'positioningTransportEvent': positioningTransportEvent.map((e) => e.toJson()).toList(),
+      'quarantineTransportEvent': quarantineTransportEvent.map((e) => e.toJson()).toList(),
+      'deliveryTransportEvent': deliveryTransportEvent.map((e) => e.toJson()).toList(),
+      'pickupTransportEvent': pickupTransportEvent.map((e) => e.toJson()).toList(),
+      'handlingTransportEvent': handlingTransportEvent.map((e) => e.toJson()).toList(),
+      'loadingTransportEvent': loadingTransportEvent.map((e) => e.toJson()).toList(),
+      'transportEvent': transportEvent.map((e) => e.toJson()).toList(),
+      'applicableTransportMeans': applicableTransportMeans?.toJson(),
+      'haulageTradingTerms': haulageTradingTerms.map((e) => e.toJson()).toList(),
+      'hazardousGoodsTransit': hazardousGoodsTransit.map((e) => e.toJson()).toList(),
+      'packagedTransportHandlingUnit': packagedTransportHandlingUnit.map((e) => e.toJson()).toList(),
+      'serviceAllowanceCharge': serviceAllowanceCharge.map((e) => e.toJson()).toList(),
+      'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
+      'attachedTransportEquipment': attachedTransportEquipment.map((e) => e.toJson()).toList(),
+      'delivery': delivery?.toJson(),
+      'pickup': pickup?.toJson(),
+      'despatch': despatch?.toJson(),
+      'shipmentDocumentReference': shipmentDocumentReference.map((e) => e.toJson()).toList(),
+      'containedInTransportEquipment': containedInTransportEquipment.map((e) => e.toJson()).toList(),
+      'package': package.map((e) => e.toJson()).toList(),
+      'goodsItem': goodsItem.map((e) => e.toJson()).toList(),
+      'verifiedGrossMass': verifiedGrossMass?.toJson(),
+    };
+    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
+    return map;
   }
 
   static SupportedTransportEquipment? fromXml(XmlElement? xml) {
     if (xml == null) { return null; }
-    XmlNodeList<XmlAttribute> attr = xml.attributes;
     return SupportedTransportEquipment (
-      iD: null,
-      referencedConsignmentID: null,
-      transportEquipmentTypeCode: null,
-      providerTypeCode: null,
-      ownerTypeCode: null,
-      sizeTypeCode: null,
-      dispositionCode: null,
-      fullnessIndicationCode: null,
-      refrigerationOnIndicator: null,
-      information: null,
-      returnabilityIndicator: null,
-      legalStatusIndicator: null,
-      airFlowPercent: null,
-      humidityPercent: null,
-      animalFoodApprovedIndicator: null,
-      humanFoodApprovedIndicator: null,
-      dangerousGoodsApprovedIndicator: null,
-      refrigeratedIndicator: null,
-      characteristics: null,
-      damageRemarks: null,
-      description: null,
-      specialTransportRequirements: null,
-      grossWeightMeasure: null,
-      grossVolumeMeasure: null,
-      tareWeightMeasure: null,
-      trackingDeviceCode: null,
-      powerIndicator: null,
-      traceID: null,
-      measurementDimension: null,
-      transportEquipmentSeal: null,
-      minimumTemperature: null,
-      maximumTemperature: null,
-      providerParty: null,
-      loadingProofParty: null,
-      supplierParty: null,
-      ownerParty: null,
-      operatingParty: null,
-      loadingLocation: null,
-      unloadingLocation: null,
-      storageLocation: null,
-      positioningTransportEvent: null,
-      quarantineTransportEvent: null,
-      deliveryTransportEvent: null,
-      pickupTransportEvent: null,
-      handlingTransportEvent: null,
-      loadingTransportEvent: null,
-      transportEvent: null,
-      applicableTransportMeans: null,
-      haulageTradingTerms: null,
-      hazardousGoodsTransit: null,
-      packagedTransportHandlingUnit: null,
-      serviceAllowanceCharge: null,
-      freightAllowanceCharge: null,
-      attachedTransportEquipment: null,
-      delivery: null,
-      pickup: null,
-      despatch: null,
-      shipmentDocumentReference: null,
-      containedInTransportEquipment: null,
-      package: null,
-      goodsItem: null,
+      uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
+      iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
+      referencedConsignmentID: xml.findElements('cbc:ReferencedConsignmentID').map((XmlElement e) => ReferencedConsignmentID.fromXml(e)!).toList(),
+      transportEquipmentTypeCode: TransportEquipmentTypeCode.fromXml(xml.findElements('cbc:TransportEquipmentTypeCode').singleOrNull),
+      providerTypeCode: ProviderTypeCode.fromXml(xml.findElements('cbc:ProviderTypeCode').singleOrNull),
+      ownerTypeCode: OwnerTypeCode.fromXml(xml.findElements('cbc:OwnerTypeCode').singleOrNull),
+      sizeTypeCode: SizeTypeCode.fromXml(xml.findElements('cbc:SizeTypeCode').singleOrNull),
+      dispositionCode: DispositionCode.fromXml(xml.findElements('cbc:DispositionCode').singleOrNull),
+      fullnessIndicationCode: FullnessIndicationCode.fromXml(xml.findElements('cbc:FullnessIndicationCode').singleOrNull),
+      refrigerationOnIndicator: RefrigerationOnIndicator.fromXml(xml.findElements('cbc:RefrigerationOnIndicator').singleOrNull),
+      information: xml.findElements('cbc:Information').map((XmlElement e) => Information.fromXml(e)!).toList(),
+      returnabilityIndicator: ReturnabilityIndicator.fromXml(xml.findElements('cbc:ReturnabilityIndicator').singleOrNull),
+      legalStatusIndicator: LegalStatusIndicator.fromXml(xml.findElements('cbc:LegalStatusIndicator').singleOrNull),
+      airFlowPercent: AirFlowPercent.fromXml(xml.findElements('cbc:AirFlowPercent').singleOrNull),
+      humidityPercent: HumidityPercent.fromXml(xml.findElements('cbc:HumidityPercent').singleOrNull),
+      animalFoodApprovedIndicator: AnimalFoodApprovedIndicator.fromXml(xml.findElements('cbc:AnimalFoodApprovedIndicator').singleOrNull),
+      humanFoodApprovedIndicator: HumanFoodApprovedIndicator.fromXml(xml.findElements('cbc:HumanFoodApprovedIndicator').singleOrNull),
+      dangerousGoodsApprovedIndicator: DangerousGoodsApprovedIndicator.fromXml(xml.findElements('cbc:DangerousGoodsApprovedIndicator').singleOrNull),
+      refrigeratedIndicator: RefrigeratedIndicator.fromXml(xml.findElements('cbc:RefrigeratedIndicator').singleOrNull),
+      characteristics: Characteristics.fromXml(xml.findElements('cbc:Characteristics').singleOrNull),
+      damageRemarks: xml.findElements('cbc:DamageRemarks').map((XmlElement e) => DamageRemarks.fromXml(e)!).toList(),
+      description: xml.findElements('cbc:Description').map((XmlElement e) => Description.fromXml(e)!).toList(),
+      specialTransportRequirements: xml.findElements('cbc:SpecialTransportRequirements').map((XmlElement e) => SpecialTransportRequirements.fromXml(e)!).toList(),
+      grossWeightMeasure: GrossWeightMeasure.fromXml(xml.findElements('cbc:GrossWeightMeasure').singleOrNull),
+      grossVolumeMeasure: GrossVolumeMeasure.fromXml(xml.findElements('cbc:GrossVolumeMeasure').singleOrNull),
+      tareWeightMeasure: TareWeightMeasure.fromXml(xml.findElements('cbc:TareWeightMeasure').singleOrNull),
+      trackingDeviceCode: TrackingDeviceCode.fromXml(xml.findElements('cbc:TrackingDeviceCode').singleOrNull),
+      powerIndicator: PowerIndicator.fromXml(xml.findElements('cbc:PowerIndicator').singleOrNull),
+      traceID: TraceID.fromXml(xml.findElements('cbc:TraceID').singleOrNull),
+      measurementDimension: xml.findElements('cac:MeasurementDimension').map((XmlElement e) => MeasurementDimension.fromXml(e)!).toList(),
+      transportEquipmentSeal: xml.findElements('cac:TransportEquipmentSeal').map((XmlElement e) => TransportEquipmentSeal.fromXml(e)!).toList(),
+      minimumTemperature: MinimumTemperature.fromXml(xml.findElements('cac:MinimumTemperature').singleOrNull),
+      maximumTemperature: MaximumTemperature.fromXml(xml.findElements('cac:MaximumTemperature').singleOrNull),
+      providerParty: ProviderParty.fromXml(xml.findElements('cac:ProviderParty').singleOrNull),
+      loadingProofParty: LoadingProofParty.fromXml(xml.findElements('cac:LoadingProofParty').singleOrNull),
+      supplierParty: SupplierParty.fromXml(xml.findElements('cac:SupplierParty').singleOrNull),
+      ownerParty: OwnerParty.fromXml(xml.findElements('cac:OwnerParty').singleOrNull),
+      operatingParty: OperatingParty.fromXml(xml.findElements('cac:OperatingParty').singleOrNull),
+      loadingLocation: LoadingLocation.fromXml(xml.findElements('cac:LoadingLocation').singleOrNull),
+      unloadingLocation: UnloadingLocation.fromXml(xml.findElements('cac:UnloadingLocation').singleOrNull),
+      storageLocation: StorageLocation.fromXml(xml.findElements('cac:StorageLocation').singleOrNull),
+      positioningTransportEvent: xml.findElements('cac:PositioningTransportEvent').map((XmlElement e) => PositioningTransportEvent.fromXml(e)!).toList(),
+      quarantineTransportEvent: xml.findElements('cac:QuarantineTransportEvent').map((XmlElement e) => QuarantineTransportEvent.fromXml(e)!).toList(),
+      deliveryTransportEvent: xml.findElements('cac:DeliveryTransportEvent').map((XmlElement e) => DeliveryTransportEvent.fromXml(e)!).toList(),
+      pickupTransportEvent: xml.findElements('cac:PickupTransportEvent').map((XmlElement e) => PickupTransportEvent.fromXml(e)!).toList(),
+      handlingTransportEvent: xml.findElements('cac:HandlingTransportEvent').map((XmlElement e) => HandlingTransportEvent.fromXml(e)!).toList(),
+      loadingTransportEvent: xml.findElements('cac:LoadingTransportEvent').map((XmlElement e) => LoadingTransportEvent.fromXml(e)!).toList(),
+      transportEvent: xml.findElements('cac:TransportEvent').map((XmlElement e) => TransportEvent.fromXml(e)!).toList(),
+      applicableTransportMeans: ApplicableTransportMeans.fromXml(xml.findElements('cac:ApplicableTransportMeans').singleOrNull),
+      haulageTradingTerms: xml.findElements('cac:HaulageTradingTerms').map((XmlElement e) => HaulageTradingTerms.fromXml(e)!).toList(),
+      hazardousGoodsTransit: xml.findElements('cac:HazardousGoodsTransit').map((XmlElement e) => HazardousGoodsTransit.fromXml(e)!).toList(),
+      packagedTransportHandlingUnit: xml.findElements('cac:PackagedTransportHandlingUnit').map((XmlElement e) => PackagedTransportHandlingUnit.fromXml(e)!).toList(),
+      serviceAllowanceCharge: xml.findElements('cac:ServiceAllowanceCharge').map((XmlElement e) => ServiceAllowanceCharge.fromXml(e)!).toList(),
+      freightAllowanceCharge: xml.findElements('cac:FreightAllowanceCharge').map((XmlElement e) => FreightAllowanceCharge.fromXml(e)!).toList(),
+      attachedTransportEquipment: xml.findElements('cac:AttachedTransportEquipment').map((XmlElement e) => AttachedTransportEquipment.fromXml(e)!).toList(),
+      delivery: Delivery.fromXml(xml.findElements('cac:Delivery').singleOrNull),
+      pickup: Pickup.fromXml(xml.findElements('cac:Pickup').singleOrNull),
+      despatch: Despatch.fromXml(xml.findElements('cac:Despatch').singleOrNull),
+      shipmentDocumentReference: xml.findElements('cac:ShipmentDocumentReference').map((XmlElement e) => ShipmentDocumentReference.fromXml(e)!).toList(),
+      containedInTransportEquipment: xml.findElements('cac:ContainedInTransportEquipment').map((XmlElement e) => ContainedInTransportEquipment.fromXml(e)!).toList(),
+      package: xml.findElements('cac:Package').map((XmlElement e) => Package.fromXml(e)!).toList(),
+      goodsItem: xml.findElements('cac:GoodsItem').map((XmlElement e) => GoodsItem.fromXml(e)!).toList(),
+      verifiedGrossMass: VerifiedGrossMass.fromXml(xml.findElements('cac:VerifiedGrossMass').singleOrNull),
     );
   }
 
+  XmlNode toXml() {
+    return XmlElement(
+      XmlName(
+        'SupportedTransportEquipment',
+        'cac',
+      ),
+    );
+  }
 }
 
