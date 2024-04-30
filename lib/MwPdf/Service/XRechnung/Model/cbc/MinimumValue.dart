@@ -32,9 +32,9 @@ class MinimumValue {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'value': value,
-      'languageID': languageID,
-      'languageLocaleID': languageLocaleID,
+      'value': value.toString(),
+      'languageID': languageID.toString(),
+      'languageLocaleID': languageLocaleID.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

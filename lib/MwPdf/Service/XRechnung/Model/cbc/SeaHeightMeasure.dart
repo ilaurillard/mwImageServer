@@ -32,9 +32,9 @@ class SeaHeightMeasure {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'value': value,
-      'unitCode': unitCode,
-      'unitCodeListVersionID': unitCodeListVersionID,
+      'value': value.toString(),
+      'unitCode': unitCode.toString(),
+      'unitCodeListVersionID': unitCodeListVersionID.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

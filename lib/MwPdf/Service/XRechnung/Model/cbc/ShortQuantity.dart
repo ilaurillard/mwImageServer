@@ -40,11 +40,11 @@ class ShortQuantity {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'value': value,
-      'unitCode': unitCode,
-      'unitCodeListID': unitCodeListID,
-      'unitCodeListAgencyID': unitCodeListAgencyID,
-      'unitCodeListAgencyName': unitCodeListAgencyName,
+      'value': value.toString(),
+      'unitCode': unitCode.toString(),
+      'unitCodeListID': unitCodeListID.toString(),
+      'unitCodeListAgencyID': unitCodeListAgencyID.toString(),
+      'unitCodeListAgencyName': unitCodeListAgencyName.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

@@ -20,7 +20,7 @@ class ManagementPlanImplementedIndicator {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'value': value,
+      'value': value.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

@@ -32,9 +32,9 @@ class DeclaredStatisticsValueAmount {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'value': value,
-      'currencyID': currencyID,
-      'currencyCodeListVersionID': currencyCodeListVersionID,
+      'value': value.toString(),
+      'currencyID': currencyID.toString(),
+      'currencyCodeListVersionID': currencyCodeListVersionID.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

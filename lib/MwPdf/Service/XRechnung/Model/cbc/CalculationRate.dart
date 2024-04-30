@@ -25,8 +25,8 @@ class CalculationRate {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'value': value,
-      'format': format,
+      'value': value.toString(),
+      'format': format.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

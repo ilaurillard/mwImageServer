@@ -67,16 +67,16 @@ class CertificateTypeCode {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'value': value,
-      'listID': listID,
-      'listAgencyID': listAgencyID,
-      'listAgencyName': listAgencyName,
-      'listName': listName,
-      'listVersionID': listVersionID,
-      'name': name,
-      'languageID': languageID,
-      'listURI': listURI,
-      'listSchemeURI': listSchemeURI,
+      'value': value.toString(),
+      'listID': listID.toString(),
+      'listAgencyID': listAgencyID.toString(),
+      'listAgencyName': listAgencyName.toString(),
+      'listName': listName.toString(),
+      'listVersionID': listVersionID.toString(),
+      'name': name.toString(),
+      'languageID': languageID.toString(),
+      'listURI': listURI.toString(),
+      'listSchemeURI': listSchemeURI.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
