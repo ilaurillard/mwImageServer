@@ -20,14 +20,8 @@ class DartClassFromElement {
 
   DartClassFromElement(this._element) {
     _type = _element.type!;
-    _imports.add("import 'dart:convert';");
     _imports.add("import '../../Etc/Util.dart';");
     _imports.add("import 'package:xml/xml.dart';");
-  }
-
-  String _lcfirst(String input) {
-    if (input.isEmpty) return input;
-    return input[0].toLowerCase() + input.substring(1);
   }
 
   String render() {
@@ -484,5 +478,10 @@ $children
     c2.removeWhere((e) => e == null);
     List<XmlNode> children = c2.cast<XmlNode>().toList();
 ''';
+  }
+
+  String _lcfirst(String input) {
+    if (input.isEmpty) return input;
+    return input[0].toLowerCase() + input.substring(1);
   }
 }
