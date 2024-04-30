@@ -79,11 +79,33 @@ class ShipToShipActivityRecord {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      ...description.map((Description e) => e.toXml()).toList(),
+      ...appliedSecurityMeasure.map((AppliedSecurityMeasure e) => e.toXml()).toList(),
+      period?.toXml(),
+      location?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'ShipToShipActivityRecord',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

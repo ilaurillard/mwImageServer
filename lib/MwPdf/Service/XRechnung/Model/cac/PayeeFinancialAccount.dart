@@ -109,11 +109,37 @@ class PayeeFinancialAccount {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      name?.toXml(),
+      aliasName?.toXml(),
+      accountTypeCode?.toXml(),
+      accountFormatCode?.toXml(),
+      currencyCode?.toXml(),
+      ...paymentNote.map((PaymentNote e) => e.toXml()).toList(),
+      financialInstitutionBranch?.toXml(),
+      country?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'PayeeFinancialAccount',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

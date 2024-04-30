@@ -213,11 +213,50 @@ class MaritimeHealthDeclaration {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      infectiousDiseaseCaseOnBoardIndicator?.toXml(),
+      moreIllThanExpectedIndicator?.toXml(),
+      medicalPractitionerConsultedIndicator?.toXml(),
+      stowawaysFoundOnBoardIndicator?.toXml(),
+      sickAnimalOnBoardIndicator?.toXml(),
+      fumigatedCargoTransportIndicator?.toXml(),
+      sanitaryMeasuresAppliedIndicator?.toXml(),
+      validSanitationCertificateOnBoardIndicator?.toXml(),
+      reinspectionRequiredIndicator?.toXml(),
+      totalDeadPersonQuantity?.toXml(),
+      totalIllPersonQuantity?.toXml(),
+      ...sickAnimalDescription.map((SickAnimalDescription e) => e.toXml()).toList(),
+      ...stowawayDescription.map((StowawayDescription e) => e.toXml()).toList(),
+      lastDrinkingWaterAnalysisDate?.toXml(),
+      ...wHOAffectedAreaVisit.map((WHOAffectedAreaVisit e) => e.toXml()).toList(),
+      ...personnelHealthIncident.map((PersonnelHealthIncident e) => e.toXml()).toList(),
+      ...sanitaryMeasure.map((SanitaryMeasure e) => e.toXml()).toList(),
+      placeOfReportLocation?.toXml(),
+      medicalCertificate?.toXml(),
+      shipSanitationControlCertificate?.toXml(),
+      ...shipSanitationControlExemptionDocumentReference.map((ShipSanitationControlExemptionDocumentReference e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'MaritimeHealthDeclaration',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

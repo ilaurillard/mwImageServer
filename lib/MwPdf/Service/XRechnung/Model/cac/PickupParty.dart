@@ -213,11 +213,50 @@ class PickupParty {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      markCareIndicator?.toXml(),
+      markAttentionIndicator?.toXml(),
+      websiteURI?.toXml(),
+      logoReferenceID?.toXml(),
+      endpointID?.toXml(),
+      industryClassificationCode?.toXml(),
+      ...partyIdentification.map((PartyIdentification e) => e.toXml()).toList(),
+      ...partyName.map((PartyName e) => e.toXml()).toList(),
+      language?.toXml(),
+      postalAddress?.toXml(),
+      physicalLocation?.toXml(),
+      ...partyTaxScheme.map((PartyTaxScheme e) => e.toXml()).toList(),
+      ...partyLegalEntity.map((PartyLegalEntity e) => e.toXml()).toList(),
+      contact?.toXml(),
+      ...person.map((Person e) => e.toXml()).toList(),
+      agentParty?.toXml(),
+      ...serviceProviderParty.map((ServiceProviderParty e) => e.toXml()).toList(),
+      ...powerOfAttorney.map((PowerOfAttorney e) => e.toXml()).toList(),
+      ...partyAuthorization.map((PartyAuthorization e) => e.toXml()).toList(),
+      financialAccount?.toXml(),
+      ...additionalWebSite.map((AdditionalWebSite e) => e.toXml()).toList(),
+      ...socialMediaProfile.map((SocialMediaProfile e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'PickupParty',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

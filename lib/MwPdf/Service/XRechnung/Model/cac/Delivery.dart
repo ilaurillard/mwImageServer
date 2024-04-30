@@ -229,11 +229,52 @@ class Delivery {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      quantity?.toXml(),
+      minimumQuantity?.toXml(),
+      maximumQuantity?.toXml(),
+      actualDeliveryDate?.toXml(),
+      actualDeliveryTime?.toXml(),
+      latestDeliveryDate?.toXml(),
+      latestDeliveryTime?.toXml(),
+      releaseID?.toXml(),
+      trackingID?.toXml(),
+      deliveryAddress?.toXml(),
+      deliveryLocation?.toXml(),
+      alternativeDeliveryLocation?.toXml(),
+      requestedDeliveryPeriod?.toXml(),
+      promisedDeliveryPeriod?.toXml(),
+      estimatedDeliveryPeriod?.toXml(),
+      carrierParty?.toXml(),
+      deliveryParty?.toXml(),
+      ...notifyParty.map((NotifyParty e) => e.toXml()).toList(),
+      despatch?.toXml(),
+      ...deliveryTerms.map((DeliveryTerms e) => e.toXml()).toList(),
+      minimumDeliveryUnit?.toXml(),
+      maximumDeliveryUnit?.toXml(),
+      shipment?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'Delivery',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

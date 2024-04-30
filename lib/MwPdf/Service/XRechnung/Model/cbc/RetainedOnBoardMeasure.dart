@@ -50,11 +50,30 @@ class RetainedOnBoardMeasure {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      XmlText(value.toString()),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+      XmlAttribute(XmlName('unitCode'), unitCode.toString(),),
+      unitCodeListVersionID != null ? XmlAttribute(XmlName('unitCodeListVersionID'), unitCodeListVersionID.toString(),) : null,
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'RetainedOnBoardMeasure',
         'cbc',
       ),
+      attributes,
+      children,
     );
   }
 }

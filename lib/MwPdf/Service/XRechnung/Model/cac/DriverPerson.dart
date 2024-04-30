@@ -197,11 +197,48 @@ class DriverPerson {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      firstName?.toXml(),
+      familyName?.toXml(),
+      title?.toXml(),
+      middleName?.toXml(),
+      otherName?.toXml(),
+      nameSuffix?.toXml(),
+      jobTitle?.toXml(),
+      nationalityID?.toXml(),
+      genderCode?.toXml(),
+      birthDate?.toXml(),
+      birthplaceName?.toXml(),
+      organizationDepartment?.toXml(),
+      roleCode?.toXml(),
+      birthplaceLocation?.toXml(),
+      citizenshipCountry?.toXml(),
+      contact?.toXml(),
+      financialAccount?.toXml(),
+      ...identityDocumentReference.map((IdentityDocumentReference e) => e.toXml()).toList(),
+      residenceAddress?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'DriverPerson',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

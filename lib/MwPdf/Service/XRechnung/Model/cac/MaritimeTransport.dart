@@ -149,11 +149,42 @@ class MaritimeTransport {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      vesselID?.toXml(),
+      vesselName?.toXml(),
+      radioCallSignID?.toXml(),
+      mMSIRegistrationID?.toXml(),
+      ...shipsRequirements.map((ShipsRequirements e) => e.toXml()).toList(),
+      grossTonnageMeasure?.toXml(),
+      netTonnageMeasure?.toXml(),
+      segregatedBallastMeasure?.toXml(),
+      shipConfigurationCode?.toXml(),
+      iNFShipClassCode?.toXml(),
+      antennaLocus?.toXml(),
+      registryCertificateDocumentReference?.toXml(),
+      registryPortLocation?.toXml(),
+      vesselDynamics?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'MaritimeTransport',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

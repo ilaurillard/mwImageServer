@@ -165,11 +165,44 @@ class BallastWaterSummary {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      managementPlanOnBoardIndicator?.toXml(),
+      managementPlanImplementedIndicator?.toXml(),
+      iMOGuidelinesOnBoardIndicator?.toXml(),
+      totalBallastTanksOnBoardQuantity?.toXml(),
+      tanksInBallastQuantity?.toXml(),
+      tanksExchangedQuantity?.toXml(),
+      tanksNotExchangedQuantity?.toXml(),
+      totalBallastWaterOnBoardMeasure?.toXml(),
+      totalBallastWaterCapacityMeasure?.toXml(),
+      ...otherControlActions.map((OtherControlActions e) => e.toXml()).toList(),
+      ...noControlActionsReason.map((NoControlActionsReason e) => e.toXml()).toList(),
+      ...uptakeBallastWaterTransaction.map((UptakeBallastWaterTransaction e) => e.toXml()).toList(),
+      ...exchangeBallastWaterTransaction.map((ExchangeBallastWaterTransaction e) => e.toXml()).toList(),
+      ...dischargeBallastWaterTransaction.map((DischargeBallastWaterTransaction e) => e.toXml()).toList(),
+      responsibleOfficerPerson?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'BallastWaterSummary',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

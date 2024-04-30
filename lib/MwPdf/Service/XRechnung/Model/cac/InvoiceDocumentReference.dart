@@ -181,11 +181,46 @@ class InvoiceDocumentReference {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD.toXml(),
+      copyIndicator?.toXml(),
+      uUID?.toXml(),
+      issueDate?.toXml(),
+      issueTime?.toXml(),
+      documentTypeCode?.toXml(),
+      ...documentType.map((DocumentType e) => e.toXml()).toList(),
+      ...xPath.map((XPath e) => e.toXml()).toList(),
+      referencedDocumentInternalAddress?.toXml(),
+      languageID?.toXml(),
+      localeCode?.toXml(),
+      versionID?.toXml(),
+      documentStatusCode?.toXml(),
+      ...documentDescription.map((DocumentDescription e) => e.toXml()).toList(),
+      attachment?.toXml(),
+      validityPeriod?.toXml(),
+      issuerParty?.toXml(),
+      resultOfVerification?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'InvoiceDocumentReference',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

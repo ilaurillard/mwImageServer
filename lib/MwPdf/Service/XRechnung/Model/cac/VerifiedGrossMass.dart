@@ -127,11 +127,39 @@ class VerifiedGrossMass {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      weighingDate?.toXml(),
+      weighingTime?.toXml(),
+      weighingMethodCode.toXml(),
+      weighingDeviceID?.toXml(),
+      weighingDeviceType?.toXml(),
+      grossMassMeasure.toXml(),
+      weighingParty?.toXml(),
+      shipperParty?.toXml(),
+      responsibleParty?.toXml(),
+      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'VerifiedGrossMass',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

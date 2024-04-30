@@ -141,11 +141,41 @@ class UnloadingPortLocation {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      ...description.map((Description e) => e.toXml()).toList(),
+      ...conditions.map((Conditions e) => e.toXml()).toList(),
+      countrySubentity?.toXml(),
+      countrySubentityCode?.toXml(),
+      locationTypeCode?.toXml(),
+      informationURI?.toXml(),
+      name?.toXml(),
+      ...validityPeriod.map((ValidityPeriod e) => e.toXml()).toList(),
+      address?.toXml(),
+      storage?.toXml(),
+      ...subsidiaryLocation.map((SubsidiaryLocation e) => e.toXml()).toList(),
+      ...locationCoordinate.map((LocationCoordinate e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'UnloadingPortLocation',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

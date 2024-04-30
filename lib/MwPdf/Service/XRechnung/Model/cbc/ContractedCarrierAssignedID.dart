@@ -85,11 +85,35 @@ class ContractedCarrierAssignedID {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      XmlText(value.toString()),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+      schemeID != null ? XmlAttribute(XmlName('schemeID'), schemeID.toString(),) : null,
+      schemeName != null ? XmlAttribute(XmlName('schemeName'), schemeName.toString(),) : null,
+      schemeAgencyID != null ? XmlAttribute(XmlName('schemeAgencyID'), schemeAgencyID.toString(),) : null,
+      schemeAgencyName != null ? XmlAttribute(XmlName('schemeAgencyName'), schemeAgencyName.toString(),) : null,
+      schemeVersionID != null ? XmlAttribute(XmlName('schemeVersionID'), schemeVersionID.toString(),) : null,
+      schemeDataURI != null ? XmlAttribute(XmlName('schemeDataURI'), schemeDataURI.toString(),) : null,
+      schemeURI != null ? XmlAttribute(XmlName('schemeURI'), schemeURI.toString(),) : null,
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'ContractedCarrierAssignedID',
         'cbc',
       ),
+      attributes,
+      children,
     );
   }
 }

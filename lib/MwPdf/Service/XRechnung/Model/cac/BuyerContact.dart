@@ -109,11 +109,37 @@ class BuyerContact {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      name?.toXml(),
+      jobTitle?.toXml(),
+      department?.toXml(),
+      telephone?.toXml(),
+      telefax?.toXml(),
+      electronicMail?.toXml(),
+      ...note.map((Note e) => e.toXml()).toList(),
+      ...otherCommunication.map((OtherCommunication e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'BuyerContact',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

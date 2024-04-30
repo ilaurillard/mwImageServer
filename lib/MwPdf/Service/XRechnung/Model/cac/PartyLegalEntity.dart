@@ -149,11 +149,42 @@ class PartyLegalEntity {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      registrationName?.toXml(),
+      companyID?.toXml(),
+      registrationDate?.toXml(),
+      registrationExpirationDate?.toXml(),
+      companyLegalFormCode?.toXml(),
+      ...companyLegalForm.map((CompanyLegalForm e) => e.toXml()).toList(),
+      soleProprietorshipIndicator?.toXml(),
+      companyLiquidationStatusCode?.toXml(),
+      corporateStockAmount?.toXml(),
+      fullyPaidSharesIndicator?.toXml(),
+      registrationAddress?.toXml(),
+      corporateRegistrationScheme?.toXml(),
+      headOfficeParty?.toXml(),
+      ...shareholderParty.map((ShareholderParty e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'PartyLegalEntity',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

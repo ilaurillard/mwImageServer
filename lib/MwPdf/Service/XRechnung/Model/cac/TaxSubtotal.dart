@@ -117,11 +117,38 @@ class TaxSubtotal {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      taxableAmount?.toXml(),
+      taxAmount.toXml(),
+      calculationSequenceNumeric?.toXml(),
+      transactionCurrencyTaxAmount?.toXml(),
+      percent?.toXml(),
+      baseUnitMeasure?.toXml(),
+      perUnitAmount?.toXml(),
+      tierRange?.toXml(),
+      tierRatePercent?.toXml(),
+      taxCategory.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'TaxSubtotal',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

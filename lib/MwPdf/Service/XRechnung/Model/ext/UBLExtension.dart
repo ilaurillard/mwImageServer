@@ -108,11 +108,36 @@ class UBLExtension {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      iD?.toXml(),
+      name?.toXml(),
+      extensionAgencyID?.toXml(),
+      extensionAgencyName?.toXml(),
+      extensionVersionID?.toXml(),
+      extensionAgencyURI?.toXml(),
+      extensionURI?.toXml(),
+      extensionReasonCode?.toXml(),
+      extensionReason?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'UBLExtension',
         'ext',
       ),
+      attributes,
+      children,
     );
   }
 }

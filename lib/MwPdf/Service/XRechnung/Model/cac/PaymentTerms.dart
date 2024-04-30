@@ -189,11 +189,47 @@ class PaymentTerms {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      ...paymentMeansID.map((PaymentMeansID e) => e.toXml()).toList(),
+      prepaidPaymentReferenceID?.toXml(),
+      ...note.map((Note e) => e.toXml()).toList(),
+      referenceEventCode?.toXml(),
+      settlementDiscountPercent?.toXml(),
+      penaltySurchargePercent?.toXml(),
+      paymentPercent?.toXml(),
+      amount?.toXml(),
+      settlementDiscountAmount?.toXml(),
+      penaltyAmount?.toXml(),
+      paymentTermsDetailsURI?.toXml(),
+      paymentDueDate?.toXml(),
+      installmentDueDate?.toXml(),
+      invoicingPartyReference?.toXml(),
+      settlementPeriod?.toXml(),
+      penaltyPeriod?.toXml(),
+      exchangeRate?.toXml(),
+      validityPeriod?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'PaymentTerms',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

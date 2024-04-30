@@ -261,11 +261,56 @@ class RegistrationAddress {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      addressTypeCode?.toXml(),
+      addressFormatCode?.toXml(),
+      postbox?.toXml(),
+      floor?.toXml(),
+      room?.toXml(),
+      streetName?.toXml(),
+      additionalStreetName?.toXml(),
+      blockName?.toXml(),
+      buildingName?.toXml(),
+      buildingNumber?.toXml(),
+      ...description.map((Description e) => e.toXml()).toList(),
+      inhouseMail?.toXml(),
+      department?.toXml(),
+      markAttention?.toXml(),
+      markCare?.toXml(),
+      plotIdentification?.toXml(),
+      citySubdivisionName?.toXml(),
+      cityName?.toXml(),
+      postalZone?.toXml(),
+      countrySubentity?.toXml(),
+      countrySubentityCode?.toXml(),
+      region?.toXml(),
+      district?.toXml(),
+      timezoneOffset?.toXml(),
+      ...addressLine.map((AddressLine e) => e.toXml()).toList(),
+      country?.toXml(),
+      ...locationCoordinate.map((LocationCoordinate e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'RegistrationAddress',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

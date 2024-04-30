@@ -93,11 +93,35 @@ class WorkPhaseReference {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      workPhaseCode?.toXml(),
+      ...workPhase.map((WorkPhase e) => e.toXml()).toList(),
+      progressPercent?.toXml(),
+      startDate?.toXml(),
+      endDate?.toXml(),
+      ...workOrderDocumentReference.map((WorkOrderDocumentReference e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'WorkPhaseReference',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

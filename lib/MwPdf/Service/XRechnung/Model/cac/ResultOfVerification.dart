@@ -101,11 +101,36 @@ class ResultOfVerification {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      validatorID?.toXml(),
+      validationResultCode?.toXml(),
+      validationDate?.toXml(),
+      validationTime?.toXml(),
+      validateProcess?.toXml(),
+      validateTool?.toXml(),
+      validateToolVersion?.toXml(),
+      signatoryParty?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'ResultOfVerification',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

@@ -61,11 +61,31 @@ class Stowage {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      locationID?.toXml(),
+      ...location.map((Location e) => e.toXml()).toList(),
+      ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'Stowage',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

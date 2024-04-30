@@ -101,11 +101,36 @@ class LocationCoordinate {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      coordinateSystemCode?.toXml(),
+      latitudeDegreesMeasure?.toXml(),
+      latitudeMinutesMeasure?.toXml(),
+      latitudeDirectionCode?.toXml(),
+      longitudeDegreesMeasure?.toXml(),
+      longitudeMinutesMeasure?.toXml(),
+      longitudeDirectionCode?.toXml(),
+      altitudeMeasure?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'LocationCoordinate',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

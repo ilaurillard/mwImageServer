@@ -69,11 +69,32 @@ class PartyAuthorization {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      purposeCode?.toXml(),
+      ...purpose.map((Purpose e) => e.toXml()).toList(),
+      validityPeriod?.toXml(),
+      ...certificate.map((Certificate e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'PartyAuthorization',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

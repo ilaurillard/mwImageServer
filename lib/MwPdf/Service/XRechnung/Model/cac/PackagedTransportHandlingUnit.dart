@@ -253,11 +253,55 @@ class PackagedTransportHandlingUnit {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      transportHandlingUnitTypeCode?.toXml(),
+      handlingCode?.toXml(),
+      ...handlingInstructions.map((HandlingInstructions e) => e.toXml()).toList(),
+      hazardousRiskIndicator?.toXml(),
+      totalGoodsItemQuantity?.toXml(),
+      totalPackageQuantity?.toXml(),
+      ...damageRemarks.map((DamageRemarks e) => e.toXml()).toList(),
+      ...shippingMarks.map((ShippingMarks e) => e.toXml()).toList(),
+      traceID?.toXml(),
+      ...handlingUnitDespatchLine.map((HandlingUnitDespatchLine e) => e.toXml()).toList(),
+      ...actualPackage.map((ActualPackage e) => e.toXml()).toList(),
+      ...receivedHandlingUnitReceiptLine.map((ReceivedHandlingUnitReceiptLine e) => e.toXml()).toList(),
+      ...transportEquipment.map((TransportEquipment e) => e.toXml()).toList(),
+      ...transportMeans.map((TransportMeans e) => e.toXml()).toList(),
+      ...hazardousGoodsTransit.map((HazardousGoodsTransit e) => e.toXml()).toList(),
+      ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
+      minimumTemperature?.toXml(),
+      maximumTemperature?.toXml(),
+      ...goodsItem.map((GoodsItem e) => e.toXml()).toList(),
+      floorSpaceMeasurementDimension?.toXml(),
+      palletSpaceMeasurementDimension?.toXml(),
+      ...shipmentDocumentReference.map((ShipmentDocumentReference e) => e.toXml()).toList(),
+      ...status.map((Status e) => e.toXml()).toList(),
+      ...customsDeclaration.map((CustomsDeclaration e) => e.toXml()).toList(),
+      ...referencedShipment.map((ReferencedShipment e) => e.toXml()).toList(),
+      ...package.map((Package e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'PackagedTransportHandlingUnit',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

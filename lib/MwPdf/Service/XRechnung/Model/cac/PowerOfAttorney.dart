@@ -101,11 +101,36 @@ class PowerOfAttorney {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      issueDate?.toXml(),
+      issueTime?.toXml(),
+      ...description.map((Description e) => e.toXml()).toList(),
+      notaryParty?.toXml(),
+      agentParty.toXml(),
+      ...witnessParty.map((WitnessParty e) => e.toXml()).toList(),
+      ...mandateDocumentReference.map((MandateDocumentReference e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'PowerOfAttorney',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

@@ -197,11 +197,48 @@ class ReceivedHandlingUnitReceiptLine {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD.toXml(),
+      uUID?.toXml(),
+      ...note.map((Note e) => e.toXml()).toList(),
+      receivedQuantity?.toXml(),
+      shortQuantity?.toXml(),
+      shortageActionCode?.toXml(),
+      rejectedQuantity?.toXml(),
+      rejectReasonCode?.toXml(),
+      ...rejectReason.map((RejectReason e) => e.toXml()).toList(),
+      rejectActionCode?.toXml(),
+      quantityDiscrepancyCode?.toXml(),
+      oversupplyQuantity?.toXml(),
+      receivedDate?.toXml(),
+      timingComplaintCode?.toXml(),
+      timingComplaint?.toXml(),
+      orderLineReference?.toXml(),
+      ...despatchLineReference.map((DespatchLineReference e) => e.toXml()).toList(),
+      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+      ...item.map((Item e) => e.toXml()).toList(),
+      ...shipment.map((Shipment e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'ReceivedHandlingUnitReceiptLine',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

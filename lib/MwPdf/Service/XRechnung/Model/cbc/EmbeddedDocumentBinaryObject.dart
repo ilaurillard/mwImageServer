@@ -79,11 +79,34 @@ class EmbeddedDocumentBinaryObject {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      XmlText(value.toString()),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+      format != null ? XmlAttribute(XmlName('format'), format.toString(),) : null,
+      XmlAttribute(XmlName('mimeCode'), mimeCode.toString(),),
+      encodingCode != null ? XmlAttribute(XmlName('encodingCode'), encodingCode.toString(),) : null,
+      characterSetCode != null ? XmlAttribute(XmlName('characterSetCode'), characterSetCode.toString(),) : null,
+      uri != null ? XmlAttribute(XmlName('uri'), uri.toString(),) : null,
+      filename != null ? XmlAttribute(XmlName('filename'), filename.toString(),) : null,
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'EmbeddedDocumentBinaryObject',
         'cbc',
       ),
+      attributes,
+      children,
     );
   }
 }

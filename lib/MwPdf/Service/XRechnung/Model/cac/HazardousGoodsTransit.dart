@@ -101,11 +101,36 @@ class HazardousGoodsTransit {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      transportEmergencyCardCode?.toXml(),
+      packingCriteriaCode?.toXml(),
+      hazardousRegulationCode?.toXml(),
+      inhalationToxicityZoneCode?.toXml(),
+      transportAuthorizationCode?.toXml(),
+      ...transitDescription.map((TransitDescription e) => e.toXml()).toList(),
+      maximumTemperature?.toXml(),
+      minimumTemperature?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'HazardousGoodsTransit',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

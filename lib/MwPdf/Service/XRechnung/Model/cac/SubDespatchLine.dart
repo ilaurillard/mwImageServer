@@ -158,11 +158,43 @@ class SubDespatchLine {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD.toXml(),
+      uUID?.toXml(),
+      ...note.map((Note e) => e.toXml()).toList(),
+      lineStatusCode?.toXml(),
+      deliveredQuantity?.toXml(),
+      backorderQuantity?.toXml(),
+      ...backorderReason.map((BackorderReason e) => e.toXml()).toList(),
+      outstandingQuantity?.toXml(),
+      ...outstandingReason.map((OutstandingReason e) => e.toXml()).toList(),
+      oversupplyQuantity?.toXml(),
+      ...orderLineReference.map((OrderLineReference e) => e.toXml()).toList(),
+      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+      item.toXml(),
+      ...shipment.map((Shipment e) => e.toXml()).toList(),
+      ...subDespatchLine.map((SubDespatchLine e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'SubDespatchLine',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

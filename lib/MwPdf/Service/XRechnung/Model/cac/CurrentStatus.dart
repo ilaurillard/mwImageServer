@@ -141,11 +141,41 @@ class CurrentStatus {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      conditionCode?.toXml(),
+      referenceDate?.toXml(),
+      referenceTime?.toXml(),
+      ...description.map((Description e) => e.toXml()).toList(),
+      statusReasonCode?.toXml(),
+      ...statusReason.map((StatusReason e) => e.toXml()).toList(),
+      sequenceID?.toXml(),
+      ...text.map((Text e) => e.toXml()).toList(),
+      indicationIndicator?.toXml(),
+      percent?.toXml(),
+      reliabilityPercent?.toXml(),
+      ...subStatus.map((SubStatus e) => e.toXml()).toList(),
+      ...condition.map((Condition e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'CurrentStatus',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

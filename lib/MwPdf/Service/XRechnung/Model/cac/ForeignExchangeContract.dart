@@ -165,11 +165,44 @@ class ForeignExchangeContract {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      issueDate?.toXml(),
+      issueTime?.toXml(),
+      nominationDate?.toXml(),
+      nominationTime?.toXml(),
+      contractTypeCode?.toXml(),
+      contractType?.toXml(),
+      ...note.map((Note e) => e.toXml()).toList(),
+      versionID?.toXml(),
+      modificationReasonCode?.toXml(),
+      ...modificationReasonDescription.map((ModificationReasonDescription e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()).toList(),
+      validityPeriod?.toXml(),
+      ...contractDocumentReference.map((ContractDocumentReference e) => e.toXml()).toList(),
+      nominationPeriod?.toXml(),
+      contractualDelivery?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'ForeignExchangeContract',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

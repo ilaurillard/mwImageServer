@@ -93,11 +93,35 @@ class BuyerCustomerParty {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      customerAssignedAccountID?.toXml(),
+      supplierAssignedAccountID?.toXml(),
+      ...additionalAccountID.map((AdditionalAccountID e) => e.toXml()).toList(),
+      party?.toXml(),
+      deliveryContact?.toXml(),
+      accountingContact?.toXml(),
+      buyerContact?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'BuyerCustomerParty',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

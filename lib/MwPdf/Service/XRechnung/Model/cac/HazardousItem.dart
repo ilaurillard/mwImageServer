@@ -261,11 +261,56 @@ class HazardousItem {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      placardNotation?.toXml(),
+      placardEndorsement?.toXml(),
+      ...additionalInformation.map((AdditionalInformation e) => e.toXml()).toList(),
+      uNDGCode?.toXml(),
+      uNPackingGroupCode?.toXml(),
+      ...uNPackingGroup.map((UNPackingGroup e) => e.toXml()).toList(),
+      emergencyProceduresCode?.toXml(),
+      medicalFirstAidGuideCode?.toXml(),
+      tunnelRestrictionCode?.toXml(),
+      maritimePollutantCode?.toXml(),
+      technicalName?.toXml(),
+      categoryName?.toXml(),
+      hazardousCategoryCode?.toXml(),
+      upperOrangeHazardPlacardID?.toXml(),
+      lowerOrangeHazardPlacardID?.toXml(),
+      markingID?.toXml(),
+      hazardClassID?.toXml(),
+      netWeightMeasure?.toXml(),
+      netVolumeMeasure?.toXml(),
+      quantity?.toXml(),
+      contactParty?.toXml(),
+      ...secondaryHazard.map((SecondaryHazard e) => e.toXml()).toList(),
+      ...hazardousGoodsTransit.map((HazardousGoodsTransit e) => e.toXml()).toList(),
+      emergencyTemperature?.toXml(),
+      flashpointTemperature?.toXml(),
+      ...additionalTemperature.map((AdditionalTemperature e) => e.toXml()).toList(),
+      positionOnBoardStowage?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'HazardousItem',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

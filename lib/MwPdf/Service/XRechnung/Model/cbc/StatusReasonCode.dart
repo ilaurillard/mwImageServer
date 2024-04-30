@@ -99,11 +99,37 @@ class StatusReasonCode {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      XmlText(value.toString()),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+      listID != null ? XmlAttribute(XmlName('listID'), listID.toString(),) : null,
+      listAgencyID != null ? XmlAttribute(XmlName('listAgencyID'), listAgencyID.toString(),) : null,
+      listAgencyName != null ? XmlAttribute(XmlName('listAgencyName'), listAgencyName.toString(),) : null,
+      listName != null ? XmlAttribute(XmlName('listName'), listName.toString(),) : null,
+      listVersionID != null ? XmlAttribute(XmlName('listVersionID'), listVersionID.toString(),) : null,
+      name != null ? XmlAttribute(XmlName('name'), name.toString(),) : null,
+      languageID != null ? XmlAttribute(XmlName('languageID'), languageID.toString(),) : null,
+      listURI != null ? XmlAttribute(XmlName('listURI'), listURI.toString(),) : null,
+      listSchemeURI != null ? XmlAttribute(XmlName('listSchemeURI'), listSchemeURI.toString(),) : null,
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'StatusReasonCode',
         'cbc',
       ),
+      attributes,
+      children,
     );
   }
 }

@@ -117,11 +117,38 @@ class DischargeBallastWaterTransaction {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      tankID?.toXml(),
+      tankTypeCode?.toXml(),
+      exchangeMethodCode?.toXml(),
+      exchangedPercent?.toXml(),
+      volumeMeasure?.toXml(),
+      seaHeightMeasure?.toXml(),
+      salinityMeasure?.toXml(),
+      transactionDate?.toXml(),
+      location?.toXml(),
+      ballastWaterTemperature?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'DischargeBallastWaterTransaction',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

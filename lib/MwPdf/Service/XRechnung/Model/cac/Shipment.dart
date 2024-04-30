@@ -293,11 +293,60 @@ class Shipment {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      shippingPriorityLevelCode?.toXml(),
+      handlingCode?.toXml(),
+      ...handlingInstructions.map((HandlingInstructions e) => e.toXml()).toList(),
+      ...information.map((Information e) => e.toXml()).toList(),
+      grossWeightMeasure?.toXml(),
+      netWeightMeasure?.toXml(),
+      netNetWeightMeasure?.toXml(),
+      grossVolumeMeasure?.toXml(),
+      netVolumeMeasure?.toXml(),
+      totalGoodsItemQuantity?.toXml(),
+      totalTransportHandlingUnitQuantity?.toXml(),
+      insuranceValueAmount?.toXml(),
+      declaredCustomsValueAmount?.toXml(),
+      declaredForCarriageValueAmount?.toXml(),
+      declaredStatisticsValueAmount?.toXml(),
+      freeOnBoardValueAmount?.toXml(),
+      ...specialInstructions.map((SpecialInstructions e) => e.toXml()).toList(),
+      ...deliveryInstructions.map((DeliveryInstructions e) => e.toXml()).toList(),
+      splitConsignmentIndicator?.toXml(),
+      consignmentQuantity?.toXml(),
+      ...consignment.map((Consignment e) => e.toXml()).toList(),
+      ...goodsItem.map((GoodsItem e) => e.toXml()).toList(),
+      ...shipmentStage.map((ShipmentStage e) => e.toXml()).toList(),
+      delivery?.toXml(),
+      ...transportHandlingUnit.map((TransportHandlingUnit e) => e.toXml()).toList(),
+      returnAddress?.toXml(),
+      originAddress?.toXml(),
+      firstArrivalPortLocation?.toXml(),
+      lastExitPortLocation?.toXml(),
+      exportCountry?.toXml(),
+      ...freightAllowanceCharge.map((FreightAllowanceCharge e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'Shipment',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

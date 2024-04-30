@@ -125,11 +125,39 @@ class DestinationPortCall {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      ...plannedOperationsDescription.map((PlannedOperationsDescription e) => e.toXml()).toList(),
+      ...plannedWorksDescription.map((PlannedWorksDescription e) => e.toXml()).toList(),
+      ...plannedInspectionsDescription.map((PlannedInspectionsDescription e) => e.toXml()).toList(),
+      expectedAnchorageIndicator?.toXml(),
+      positionInPortID?.toXml(),
+      ...cargoAndBallastTankConditionDescription.map((CargoAndBallastTankConditionDescription e) => e.toXml()).toList(),
+      ...shipRequirement.map((ShipRequirement e) => e.toXml()).toList(),
+      primaryPortCallPurpose?.toXml(),
+      ...additionalPortCallPurpose.map((AdditionalPortCallPurpose e) => e.toXml()).toList(),
+      requestedArrivalEvent?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'DestinationPortCall',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

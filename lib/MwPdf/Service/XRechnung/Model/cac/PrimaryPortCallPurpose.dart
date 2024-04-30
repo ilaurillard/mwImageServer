@@ -61,11 +61,31 @@ class PrimaryPortCallPurpose {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      purposeTypeCode?.toXml(),
+      ...purposeType.map((PurposeType e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'PrimaryPortCallPurpose',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

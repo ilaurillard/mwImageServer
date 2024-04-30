@@ -613,11 +613,100 @@ class MainCarriageShipmentStage {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      shipmentStageTypeCode?.toXml(),
+      ...shipmentStageType.map((ShipmentStageType e) => e.toXml()).toList(),
+      transportModeCode?.toXml(),
+      transportMeansTypeCode?.toXml(),
+      transitDirectionCode?.toXml(),
+      preCarriageIndicator?.toXml(),
+      onCarriageIndicator?.toXml(),
+      cabotageIndicator?.toXml(),
+      hazardousRiskIndicator?.toXml(),
+      estimatedDeliveryDate?.toXml(),
+      estimatedDeliveryTime?.toXml(),
+      requiredDeliveryDate?.toXml(),
+      requiredDeliveryTime?.toXml(),
+      loadingSequenceID?.toXml(),
+      successiveSequenceID?.toXml(),
+      ...instructions.map((Instructions e) => e.toXml()).toList(),
+      ...demurrageInstructions.map((DemurrageInstructions e) => e.toXml()).toList(),
+      crewQuantity?.toXml(),
+      passengerQuantity?.toXml(),
+      transitPeriod?.toXml(),
+      ...carrierParty.map((CarrierParty e) => e.toXml()).toList(),
+      transportMeans?.toXml(),
+      loadingPortLocation?.toXml(),
+      unloadingPortLocation?.toXml(),
+      transshipPortLocation?.toXml(),
+      loadingTransportEvent?.toXml(),
+      examinationTransportEvent?.toXml(),
+      availabilityTransportEvent?.toXml(),
+      exportationTransportEvent?.toXml(),
+      dischargeTransportEvent?.toXml(),
+      warehousingTransportEvent?.toXml(),
+      takeoverTransportEvent?.toXml(),
+      optionalTakeoverTransportEvent?.toXml(),
+      dropoffTransportEvent?.toXml(),
+      actualPickupTransportEvent?.toXml(),
+      deliveryTransportEvent?.toXml(),
+      receiptTransportEvent?.toXml(),
+      storageTransportEvent?.toXml(),
+      acceptanceTransportEvent?.toXml(),
+      terminalOperatorParty?.toXml(),
+      customsAgentParty?.toXml(),
+      estimatedTransitPeriod?.toXml(),
+      ...freightAllowanceCharge.map((FreightAllowanceCharge e) => e.toXml()).toList(),
+      freightChargeLocation?.toXml(),
+      ...detentionTransportEvent.map((DetentionTransportEvent e) => e.toXml()).toList(),
+      requestedDepartureTransportEvent?.toXml(),
+      requestedArrivalTransportEvent?.toXml(),
+      ...requestedWaypointTransportEvent.map((RequestedWaypointTransportEvent e) => e.toXml()).toList(),
+      plannedDepartureTransportEvent?.toXml(),
+      plannedArrivalTransportEvent?.toXml(),
+      ...plannedWaypointTransportEvent.map((PlannedWaypointTransportEvent e) => e.toXml()).toList(),
+      actualDepartureTransportEvent?.toXml(),
+      actualWaypointTransportEvent?.toXml(),
+      actualArrivalTransportEvent?.toXml(),
+      ...transportEvent.map((TransportEvent e) => e.toXml()).toList(),
+      estimatedDepartureTransportEvent?.toXml(),
+      estimatedArrivalTransportEvent?.toXml(),
+      ...passengerPerson.map((PassengerPerson e) => e.toXml()).toList(),
+      ...driverPerson.map((DriverPerson e) => e.toXml()).toList(),
+      reportingPerson?.toXml(),
+      ...crewMemberPerson.map((CrewMemberPerson e) => e.toXml()).toList(),
+      securityOfficerPerson?.toXml(),
+      masterPerson?.toXml(),
+      shipsSurgeonPerson?.toXml(),
+      destinationPortCall?.toXml(),
+      ...shipStoreArticle.map((ShipStoreArticle e) => e.toXml()).toList(),
+      ...crewPersonEffect.map((CrewPersonEffect e) => e.toXml()).toList(),
+      ...maritimeWaste.map((MaritimeWaste e) => e.toXml()).toList(),
+      ballastWaterSummary?.toXml(),
+      iSPSRequirements?.toXml(),
+      maritimeHealthDeclaration?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'MainCarriageShipmentStage',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

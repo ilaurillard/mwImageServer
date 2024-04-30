@@ -221,11 +221,51 @@ class FinalDeliveryTransportationService {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      transportServiceCode.toXml(),
+      tariffClassCode?.toXml(),
+      priority?.toXml(),
+      freightRateClassCode?.toXml(),
+      ...transportationServiceDescription.map((TransportationServiceDescription e) => e.toXml()).toList(),
+      transportationServiceDetailsURI?.toXml(),
+      nominationDate?.toXml(),
+      nominationTime?.toXml(),
+      name?.toXml(),
+      sequenceNumeric?.toXml(),
+      ...transportEquipment.map((TransportEquipment e) => e.toXml()).toList(),
+      ...supportedTransportEquipment.map((SupportedTransportEquipment e) => e.toXml()).toList(),
+      ...unsupportedTransportEquipment.map((UnsupportedTransportEquipment e) => e.toXml()).toList(),
+      ...commodityClassification.map((CommodityClassification e) => e.toXml()).toList(),
+      ...supportedCommodityClassification.map((SupportedCommodityClassification e) => e.toXml()).toList(),
+      ...unsupportedCommodityClassification.map((UnsupportedCommodityClassification e) => e.toXml()).toList(),
+      totalCapacityDimension?.toXml(),
+      ...shipmentStage.map((ShipmentStage e) => e.toXml()).toList(),
+      ...transportEvent.map((TransportEvent e) => e.toXml()).toList(),
+      responsibleTransportServiceProviderParty?.toXml(),
+      ...environmentalEmission.map((EnvironmentalEmission e) => e.toXml()).toList(),
+      estimatedDurationPeriod?.toXml(),
+      ...scheduledServiceFrequency.map((ScheduledServiceFrequency e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'FinalDeliveryTransportationService',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

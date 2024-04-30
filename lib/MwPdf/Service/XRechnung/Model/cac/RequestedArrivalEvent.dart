@@ -109,11 +109,37 @@ class RequestedArrivalEvent {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      identificationID?.toXml(),
+      occurrenceDate?.toXml(),
+      occurrenceTime?.toXml(),
+      typeCode?.toXml(),
+      ...description.map((Description e) => e.toXml()).toList(),
+      completionIndicator?.toXml(),
+      ...currentStatus.map((CurrentStatus e) => e.toXml()).toList(),
+      ...contact.map((Contact e) => e.toXml()).toList(),
+      occurenceLocation?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'RequestedArrivalEvent',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

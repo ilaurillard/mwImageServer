@@ -149,11 +149,42 @@ class ISPSRequirements {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD.toXml(),
+      validISSCIndicator?.toXml(),
+      ...iSSCAbsenceReason.map((ISSCAbsenceReason e) => e.toXml()).toList(),
+      iSSCExpiryDate?.toXml(),
+      sSPOnBoardIndicator?.toXml(),
+      sSPSecurityMeasuresAppliedIndicator?.toXml(),
+      currentOperatingSecurityLevelCode?.toXml(),
+      ...additionalMattersDescription.map((AdditionalMattersDescription e) => e.toXml()).toList(),
+      ...additionalSecurityMeasure.map((AdditionalSecurityMeasure e) => e.toXml()).toList(),
+      ...portCallRecord.map((PortCallRecord e) => e.toXml()).toList(),
+      ...shipToShipActivityRecord.map((ShipToShipActivityRecord e) => e.toXml()).toList(),
+      reportLocation?.toXml(),
+      iSSCIssuerParty?.toXml(),
+      securityOfficerPerson?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'ISPSRequirements',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

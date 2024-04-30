@@ -93,11 +93,35 @@ class RequestedDeliveryPeriod {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      startDate?.toXml(),
+      startTime?.toXml(),
+      endDate?.toXml(),
+      endTime?.toXml(),
+      durationMeasure?.toXml(),
+      ...descriptionCode.map((DescriptionCode e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'RequestedDeliveryPeriod',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

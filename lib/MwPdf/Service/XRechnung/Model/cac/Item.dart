@@ -277,11 +277,58 @@ class Item {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      ...description.map((Description e) => e.toXml()).toList(),
+      packQuantity?.toXml(),
+      packSizeNumeric?.toXml(),
+      catalogueIndicator?.toXml(),
+      name?.toXml(),
+      hazardousRiskIndicator?.toXml(),
+      ...additionalInformation.map((AdditionalInformation e) => e.toXml()).toList(),
+      ...keyword.map((Keyword e) => e.toXml()).toList(),
+      ...brandName.map((BrandName e) => e.toXml()).toList(),
+      ...modelName.map((ModelName e) => e.toXml()).toList(),
+      buyersItemIdentification?.toXml(),
+      sellersItemIdentification?.toXml(),
+      ...manufacturersItemIdentification.map((ManufacturersItemIdentification e) => e.toXml()).toList(),
+      standardItemIdentification?.toXml(),
+      catalogueItemIdentification?.toXml(),
+      ...additionalItemIdentification.map((AdditionalItemIdentification e) => e.toXml()).toList(),
+      catalogueDocumentReference?.toXml(),
+      ...itemSpecificationDocumentReference.map((ItemSpecificationDocumentReference e) => e.toXml()).toList(),
+      originCountry?.toXml(),
+      ...commodityClassification.map((CommodityClassification e) => e.toXml()).toList(),
+      ...transactionConditions.map((TransactionConditions e) => e.toXml()).toList(),
+      ...hazardousItem.map((HazardousItem e) => e.toXml()).toList(),
+      ...classifiedTaxCategory.map((ClassifiedTaxCategory e) => e.toXml()).toList(),
+      ...additionalItemProperty.map((AdditionalItemProperty e) => e.toXml()).toList(),
+      ...manufacturerParty.map((ManufacturerParty e) => e.toXml()).toList(),
+      informationContentProviderParty?.toXml(),
+      ...originAddress.map((OriginAddress e) => e.toXml()).toList(),
+      ...itemInstance.map((ItemInstance e) => e.toXml()).toList(),
+      ...certificate.map((Certificate e) => e.toXml()).toList(),
+      ...dimension.map((Dimension e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'Item',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

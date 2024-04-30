@@ -157,11 +157,43 @@ class ServiceAllowanceCharge {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      chargeIndicator.toXml(),
+      allowanceChargeReasonCode?.toXml(),
+      ...allowanceChargeReason.map((AllowanceChargeReason e) => e.toXml()).toList(),
+      multiplierFactorNumeric?.toXml(),
+      prepaidIndicator?.toXml(),
+      sequenceNumeric?.toXml(),
+      amount.toXml(),
+      baseAmount?.toXml(),
+      accountingCostCode?.toXml(),
+      accountingCost?.toXml(),
+      perUnitAmount?.toXml(),
+      ...taxCategory.map((TaxCategory e) => e.toXml()).toList(),
+      taxTotal?.toXml(),
+      ...paymentMeans.map((PaymentMeans e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'ServiceAllowanceCharge',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

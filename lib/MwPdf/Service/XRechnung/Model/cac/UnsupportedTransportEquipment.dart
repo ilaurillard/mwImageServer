@@ -533,11 +533,90 @@ class UnsupportedTransportEquipment {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      ...referencedConsignmentID.map((ReferencedConsignmentID e) => e.toXml()).toList(),
+      transportEquipmentTypeCode?.toXml(),
+      providerTypeCode?.toXml(),
+      ownerTypeCode?.toXml(),
+      sizeTypeCode?.toXml(),
+      dispositionCode?.toXml(),
+      fullnessIndicationCode?.toXml(),
+      refrigerationOnIndicator?.toXml(),
+      ...information.map((Information e) => e.toXml()).toList(),
+      returnabilityIndicator?.toXml(),
+      legalStatusIndicator?.toXml(),
+      airFlowPercent?.toXml(),
+      humidityPercent?.toXml(),
+      animalFoodApprovedIndicator?.toXml(),
+      humanFoodApprovedIndicator?.toXml(),
+      dangerousGoodsApprovedIndicator?.toXml(),
+      refrigeratedIndicator?.toXml(),
+      characteristics?.toXml(),
+      ...damageRemarks.map((DamageRemarks e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()).toList(),
+      ...specialTransportRequirements.map((SpecialTransportRequirements e) => e.toXml()).toList(),
+      grossWeightMeasure?.toXml(),
+      grossVolumeMeasure?.toXml(),
+      tareWeightMeasure?.toXml(),
+      trackingDeviceCode?.toXml(),
+      powerIndicator?.toXml(),
+      traceID?.toXml(),
+      ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
+      ...transportEquipmentSeal.map((TransportEquipmentSeal e) => e.toXml()).toList(),
+      minimumTemperature?.toXml(),
+      maximumTemperature?.toXml(),
+      providerParty?.toXml(),
+      loadingProofParty?.toXml(),
+      supplierParty?.toXml(),
+      ownerParty?.toXml(),
+      operatingParty?.toXml(),
+      loadingLocation?.toXml(),
+      unloadingLocation?.toXml(),
+      storageLocation?.toXml(),
+      ...positioningTransportEvent.map((PositioningTransportEvent e) => e.toXml()).toList(),
+      ...quarantineTransportEvent.map((QuarantineTransportEvent e) => e.toXml()).toList(),
+      ...deliveryTransportEvent.map((DeliveryTransportEvent e) => e.toXml()).toList(),
+      ...pickupTransportEvent.map((PickupTransportEvent e) => e.toXml()).toList(),
+      ...handlingTransportEvent.map((HandlingTransportEvent e) => e.toXml()).toList(),
+      ...loadingTransportEvent.map((LoadingTransportEvent e) => e.toXml()).toList(),
+      ...transportEvent.map((TransportEvent e) => e.toXml()).toList(),
+      applicableTransportMeans?.toXml(),
+      ...haulageTradingTerms.map((HaulageTradingTerms e) => e.toXml()).toList(),
+      ...hazardousGoodsTransit.map((HazardousGoodsTransit e) => e.toXml()).toList(),
+      ...packagedTransportHandlingUnit.map((PackagedTransportHandlingUnit e) => e.toXml()).toList(),
+      ...serviceAllowanceCharge.map((ServiceAllowanceCharge e) => e.toXml()).toList(),
+      ...freightAllowanceCharge.map((FreightAllowanceCharge e) => e.toXml()).toList(),
+      ...attachedTransportEquipment.map((AttachedTransportEquipment e) => e.toXml()).toList(),
+      delivery?.toXml(),
+      pickup?.toXml(),
+      despatch?.toXml(),
+      ...shipmentDocumentReference.map((ShipmentDocumentReference e) => e.toXml()).toList(),
+      ...containedInTransportEquipment.map((ContainedInTransportEquipment e) => e.toXml()).toList(),
+      ...package.map((Package e) => e.toXml()).toList(),
+      ...goodsItem.map((GoodsItem e) => e.toXml()).toList(),
+      verifiedGrossMass?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'UnsupportedTransportEquipment',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

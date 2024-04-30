@@ -462,7 +462,95 @@ class Invoice {
     );
   }
 
-  XmlNode toXml() {
+  XmlDocument toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      uBLVersionID?.toXml(),
+      customizationID?.toXml(),
+      profileID?.toXml(),
+      profileExecutionID?.toXml(),
+      iD.toXml(),
+      copyIndicator?.toXml(),
+      uUID?.toXml(),
+      issueDate.toXml(),
+      issueTime?.toXml(),
+      dueDate?.toXml(),
+      invoiceTypeCode?.toXml(),
+      ...note.map((Note e) => e.toXml()).toList(),
+      taxPointDate?.toXml(),
+      documentCurrencyCode?.toXml(),
+      taxCurrencyCode?.toXml(),
+      pricingCurrencyCode?.toXml(),
+      paymentCurrencyCode?.toXml(),
+      paymentAlternativeCurrencyCode?.toXml(),
+      accountingCostCode?.toXml(),
+      accountingCost?.toXml(),
+      lineCountNumeric?.toXml(),
+      buyerReference?.toXml(),
+      ...invoicePeriod.map((InvoicePeriod e) => e.toXml()).toList(),
+      orderReference?.toXml(),
+      ...billingReference.map((BillingReference e) => e.toXml()).toList(),
+      ...despatchDocumentReference.map((DespatchDocumentReference e) => e.toXml()).toList(),
+      ...receiptDocumentReference.map((ReceiptDocumentReference e) => e.toXml()).toList(),
+      ...statementDocumentReference.map((StatementDocumentReference e) => e.toXml()).toList(),
+      ...originatorDocumentReference.map((OriginatorDocumentReference e) => e.toXml()).toList(),
+      ...contractDocumentReference.map((ContractDocumentReference e) => e.toXml()).toList(),
+      ...additionalDocumentReference.map((AdditionalDocumentReference e) => e.toXml()).toList(),
+      ...projectReference.map((ProjectReference e) => e.toXml()).toList(),
+      ...signature.map((Signature e) => e.toXml()).toList(),
+      accountingSupplierParty.toXml(),
+      accountingCustomerParty?.toXml(),
+      payeeParty?.toXml(),
+      buyerCustomerParty?.toXml(),
+      sellerSupplierParty?.toXml(),
+      taxRepresentativeParty?.toXml(),
+      ...delivery.map((Delivery e) => e.toXml()).toList(),
+      deliveryTerms?.toXml(),
+      ...paymentMeans.map((PaymentMeans e) => e.toXml()).toList(),
+      ...paymentTerms.map((PaymentTerms e) => e.toXml()).toList(),
+      ...prepaidPayment.map((PrepaidPayment e) => e.toXml()).toList(),
+      ...allowanceCharge.map((AllowanceCharge e) => e.toXml()).toList(),
+      taxExchangeRate?.toXml(),
+      pricingExchangeRate?.toXml(),
+      paymentExchangeRate?.toXml(),
+      paymentAlternativeExchangeRate?.toXml(),
+      ...taxTotal.map((TaxTotal e) => e.toXml()).toList(),
+      ...withholdingTaxTotal.map((WithholdingTaxTotal e) => e.toXml()).toList(),
+      legalMonetaryTotal.toXml(),
+      ...invoiceLine.map((InvoiceLine e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+      XmlAttribute(
+        XmlName('xmlns:ext'),
+        'urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2',
+      ),
+      XmlAttribute(
+        XmlName('xmlns:cbc'),
+        'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
+      ),
+      XmlAttribute(
+        XmlName('xmlns:cac'),
+        'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
+      ),
+      XmlAttribute(
+        XmlName('xmlns:xsi'),
+        'http://www.w3.org/2001/XMLSchema-instance',
+      ),
+      XmlAttribute(
+        XmlName('xsi:schemaLocation'),
+        'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 http://docs.oasis-open.org/ubl/os-UBL-2.3/xsd/maindoc/UBL-Invoice-2.3.xsd',
+      ),
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlDocument([
       XmlDeclaration([
         XmlAttribute(XmlName('version'), '1.0'),
@@ -473,29 +561,8 @@ class Invoice {
           'Invoice',
           'ubl',
         ),
-        [
-          XmlAttribute(
-            XmlName('xmlns:ext'),
-            'urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2',
-          ),
-          XmlAttribute(
-            XmlName('xmlns:cbc'),
-            'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
-          ),
-          XmlAttribute(
-            XmlName('xmlns:cac'),
-            'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
-          ),
-
-          XmlAttribute(
-            XmlName('xmlns:xsi'),
-            'http://www.w3.org/2001/XMLSchema-instance',
-          ),
-          XmlAttribute(
-            XmlName('xsi:schemaLocation'),
-            'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 http://docs.oasis-open.org/ubl/os-UBL-2.3/xsd/maindoc/UBL-Invoice-2.3.xsd',
-          ),
-        ]
+        attributes,
+        children,
       ),
     ]);
   }

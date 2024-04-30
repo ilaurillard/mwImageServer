@@ -85,11 +85,34 @@ class PrepaidPayment {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      paidAmount?.toXml(),
+      receivedDate?.toXml(),
+      paidDate?.toXml(),
+      paidTime?.toXml(),
+      instructionID?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'PrepaidPayment',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

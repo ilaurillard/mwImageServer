@@ -93,11 +93,35 @@ class Certificate {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD.toXml(),
+      certificateTypeCode?.toXml(),
+      ...certificateType.map((CertificateType e) => e.toXml()).toList(),
+      ...remarks.map((Remarks e) => e.toXml()).toList(),
+      issuerParty?.toXml(),
+      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+      ...signature.map((Signature e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'Certificate',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

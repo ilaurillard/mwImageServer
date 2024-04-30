@@ -242,38 +242,11 @@ class DartClassFromElement {
     }
   }
 
-  void __prepareMethodToJson() {
-    String toJson = '  Map<String, dynamic> toJson() {\n';
-    toJson += '    Map<String, dynamic> map = {\n';
-
-    if (_type.bodyType != null) {
-      toJson += "      'value': value,\n";
-    }
-    for (Attribute a in _type.attributes.values) {
-      toJson += "      '${a.name}': ${a.name},\n";
-    }
-    for (Element childElement in _type.elements.values) {
-      int minOccurs = childElement.minOccurs;
-      int maxOccurs = childElement.maxOccurs;
-      String elementClassName = childElement.name;
-      String elementVarName = _lcfirst(elementClassName);
-      bool o = minOccurs == 0;
-      if (maxOccurs == 0) {
-        toJson +=
-            "      '$elementVarName': $elementVarName.map((e) => e.toJson()).toList(),\n";
-      } else {
-        toJson +=
-            "      '$elementVarName': $elementVarName${o ? '?' : ''}.toJson(),\n";
-      }
-    }
-
-    toJson += '    };\n';
-    toJson +=
-        '    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));\n';
-    toJson += '    return map;\n';
-    toJson += '  }\n';
-
-    _methods.add(toJson);
+  void __prepareMethods() {
+    __prepareMethodFromJson();
+    __prepareMethodToJson();
+    __prepareMethodFromXml();
+    __prepareMethodToXml();
   }
 
   void __prepareMethodFromJson() {
@@ -313,63 +286,6 @@ class DartClassFromElement {
     fromJson += '  }\n';
 
     _methods.add(fromJson);
-  }
-
-  void __prepareMethodToXml() {
-    String toXml = '  XmlNode toXml() {\n';
-
-    if (_element.parentType.name == XsdParser.schemaType) {
-      // special handling of root element --------------
-      String schemas = '';
-      for (Schema s in _element.referredSchemas()) {
-        schemas += '''
-          XmlAttribute(
-            XmlName('xmlns:${s.identifier}'),
-            '${s.namespace}',
-          ),
-''';
-      }
-      Schema mainSchema = _element.mainSchema();
-      toXml += '''
-    return XmlDocument([
-      XmlDeclaration([
-        XmlAttribute(XmlName('version'), '1.0'),
-        XmlAttribute(XmlName('encoding'), 'UTF-8')
-      ]),
-      XmlElement(
-        XmlName(
-          '${_element.name}',
-          '${_element.refSchemaId}',
-        ),
-        [
-$schemas
-          XmlAttribute(
-            XmlName('xmlns:xsi'),
-            'http://www.w3.org/2001/XMLSchema-instance',
-          ),
-          XmlAttribute(
-            XmlName('xsi:schemaLocation'),
-            '${mainSchema.namespace} ${mainSchema.uri}',
-          ),
-        ]
-      ),
-    ]);
-''';
-    } else {
-      // other elements --------------------
-      toXml += '''
-    return XmlElement(
-      XmlName(
-        '${_element.name}',
-        '${_element.refSchemaId}',
-      ),
-    );
-''';
-    }
-
-    toXml += '  }\n';
-
-    _methods.add(toXml);
   }
 
   void __prepareMethodFromXml() {
@@ -412,10 +328,161 @@ $schemas
     _methods.add(fromXml);
   }
 
-  void __prepareMethods() {
-    __prepareMethodFromJson();
-    __prepareMethodToJson();
-    __prepareMethodFromXml();
-    __prepareMethodToXml();
+  void __prepareMethodToJson() {
+    String toJson = '  Map<String, dynamic> toJson() {\n';
+    toJson += '    Map<String, dynamic> map = {\n';
+
+    if (_type.bodyType != null) {
+      toJson += "      'value': value.toString(),\n";
+    }
+    for (Attribute a in _type.attributes.values) {
+      toJson += "      '${a.name}': ${a.name}.toString(),\n";
+    }
+    for (Element childElement in _type.elements.values) {
+      int minOccurs = childElement.minOccurs;
+      int maxOccurs = childElement.maxOccurs;
+      String elementClassName = childElement.name;
+      String elementVarName = _lcfirst(elementClassName);
+      bool o = minOccurs == 0;
+      if (maxOccurs == 0) {
+        toJson +=
+            "      '$elementVarName': $elementVarName.map((e) => e.toJson()).toList(),\n";
+      } else {
+        toJson +=
+            "      '$elementVarName': $elementVarName${o ? '?' : ''}.toJson(),\n";
+      }
+    }
+
+    toJson += '    };\n';
+    toJson +=
+        '    map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));\n';
+    toJson += '    return map;\n';
+    toJson += '  }\n';
+
+    _methods.add(toJson);
+  }
+
+  void __prepareMethodToXml() {
+    String children = _xmlChildren();
+    String toXml = '';
+    if (_element.parentType.name == XsdParser.schemaType) {
+      // special handling of root element --------------
+      String attributes = _xmlAttributes(true);
+      toXml = '''
+  XmlDocument toXml() {\n
+$children
+$attributes
+    return XmlDocument([
+      XmlDeclaration([
+        XmlAttribute(XmlName('version'), '1.0'),
+        XmlAttribute(XmlName('encoding'), 'UTF-8')
+      ]),
+      XmlElement(
+        XmlName(
+          '${_element.name}',
+          '${_element.refSchemaId}',
+        ),
+        attributes,
+        children,
+      ),
+    ]);
+''';
+    } else {
+      // other elements --------------------
+      String attributes = _xmlAttributes(false);
+      toXml = '''
+  XmlNode toXml() {\n
+$children
+$attributes
+    return XmlElement(
+      XmlName(
+        '${_element.name}',
+        '${_element.refSchemaId}',
+      ),
+      attributes,
+      children,
+    );
+''';
+    }
+
+    toXml += '  }\n';
+
+    _methods.add(toXml);
+  }
+
+  String _xmlNameSpaces() {
+    String schemas = '';
+    for (Schema s in _element.referredSchemas()) {
+      schemas += '''
+      XmlAttribute(
+        XmlName('xmlns:${s.identifier}'),
+        '${s.namespace}',
+      ),
+''';
+    }
+    Schema mainSchema = _element.mainSchema();
+    schemas += '''
+      XmlAttribute(
+        XmlName('xmlns:xsi'),
+        'http://www.w3.org/2001/XMLSchema-instance',
+      ),
+      XmlAttribute(
+        XmlName('xsi:schemaLocation'),
+        '${mainSchema.namespace} ${mainSchema.uri}',
+      ),
+''';
+    return schemas;
+  }
+
+  String _xmlAttributes(
+      bool isRoot,
+      ) {
+    String namespaces = isRoot ? _xmlNameSpaces() : '';
+    String attributes = '';
+    for (Attribute a in _type.attributes.values) {
+      bool o = a.optional();
+      attributes +=
+          "      ${o?'${a.name} != null ? ':''}XmlAttribute(XmlName('${a.name}'), ${a.name}.toString(),)${o?' : null':''},\n";
+    }
+    return '''
+    List<XmlAttribute?> a2 = [
+$namespaces
+$attributes
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+''';
+  }
+
+  String _xmlChildren() {
+    String children = '';
+
+    if (_type.bodyType != null) {
+      children += '      XmlText(value.toString()),\n';
+    }
+
+    for (Element childElement in _type.elements.values) {
+      int minOccurs = childElement.minOccurs;
+      int maxOccurs = childElement.maxOccurs;
+      String elementClassName = childElement.name;
+      String elementVarName = _lcfirst(elementClassName);
+      bool o = minOccurs == 0;
+      if (maxOccurs == 0) {
+        children +=
+            '      ...$elementVarName.map(($elementClassName e) => e.toXml()).toList(),\n';
+      } else {
+        if (childElement.type != null) {
+          children += '      $elementVarName${(o ? '?' : '')}.toXml(),\n';
+        }
+      }
+    }
+
+    return '''
+    List<XmlNode?> c2 = [
+$children
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+''';
   }
 }

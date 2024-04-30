@@ -53,11 +53,30 @@ class PricingReference {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      originalItemLocationQuantity?.toXml(),
+      ...alternativeConditionPrice.map((AlternativeConditionPrice e) => e.toXml()).toList(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'PricingReference',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

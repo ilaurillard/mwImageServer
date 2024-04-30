@@ -373,11 +373,70 @@ class GoodsItem {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD?.toXml(),
+      sequenceNumberID?.toXml(),
+      ...description.map((Description e) => e.toXml()).toList(),
+      hazardousRiskIndicator?.toXml(),
+      declaredCustomsValueAmount?.toXml(),
+      declaredForCarriageValueAmount?.toXml(),
+      declaredStatisticsValueAmount?.toXml(),
+      freeOnBoardValueAmount?.toXml(),
+      insuranceValueAmount?.toXml(),
+      valueAmount?.toXml(),
+      grossWeightMeasure?.toXml(),
+      netWeightMeasure?.toXml(),
+      netNetWeightMeasure?.toXml(),
+      chargeableWeightMeasure?.toXml(),
+      grossVolumeMeasure?.toXml(),
+      netVolumeMeasure?.toXml(),
+      quantity?.toXml(),
+      preferenceCriterionCode?.toXml(),
+      requiredCustomsID?.toXml(),
+      customsStatusCode?.toXml(),
+      customsProcedureCode?.toXml(),
+      customsTariffQuantity?.toXml(),
+      customsImportClassifiedIndicator?.toXml(),
+      chargeableQuantity?.toXml(),
+      returnableQuantity?.toXml(),
+      traceID?.toXml(),
+      ...item.map((Item e) => e.toXml()).toList(),
+      ...goodsItemContainer.map((GoodsItemContainer e) => e.toXml()).toList(),
+      ...freightAllowanceCharge.map((FreightAllowanceCharge e) => e.toXml()).toList(),
+      ...invoiceLine.map((InvoiceLine e) => e.toXml()).toList(),
+      ...orderLineReference.map((OrderLineReference e) => e.toXml()).toList(),
+      ...temperature.map((Temperature e) => e.toXml()).toList(),
+      ...containedGoodsItem.map((ContainedGoodsItem e) => e.toXml()).toList(),
+      originAddress?.toXml(),
+      delivery?.toXml(),
+      pickup?.toXml(),
+      despatch?.toXml(),
+      ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
+      ...containingPackage.map((ContainingPackage e) => e.toXml()).toList(),
+      shipmentDocumentReference?.toXml(),
+      minimumTemperature?.toXml(),
+      maximumTemperature?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'GoodsItem',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }

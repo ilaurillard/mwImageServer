@@ -268,11 +268,57 @@ class SubInvoiceLine {
   }
 
   XmlNode toXml() {
+
+    List<XmlNode?> c2 = [
+      uBLExtensions?.toXml(),
+      iD.toXml(),
+      uUID?.toXml(),
+      ...note.map((Note e) => e.toXml()).toList(),
+      invoicedQuantity?.toXml(),
+      lineExtensionAmount.toXml(),
+      taxInclusiveLineExtensionAmount?.toXml(),
+      taxPointDate?.toXml(),
+      accountingCostCode?.toXml(),
+      accountingCost?.toXml(),
+      paymentPurposeCode?.toXml(),
+      freeOfChargeIndicator?.toXml(),
+      ...invoicePeriod.map((InvoicePeriod e) => e.toXml()).toList(),
+      ...orderLineReference.map((OrderLineReference e) => e.toXml()).toList(),
+      ...despatchLineReference.map((DespatchLineReference e) => e.toXml()).toList(),
+      ...receiptLineReference.map((ReceiptLineReference e) => e.toXml()).toList(),
+      ...billingReference.map((BillingReference e) => e.toXml()).toList(),
+      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+      pricingReference?.toXml(),
+      originatorParty?.toXml(),
+      ...delivery.map((Delivery e) => e.toXml()).toList(),
+      ...paymentTerms.map((PaymentTerms e) => e.toXml()).toList(),
+      ...allowanceCharge.map((AllowanceCharge e) => e.toXml()).toList(),
+      ...taxTotal.map((TaxTotal e) => e.toXml()).toList(),
+      ...withholdingTaxTotal.map((WithholdingTaxTotal e) => e.toXml()).toList(),
+      item.toXml(),
+      price?.toXml(),
+      deliveryTerms?.toXml(),
+      ...subInvoiceLine.map((SubInvoiceLine e) => e.toXml()).toList(),
+      itemPriceExtension?.toXml(),
+
+    ];
+    c2.removeWhere((e) => e == null);
+    List<XmlNode> children = c2.cast<XmlNode>().toList();
+
+    List<XmlAttribute?> a2 = [
+
+
+    ];
+    a2.removeWhere((e) => e == null);
+    List<XmlAttribute> attributes = a2.cast<XmlAttribute>().toList();
+
     return XmlElement(
       XmlName(
         'SubInvoiceLine',
         'cac',
       ),
+      attributes,
+      children,
     );
   }
 }
