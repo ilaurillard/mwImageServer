@@ -25,7 +25,7 @@ class ProgressPercent {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value.toString(),
-      'format': format.toString(),
+      'format': format?.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

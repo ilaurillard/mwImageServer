@@ -8,7 +8,8 @@ import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
-import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Util.dart' as zugferd_util;
+import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Util.dart'
+    as zugferd_util;
 import 'package:pdf/widgets.dart';
 import 'package:shelf/shelf.dart';
 import 'package:xml/xml.dart';
@@ -53,10 +54,25 @@ class ApiPdf {
     );
   }
 
-  FutureOr<Response> facturx(
+  FutureOr<Response> schemax(
     Request request,
   ) async {
-    Console.info('[ApiPdf.facturx]');
+    Console.info('[ApiPdf.schemax]');
+
+    String schema = await (Pdf(
+      fileStorage: fileStorage,
+    )).schemax();
+
+    return Response.ok(
+      schema,
+      headers: Util.jsonHeaders,
+    );
+  }
+
+  FutureOr<Response> invoice(
+    Request request,
+  ) async {
+    Console.info('[ApiPdf.invoice]');
 
     try {
       Dict data = await Util.incomingJson(
@@ -66,12 +82,14 @@ class ApiPdf {
 
       XmlDocument? xml = await (Pdf(
         fileStorage: fileStorage,
-      )).facturx(
+      )).invoice(
         data,
       );
 
       if (xml == null) {
-        return Util.rNotFound(message: 'No embedded invoice');
+        return Util.rNotFound(
+          message: 'No embedded invoice',
+        );
       }
 
       return Response.ok(
@@ -121,6 +139,7 @@ class ApiPdf {
     }
   }
 
+  // create and store a template
   FutureOr<Response> template(
     Request request,
   ) async {
@@ -141,7 +160,8 @@ class ApiPdf {
       return Response.ok(
         json.encode({
           'token': token,
-          'message': 'Put this token into the import attribute of your json data',
+          'message':
+              'Put this token into the import attribute of your json data',
         }),
         headers: Util.jsonHeaders,
       );

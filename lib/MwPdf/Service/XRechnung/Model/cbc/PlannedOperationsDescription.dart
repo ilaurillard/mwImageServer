@@ -32,8 +32,8 @@ class PlannedOperationsDescription {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value.toString(),
-      'languageID': languageID.toString(),
-      'languageLocaleID': languageLocaleID.toString(),
+      'languageID': languageID?.toString(),
+      'languageLocaleID': languageLocaleID?.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

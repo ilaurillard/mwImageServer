@@ -40,10 +40,10 @@ class ValueQuantity {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value.toString(),
-      'unitCode': unitCode.toString(),
-      'unitCodeListID': unitCodeListID.toString(),
-      'unitCodeListAgencyID': unitCodeListAgencyID.toString(),
-      'unitCodeListAgencyName': unitCodeListAgencyName.toString(),
+      'unitCode': unitCode?.toString(),
+      'unitCodeListID': unitCodeListID?.toString(),
+      'unitCodeListAgencyID': unitCodeListAgencyID?.toString(),
+      'unitCodeListAgencyName': unitCodeListAgencyName?.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

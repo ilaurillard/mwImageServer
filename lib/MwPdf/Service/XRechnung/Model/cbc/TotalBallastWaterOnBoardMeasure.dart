@@ -33,7 +33,7 @@ class TotalBallastWaterOnBoardMeasure {
     Map<String, dynamic> map = {
       'value': value.toString(),
       'unitCode': unitCode.toString(),
-      'unitCodeListVersionID': unitCodeListVersionID.toString(),
+      'unitCodeListVersionID': unitCodeListVersionID?.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

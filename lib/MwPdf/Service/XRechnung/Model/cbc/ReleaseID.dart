@@ -57,13 +57,13 @@ class ReleaseID {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value.toString(),
-      'schemeID': schemeID.toString(),
-      'schemeName': schemeName.toString(),
-      'schemeAgencyID': schemeAgencyID.toString(),
-      'schemeAgencyName': schemeAgencyName.toString(),
-      'schemeVersionID': schemeVersionID.toString(),
-      'schemeDataURI': schemeDataURI.toString(),
-      'schemeURI': schemeURI.toString(),
+      'schemeID': schemeID?.toString(),
+      'schemeName': schemeName?.toString(),
+      'schemeAgencyID': schemeAgencyID?.toString(),
+      'schemeAgencyName': schemeAgencyName?.toString(),
+      'schemeVersionID': schemeVersionID?.toString(),
+      'schemeDataURI': schemeDataURI?.toString(),
+      'schemeURI': schemeURI?.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

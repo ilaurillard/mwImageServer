@@ -3132,6 +3132,9 @@
     },
     "facturx": {
       "$ref": "facturx_schema.json"
+    },
+    "xrechnung": {
+      "$ref": "xrechnung_schema.json"
     }
   },
   "type": "object"

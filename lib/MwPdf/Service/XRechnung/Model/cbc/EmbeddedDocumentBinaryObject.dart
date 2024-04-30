@@ -53,12 +53,12 @@ class EmbeddedDocumentBinaryObject {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'value': value.toString(),
-      'format': format.toString(),
+      'format': format?.toString(),
       'mimeCode': mimeCode.toString(),
-      'encodingCode': encodingCode.toString(),
-      'characterSetCode': characterSetCode.toString(),
-      'uri': uri.toString(),
-      'filename': filename.toString(),
+      'encodingCode': encodingCode?.toString(),
+      'characterSetCode': characterSetCode?.toString(),
+      'uri': uri?.toString(),
+      'filename': filename?.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

@@ -33,7 +33,7 @@ class DeclaredForCarriageValueAmount {
     Map<String, dynamic> map = {
       'value': value.toString(),
       'currencyID': currencyID.toString(),
-      'currencyCodeListVersionID': currencyCodeListVersionID.toString(),
+      'currencyCodeListVersionID': currencyCodeListVersionID?.toString(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;

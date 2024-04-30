@@ -56,6 +56,7 @@ class Engine {
       ),
       invoice: Invoice.fromJson(
         (json['facturx'] as Dict?) ?? {},
+        (json['xrechnung'] as Dict?) ?? {},
         state,
       ),
     );
@@ -63,7 +64,6 @@ class Engine {
 
   // Create the pdf -------------------
   Future<pw.Document> pdf() async {
-
     pw.PageTheme? pageTheme;
     if (meta.theme.isNotEmpty) {
       pageTheme = meta.themes[meta.theme]?.theme;
@@ -96,6 +96,7 @@ class Engine {
 
       metadata: meta.pdfaRdf(
         facturx: invoice.facturx != null,
+        xrechnung: invoice.xrechnung != null,
       ),
     );
 
@@ -115,9 +116,23 @@ class Engine {
       PdfaAttachedFiles(
         pdf.document,
         {
-          'factur-x.xml': Util.prettyXml(invoice.facturx!),
+          'factur-x.xml': Util.prettyXml(
+            invoice.facturx!,
+          ),
         },
       );
+    }
+
+    if (invoice.xrechnung != null) {
+      // TODO
+      // PdfaAttachedFiles(
+      //   pdf.document,
+      //   {
+      //     'xrechnung.xml': Util.prettyXml(
+      //       invoice.xrechnung!,
+      //     ),
+      //   },
+      // );
     }
 
     // -------------------------

@@ -1,0 +1,14 @@
+{
+  "additionalProperties": true,
+  "definitions": {
+
+  },
+  "description": "xrechnung TBD",
+  "properties": {
+
+  },
+  "required": [
+
+  ],
+  "type": "object"
+}

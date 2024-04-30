@@ -40,8 +40,8 @@ class Api {
             apiPdf.validate,
           )
           ..post(
-            '/facturx',
-            apiPdf.facturx,
+            '/invoice',
+            apiPdf.invoice,
           )
           ..get(
             '/schema',
@@ -50,6 +50,10 @@ class Api {
           ..get(
             '/schemaf',
             apiPdf.schemaf,
+          )
+          ..get(
+            '/schemax',
+            apiPdf.schemax,
           ));
   }
 }

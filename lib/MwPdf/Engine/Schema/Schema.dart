@@ -14,8 +14,11 @@ class Schema {
   late final JsonSchema schema;
   late final String schemaData;
 
-  late final JsonSchema schemaZugferd;
-  late final String schemaDataZugferd;
+  late final JsonSchema schemaFacturx;
+  late final String schemaDataFacturx;
+
+  late final JsonSchema schemaXRechnung;
+  late final String schemaDataXRechnung;
 
   static Schema? instance;
 
@@ -36,29 +39,48 @@ class Schema {
   }
 
   Future<void> load() async {
+
     schemaData = await File(
       '$resDir/schema/mwpdf_schema.json',
     ).readAsString();
     Console.notice('Loaded schema (${schemaData.length})');
 
-    schemaDataZugferd = await File(
+    // --------------
+
+    schemaDataFacturx = await File(
       '$resDir/schema/facturx_schema.json',
     ).readAsString();
-    Console.notice('Loaded schema [ZUGFeRD] (${schemaData.length})');
+    Console.notice('Loaded schema [Factur-X] (${schemaData.length})');
+    Dict facturx = json.decode(schemaDataFacturx) as Dict;
+    schemaFacturx = JsonSchema.create(
+      schemaDataFacturx,
+    );
 
-    Dict zug = json.decode(schemaDataZugferd) as Dict;
+    // --------------
+
+    schemaDataXRechnung = await File(
+      '$resDir/schema/xrechnung_schema.json',
+    ).readAsString();
+    Console.notice('Loaded schema [XRechnung] (${schemaData.length})');
+    Dict xrechnung = json.decode(schemaDataXRechnung) as Dict;
+    schemaXRechnung = JsonSchema.create(
+      schemaDataXRechnung,
+    );
+
+    // --------------
 
     schema = JsonSchema.create(
       schemaData,
       refProvider: RefProvider.sync((String ref) {
         if (ref.contains('facturx_schema.json')) {
-          return zug;
+          return facturx;
+        }
+        if (ref.contains('xrechnung_schema.json')) {
+          return xrechnung;
         }
         return {};
       }),
     );
-
-    schemaZugferd = JsonSchema.create(schemaDataZugferd);
   }
 
   Results validate(

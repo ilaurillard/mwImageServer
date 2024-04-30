@@ -330,7 +330,8 @@ class DartClassFromElement {
       toJson += "      'value': value.toString(),\n";
     }
     for (Attribute a in _type.attributes.values) {
-      toJson += "      '${a.name}': ${a.name}.toString(),\n";
+      bool o = a.optional();
+      toJson += "      '${a.name}': ${a.name}${o?'?':''}.toString(),\n";
     }
     for (Element childElement in _type.elements.values) {
       int minOccurs = childElement.minOccurs;

@@ -151,7 +151,6 @@
             <button data-tut="35">Conditionals</button>
             <button data-tut="39">Tabellen/Summen</button>
 
-            <button data-tut="32">Factur-x</button>
             <button data-tut="33">Prepare template</button>
             <button data-tut="34">Use template</button>
             <button data-tut="36">Showcase: HH Energie</button>
@@ -164,6 +163,8 @@
             <button data-tut="44">Experiment, Sudoku&Co</button>
             <button data-tut="45">Experiment, Sudoku&Co (2)</button>
 
+            <button data-tut="32">Factur-x</button>
+            <button data-tut="46">XRechnung</button>
 
         </div>
     </div>
@@ -178,13 +179,15 @@
         <!--        <input id="auth" type="text" value="myRootKey" placeholder="Authkey"/><br/>-->
         <!--        <br />-->
 
-        <button id="butt">Generate PDF &raquo;</button>
-        <button id="template">Template</button>
-        <button id="facturx">Factur-x XML</button>
-        <button id="validate">Validate</button>
-        <button id="schemaf">Schema F</button>
-        <button id="schema">Schema</button>
-        <button id="clear">Clear</button>
+        <button id="butt">Create<br />PDF &raquo;</button>
+        <button id="validate">Validate<br/>Json</button>
+
+        <button id="template">Create<br />Template</button>
+        <button id="invoice">Create<br />Invoice</button>
+        <button id="schemax">Schema<br />XRechnung</button>
+        <button id="schemaf">Schema<br />FacturX</button>
+        <button id="schema">Full<br />Schema</button>
+        <button id="clear">Clear<br />All</button>
 
     </form>
 
@@ -282,11 +285,11 @@
         xhr.send(data);
     }
 
-    document.getElementById('facturx').onclick = function (e) {
+    document.getElementById('invoice').onclick = function (e) {
         e.preventDefault();
 
         let xhr = new XMLHttpRequest;
-        xhr.open('post', '/api/facturx', true);
+        xhr.open('post', '/api/invoice', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'
@@ -330,6 +333,26 @@
 
         let xhr = new XMLHttpRequest;
         xhr.open('get', '/api/schemaf', true);
+        xhr.setRequestHeader(
+            'Authorization',
+            'myRootKey'
+        );
+        xhr.onload = function (e) {
+            let content = this.response;
+            let blob = new Blob([content], {type: 'text/plain'});
+            let url = URL.createObjectURL(blob);
+            let i = document.getElementById('iframe');
+            i.src = url;
+            i.hidden = false;
+        };
+        xhr.send({});
+    }
+
+    document.getElementById('schemax').onclick = function (e) {
+        e.preventDefault();
+
+        let xhr = new XMLHttpRequest;
+        xhr.open('get', '/api/schemax', true);
         xhr.setRequestHeader(
             'Authorization',
             'myRootKey'

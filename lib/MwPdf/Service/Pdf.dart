@@ -29,14 +29,14 @@ class Pdf {
     return await _validate(data);
   }
 
-  Future<XmlDocument?> facturx(
+  Future<XmlDocument?> invoice(
     Dict data,
   ) async {
     data = _expandTemplate(data);
 
     Engine engine = await _engine(data);
 
-    return engine.invoice.facturx;
+    return engine.invoice.xml();
   }
 
   Future<Uint8List> build(
@@ -52,7 +52,6 @@ class Pdf {
 
       Document pdf = await engine.pdf();
       return await pdf.save();
-
     } else {
       _printErrors(results);
       throw ResponseException(
@@ -73,11 +72,20 @@ class Pdf {
         .schemaData;
   }
 
+  // factur x
   Future<String> schemaf() async {
     return (await Schema.create(
       resDir: _resDir(),
     ))
-        .schemaDataZugferd;
+        .schemaDataFacturx;
+  }
+
+  // xrechnung
+  Future<String> schemax() async {
+    return (await Schema.create(
+      resDir: _resDir(),
+    ))
+        .schemaDataXRechnung;
   }
 
   Future<String> template(

@@ -29,7 +29,7 @@
             "children": [
               {
                 "Paragraph": {
-                  "text": "Invoice with embedded Factur-X XML"
+                  "text": "Invoice with embedded Factur-X XML (aka. CII / Cross Industry Invoice)"
                 }
               },
               {

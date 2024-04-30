@@ -69,14 +69,19 @@ class Meta {
   // PDF/A 3b Metadata
   XmlDocument? pdfaRdf({
     bool facturx = false,
+    bool xrechnung = false,
   }) {
     if (!pdfa3b) {
       return null;
     }
 
-    String facturxRdf = '';
+    String invoiceRdf = '';
     if (facturx) {
-      facturxRdf = PdfaFacturxRdf().create();
+      invoiceRdf = PdfaFacturxRdf().create();
+    }
+    else if (xrechnung) {
+      // invoiceRdf = PdfaFacturxRdf().create();
+      // TODO
     }
 
     return PdfaRdf(
@@ -87,7 +92,7 @@ class Meta {
       keywords: keywords,
       producer: producer,
       creationDate: creationDate,
-      invoiceRdf: facturxRdf,
+      invoiceRdf: invoiceRdf,
     ).create();
   }
 
