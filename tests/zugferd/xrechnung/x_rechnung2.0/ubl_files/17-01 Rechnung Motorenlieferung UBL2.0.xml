@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ubl:Invoice xmlns:ubl="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-Invoice-2.1.xsd"
+>
+	<cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0</cbc:CustomizationID>
+	<cbc:ID>0012146558795</cbc:ID>
+	<cbc:IssueDate>2021-02-01</cbc:IssueDate>
+	<cbc:DueDate>2021-02-22</cbc:DueDate>
+	<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+	<cbc:Note>#ADU#Das ist lediglich eine Testrechnung des XRechnungsgenerators der Nortal AG. Wussten Sie, dass sich Ihre XRechnungen jetzt auch ganz einfach mit unserem XRechnungs-Viewer visualisieren lassen? Hier können Sie den praktischen Dienst gleich kostenlos testen: https://xr-viewer.nortal.com/</cbc:Note>
+	<cbc:Note>#ADU#Bei Fragen zu Ihrer Rechnung wenden Sie sich bitte an unseren Kundenserivce. Sie erreichen uns per Email: […], Tel.: […] oder Fax: […]</cbc:Note>
+	<cbc:Note>#ADU#Die Lieferung erfolgt aufgrund der AGB […] erhältlich unter […]. Auf Wunsch senden wir sie auch zu.</cbc:Note>
+	<cbc:Note>#ADU#Hinweis gemäß § 33 BDSG: Kundendaten werden gespeichert.</cbc:Note>
+	<cbc:Note>#ADU#Beschädigt eingehende Sendungen bitte sofort beim Spediteur bzw. Paketdienstleister reklamieren. Genehmigte Rücksendungen schicken Sie bitte mit den Unterlagen an: […]</cbc:Note>
+
+	<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+	<cbc:TaxCurrencyCode>EUR</cbc:TaxCurrencyCode>
+	<cbc:BuyerReference>33 4 89 254 - 46891 - 00</cbc:BuyerReference>
+	<cac:OrderReference>
+		<cbc:ID>87954356</cbc:ID>
+	</cac:OrderReference>
+	<cac:BillingReference>
+		<cac:InvoiceDocumentReference>
+			<cbc:ID>0012146558794</cbc:ID>
+			<cbc:IssueDate>2020-12-04</cbc:IssueDate>
+		</cac:InvoiceDocumentReference>
+	</cac:BillingReference>
+	<cac:ContractDocumentReference>
+		<cbc:ID>000479</cbc:ID>
+	</cac:ContractDocumentReference>
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>Anlage 1</cbc:ID>
+		<cac:Attachment>
+			<cac:ExternalReference>
+				<cbc:URI>https://nortal.com/de/</cbc:URI></cac:ExternalReference></cac:Attachment>
+	</cac:AdditionalDocumentReference>
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>Object Identifier</cbc:ID>
+	</cac:AdditionalDocumentReference>
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>Anlage 2</cbc:ID>
+		<cac:Attachment>
+			<cbc:EmbeddedDocumentBinaryObject mimeCode="application/pdf" filename="Feinkonzept.pdf">MA==</cbc:EmbeddedDocumentBinaryObject>
+		</cac:Attachment>
+	</cac:AdditionalDocumentReference>
+	<cac:ProjectReference>
+		<cbc:ID>Lieferung 11.01.21</cbc:ID>
+	</cac:ProjectReference>
+	<cac:AccountingSupplierParty>
+		<cac:Party>
+			<cac:PartyIdentification>
+				<cbc:ID>Daimler Motoren AG</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PostalAddress>
+				<cbc:StreetName>Daimlerstr. 77</cbc:StreetName>
+				<cbc:AdditionalStreetName />
+				<cbc:CityName>Berlin</cbc:CityName>
+				<cbc:PostalZone>12459</cbc:PostalZone>
+				<cbc:CountrySubentity>Berlin</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode>DE</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyTaxScheme>
+                <cbc:CompanyID>DE87951103</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>Daimler Motoren AG</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:Name>Martello Mazziolo</cbc:Name>
+				<cbc:Telephone>0000 0000 0000</cbc:Telephone>
+				<cbc:ElectronicMail>m.maziollo@daimler.ag</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+	</cac:AccountingSupplierParty>
+	<cac:AccountingCustomerParty>
+		<cac:Party>
+			<cac:PartyName>
+				<cbc:Name>Nix ist unmöglich, Toyoooootaaaa!</cbc:Name>
+			</cac:PartyName>
+			<cac:PostalAddress>
+				<cbc:StreetName>Handelsallee 119</cbc:StreetName>
+				<cbc:AdditionalStreetName />
+				<cbc:CityName>Berlin</cbc:CityName>
+				<cbc:PostalZone>17896</cbc:PostalZone>
+				<cbc:CountrySubentity>Berlin</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode>DE</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>Toyota Berlin AG</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:Name>Victor Helm</cbc:Name>
+				<cbc:Telephone>+49 183356941277</cbc:Telephone>
+				<cbc:ElectronicMail>helm.vicotr@toyota-berlin.de</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+	</cac:AccountingCustomerParty>
+	<cac:PaymentMeans>
+		<cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+		<cbc:PaymentID>0012146558795</cbc:PaymentID>
+		<cac:PayeeFinancialAccount>
+			<cbc:ID>DE027001008000765895612</cbc:ID>
+			<cbc:Name>Daimler Motoren AG</cbc:Name>
+			<cac:FinancialInstitutionBranch>
+				<cbc:ID>PBNKDEHH</cbc:ID>
+			</cac:FinancialInstitutionBranch>
+		</cac:PayeeFinancialAccount>
+	</cac:PaymentMeans>
+	<cac:PaymentTerms>
+		<cbc:Note>2% Skonto bei Zahlungen binnen 14 Tagen</cbc:Note>
+	</cac:PaymentTerms>
+	<cac:AllowanceCharge>
+		<cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+		<cbc:AllowanceChargeReason>Rechnungszuschlag</cbc:AllowanceChargeReason>
+		<cbc:Amount currencyID="EUR">100</cbc:Amount>
+		<cac:TaxCategory>
+			<cbc:ID>S</cbc:ID>
+			<cbc:Percent>19</cbc:Percent>
+			<cac:TaxScheme>
+				<cbc:ID>VAT</cbc:ID></cac:TaxScheme>
+		</cac:TaxCategory>
+	</cac:AllowanceCharge>
+	<cac:AllowanceCharge>
+		<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+		<cbc:AllowanceChargeReason>Rechnungsabschlag</cbc:AllowanceChargeReason>
+		<cbc:Amount currencyID="EUR">100</cbc:Amount>
+		<cac:TaxCategory>
+			<cbc:ID>S</cbc:ID>
+			<cbc:Percent>19</cbc:Percent>
+			<cac:TaxScheme>
+				<cbc:ID>VAT</cbc:ID></cac:TaxScheme>
+		</cac:TaxCategory>
+	</cac:AllowanceCharge>
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="EUR">3800.00</cbc:TaxAmount>
+		<cac:TaxSubtotal>
+			<cbc:TaxableAmount currencyID="EUR">20000.00</cbc:TaxableAmount>
+			<cbc:TaxAmount currencyID="EUR">3800.00</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cbc:ID>S</cbc:ID>
+				<cbc:Percent>19</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+	</cac:TaxTotal>
+	<cac:LegalMonetaryTotal>
+		<cbc:LineExtensionAmount currencyID="EUR">20000.00</cbc:LineExtensionAmount>
+		<cbc:TaxExclusiveAmount currencyID="EUR">20000.00</cbc:TaxExclusiveAmount>
+		<cbc:TaxInclusiveAmount currencyID="EUR">23800.00</cbc:TaxInclusiveAmount>
+		<cbc:AllowanceTotalAmount currencyID="EUR">100</cbc:AllowanceTotalAmount>
+		<cbc:ChargeTotalAmount currencyID="EUR">100.00</cbc:ChargeTotalAmount>
+		<cbc:PayableAmount currencyID="EUR">23800.00</cbc:PayableAmount>
+	</cac:LegalMonetaryTotal>
+	<cac:InvoiceLine>
+		<cbc:ID>0</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="XPP">16</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="EUR">12800.00</cbc:LineExtensionAmount>
+		<cac:InvoicePeriod>
+			<cbc:StartDate>2021-03-01</cbc:StartDate>
+			<cbc:EndDate>2021-03-31</cbc:EndDate></cac:InvoicePeriod>
+		<cac:AllowanceCharge>
+			<cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+			<cbc:AllowanceChargeReason>Höflichkeitszuschlag</cbc:AllowanceChargeReason>
+			<cbc:Amount currencyID="EUR">1</cbc:Amount>
+		</cac:AllowanceCharge>
+		<cac:AllowanceCharge>
+			<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+			<cbc:AllowanceChargeReason>Nettigkeit</cbc:AllowanceChargeReason>
+			<cbc:Amount currencyID="EUR">10</cbc:Amount>
+		</cac:AllowanceCharge>
+		<cac:Item>
+			<cbc:Description />
+			<cbc:Name>SMART Motor</cbc:Name>
+			<cac:SellersItemIdentification>
+				<cbc:ID>0356</cbc:ID>
+			</cac:SellersItemIdentification>
+			<cac:ClassifiedTaxCategory>
+				<cbc:ID>S</cbc:ID>
+				<cbc:Percent>19</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:ClassifiedTaxCategory>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="EUR">800.00</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+	<cac:InvoiceLine>
+		<cbc:ID>1</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="XPP">24</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="EUR">7200.00</cbc:LineExtensionAmount>
+		<cac:Item>
+			<cbc:Description />
+			<cbc:Name>AT Motor</cbc:Name>
+			<cac:SellersItemIdentification>
+				<cbc:ID>0778</cbc:ID>
+			</cac:SellersItemIdentification>
+			<cac:ClassifiedTaxCategory>
+				<cbc:ID>S</cbc:ID>
+				<cbc:Percent>19</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:ClassifiedTaxCategory>
+			<cac:AdditionalItemProperty>
+				<cbc:Name>Version</cbc:Name>
+				<cbc:Value>1.2</cbc:Value>
+			</cac:AdditionalItemProperty>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="EUR">300.00</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+</ubl:Invoice>

@@ -33,7 +33,7 @@ dependencies:
 dependency_overrides:
   pdf:
     git:
-      #url: https://github.com/DavBfr/dart_pdf.git
+#      url: https://github.com/DavBfr/dart_pdf.git
       url: https://github.com/ilaurillard/dart_pdf
       path: pdf
       ref: pdfa_3b_ilja

@@ -59,12 +59,12 @@ Future<void> main() async {
   // String jsonFile = 'pdf_template1_data.json';
   // String jsonFile = 'pdf_a.json';
   // String jsonFile = 'pdf_zugferd1.json';
-  // String jsonFile = 'pdf_zugferd2.json';
+  String jsonFile = 'pdf_zugferd2.json';
   // String jsonFile = 'pdf_invoice1.json';
   // String jsonFile = 'pdf_energie.json';
   // String jsonFile = 'pdf_mindworks.json';
   // String jsonFile = 'pdf_grid.yaml';
-  String jsonFile = 'pdf_cal.json';
+  // String jsonFile = 'pdf_cal.json';
   //String jsonFile = 'pdf_comic.json';
   // String jsonFile = 'pdf_puzzle.json';
   // String jsonFile = 'pdf_puzzle2.json';
