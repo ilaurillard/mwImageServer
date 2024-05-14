@@ -1,0 +1,394 @@
+{
+  "meta": {
+    "title": "Rechnung",
+    "producer": "producer",
+    "author": "author",
+    "subject": "subject",
+    "creator": "creator",
+    "pdfa3b": true,
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "styles": {
+          "text": {
+            "font": "ptSerifRegular"
+          },
+          "paragraph": {
+            "font": "ptSerifRegular"
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "Invoice with embedded XRechnung XML"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "xrechnung": {
+    "customizationID": {
+      "value": "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"
+    },
+    "profileID": {
+      "value": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"
+    },
+    "iD": {
+      "value": "333"
+    },
+    "issueDate": {
+      "value": "2024-04-24"
+    },
+    "dueDate": {
+      "value": "2024-04-28"
+    },
+    "invoiceTypeCode": {
+      "value": "380"
+    },
+    "documentCurrencyCode": {
+      "value": "EUR"
+    },
+    "buyerReference": {
+      "value": "111"
+    },
+    "invoicePeriod": [
+      {
+        "startDate": {
+          "value": "2024-04-01"
+        },
+        "endDate": {
+          "value": "2024-04-05"
+        }
+      }
+    ],
+    "orderReference": {
+      "iD": {
+        "value": "222"
+      }
+    },
+    "accountingSupplierParty": {
+      "party": {
+        "endpointID": {
+          "value": "ilaurillard@mindworks.de",
+          "schemeID": "EM"
+        },
+        "partyIdentification": [
+          {
+            "iD": {
+              "value": "c1"
+            }
+          }
+        ],
+        "partyName": [
+          {
+            "name": {
+              "value": "ah"
+            }
+          }
+        ],
+        "postalAddress": {
+          "streetName": {
+            "value": "jarrestr 42"
+          },
+          "additionalStreetName": {
+            "value": "a1"
+          },
+          "cityName": {
+            "value": "Hamburg"
+          },
+          "postalZone": {
+            "value": "21077"
+          },
+          "addressLine": [
+            {
+              "line": {
+                "value": "a2"
+              }
+            }
+          ],
+          "country": {
+            "identificationCode": {
+              "value": "DE"
+            }
+          }
+        },
+        "partyTaxScheme": [
+          {
+            "companyID": {
+              "value": "DEc3"
+            },
+            "taxScheme": {
+              "iD": {
+                "value": "VAT"
+              }
+            }
+          },
+          {
+            "companyID": {
+              "value": "c4"
+            },
+            "taxScheme": {
+              "iD": {
+                "value": "FC"
+              }
+            }
+          }
+        ],
+        "partyLegalEntity": [
+          {
+            "registrationName": {
+              "value": "mindworks GmbH"
+            },
+            "companyID": {
+              "value": "c2"
+            },
+            "companyLegalForm": [
+              {
+                "value": "c5"
+              }
+            ]
+          }
+        ],
+        "contact": {
+          "name": {
+            "value": "Ilja Laurillard"
+          },
+          "telephone": {
+            "value": "321654987"
+          },
+          "electronicMail": {
+            "value": "ilaurillard+2@mindworks.de"
+          }
+        }
+      }
+    },
+    "accountingCustomerParty": {
+      "party": {
+        "endpointID": {
+          "value": "peter@mindworks.de",
+          "schemeID": "EM"
+        },
+        "partyIdentification": [
+          {
+            "iD": {
+              "value": "d1"
+            }
+          }
+        ],
+        "partyName": [
+          {
+            "name": {
+              "value": "ah2"
+            }
+          }
+        ],
+        "postalAddress": {
+          "streetName": {
+            "value": "teststr 33"
+          },
+          "cityName": {
+            "value": "Berlin"
+          },
+          "postalZone": {
+            "value": "22233"
+          },
+          "country": {
+            "identificationCode": {
+              "value": "DE"
+            }
+          }
+        },
+        "partyTaxScheme": [
+          {
+            "companyID": {
+              "value": "DEd2"
+            },
+            "taxScheme": {
+              "iD": {
+                "value": "VAT"
+              }
+            }
+          }
+        ],
+        "partyLegalEntity": [
+          {
+            "registrationName": {
+              "value": "peter meier"
+            }
+          }
+        ]
+      }
+    },
+    "delivery": [
+      {
+        "actualDeliveryDate": {
+          "value": "2024-04-30"
+        }
+      }
+    ],
+    "paymentMeans": [
+      {
+        "paymentMeansCode": {
+          "value": "58"
+        },
+        "instructionNote": [
+          {
+            "value": "SEPA-Überweisung"
+          }
+        ],
+        "paymentID": [
+          {
+            "value": "xxx"
+          }
+        ],
+        "payeeFinancialAccount": {
+          "iD": {
+            "value": "DE02120300000000202051"
+          },
+          "name": {
+            "value": "ilaj laurillard"
+          },
+          "financialInstitutionBranch": {
+            "iD": {
+              "value": "BYLADEM1001"
+            }
+          }
+        }
+      }
+    ],
+    "paymentTerms": [
+      {
+        "note": [
+          {
+            "value": "#SKONTO#TAGE=0#PROZENT=0.00#\n"
+          }
+        ]
+      }
+    ],
+    "taxTotal": [
+      {
+        "taxAmount": {
+          "value": "1254.0",
+          "currencyID": "EUR"
+        },
+        "taxSubtotal": [
+          {
+            "taxableAmount": {
+              "value": "6600.0",
+              "currencyID": "EUR"
+            },
+            "taxAmount": {
+              "value": "1254.0",
+              "currencyID": "EUR"
+            },
+            "taxCategory": {
+              "iD": {
+                "value": "S"
+              },
+              "percent": {
+                "value": "19.0"
+              },
+              "taxScheme": {
+                "iD": {
+                  "value": "VAT"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "legalMonetaryTotal": {
+      "lineExtensionAmount": {
+        "value": "6600.0",
+        "currencyID": "EUR"
+      },
+      "taxExclusiveAmount": {
+        "value": "6600.0",
+        "currencyID": "EUR"
+      },
+      "taxInclusiveAmount": {
+        "value": "7854.0",
+        "currencyID": "EUR"
+      },
+      "allowanceTotalAmount": {
+        "value": "0.0",
+        "currencyID": "EUR"
+      },
+      "chargeTotalAmount": {
+        "value": "0.0",
+        "currencyID": "EUR"
+      },
+      "prepaidAmount": {
+        "value": "0.0",
+        "currencyID": "EUR"
+      },
+      "payableAmount": {
+        "value": "7854.0",
+        "currencyID": "EUR"
+      }
+    },
+    "invoiceLine": [
+      {
+        "iD": {
+          "value": "1"
+        },
+        "invoicedQuantity": {
+          "value": "220.0",
+          "unitCode": "C62"
+        },
+        "lineExtensionAmount": {
+          "value": "6600.0",
+          "currencyID": "EUR"
+        },
+        "item": {
+          "name": {
+            "value": "ein ding"
+          },
+          "sellersItemIdentification": {
+            "iD": {
+              "value": "aaa111"
+            }
+          },
+          "classifiedTaxCategory": [
+            {
+              "iD": {
+                "value": "S"
+              },
+              "percent": {
+                "value": "19.0"
+              },
+              "taxScheme": {
+                "iD": {
+                  "value": "VAT"
+                }
+              }
+            }
+          ]
+        },
+        "price": {
+          "priceAmount": {
+            "value": "30.0",
+            "currencyID": "EUR"
+          },
+          "baseQuantity": {
+            "value": "1.0",
+            "unitCode": "C62"
+          }
+        }
+      }
+    ]
+  }
+}

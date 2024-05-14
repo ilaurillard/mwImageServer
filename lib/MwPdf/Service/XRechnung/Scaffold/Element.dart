@@ -114,6 +114,7 @@ class Element {
 
   List<Schema> referredSchemas() {
     Map<String, bool> used = {};
+    used[refSchemaId] = true;
     if (type != null) {
       for (Element e in type!.elements.values) {
         used[e.refSchemaId] = true;

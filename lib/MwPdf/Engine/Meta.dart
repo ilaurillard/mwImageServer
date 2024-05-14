@@ -80,9 +80,7 @@ class Meta {
       invoiceRdf = PdfaFacturxRdf().create();
     }
     else if (xrechnung) {
-      // invoiceRdf = PdfaFacturxRdf().create();
-      // TODO
-
+      invoiceRdf = PdfaFacturxRdf().create();
     }
 
     return PdfaRdf(

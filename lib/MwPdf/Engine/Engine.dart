@@ -124,15 +124,14 @@ class Engine {
     }
 
     if (invoice.xrechnung != null) {
-      // TODO
-      // PdfaAttachedFiles(
-      //   pdf.document,
-      //   {
-      //     'xrechnung.xml': Util.prettyXml(
-      //       invoice.xrechnung!,
-      //     ),
-      //   },
-      // );
+      PdfaAttachedFiles(
+        pdf.document,
+        {
+          'factur-x.xml': Util.prettyXml(
+            invoice.xrechnung!,
+          ),
+        },
+      );
     }
 
     // -------------------------

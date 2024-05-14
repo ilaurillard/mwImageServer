@@ -40,13 +40,11 @@ Higher-Level Widgets
 
 ZUGFERD
 -------
+https://www.mustangproject.org/commandline/
 
 java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.10.0.jar --action extract --source invoice.pdf
 
 java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.10.0.jar --action validate --source invoice.pdf
-
-LINKS
-https://pub.dev/packages/pdf
 
 (pdf/a)
 https://www.pdf-tools.com/

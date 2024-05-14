@@ -525,6 +525,10 @@ class Invoice {
 
     List<XmlAttribute?> a2 = [
       XmlAttribute(
+        XmlName('xmlns:ubl'),
+        'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
+      ),
+      XmlAttribute(
         XmlName('xmlns:ext'),
         'urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2',
       ),
