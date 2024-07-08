@@ -110,6 +110,7 @@ import '../cac/OfficeOfDestinationLocation.dart';
 import '../cac/OfficeOfImportLocation.dart';
 import '../cac/OfficeOfExportLocation.dart';
 import '../cac/DocumentReference.dart';
+import '../cac/EnvironmentalEmission.dart';
 
 // A class to describe an identifiable collection of one or more goods items to be transported between the consignor and the consignee. This information may be defined within a transport contract. A consignment may comprise more than one shipment (e.g., when consolidated by a freight forwarder).
 class ChildConsignment {
@@ -448,6 +449,9 @@ class ChildConsignment {
   // A reference to a document related to or relevant for this consignment.
   final List<DocumentReference> documentReference;
 
+  // One or more environmental emissions of this consignment.
+  final List<EnvironmentalEmission> environmentalEmission;
+
   ChildConsignment ({
     required this.iD,
     this.uBLExtensions,
@@ -560,6 +564,7 @@ class ChildConsignment {
     this.officeOfImportLocation,
     this.officeOfExportLocation,
     this.documentReference = const [],
+    this.environmentalEmission = const [],
   });
 
   static ChildConsignment? fromJson(Map<String, dynamic>? json) {
@@ -676,6 +681,7 @@ class ChildConsignment {
       officeOfImportLocation: OfficeOfImportLocation.fromJson(json['officeOfImportLocation'] as Map<String, dynamic>?),
       officeOfExportLocation: OfficeOfExportLocation.fromJson(json['officeOfExportLocation'] as Map<String, dynamic>?),
       documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      environmentalEmission: (json['environmentalEmission'] as List? ?? []).map((dynamic d) => EnvironmentalEmission.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
   }
 
@@ -792,6 +798,7 @@ class ChildConsignment {
       'officeOfImportLocation': officeOfImportLocation?.toJson(),
       'officeOfExportLocation': officeOfExportLocation?.toJson(),
       'documentReference': documentReference.map((e) => e.toJson()).toList(),
+      'environmentalEmission': environmentalEmission.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
@@ -911,6 +918,7 @@ class ChildConsignment {
       officeOfImportLocation: OfficeOfImportLocation.fromXml(xml.findElements('cac:OfficeOfImportLocation').singleOrNull),
       officeOfExportLocation: OfficeOfExportLocation.fromXml(xml.findElements('cac:OfficeOfExportLocation').singleOrNull),
       documentReference: xml.findElements('cac:DocumentReference').map((XmlElement e) => DocumentReference.fromXml(e)!).toList(),
+      environmentalEmission: xml.findElements('cac:EnvironmentalEmission').map((XmlElement e) => EnvironmentalEmission.fromXml(e)!).toList(),
     );
   }
 
@@ -1028,6 +1036,7 @@ class ChildConsignment {
       officeOfImportLocation?.toXml(),
       officeOfExportLocation?.toXml(),
       ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+      ...environmentalEmission.map((EnvironmentalEmission e) => e.toXml()).toList(),
 
     ];
     c2.removeWhere((e) => e == null);

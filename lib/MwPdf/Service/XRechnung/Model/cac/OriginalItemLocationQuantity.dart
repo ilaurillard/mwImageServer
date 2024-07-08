@@ -13,8 +13,9 @@ import '../cac/ApplicableTaxCategory.dart';
 import '../cac/Package.dart';
 import '../cac/AllowanceCharge.dart';
 import '../cac/DependentPriceReference.dart';
+import '../cac/ApplicableDeliveryPeriod.dart';
 
-// A class for information about pricing structure, lead time, and location associated with an item.
+// A class for information about pricing structure, lead time, delivery, and location associated with an item.
 class OriginalItemLocationQuantity {
 
 
@@ -39,7 +40,7 @@ class OriginalItemLocationQuantity {
   // The applicable sales territory.
   final List<ApplicableTerritoryAddress> applicableTerritoryAddress;
 
-  // The price associated with the given location.
+  // The price associated with this item location quantity
   final Price? price;
 
   // A delivery unit in which the item is located.
@@ -57,6 +58,9 @@ class OriginalItemLocationQuantity {
   // The price of the item as a percentage of the price of some other item.
   final DependentPriceReference? dependentPriceReference;
 
+  // The period during which item must be delivered for the price to apply
+  final ApplicableDeliveryPeriod? applicableDeliveryPeriod;
+
   OriginalItemLocationQuantity ({
     this.uBLExtensions,
     this.leadTimeMeasure,
@@ -71,6 +75,7 @@ class OriginalItemLocationQuantity {
     this.package,
     this.allowanceCharge = const [],
     this.dependentPriceReference,
+    this.applicableDeliveryPeriod,
   });
 
   static OriginalItemLocationQuantity? fromJson(Map<String, dynamic>? json) {
@@ -89,6 +94,7 @@ class OriginalItemLocationQuantity {
       package: Package.fromJson(json['package'] as Map<String, dynamic>?),
       allowanceCharge: (json['allowanceCharge'] as List? ?? []).map((dynamic d) => AllowanceCharge.fromJson(d as Map<String, dynamic>?)!).toList(),
       dependentPriceReference: DependentPriceReference.fromJson(json['dependentPriceReference'] as Map<String, dynamic>?),
+      applicableDeliveryPeriod: ApplicableDeliveryPeriod.fromJson(json['applicableDeliveryPeriod'] as Map<String, dynamic>?),
     );
   }
 
@@ -107,6 +113,7 @@ class OriginalItemLocationQuantity {
       'package': package?.toJson(),
       'allowanceCharge': allowanceCharge.map((e) => e.toJson()).toList(),
       'dependentPriceReference': dependentPriceReference?.toJson(),
+      'applicableDeliveryPeriod': applicableDeliveryPeriod?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
@@ -128,6 +135,7 @@ class OriginalItemLocationQuantity {
       package: Package.fromXml(xml.findElements('cac:Package').singleOrNull),
       allowanceCharge: xml.findElements('cac:AllowanceCharge').map((XmlElement e) => AllowanceCharge.fromXml(e)!).toList(),
       dependentPriceReference: DependentPriceReference.fromXml(xml.findElements('cac:DependentPriceReference').singleOrNull),
+      applicableDeliveryPeriod: ApplicableDeliveryPeriod.fromXml(xml.findElements('cac:ApplicableDeliveryPeriod').singleOrNull),
     );
   }
 
@@ -147,6 +155,7 @@ class OriginalItemLocationQuantity {
       package?.toXml(),
       ...allowanceCharge.map((AllowanceCharge e) => e.toXml()).toList(),
       dependentPriceReference?.toXml(),
+      applicableDeliveryPeriod?.toXml(),
 
     ];
     c2.removeWhere((e) => e == null);

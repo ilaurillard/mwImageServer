@@ -17,6 +17,7 @@ import '../cac/DespatchLocation.dart';
 import '../cac/DespatchParty.dart';
 import '../cac/CarrierParty.dart';
 import '../cac/NotifyParty.dart';
+import '../cac/ResponsibleParty.dart';
 import '../cac/Contact.dart';
 import '../cac/EstimatedDespatchPeriod.dart';
 import '../cac/RequestedDespatchPeriod.dart';
@@ -76,6 +77,9 @@ class Despatch {
   // A party to be notified of this despatch (pickup).
   final List<NotifyParty> notifyParty;
 
+  // The party responsible for this despatch (pickup).
+  final ResponsibleParty? responsibleParty;
+
   // The primary contact for this despatch (pickup).
   final Contact? contact;
 
@@ -103,6 +107,7 @@ class Despatch {
     this.despatchParty,
     this.carrierParty,
     this.notifyParty = const [],
+    this.responsibleParty,
     this.contact,
     this.estimatedDespatchPeriod,
     this.requestedDespatchPeriod,
@@ -128,6 +133,7 @@ class Despatch {
       despatchParty: DespatchParty.fromJson(json['despatchParty'] as Map<String, dynamic>?),
       carrierParty: CarrierParty.fromJson(json['carrierParty'] as Map<String, dynamic>?),
       notifyParty: (json['notifyParty'] as List? ?? []).map((dynamic d) => NotifyParty.fromJson(d as Map<String, dynamic>?)!).toList(),
+      responsibleParty: ResponsibleParty.fromJson(json['responsibleParty'] as Map<String, dynamic>?),
       contact: Contact.fromJson(json['contact'] as Map<String, dynamic>?),
       estimatedDespatchPeriod: EstimatedDespatchPeriod.fromJson(json['estimatedDespatchPeriod'] as Map<String, dynamic>?),
       requestedDespatchPeriod: RequestedDespatchPeriod.fromJson(json['requestedDespatchPeriod'] as Map<String, dynamic>?),
@@ -153,6 +159,7 @@ class Despatch {
       'despatchParty': despatchParty?.toJson(),
       'carrierParty': carrierParty?.toJson(),
       'notifyParty': notifyParty.map((e) => e.toJson()).toList(),
+      'responsibleParty': responsibleParty?.toJson(),
       'contact': contact?.toJson(),
       'estimatedDespatchPeriod': estimatedDespatchPeriod?.toJson(),
       'requestedDespatchPeriod': requestedDespatchPeriod?.toJson(),
@@ -181,6 +188,7 @@ class Despatch {
       despatchParty: DespatchParty.fromXml(xml.findElements('cac:DespatchParty').singleOrNull),
       carrierParty: CarrierParty.fromXml(xml.findElements('cac:CarrierParty').singleOrNull),
       notifyParty: xml.findElements('cac:NotifyParty').map((XmlElement e) => NotifyParty.fromXml(e)!).toList(),
+      responsibleParty: ResponsibleParty.fromXml(xml.findElements('cac:ResponsibleParty').singleOrNull),
       contact: Contact.fromXml(xml.findElements('cac:Contact').singleOrNull),
       estimatedDespatchPeriod: EstimatedDespatchPeriod.fromXml(xml.findElements('cac:EstimatedDespatchPeriod').singleOrNull),
       requestedDespatchPeriod: RequestedDespatchPeriod.fromXml(xml.findElements('cac:RequestedDespatchPeriod').singleOrNull),
@@ -207,6 +215,7 @@ class Despatch {
       despatchParty?.toXml(),
       carrierParty?.toXml(),
       ...notifyParty.map((NotifyParty e) => e.toXml()).toList(),
+      responsibleParty?.toXml(),
       contact?.toXml(),
       estimatedDespatchPeriod?.toXml(),
       requestedDespatchPeriod?.toXml(),

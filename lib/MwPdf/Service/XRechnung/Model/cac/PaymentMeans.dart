@@ -3,6 +3,7 @@ import 'package:xml/xml.dart';
 import '../cbc/PaymentMeansCode.dart';
 import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
+import '../cbc/PaymentMeansDescription.dart';
 import '../cbc/PaymentDueDate.dart';
 import '../cbc/PaymentChannelCode.dart';
 import '../cbc/InstructionID.dart';
@@ -30,6 +31,9 @@ class PaymentMeans {
 
   // An identifier for this means of payment.
   final ID? iD;
+
+  // A description of this means of payment.
+  final List<PaymentMeansDescription> paymentMeansDescription;
 
   // The date on which payment is due for this means of payment.
   final PaymentDueDate? paymentDueDate;
@@ -70,13 +74,14 @@ class PaymentMeans {
   // A trade finance agreement applicable to this means of payment.
   final TradeFinancing? tradeFinancing;
 
-  // A person or entity who shall receive the remittance advice information about the payment associated with this payment means.
+  // A person or entity who will receive the remittance advice information about the payment associated with this payment means.
   final List<RemittanceDocumentDistribution> remittanceDocumentDistribution;
 
   PaymentMeans ({
     required this.paymentMeansCode,
     this.uBLExtensions,
     this.iD,
+    this.paymentMeansDescription = const [],
     this.paymentDueDate,
     this.paymentChannelCode,
     this.instructionID,
@@ -99,6 +104,7 @@ class PaymentMeans {
       uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       iD: ID.fromJson(json['iD'] as Map<String, dynamic>?),
       paymentMeansCode: PaymentMeansCode.fromJson(json['paymentMeansCode'] as Map<String, dynamic>?)!,
+      paymentMeansDescription: (json['paymentMeansDescription'] as List? ?? []).map((dynamic d) => PaymentMeansDescription.fromJson(d as Map<String, dynamic>?)!).toList(),
       paymentDueDate: PaymentDueDate.fromJson(json['paymentDueDate'] as Map<String, dynamic>?),
       paymentChannelCode: PaymentChannelCode.fromJson(json['paymentChannelCode'] as Map<String, dynamic>?),
       instructionID: InstructionID.fromJson(json['instructionID'] as Map<String, dynamic>?),
@@ -121,6 +127,7 @@ class PaymentMeans {
       'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD?.toJson(),
       'paymentMeansCode': paymentMeansCode.toJson(),
+      'paymentMeansDescription': paymentMeansDescription.map((e) => e.toJson()).toList(),
       'paymentDueDate': paymentDueDate?.toJson(),
       'paymentChannelCode': paymentChannelCode?.toJson(),
       'instructionID': instructionID?.toJson(),
@@ -146,6 +153,7 @@ class PaymentMeans {
       uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
       iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull),
       paymentMeansCode: PaymentMeansCode.fromXml(xml.findElements('cbc:PaymentMeansCode').singleOrNull)!,
+      paymentMeansDescription: xml.findElements('cbc:PaymentMeansDescription').map((XmlElement e) => PaymentMeansDescription.fromXml(e)!).toList(),
       paymentDueDate: PaymentDueDate.fromXml(xml.findElements('cbc:PaymentDueDate').singleOrNull),
       paymentChannelCode: PaymentChannelCode.fromXml(xml.findElements('cbc:PaymentChannelCode').singleOrNull),
       instructionID: InstructionID.fromXml(xml.findElements('cbc:InstructionID').singleOrNull),
@@ -169,6 +177,7 @@ class PaymentMeans {
       uBLExtensions?.toXml(),
       iD?.toXml(),
       paymentMeansCode.toXml(),
+      ...paymentMeansDescription.map((PaymentMeansDescription e) => e.toXml()).toList(),
       paymentDueDate?.toXml(),
       paymentChannelCode?.toXml(),
       instructionID?.toXml(),

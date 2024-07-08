@@ -6,7 +6,9 @@ import '../cbc/LineExtensionAmount.dart';
 import '../cbc/TaxExclusiveAmount.dart';
 import '../cbc/TaxInclusiveAmount.dart';
 import '../cbc/AllowanceTotalAmount.dart';
+import '../cbc/AllowanceTotalTaxInclusiveAmount.dart';
 import '../cbc/ChargeTotalAmount.dart';
+import '../cbc/ChargeTotalTaxInclusiveAmount.dart';
 import '../cbc/WithholdingTaxTotalAmount.dart';
 import '../cbc/PrepaidAmount.dart';
 import '../cbc/PayableRoundingAmount.dart';
@@ -34,8 +36,14 @@ class LegalMonetaryTotal {
   // The total monetary amount of all allowances.
   final AllowanceTotalAmount? allowanceTotalAmount;
 
+  // The total monetary amount of all allowances, inclusive of all taxes.
+  final AllowanceTotalTaxInclusiveAmount? allowanceTotalTaxInclusiveAmount;
+
   // The total monetary amount of all charges.
   final ChargeTotalAmount? chargeTotalAmount;
+
+  // The total monetary amount of all charges, inclusive of all taxes.
+  final ChargeTotalTaxInclusiveAmount? chargeTotalTaxInclusiveAmount;
 
   // The total withholding tax amount.
   final WithholdingTaxTotalAmount? withholdingTaxTotalAmount;
@@ -56,7 +64,9 @@ class LegalMonetaryTotal {
     this.taxExclusiveAmount,
     this.taxInclusiveAmount,
     this.allowanceTotalAmount,
+    this.allowanceTotalTaxInclusiveAmount,
     this.chargeTotalAmount,
+    this.chargeTotalTaxInclusiveAmount,
     this.withholdingTaxTotalAmount,
     this.prepaidAmount,
     this.payableRoundingAmount,
@@ -71,7 +81,9 @@ class LegalMonetaryTotal {
       taxExclusiveAmount: TaxExclusiveAmount.fromJson(json['taxExclusiveAmount'] as Map<String, dynamic>?),
       taxInclusiveAmount: TaxInclusiveAmount.fromJson(json['taxInclusiveAmount'] as Map<String, dynamic>?),
       allowanceTotalAmount: AllowanceTotalAmount.fromJson(json['allowanceTotalAmount'] as Map<String, dynamic>?),
+      allowanceTotalTaxInclusiveAmount: AllowanceTotalTaxInclusiveAmount.fromJson(json['allowanceTotalTaxInclusiveAmount'] as Map<String, dynamic>?),
       chargeTotalAmount: ChargeTotalAmount.fromJson(json['chargeTotalAmount'] as Map<String, dynamic>?),
+      chargeTotalTaxInclusiveAmount: ChargeTotalTaxInclusiveAmount.fromJson(json['chargeTotalTaxInclusiveAmount'] as Map<String, dynamic>?),
       withholdingTaxTotalAmount: WithholdingTaxTotalAmount.fromJson(json['withholdingTaxTotalAmount'] as Map<String, dynamic>?),
       prepaidAmount: PrepaidAmount.fromJson(json['prepaidAmount'] as Map<String, dynamic>?),
       payableRoundingAmount: PayableRoundingAmount.fromJson(json['payableRoundingAmount'] as Map<String, dynamic>?),
@@ -87,7 +99,9 @@ class LegalMonetaryTotal {
       'taxExclusiveAmount': taxExclusiveAmount?.toJson(),
       'taxInclusiveAmount': taxInclusiveAmount?.toJson(),
       'allowanceTotalAmount': allowanceTotalAmount?.toJson(),
+      'allowanceTotalTaxInclusiveAmount': allowanceTotalTaxInclusiveAmount?.toJson(),
       'chargeTotalAmount': chargeTotalAmount?.toJson(),
+      'chargeTotalTaxInclusiveAmount': chargeTotalTaxInclusiveAmount?.toJson(),
       'withholdingTaxTotalAmount': withholdingTaxTotalAmount?.toJson(),
       'prepaidAmount': prepaidAmount?.toJson(),
       'payableRoundingAmount': payableRoundingAmount?.toJson(),
@@ -106,7 +120,9 @@ class LegalMonetaryTotal {
       taxExclusiveAmount: TaxExclusiveAmount.fromXml(xml.findElements('cbc:TaxExclusiveAmount').singleOrNull),
       taxInclusiveAmount: TaxInclusiveAmount.fromXml(xml.findElements('cbc:TaxInclusiveAmount').singleOrNull),
       allowanceTotalAmount: AllowanceTotalAmount.fromXml(xml.findElements('cbc:AllowanceTotalAmount').singleOrNull),
+      allowanceTotalTaxInclusiveAmount: AllowanceTotalTaxInclusiveAmount.fromXml(xml.findElements('cbc:AllowanceTotalTaxInclusiveAmount').singleOrNull),
       chargeTotalAmount: ChargeTotalAmount.fromXml(xml.findElements('cbc:ChargeTotalAmount').singleOrNull),
+      chargeTotalTaxInclusiveAmount: ChargeTotalTaxInclusiveAmount.fromXml(xml.findElements('cbc:ChargeTotalTaxInclusiveAmount').singleOrNull),
       withholdingTaxTotalAmount: WithholdingTaxTotalAmount.fromXml(xml.findElements('cbc:WithholdingTaxTotalAmount').singleOrNull),
       prepaidAmount: PrepaidAmount.fromXml(xml.findElements('cbc:PrepaidAmount').singleOrNull),
       payableRoundingAmount: PayableRoundingAmount.fromXml(xml.findElements('cbc:PayableRoundingAmount').singleOrNull),
@@ -123,7 +139,9 @@ class LegalMonetaryTotal {
       taxExclusiveAmount?.toXml(),
       taxInclusiveAmount?.toXml(),
       allowanceTotalAmount?.toXml(),
+      allowanceTotalTaxInclusiveAmount?.toXml(),
       chargeTotalAmount?.toXml(),
+      chargeTotalTaxInclusiveAmount?.toXml(),
       withholdingTaxTotalAmount?.toXml(),
       prepaidAmount?.toXml(),
       payableRoundingAmount?.toXml(),

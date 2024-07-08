@@ -16,6 +16,7 @@ import '../cac/DeliveryUnit.dart';
 import '../cac/Delivery.dart';
 import '../cac/Pickup.dart';
 import '../cac/Despatch.dart';
+import '../cac/Status.dart';
 
 // A class to describe a package.
 class ContainedPackage {
@@ -72,6 +73,9 @@ class ContainedPackage {
   // The despatch of this package.
   final Despatch? despatch;
 
+  // The status of this transport handling unit.
+  final List<Status> status;
+
   ContainedPackage ({
     this.uBLExtensions,
     this.iD,
@@ -90,6 +94,7 @@ class ContainedPackage {
     this.delivery,
     this.pickup,
     this.despatch,
+    this.status = const [],
   });
 
   static ContainedPackage? fromJson(Map<String, dynamic>? json) {
@@ -112,6 +117,7 @@ class ContainedPackage {
       delivery: Delivery.fromJson(json['delivery'] as Map<String, dynamic>?),
       pickup: Pickup.fromJson(json['pickup'] as Map<String, dynamic>?),
       despatch: Despatch.fromJson(json['despatch'] as Map<String, dynamic>?),
+      status: (json['status'] as List? ?? []).map((dynamic d) => Status.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
   }
 
@@ -134,6 +140,7 @@ class ContainedPackage {
       'delivery': delivery?.toJson(),
       'pickup': pickup?.toJson(),
       'despatch': despatch?.toJson(),
+      'status': status.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
@@ -159,6 +166,7 @@ class ContainedPackage {
       delivery: Delivery.fromXml(xml.findElements('cac:Delivery').singleOrNull),
       pickup: Pickup.fromXml(xml.findElements('cac:Pickup').singleOrNull),
       despatch: Despatch.fromXml(xml.findElements('cac:Despatch').singleOrNull),
+      status: xml.findElements('cac:Status').map((XmlElement e) => Status.fromXml(e)!).toList(),
     );
   }
 
@@ -182,6 +190,7 @@ class ContainedPackage {
       delivery?.toXml(),
       pickup?.toXml(),
       despatch?.toXml(),
+      ...status.map((Status e) => e.toXml()).toList(),
 
     ];
     c2.removeWhere((e) => e == null);

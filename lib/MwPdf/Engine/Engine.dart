@@ -95,7 +95,7 @@ class Engine {
       version: PdfVersion.pdf_1_5,
 
       metadata: meta.pdfaRdf(
-        facturx: invoice.facturx != null,
+        cii: invoice.cii != null,
         xrechnung: invoice.xrechnung != null,
       ),
     );
@@ -112,12 +112,14 @@ class Engine {
 
     // -------------------------
 
-    if (invoice.facturx != null) {
+    // embedded invoice xml
+
+    if (invoice.cii != null) {
       PdfaAttachedFiles(
         pdf.document,
         {
           'factur-x.xml': Util.prettyXml(
-            invoice.facturx!,
+            invoice.cii!,
           ),
         },
       );
@@ -127,6 +129,7 @@ class Engine {
       PdfaAttachedFiles(
         pdf.document,
         {
+          // TODO xxx
           'factur-x.xml': Util.prettyXml(
             invoice.xrechnung!,
           ),

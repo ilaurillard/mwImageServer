@@ -9,6 +9,7 @@ import '../cbc/AllowanceChargeReason.dart';
 import '../cbc/MultiplierFactorNumeric.dart';
 import '../cbc/PrepaidIndicator.dart';
 import '../cbc/SequenceNumeric.dart';
+import '../cbc/TaxInclusiveAmount.dart';
 import '../cbc/BaseAmount.dart';
 import '../cbc/AccountingCostCode.dart';
 import '../cbc/AccountingCost.dart';
@@ -48,6 +49,9 @@ class AllowanceCharge {
   // A number indicating the order of this allowance or charge in the sequence of calculations applied when there are multiple allowances or charges.
   final SequenceNumeric? sequenceNumeric;
 
+  // The monetary amount of this allowance or charge inclusive of all taxes.
+  final TaxInclusiveAmount? taxInclusiveAmount;
+
   // The monetary amount to which the multiplier factor is applied in calculating the amount of this allowance or charge.
   final BaseAmount? baseAmount;
 
@@ -79,6 +83,7 @@ class AllowanceCharge {
     this.multiplierFactorNumeric,
     this.prepaidIndicator,
     this.sequenceNumeric,
+    this.taxInclusiveAmount,
     this.baseAmount,
     this.accountingCostCode,
     this.accountingCost,
@@ -100,6 +105,7 @@ class AllowanceCharge {
       prepaidIndicator: PrepaidIndicator.fromJson(json['prepaidIndicator'] as Map<String, dynamic>?),
       sequenceNumeric: SequenceNumeric.fromJson(json['sequenceNumeric'] as Map<String, dynamic>?),
       amount: Amount.fromJson(json['amount'] as Map<String, dynamic>?)!,
+      taxInclusiveAmount: TaxInclusiveAmount.fromJson(json['taxInclusiveAmount'] as Map<String, dynamic>?),
       baseAmount: BaseAmount.fromJson(json['baseAmount'] as Map<String, dynamic>?),
       accountingCostCode: AccountingCostCode.fromJson(json['accountingCostCode'] as Map<String, dynamic>?),
       accountingCost: AccountingCost.fromJson(json['accountingCost'] as Map<String, dynamic>?),
@@ -121,6 +127,7 @@ class AllowanceCharge {
       'prepaidIndicator': prepaidIndicator?.toJson(),
       'sequenceNumeric': sequenceNumeric?.toJson(),
       'amount': amount.toJson(),
+      'taxInclusiveAmount': taxInclusiveAmount?.toJson(),
       'baseAmount': baseAmount?.toJson(),
       'accountingCostCode': accountingCostCode?.toJson(),
       'accountingCost': accountingCost?.toJson(),
@@ -145,6 +152,7 @@ class AllowanceCharge {
       prepaidIndicator: PrepaidIndicator.fromXml(xml.findElements('cbc:PrepaidIndicator').singleOrNull),
       sequenceNumeric: SequenceNumeric.fromXml(xml.findElements('cbc:SequenceNumeric').singleOrNull),
       amount: Amount.fromXml(xml.findElements('cbc:Amount').singleOrNull)!,
+      taxInclusiveAmount: TaxInclusiveAmount.fromXml(xml.findElements('cbc:TaxInclusiveAmount').singleOrNull),
       baseAmount: BaseAmount.fromXml(xml.findElements('cbc:BaseAmount').singleOrNull),
       accountingCostCode: AccountingCostCode.fromXml(xml.findElements('cbc:AccountingCostCode').singleOrNull),
       accountingCost: AccountingCost.fromXml(xml.findElements('cbc:AccountingCost').singleOrNull),
@@ -167,6 +175,7 @@ class AllowanceCharge {
       prepaidIndicator?.toXml(),
       sequenceNumeric?.toXml(),
       amount.toXml(),
+      taxInclusiveAmount?.toXml(),
       baseAmount?.toXml(),
       accountingCostCode?.toXml(),
       accountingCost?.toXml(),

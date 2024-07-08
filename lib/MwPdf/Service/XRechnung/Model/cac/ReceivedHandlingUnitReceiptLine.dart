@@ -14,6 +14,7 @@ import '../cbc/RejectActionCode.dart';
 import '../cbc/QuantityDiscrepancyCode.dart';
 import '../cbc/OversupplyQuantity.dart';
 import '../cbc/ReceivedDate.dart';
+import '../cbc/ReceivedTime.dart';
 import '../cbc/TimingComplaintCode.dart';
 import '../cbc/TimingComplaint.dart';
 import '../cac/OrderLineReference.dart';
@@ -68,6 +69,9 @@ class ReceivedHandlingUnitReceiptLine {
   // The date on which the goods or services were received.
   final ReceivedDate? receivedDate;
 
+  // The time at which the goods or services were received.
+  final ReceivedTime? receivedTime;
+
   // A complaint about the timing of delivery, expressed as a code.
   final TimingComplaintCode? timingComplaintCode;
 
@@ -104,6 +108,7 @@ class ReceivedHandlingUnitReceiptLine {
     this.quantityDiscrepancyCode,
     this.oversupplyQuantity,
     this.receivedDate,
+    this.receivedTime,
     this.timingComplaintCode,
     this.timingComplaint,
     this.orderLineReference,
@@ -130,6 +135,7 @@ class ReceivedHandlingUnitReceiptLine {
       quantityDiscrepancyCode: QuantityDiscrepancyCode.fromJson(json['quantityDiscrepancyCode'] as Map<String, dynamic>?),
       oversupplyQuantity: OversupplyQuantity.fromJson(json['oversupplyQuantity'] as Map<String, dynamic>?),
       receivedDate: ReceivedDate.fromJson(json['receivedDate'] as Map<String, dynamic>?),
+      receivedTime: ReceivedTime.fromJson(json['receivedTime'] as Map<String, dynamic>?),
       timingComplaintCode: TimingComplaintCode.fromJson(json['timingComplaintCode'] as Map<String, dynamic>?),
       timingComplaint: TimingComplaint.fromJson(json['timingComplaint'] as Map<String, dynamic>?),
       orderLineReference: OrderLineReference.fromJson(json['orderLineReference'] as Map<String, dynamic>?),
@@ -156,6 +162,7 @@ class ReceivedHandlingUnitReceiptLine {
       'quantityDiscrepancyCode': quantityDiscrepancyCode?.toJson(),
       'oversupplyQuantity': oversupplyQuantity?.toJson(),
       'receivedDate': receivedDate?.toJson(),
+      'receivedTime': receivedTime?.toJson(),
       'timingComplaintCode': timingComplaintCode?.toJson(),
       'timingComplaint': timingComplaint?.toJson(),
       'orderLineReference': orderLineReference?.toJson(),
@@ -185,6 +192,7 @@ class ReceivedHandlingUnitReceiptLine {
       quantityDiscrepancyCode: QuantityDiscrepancyCode.fromXml(xml.findElements('cbc:QuantityDiscrepancyCode').singleOrNull),
       oversupplyQuantity: OversupplyQuantity.fromXml(xml.findElements('cbc:OversupplyQuantity').singleOrNull),
       receivedDate: ReceivedDate.fromXml(xml.findElements('cbc:ReceivedDate').singleOrNull),
+      receivedTime: ReceivedTime.fromXml(xml.findElements('cbc:ReceivedTime').singleOrNull),
       timingComplaintCode: TimingComplaintCode.fromXml(xml.findElements('cbc:TimingComplaintCode').singleOrNull),
       timingComplaint: TimingComplaint.fromXml(xml.findElements('cbc:TimingComplaint').singleOrNull),
       orderLineReference: OrderLineReference.fromXml(xml.findElements('cac:OrderLineReference').singleOrNull),
@@ -212,6 +220,7 @@ class ReceivedHandlingUnitReceiptLine {
       quantityDiscrepancyCode?.toXml(),
       oversupplyQuantity?.toXml(),
       receivedDate?.toXml(),
+      receivedTime?.toXml(),
       timingComplaintCode?.toXml(),
       timingComplaint?.toXml(),
       orderLineReference?.toXml(),

@@ -32,14 +32,18 @@ import '../cac/GoodsItemContainer.dart';
 import '../cac/FreightAllowanceCharge.dart';
 import '../cac/InvoiceLine.dart';
 import '../cac/OrderLineReference.dart';
+import '../cac/DespatchLineReference.dart';
+import '../cac/ReceiptLineReference.dart';
 import '../cac/Temperature.dart';
 import '../cac/OriginAddress.dart';
 import '../cac/Delivery.dart';
 import '../cac/Pickup.dart';
 import '../cac/Despatch.dart';
+import '../cac/BondedWarehouseLocation.dart';
 import '../cac/MeasurementDimension.dart';
 import '../cac/ContainingPackage.dart';
 import '../cac/ShipmentDocumentReference.dart';
+import '../cac/AdditionalDocumentReference.dart';
 import '../cac/MinimumTemperature.dart';
 import '../cac/MaximumTemperature.dart';
 
@@ -143,6 +147,12 @@ class ContainedGoodsItem {
   // A reference to an order line associated with this goods item.
   final List<OrderLineReference> orderLineReference;
 
+  // A reference to the despatch line associated with this goods item.
+  final DespatchLineReference? despatchLineReference;
+
+  // A reference to the receipt line associated with this goods item.
+  final ReceiptLineReference? receiptLineReference;
+
   // The temperature of the goods item.
   final List<Temperature> temperature;
 
@@ -161,6 +171,9 @@ class ContainedGoodsItem {
   // The despatch of this goods item.
   final Despatch? despatch;
 
+  // The location of the bonded warehouse where this goods item is temporarily stored.
+  final BondedWarehouseLocation? bondedWarehouseLocation;
+
   // A measurable dimension (length, mass, weight, or volume) of this goods item.
   final List<MeasurementDimension> measurementDimension;
 
@@ -169,6 +182,9 @@ class ContainedGoodsItem {
 
   // A reference to a shipping document associated with this goods item.
   final ShipmentDocumentReference? shipmentDocumentReference;
+
+  // A reference to an additional document associated with this goods item.
+  final List<AdditionalDocumentReference> additionalDocumentReference;
 
   // Information about minimum temperature.
   final MinimumTemperature? minimumTemperature;
@@ -209,15 +225,19 @@ class ContainedGoodsItem {
     this.freightAllowanceCharge = const [],
     this.invoiceLine = const [],
     this.orderLineReference = const [],
+    this.despatchLineReference,
+    this.receiptLineReference,
     this.temperature = const [],
     this.containedGoodsItem = const [],
     this.originAddress,
     this.delivery,
     this.pickup,
     this.despatch,
+    this.bondedWarehouseLocation,
     this.measurementDimension = const [],
     this.containingPackage = const [],
     this.shipmentDocumentReference,
+    this.additionalDocumentReference = const [],
     this.minimumTemperature,
     this.maximumTemperature,
   });
@@ -257,15 +277,19 @@ class ContainedGoodsItem {
       freightAllowanceCharge: (json['freightAllowanceCharge'] as List? ?? []).map((dynamic d) => FreightAllowanceCharge.fromJson(d as Map<String, dynamic>?)!).toList(),
       invoiceLine: (json['invoiceLine'] as List? ?? []).map((dynamic d) => InvoiceLine.fromJson(d as Map<String, dynamic>?)!).toList(),
       orderLineReference: (json['orderLineReference'] as List? ?? []).map((dynamic d) => OrderLineReference.fromJson(d as Map<String, dynamic>?)!).toList(),
+      despatchLineReference: DespatchLineReference.fromJson(json['despatchLineReference'] as Map<String, dynamic>?),
+      receiptLineReference: ReceiptLineReference.fromJson(json['receiptLineReference'] as Map<String, dynamic>?),
       temperature: (json['temperature'] as List? ?? []).map((dynamic d) => Temperature.fromJson(d as Map<String, dynamic>?)!).toList(),
       containedGoodsItem: (json['containedGoodsItem'] as List? ?? []).map((dynamic d) => ContainedGoodsItem.fromJson(d as Map<String, dynamic>?)!).toList(),
       originAddress: OriginAddress.fromJson(json['originAddress'] as Map<String, dynamic>?),
       delivery: Delivery.fromJson(json['delivery'] as Map<String, dynamic>?),
       pickup: Pickup.fromJson(json['pickup'] as Map<String, dynamic>?),
       despatch: Despatch.fromJson(json['despatch'] as Map<String, dynamic>?),
+      bondedWarehouseLocation: BondedWarehouseLocation.fromJson(json['bondedWarehouseLocation'] as Map<String, dynamic>?),
       measurementDimension: (json['measurementDimension'] as List? ?? []).map((dynamic d) => MeasurementDimension.fromJson(d as Map<String, dynamic>?)!).toList(),
       containingPackage: (json['containingPackage'] as List? ?? []).map((dynamic d) => ContainingPackage.fromJson(d as Map<String, dynamic>?)!).toList(),
       shipmentDocumentReference: ShipmentDocumentReference.fromJson(json['shipmentDocumentReference'] as Map<String, dynamic>?),
+      additionalDocumentReference: (json['additionalDocumentReference'] as List? ?? []).map((dynamic d) => AdditionalDocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
       minimumTemperature: MinimumTemperature.fromJson(json['minimumTemperature'] as Map<String, dynamic>?),
       maximumTemperature: MaximumTemperature.fromJson(json['maximumTemperature'] as Map<String, dynamic>?),
     );
@@ -305,15 +329,19 @@ class ContainedGoodsItem {
       'freightAllowanceCharge': freightAllowanceCharge.map((e) => e.toJson()).toList(),
       'invoiceLine': invoiceLine.map((e) => e.toJson()).toList(),
       'orderLineReference': orderLineReference.map((e) => e.toJson()).toList(),
+      'despatchLineReference': despatchLineReference?.toJson(),
+      'receiptLineReference': receiptLineReference?.toJson(),
       'temperature': temperature.map((e) => e.toJson()).toList(),
       'containedGoodsItem': containedGoodsItem.map((e) => e.toJson()).toList(),
       'originAddress': originAddress?.toJson(),
       'delivery': delivery?.toJson(),
       'pickup': pickup?.toJson(),
       'despatch': despatch?.toJson(),
+      'bondedWarehouseLocation': bondedWarehouseLocation?.toJson(),
       'measurementDimension': measurementDimension.map((e) => e.toJson()).toList(),
       'containingPackage': containingPackage.map((e) => e.toJson()).toList(),
       'shipmentDocumentReference': shipmentDocumentReference?.toJson(),
+      'additionalDocumentReference': additionalDocumentReference.map((e) => e.toJson()).toList(),
       'minimumTemperature': minimumTemperature?.toJson(),
       'maximumTemperature': maximumTemperature?.toJson(),
     };
@@ -356,15 +384,19 @@ class ContainedGoodsItem {
       freightAllowanceCharge: xml.findElements('cac:FreightAllowanceCharge').map((XmlElement e) => FreightAllowanceCharge.fromXml(e)!).toList(),
       invoiceLine: xml.findElements('cac:InvoiceLine').map((XmlElement e) => InvoiceLine.fromXml(e)!).toList(),
       orderLineReference: xml.findElements('cac:OrderLineReference').map((XmlElement e) => OrderLineReference.fromXml(e)!).toList(),
+      despatchLineReference: DespatchLineReference.fromXml(xml.findElements('cac:DespatchLineReference').singleOrNull),
+      receiptLineReference: ReceiptLineReference.fromXml(xml.findElements('cac:ReceiptLineReference').singleOrNull),
       temperature: xml.findElements('cac:Temperature').map((XmlElement e) => Temperature.fromXml(e)!).toList(),
       containedGoodsItem: xml.findElements('cac:ContainedGoodsItem').map((XmlElement e) => ContainedGoodsItem.fromXml(e)!).toList(),
       originAddress: OriginAddress.fromXml(xml.findElements('cac:OriginAddress').singleOrNull),
       delivery: Delivery.fromXml(xml.findElements('cac:Delivery').singleOrNull),
       pickup: Pickup.fromXml(xml.findElements('cac:Pickup').singleOrNull),
       despatch: Despatch.fromXml(xml.findElements('cac:Despatch').singleOrNull),
+      bondedWarehouseLocation: BondedWarehouseLocation.fromXml(xml.findElements('cac:BondedWarehouseLocation').singleOrNull),
       measurementDimension: xml.findElements('cac:MeasurementDimension').map((XmlElement e) => MeasurementDimension.fromXml(e)!).toList(),
       containingPackage: xml.findElements('cac:ContainingPackage').map((XmlElement e) => ContainingPackage.fromXml(e)!).toList(),
       shipmentDocumentReference: ShipmentDocumentReference.fromXml(xml.findElements('cac:ShipmentDocumentReference').singleOrNull),
+      additionalDocumentReference: xml.findElements('cac:AdditionalDocumentReference').map((XmlElement e) => AdditionalDocumentReference.fromXml(e)!).toList(),
       minimumTemperature: MinimumTemperature.fromXml(xml.findElements('cac:MinimumTemperature').singleOrNull),
       maximumTemperature: MaximumTemperature.fromXml(xml.findElements('cac:MaximumTemperature').singleOrNull),
     );
@@ -405,15 +437,19 @@ class ContainedGoodsItem {
       ...freightAllowanceCharge.map((FreightAllowanceCharge e) => e.toXml()).toList(),
       ...invoiceLine.map((InvoiceLine e) => e.toXml()).toList(),
       ...orderLineReference.map((OrderLineReference e) => e.toXml()).toList(),
+      despatchLineReference?.toXml(),
+      receiptLineReference?.toXml(),
       ...temperature.map((Temperature e) => e.toXml()).toList(),
       ...containedGoodsItem.map((ContainedGoodsItem e) => e.toXml()).toList(),
       originAddress?.toXml(),
       delivery?.toXml(),
       pickup?.toXml(),
       despatch?.toXml(),
+      bondedWarehouseLocation?.toXml(),
       ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
       ...containingPackage.map((ContainingPackage e) => e.toXml()).toList(),
       shipmentDocumentReference?.toXml(),
+      ...additionalDocumentReference.map((AdditionalDocumentReference e) => e.toXml()).toList(),
       minimumTemperature?.toXml(),
       maximumTemperature?.toXml(),
 

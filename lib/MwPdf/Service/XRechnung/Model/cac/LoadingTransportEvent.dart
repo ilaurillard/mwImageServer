@@ -9,6 +9,7 @@ import '../cbc/Description.dart';
 import '../cbc/CompletionIndicator.dart';
 import '../cac/ReportedShipment.dart';
 import '../cac/CurrentStatus.dart';
+import '../cac/ResponsibleParty.dart';
 import '../cac/Contact.dart';
 import '../cac/Location.dart';
 import '../cac/Signature.dart';
@@ -45,6 +46,9 @@ class LoadingTransportEvent {
   // The current status of this transport event.
   final List<CurrentStatus> currentStatus;
 
+  // The party responsible for this transport event.
+  final ResponsibleParty? responsibleParty;
+
   // A contact associated with this transport event.
   final List<Contact> contact;
 
@@ -67,6 +71,7 @@ class LoadingTransportEvent {
     this.completionIndicator,
     this.reportedShipment,
     this.currentStatus = const [],
+    this.responsibleParty,
     this.contact = const [],
     this.location,
     this.signature,
@@ -85,6 +90,7 @@ class LoadingTransportEvent {
       completionIndicator: CompletionIndicator.fromJson(json['completionIndicator'] as Map<String, dynamic>?),
       reportedShipment: ReportedShipment.fromJson(json['reportedShipment'] as Map<String, dynamic>?),
       currentStatus: (json['currentStatus'] as List? ?? []).map((dynamic d) => CurrentStatus.fromJson(d as Map<String, dynamic>?)!).toList(),
+      responsibleParty: ResponsibleParty.fromJson(json['responsibleParty'] as Map<String, dynamic>?),
       contact: (json['contact'] as List? ?? []).map((dynamic d) => Contact.fromJson(d as Map<String, dynamic>?)!).toList(),
       location: Location.fromJson(json['location'] as Map<String, dynamic>?),
       signature: Signature.fromJson(json['signature'] as Map<String, dynamic>?),
@@ -103,6 +109,7 @@ class LoadingTransportEvent {
       'completionIndicator': completionIndicator?.toJson(),
       'reportedShipment': reportedShipment?.toJson(),
       'currentStatus': currentStatus.map((e) => e.toJson()).toList(),
+      'responsibleParty': responsibleParty?.toJson(),
       'contact': contact.map((e) => e.toJson()).toList(),
       'location': location?.toJson(),
       'signature': signature?.toJson(),
@@ -124,6 +131,7 @@ class LoadingTransportEvent {
       completionIndicator: CompletionIndicator.fromXml(xml.findElements('cbc:CompletionIndicator').singleOrNull),
       reportedShipment: ReportedShipment.fromXml(xml.findElements('cac:ReportedShipment').singleOrNull),
       currentStatus: xml.findElements('cac:CurrentStatus').map((XmlElement e) => CurrentStatus.fromXml(e)!).toList(),
+      responsibleParty: ResponsibleParty.fromXml(xml.findElements('cac:ResponsibleParty').singleOrNull),
       contact: xml.findElements('cac:Contact').map((XmlElement e) => Contact.fromXml(e)!).toList(),
       location: Location.fromXml(xml.findElements('cac:Location').singleOrNull),
       signature: Signature.fromXml(xml.findElements('cac:Signature').singleOrNull),
@@ -143,6 +151,7 @@ class LoadingTransportEvent {
       completionIndicator?.toXml(),
       reportedShipment?.toXml(),
       ...currentStatus.map((CurrentStatus e) => e.toXml()).toList(),
+      responsibleParty?.toXml(),
       ...contact.map((Contact e) => e.toXml()).toList(),
       location?.toXml(),
       signature?.toXml(),

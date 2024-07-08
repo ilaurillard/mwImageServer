@@ -16,7 +16,7 @@ import '../cac/Communication.dart';
 class RemittanceDocumentDistribution {
 
 
-  // The interested party to which the document should be distributed.
+  // The interested party to which the document will be distributed.
   final Party party;
 
   // A container for extensions foreign to the document.

@@ -119,7 +119,7 @@ class Shipment {
   // A transport handling unit associated with this shipment.
   final List<TransportHandlingUnit> transportHandlingUnit;
 
-  // The address to which a shipment should be returned.
+  // The address to which a shipment ought to be returned.
   final ReturnAddress? returnAddress;
 
   // The region in which the goods have been produced or manufactured, according to criteria laid down for the purposes of application of the customs tariff, or of quantitative restrictions, or of any other measure related to trade.

@@ -225,7 +225,7 @@
         "partyLegalEntity": [
           {
             "registrationName": {
-              "value": "peter meier"
+              "value": "petra meier"
             }
           }
         ]
@@ -272,7 +272,7 @@
       {
         "note": [
           {
-            "value": "#SKONTO#TAGE=0#PROZENT=0.00#\n"
+            "value": "#SKONTO#TAGE=0#PROZENT=0.00#BASISBETRAG=0.00#\n"
           }
         ]
       }

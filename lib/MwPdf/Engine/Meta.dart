@@ -68,7 +68,7 @@ class Meta {
 
   // PDF/A 3b Metadata
   XmlDocument? pdfaRdf({
-    bool facturx = false,
+    bool cii = false,
     bool xrechnung = false,
   }) {
     if (!pdfa3b) {
@@ -76,10 +76,11 @@ class Meta {
     }
 
     String invoiceRdf = '';
-    if (facturx) {
+    if (cii) {
       invoiceRdf = PdfaFacturxRdf().create();
     }
     else if (xrechnung) {
+      // TODO xxx?
       invoiceRdf = PdfaFacturxRdf().create();
     }
 

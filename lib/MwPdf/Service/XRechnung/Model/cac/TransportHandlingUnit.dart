@@ -28,6 +28,7 @@ import '../cac/Status.dart';
 import '../cac/CustomsDeclaration.dart';
 import '../cac/ReferencedShipment.dart';
 import '../cac/Package.dart';
+import '../cac/DamageDocumentationAttachment.dart';
 
 // A class to describe a uniquely identifiable unit consisting of one or more packages, goods items, or pieces of transport equipment.
 class TransportHandlingUnit {
@@ -117,6 +118,9 @@ class TransportHandlingUnit {
   // A package contained in this transport handling unit.
   final List<Package> package;
 
+  // An attachment, such as a photo, documenting damage associated with this transport handling unit.
+  final List<DamageDocumentationAttachment> damageDocumentationAttachment;
+
   TransportHandlingUnit ({
     this.uBLExtensions,
     this.iD,
@@ -146,6 +150,7 @@ class TransportHandlingUnit {
     this.customsDeclaration = const [],
     this.referencedShipment = const [],
     this.package = const [],
+    this.damageDocumentationAttachment = const [],
   });
 
   static TransportHandlingUnit? fromJson(Map<String, dynamic>? json) {
@@ -179,6 +184,7 @@ class TransportHandlingUnit {
       customsDeclaration: (json['customsDeclaration'] as List? ?? []).map((dynamic d) => CustomsDeclaration.fromJson(d as Map<String, dynamic>?)!).toList(),
       referencedShipment: (json['referencedShipment'] as List? ?? []).map((dynamic d) => ReferencedShipment.fromJson(d as Map<String, dynamic>?)!).toList(),
       package: (json['package'] as List? ?? []).map((dynamic d) => Package.fromJson(d as Map<String, dynamic>?)!).toList(),
+      damageDocumentationAttachment: (json['damageDocumentationAttachment'] as List? ?? []).map((dynamic d) => DamageDocumentationAttachment.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
   }
 
@@ -212,6 +218,7 @@ class TransportHandlingUnit {
       'customsDeclaration': customsDeclaration.map((e) => e.toJson()).toList(),
       'referencedShipment': referencedShipment.map((e) => e.toJson()).toList(),
       'package': package.map((e) => e.toJson()).toList(),
+      'damageDocumentationAttachment': damageDocumentationAttachment.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
@@ -248,6 +255,7 @@ class TransportHandlingUnit {
       customsDeclaration: xml.findElements('cac:CustomsDeclaration').map((XmlElement e) => CustomsDeclaration.fromXml(e)!).toList(),
       referencedShipment: xml.findElements('cac:ReferencedShipment').map((XmlElement e) => ReferencedShipment.fromXml(e)!).toList(),
       package: xml.findElements('cac:Package').map((XmlElement e) => Package.fromXml(e)!).toList(),
+      damageDocumentationAttachment: xml.findElements('cac:DamageDocumentationAttachment').map((XmlElement e) => DamageDocumentationAttachment.fromXml(e)!).toList(),
     );
   }
 
@@ -282,6 +290,7 @@ class TransportHandlingUnit {
       ...customsDeclaration.map((CustomsDeclaration e) => e.toXml()).toList(),
       ...referencedShipment.map((ReferencedShipment e) => e.toXml()).toList(),
       ...package.map((Package e) => e.toXml()).toList(),
+      ...damageDocumentationAttachment.map((DamageDocumentationAttachment e) => e.toXml()).toList(),
 
     ];
     c2.removeWhere((e) => e == null);

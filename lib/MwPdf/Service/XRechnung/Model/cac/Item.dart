@@ -6,11 +6,13 @@ import '../cbc/PackQuantity.dart';
 import '../cbc/PackSizeNumeric.dart';
 import '../cbc/CatalogueIndicator.dart';
 import '../cbc/Name.dart';
+import '../cbc/ItemTypeCode.dart';
 import '../cbc/HazardousRiskIndicator.dart';
 import '../cbc/AdditionalInformation.dart';
 import '../cbc/Keyword.dart';
 import '../cbc/BrandName.dart';
 import '../cbc/ModelName.dart';
+import '../cbc/WarrantyInformation.dart';
 import '../cac/BuyersItemIdentification.dart';
 import '../cac/SellersItemIdentification.dart';
 import '../cac/ManufacturersItemIdentification.dart';
@@ -31,6 +33,7 @@ import '../cac/OriginAddress.dart';
 import '../cac/ItemInstance.dart';
 import '../cac/Certificate.dart';
 import '../cac/Dimension.dart';
+import '../cac/EnvironmentalEmission.dart';
 
 // A class to describe an item of trade. It includes a generic description applicable to all examples of the item together with optional subsidiary descriptions of any number of actual instances of the type.
 class Item {
@@ -54,6 +57,9 @@ class Item {
   // A short name optionally given to this item, such as a name from a catalogue, as distinct from a description.
   final Name? name;
 
+  // A code indicating the type of the item (eg., service, product, etc.).
+  final ItemTypeCode? itemTypeCode;
+
   // An indication that the transported item, as delivered, is subject to an international regulation concerning the carriage of dangerous goods (true) or not (false).
   final HazardousRiskIndicator? hazardousRiskIndicator;
 
@@ -68,6 +74,9 @@ class Item {
 
   // A model name of this item.
   final List<ModelName> modelName;
+
+  // Text describing the warranty for this item.
+  final List<WarrantyInformation> warrantyInformation;
 
   // Identifying information for this item, assigned by the buyer.
   final BuyersItemIdentification? buyersItemIdentification;
@@ -129,6 +138,9 @@ class Item {
   // One of the measurable dimensions (length, mass, weight, or volume) of this item.
   final List<Dimension> dimension;
 
+  // One or more environmental emissions of this item.
+  final List<EnvironmentalEmission> environmentalEmission;
+
   Item ({
     this.uBLExtensions,
     this.description = const [],
@@ -136,11 +148,13 @@ class Item {
     this.packSizeNumeric,
     this.catalogueIndicator,
     this.name,
+    this.itemTypeCode,
     this.hazardousRiskIndicator,
     this.additionalInformation = const [],
     this.keyword = const [],
     this.brandName = const [],
     this.modelName = const [],
+    this.warrantyInformation = const [],
     this.buyersItemIdentification,
     this.sellersItemIdentification,
     this.manufacturersItemIdentification = const [],
@@ -161,6 +175,7 @@ class Item {
     this.itemInstance = const [],
     this.certificate = const [],
     this.dimension = const [],
+    this.environmentalEmission = const [],
   });
 
   static Item? fromJson(Map<String, dynamic>? json) {
@@ -172,11 +187,13 @@ class Item {
       packSizeNumeric: PackSizeNumeric.fromJson(json['packSizeNumeric'] as Map<String, dynamic>?),
       catalogueIndicator: CatalogueIndicator.fromJson(json['catalogueIndicator'] as Map<String, dynamic>?),
       name: Name.fromJson(json['name'] as Map<String, dynamic>?),
+      itemTypeCode: ItemTypeCode.fromJson(json['itemTypeCode'] as Map<String, dynamic>?),
       hazardousRiskIndicator: HazardousRiskIndicator.fromJson(json['hazardousRiskIndicator'] as Map<String, dynamic>?),
       additionalInformation: (json['additionalInformation'] as List? ?? []).map((dynamic d) => AdditionalInformation.fromJson(d as Map<String, dynamic>?)!).toList(),
       keyword: (json['keyword'] as List? ?? []).map((dynamic d) => Keyword.fromJson(d as Map<String, dynamic>?)!).toList(),
       brandName: (json['brandName'] as List? ?? []).map((dynamic d) => BrandName.fromJson(d as Map<String, dynamic>?)!).toList(),
       modelName: (json['modelName'] as List? ?? []).map((dynamic d) => ModelName.fromJson(d as Map<String, dynamic>?)!).toList(),
+      warrantyInformation: (json['warrantyInformation'] as List? ?? []).map((dynamic d) => WarrantyInformation.fromJson(d as Map<String, dynamic>?)!).toList(),
       buyersItemIdentification: BuyersItemIdentification.fromJson(json['buyersItemIdentification'] as Map<String, dynamic>?),
       sellersItemIdentification: SellersItemIdentification.fromJson(json['sellersItemIdentification'] as Map<String, dynamic>?),
       manufacturersItemIdentification: (json['manufacturersItemIdentification'] as List? ?? []).map((dynamic d) => ManufacturersItemIdentification.fromJson(d as Map<String, dynamic>?)!).toList(),
@@ -197,6 +214,7 @@ class Item {
       itemInstance: (json['itemInstance'] as List? ?? []).map((dynamic d) => ItemInstance.fromJson(d as Map<String, dynamic>?)!).toList(),
       certificate: (json['certificate'] as List? ?? []).map((dynamic d) => Certificate.fromJson(d as Map<String, dynamic>?)!).toList(),
       dimension: (json['dimension'] as List? ?? []).map((dynamic d) => Dimension.fromJson(d as Map<String, dynamic>?)!).toList(),
+      environmentalEmission: (json['environmentalEmission'] as List? ?? []).map((dynamic d) => EnvironmentalEmission.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
   }
 
@@ -208,11 +226,13 @@ class Item {
       'packSizeNumeric': packSizeNumeric?.toJson(),
       'catalogueIndicator': catalogueIndicator?.toJson(),
       'name': name?.toJson(),
+      'itemTypeCode': itemTypeCode?.toJson(),
       'hazardousRiskIndicator': hazardousRiskIndicator?.toJson(),
       'additionalInformation': additionalInformation.map((e) => e.toJson()).toList(),
       'keyword': keyword.map((e) => e.toJson()).toList(),
       'brandName': brandName.map((e) => e.toJson()).toList(),
       'modelName': modelName.map((e) => e.toJson()).toList(),
+      'warrantyInformation': warrantyInformation.map((e) => e.toJson()).toList(),
       'buyersItemIdentification': buyersItemIdentification?.toJson(),
       'sellersItemIdentification': sellersItemIdentification?.toJson(),
       'manufacturersItemIdentification': manufacturersItemIdentification.map((e) => e.toJson()).toList(),
@@ -233,6 +253,7 @@ class Item {
       'itemInstance': itemInstance.map((e) => e.toJson()).toList(),
       'certificate': certificate.map((e) => e.toJson()).toList(),
       'dimension': dimension.map((e) => e.toJson()).toList(),
+      'environmentalEmission': environmentalEmission.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
@@ -247,11 +268,13 @@ class Item {
       packSizeNumeric: PackSizeNumeric.fromXml(xml.findElements('cbc:PackSizeNumeric').singleOrNull),
       catalogueIndicator: CatalogueIndicator.fromXml(xml.findElements('cbc:CatalogueIndicator').singleOrNull),
       name: Name.fromXml(xml.findElements('cbc:Name').singleOrNull),
+      itemTypeCode: ItemTypeCode.fromXml(xml.findElements('cbc:ItemTypeCode').singleOrNull),
       hazardousRiskIndicator: HazardousRiskIndicator.fromXml(xml.findElements('cbc:HazardousRiskIndicator').singleOrNull),
       additionalInformation: xml.findElements('cbc:AdditionalInformation').map((XmlElement e) => AdditionalInformation.fromXml(e)!).toList(),
       keyword: xml.findElements('cbc:Keyword').map((XmlElement e) => Keyword.fromXml(e)!).toList(),
       brandName: xml.findElements('cbc:BrandName').map((XmlElement e) => BrandName.fromXml(e)!).toList(),
       modelName: xml.findElements('cbc:ModelName').map((XmlElement e) => ModelName.fromXml(e)!).toList(),
+      warrantyInformation: xml.findElements('cbc:WarrantyInformation').map((XmlElement e) => WarrantyInformation.fromXml(e)!).toList(),
       buyersItemIdentification: BuyersItemIdentification.fromXml(xml.findElements('cac:BuyersItemIdentification').singleOrNull),
       sellersItemIdentification: SellersItemIdentification.fromXml(xml.findElements('cac:SellersItemIdentification').singleOrNull),
       manufacturersItemIdentification: xml.findElements('cac:ManufacturersItemIdentification').map((XmlElement e) => ManufacturersItemIdentification.fromXml(e)!).toList(),
@@ -272,6 +295,7 @@ class Item {
       itemInstance: xml.findElements('cac:ItemInstance').map((XmlElement e) => ItemInstance.fromXml(e)!).toList(),
       certificate: xml.findElements('cac:Certificate').map((XmlElement e) => Certificate.fromXml(e)!).toList(),
       dimension: xml.findElements('cac:Dimension').map((XmlElement e) => Dimension.fromXml(e)!).toList(),
+      environmentalEmission: xml.findElements('cac:EnvironmentalEmission').map((XmlElement e) => EnvironmentalEmission.fromXml(e)!).toList(),
     );
   }
 
@@ -284,11 +308,13 @@ class Item {
       packSizeNumeric?.toXml(),
       catalogueIndicator?.toXml(),
       name?.toXml(),
+      itemTypeCode?.toXml(),
       hazardousRiskIndicator?.toXml(),
       ...additionalInformation.map((AdditionalInformation e) => e.toXml()).toList(),
       ...keyword.map((Keyword e) => e.toXml()).toList(),
       ...brandName.map((BrandName e) => e.toXml()).toList(),
       ...modelName.map((ModelName e) => e.toXml()).toList(),
+      ...warrantyInformation.map((WarrantyInformation e) => e.toXml()).toList(),
       buyersItemIdentification?.toXml(),
       sellersItemIdentification?.toXml(),
       ...manufacturersItemIdentification.map((ManufacturersItemIdentification e) => e.toXml()).toList(),
@@ -309,6 +335,7 @@ class Item {
       ...itemInstance.map((ItemInstance e) => e.toXml()).toList(),
       ...certificate.map((Certificate e) => e.toXml()).toList(),
       ...dimension.map((Dimension e) => e.toXml()).toList(),
+      ...environmentalEmission.map((EnvironmentalEmission e) => e.toXml()).toList(),
 
     ];
     c2.removeWhere((e) => e == null);

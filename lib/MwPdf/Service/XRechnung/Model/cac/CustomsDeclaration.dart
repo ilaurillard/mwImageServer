@@ -2,6 +2,7 @@ import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
 import '../ext/UBLExtensions.dart';
+import '../cbc/FunctionCode.dart';
 import '../cac/ValidityPeriod.dart';
 import '../cac/ApplicableTerritoryAddress.dart';
 import '../cac/Shipment.dart';
@@ -23,6 +24,9 @@ class CustomsDeclaration {
 
   // A container for extensions foreign to the document.
   final UBLExtensions? uBLExtensions;
+
+  // A code describing the function of this customs declaration.
+  final FunctionCode? functionCode;
 
   // The period during which this customs declaration is valid
   final ValidityPeriod? validityPeriod;
@@ -60,6 +64,7 @@ class CustomsDeclaration {
   CustomsDeclaration ({
     required this.iD,
     this.uBLExtensions,
+    this.functionCode,
     this.validityPeriod,
     this.applicableTerritoryAddress,
     this.shipment,
@@ -78,6 +83,7 @@ class CustomsDeclaration {
     return CustomsDeclaration (
       uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       iD: ID.fromJson(json['iD'] as Map<String, dynamic>?)!,
+      functionCode: FunctionCode.fromJson(json['functionCode'] as Map<String, dynamic>?),
       validityPeriod: ValidityPeriod.fromJson(json['validityPeriod'] as Map<String, dynamic>?),
       applicableTerritoryAddress: ApplicableTerritoryAddress.fromJson(json['applicableTerritoryAddress'] as Map<String, dynamic>?),
       shipment: Shipment.fromJson(json['shipment'] as Map<String, dynamic>?),
@@ -96,6 +102,7 @@ class CustomsDeclaration {
     Map<String, dynamic> map = {
       'uBLExtensions': uBLExtensions?.toJson(),
       'iD': iD.toJson(),
+      'functionCode': functionCode?.toJson(),
       'validityPeriod': validityPeriod?.toJson(),
       'applicableTerritoryAddress': applicableTerritoryAddress?.toJson(),
       'shipment': shipment?.toJson(),
@@ -117,6 +124,7 @@ class CustomsDeclaration {
     return CustomsDeclaration (
       uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
       iD: ID.fromXml(xml.findElements('cbc:ID').singleOrNull)!,
+      functionCode: FunctionCode.fromXml(xml.findElements('cbc:FunctionCode').singleOrNull),
       validityPeriod: ValidityPeriod.fromXml(xml.findElements('cac:ValidityPeriod').singleOrNull),
       applicableTerritoryAddress: ApplicableTerritoryAddress.fromXml(xml.findElements('cac:ApplicableTerritoryAddress').singleOrNull),
       shipment: Shipment.fromXml(xml.findElements('cac:Shipment').singleOrNull),
@@ -136,6 +144,7 @@ class CustomsDeclaration {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       iD.toXml(),
+      functionCode?.toXml(),
       validityPeriod?.toXml(),
       applicableTerritoryAddress?.toXml(),
       shipment?.toXml(),

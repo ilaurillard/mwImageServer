@@ -25,6 +25,7 @@ import '../cac/DeliveryTerms.dart';
 import '../cac/MinimumDeliveryUnit.dart';
 import '../cac/MaximumDeliveryUnit.dart';
 import '../cac/Shipment.dart';
+import '../cac/FuelConsumption.dart';
 
 // A class to describe a delivery.
 class ContractualDelivery {
@@ -105,6 +106,9 @@ class ContractualDelivery {
   // The shipment being delivered.
   final Shipment? shipment;
 
+  // One or more fuel consumptions of this delivery.
+  final List<FuelConsumption> fuelConsumption;
+
   ContractualDelivery ({
     this.uBLExtensions,
     this.iD,
@@ -131,6 +135,7 @@ class ContractualDelivery {
     this.minimumDeliveryUnit,
     this.maximumDeliveryUnit,
     this.shipment,
+    this.fuelConsumption = const [],
   });
 
   static ContractualDelivery? fromJson(Map<String, dynamic>? json) {
@@ -161,6 +166,7 @@ class ContractualDelivery {
       minimumDeliveryUnit: MinimumDeliveryUnit.fromJson(json['minimumDeliveryUnit'] as Map<String, dynamic>?),
       maximumDeliveryUnit: MaximumDeliveryUnit.fromJson(json['maximumDeliveryUnit'] as Map<String, dynamic>?),
       shipment: Shipment.fromJson(json['shipment'] as Map<String, dynamic>?),
+      fuelConsumption: (json['fuelConsumption'] as List? ?? []).map((dynamic d) => FuelConsumption.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
   }
 
@@ -191,6 +197,7 @@ class ContractualDelivery {
       'minimumDeliveryUnit': minimumDeliveryUnit?.toJson(),
       'maximumDeliveryUnit': maximumDeliveryUnit?.toJson(),
       'shipment': shipment?.toJson(),
+      'fuelConsumption': fuelConsumption.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
@@ -224,6 +231,7 @@ class ContractualDelivery {
       minimumDeliveryUnit: MinimumDeliveryUnit.fromXml(xml.findElements('cac:MinimumDeliveryUnit').singleOrNull),
       maximumDeliveryUnit: MaximumDeliveryUnit.fromXml(xml.findElements('cac:MaximumDeliveryUnit').singleOrNull),
       shipment: Shipment.fromXml(xml.findElements('cac:Shipment').singleOrNull),
+      fuelConsumption: xml.findElements('cac:FuelConsumption').map((XmlElement e) => FuelConsumption.fromXml(e)!).toList(),
     );
   }
 
@@ -255,6 +263,7 @@ class ContractualDelivery {
       minimumDeliveryUnit?.toXml(),
       maximumDeliveryUnit?.toXml(),
       shipment?.toXml(),
+      ...fuelConsumption.map((FuelConsumption e) => e.toXml()).toList(),
 
     ];
     c2.removeWhere((e) => e == null);

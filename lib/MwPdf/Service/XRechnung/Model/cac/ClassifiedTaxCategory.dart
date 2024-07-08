@@ -1,6 +1,5 @@
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
-import '../cac/TaxScheme.dart';
 import '../ext/UBLExtensions.dart';
 import '../cbc/ID.dart';
 import '../cbc/Name.dart';
@@ -11,13 +10,11 @@ import '../cbc/TaxExemptionReasonCode.dart';
 import '../cbc/TaxExemptionReason.dart';
 import '../cbc/TierRange.dart';
 import '../cbc/TierRatePercent.dart';
+import '../cac/TaxScheme.dart';
 
 // A class to describe one of the tax categories within a taxation scheme (e.g., High Rate VAT, Low Rate VAT).
 class ClassifiedTaxCategory {
 
-
-  // The taxation scheme within which this tax category is defined.
-  final TaxScheme taxScheme;
 
   // A container for extensions foreign to the document.
   final UBLExtensions? uBLExtensions;
@@ -49,8 +46,10 @@ class ClassifiedTaxCategory {
   // Where a tax is tiered, the tax rate that applies within the specified range of taxable amounts for this tax category.
   final TierRatePercent? tierRatePercent;
 
+  // The taxation scheme within which this tax category is defined.
+  final TaxScheme? taxScheme;
+
   ClassifiedTaxCategory ({
-    required this.taxScheme,
     this.uBLExtensions,
     this.iD,
     this.name,
@@ -61,6 +60,7 @@ class ClassifiedTaxCategory {
     this.taxExemptionReason = const [],
     this.tierRange,
     this.tierRatePercent,
+    this.taxScheme,
   });
 
   static ClassifiedTaxCategory? fromJson(Map<String, dynamic>? json) {
@@ -76,7 +76,7 @@ class ClassifiedTaxCategory {
       taxExemptionReason: (json['taxExemptionReason'] as List? ?? []).map((dynamic d) => TaxExemptionReason.fromJson(d as Map<String, dynamic>?)!).toList(),
       tierRange: TierRange.fromJson(json['tierRange'] as Map<String, dynamic>?),
       tierRatePercent: TierRatePercent.fromJson(json['tierRatePercent'] as Map<String, dynamic>?),
-      taxScheme: TaxScheme.fromJson(json['taxScheme'] as Map<String, dynamic>?)!,
+      taxScheme: TaxScheme.fromJson(json['taxScheme'] as Map<String, dynamic>?),
     );
   }
 
@@ -92,7 +92,7 @@ class ClassifiedTaxCategory {
       'taxExemptionReason': taxExemptionReason.map((e) => e.toJson()).toList(),
       'tierRange': tierRange?.toJson(),
       'tierRatePercent': tierRatePercent?.toJson(),
-      'taxScheme': taxScheme.toJson(),
+      'taxScheme': taxScheme?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
@@ -111,7 +111,7 @@ class ClassifiedTaxCategory {
       taxExemptionReason: xml.findElements('cbc:TaxExemptionReason').map((XmlElement e) => TaxExemptionReason.fromXml(e)!).toList(),
       tierRange: TierRange.fromXml(xml.findElements('cbc:TierRange').singleOrNull),
       tierRatePercent: TierRatePercent.fromXml(xml.findElements('cbc:TierRatePercent').singleOrNull),
-      taxScheme: TaxScheme.fromXml(xml.findElements('cac:TaxScheme').singleOrNull)!,
+      taxScheme: TaxScheme.fromXml(xml.findElements('cac:TaxScheme').singleOrNull),
     );
   }
 
@@ -128,7 +128,7 @@ class ClassifiedTaxCategory {
       ...taxExemptionReason.map((TaxExemptionReason e) => e.toXml()).toList(),
       tierRange?.toXml(),
       tierRatePercent?.toXml(),
-      taxScheme.toXml(),
+      taxScheme?.toXml(),
 
     ];
     c2.removeWhere((e) => e == null);

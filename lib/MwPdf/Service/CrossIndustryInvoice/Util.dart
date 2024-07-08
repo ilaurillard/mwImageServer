@@ -25,6 +25,9 @@ class Util {
           if (n.name.toString() == 'ram:Content') {
             return true;
           }
+          if (n.name.toString() == 'cbc:Note') {
+            return true;
+          }
         }
         return false;
       },

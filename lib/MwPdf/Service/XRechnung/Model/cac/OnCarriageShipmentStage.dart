@@ -73,6 +73,7 @@ import '../cac/MaritimeWaste.dart';
 import '../cac/BallastWaterSummary.dart';
 import '../cac/ISPSRequirements.dart';
 import '../cac/MaritimeHealthDeclaration.dart';
+import '../cac/FuelConsumption.dart';
 
 // A class to describe one stage of movement in a transport of goods.
 class OnCarriageShipmentStage {
@@ -297,6 +298,9 @@ class OnCarriageShipmentStage {
   // A maritime declaration of health for this shipment stage.
   final MaritimeHealthDeclaration? maritimeHealthDeclaration;
 
+  // One or more fuel consumptions of this shipment stage.
+  final List<FuelConsumption> fuelConsumption;
+
   OnCarriageShipmentStage ({
     this.uBLExtensions,
     this.iD,
@@ -371,6 +375,7 @@ class OnCarriageShipmentStage {
     this.ballastWaterSummary,
     this.iSPSRequirements,
     this.maritimeHealthDeclaration,
+    this.fuelConsumption = const [],
   });
 
   static OnCarriageShipmentStage? fromJson(Map<String, dynamic>? json) {
@@ -449,6 +454,7 @@ class OnCarriageShipmentStage {
       ballastWaterSummary: BallastWaterSummary.fromJson(json['ballastWaterSummary'] as Map<String, dynamic>?),
       iSPSRequirements: ISPSRequirements.fromJson(json['iSPSRequirements'] as Map<String, dynamic>?),
       maritimeHealthDeclaration: MaritimeHealthDeclaration.fromJson(json['maritimeHealthDeclaration'] as Map<String, dynamic>?),
+      fuelConsumption: (json['fuelConsumption'] as List? ?? []).map((dynamic d) => FuelConsumption.fromJson(d as Map<String, dynamic>?)!).toList(),
     );
   }
 
@@ -527,6 +533,7 @@ class OnCarriageShipmentStage {
       'ballastWaterSummary': ballastWaterSummary?.toJson(),
       'iSPSRequirements': iSPSRequirements?.toJson(),
       'maritimeHealthDeclaration': maritimeHealthDeclaration?.toJson(),
+      'fuelConsumption': fuelConsumption.map((e) => e.toJson()).toList(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
@@ -608,6 +615,7 @@ class OnCarriageShipmentStage {
       ballastWaterSummary: BallastWaterSummary.fromXml(xml.findElements('cac:BallastWaterSummary').singleOrNull),
       iSPSRequirements: ISPSRequirements.fromXml(xml.findElements('cac:ISPSRequirements').singleOrNull),
       maritimeHealthDeclaration: MaritimeHealthDeclaration.fromXml(xml.findElements('cac:MaritimeHealthDeclaration').singleOrNull),
+      fuelConsumption: xml.findElements('cac:FuelConsumption').map((XmlElement e) => FuelConsumption.fromXml(e)!).toList(),
     );
   }
 
@@ -687,6 +695,7 @@ class OnCarriageShipmentStage {
       ballastWaterSummary?.toXml(),
       iSPSRequirements?.toXml(),
       maritimeHealthDeclaration?.toXml(),
+      ...fuelConsumption.map((FuelConsumption e) => e.toXml()).toList(),
 
     ];
     c2.removeWhere((e) => e == null);

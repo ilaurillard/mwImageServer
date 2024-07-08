@@ -13,6 +13,8 @@ import '../cbc/BackorderReason.dart';
 import '../cbc/OutstandingQuantity.dart';
 import '../cbc/OutstandingReason.dart';
 import '../cbc/OversupplyQuantity.dart';
+import '../cbc/AccountingCostCode.dart';
+import '../cbc/AccountingCost.dart';
 import '../cac/DocumentReference.dart';
 import '../cac/Shipment.dart';
 
@@ -59,6 +61,12 @@ class SubDespatchLine {
   // The quantity over-supplied, i.e., the quantity over and above that ordered.
   final OversupplyQuantity? oversupplyQuantity;
 
+  // The accounting cost centre, applied to the Despatch Advice Line, expressed as a code.
+  final AccountingCostCode? accountingCostCode;
+
+  // The accounting cost centre, applied to the Despatch Advice Line, expressed as text.
+  final AccountingCost? accountingCost;
+
   // A reference to a document associated with this despatch line.
   final List<DocumentReference> documentReference;
 
@@ -82,6 +90,8 @@ class SubDespatchLine {
     this.outstandingQuantity,
     this.outstandingReason = const [],
     this.oversupplyQuantity,
+    this.accountingCostCode,
+    this.accountingCost,
     this.documentReference = const [],
     this.shipment = const [],
     this.subDespatchLine = const [],
@@ -103,6 +113,8 @@ class SubDespatchLine {
       outstandingQuantity: OutstandingQuantity.fromJson(json['outstandingQuantity'] as Map<String, dynamic>?),
       outstandingReason: (json['outstandingReason'] as List? ?? []).map((dynamic d) => OutstandingReason.fromJson(d as Map<String, dynamic>?)!).toList(),
       oversupplyQuantity: OversupplyQuantity.fromJson(json['oversupplyQuantity'] as Map<String, dynamic>?),
+      accountingCostCode: AccountingCostCode.fromJson(json['accountingCostCode'] as Map<String, dynamic>?),
+      accountingCost: AccountingCost.fromJson(json['accountingCost'] as Map<String, dynamic>?),
       orderLineReference: (json['orderLineReference'] as List? ?? []).map((dynamic d) => OrderLineReference.fromJson(d as Map<String, dynamic>?)!).toList(),
       documentReference: (json['documentReference'] as List? ?? []).map((dynamic d) => DocumentReference.fromJson(d as Map<String, dynamic>?)!).toList(),
       item: Item.fromJson(json['item'] as Map<String, dynamic>?)!,
@@ -124,6 +136,8 @@ class SubDespatchLine {
       'outstandingQuantity': outstandingQuantity?.toJson(),
       'outstandingReason': outstandingReason.map((e) => e.toJson()).toList(),
       'oversupplyQuantity': oversupplyQuantity?.toJson(),
+      'accountingCostCode': accountingCostCode?.toJson(),
+      'accountingCost': accountingCost?.toJson(),
       'orderLineReference': orderLineReference.map((e) => e.toJson()).toList(),
       'documentReference': documentReference.map((e) => e.toJson()).toList(),
       'item': item.toJson(),
@@ -148,6 +162,8 @@ class SubDespatchLine {
       outstandingQuantity: OutstandingQuantity.fromXml(xml.findElements('cbc:OutstandingQuantity').singleOrNull),
       outstandingReason: xml.findElements('cbc:OutstandingReason').map((XmlElement e) => OutstandingReason.fromXml(e)!).toList(),
       oversupplyQuantity: OversupplyQuantity.fromXml(xml.findElements('cbc:OversupplyQuantity').singleOrNull),
+      accountingCostCode: AccountingCostCode.fromXml(xml.findElements('cbc:AccountingCostCode').singleOrNull),
+      accountingCost: AccountingCost.fromXml(xml.findElements('cbc:AccountingCost').singleOrNull),
       orderLineReference: xml.findElements('cac:OrderLineReference').map((XmlElement e) => OrderLineReference.fromXml(e)!).toList(),
       documentReference: xml.findElements('cac:DocumentReference').map((XmlElement e) => DocumentReference.fromXml(e)!).toList(),
       item: Item.fromXml(xml.findElements('cac:Item').singleOrNull)!,
@@ -170,6 +186,8 @@ class SubDespatchLine {
       outstandingQuantity?.toXml(),
       ...outstandingReason.map((OutstandingReason e) => e.toXml()).toList(),
       oversupplyQuantity?.toXml(),
+      accountingCostCode?.toXml(),
+      accountingCost?.toXml(),
       ...orderLineReference.map((OrderLineReference e) => e.toXml()).toList(),
       ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
       item.toXml(),

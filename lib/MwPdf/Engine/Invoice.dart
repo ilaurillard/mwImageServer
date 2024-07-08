@@ -6,13 +6,19 @@ import 'package:mwcdn/MwPdf/Service/XRechnung/Model/ubl/Invoice.dart'
 import 'package:xml/xml.dart';
 
 class Invoice {
-  XmlDocument? facturx;
+  XmlDocument? cii;
   XmlDocument? xrechnung;
 
   Invoice({
-    this.facturx,
+    this.cii,
     this.xrechnung,
-  });
+  }) {
+    if (cii != null && xrechnung != null) {
+      throw Exception(
+        'cannot be both cii *and* xrechnung',
+      );
+    }
+  }
 
   static Invoice fromJson(
     Dict jsonCII,
@@ -20,7 +26,7 @@ class Invoice {
     State state,
   ) {
     return Invoice(
-      facturx: jsonCII.isNotEmpty
+      cii: jsonCII.isNotEmpty
           ? CrossIndustryInvoice.fromJson(
               jsonCII,
             ).toXml()
@@ -34,8 +40,8 @@ class Invoice {
   }
 
   XmlDocument? xml() {
-    if (facturx != null) {
-      return facturx;
+    if (cii != null) {
+      return cii;
     }
     return xrechnung;
   }

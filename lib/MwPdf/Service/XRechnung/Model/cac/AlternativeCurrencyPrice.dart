@@ -2,6 +2,7 @@ import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/PriceAmount.dart';
 import '../ext/UBLExtensions.dart';
+import '../cbc/TaxInclusivePriceAmount.dart';
 import '../cbc/BaseQuantity.dart';
 import '../cbc/PriceChangeReason.dart';
 import '../cbc/PriceTypeCode.dart';
@@ -21,6 +22,9 @@ class AlternativeCurrencyPrice {
 
   // A container for extensions foreign to the document.
   final UBLExtensions? uBLExtensions;
+
+  // The amount of the price inclusive of all taxes.
+  final TaxInclusivePriceAmount? taxInclusivePriceAmount;
 
   // The quantity at which this price applies.
   final BaseQuantity? baseQuantity;
@@ -55,6 +59,7 @@ class AlternativeCurrencyPrice {
   AlternativeCurrencyPrice ({
     required this.priceAmount,
     this.uBLExtensions,
+    this.taxInclusivePriceAmount,
     this.baseQuantity,
     this.priceChangeReason = const [],
     this.priceTypeCode,
@@ -72,6 +77,7 @@ class AlternativeCurrencyPrice {
     return AlternativeCurrencyPrice (
       uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       priceAmount: PriceAmount.fromJson(json['priceAmount'] as Map<String, dynamic>?)!,
+      taxInclusivePriceAmount: TaxInclusivePriceAmount.fromJson(json['taxInclusivePriceAmount'] as Map<String, dynamic>?),
       baseQuantity: BaseQuantity.fromJson(json['baseQuantity'] as Map<String, dynamic>?),
       priceChangeReason: (json['priceChangeReason'] as List? ?? []).map((dynamic d) => PriceChangeReason.fromJson(d as Map<String, dynamic>?)!).toList(),
       priceTypeCode: PriceTypeCode.fromJson(json['priceTypeCode'] as Map<String, dynamic>?),
@@ -89,6 +95,7 @@ class AlternativeCurrencyPrice {
     Map<String, dynamic> map = {
       'uBLExtensions': uBLExtensions?.toJson(),
       'priceAmount': priceAmount.toJson(),
+      'taxInclusivePriceAmount': taxInclusivePriceAmount?.toJson(),
       'baseQuantity': baseQuantity?.toJson(),
       'priceChangeReason': priceChangeReason.map((e) => e.toJson()).toList(),
       'priceTypeCode': priceTypeCode?.toJson(),
@@ -109,6 +116,7 @@ class AlternativeCurrencyPrice {
     return AlternativeCurrencyPrice (
       uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
       priceAmount: PriceAmount.fromXml(xml.findElements('cbc:PriceAmount').singleOrNull)!,
+      taxInclusivePriceAmount: TaxInclusivePriceAmount.fromXml(xml.findElements('cbc:TaxInclusivePriceAmount').singleOrNull),
       baseQuantity: BaseQuantity.fromXml(xml.findElements('cbc:BaseQuantity').singleOrNull),
       priceChangeReason: xml.findElements('cbc:PriceChangeReason').map((XmlElement e) => PriceChangeReason.fromXml(e)!).toList(),
       priceTypeCode: PriceTypeCode.fromXml(xml.findElements('cbc:PriceTypeCode').singleOrNull),
@@ -127,6 +135,7 @@ class AlternativeCurrencyPrice {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       priceAmount.toXml(),
+      taxInclusivePriceAmount?.toXml(),
       baseQuantity?.toXml(),
       ...priceChangeReason.map((PriceChangeReason e) => e.toXml()).toList(),
       priceTypeCode?.toXml(),

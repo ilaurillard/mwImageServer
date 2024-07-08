@@ -4,6 +4,7 @@ import '../cbc/TaxAmount.dart';
 import '../cac/TaxCategory.dart';
 import '../ext/UBLExtensions.dart';
 import '../cbc/TaxableAmount.dart';
+import '../cbc/TaxInclusiveAmount.dart';
 import '../cbc/CalculationSequenceNumeric.dart';
 import '../cbc/TransactionCurrencyTaxAmount.dart';
 import '../cbc/Percent.dart';
@@ -11,6 +12,7 @@ import '../cbc/BaseUnitMeasure.dart';
 import '../cbc/PerUnitAmount.dart';
 import '../cbc/TierRange.dart';
 import '../cbc/TierRatePercent.dart';
+import '../cac/TaxDueCountry.dart';
 
 // A class to define the subtotal for a particular tax category within a particular taxation scheme, such as standard rate within VAT.
 class TaxSubtotal {
@@ -27,6 +29,9 @@ class TaxSubtotal {
 
   // The net amount to which the tax percent (rate) is applied to calculate the tax amount.
   final TaxableAmount? taxableAmount;
+
+  // The total amount after the tax amount has been added to the taxable amount.
+  final TaxInclusiveAmount? taxInclusiveAmount;
 
   // The number of this tax subtotal in the sequence of subtotals corresponding to the order in which multiple taxes are applied. If all taxes are applied to the same taxable amount (i.e., their order of application is inconsequential), then CalculationSequenceNumeric is 1 for all tax subtotals applied to a given amount.
   final CalculationSequenceNumeric? calculationSequenceNumeric;
@@ -49,11 +54,15 @@ class TaxSubtotal {
   // Where a tax is tiered, the tax rate that applies within a specified range of taxable amounts for this tax subtotal.
   final TierRatePercent? tierRatePercent;
 
+  // The country where this tax is due.
+  final TaxDueCountry? taxDueCountry;
+
   TaxSubtotal ({
     required this.taxAmount,
     required this.taxCategory,
     this.uBLExtensions,
     this.taxableAmount,
+    this.taxInclusiveAmount,
     this.calculationSequenceNumeric,
     this.transactionCurrencyTaxAmount,
     this.percent,
@@ -61,6 +70,7 @@ class TaxSubtotal {
     this.perUnitAmount,
     this.tierRange,
     this.tierRatePercent,
+    this.taxDueCountry,
   });
 
   static TaxSubtotal? fromJson(Map<String, dynamic>? json) {
@@ -69,6 +79,7 @@ class TaxSubtotal {
       uBLExtensions: UBLExtensions.fromJson(json['uBLExtensions'] as Map<String, dynamic>?),
       taxableAmount: TaxableAmount.fromJson(json['taxableAmount'] as Map<String, dynamic>?),
       taxAmount: TaxAmount.fromJson(json['taxAmount'] as Map<String, dynamic>?)!,
+      taxInclusiveAmount: TaxInclusiveAmount.fromJson(json['taxInclusiveAmount'] as Map<String, dynamic>?),
       calculationSequenceNumeric: CalculationSequenceNumeric.fromJson(json['calculationSequenceNumeric'] as Map<String, dynamic>?),
       transactionCurrencyTaxAmount: TransactionCurrencyTaxAmount.fromJson(json['transactionCurrencyTaxAmount'] as Map<String, dynamic>?),
       percent: Percent.fromJson(json['percent'] as Map<String, dynamic>?),
@@ -77,6 +88,7 @@ class TaxSubtotal {
       tierRange: TierRange.fromJson(json['tierRange'] as Map<String, dynamic>?),
       tierRatePercent: TierRatePercent.fromJson(json['tierRatePercent'] as Map<String, dynamic>?),
       taxCategory: TaxCategory.fromJson(json['taxCategory'] as Map<String, dynamic>?)!,
+      taxDueCountry: TaxDueCountry.fromJson(json['taxDueCountry'] as Map<String, dynamic>?),
     );
   }
 
@@ -85,6 +97,7 @@ class TaxSubtotal {
       'uBLExtensions': uBLExtensions?.toJson(),
       'taxableAmount': taxableAmount?.toJson(),
       'taxAmount': taxAmount.toJson(),
+      'taxInclusiveAmount': taxInclusiveAmount?.toJson(),
       'calculationSequenceNumeric': calculationSequenceNumeric?.toJson(),
       'transactionCurrencyTaxAmount': transactionCurrencyTaxAmount?.toJson(),
       'percent': percent?.toJson(),
@@ -93,6 +106,7 @@ class TaxSubtotal {
       'tierRange': tierRange?.toJson(),
       'tierRatePercent': tierRatePercent?.toJson(),
       'taxCategory': taxCategory.toJson(),
+      'taxDueCountry': taxDueCountry?.toJson(),
     };
     map.removeWhere((String key, dynamic value) => value == null || (value is List && value.isEmpty));
     return map;
@@ -104,6 +118,7 @@ class TaxSubtotal {
       uBLExtensions: UBLExtensions.fromXml(xml.findElements('ext:UBLExtensions').singleOrNull),
       taxableAmount: TaxableAmount.fromXml(xml.findElements('cbc:TaxableAmount').singleOrNull),
       taxAmount: TaxAmount.fromXml(xml.findElements('cbc:TaxAmount').singleOrNull)!,
+      taxInclusiveAmount: TaxInclusiveAmount.fromXml(xml.findElements('cbc:TaxInclusiveAmount').singleOrNull),
       calculationSequenceNumeric: CalculationSequenceNumeric.fromXml(xml.findElements('cbc:CalculationSequenceNumeric').singleOrNull),
       transactionCurrencyTaxAmount: TransactionCurrencyTaxAmount.fromXml(xml.findElements('cbc:TransactionCurrencyTaxAmount').singleOrNull),
       percent: Percent.fromXml(xml.findElements('cbc:Percent').singleOrNull),
@@ -112,6 +127,7 @@ class TaxSubtotal {
       tierRange: TierRange.fromXml(xml.findElements('cbc:TierRange').singleOrNull),
       tierRatePercent: TierRatePercent.fromXml(xml.findElements('cbc:TierRatePercent').singleOrNull),
       taxCategory: TaxCategory.fromXml(xml.findElements('cac:TaxCategory').singleOrNull)!,
+      taxDueCountry: TaxDueCountry.fromXml(xml.findElements('cac:TaxDueCountry').singleOrNull),
     );
   }
 
@@ -121,6 +137,7 @@ class TaxSubtotal {
       uBLExtensions?.toXml(),
       taxableAmount?.toXml(),
       taxAmount.toXml(),
+      taxInclusiveAmount?.toXml(),
       calculationSequenceNumeric?.toXml(),
       transactionCurrencyTaxAmount?.toXml(),
       percent?.toXml(),
@@ -129,6 +146,7 @@ class TaxSubtotal {
       tierRange?.toXml(),
       tierRatePercent?.toXml(),
       taxCategory.toXml(),
+      taxDueCountry?.toXml(),
 
     ];
     c2.removeWhere((e) => e == null);

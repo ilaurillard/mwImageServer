@@ -546,7 +546,7 @@ class Invoice {
       ),
       XmlAttribute(
         XmlName('xsi:schemaLocation'),
-        'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 http://docs.oasis-open.org/ubl/os-UBL-2.3/xsd/maindoc/UBL-Invoice-2.3.xsd',
+        'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 http://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-Invoice-2.4.xsd',
       ),
 
 
