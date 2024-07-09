@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -81,7 +84,7 @@ class PortCallRecord {
       uBLExtensions?.toXml(),
       iD?.toXml(),
       securityLevelCode?.toXml(),
-      ...securityMeasure.map((SecurityMeasure e) => e.toXml()).toList(),
+      ...securityMeasure.map((SecurityMeasure e) => e.toXml()),
       portFacilityLocation?.toXml(),
       period?.toXml(),
 

@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -155,7 +158,7 @@ class Storage {
       powerIndicator?.toXml(),
       minimumTemperature?.toXml(),
       maximumTemperature?.toXml(),
-      ...certificate.map((Certificate e) => e.toXml()).toList(),
+      ...certificate.map((Certificate e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

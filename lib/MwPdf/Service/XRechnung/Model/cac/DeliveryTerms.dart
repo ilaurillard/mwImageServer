@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -96,9 +99,9 @@ class DeliveryTerms {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       iD?.toXml(),
-      ...specialTerms.map((SpecialTerms e) => e.toXml()).toList(),
+      ...specialTerms.map((SpecialTerms e) => e.toXml()),
       lossRiskResponsibilityCode?.toXml(),
-      ...lossRisk.map((LossRisk e) => e.toXml()).toList(),
+      ...lossRisk.map((LossRisk e) => e.toXml()),
       amount?.toXml(),
       deliveryLocation?.toXml(),
       allowanceCharge?.toXml(),

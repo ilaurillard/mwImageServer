@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtension.dart';
@@ -40,7 +43,7 @@ class UBLExtensions {
   XmlNode toXml() {
 
     List<XmlNode?> c2 = [
-      ...uBLExtension.map((UBLExtension e) => e.toXml()).toList(),
+      ...uBLExtension.map((UBLExtension e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

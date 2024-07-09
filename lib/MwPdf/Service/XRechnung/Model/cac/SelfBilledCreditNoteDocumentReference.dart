@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -189,14 +192,14 @@ class SelfBilledCreditNoteDocumentReference {
       issueDate?.toXml(),
       issueTime?.toXml(),
       documentTypeCode?.toXml(),
-      ...documentType.map((DocumentType e) => e.toXml()).toList(),
-      ...xPath.map((XPath e) => e.toXml()).toList(),
+      ...documentType.map((DocumentType e) => e.toXml()),
+      ...xPath.map((XPath e) => e.toXml()),
       referencedDocumentInternalAddress?.toXml(),
       languageID?.toXml(),
       localeCode?.toXml(),
       versionID?.toXml(),
       documentStatusCode?.toXml(),
-      ...documentDescription.map((DocumentDescription e) => e.toXml()).toList(),
+      ...documentDescription.map((DocumentDescription e) => e.toXml()),
       attachment?.toXml(),
       validityPeriod?.toXml(),
       issuerParty?.toXml(),

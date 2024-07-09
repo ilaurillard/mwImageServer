@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/EnvironmentalEmissionTypeCode.dart';
@@ -73,8 +76,8 @@ class EnvironmentalEmission {
       uBLExtensions?.toXml(),
       environmentalEmissionTypeCode.toXml(),
       valueMeasure.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
-      ...emissionCalculationMethod.map((EmissionCalculationMethod e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
+      ...emissionCalculationMethod.map((EmissionCalculationMethod e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

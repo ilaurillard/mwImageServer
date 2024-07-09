@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -154,7 +157,7 @@ class PreviousCustomsDeclaration {
       freightForwarderParty?.toXml(),
       customsParty?.toXml(),
       previousCustomsDeclaration?.toXml(),
-      ...additionalDocumentReference.map((AdditionalDocumentReference e) => e.toXml()).toList(),
+      ...additionalDocumentReference.map((AdditionalDocumentReference e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

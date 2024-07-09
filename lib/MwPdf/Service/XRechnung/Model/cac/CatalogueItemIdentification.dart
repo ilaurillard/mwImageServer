@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -99,8 +102,8 @@ class CatalogueItemIdentification {
       extendedID?.toXml(),
       barcodeSymbologyID?.toXml(),
       issuerScopeID?.toXml(),
-      ...physicalAttribute.map((PhysicalAttribute e) => e.toXml()).toList(),
-      ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
+      ...physicalAttribute.map((PhysicalAttribute e) => e.toXml()),
+      ...measurementDimension.map((MeasurementDimension e) => e.toXml()),
       issuerParty?.toXml(),
 
     ];

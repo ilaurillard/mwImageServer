@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -227,16 +230,16 @@ class MaritimeHealthDeclaration {
       reinspectionRequiredIndicator?.toXml(),
       totalDeadPersonQuantity?.toXml(),
       totalIllPersonQuantity?.toXml(),
-      ...sickAnimalDescription.map((SickAnimalDescription e) => e.toXml()).toList(),
-      ...stowawayDescription.map((StowawayDescription e) => e.toXml()).toList(),
+      ...sickAnimalDescription.map((SickAnimalDescription e) => e.toXml()),
+      ...stowawayDescription.map((StowawayDescription e) => e.toXml()),
       lastDrinkingWaterAnalysisDate?.toXml(),
-      ...wHOAffectedAreaVisit.map((WHOAffectedAreaVisit e) => e.toXml()).toList(),
-      ...personnelHealthIncident.map((PersonnelHealthIncident e) => e.toXml()).toList(),
-      ...sanitaryMeasure.map((SanitaryMeasure e) => e.toXml()).toList(),
+      ...wHOAffectedAreaVisit.map((WHOAffectedAreaVisit e) => e.toXml()),
+      ...personnelHealthIncident.map((PersonnelHealthIncident e) => e.toXml()),
+      ...sanitaryMeasure.map((SanitaryMeasure e) => e.toXml()),
       placeOfReportLocation?.toXml(),
       medicalCertificate?.toXml(),
       shipSanitationControlCertificate?.toXml(),
-      ...shipSanitationControlExemptionDocumentReference.map((ShipSanitationControlExemptionDocumentReference e) => e.toXml()).toList(),
+      ...shipSanitationControlExemptionDocumentReference.map((ShipSanitationControlExemptionDocumentReference e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

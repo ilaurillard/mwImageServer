@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -144,18 +147,18 @@ class LastExitPortLocation {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       iD?.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
-      ...conditions.map((Conditions e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
+      ...conditions.map((Conditions e) => e.toXml()),
       countrySubentity?.toXml(),
       countrySubentityCode?.toXml(),
       locationTypeCode?.toXml(),
       informationURI?.toXml(),
       name?.toXml(),
-      ...validityPeriod.map((ValidityPeriod e) => e.toXml()).toList(),
+      ...validityPeriod.map((ValidityPeriod e) => e.toXml()),
       address?.toXml(),
       storage?.toXml(),
-      ...subsidiaryLocation.map((SubsidiaryLocation e) => e.toXml()).toList(),
-      ...locationCoordinate.map((LocationCoordinate e) => e.toXml()).toList(),
+      ...subsidiaryLocation.map((SubsidiaryLocation e) => e.toXml()),
+      ...locationCoordinate.map((LocationCoordinate e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

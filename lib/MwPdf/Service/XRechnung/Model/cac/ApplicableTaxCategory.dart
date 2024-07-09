@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -125,7 +128,7 @@ class ApplicableTaxCategory {
       baseUnitMeasure?.toXml(),
       perUnitAmount?.toXml(),
       taxExemptionReasonCode?.toXml(),
-      ...taxExemptionReason.map((TaxExemptionReason e) => e.toXml()).toList(),
+      ...taxExemptionReason.map((TaxExemptionReason e) => e.toXml()),
       tierRange?.toXml(),
       tierRatePercent?.toXml(),
       taxScheme?.toXml(),

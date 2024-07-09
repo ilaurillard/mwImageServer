@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -82,7 +85,7 @@ class ShipStoreArticle {
       iD.toXml(),
       name?.toXml(),
       quantity?.toXml(),
-      ...officialUse.map((OfficialUse e) => e.toXml()).toList(),
+      ...officialUse.map((OfficialUse e) => e.toXml()),
       stowage?.toXml(),
 
     ];

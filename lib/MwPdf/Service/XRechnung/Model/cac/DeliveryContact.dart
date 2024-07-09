@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -118,8 +121,8 @@ class DeliveryContact {
       telephone?.toXml(),
       telefax?.toXml(),
       electronicMail?.toXml(),
-      ...note.map((Note e) => e.toXml()).toList(),
-      ...otherCommunication.map((OtherCommunication e) => e.toXml()).toList(),
+      ...note.map((Note e) => e.toXml()),
+      ...otherCommunication.map((OtherCommunication e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

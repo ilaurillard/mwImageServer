@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ChargeIndicator.dart';
@@ -170,7 +173,7 @@ class ExtraAllowanceCharge {
       iD?.toXml(),
       chargeIndicator.toXml(),
       allowanceChargeReasonCode?.toXml(),
-      ...allowanceChargeReason.map((AllowanceChargeReason e) => e.toXml()).toList(),
+      ...allowanceChargeReason.map((AllowanceChargeReason e) => e.toXml()),
       multiplierFactorNumeric?.toXml(),
       prepaidIndicator?.toXml(),
       sequenceNumeric?.toXml(),
@@ -180,9 +183,9 @@ class ExtraAllowanceCharge {
       accountingCostCode?.toXml(),
       accountingCost?.toXml(),
       perUnitAmount?.toXml(),
-      ...taxCategory.map((TaxCategory e) => e.toXml()).toList(),
+      ...taxCategory.map((TaxCategory e) => e.toXml()),
       taxTotal?.toXml(),
-      ...paymentMeans.map((PaymentMeans e) => e.toXml()).toList(),
+      ...paymentMeans.map((PaymentMeans e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -72,9 +75,9 @@ class PartyAuthorization {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       purposeCode?.toXml(),
-      ...purpose.map((Purpose e) => e.toXml()).toList(),
+      ...purpose.map((Purpose e) => e.toXml()),
       validityPeriod?.toXml(),
-      ...certificate.map((Certificate e) => e.toXml()).toList(),
+      ...certificate.map((Certificate e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

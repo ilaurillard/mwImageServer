@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -266,31 +269,31 @@ class PackagedTransportHandlingUnit {
       iD?.toXml(),
       transportHandlingUnitTypeCode?.toXml(),
       handlingCode?.toXml(),
-      ...handlingInstructions.map((HandlingInstructions e) => e.toXml()).toList(),
+      ...handlingInstructions.map((HandlingInstructions e) => e.toXml()),
       hazardousRiskIndicator?.toXml(),
       totalGoodsItemQuantity?.toXml(),
       totalPackageQuantity?.toXml(),
-      ...damageRemarks.map((DamageRemarks e) => e.toXml()).toList(),
-      ...shippingMarks.map((ShippingMarks e) => e.toXml()).toList(),
+      ...damageRemarks.map((DamageRemarks e) => e.toXml()),
+      ...shippingMarks.map((ShippingMarks e) => e.toXml()),
       traceID?.toXml(),
-      ...handlingUnitDespatchLine.map((HandlingUnitDespatchLine e) => e.toXml()).toList(),
-      ...actualPackage.map((ActualPackage e) => e.toXml()).toList(),
-      ...receivedHandlingUnitReceiptLine.map((ReceivedHandlingUnitReceiptLine e) => e.toXml()).toList(),
-      ...transportEquipment.map((TransportEquipment e) => e.toXml()).toList(),
-      ...transportMeans.map((TransportMeans e) => e.toXml()).toList(),
-      ...hazardousGoodsTransit.map((HazardousGoodsTransit e) => e.toXml()).toList(),
-      ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
+      ...handlingUnitDespatchLine.map((HandlingUnitDespatchLine e) => e.toXml()),
+      ...actualPackage.map((ActualPackage e) => e.toXml()),
+      ...receivedHandlingUnitReceiptLine.map((ReceivedHandlingUnitReceiptLine e) => e.toXml()),
+      ...transportEquipment.map((TransportEquipment e) => e.toXml()),
+      ...transportMeans.map((TransportMeans e) => e.toXml()),
+      ...hazardousGoodsTransit.map((HazardousGoodsTransit e) => e.toXml()),
+      ...measurementDimension.map((MeasurementDimension e) => e.toXml()),
       minimumTemperature?.toXml(),
       maximumTemperature?.toXml(),
-      ...goodsItem.map((GoodsItem e) => e.toXml()).toList(),
+      ...goodsItem.map((GoodsItem e) => e.toXml()),
       floorSpaceMeasurementDimension?.toXml(),
       palletSpaceMeasurementDimension?.toXml(),
-      ...shipmentDocumentReference.map((ShipmentDocumentReference e) => e.toXml()).toList(),
-      ...status.map((Status e) => e.toXml()).toList(),
-      ...customsDeclaration.map((CustomsDeclaration e) => e.toXml()).toList(),
-      ...referencedShipment.map((ReferencedShipment e) => e.toXml()).toList(),
-      ...package.map((Package e) => e.toXml()).toList(),
-      ...damageDocumentationAttachment.map((DamageDocumentationAttachment e) => e.toXml()).toList(),
+      ...shipmentDocumentReference.map((ShipmentDocumentReference e) => e.toXml()),
+      ...status.map((Status e) => e.toXml()),
+      ...customsDeclaration.map((CustomsDeclaration e) => e.toXml()),
+      ...referencedShipment.map((ReferencedShipment e) => e.toXml()),
+      ...package.map((Package e) => e.toXml()),
+      ...damageDocumentationAttachment.map((DamageDocumentationAttachment e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

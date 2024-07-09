@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -409,7 +412,7 @@ class GoodsItem {
       uBLExtensions?.toXml(),
       iD?.toXml(),
       sequenceNumberID?.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
       hazardousRiskIndicator?.toXml(),
       declaredCustomsValueAmount?.toXml(),
       declaredForCarriageValueAmount?.toXml(),
@@ -433,24 +436,24 @@ class GoodsItem {
       chargeableQuantity?.toXml(),
       returnableQuantity?.toXml(),
       traceID?.toXml(),
-      ...item.map((Item e) => e.toXml()).toList(),
-      ...goodsItemContainer.map((GoodsItemContainer e) => e.toXml()).toList(),
-      ...freightAllowanceCharge.map((FreightAllowanceCharge e) => e.toXml()).toList(),
-      ...invoiceLine.map((InvoiceLine e) => e.toXml()).toList(),
-      ...orderLineReference.map((OrderLineReference e) => e.toXml()).toList(),
+      ...item.map((Item e) => e.toXml()),
+      ...goodsItemContainer.map((GoodsItemContainer e) => e.toXml()),
+      ...freightAllowanceCharge.map((FreightAllowanceCharge e) => e.toXml()),
+      ...invoiceLine.map((InvoiceLine e) => e.toXml()),
+      ...orderLineReference.map((OrderLineReference e) => e.toXml()),
       despatchLineReference?.toXml(),
       receiptLineReference?.toXml(),
-      ...temperature.map((Temperature e) => e.toXml()).toList(),
-      ...containedGoodsItem.map((ContainedGoodsItem e) => e.toXml()).toList(),
+      ...temperature.map((Temperature e) => e.toXml()),
+      ...containedGoodsItem.map((ContainedGoodsItem e) => e.toXml()),
       originAddress?.toXml(),
       delivery?.toXml(),
       pickup?.toXml(),
       despatch?.toXml(),
       bondedWarehouseLocation?.toXml(),
-      ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
-      ...containingPackage.map((ContainingPackage e) => e.toXml()).toList(),
+      ...measurementDimension.map((MeasurementDimension e) => e.toXml()),
+      ...containingPackage.map((ContainingPackage e) => e.toXml()),
       shipmentDocumentReference?.toXml(),
-      ...additionalDocumentReference.map((AdditionalDocumentReference e) => e.toXml()).toList(),
+      ...additionalDocumentReference.map((AdditionalDocumentReference e) => e.toXml()),
       minimumTemperature?.toXml(),
       maximumTemperature?.toXml(),
 

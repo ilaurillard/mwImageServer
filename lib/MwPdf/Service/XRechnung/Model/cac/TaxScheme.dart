@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -83,7 +86,7 @@ class TaxScheme {
       name?.toXml(),
       taxTypeCode?.toXml(),
       currencyCode?.toXml(),
-      ...jurisdictionRegionAddress.map((JurisdictionRegionAddress e) => e.toXml()).toList(),
+      ...jurisdictionRegionAddress.map((JurisdictionRegionAddress e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

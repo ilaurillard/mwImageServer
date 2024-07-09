@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -156,7 +159,7 @@ class PartyLegalEntity {
       registrationDate?.toXml(),
       registrationExpirationDate?.toXml(),
       companyLegalFormCode?.toXml(),
-      ...companyLegalForm.map((CompanyLegalForm e) => e.toXml()).toList(),
+      ...companyLegalForm.map((CompanyLegalForm e) => e.toXml()),
       soleProprietorshipIndicator?.toXml(),
       companyLiquidationStatusCode?.toXml(),
       corporateStockAmount?.toXml(),
@@ -164,7 +167,7 @@ class PartyLegalEntity {
       registrationAddress?.toXml(),
       corporateRegistrationScheme?.toXml(),
       headOfficeParty?.toXml(),
-      ...shareholderParty.map((ShareholderParty e) => e.toXml()).toList(),
+      ...shareholderParty.map((ShareholderParty e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

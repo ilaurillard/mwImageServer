@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -146,16 +149,16 @@ class CurrentStatus {
       conditionCode?.toXml(),
       referenceDate?.toXml(),
       referenceTime?.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
       statusReasonCode?.toXml(),
-      ...statusReason.map((StatusReason e) => e.toXml()).toList(),
+      ...statusReason.map((StatusReason e) => e.toXml()),
       sequenceID?.toXml(),
-      ...text.map((Text e) => e.toXml()).toList(),
+      ...text.map((Text e) => e.toXml()),
       indicationIndicator?.toXml(),
       percent?.toXml(),
       reliabilityPercent?.toXml(),
-      ...subStatus.map((SubStatus e) => e.toXml()).toList(),
-      ...condition.map((Condition e) => e.toXml()).toList(),
+      ...subStatus.map((SubStatus e) => e.toXml()),
+      ...condition.map((Condition e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

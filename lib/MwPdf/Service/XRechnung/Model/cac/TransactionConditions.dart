@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -73,8 +76,8 @@ class TransactionConditions {
       uBLExtensions?.toXml(),
       iD?.toXml(),
       actionCode?.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
-      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
+      ...documentReference.map((DocumentReference e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

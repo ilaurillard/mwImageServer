@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/Name.dart';
@@ -165,15 +168,15 @@ class AdditionalItemProperty {
       testMethod?.toXml(),
       value?.toXml(),
       valueQuantity?.toXml(),
-      ...valueQualifier.map((ValueQualifier e) => e.toXml()).toList(),
+      ...valueQualifier.map((ValueQualifier e) => e.toXml()),
       importanceCode?.toXml(),
-      ...listValue.map((ListValue e) => e.toXml()).toList(),
+      ...listValue.map((ListValue e) => e.toXml()),
       usabilityPeriod?.toXml(),
-      ...itemPropertyGroup.map((ItemPropertyGroup e) => e.toXml()).toList(),
+      ...itemPropertyGroup.map((ItemPropertyGroup e) => e.toXml()),
       rangeDimension?.toXml(),
       itemPropertyRange?.toXml(),
       standardPropertyIdentification?.toXml(),
-      ...subItemProperty.map((SubItemProperty e) => e.toXml()).toList(),
+      ...subItemProperty.map((SubItemProperty e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

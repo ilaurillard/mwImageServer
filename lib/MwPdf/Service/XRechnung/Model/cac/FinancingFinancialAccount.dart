@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -117,7 +120,7 @@ class FinancingFinancialAccount {
       accountTypeCode?.toXml(),
       accountFormatCode?.toXml(),
       currencyCode?.toXml(),
-      ...paymentNote.map((PaymentNote e) => e.toXml()).toList(),
+      ...paymentNote.map((PaymentNote e) => e.toXml()),
       financialInstitutionBranch?.toXml(),
       country?.toXml(),
 

@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/TransportServiceCode.dart';
@@ -227,25 +230,25 @@ class OriginalDespatchTransportationService {
       tariffClassCode?.toXml(),
       priority?.toXml(),
       freightRateClassCode?.toXml(),
-      ...transportationServiceDescription.map((TransportationServiceDescription e) => e.toXml()).toList(),
+      ...transportationServiceDescription.map((TransportationServiceDescription e) => e.toXml()),
       transportationServiceDetailsURI?.toXml(),
       nominationDate?.toXml(),
       nominationTime?.toXml(),
       name?.toXml(),
       sequenceNumeric?.toXml(),
-      ...transportEquipment.map((TransportEquipment e) => e.toXml()).toList(),
-      ...supportedTransportEquipment.map((SupportedTransportEquipment e) => e.toXml()).toList(),
-      ...unsupportedTransportEquipment.map((UnsupportedTransportEquipment e) => e.toXml()).toList(),
-      ...commodityClassification.map((CommodityClassification e) => e.toXml()).toList(),
-      ...supportedCommodityClassification.map((SupportedCommodityClassification e) => e.toXml()).toList(),
-      ...unsupportedCommodityClassification.map((UnsupportedCommodityClassification e) => e.toXml()).toList(),
+      ...transportEquipment.map((TransportEquipment e) => e.toXml()),
+      ...supportedTransportEquipment.map((SupportedTransportEquipment e) => e.toXml()),
+      ...unsupportedTransportEquipment.map((UnsupportedTransportEquipment e) => e.toXml()),
+      ...commodityClassification.map((CommodityClassification e) => e.toXml()),
+      ...supportedCommodityClassification.map((SupportedCommodityClassification e) => e.toXml()),
+      ...unsupportedCommodityClassification.map((UnsupportedCommodityClassification e) => e.toXml()),
       totalCapacityDimension?.toXml(),
-      ...shipmentStage.map((ShipmentStage e) => e.toXml()).toList(),
-      ...transportEvent.map((TransportEvent e) => e.toXml()).toList(),
+      ...shipmentStage.map((ShipmentStage e) => e.toXml()),
+      ...transportEvent.map((TransportEvent e) => e.toXml()),
       responsibleTransportServiceProviderParty?.toXml(),
-      ...environmentalEmission.map((EnvironmentalEmission e) => e.toXml()).toList(),
+      ...environmentalEmission.map((EnvironmentalEmission e) => e.toXml()),
       estimatedDurationPeriod?.toXml(),
-      ...scheduledServiceFrequency.map((ScheduledServiceFrequency e) => e.toXml()).toList(),
+      ...scheduledServiceFrequency.map((ScheduledServiceFrequency e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -115,10 +118,10 @@ class RequestedArrivalEvent {
       occurrenceDate?.toXml(),
       occurrenceTime?.toXml(),
       typeCode?.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
       completionIndicator?.toXml(),
-      ...currentStatus.map((CurrentStatus e) => e.toXml()).toList(),
-      ...contact.map((Contact e) => e.toXml()).toList(),
+      ...currentStatus.map((CurrentStatus e) => e.toXml()),
+      ...contact.map((Contact e) => e.toXml()),
       occurenceLocation?.toXml(),
 
     ];

@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -298,8 +301,8 @@ class ConsolidatedShipment {
       iD?.toXml(),
       shippingPriorityLevelCode?.toXml(),
       handlingCode?.toXml(),
-      ...handlingInstructions.map((HandlingInstructions e) => e.toXml()).toList(),
-      ...information.map((Information e) => e.toXml()).toList(),
+      ...handlingInstructions.map((HandlingInstructions e) => e.toXml()),
+      ...information.map((Information e) => e.toXml()),
       grossWeightMeasure?.toXml(),
       netWeightMeasure?.toXml(),
       netNetWeightMeasure?.toXml(),
@@ -312,21 +315,21 @@ class ConsolidatedShipment {
       declaredForCarriageValueAmount?.toXml(),
       declaredStatisticsValueAmount?.toXml(),
       freeOnBoardValueAmount?.toXml(),
-      ...specialInstructions.map((SpecialInstructions e) => e.toXml()).toList(),
-      ...deliveryInstructions.map((DeliveryInstructions e) => e.toXml()).toList(),
+      ...specialInstructions.map((SpecialInstructions e) => e.toXml()),
+      ...deliveryInstructions.map((DeliveryInstructions e) => e.toXml()),
       splitConsignmentIndicator?.toXml(),
       consignmentQuantity?.toXml(),
-      ...consignment.map((Consignment e) => e.toXml()).toList(),
-      ...goodsItem.map((GoodsItem e) => e.toXml()).toList(),
-      ...shipmentStage.map((ShipmentStage e) => e.toXml()).toList(),
+      ...consignment.map((Consignment e) => e.toXml()),
+      ...goodsItem.map((GoodsItem e) => e.toXml()),
+      ...shipmentStage.map((ShipmentStage e) => e.toXml()),
       delivery?.toXml(),
-      ...transportHandlingUnit.map((TransportHandlingUnit e) => e.toXml()).toList(),
+      ...transportHandlingUnit.map((TransportHandlingUnit e) => e.toXml()),
       returnAddress?.toXml(),
       originAddress?.toXml(),
       firstArrivalPortLocation?.toXml(),
       lastExitPortLocation?.toXml(),
       exportCountry?.toXml(),
-      ...freightAllowanceCharge.map((FreightAllowanceCharge e) => e.toXml()).toList(),
+      ...freightAllowanceCharge.map((FreightAllowanceCharge e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

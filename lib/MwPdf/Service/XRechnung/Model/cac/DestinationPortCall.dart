@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -128,15 +131,15 @@ class DestinationPortCall {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       iD?.toXml(),
-      ...plannedOperationsDescription.map((PlannedOperationsDescription e) => e.toXml()).toList(),
-      ...plannedWorksDescription.map((PlannedWorksDescription e) => e.toXml()).toList(),
-      ...plannedInspectionsDescription.map((PlannedInspectionsDescription e) => e.toXml()).toList(),
+      ...plannedOperationsDescription.map((PlannedOperationsDescription e) => e.toXml()),
+      ...plannedWorksDescription.map((PlannedWorksDescription e) => e.toXml()),
+      ...plannedInspectionsDescription.map((PlannedInspectionsDescription e) => e.toXml()),
       expectedAnchorageIndicator?.toXml(),
       positionInPortID?.toXml(),
-      ...cargoAndBallastTankConditionDescription.map((CargoAndBallastTankConditionDescription e) => e.toXml()).toList(),
-      ...shipRequirement.map((ShipRequirement e) => e.toXml()).toList(),
+      ...cargoAndBallastTankConditionDescription.map((CargoAndBallastTankConditionDescription e) => e.toXml()),
+      ...shipRequirement.map((ShipRequirement e) => e.toXml()),
       primaryPortCallPurpose?.toXml(),
-      ...additionalPortCallPurpose.map((AdditionalPortCallPurpose e) => e.toXml()).toList(),
+      ...additionalPortCallPurpose.map((AdditionalPortCallPurpose e) => e.toXml()),
       requestedArrivalEvent?.toXml(),
 
     ];

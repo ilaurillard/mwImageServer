@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -108,7 +111,7 @@ class HazardousGoodsTransit {
       hazardousRegulationCode?.toXml(),
       inhalationToxicityZoneCode?.toXml(),
       transportAuthorizationCode?.toXml(),
-      ...transitDescription.map((TransitDescription e) => e.toXml()).toList(),
+      ...transitDescription.map((TransitDescription e) => e.toXml()),
       maximumTemperature?.toXml(),
       minimumTemperature?.toXml(),
 

@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -72,7 +75,7 @@ class PreviousPriceList {
       uBLExtensions?.toXml(),
       iD?.toXml(),
       statusCode?.toXml(),
-      ...validityPeriod.map((ValidityPeriod e) => e.toXml()).toList(),
+      ...validityPeriod.map((ValidityPeriod e) => e.toXml()),
       previousPriceList?.toXml(),
 
     ];

@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -147,16 +150,16 @@ class PersonnelHealthIncident {
       uBLExtensions?.toXml(),
       iD.toXml(),
       joinedShipDate?.toXml(),
-      ...natureOfIllnessDescription.map((NatureOfIllnessDescription e) => e.toXml()).toList(),
+      ...natureOfIllnessDescription.map((NatureOfIllnessDescription e) => e.toXml()),
       onsetDate?.toXml(),
       reportedToMedicalOfficerIndicator?.toXml(),
-      ...givenTreatmentDescription.map((GivenTreatmentDescription e) => e.toXml()).toList(),
+      ...givenTreatmentDescription.map((GivenTreatmentDescription e) => e.toXml()),
       stillIllIndicator?.toXml(),
       diedIndicator?.toXml(),
       stillOnBoardIndicator?.toXml(),
       evacuatedIndicator?.toXml(),
       buriedAtSeaIndicator?.toXml(),
-      ...note.map((Note e) => e.toXml()).toList(),
+      ...note.map((Note e) => e.toXml()),
       person?.toXml(),
 
     ];

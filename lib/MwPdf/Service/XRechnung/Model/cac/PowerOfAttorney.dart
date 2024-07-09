@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cac/AgentParty.dart';
@@ -106,11 +109,11 @@ class PowerOfAttorney {
       iD?.toXml(),
       issueDate?.toXml(),
       issueTime?.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
       notaryParty?.toXml(),
       agentParty.toXml(),
-      ...witnessParty.map((WitnessParty e) => e.toXml()).toList(),
-      ...mandateDocumentReference.map((MandateDocumentReference e) => e.toXml()).toList(),
+      ...witnessParty.map((WitnessParty e) => e.toXml()),
+      ...mandateDocumentReference.map((MandateDocumentReference e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

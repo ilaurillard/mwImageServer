@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -64,8 +67,8 @@ class PrimaryPortCallPurpose {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       purposeTypeCode?.toXml(),
-      ...purposeType.map((PurposeType e) => e.toXml()).toList(),
-      ...description.map((Description e) => e.toXml()).toList(),
+      ...purposeType.map((PurposeType e) => e.toXml()),
+      ...description.map((Description e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

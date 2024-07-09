@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -147,15 +150,15 @@ class DetentionTransportEvent {
       occurrenceDate?.toXml(),
       occurrenceTime?.toXml(),
       transportEventTypeCode?.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
       completionIndicator?.toXml(),
       reportedShipment?.toXml(),
-      ...currentStatus.map((CurrentStatus e) => e.toXml()).toList(),
+      ...currentStatus.map((CurrentStatus e) => e.toXml()),
       responsibleParty?.toXml(),
-      ...contact.map((Contact e) => e.toXml()).toList(),
+      ...contact.map((Contact e) => e.toXml()),
       location?.toXml(),
       signature?.toXml(),
-      ...period.map((Period e) => e.toXml()).toList(),
+      ...period.map((Period e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

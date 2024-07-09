@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -145,7 +148,7 @@ class TransportMeans {
       uBLExtensions?.toXml(),
       journeyID?.toXml(),
       registrationNationalityID?.toXml(),
-      ...registrationNationality.map((RegistrationNationality e) => e.toXml()).toList(),
+      ...registrationNationality.map((RegistrationNationality e) => e.toXml()),
       directionCode?.toXml(),
       transportMeansTypeCode?.toXml(),
       tradeServiceCode?.toXml(),
@@ -155,7 +158,7 @@ class TransportMeans {
       railTransport?.toXml(),
       maritimeTransport?.toXml(),
       ownerParty?.toXml(),
-      ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
+      ...measurementDimension.map((MeasurementDimension e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

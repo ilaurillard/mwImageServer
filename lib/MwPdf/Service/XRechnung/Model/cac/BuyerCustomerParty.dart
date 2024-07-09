@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -97,7 +100,7 @@ class BuyerCustomerParty {
       uBLExtensions?.toXml(),
       customerAssignedAccountID?.toXml(),
       supplierAssignedAccountID?.toXml(),
-      ...additionalAccountID.map((AdditionalAccountID e) => e.toXml()).toList(),
+      ...additionalAccountID.map((AdditionalAccountID e) => e.toXml()),
       party?.toXml(),
       deliveryContact?.toXml(),
       accountingContact?.toXml(),

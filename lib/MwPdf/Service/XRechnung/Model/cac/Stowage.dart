@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -64,8 +67,8 @@ class Stowage {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       locationID?.toXml(),
-      ...location.map((Location e) => e.toXml()).toList(),
-      ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
+      ...location.map((Location e) => e.toXml()),
+      ...measurementDimension.map((MeasurementDimension e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

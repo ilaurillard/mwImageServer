@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -177,11 +180,11 @@ class BallastWaterSummary {
       tanksNotExchangedQuantity?.toXml(),
       totalBallastWaterOnBoardMeasure?.toXml(),
       totalBallastWaterCapacityMeasure?.toXml(),
-      ...otherControlActions.map((OtherControlActions e) => e.toXml()).toList(),
-      ...noControlActionsReason.map((NoControlActionsReason e) => e.toXml()).toList(),
-      ...uptakeBallastWaterTransaction.map((UptakeBallastWaterTransaction e) => e.toXml()).toList(),
-      ...exchangeBallastWaterTransaction.map((ExchangeBallastWaterTransaction e) => e.toXml()).toList(),
-      ...dischargeBallastWaterTransaction.map((DischargeBallastWaterTransaction e) => e.toXml()).toList(),
+      ...otherControlActions.map((OtherControlActions e) => e.toXml()),
+      ...noControlActionsReason.map((NoControlActionsReason e) => e.toXml()),
+      ...uptakeBallastWaterTransaction.map((UptakeBallastWaterTransaction e) => e.toXml()),
+      ...exchangeBallastWaterTransaction.map((ExchangeBallastWaterTransaction e) => e.toXml()),
+      ...dischargeBallastWaterTransaction.map((DischargeBallastWaterTransaction e) => e.toXml()),
       responsibleOfficerPerson?.toXml(),
 
     ];

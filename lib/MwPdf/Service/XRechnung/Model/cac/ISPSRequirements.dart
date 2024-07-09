@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -153,15 +156,15 @@ class ISPSRequirements {
       uBLExtensions?.toXml(),
       iD.toXml(),
       validISSCIndicator?.toXml(),
-      ...iSSCAbsenceReason.map((ISSCAbsenceReason e) => e.toXml()).toList(),
+      ...iSSCAbsenceReason.map((ISSCAbsenceReason e) => e.toXml()),
       iSSCExpiryDate?.toXml(),
       sSPOnBoardIndicator?.toXml(),
       sSPSecurityMeasuresAppliedIndicator?.toXml(),
       currentOperatingSecurityLevelCode?.toXml(),
-      ...additionalMattersDescription.map((AdditionalMattersDescription e) => e.toXml()).toList(),
-      ...additionalSecurityMeasure.map((AdditionalSecurityMeasure e) => e.toXml()).toList(),
-      ...portCallRecord.map((PortCallRecord e) => e.toXml()).toList(),
-      ...shipToShipActivityRecord.map((ShipToShipActivityRecord e) => e.toXml()).toList(),
+      ...additionalMattersDescription.map((AdditionalMattersDescription e) => e.toXml()),
+      ...additionalSecurityMeasure.map((AdditionalSecurityMeasure e) => e.toXml()),
+      ...portCallRecord.map((PortCallRecord e) => e.toXml()),
+      ...shipToShipActivityRecord.map((ShipToShipActivityRecord e) => e.toXml()),
       reportLocation?.toXml(),
       iSSCIssuerParty?.toXml(),
       securityOfficerPerson?.toXml(),

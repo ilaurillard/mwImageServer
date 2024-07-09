@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -129,7 +132,7 @@ class Signature {
       uBLExtensions?.toXml(),
       iD.toXml(),
       reasonCode?.toXml(),
-      ...note.map((Note e) => e.toXml()).toList(),
+      ...note.map((Note e) => e.toXml()),
       validationDate?.toXml(),
       validationTime?.toXml(),
       validatorID?.toXml(),

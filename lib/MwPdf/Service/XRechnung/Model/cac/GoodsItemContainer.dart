@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -65,7 +68,7 @@ class GoodsItemContainer {
       uBLExtensions?.toXml(),
       iD.toXml(),
       quantity?.toXml(),
-      ...transportEquipment.map((TransportEquipment e) => e.toXml()).toList(),
+      ...transportEquipment.map((TransportEquipment e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

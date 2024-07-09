@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -179,18 +182,18 @@ class ContainedPackage {
       returnableMaterialIndicator?.toXml(),
       packageLevelCode?.toXml(),
       packagingTypeCode?.toXml(),
-      ...packagingType.map((PackagingType e) => e.toXml()).toList(),
-      ...packingMaterial.map((PackingMaterial e) => e.toXml()).toList(),
+      ...packagingType.map((PackagingType e) => e.toXml()),
+      ...packingMaterial.map((PackingMaterial e) => e.toXml()),
       traceID?.toXml(),
-      ...containedPackage.map((ContainedPackage e) => e.toXml()).toList(),
+      ...containedPackage.map((ContainedPackage e) => e.toXml()),
       containingTransportEquipment?.toXml(),
-      ...goodsItem.map((GoodsItem e) => e.toXml()).toList(),
-      ...measurementDimension.map((MeasurementDimension e) => e.toXml()).toList(),
-      ...deliveryUnit.map((DeliveryUnit e) => e.toXml()).toList(),
+      ...goodsItem.map((GoodsItem e) => e.toXml()),
+      ...measurementDimension.map((MeasurementDimension e) => e.toXml()),
+      ...deliveryUnit.map((DeliveryUnit e) => e.toXml()),
       delivery?.toXml(),
       pickup?.toXml(),
       despatch?.toXml(),
-      ...status.map((Status e) => e.toXml()).toList(),
+      ...status.map((Status e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

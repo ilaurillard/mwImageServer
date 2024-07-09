@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/PaymentMeansCode.dart';
@@ -177,21 +180,21 @@ class PaymentMeans {
       uBLExtensions?.toXml(),
       iD?.toXml(),
       paymentMeansCode.toXml(),
-      ...paymentMeansDescription.map((PaymentMeansDescription e) => e.toXml()).toList(),
+      ...paymentMeansDescription.map((PaymentMeansDescription e) => e.toXml()),
       paymentDueDate?.toXml(),
       paymentChannelCode?.toXml(),
       instructionID?.toXml(),
-      ...instructionNote.map((InstructionNote e) => e.toXml()).toList(),
-      ...paymentID.map((PaymentID e) => e.toXml()).toList(),
+      ...instructionNote.map((InstructionNote e) => e.toXml()),
+      ...paymentID.map((PaymentID e) => e.toXml()),
       chargeBearerCode?.toXml(),
       serviceLevelCode?.toXml(),
-      ...cardAccount.map((CardAccount e) => e.toXml()).toList(),
+      ...cardAccount.map((CardAccount e) => e.toXml()),
       payerFinancialAccount?.toXml(),
       payeeFinancialAccount?.toXml(),
       creditAccount?.toXml(),
       paymentMandate?.toXml(),
       tradeFinancing?.toXml(),
-      ...remittanceDocumentDistribution.map((RemittanceDocumentDistribution e) => e.toXml()).toList(),
+      ...remittanceDocumentDistribution.map((RemittanceDocumentDistribution e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

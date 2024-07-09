@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cac/TaxScheme.dart';
@@ -99,7 +102,7 @@ class PartyTaxScheme {
       companyID?.toXml(),
       taxLevelCode?.toXml(),
       exemptionReasonCode?.toXml(),
-      ...exemptionReason.map((ExemptionReason e) => e.toXml()).toList(),
+      ...exemptionReason.map((ExemptionReason e) => e.toXml()),
       registrationAddress?.toXml(),
       taxScheme.toXml(),
 

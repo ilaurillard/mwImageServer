@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -273,7 +276,7 @@ class InvoiceLine {
       uBLExtensions?.toXml(),
       iD.toXml(),
       uUID?.toXml(),
-      ...note.map((Note e) => e.toXml()).toList(),
+      ...note.map((Note e) => e.toXml()),
       invoicedQuantity?.toXml(),
       lineExtensionAmount.toXml(),
       taxInclusiveLineExtensionAmount?.toXml(),
@@ -282,23 +285,23 @@ class InvoiceLine {
       accountingCost?.toXml(),
       paymentPurposeCode?.toXml(),
       freeOfChargeIndicator?.toXml(),
-      ...invoicePeriod.map((InvoicePeriod e) => e.toXml()).toList(),
-      ...orderLineReference.map((OrderLineReference e) => e.toXml()).toList(),
-      ...despatchLineReference.map((DespatchLineReference e) => e.toXml()).toList(),
-      ...receiptLineReference.map((ReceiptLineReference e) => e.toXml()).toList(),
-      ...billingReference.map((BillingReference e) => e.toXml()).toList(),
-      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+      ...invoicePeriod.map((InvoicePeriod e) => e.toXml()),
+      ...orderLineReference.map((OrderLineReference e) => e.toXml()),
+      ...despatchLineReference.map((DespatchLineReference e) => e.toXml()),
+      ...receiptLineReference.map((ReceiptLineReference e) => e.toXml()),
+      ...billingReference.map((BillingReference e) => e.toXml()),
+      ...documentReference.map((DocumentReference e) => e.toXml()),
       pricingReference?.toXml(),
       originatorParty?.toXml(),
-      ...delivery.map((Delivery e) => e.toXml()).toList(),
-      ...paymentTerms.map((PaymentTerms e) => e.toXml()).toList(),
-      ...allowanceCharge.map((AllowanceCharge e) => e.toXml()).toList(),
-      ...taxTotal.map((TaxTotal e) => e.toXml()).toList(),
-      ...withholdingTaxTotal.map((WithholdingTaxTotal e) => e.toXml()).toList(),
+      ...delivery.map((Delivery e) => e.toXml()),
+      ...paymentTerms.map((PaymentTerms e) => e.toXml()),
+      ...allowanceCharge.map((AllowanceCharge e) => e.toXml()),
+      ...taxTotal.map((TaxTotal e) => e.toXml()),
+      ...withholdingTaxTotal.map((WithholdingTaxTotal e) => e.toXml()),
       item.toXml(),
       price?.toXml(),
       deliveryTerms?.toXml(),
-      ...subInvoiceLine.map((SubInvoiceLine e) => e.toXml()).toList(),
+      ...subInvoiceLine.map((SubInvoiceLine e) => e.toXml()),
       itemPriceExtension?.toXml(),
 
     ];

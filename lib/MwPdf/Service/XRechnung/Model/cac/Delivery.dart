@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -257,13 +260,13 @@ class Delivery {
       estimatedDeliveryPeriod?.toXml(),
       carrierParty?.toXml(),
       deliveryParty?.toXml(),
-      ...notifyParty.map((NotifyParty e) => e.toXml()).toList(),
+      ...notifyParty.map((NotifyParty e) => e.toXml()),
       despatch?.toXml(),
-      ...deliveryTerms.map((DeliveryTerms e) => e.toXml()).toList(),
+      ...deliveryTerms.map((DeliveryTerms e) => e.toXml()),
       minimumDeliveryUnit?.toXml(),
       maximumDeliveryUnit?.toXml(),
       shipment?.toXml(),
-      ...fuelConsumption.map((FuelConsumption e) => e.toXml()).toList(),
+      ...fuelConsumption.map((FuelConsumption e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -97,11 +100,11 @@ class Certificate {
       uBLExtensions?.toXml(),
       iD.toXml(),
       certificateTypeCode?.toXml(),
-      ...certificateType.map((CertificateType e) => e.toXml()).toList(),
-      ...remarks.map((Remarks e) => e.toXml()).toList(),
+      ...certificateType.map((CertificateType e) => e.toXml()),
+      ...remarks.map((Remarks e) => e.toXml()),
       issuerParty?.toXml(),
-      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
-      ...signature.map((Signature e) => e.toXml()).toList(),
+      ...documentReference.map((DocumentReference e) => e.toXml()),
+      ...signature.map((Signature e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

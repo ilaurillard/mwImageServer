@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/Amount.dart';
@@ -65,7 +68,7 @@ class ItemPriceExtension {
       uBLExtensions?.toXml(),
       amount.toXml(),
       taxInclusiveAmount?.toXml(),
-      ...taxTotal.map((TaxTotal e) => e.toXml()).toList(),
+      ...taxTotal.map((TaxTotal e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

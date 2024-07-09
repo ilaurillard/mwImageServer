@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -209,12 +212,12 @@ class Despatch {
       guaranteedDespatchDate?.toXml(),
       guaranteedDespatchTime?.toXml(),
       releaseID?.toXml(),
-      ...instructions.map((Instructions e) => e.toXml()).toList(),
+      ...instructions.map((Instructions e) => e.toXml()),
       despatchAddress?.toXml(),
       despatchLocation?.toXml(),
       despatchParty?.toXml(),
       carrierParty?.toXml(),
-      ...notifyParty.map((NotifyParty e) => e.toXml()).toList(),
+      ...notifyParty.map((NotifyParty e) => e.toXml()),
       responsibleParty?.toXml(),
       contact?.toXml(),
       estimatedDespatchPeriod?.toXml(),

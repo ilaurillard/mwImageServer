@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -303,39 +306,39 @@ class Item {
 
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
       packQuantity?.toXml(),
       packSizeNumeric?.toXml(),
       catalogueIndicator?.toXml(),
       name?.toXml(),
       itemTypeCode?.toXml(),
       hazardousRiskIndicator?.toXml(),
-      ...additionalInformation.map((AdditionalInformation e) => e.toXml()).toList(),
-      ...keyword.map((Keyword e) => e.toXml()).toList(),
-      ...brandName.map((BrandName e) => e.toXml()).toList(),
-      ...modelName.map((ModelName e) => e.toXml()).toList(),
-      ...warrantyInformation.map((WarrantyInformation e) => e.toXml()).toList(),
+      ...additionalInformation.map((AdditionalInformation e) => e.toXml()),
+      ...keyword.map((Keyword e) => e.toXml()),
+      ...brandName.map((BrandName e) => e.toXml()),
+      ...modelName.map((ModelName e) => e.toXml()),
+      ...warrantyInformation.map((WarrantyInformation e) => e.toXml()),
       buyersItemIdentification?.toXml(),
       sellersItemIdentification?.toXml(),
-      ...manufacturersItemIdentification.map((ManufacturersItemIdentification e) => e.toXml()).toList(),
+      ...manufacturersItemIdentification.map((ManufacturersItemIdentification e) => e.toXml()),
       standardItemIdentification?.toXml(),
       catalogueItemIdentification?.toXml(),
-      ...additionalItemIdentification.map((AdditionalItemIdentification e) => e.toXml()).toList(),
+      ...additionalItemIdentification.map((AdditionalItemIdentification e) => e.toXml()),
       catalogueDocumentReference?.toXml(),
-      ...itemSpecificationDocumentReference.map((ItemSpecificationDocumentReference e) => e.toXml()).toList(),
+      ...itemSpecificationDocumentReference.map((ItemSpecificationDocumentReference e) => e.toXml()),
       originCountry?.toXml(),
-      ...commodityClassification.map((CommodityClassification e) => e.toXml()).toList(),
-      ...transactionConditions.map((TransactionConditions e) => e.toXml()).toList(),
-      ...hazardousItem.map((HazardousItem e) => e.toXml()).toList(),
-      ...classifiedTaxCategory.map((ClassifiedTaxCategory e) => e.toXml()).toList(),
-      ...additionalItemProperty.map((AdditionalItemProperty e) => e.toXml()).toList(),
-      ...manufacturerParty.map((ManufacturerParty e) => e.toXml()).toList(),
+      ...commodityClassification.map((CommodityClassification e) => e.toXml()),
+      ...transactionConditions.map((TransactionConditions e) => e.toXml()),
+      ...hazardousItem.map((HazardousItem e) => e.toXml()),
+      ...classifiedTaxCategory.map((ClassifiedTaxCategory e) => e.toXml()),
+      ...additionalItemProperty.map((AdditionalItemProperty e) => e.toXml()),
+      ...manufacturerParty.map((ManufacturerParty e) => e.toXml()),
       informationContentProviderParty?.toXml(),
-      ...originAddress.map((OriginAddress e) => e.toXml()).toList(),
-      ...itemInstance.map((ItemInstance e) => e.toXml()).toList(),
-      ...certificate.map((Certificate e) => e.toXml()).toList(),
-      ...dimension.map((Dimension e) => e.toXml()).toList(),
-      ...environmentalEmission.map((EnvironmentalEmission e) => e.toXml()).toList(),
+      ...originAddress.map((OriginAddress e) => e.toXml()),
+      ...itemInstance.map((ItemInstance e) => e.toXml()),
+      ...certificate.map((Certificate e) => e.toXml()),
+      ...dimension.map((Dimension e) => e.toXml()),
+      ...environmentalEmission.map((EnvironmentalEmission e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

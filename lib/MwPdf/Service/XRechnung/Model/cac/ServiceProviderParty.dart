@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cac/Party.dart';
@@ -81,7 +84,7 @@ class ServiceProviderParty {
       uBLExtensions?.toXml(),
       iD?.toXml(),
       serviceTypeCode?.toXml(),
-      ...serviceType.map((ServiceType e) => e.toXml()).toList(),
+      ...serviceType.map((ServiceType e) => e.toXml()),
       party.toXml(),
       sellerContact?.toXml(),
 

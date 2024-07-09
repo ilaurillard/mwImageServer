@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -147,13 +150,13 @@ class OriginalItemLocationQuantity {
       minimumQuantity?.toXml(),
       maximumQuantity?.toXml(),
       hazardousRiskIndicator?.toXml(),
-      ...tradingRestrictions.map((TradingRestrictions e) => e.toXml()).toList(),
-      ...applicableTerritoryAddress.map((ApplicableTerritoryAddress e) => e.toXml()).toList(),
+      ...tradingRestrictions.map((TradingRestrictions e) => e.toXml()),
+      ...applicableTerritoryAddress.map((ApplicableTerritoryAddress e) => e.toXml()),
       price?.toXml(),
-      ...deliveryUnit.map((DeliveryUnit e) => e.toXml()).toList(),
-      ...applicableTaxCategory.map((ApplicableTaxCategory e) => e.toXml()).toList(),
+      ...deliveryUnit.map((DeliveryUnit e) => e.toXml()),
+      ...applicableTaxCategory.map((ApplicableTaxCategory e) => e.toXml()),
       package?.toXml(),
-      ...allowanceCharge.map((AllowanceCharge e) => e.toXml()).toList(),
+      ...allowanceCharge.map((AllowanceCharge e) => e.toXml()),
       dependentPriceReference?.toXml(),
       applicableDeliveryPeriod?.toXml(),
 

@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -128,7 +131,7 @@ class PaymentMandate {
       payerFinancialAccount?.toXml(),
       validityPeriod?.toXml(),
       paymentReversalPeriod?.toXml(),
-      ...clause.map((Clause e) => e.toXml()).toList(),
+      ...clause.map((Clause e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

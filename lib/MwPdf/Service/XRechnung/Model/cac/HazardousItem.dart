@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -266,10 +269,10 @@ class HazardousItem {
       iD?.toXml(),
       placardNotation?.toXml(),
       placardEndorsement?.toXml(),
-      ...additionalInformation.map((AdditionalInformation e) => e.toXml()).toList(),
+      ...additionalInformation.map((AdditionalInformation e) => e.toXml()),
       uNDGCode?.toXml(),
       uNPackingGroupCode?.toXml(),
-      ...uNPackingGroup.map((UNPackingGroup e) => e.toXml()).toList(),
+      ...uNPackingGroup.map((UNPackingGroup e) => e.toXml()),
       emergencyProceduresCode?.toXml(),
       medicalFirstAidGuideCode?.toXml(),
       tunnelRestrictionCode?.toXml(),
@@ -285,11 +288,11 @@ class HazardousItem {
       netVolumeMeasure?.toXml(),
       quantity?.toXml(),
       contactParty?.toXml(),
-      ...secondaryHazard.map((SecondaryHazard e) => e.toXml()).toList(),
-      ...hazardousGoodsTransit.map((HazardousGoodsTransit e) => e.toXml()).toList(),
+      ...secondaryHazard.map((SecondaryHazard e) => e.toXml()),
+      ...hazardousGoodsTransit.map((HazardousGoodsTransit e) => e.toXml()),
       emergencyTemperature?.toXml(),
       flashpointTemperature?.toXml(),
-      ...additionalTemperature.map((AdditionalTemperature e) => e.toXml()).toList(),
+      ...additionalTemperature.map((AdditionalTemperature e) => e.toXml()),
       positionOnBoardStowage?.toXml(),
 
     ];

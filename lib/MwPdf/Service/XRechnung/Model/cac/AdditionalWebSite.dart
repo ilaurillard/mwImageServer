@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/URI.dart';
@@ -89,10 +92,10 @@ class AdditionalWebSite {
       uBLExtensions?.toXml(),
       iD?.toXml(),
       name?.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
       webSiteTypeCode?.toXml(),
       uRI.toXml(),
-      ...webSiteAccess.map((WebSiteAccess e) => e.toXml()).toList(),
+      ...webSiteAccess.map((WebSiteAccess e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

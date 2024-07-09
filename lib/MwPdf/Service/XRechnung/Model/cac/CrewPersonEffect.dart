@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/EffectDescription.dart';
@@ -57,7 +60,7 @@ class CrewPersonEffect {
 
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
-      ...effectDescription.map((EffectDescription e) => e.toXml()).toList(),
+      ...effectDescription.map((EffectDescription e) => e.toXml()),
       crewPerson?.toXml(),
 
     ];

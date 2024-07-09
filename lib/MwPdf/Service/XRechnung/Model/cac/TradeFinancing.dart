@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cac/FinancingParty.dart';
@@ -98,10 +101,10 @@ class TradeFinancing {
       iD?.toXml(),
       financingInstrumentCode?.toXml(),
       contractDocumentReference?.toXml(),
-      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+      ...documentReference.map((DocumentReference e) => e.toXml()),
       financingParty.toXml(),
       financingFinancialAccount?.toXml(),
-      ...clause.map((Clause e) => e.toXml()).toList(),
+      ...clause.map((Clause e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

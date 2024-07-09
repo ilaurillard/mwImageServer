@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -109,7 +112,7 @@ class ItemInstance {
       bestBeforeDate?.toXml(),
       registrationID?.toXml(),
       serialID?.toXml(),
-      ...additionalItemProperty.map((AdditionalItemProperty e) => e.toXml()).toList(),
+      ...additionalItemProperty.map((AdditionalItemProperty e) => e.toXml()),
       lotIdentification?.toXml(),
 
     ];

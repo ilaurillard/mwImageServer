@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/WeighingMethodCode.dart';
@@ -139,7 +142,7 @@ class VerifiedGrossMass {
       weighingParty?.toXml(),
       shipperParty?.toXml(),
       responsibleParty?.toXml(),
-      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+      ...documentReference.map((DocumentReference e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -209,13 +212,13 @@ class ReceivedHandlingUnitReceiptLine {
       uBLExtensions?.toXml(),
       iD.toXml(),
       uUID?.toXml(),
-      ...note.map((Note e) => e.toXml()).toList(),
+      ...note.map((Note e) => e.toXml()),
       receivedQuantity?.toXml(),
       shortQuantity?.toXml(),
       shortageActionCode?.toXml(),
       rejectedQuantity?.toXml(),
       rejectReasonCode?.toXml(),
-      ...rejectReason.map((RejectReason e) => e.toXml()).toList(),
+      ...rejectReason.map((RejectReason e) => e.toXml()),
       rejectActionCode?.toXml(),
       quantityDiscrepancyCode?.toXml(),
       oversupplyQuantity?.toXml(),
@@ -224,10 +227,10 @@ class ReceivedHandlingUnitReceiptLine {
       timingComplaintCode?.toXml(),
       timingComplaint?.toXml(),
       orderLineReference?.toXml(),
-      ...despatchLineReference.map((DespatchLineReference e) => e.toXml()).toList(),
-      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
-      ...item.map((Item e) => e.toXml()).toList(),
-      ...shipment.map((Shipment e) => e.toXml()).toList(),
+      ...despatchLineReference.map((DespatchLineReference e) => e.toXml()),
+      ...documentReference.map((DocumentReference e) => e.toXml()),
+      ...item.map((Item e) => e.toXml()),
+      ...shipment.map((Shipment e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

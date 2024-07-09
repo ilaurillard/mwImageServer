@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/Description.dart';
@@ -58,7 +61,7 @@ class AdditionalSecurityMeasure {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       iD?.toXml(),
-      ...description.map((Description e) => e.toXml()).toList(),
+      ...description.map((Description e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

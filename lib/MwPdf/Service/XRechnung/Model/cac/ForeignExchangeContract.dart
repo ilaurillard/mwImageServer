@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -174,13 +177,13 @@ class ForeignExchangeContract {
       nominationTime?.toXml(),
       contractTypeCode?.toXml(),
       contractType?.toXml(),
-      ...note.map((Note e) => e.toXml()).toList(),
+      ...note.map((Note e) => e.toXml()),
       versionID?.toXml(),
       modificationReasonCode?.toXml(),
-      ...modificationReasonDescription.map((ModificationReasonDescription e) => e.toXml()).toList(),
-      ...description.map((Description e) => e.toXml()).toList(),
+      ...modificationReasonDescription.map((ModificationReasonDescription e) => e.toXml()),
+      ...description.map((Description e) => e.toXml()),
       validityPeriod?.toXml(),
-      ...contractDocumentReference.map((ContractDocumentReference e) => e.toXml()).toList(),
+      ...contractDocumentReference.map((ContractDocumentReference e) => e.toXml()),
       nominationPeriod?.toXml(),
       contractualDelivery?.toXml(),
 

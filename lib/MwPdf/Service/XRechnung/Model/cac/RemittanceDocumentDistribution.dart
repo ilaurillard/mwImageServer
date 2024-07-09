@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cac/Party.dart';
@@ -122,7 +125,7 @@ class RemittanceDocumentDistribution {
       iD?.toXml(),
       documentTypeCode?.toXml(),
       distributionTypeCode?.toXml(),
-      ...distributionType.map((DistributionType e) => e.toXml()).toList(),
+      ...distributionType.map((DistributionType e) => e.toXml()),
       printQualifier?.toXml(),
       copyIndicator?.toXml(),
       maximumCopiesNumeric?.toXml(),

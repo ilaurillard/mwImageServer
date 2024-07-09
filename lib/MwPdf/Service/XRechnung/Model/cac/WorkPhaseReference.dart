@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -97,11 +100,11 @@ class WorkPhaseReference {
       uBLExtensions?.toXml(),
       iD?.toXml(),
       workPhaseCode?.toXml(),
-      ...workPhase.map((WorkPhase e) => e.toXml()).toList(),
+      ...workPhase.map((WorkPhase e) => e.toXml()),
       progressPercent?.toXml(),
       startDate?.toXml(),
       endDate?.toXml(),
-      ...workOrderDocumentReference.map((WorkOrderDocumentReference e) => e.toXml()).toList(),
+      ...workOrderDocumentReference.map((WorkOrderDocumentReference e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

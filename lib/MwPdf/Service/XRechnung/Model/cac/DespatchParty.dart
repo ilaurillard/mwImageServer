@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -221,22 +224,22 @@ class DespatchParty {
       logoReferenceID?.toXml(),
       endpointID?.toXml(),
       industryClassificationCode?.toXml(),
-      ...partyIdentification.map((PartyIdentification e) => e.toXml()).toList(),
-      ...partyName.map((PartyName e) => e.toXml()).toList(),
+      ...partyIdentification.map((PartyIdentification e) => e.toXml()),
+      ...partyName.map((PartyName e) => e.toXml()),
       language?.toXml(),
       postalAddress?.toXml(),
       physicalLocation?.toXml(),
-      ...partyTaxScheme.map((PartyTaxScheme e) => e.toXml()).toList(),
-      ...partyLegalEntity.map((PartyLegalEntity e) => e.toXml()).toList(),
+      ...partyTaxScheme.map((PartyTaxScheme e) => e.toXml()),
+      ...partyLegalEntity.map((PartyLegalEntity e) => e.toXml()),
       contact?.toXml(),
-      ...person.map((Person e) => e.toXml()).toList(),
+      ...person.map((Person e) => e.toXml()),
       agentParty?.toXml(),
-      ...serviceProviderParty.map((ServiceProviderParty e) => e.toXml()).toList(),
-      ...powerOfAttorney.map((PowerOfAttorney e) => e.toXml()).toList(),
-      ...partyAuthorization.map((PartyAuthorization e) => e.toXml()).toList(),
+      ...serviceProviderParty.map((ServiceProviderParty e) => e.toXml()),
+      ...powerOfAttorney.map((PowerOfAttorney e) => e.toXml()),
+      ...partyAuthorization.map((PartyAuthorization e) => e.toXml()),
       financialAccount?.toXml(),
-      ...additionalWebSite.map((AdditionalWebSite e) => e.toXml()).toList(),
-      ...socialMediaProfile.map((SocialMediaProfile e) => e.toXml()).toList(),
+      ...additionalWebSite.map((AdditionalWebSite e) => e.toXml()),
+      ...socialMediaProfile.map((SocialMediaProfile e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

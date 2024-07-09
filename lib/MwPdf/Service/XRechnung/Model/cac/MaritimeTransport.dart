@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -155,7 +158,7 @@ class MaritimeTransport {
       vesselName?.toXml(),
       radioCallSignID?.toXml(),
       mMSIRegistrationID?.toXml(),
-      ...shipsRequirements.map((ShipsRequirements e) => e.toXml()).toList(),
+      ...shipsRequirements.map((ShipsRequirements e) => e.toXml()),
       grossTonnageMeasure?.toXml(),
       netTonnageMeasure?.toXml(),
       segregatedBallastMeasure?.toXml(),

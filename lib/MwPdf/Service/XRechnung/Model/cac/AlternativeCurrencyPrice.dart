@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/PriceAmount.dart';
@@ -137,15 +140,15 @@ class AlternativeCurrencyPrice {
       priceAmount.toXml(),
       taxInclusivePriceAmount?.toXml(),
       baseQuantity?.toXml(),
-      ...priceChangeReason.map((PriceChangeReason e) => e.toXml()).toList(),
+      ...priceChangeReason.map((PriceChangeReason e) => e.toXml()),
       priceTypeCode?.toXml(),
       priceType?.toXml(),
       orderableUnitFactorRate?.toXml(),
-      ...validityPeriod.map((ValidityPeriod e) => e.toXml()).toList(),
+      ...validityPeriod.map((ValidityPeriod e) => e.toXml()),
       priceList?.toXml(),
-      ...allowanceCharge.map((AllowanceCharge e) => e.toXml()).toList(),
+      ...allowanceCharge.map((AllowanceCharge e) => e.toXml()),
       pricingExchangeRate?.toXml(),
-      ...alternativeCurrencyPrice.map((AlternativeCurrencyPrice e) => e.toXml()).toList(),
+      ...alternativeCurrencyPrice.map((AlternativeCurrencyPrice e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

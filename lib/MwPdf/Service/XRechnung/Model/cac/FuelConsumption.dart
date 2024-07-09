@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -105,11 +108,11 @@ class FuelConsumption {
       uBLExtensions?.toXml(),
       iD?.toXml(),
       fuelTypeCode?.toXml(),
-      ...fuelType.map((FuelType e) => e.toXml()).toList(),
+      ...fuelType.map((FuelType e) => e.toXml()),
       fuelConsumptionMeasure?.toXml(),
-      ...additionalFuelProperty.map((AdditionalFuelProperty e) => e.toXml()).toList(),
-      ...fuelMetering.map((FuelMetering e) => e.toXml()).toList(),
-      ...environmentalEmission.map((EnvironmentalEmission e) => e.toXml()).toList(),
+      ...additionalFuelProperty.map((AdditionalFuelProperty e) => e.toXml()),
+      ...fuelMetering.map((FuelMetering e) => e.toXml()),
+      ...environmentalEmission.map((EnvironmentalEmission e) => e.toXml()),
       fuelProviderParty?.toXml(),
 
     ];

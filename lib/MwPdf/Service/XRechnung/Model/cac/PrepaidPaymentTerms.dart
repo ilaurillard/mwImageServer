@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -192,9 +195,9 @@ class PrepaidPaymentTerms {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       iD?.toXml(),
-      ...paymentMeansID.map((PaymentMeansID e) => e.toXml()).toList(),
+      ...paymentMeansID.map((PaymentMeansID e) => e.toXml()),
       prepaidPaymentReferenceID?.toXml(),
-      ...note.map((Note e) => e.toXml()).toList(),
+      ...note.map((Note e) => e.toXml()),
       referenceEventCode?.toXml(),
       settlementDiscountPercent?.toXml(),
       penaltySurchargePercent?.toXml(),

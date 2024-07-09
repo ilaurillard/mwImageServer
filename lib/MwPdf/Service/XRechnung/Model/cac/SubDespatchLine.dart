@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../cbc/ID.dart';
@@ -178,21 +181,21 @@ class SubDespatchLine {
       uBLExtensions?.toXml(),
       iD.toXml(),
       uUID?.toXml(),
-      ...note.map((Note e) => e.toXml()).toList(),
+      ...note.map((Note e) => e.toXml()),
       lineStatusCode?.toXml(),
       deliveredQuantity?.toXml(),
       backorderQuantity?.toXml(),
-      ...backorderReason.map((BackorderReason e) => e.toXml()).toList(),
+      ...backorderReason.map((BackorderReason e) => e.toXml()),
       outstandingQuantity?.toXml(),
-      ...outstandingReason.map((OutstandingReason e) => e.toXml()).toList(),
+      ...outstandingReason.map((OutstandingReason e) => e.toXml()),
       oversupplyQuantity?.toXml(),
       accountingCostCode?.toXml(),
       accountingCost?.toXml(),
-      ...orderLineReference.map((OrderLineReference e) => e.toXml()).toList(),
-      ...documentReference.map((DocumentReference e) => e.toXml()).toList(),
+      ...orderLineReference.map((OrderLineReference e) => e.toXml()),
+      ...documentReference.map((DocumentReference e) => e.toXml()),
       item.toXml(),
-      ...shipment.map((Shipment e) => e.toXml()).toList(),
-      ...subDespatchLine.map((SubDespatchLine e) => e.toXml()).toList(),
+      ...shipment.map((Shipment e) => e.toXml()),
+      ...subDespatchLine.map((SubDespatchLine e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);

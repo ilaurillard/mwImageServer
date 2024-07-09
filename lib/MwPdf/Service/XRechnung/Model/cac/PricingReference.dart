@@ -1,3 +1,6 @@
+// do not edit
+// ignore_for_file: unused_import
+
 import '../../Etc/Util.dart';
 import 'package:xml/xml.dart';
 import '../ext/UBLExtensions.dart';
@@ -56,7 +59,7 @@ class PricingReference {
     List<XmlNode?> c2 = [
       uBLExtensions?.toXml(),
       originalItemLocationQuantity?.toXml(),
-      ...alternativeConditionPrice.map((AlternativeConditionPrice e) => e.toXml()).toList(),
+      ...alternativeConditionPrice.map((AlternativeConditionPrice e) => e.toXml()),
 
     ];
     c2.removeWhere((e) => e == null);
