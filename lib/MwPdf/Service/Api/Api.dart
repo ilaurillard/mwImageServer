@@ -26,7 +26,7 @@ class Api {
         .addMiddleware(
           authorization.apiAccess(),
         )
-        .addHandler(Router()
+        .addHandler((Router()
           ..post(
             '/pdf',
             apiPdf.pdf,
@@ -54,6 +54,6 @@ class Api {
           ..get(
             '/schemax',
             apiPdf.schemax,
-          ));
+          )).call);
   }
 }

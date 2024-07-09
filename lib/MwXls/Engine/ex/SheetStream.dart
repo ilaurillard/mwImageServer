@@ -9,7 +9,6 @@ import 'package:mwcdn/MwXls/Engine/ex/Model/ColIndex.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Sheet.dart';
 import 'package:mwcdn/MwXls/Engine/ex/Styles.dart';
 
-import 'Model/SheetStyle.dart';
 import 'Row.dart';
 
 class SheetStream extends Sheet {
@@ -19,14 +18,11 @@ class SheetStream extends Sheet {
   final State state;
 
   SheetStream({
-    String name = 'Sheet1',
-    SheetStyle sheetStyle = const SheetStyle(),
+    super.name,
+    super.sheetStyle,
     required this.sourceFile,
     required this.state,
-  }) : super(
-          name: name,
-          sheetStyle: sheetStyle,
-        );
+  });
 
   @override
   CellIndex maxCell() {

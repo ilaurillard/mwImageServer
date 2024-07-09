@@ -1,23 +1,18 @@
 import 'dart:async';
 
 import 'package:mwcdn/MwCdn/Api/ApiBucket.dart';
-import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwCdn/Model/Bucket.dart';
 import 'package:mwcdn/MwCdn/Model/BucketStats.dart';
 import 'package:mwcdn/MwCdn/Model/Stats.dart';
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
-import 'package:mwcdn/MwCdn/Service/Database/SqliteStorage.dart';
-import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:shelf/shelf.dart';
 
 class ApiStats extends ApiBucket {
   ApiStats({
-    required SqliteStorage sqliteStorage,
-    required FileStorage fileStorage,
-  }) : super(
-          sqliteStorage: sqliteStorage,
-          fileStorage: fileStorage,
-        );
+    required super.sqliteStorage,
+    required super.fileStorage,
+  });
 
   // ---------------------
 

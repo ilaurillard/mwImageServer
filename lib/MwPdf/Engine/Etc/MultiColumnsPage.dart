@@ -17,33 +17,24 @@ class MultiColumnsPage extends MultiPage {
   late final EdgeInsets _margin;
 
   MultiColumnsPage({
-    PageTheme? pageTheme,
-    PdfPageFormat? pageFormat,
-    required BuildListCallback build,
-    BuildCallback? header,
-    BuildCallback? footer,
-    ThemeData? theme,
-    int maxPages = 20,
-    PageOrientation? orientation,
-    EdgeInsets? margin,
+    super.pageTheme,
+    super.pageFormat,
+    required super.build,
+    super.header,
+    super.footer,
+    super.theme,
+    super.maxPages,
+    super.orientation,
+    EdgeInsets? super.margin,
     TextDirection? textDirection,
     this.columns = 2,
     this.gapWidth = 20,
   })  : _buildList = build,
         super(
-          pageTheme: pageTheme,
-          pageFormat: pageFormat,
-          build: build,
-          margin: margin,
-          theme: theme,
-          orientation: orientation,
           textDirection: textDirection,
           mainAxisAlignment: MainAxisAlignment.start,
-          maxPages: maxPages,
-          header: header,
-          footer: footer,
         ) {
-    _margin = this.margin!.resolve(textDirection);
+    _margin = margin!.resolve(textDirection);
   }
 
   @override

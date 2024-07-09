@@ -30,7 +30,7 @@ class Server {
 
     serveRequests(
       server,
-      app(),
+      app().call,
       poweredByHeader: 'mw',
     );
 

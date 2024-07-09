@@ -26,7 +26,7 @@ class Api {
         .addMiddleware(
           authorization.apiAccess(),
         )
-        .addHandler(Router()
+        .addHandler((Router()
           ..post(
             '/xls',
             apiXls.xls,
@@ -42,7 +42,7 @@ class Api {
           ..get(
             '/schema',
             apiXls.schema,
-          )
+          )).call
     );
   }
 }

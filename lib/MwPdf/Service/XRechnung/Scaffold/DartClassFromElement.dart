@@ -55,7 +55,7 @@ class DartClassFromElement {
   }
 
   String _render() {
-    String res = '';
+    String res = '// do not edit\n// ignore_for_file: unused_import\n\n';
 
     if (_imports.isNotEmpty) {
       res += (_imports.toSet().toList().join('\n'));
@@ -464,7 +464,7 @@ $attributes
       bool o = minOccurs == 0;
       if (maxOccurs == 0) {
         children +=
-            '      ...$elementVarName.map(($elementClassName e) => e.toXml()).toList(),\n';
+            '      ...$elementVarName.map(($elementClassName e) => e.toXml()),\n';
       } else {
         if (childElement.type != null) {
           children += '      $elementVarName${(o ? '?' : '')}.toXml(),\n';

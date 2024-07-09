@@ -7,7 +7,7 @@ import 'package:mwcdn/MwCdn/Service/Database/ResourceRepository.dart';
 import 'package:mwcdn/MwCdn/Service/Database/TokenRepository.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Model/Entity.dart';
-import 'package:sqflite_common/sqflite.dart';
+// import 'package:sqflite_common/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class SqliteStorage {

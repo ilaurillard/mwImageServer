@@ -48,7 +48,7 @@ class Api {
           authorization.apiAccess(),
         )
         .addHandler(
-          Router()
+          (Router()
             // ----------------------------
             // ---------------------------- bucket
             // ----------------------------
@@ -128,7 +128,7 @@ class Api {
             ..get(
               '/stats',
               apiStats.all,
-            ),
+            )).call,
         );
   }
 }

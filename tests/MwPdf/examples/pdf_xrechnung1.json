@@ -243,11 +243,6 @@
         "paymentMeansCode": {
           "value": "58"
         },
-        "instructionNote": [
-          {
-            "value": "SEPA-Überweisung"
-          }
-        ],
         "paymentID": [
           {
             "value": "xxx"

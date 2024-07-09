@@ -22,6 +22,11 @@ $ podman system prune
 
 
 
+------ scaffold xrechnung model
+
+dart bin/xrechnung/scaffoldFromXsd.dart -o /home/ilja/PhpstormProjects/mwcdn/lib/MwPdf/Service/XRechnung/Model
+
+
 TODO/Ideen
 ----------
 

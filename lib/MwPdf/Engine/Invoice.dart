@@ -7,15 +7,15 @@ import 'package:xml/xml.dart';
 
 class Invoice {
   XmlDocument? cii;
-  XmlDocument? xrechnung;
+  XmlDocument? ubl;
 
   Invoice({
     this.cii,
-    this.xrechnung,
+    this.ubl,
   }) {
-    if (cii != null && xrechnung != null) {
+    if (cii != null && ubl != null) {
       throw Exception(
-        'cannot be both cii *and* xrechnung',
+        'cannot be both cii *and* ubl',
       );
     }
   }
@@ -31,7 +31,7 @@ class Invoice {
               jsonCII,
             ).toXml()
           : null,
-      xrechnung: jsonXR.isNotEmpty
+      ubl: jsonXR.isNotEmpty
           ? x_invoice.Invoice.fromJson(
               jsonXR,
             )?.toXml()
@@ -43,6 +43,6 @@ class Invoice {
     if (cii != null) {
       return cii;
     }
-    return xrechnung;
+    return ubl;
   }
 }

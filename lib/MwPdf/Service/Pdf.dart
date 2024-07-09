@@ -33,9 +33,8 @@ class Pdf {
     Dict data,
   ) async {
     data = _expandTemplate(data);
-
     Engine engine = await _engine(data);
-
+    // may be an CII or UBL xml document
     return engine.invoice.xml();
   }
 

@@ -42,24 +42,16 @@ class HyphenatedText extends pw.RichText {
   HyphenatedText(
     String text, {
     pw.TextStyle? style,
-    pw.TextAlign? textAlign,
-    pw.TextDirection? textDirection,
-    bool? softWrap,
-    bool tightBounds = false,
-    double textScaleFactor = 1.0,
-    int? maxLines,
-    pw.TextOverflow? overflow,
-    pw.Hyphenation? hyphenation,
+    super.textAlign,
+    super.textDirection,
+    super.softWrap,
+    super.tightBounds,
+    super.textScaleFactor,
+    super.maxLines,
+    super.overflow = null,
+    super.hyphenation,
   }) : super(
           text: pw.TextSpan(text: text, style: style),
-          textAlign: textAlign,
-          softWrap: softWrap,
-          tightBounds: tightBounds,
-          textDirection: textDirection,
-          textScaleFactor: textScaleFactor,
-          maxLines: maxLines,
-          overflow: overflow,
-          hyphenation: hyphenation,
         );
 }
 

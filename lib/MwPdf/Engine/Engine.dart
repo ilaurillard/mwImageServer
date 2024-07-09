@@ -96,7 +96,7 @@ class Engine {
 
       metadata: meta.pdfaRdf(
         cii: invoice.cii != null,
-        xrechnung: invoice.xrechnung != null,
+        ubl: invoice.ubl != null,
       ),
     );
 
@@ -125,13 +125,13 @@ class Engine {
       );
     }
 
-    if (invoice.xrechnung != null) {
+    if (invoice.ubl != null) {
       PdfaAttachedFiles(
         pdf.document,
         {
           // TODO xxx
           'factur-x.xml': Util.prettyXml(
-            invoice.xrechnung!,
+            invoice.ubl!,
           ),
         },
       );
