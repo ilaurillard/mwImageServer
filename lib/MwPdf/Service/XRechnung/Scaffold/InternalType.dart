@@ -22,6 +22,20 @@ class InternalType extends XsdType {
     return 'String';
   }
 
+  String scalarJsonSchemaType() {
+    switch (name) {
+      case 'decimal':
+        return 'number';
+      case 'boolean':
+        return 'boolean';
+      case 'date':
+        return 'XsdDate';
+      case 'time':
+        return 'XsdTime';
+    }
+    return 'string';
+  }
+
   String fromJsonDef(
     String source, {
     bool optional = false,

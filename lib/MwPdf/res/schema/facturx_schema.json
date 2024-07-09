@@ -3745,7 +3745,7 @@
       "type": "object"
     }
   },
-  "description": "factur-x TBD",
+  "description": "factur-x / cii invoice",
   "properties": {
     "exchangedDocument": {
       "$ref": "#/definitions/ExchangedDocument"

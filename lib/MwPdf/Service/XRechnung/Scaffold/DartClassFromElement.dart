@@ -40,6 +40,8 @@ class DartClassFromElement {
     String dir,
     String code,
   ) {
+    // print('writing ${_element.name}');
+
     File f = File(
       join(
         dir,

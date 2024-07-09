@@ -275,17 +275,17 @@
     "taxTotal": [
       {
         "taxAmount": {
-          "value": "1254.0",
+          "value": 1254.0,
           "currencyID": "EUR"
         },
         "taxSubtotal": [
           {
             "taxableAmount": {
-              "value": "6600.0",
+              "value": 6600.0,
               "currencyID": "EUR"
             },
             "taxAmount": {
-              "value": "1254.0",
+              "value": 1254.0,
               "currencyID": "EUR"
             },
             "taxCategory": {
@@ -293,7 +293,7 @@
                 "value": "S"
               },
               "percent": {
-                "value": "19.0"
+                "value": 19.0
               },
               "taxScheme": {
                 "iD": {
@@ -307,31 +307,31 @@
     ],
     "legalMonetaryTotal": {
       "lineExtensionAmount": {
-        "value": "6600.0",
+        "value": 6600.0,
         "currencyID": "EUR"
       },
       "taxExclusiveAmount": {
-        "value": "6600.0",
+        "value": 6600.0,
         "currencyID": "EUR"
       },
       "taxInclusiveAmount": {
-        "value": "7854.0",
+        "value": 7854.0,
         "currencyID": "EUR"
       },
       "allowanceTotalAmount": {
-        "value": "0.0",
+        "value": 0.0,
         "currencyID": "EUR"
       },
       "chargeTotalAmount": {
-        "value": "0.0",
+        "value": 0.0,
         "currencyID": "EUR"
       },
       "prepaidAmount": {
-        "value": "0.0",
+        "value": 0.0,
         "currencyID": "EUR"
       },
       "payableAmount": {
-        "value": "7854.0",
+        "value": 7854.0,
         "currencyID": "EUR"
       }
     },
@@ -341,11 +341,11 @@
           "value": "1"
         },
         "invoicedQuantity": {
-          "value": "220.0",
+          "value": 220.0,
           "unitCode": "C62"
         },
         "lineExtensionAmount": {
-          "value": "6600.0",
+          "value": 6600.0,
           "currencyID": "EUR"
         },
         "item": {
@@ -363,7 +363,7 @@
                 "value": "S"
               },
               "percent": {
-                "value": "19.0"
+                "value": 19.0
               },
               "taxScheme": {
                 "iD": {
@@ -375,11 +375,11 @@
         },
         "price": {
           "priceAmount": {
-            "value": "30.0",
+            "value": 30.0,
             "currencyID": "EUR"
           },
           "baseQuantity": {
-            "value": "1.0",
+            "value": 1.0,
             "unitCode": "C62"
           }
         }
