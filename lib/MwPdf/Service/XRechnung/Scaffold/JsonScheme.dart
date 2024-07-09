@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/ComplexType.dart';
-import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/DartClassFromElement.dart';
 import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/JsonSchemeFromElement.dart';
 import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/XsdType.dart';
 import 'package:path/path.dart';
@@ -78,7 +77,7 @@ class JsonScheme {
     }
 
     if (type is ComplexType) {
-      String typeName = type.fullname;
+      // String typeName = type.fullname;
 
       if (visited.contains(elementName)) {
         // print('${' ' * depth}$elementName <$typeName> *skip*');
