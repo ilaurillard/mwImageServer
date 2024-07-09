@@ -130,7 +130,7 @@ class Engine {
         pdf.document,
         {
           // TODO xxx
-          'factur-x.xml': Util.prettyXml(
+          'xrechnung.xml': Util.prettyXml(
             invoice.ubl!,
           ),
         },

@@ -6,7 +6,11 @@ import 'package:mwcdn/MwPdf/Service/XRechnung/Model/ubl/Invoice.dart'
 import 'package:xml/xml.dart';
 
 class Invoice {
+
+  // cross industry invoice
   XmlDocument? cii;
+
+  // universal business language
   XmlDocument? ubl;
 
   Invoice({

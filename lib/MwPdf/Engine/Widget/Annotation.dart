@@ -84,7 +84,7 @@ class Annotation {
         json,
         state,
       ),
-      description: json['description'] as String? ?? '?',
+      description: json['description'] as String?,
       zoom: double.tryParse(json['zoom'].toString()),
       setX: json['setX'] as bool? ?? false,
     );

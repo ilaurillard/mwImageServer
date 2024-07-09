@@ -77,11 +77,17 @@ class Meta {
 
     String invoiceRdf = '';
     if (cii) {
-      invoiceRdf = PdfaFacturxRdf().create();
+      invoiceRdf = PdfaFacturxRdf().create(
+        filename: 'factur-x.xml',
+        namespace: 'urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#'
+      );
     }
     else if (ubl) {
       // TODO xxx?
-      invoiceRdf = PdfaFacturxRdf().create();
+      invoiceRdf = PdfaFacturxRdf().create(
+        filename: 'xrechnung.xml',
+        namespace: 'urn:cen.eu:invoice:1p0:schema#'
+      );
     }
 
     return PdfaRdf(

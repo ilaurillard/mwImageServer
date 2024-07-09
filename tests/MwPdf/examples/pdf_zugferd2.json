@@ -43,6 +43,16 @@
                 }
               },
               {
+                "Link": {
+                  "destination": "xxx",
+                  "child": {
+                    "Text": {
+                      "text": "Link (links to anchor below)"
+                    }
+                  }
+                }
+              },
+              {
                 "UrlLink": {
                   "destination": "https://demo.verapdf.org/",
                   "child": {
@@ -58,6 +68,16 @@
                   "child": {
                     "Text": {
                       "text": "https://avepdf.com/pdfa-validation"
+                    }
+                  }
+                }
+              },
+              {
+                "Anchor": {
+                  "name": "xxx",
+                  "child": {
+                    "Text": {
+                      "text": "Anchor (xxx)"
                     }
                   }
                 }

@@ -67,6 +67,8 @@ https://github.com/konik-io/js-konik/blob/master/ZUGFeRD-Comfort-Schema.json
 XRechnung:
 https://xrechnungsgenerator.nortal.com/
 https://erechnungsvalidator.service-bw.de/
+https://ecosio.com/de/peppol-und-xml-dokumente-online-validieren/
+https://www.epoconsulting.com/erechnung-sap/xrechnung-validator
 
 Schema:
 http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-Invoice-2.1.xsd
