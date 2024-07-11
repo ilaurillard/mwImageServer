@@ -1050,6 +1050,9 @@
         "BarcodeWidget": {
           "$ref": "#/definitions/Widgets/BarcodeWidget"
         },
+        "KsaInvoiceWidget": {
+          "$ref": "#/definitions/Widgets/KsaInvoiceWidget"
+        },
         "Puzzle": {
           "$ref": "#/definitions/Widgets/Puzzle"
         },
@@ -1357,6 +1360,34 @@
             "$ref": "#/definitions/Widget"
           }
         },
+        "type": "object"
+      },
+      "KsaInvoiceWidget": {
+        "additionalProperties": false,
+        "properties": {
+          "sellerName": {
+            "type": "string"
+          },
+          "sellerTRN": {
+            "type": "string"
+          },
+          "vatPrice": {
+            "type": "string"
+          },
+          "totalWithVat": {
+            "type": "string"
+          },
+          "barcode": {
+            "$ref": "#/definitions/Widgets/BarcodeWidget"
+          }
+        },
+        "required": [
+          "barcode",
+          "sellerName",
+          "sellerTRN",
+          "vatPrice",
+          "totalWithVat"
+        ],
         "type": "object"
       },
       "BarcodeWidget": {

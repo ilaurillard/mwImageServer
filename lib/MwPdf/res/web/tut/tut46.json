@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "XRechnung",
+    "title": "Rechnung",
     "producer": "producer",
     "author": "author",
     "subject": "subject",
@@ -29,7 +29,7 @@
             "children": [
               {
                 "Paragraph": {
-                  "text": "Invoice with embedded X-Rechnung XML"
+                  "text": "Invoice with embedded XRechnung XML"
                 }
               }
             ]
@@ -225,7 +225,7 @@
         "partyLegalEntity": [
           {
             "registrationName": {
-              "value": "peter meier"
+              "value": "petra meier"
             }
           }
         ]
@@ -243,11 +243,6 @@
         "paymentMeansCode": {
           "value": "58"
         },
-        "instructionNote": [
-          {
-            "value": "SEPA-Überweisung"
-          }
-        ],
         "paymentID": [
           {
             "value": "xxx"

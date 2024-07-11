@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "themes": {
+      "@default": {
+        "format": {
+          "preset": "a4"
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "theme": "@default",
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Text": {
+                  "text": "Dieses ist ein in Saudi-Arabien gebräuchlicher QR-Code für e-invoices."
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "UrlLink": {
+                  "destination": "https://play.google.com/store/apps/details?id=com.posbankbh.einvoiceqrreader",
+                  "child": {
+                    "Text": {
+                      "text": "App: E-Invoice QR Reader KSA (Playstore)"
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "KsaInvoiceWidget": {
+                  "sellerName": "mindworks",
+                  "sellerTRN": "333456789012333",
+                  "vatPrice": "150",
+                  "totalWithVat": "30",
+                  "barcode": {
+                    "barcode": "QrCode",
+                    "width": 50,
+                    "height": 50
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

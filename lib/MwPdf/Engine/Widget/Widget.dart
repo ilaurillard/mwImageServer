@@ -340,6 +340,11 @@ class Widget {
             data,
             state,
           );
+        case 'KsaInvoiceWidget':
+          return Barcode.ksaInvoice(
+            data,
+            state,
+          );
         // -----------
         case 'Circle':
           return Shape.circle(data);

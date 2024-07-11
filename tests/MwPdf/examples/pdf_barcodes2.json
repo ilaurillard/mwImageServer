@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "themes": {
+      "@default": {
+        "format": {
+          "preset": "a4"
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "theme": "@default",
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "KsaInvoiceWidget": {
+                  "sellerName": "bonaparta",
+                  "sellerTRN": "333456789012333",
+                  "vatPrice": "150",
+                  "totalWithVat": "30",
+                  "barcode": {
+                    "barcode": "QrCode",
+                    "width": 50,
+                    "height": 50
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
