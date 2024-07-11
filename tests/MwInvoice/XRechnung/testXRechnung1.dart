@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Util.dart';
-import 'package:mwcdn/MwPdf/Service/XRechnung/Model/ubl/Invoice.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/ubl/Invoice.dart';
 import 'package:xml/xml.dart';
 
 Future<void> main() async {

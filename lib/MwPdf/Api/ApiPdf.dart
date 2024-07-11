@@ -8,8 +8,8 @@ import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwMs/Etc/Util.dart';
 import 'package:mwcdn/MwMs/Service/FileStorage/FileStorage.dart';
 import 'package:mwcdn/MwPdf/Engine/Schema/Schema.dart';
-import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Util.dart'
-    as zugferd_util;
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart'
+    as cii_util;
 import 'package:pdf/widgets.dart';
 import 'package:shelf/shelf.dart';
 import 'package:xml/xml.dart';
@@ -93,7 +93,7 @@ class ApiPdf {
       }
 
       return Response.ok(
-        zugferd_util.Util.prettyXml(xml),
+        cii_util.Util.prettyXml(xml),
         headers: Util.xmlHeaders,
       );
     } on ResponseException catch (e) {

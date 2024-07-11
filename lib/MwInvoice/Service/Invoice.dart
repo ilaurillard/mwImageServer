@@ -1,7 +1,6 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
-import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Model/CrossIndustryInvoice.dart';
-import 'package:mwcdn/MwPdf/Service/XRechnung/Model/ubl/Invoice.dart'
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/CrossIndustryInvoice.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/ubl/Invoice.dart'
     as x_invoice;
 import 'package:xml/xml.dart';
 
@@ -27,7 +26,6 @@ class Invoice {
   static Invoice fromJson(
     Dict jsonCII,
     Dict jsonXR,
-    State state,
   ) {
     return Invoice(
       cii: jsonCII.isNotEmpty

@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:mwcdn/MwMs/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Invoice.dart';
+import 'package:mwcdn/MwInvoice/Service/Invoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
-import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -57,7 +57,6 @@ class Engine {
       invoice: Invoice.fromJson(
         (json['facturx'] as Dict?) ?? {},
         (json['xrechnung'] as Dict?) ?? {},
-        state,
       ),
     );
   }

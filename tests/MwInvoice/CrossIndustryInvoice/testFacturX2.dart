@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:mwcdn/MwMs/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Model/CrossIndustryInvoice.dart';
-import 'package:mwcdn/MwPdf/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/CrossIndustryInvoice.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:xml/xml.dart';
 
 Future<void> main() async {

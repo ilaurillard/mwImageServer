@@ -321,10 +321,11 @@ packages:
   pdf:
     dependency: "direct main"
     description:
-      name: pdf
-      sha256: "81d5522bddc1ef5c28e8f0ee40b71708761753c163e0c93a40df56fd515ea0f0"
-      url: "https://pub.dev"
-    source: hosted
+      path: pdf
+      ref: pdfa_3b_ilja
+      resolved-ref: "8a5e224152c3cdfadb0fd8f286b60ac147352b4d"
+      url: "https://github.com/ilaurillard/dart_pdf"
+    source: git
     version: "3.11.0"
   petitparser:
     dependency: transitive

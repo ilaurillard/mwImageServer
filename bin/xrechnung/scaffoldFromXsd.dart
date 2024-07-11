@@ -1,10 +1,11 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/DartClasses.dart';
-import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/JsonScheme.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Scaffold/DartClasses.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Scaffold/JsonScheme.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Scaffold/Schema.dart';
 // import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/Schema.dart';
-import 'package:mwcdn/MwPdf/Service/XRechnung/Scaffold/XsdParser.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Scaffold/XsdParser.dart';
 
 Future<void> main(List<String> arguments) async {
   var parser = ArgParser();
@@ -14,7 +15,6 @@ Future<void> main(List<String> arguments) async {
   String modelDir = argResults['modelDir'].toString();
   String schemaDir = argResults['schemaDir'].toString();
 
-  String identifier = 'ubl';
   String schemaUrl =
       'http://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-Invoice-2.4.xsd';
   // String url =
@@ -22,36 +22,36 @@ Future<void> main(List<String> arguments) async {
 
   await XsdParser(
     schemaUrl,
-    identifier,
+    'ubl',
   ).parse();
+
+  Schema rootSchema = XsdParser.schemaForIdentifier(
+    'ubl',
+  );
 
   print('------------------');
   print('Schema parsed ...\n');
 
-  if (!Directory(modelDir).existsSync()) {
-    print('Folder $modelDir not found');
-  } else {
+  if (Directory(modelDir).existsSync()) {
     print('Generating classes ...\n');
     DartClasses(
-      XsdParser.schemaForIdentifier(
-        identifier,
-      ),
+      rootSchema,
       modelDir,
     ).execute();
+  } else {
+    print('Folder $modelDir not found');
   }
 
   print('---------------------');
 
-  if (!Directory(modelDir).existsSync()) {
-    print('Folder $schemaDir not found');
-  } else {
+  if (Directory(modelDir).existsSync()) {
     print('Generating json scheme ...\n');
     JsonScheme(
-      XsdParser.schemaForIdentifier(
-        identifier,
-      ),
+      rootSchema,
       schemaDir,
     ).execute();
+  } else {
+    print('Folder $schemaDir not found');
   }
 
   print('------------------');
