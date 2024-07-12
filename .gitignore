@@ -13,3 +13,5 @@ data/files/*
 
 .idea/
 /tests/MwPdf/log/
+/log/
+/tests/MwInvoice/SwissQrBill/php/vendor/

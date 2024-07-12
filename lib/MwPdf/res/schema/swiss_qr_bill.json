@@ -1,0 +1,14 @@
+{
+  "additionalProperties": false,
+  "definitions": {
+
+  },
+  "description": "swiss qr bill (handmade)",
+  "properties": {
+
+  },
+  "required": [
+
+  ],
+  "type": "object"
+}

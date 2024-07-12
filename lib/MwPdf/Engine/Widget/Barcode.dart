@@ -13,7 +13,6 @@ class Barcode {
     State state,
   ) {
     KsaInvoiceQr ksa = KsaInvoiceQr.fromJson(json);
-
     Dict data = json['barcode'] as Dict? ?? {};
     data['value'] = ksa.value();
     return barcode(

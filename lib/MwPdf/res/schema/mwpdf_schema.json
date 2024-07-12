@@ -1053,6 +1053,9 @@
         "KsaInvoiceWidget": {
           "$ref": "#/definitions/Widgets/KsaInvoiceWidget"
         },
+        "SwissInvoiceWidget": {
+          "$ref": "swiss_qr_bill.json"
+        },
         "Puzzle": {
           "$ref": "#/definitions/Widgets/Puzzle"
         },

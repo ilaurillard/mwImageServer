@@ -3,6 +3,7 @@ import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/MultiPage.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/SwissInvoice.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Model/Datasource.dart';
@@ -342,6 +343,11 @@ class Widget {
           );
         case 'KsaInvoiceWidget':
           return Barcode.ksaInvoice(
+            data,
+            state,
+          );
+        case 'SwissInvoiceWidget':
+          return SwissInvoice.swissInvoice(
             data,
             state,
           );

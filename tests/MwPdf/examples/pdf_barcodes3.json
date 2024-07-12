@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "themes": {
+      "@default": {
+        "format": {
+          "preset": "a4"
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "theme": "@default",
+      "content": [
+        {
+          "Column": {
+            "children": [
+              {
+                "SwissInvoiceWidget": {
+
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
