@@ -24,8 +24,6 @@ $ podman system prune
 
 
 Bates numbering
-https://de.wikipedia.org/wiki/QR-Rechnung (Schweiz)
-https://pub.dev/packages/e_invoice_generator
 Digitale Signaturen
 Higher-Level Widgets
 

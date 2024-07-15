@@ -4,23 +4,21 @@
       "@default": {
         "format": {
           "preset": "a4",
-          "marginBottom": 120,
+          "marginBottom": 110,
           "marginLeft": 20,
           "marginRight": 20,
           "marginTop": 20
         },
         "styles": {
           "text": {
-            "font": "openSansRegular",
-            "fontNormal": "openSansRegular",
-            "fontBold": "openSansBold",
-            "fontSize": 3.0
+            "font": "helvetica",
+            "fontNormal": "helvetica",
+            "fontBold": "helveticaBold"
           },
           "paragraph": {
-            "font": "openSansRegular",
-            "fontNormal": "openSansRegular",
-            "fontBold": "openSansBold",
-            "fontSize": 3.0
+            "font": "helvetica",
+            "fontNormal": "helvetica",
+            "fontBold": "helveticaBold"
           }
         },
         "background": {
@@ -31,7 +29,7 @@
                 "alignment": "bottomCenter",
                 "child": {
                   "Container": {
-                    "height": 120,
+                    "height": 111,
                     "child": {
                       "Widget": {
                         "source": "@zahlschein"

@@ -4,10 +4,22 @@
       "@default": {
         "format": {
           "preset": "a4",
-          "marginBottom": 120,
+          "marginBottom": 110,
           "marginLeft": 20,
           "marginRight": 10,
           "marginTop": 10
+        },
+        "styles": {
+          "text": {
+            "font": "helvetica",
+            "fontNormal": "helvetica",
+            "fontBold": "helveticaBold"
+          },
+          "paragraph": {
+            "font": "helvetica",
+            "fontNormal": "helvetica",
+            "fontBold": "helveticaBold"
+          }
         },
         "background": {
           "FullPage": {
@@ -17,7 +29,7 @@
                 "alignment": "bottomCenter",
                 "child": {
                   "Container": {
-                    "height": 120,
+                    "height": 106,
                     "child": {
                       "Widget": {
                         "source": "@zahlschein"

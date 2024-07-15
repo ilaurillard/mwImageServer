@@ -42,7 +42,7 @@ class SwissInvoice {
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Expanded(
-                flex: 22,
+                flex: 61,
                 child: pw.Padding(
                   padding: pw.EdgeInsets.fromLTRB(
                     7 * PdfPageFormat.mm,
@@ -61,16 +61,16 @@ class SwissInvoice {
                         ),
                         style: pw.TextStyle(
                           fontWeight: pw.FontWeight.bold,
-                          fontSize: 5 * PdfPageFormat.mm,
+                          fontSize: 3.88 * PdfPageFormat.mm,
                           lineSpacing: 0,
                         ),
                       ),
                       _rechnungsDaten(
                         cc: language,
                         bill: bill,
-                        fs1: 2.0,
-                        fs2: 3.0,
-                        m1: 2.5,
+                        fs1: 2.12,
+                        fs2: 2.82,
+                        m1: 2.82,
                       ),
                       pw.SizedBox(
                         height: 10 * PdfPageFormat.mm,
@@ -78,8 +78,8 @@ class SwissInvoice {
                       _betragsDaten(
                         cc: language,
                         bill: bill,
-                        fs1: 2.0,
-                        fs2: 3.0,
+                        fs1: 2.12,
+                        fs2: 2.82,
                       ),
                       pw.SizedBox(
                         height: 5 * PdfPageFormat.mm,
@@ -100,33 +100,20 @@ class SwissInvoice {
                 ),
               ),
               pw.SizedBox(
-                height: 114 * PdfPageFormat.mm,
+                height: 105 * PdfPageFormat.mm,
+                width: 1 * PdfPageFormat.mm,
                 child: Snip.build(
                   direction: pw.Axis.vertical,
                   offset: 10.0,
                 ),
-                // child: pw.Stack(
-                //   overflow: pw.Overflow.visible,
-                //   children: [
-                //     pw.VerticalDivider(
-                //       borderStyle: pw.BorderStyle.dashed,
-                //       width: 1 * PdfPageFormat.mm,
-                //     ),
-                //     pw.Positioned(
-                //       left: -3.25 * PdfPageFormat.mm,
-                //       bottom: 10 * PdfPageFormat.mm,
-                //       child: _scissors(0),
-                //     ),
-                //   ],
-                // ),
               ),
               pw.Expanded(
-                flex: 20,
+                flex: 56,
                 child: pw.Padding(
                   padding: pw.EdgeInsets.fromLTRB(
-                    7 * PdfPageFormat.mm,
                     5 * PdfPageFormat.mm,
-                    0 * PdfPageFormat.mm,
+                    5 * PdfPageFormat.mm,
+                    5 * PdfPageFormat.mm,
                     10 * PdfPageFormat.mm,
                   ),
                   child: pw.Column(
@@ -142,29 +129,29 @@ class SwissInvoice {
                         ),
                         style: pw.TextStyle(
                           fontWeight: pw.FontWeight.bold,
-                          fontSize: 5 * PdfPageFormat.mm,
+                          fontSize: 3.88 * PdfPageFormat.mm,
                           lineSpacing: 0,
                         ),
                       ),
                       qr,
                       pw.SizedBox(
-                        height: 10 * PdfPageFormat.mm,
+                        height: 5 * PdfPageFormat.mm,
                       ),
                       _betragsDaten(
                         cc: language,
                         bill: bill,
-                        fs1: 3,
-                        fs2: 4,
+                        fs1: 2.82,
+                        fs2: 3.53,
                       ),
                     ],
                   ),
                 ),
               ),
               pw.Expanded(
-                flex: 30,
+                flex: 92,
                 child: pw.Padding(
                   padding: pw.EdgeInsets.fromLTRB(
-                    8 * PdfPageFormat.mm,
+                    0 * PdfPageFormat.mm,
                     6 * PdfPageFormat.mm,
                     7 * PdfPageFormat.mm,
                     7 * PdfPageFormat.mm,
@@ -172,9 +159,9 @@ class SwissInvoice {
                   child: _rechnungsDaten(
                     cc: language,
                     bill: bill,
-                    fs1: 3,
-                    fs2: 4,
-                    m1: 3,
+                    fs1: 2.82,
+                    fs2: 3.53,
+                    m1: 3.53,
                   ),
                 ),
               ),
@@ -189,27 +176,30 @@ class SwissInvoice {
   static pw.Widget _qr({
     required QrBill bill,
   }) {
-    return pw.AspectRatio(
-      aspectRatio: 1.0,
-      child: pw.Stack(
-        children: [
-          pw.BarcodeWidget(
-            data: bill.getQrCodeContent(),
-            barcode: pw.Barcode.fromType(
-              pw.BarcodeType.QrCode,
+    return pw.SizedBox(
+      width: 46 * PdfPageFormat.mm,
+      child: pw.AspectRatio(
+        aspectRatio: 1.0,
+        child: pw.Stack(
+          children: [
+            pw.BarcodeWidget(
+              data: bill.getQrCodeContent(),
+              barcode: pw.Barcode.fromType(
+                pw.BarcodeType.QrCode,
+              ),
             ),
-          ),
-          pw.SvgImage(
-            svg: '<svg viewBox="0 0 53 53">'
-                '<path fill="FFFFFF" '
-                'd="M 22 22 h9 v9 h-9" />'
-                '<path fill="000000" '
-                'd="M 23 23 h7 v7 h-7" />'
-                '<path fill="FFFFFF" '
-                'd="M 24 25.8 h5 v1.4 h-5 M 25.8 24 h1.4 v5 h-1.4" />'
-                '</svg>',
-          ),
-        ],
+            pw.SvgImage(
+              svg: '<svg viewBox="0 0 53 53">'
+                  '<path fill="FFFFFF" '
+                  'd="M 22 22 h9 v9 h-9" />'
+                  '<path fill="000000" '
+                  'd="M 23 23 h7 v7 h-7" />'
+                  '<path fill="FFFFFF" '
+                  'd="M 24 25.8 h5 v1.4 h-5 M 25.8 24 h1.4 v5 h-1.4" />'
+                  '</svg>',
+            ),
+          ],
+        ),
       ),
     );
   }
