@@ -1,13 +1,15 @@
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/Constraint/Iso11649.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/QrCodeableInterface.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/SelfValidatableInterface.dart';
+import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/Reference/QrPaymentReferenceGenerator.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/String/StringModifier.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 
 final class PaymentReference
     implements
         // GroupSequenceProviderInterface,
-        QrCodeableInterface , SelfValidatableInterface
-{
+        QrCodeableInterface,
+        SelfValidatableInterface {
   // use SelfValidatableTrait;
 
   static const String TYPE_QR = 'QRR';
@@ -25,7 +27,9 @@ final class PaymentReference
     required this.type,
     required String reference,
   }) {
-    this.reference = StringModifier.stripWhitespace(reference);
+    this.reference = StringModifier.stripWhitespace(
+      reference,
+    );
   }
 
   String getFormattedReference() {
@@ -63,8 +67,7 @@ final class PaymentReference
       if (reference.isNotEmpty) {
         errors.add('Invalid reference');
       }
-    }
-    else if (type == PaymentReference.TYPE_SCOR)  {
+    } else if (type == PaymentReference.TYPE_SCOR) {
       if (reference.isEmpty) {
         errors.add('Invalid reference');
       }
@@ -72,9 +75,8 @@ final class PaymentReference
       if (!Iso11649().validateRfReference(reference)) {
         errors.add('Invalid reference');
       }
-
-    }
-    else { // QR
+    } else {
+      // QR
       if (reference.isEmpty) {
         errors.add('Invalid reference');
       }
@@ -89,4 +91,16 @@ final class PaymentReference
     return errors;
   }
 
+  static PaymentReference fromJson(
+    Dict json,
+  ) {
+    Dict ref = json['reference'] as Dict? ?? {};
+    return PaymentReference(
+      type: json['type'] as String? ?? '',
+      reference: QrPaymentReferenceGenerator(
+        customerIdentificationNumber: ref['customerIdentificationNumber'] as String? ?? '',
+        referenceNumber: ref['referenceNumber'] as String? ?? '',
+      ).doGenerate(),
+    );
+  }
 }

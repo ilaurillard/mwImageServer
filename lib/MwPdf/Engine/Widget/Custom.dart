@@ -6,6 +6,7 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigDay.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigLane.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/CustomCalendar.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Entries.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/Snip.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Maze.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Suchsel.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Sudoku.dart';
@@ -23,6 +24,19 @@ enum PuzzleType {
 }
 
 class Custom {
+  static pw.Widget snip(
+    Dict json,
+    State state,
+  ) {
+    return Snip.build(
+      padding: Util.edgeInsets(
+        json['padding'] as List<dynamic>?,
+      ),
+      offset: double.tryParse(json['offset'].toString()) ?? 20,
+      direction: Util.axis(json['direction'] as String?) ?? pw.Axis.vertical,
+    );
+  }
+
   static pw.Widget puzzle(
     Dict json,
     State state,

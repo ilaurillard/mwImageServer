@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/QrCodeableInterface.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 
 import '../SelfValidatableInterface.dart';
 
@@ -65,21 +66,12 @@ final class PaymentAmountInformation
     return errors;
   }
 
-//
-// public static function loadValidatorMetadata(ClassMetadata $metadata): void
-// {
-//     $metadata->addPropertyConstraints('amount', [
-//         new Assert\Range([
-//             'min' => 0,
-//             'max'=> 999999999.99
-//         ]),
-//     ]);
-//
-//     $metadata->addPropertyConstraints('currency', [
-//         new Assert\Choice([
-//             self::CURRENCY_CHF,
-//             self::CURRENCY_EUR
-//         ])
-//     ]);
-// }
+  static PaymentAmountInformation fromJson(
+    Dict json,
+  ) {
+    return PaymentAmountInformation(
+      amount: double.tryParse(json['amount'].toString()),
+      currency: json['currency'] as String? ?? '',
+    );
+  }
 }

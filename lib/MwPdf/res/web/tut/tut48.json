@@ -6,22 +6,8 @@
           "preset": "a4",
           "marginBottom": 120,
           "marginLeft": 20,
-          "marginRight": 20,
-          "marginTop": 20
-        },
-        "styles": {
-          "text": {
-            "font": "openSansRegular",
-            "fontNormal": "openSansRegular",
-            "fontBold": "openSansBold",
-            "fontSize": 3.0
-          },
-          "paragraph": {
-            "font": "openSansRegular",
-            "fontNormal": "openSansRegular",
-            "fontBold": "openSansBold",
-            "fontSize": 3.0
-          }
+          "marginRight": 10,
+          "marginTop": 10
         },
         "background": {
           "FullPage": {
@@ -63,8 +49,8 @@
                 }
               },
               {
-                "LoremParagraph": {
-                  "sentence": 100
+                "Paragraph": {
+                  "text": "Die QR-Rechnung (französisch QR-facture, italienisch QR-fattura, englisch QR-bill) ist seit 2020 der Standard der Schweizer Finanzindustrie für maschinenlesbare Rechnungen.\n\nSie ersetzte vom 30. Juni 2020 bis am 30. September 2022 schrittweise die verschiedenen bisher benutzten Einzahlungsscheine. Sie soll zusammen mit der eBill, dem Schweizer Standard für rein digitale Rechnungen, einen Beitrag zur Digitalisierung des Zahlungsverkehrs in der Schweiz leisten.\n\nDie QR-Rechnung enthält einen Zahlteil mit Informationen über den zu zahlenden Betrag, Sender und Empfänger der Zahlung, sowie Angaben zum Grund der Zahlung. Diese Informationen werden sowohl maschinenlesbar als QR-Code wie auch als Text angegeben. Zum anderen umfasst die QR-Rechnung wie die früheren Einzahlungsscheine auch einen Empfangsschein."
                 }
               },
               {
@@ -76,7 +62,7 @@
               },
               {
                 "LoremParagraph": {
-                  "sentence": 100
+                  "sentence": 50
                 }
               }
             ]

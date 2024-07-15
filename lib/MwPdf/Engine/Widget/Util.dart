@@ -654,9 +654,9 @@ class Util {
 
       if (json['expand'] as bool? ?? false) {
         return pw.BoxConstraints.expand(
-          // width: minWidth,
-          // height: minHeight,
-        );
+            // width: minWidth,
+            // height: minHeight,
+            );
       }
 
       return pw.BoxConstraints(
@@ -818,7 +818,9 @@ class Util {
               focalRadius: focalRadius ?? 0.0,
               focal: Util.alignment(data['center'] as String?));
       }
-      throw Exception('Parsing gradient failed');
+      throw Exception(
+        'Parsing gradient failed',
+      );
     }
     return null;
   }

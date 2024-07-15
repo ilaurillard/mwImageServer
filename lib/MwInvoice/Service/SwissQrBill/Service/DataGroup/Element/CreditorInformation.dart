@@ -1,6 +1,7 @@
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/QrCodeableInterface.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/SelfValidatableInterface.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/String/StringModifier.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 
 class CreditorInformation
     implements QrCodeableInterface, SelfValidatableInterface {
@@ -49,5 +50,13 @@ class CreditorInformation
     }
 
     return errors;
+  }
+
+  static CreditorInformation fromJson(
+    Dict json,
+  ) {
+    return CreditorInformation(
+      iban: json['iban'] as String? ?? '',
+    );
   }
 }

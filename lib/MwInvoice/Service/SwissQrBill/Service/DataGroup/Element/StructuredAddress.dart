@@ -88,6 +88,7 @@ final class StructuredAddress extends Address
     return lines.join('\n');
   }
 
+  @override
   List<String> getQrCodeData() {
     return [
       city.isNotEmpty ? StructuredAddress.ADDRESS_TYPE : '',

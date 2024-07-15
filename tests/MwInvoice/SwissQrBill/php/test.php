@@ -60,13 +60,13 @@ foreach ($qrBill->getViolations() as $v) {
     print 'FEHLER: '.$v->getMessage()."\n";
 }
 
-print($qrBill->getQrCodeContent());
-print("\n");
+//print($qrBill->getQrCodeContent());
+//print("\n");
 
 
 //Nur QR-Code als Bild
 //try {
-//    $qrBill->getQrCode()->writeFile(__DIR__ . '/qr.png');
+    $qrBill->getQrCode()->writeFile(__DIR__ . '/qr.png');
 //    $qrBill->getQrCode()->writeFile(__DIR__ . '/qr.svg');
 //} catch (Exception $e) {
 

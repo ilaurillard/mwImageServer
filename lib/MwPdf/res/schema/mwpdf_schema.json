@@ -1057,7 +1057,7 @@
           "$ref": "swiss_qr_bill.json"
         },
         "Puzzle": {
-          "$ref": "#/definitions/Widgets/Puzzle"
+          "$ref": "#/definitions/WidgetsCustom/Puzzle"
         },
         "Bullet": {
           "$ref": "#/definitions/Widgets/Bullet"
@@ -1235,6 +1235,9 @@
         },
         "Wrap": {
           "$ref": "#/definitions/Widgets/Wrap"
+        },
+        "Snip": {
+          "$ref": "#/definitions/WidgetsCustom/Snip"
         }
       },
       "additionalProperties": false,
@@ -1267,9 +1270,7 @@
           }
         },
         "type": "object"
-      }
-    },
-    "Widgets": {
+      },
       "Puzzle": {
         "additionalProperties": false,
         "properties": {
@@ -1308,6 +1309,23 @@
         },
         "type": "object"
       },
+      "Snip": {
+        "additionalProperties": false,
+        "properties": {
+          "offset": {
+            "type": "number"
+          },
+          "direction": {
+            "$ref": "#/definitions/Enum/Axis"
+          },
+          "padding": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "Widgets": {
       "Align": {
         "additionalProperties": false,
         "properties": {

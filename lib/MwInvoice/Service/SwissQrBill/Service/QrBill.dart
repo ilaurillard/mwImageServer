@@ -1,5 +1,6 @@
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/AddressInterface.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/Element/AdditionalInformation.dart';
+import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/Element/Address.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/Element/AlternativeScheme.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/Element/CombinedAddress.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/Element/Header.dart';
@@ -14,6 +15,7 @@ import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/SelfValida
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/QrCode/QrCode.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/Reference/QrPaymentReferenceGenerator.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/String/StringModifier.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 
 import 'DataGroup/Element/CreditorInformation.dart';
 
@@ -49,7 +51,7 @@ final class QrBill implements SelfValidatableInterface {
   ) {
     if (errors().isNotEmpty) {
       throw Exception(
-          'The provided data is not valid to generate a qr code. Use errors() to find details.',
+        'The provided data is not valid to generate a qr code. Use errors() to find details.',
       );
     }
 
@@ -182,6 +184,31 @@ final class QrBill implements SelfValidatableInterface {
     return errors;
   }
 
+  static QrBill fromJson(Dict json) {
+    QrBill bill = QrBill();
+
+    bill.creditor = Address.fromJson(
+      json['creditor'] as Dict? ?? {},
+    );
+
+    Dict ud = json['ultimateDebtor'] as Dict? ?? {};
+    bill.ultimateDebtor = ud.isEmpty ? null : Address.fromJson(ud);
+
+    bill.creditorInformation = CreditorInformation.fromJson(
+      json['creditorInformation'] as Dict? ?? {},
+    );
+
+    bill.paymentAmountInformation = PaymentAmountInformation.fromJson(
+      json['paymentAmountInformation'] as Dict? ?? {},
+    );
+
+    bill.paymentReference = PaymentReference.fromJson(
+      json['paymentReference'] as Dict? ?? {},
+    );
+
+    return bill;
+  }
+
   static QrBill example() {
     QrBill bill = QrBill();
 
@@ -197,12 +224,13 @@ final class QrBill implements SelfValidatableInterface {
     );
 
     bill.ultimateDebtor = StructuredAddress(
-        name: 'Pia-Maria Rutschmann-Schnyder',
-        street: 'Grosse Marktgasse',
-        buildingNumber: '28',
-        postalCode: '9400',
-        city: 'Rorschach',
-        country: 'CH');
+      name: 'Pia-Maria Rutschmann-Schnyder',
+      street: 'Grosse Marktgasse',
+      buildingNumber: '28',
+      postalCode: '9400',
+      city: 'Rorschach',
+      country: 'CH',
+    );
 
     bill.paymentAmountInformation = PaymentAmountInformation(
       currency: 'CHF',
@@ -212,9 +240,9 @@ final class QrBill implements SelfValidatableInterface {
     bill.paymentReference = PaymentReference(
       type: PaymentReference.TYPE_QR,
       reference: QrPaymentReferenceGenerator(
-              customerIdentificationNumber: '210000',
-              referenceNumber: '313947143000901')
-          .doGenerate(),
+        customerIdentificationNumber: '210000',
+        referenceNumber: '313947143000901',
+      ).doGenerate(),
     );
 
     return bill;

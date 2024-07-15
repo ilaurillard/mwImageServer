@@ -7,6 +7,9 @@ MWINVOICE
 dart bin/xrechnung/scaffoldFromXsd.dart -o ~/PhpstormProjects/mwcdn/lib/MwInvoice/Service/XRechnung/Model -s ~/PhpstormProjects/mwcdn/lib/MwPdf/res/schema/
 
 
+https://www.swiss-qr-invoice.org/validator/
+
+
 
 ZUGFERD/CII:
 

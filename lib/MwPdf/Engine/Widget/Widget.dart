@@ -434,6 +434,11 @@ class Widget {
             data,
             state,
           );
+        case 'Snip':
+          return Custom.snip(
+            data,
+            state,
+          );
 
         // ----------
         /*
