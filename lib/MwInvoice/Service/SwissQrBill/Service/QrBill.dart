@@ -14,7 +14,7 @@ import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/QrCodeable
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/SelfValidatableInterface.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/QrCode/QrCode.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/Reference/QrPaymentReferenceGenerator.dart';
-import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/String/StringModifier.dart';
+import 'package:mwcdn/MwInvoice/Service/StringModifier.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 
 import 'DataGroup/Element/CreditorInformation.dart';
@@ -56,9 +56,10 @@ final class QrBill implements SelfValidatableInterface {
     }
 
     return QrCode.create(
-        data: getQrCodeContent(),
-        fileFormat: fileFormat,
-        unsupportedCharacterReplacements: unsupportedCharacterReplacements);
+      data: getQrCodeContent(),
+      fileFormat: fileFormat,
+      unsupportedCharacterReplacements: unsupportedCharacterReplacements,
+    );
   }
 
   String getQrCodeContent() {

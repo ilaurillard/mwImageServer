@@ -1056,6 +1056,9 @@
         "SwissInvoiceWidget": {
           "$ref": "swiss_qr_bill.json"
         },
+        "EpcQrWidget": {
+          "$ref": "epc_qr_bill.json"
+        },
         "Puzzle": {
           "$ref": "#/definitions/WidgetsCustom/Puzzle"
         },

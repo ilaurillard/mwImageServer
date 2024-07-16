@@ -2,8 +2,10 @@ import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/EpcInvoice.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/KsaInvoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/MultiPage.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/SwissInvoice.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/SwissInvoice.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../Model/Datasource.dart';
@@ -341,16 +343,6 @@ class Widget {
             data,
             state,
           );
-        case 'KsaInvoiceWidget':
-          return Barcode.ksaInvoice(
-            data,
-            state,
-          );
-        case 'SwissInvoiceWidget':
-          return SwissInvoice.swissInvoice(
-            data,
-            state,
-          );
         // -----------
         case 'Circle':
           return Shape.circle(data);
@@ -423,6 +415,8 @@ class Widget {
             data,
             state,
           );
+
+
         // ----------
         case 'Calendar':
           return Custom.calendar(
@@ -439,7 +433,21 @@ class Widget {
             data,
             state,
           );
-
+        case 'SwissInvoiceWidget':
+          return SwissInvoice.swissInvoice(
+            data,
+            state,
+          );
+        case 'EpcQrWidget':
+          return EpcInvoice.epcInvoice(
+            data,
+            state,
+          );
+        case 'KsaInvoiceWidget':
+          return KsaInvoice.ksaInvoice(
+            data,
+            state,
+          );
         // ----------
         /*
           TODO not yet implemented widgets

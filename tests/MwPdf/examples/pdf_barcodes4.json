@@ -1,0 +1,45 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "EPCQR",
+                  "style": {
+                    "fontWeight": "bold"
+                  }
+                }
+              },
+              {
+                "Widget": {
+                  "source": "@epcqr"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@epcqr": {
+      "widget": {
+        "EpcQrWidget": {
+          "amount": 2223.44,
+          "currency": "USD",
+          "bic": "BPOTBEB1",
+          "name": "Croix-Rouge de Belgique",
+          "purpose": "BENE",
+          "iban": "BE72000000001616",
+          "remittance": "",
+          "remittanceText": "Fonds d’urgence",
+          "information": "www.scan2pay.info"
+        }
+      }
+    }
+  }
+}

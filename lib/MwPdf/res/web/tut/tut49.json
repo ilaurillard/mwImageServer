@@ -1,0 +1,50 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "EPCQR",
+                  "style": {
+                    "fontWeight": "bold"
+                  }
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Ein EPC-QR-Code ist ein vom European Payments Council (EPC) standardisierter QR-Code, der alle Daten für eine SEPA-Überweisung enthält. Mit einem EPC-QR-Code können Überweisungen mittels einer Banking-App auf dem Handy sehr einfach durchgeführt werden, indem der QR-Code eingescannt und die dann im Handy dargestellten Überweisungsdaten bestätigt werden. Der manuelle Aufwand der Eingabe der Daten entfällt ebenso wie das Risiko der Eingabe von fehlerhaften Daten (etwa durch Tippfehler). Der EPC-QR-Code wird in Deutschland von kommerziellen Dienstleistern als GiroCode beworben."
+                }
+              },
+              {
+                "Widget": {
+                  "source": "@epcqr"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@epcqr": {
+      "widget": {
+        "EpcQrWidget": {
+          "amount": 2223.44,
+          "currency": "USD",
+          "bic": "BPOTBEB1",
+          "name": "Croix-Rouge de Belgique",
+          "purpose": "BENE",
+          "iban": "BE72000000001616",
+          "remittance": "",
+          "remittanceText": "Fonds d’urgence",
+          "information": "www.scan2pay.info"
+        }
+      }
+    }
+  }
+}

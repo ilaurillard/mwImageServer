@@ -1,4 +1,4 @@
-import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/String/StringModifier.dart';
+import 'package:mwcdn/MwInvoice/Service/StringModifier.dart';
 
 class QrPaymentReferenceGenerator // implements SelfValidatableInterface
 {

@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:mwcdn/MwInvoice/Service/KsaInvoiceQr/KsaInvoiceQr.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
@@ -8,19 +7,6 @@ import 'package:pdf/widgets.dart' as pw;
 import 'Util.dart';
 
 class Barcode {
-  static pw.BarcodeWidget ksaInvoice(
-    Dict json,
-    State state,
-  ) {
-    KsaInvoiceQr ksa = KsaInvoiceQr.fromJson(json);
-    Dict data = json['barcode'] as Dict? ?? {};
-    data['value'] = ksa.value();
-    return barcode(
-      data,
-      state,
-    );
-  }
-
   static pw.BarcodeWidget barcode(
     Dict json,
     State state,

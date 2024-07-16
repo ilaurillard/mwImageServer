@@ -1,0 +1,65 @@
+{
+  "additionalProperties": false,
+  "definitions": {
+  },
+  "description": "epc qr bill (handmade)",
+  "properties": {
+    "amount": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 999999999.99
+    },
+    "currency": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 3
+    },
+    "name": {
+      "type": "string",
+      "minlength": 1,
+      "maxLength": 70,
+      "pattern": "^[^\n\r]*$"
+    },
+    "remittance": {
+      "type": "string",
+      "maxLength": 35,
+      "pattern": "^[^\n\n]*$"
+    },
+    "remittanceText": {
+      "type": "string",
+      "maxLength": 140,
+      "pattern": "^[^\n\n]*$"
+    },
+    "information": {
+      "type": "string",
+      "maxLength": 70,
+      "pattern": "^[^\n\n]*$"
+    },
+    "iban": {
+      "type": "string",
+      "maxLength": 24,
+      "pattern": "^[^\n\n]*$"
+    },
+    "purpose": {
+      "type": "string",
+      "maxLength": 4
+    },
+    "bic": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 11,
+          "pattern": "^[^\n\n]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object"
+}

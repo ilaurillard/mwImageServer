@@ -1,7 +1,7 @@
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/AddressInterface.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/Element/CombinedAddress.dart';
 import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/DataGroup/Element/StructuredAddress.dart';
-import 'package:mwcdn/MwInvoice/Service/SwissQrBill/Service/String/StringModifier.dart';
+import 'package:mwcdn/MwInvoice/Service/StringModifier.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 
 abstract class Address {
