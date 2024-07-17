@@ -1,5 +1,5 @@
 class StringModifier {
-  static String replaceLineBreaksAndTabsWithSpaces(
+  static String ctrlToWhitespace(
     String? string,
   ) {
     return string == null
@@ -10,13 +10,13 @@ class StringModifier {
             .replaceAll('\t', ' ');
   }
 
-  static String replaceMultipleSpacesWithOne(
+  static String collapseWhitespace(
     String? string,
   ) {
     return string == null ? '' : string.replaceAll(RegExp(r' +'), ' ');
   }
 
-  static String stripWhitespace(
+  static String noWhitespace(
     String? string,
   ) {
     return string == null ? '' : string.replaceAll(RegExp(r'\s+'), '');

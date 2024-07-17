@@ -49,15 +49,42 @@ class EpcQr {
     result.add('002');
     result.add(characterSet.toString());
     result.add('SCT');
-    result.add(StringModifier.stripWhitespace(bic).toUpperCase());
-    result.add(StringModifier.stripWhitespace(beneficiaryName));
-    result.add(StringModifier.stripWhitespace(iban).toUpperCase());
     result.add(
-        currency.toUpperCase() + formatter.format(amount).replaceAll(',', ''));
-    result.add(StringModifier.stripWhitespace(purpose));
-    result.add(StringModifier.stripWhitespace(creditorReference).toUpperCase());
-    result.add(StringModifier.stripWhitespace(remittanceText));
-    result.add(StringModifier.stripWhitespace(information));
+      StringModifier.noWhitespace(bic).toUpperCase(),
+    );
+    result.add(
+      StringModifier.collapseWhitespace(
+        StringModifier.ctrlToWhitespace(
+          beneficiaryName,
+        ),
+      ).trim(),
+    );
+    result.add(
+      StringModifier.noWhitespace(iban).toUpperCase(),
+    );
+    result.add(
+      currency.toUpperCase() + formatter.format(amount).replaceAll(',', ''),
+    );
+    result.add(
+      StringModifier.noWhitespace(purpose),
+    );
+    result.add(
+      StringModifier.noWhitespace(creditorReference).toUpperCase(),
+    );
+    result.add(
+      StringModifier.collapseWhitespace(
+        StringModifier.ctrlToWhitespace(
+          remittanceText,
+        ),
+      ).trim(),
+    );
+    result.add(
+      StringModifier.collapseWhitespace(
+        StringModifier.ctrlToWhitespace(
+          information,
+        ),
+      ).trim(),
+    );
 
     String data = result.join('\n');
 
@@ -126,13 +153,24 @@ class EpcQr {
   static EpcQr fromJson(
     Dict json,
   ) {
-
-
+    String iban = json['iban'] as String? ?? '';
+    String name = json['name'] as String? ?? '';
+    String bic = json['bic'] as String? ?? '';
+    String purpose = json['purpose'] as String? ?? '';
+    String currency = json['currency'] as String? ?? 'EUR';
+    String remittanceText = json['remittanceText'] as String? ?? '';
+    String creditorReference = json['creditorReference'] as String? ?? '';
+    String information = json['information'] as String? ?? '';
 
     return EpcQr(
-        iban: 'at 611904 3002345 73201',
-        beneficiaryName: 'Peter',
-        amount: 123123
-    );
+        iban: iban,
+        beneficiaryName: name,
+        bic: bic,
+        purpose: purpose,
+        currency: currency,
+        remittanceText: remittanceText,
+        creditorReference: creditorReference,
+        information: information,
+        amount: 123123);
   }
 }

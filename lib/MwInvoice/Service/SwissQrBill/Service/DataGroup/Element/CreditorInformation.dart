@@ -11,7 +11,7 @@ class CreditorInformation
   CreditorInformation({
     required String iban,
   }) {
-    this.iban = StringModifier.stripWhitespace(iban);
+    this.iban = StringModifier.noWhitespace(iban);
   }
 
   @override

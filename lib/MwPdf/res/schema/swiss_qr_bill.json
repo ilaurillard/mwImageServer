@@ -2,11 +2,19 @@
   "additionalProperties": false,
   "definitions": {
     "Address": {
-      "additionalProperties": false,
-      "type": "object",
       "oneOf": [
         {
+          "additionalProperties": false,
+          "type": "object",
           "properties": {
+            "name": {
+              "minLength": 1,
+              "maxLength": 70
+            },
+            "country": {
+              "minLength": 1,
+              "maxLength": 3
+            },
             "street": {
               "maxLength": 70
             },
@@ -30,7 +38,17 @@
           ]
         },
         {
+          "additionalProperties": false,
+          "type": "object",
           "properties": {
+            "name": {
+              "minLength": 1,
+              "maxLength": 70
+            },
+            "country": {
+              "minLength": 1,
+              "maxLength": 3
+            },
             "addressLine1": {
               "maxLength": 70
             },
@@ -45,17 +63,7 @@
             "addressLine2"
           ]
         }
-      ],
-      "properties": {
-        "name": {
-          "minLength": 1,
-          "maxLength": 70
-        },
-        "country": {
-          "minLength": 1,
-          "maxLength": 3
-        }
-      }
+      ]
     }
   },
   "description": "swiss qr bill (handmade)",

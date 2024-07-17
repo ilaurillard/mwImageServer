@@ -27,7 +27,7 @@ final class PaymentReference
     required this.type,
     required String reference,
   }) {
-    this.reference = StringModifier.stripWhitespace(
+    this.reference = StringModifier.noWhitespace(
       reference,
     );
   }

@@ -21,7 +21,19 @@ $ podman rm -f mwpdf
 $ podman system prune
 
 
+export:
+$ podman save mwpdf:r2 | gzip > mwpdf.r2.tgz
 
+import:
+$ sudo docker stop mwpdf
+$ sudo docker rm mwpdf
+$ sudo docker load < mwpdf.r2.tgz
+$ sudo docker run ... siehe oben
+
+
+
+
+IDEEN:
 
 Bates numbering
 Digitale Signaturen

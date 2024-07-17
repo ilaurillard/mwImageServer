@@ -20,6 +20,14 @@ class Schema {
   late final JsonSchema schemaXRechnung;
   late final String schemaDataXRechnung;
 
+  late final JsonSchema schemaSwissQr;
+  late final String schemaDataSwissQr;
+
+  late final JsonSchema schemaEpcQr;
+  late final String schemaDataEpcQr;
+
+
+
   static Schema? instance;
 
   Schema._({
@@ -39,18 +47,21 @@ class Schema {
   }
 
   Future<void> load() async {
-
     schemaData = await File(
       '$resDir/schema/mwpdf_schema.json',
     ).readAsString();
-    Console.notice('Loaded schema (${schemaData.length})');
+    Console.notice(
+      'Loaded schema (${schemaData.length})',
+    );
 
     // --------------
 
     schemaDataFacturx = await File(
       '$resDir/schema/facturx_schema.json',
     ).readAsString();
-    Console.notice('Loaded schema [Factur-X] (${schemaData.length})');
+    Console.notice(
+      'Loaded schema [Factur-X] (${schemaDataFacturx.length})',
+    );
     Dict facturx = json.decode(schemaDataFacturx) as Dict;
     schemaFacturx = JsonSchema.create(
       schemaDataFacturx,
@@ -61,10 +72,38 @@ class Schema {
     schemaDataXRechnung = await File(
       '$resDir/schema/xrechnung_schema.json',
     ).readAsString();
-    Console.notice('Loaded schema [XRechnung] (${schemaData.length})');
+    Console.notice(
+      'Loaded schema [XRechnung] (${schemaDataXRechnung.length})',
+    );
     Dict xrechnung = json.decode(schemaDataXRechnung) as Dict;
     schemaXRechnung = JsonSchema.create(
       schemaDataXRechnung,
+    );
+
+    // --------------
+
+    schemaDataSwissQr = await File(
+      '$resDir/schema/swiss_qr_bill.json',
+    ).readAsString();
+    Console.notice(
+      'Loaded schema [SWISS-QR] (${schemaDataSwissQr.length})',
+    );
+    Dict swissQr = json.decode(schemaDataSwissQr) as Dict;
+    schemaSwissQr = JsonSchema.create(
+      schemaDataSwissQr,
+    );
+
+    // --------------
+
+    schemaDataEpcQr = await File(
+      '$resDir/schema/epc_qr_bill.json',
+    ).readAsString();
+    Console.notice(
+      'Loaded schema [EPC] (${schemaDataEpcQr.length})',
+    );
+    Dict epcQr = json.decode(schemaDataEpcQr) as Dict;
+    schemaEpcQr = JsonSchema.create(
+      schemaDataEpcQr,
     );
 
     // --------------
@@ -77,6 +116,12 @@ class Schema {
         }
         if (ref.contains('xrechnung_schema.json')) {
           return xrechnung;
+        }
+        if (ref.contains('swiss_qr_bill.json')) {
+          return swissQr;
+        }
+        if (ref.contains('epc_qr_bill.json')) {
+          return epcQr;
         }
         return {};
       }),

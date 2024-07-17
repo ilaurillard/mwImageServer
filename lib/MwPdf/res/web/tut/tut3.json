@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "Der Titel des Dokumentes",
-    "keywords": "Schlagwort1,Schlagwort2"
+    "keywords": "Schlagwort1,Schlagwort2",
+    "compress": false
   },
   "pages": [
     {
@@ -12,7 +13,7 @@
             "children": [
               {
                 "Paragraph": {
-                  "text": "Im 'meta'-Attribute können Meta-Daten des Dokumentes wie title, author, creator, subject, keywords, producer, subject angegeben werden."
+                  "text": "Im 'meta'-Attribute können Meta-Daten des Dokumentes wie title, author, creator, subject, keywords, producer, .. angegeben werden."
                 }
               },
               {

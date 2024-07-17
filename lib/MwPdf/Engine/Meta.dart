@@ -22,6 +22,7 @@ class Meta {
   final Map<String, Footer> footers;
   final DateTime creationDate = DateTime.now();
   final bool pdfa3b;
+  final bool compress;
 
   Meta({
     this.pageMode = PdfPageMode.none,
@@ -37,6 +38,7 @@ class Meta {
     this.producer,
     // PDF/A 3b compliency (needed for embedded bills)
     this.pdfa3b = false,
+    this.compress = true,
   });
 
   static Meta fromJson(
@@ -63,6 +65,7 @@ class Meta {
         (json['footers'] as Dict?) ?? {},
       ),
       pdfa3b: json['pdfa3b'] as bool? ?? false,
+      compress: json['compress'] as bool? ?? true,
     );
   }
 

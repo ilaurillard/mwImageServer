@@ -20,6 +20,11 @@
                 "Paragraph": {
                   "text": "Besonders spannend wird es, wenn du das Schema in deinem IDE installierst. Ordnest du nun eine PDF-JSON Datein diesem Schema zu, so siehst du direkt Fehler und du bekommst Beschreibungen und eine Auto-Vervollständigung."
                 }
+              },
+              {
+                "Paragraph": {
+                  "text": "Achtung, einige Bereiche (zB Rechnungen) sind aus dem Schema ausgezogen! "
+                }
               }
             ]
           }

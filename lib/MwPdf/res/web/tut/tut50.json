@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "headers": {
+      "@default": {
+        "Padding": {
+          "padding": [
+            0,
+            0,
+            0,
+            5
+          ],
+          "child": {
+            "Row": {
+              "mainAxisAlignment": "spaceBetween",
+              "children": [
+                {
+                  "Bates": {
+                    "prefix": "PRJ-",
+                    "start": 1,
+                    "digits": 3,
+                    "child": {
+                      "Text": {
+                        "text": "%batesNumber%"
+                      }
+                    }
+                  }
+                },
+                {
+                  "Text": {
+                    "text": "%pageNumber%/%pagesCount%"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "header": "@default",
+      "content": [
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        }
+      ]
+    },
+    {
+      "multi": true,
+      "header": "@default",
+      "content": [
+        {
+          "LoremParagraph": {
+            "sentence": 800
+          }
+        }
+      ]
+    }
+  ]
+}

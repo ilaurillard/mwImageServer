@@ -2,6 +2,7 @@ import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/Stamps.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/EpcInvoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/KsaInvoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/MultiPage.dart';
@@ -91,6 +92,11 @@ class Widget {
           );
         case 'ShowIf':
           return Util.showIf(
+            data,
+            state,
+          );
+        case 'Bates':
+          return Stamps.bates(
             data,
             state,
           );
@@ -417,7 +423,8 @@ class Widget {
           );
 
 
-        // ----------
+        // ---------- custom stuff
+
         case 'Calendar':
           return Custom.calendar(
             data,

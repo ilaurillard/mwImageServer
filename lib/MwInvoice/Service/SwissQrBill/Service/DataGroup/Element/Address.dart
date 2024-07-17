@@ -13,8 +13,8 @@ abstract class Address {
     }
 
     string = string.trim();
-    string = StringModifier.replaceLineBreaksAndTabsWithSpaces(string);
-    return StringModifier.replaceMultipleSpacesWithOne(string);
+    string = StringModifier.ctrlToWhitespace(string);
+    return StringModifier.collapseWhitespace(string);
   }
 
   static List<String> clearMultilines(

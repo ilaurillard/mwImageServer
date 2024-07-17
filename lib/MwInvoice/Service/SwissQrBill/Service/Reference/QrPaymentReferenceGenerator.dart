@@ -11,10 +11,10 @@ class QrPaymentReferenceGenerator // implements SelfValidatableInterface
     required String customerIdentificationNumber,
     required String referenceNumber,
   }) {
-    this.customerIdentificationNumber = StringModifier.stripWhitespace(
+    this.customerIdentificationNumber = StringModifier.noWhitespace(
       customerIdentificationNumber,
     );
-    this.referenceNumber = StringModifier.stripWhitespace(
+    this.referenceNumber = StringModifier.noWhitespace(
       referenceNumber,
     );
   }

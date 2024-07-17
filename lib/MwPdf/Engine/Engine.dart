@@ -63,6 +63,7 @@ class Engine {
 
   // Create the pdf -------------------
   Future<pw.Document> pdf() async {
+
     pw.PageTheme? pageTheme;
     if (meta.theme.isNotEmpty) {
       pageTheme = meta.themes[meta.theme]?.theme;
@@ -90,7 +91,7 @@ class Engine {
       producer: meta.producer,
 
       // verbose: true,
-      compress: true,
+      compress: meta.compress,
       version: PdfVersion.pdf_1_5,
 
       metadata: meta.pdfaRdf(
@@ -128,7 +129,7 @@ class Engine {
       PdfaAttachedFiles(
         pdf.document,
         {
-          // TODO xxx
+          // TODO xxx?
           'xrechnung.xml': Util.prettyXml(
             invoice.ubl!,
           ),
@@ -136,7 +137,7 @@ class Engine {
       );
     }
 
-    // -------------------------
+    // ------------------------- Headers/Footers
 
     int tocPageNr = 0;
     pw.Page? tocPage;
@@ -171,6 +172,8 @@ class Engine {
         return pw.SizedBox();
       }
 
+      // ---------------
+
       List<pw.Widget> pageBuilder(
         pw.Context context,
       ) {
@@ -191,6 +194,7 @@ class Engine {
       pw.Page pwPage;
       if (page.multi) {
         if (page.columns > 1) {
+          // Custom version of MultiPage
           pwPage = MultiColumnsPage(
             pageTheme: pageTheme,
             header: page.header.isNotEmpty ? headerBuilder : null,

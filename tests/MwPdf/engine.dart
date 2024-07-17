@@ -27,7 +27,7 @@ Future<void> main() async {
 
   // String jsonFile = 'pdf_barcodes.json';
   // String jsonFile = 'pdf_barcodes2.json';
-  String jsonFile = 'pdf_barcodes3.json';
+  // String jsonFile = 'pdf_barcodes3.json';
   // String jsonFile = 'pdf_barcodes4.json';
   // String jsonFile = 'pdf_charts.json';
   // String jsonFile = 'pdf_charts2.json';
@@ -72,6 +72,7 @@ Future<void> main() async {
   //String jsonFile = 'pdf_comic.json';
   // String jsonFile = 'pdf_puzzle.json';
   // String jsonFile = 'pdf_puzzle2.json';
+  String jsonFile = 'pdf_bates.json';
 
   String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {

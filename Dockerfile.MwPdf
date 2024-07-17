@@ -1,6 +1,6 @@
 ################# MwPdf
 
-FROM docker.io/dart:stable AS build
+FROM docker.io/dart:3.4.4 AS build
 
 RUN apt-get update; \
     apt-get install -y sqlite3 libsqlite3-dev

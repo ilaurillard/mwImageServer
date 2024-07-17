@@ -122,8 +122,8 @@ final class QrBill implements SelfValidatableInterface {
 
     for (dynamic s in temp2) {
       if (s is String) {
-        s = StringModifier.replaceLineBreaksAndTabsWithSpaces(s);
-        s = StringModifier.replaceMultipleSpacesWithOne(s);
+        s = StringModifier.ctrlToWhitespace(s);
+        s = StringModifier.collapseWhitespace(s);
         s = s.trim();
         qrCodeElements.add(s);
       } else {
@@ -140,7 +140,7 @@ final class QrBill implements SelfValidatableInterface {
     List<String> errors = [];
 
     errors.addAll(
-      header.errors() ?? [],
+      header.errors(),
     );
 
     if (creditorInformation == null) {

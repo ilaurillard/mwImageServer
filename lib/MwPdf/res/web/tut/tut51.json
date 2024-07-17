@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "themes": {
+      "@def": {
+        "format": {
+          "preset": "a5"
+        },
+        "background": {
+          "FullPage": {
+            "ignoreMargins": true,
+            "child": {
+              "Center": {
+                "child": {
+                  "Icon": {
+                    "color": "11000000",
+                    "icon": "camera",
+                    "size": 100
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "theme": "@def",
+      "content": [
+        {
+          "LoremParagraph": {
+            "sentence": 100
+          }
+        }
+      ]
+    }
+  ]
+}
