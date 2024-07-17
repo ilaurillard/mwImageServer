@@ -35,7 +35,6 @@ $ sudo docker run ... siehe oben
 
 IDEEN:
 
-Bates numbering
 Digitale Signaturen
 Higher-Level Widgets
 

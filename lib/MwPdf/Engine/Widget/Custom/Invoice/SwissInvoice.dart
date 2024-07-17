@@ -170,7 +170,11 @@ class SwissInvoice {
         ],
       );
     }
-    return qr;
+
+    return pw.FittedBox(
+      fit: pw.BoxFit.contain,
+      child: qr
+    );
   }
 
   static pw.Widget _qr({
