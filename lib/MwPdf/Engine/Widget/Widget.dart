@@ -5,6 +5,7 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Custom.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/Stamps.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/EpcInvoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/KsaInvoice.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Form.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/MultiPage.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/SwissInvoice.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -456,6 +457,15 @@ class Widget {
             state,
           );
         // ----------
+
+
+        case 'TextField':
+          return Form.textField(data, state,);
+        case 'Checkbox':
+          return Form.checkbox(data, state,);
+        case 'ChoiceField':
+          return Form.choiceField(data, state,);
+
         /*
           TODO not yet implemented widgets
           ----
@@ -463,11 +473,8 @@ class Widget {
           basic:
             CustomPaint
           forms:
-            ChoiceField
-            Checkbox
             FlatButton
             Signature
-            TextField
           annotations:
             SquareAnnotation
             CircleAnnotation

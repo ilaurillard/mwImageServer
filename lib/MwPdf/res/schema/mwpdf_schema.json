@@ -1032,6 +1032,15 @@
       "minProperties": 1,
       "maxProperties": 1,
       "properties": {
+        "TextField": {
+          "$ref": "#/definitions/Widgets/TextField"
+        },
+        "Checkbox": {
+          "$ref": "#/definitions/Widgets/Checkbox"
+        },
+        "ChoiceField": {
+          "$ref": "#/definitions/Widgets/ChoiceField"
+        },
         "Bates": {
           "$ref": "#/definitions/Widgets/Bates"
         },
@@ -1332,6 +1341,111 @@
       }
     },
     "Widgets": {
+      "TextField": {
+        "additionalProperties": false,
+        "properties": {
+          "textStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "labelStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "bgColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "maxLength": {
+            "type": "integer"
+          },
+          "height": {
+            "type": "number"
+          },
+          "label": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "comb": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "ChoiceField": {
+        "additionalProperties": false,
+        "properties": {
+          "textStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "labelStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "bgColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "height": {
+            "type": "number"
+          },
+          "label": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "Checkbox": {
+        "additionalProperties": false,
+        "properties": {
+          "labelStyle": {
+            "$ref": "#/definitions/Style/TextStyle"
+          },
+          "color": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "bgColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "activeColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "checkColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "label": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
       "Bates": {
         "additionalProperties": false,
         "properties": {

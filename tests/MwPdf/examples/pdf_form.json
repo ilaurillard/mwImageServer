@@ -1,11 +1,116 @@
 {
+  "meta": {
+    "compress": false,
+    "themes": {
+      "@default": {
+        "format": {
+          "preset": "a4",
+          "marginAll": 10
+        },
+        "styles": {
+          "text": {
+            "font": "helvetica"
+          }
+        }
+      }
+    }
+  },
   "pages": [
     {
+      "theme": "@default",
       "content": [
         {
           "Column": {
+            "crossAxisAlignment": "start",
             "children": [
-
+              {
+                "Row": {
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Expanded": {
+                        "flex": 1,
+                        "child": {
+                          "TextField": {
+                            "height": 8,
+                            "name": "field0",
+                            "labelStyle": {
+                              "color": "000000"
+                            },
+                            "textStyle": {
+                              "color": "000000"
+                            },
+                            "color": "000000",
+                            "bgColor": "EEEEEE",
+                            "label": "Datum",
+                            "maxLength": 8,
+                            "comb": [
+                              2,
+                              2,
+                              4
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "SizedBox": {
+                        "width": 2
+                      }
+                    },
+                    {
+                      "Expanded": {
+                        "flex": 2,
+                        "child": {
+                          "TextField": {
+                            "name": "field1",
+                            "textStyle": {
+                              "color": "000000"
+                            },
+                            "labelStyle": {
+                              "color": "000000"
+                            },
+                            "label": "Nachname",
+                            "maxLength": 32
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 5
+                }
+              },
+              {
+                "Checkbox": {
+                  "name": "field2",
+                  "labelStyle": {
+                    "color": "000000"
+                  },
+                  "label": "Bitte anklicken",
+                  "color": "000000",
+                  "bgColor": "EEEEEE",
+                  "activeColor": "6666FF",
+                  "checkColor": "FFFFFF"
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 5
+                }
+              },
+              {
+                "ChoiceField": {
+                  "name": "field3",
+                  "label": "Bitte wählen",
+                  "items": [
+                    "Ja", "Nein", "Vielleicht"
+                  ]
+                }
+              }
             ]
           }
         }
