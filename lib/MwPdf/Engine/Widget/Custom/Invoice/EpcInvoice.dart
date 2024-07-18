@@ -43,8 +43,6 @@ class EpcInvoice {
         ),
       ),
     );
-
-    return qr;
   }
 
   static pw.Widget _qr({
