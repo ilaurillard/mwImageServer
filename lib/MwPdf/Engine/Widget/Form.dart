@@ -35,7 +35,6 @@ class Form {
 
     List<String> items = (json['items'] as List<dynamic>? ?? []).cast();
 
-
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
