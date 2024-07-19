@@ -118,6 +118,7 @@ class Form {
 
     String name = json['name'] as String? ?? '';
     String label = json['label'] as String? ?? '';
+    bool readonly = json['readonly'] as bool? ?? false;
     List<int> comb = (json['comb'] as List<dynamic>? ?? []).cast();
     int maxLength = int.tryParse(json['maxLength'].toString()) ?? 32;
 
@@ -171,6 +172,7 @@ class Form {
                 textStyle: textStyle,
                 fieldFlags: {
                   if (comb.isNotEmpty) PdfFieldFlags.comb,
+                  if (readonly) PdfFieldFlags.readOnly,
                 },
               ),
             ],

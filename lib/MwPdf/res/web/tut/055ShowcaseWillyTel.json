@@ -709,6 +709,7 @@
                             "children": [
                               {
                                 "TextField": {
+                                  "readonly": true,
                                   "name": "field11",
                                   "bgColor": "FFFFFF",
                                   "color": "005BAA",

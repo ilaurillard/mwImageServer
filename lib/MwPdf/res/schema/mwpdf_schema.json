@@ -1344,6 +1344,9 @@
       "TextField": {
         "additionalProperties": false,
         "properties": {
+          "readonly": {
+            "type": "boolean"
+          },
           "textStyle": {
             "$ref": "#/definitions/Style/TextStyle"
           },
