@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "themes": {
+      "@default": {
+        "format": {
+          "preset": "a4",
+          "marginAll": 10
+        },
+        "styles": {
+          "text": {
+            "font": "helvetica"
+          }
+        },
+        "background": {
+          "FullPage": {
+            "ignoreMargins": true,
+            "child": {
+              "Center": {
+                "child": {
+                  "Watermark": {
+                    "angle": 45,
+                    "fit": "scaleDown",
+                    "child": {
+                      "Widget": {
+                        "source": "@mark1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "theme": "@default",
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Header": {
+                  "child": {
+                    "Text": {
+                      "text": "Wasserzeichen"
+                    }
+                  }
+                }
+              },
+              {
+                "LoremParagraph": {
+                  "paragraph": 450,
+                  "random": 1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@mark1": {
+      "widget": {
+        "Container": {
+          "decoration": {
+            "borderRadius": [
+              2
+            ],
+            "border": {
+              "all": {
+                "width": 2,
+                "color": "EEEEEE"
+              }
+            }
+          },
+          "child": {
+            "Padding": {
+              "padding": [
+                5,
+                3
+              ],
+              "child": {
+                "Text": {
+                  "style": {
+                    "fontWeight": "bold",
+                    "fontSize": 10,
+                    "color": "EEEEEE"
+                  },
+                  "text": "EIGENTUM"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

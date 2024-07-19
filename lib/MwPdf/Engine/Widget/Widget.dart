@@ -381,10 +381,9 @@ class Widget {
             data,
             state,
           );
-        // -----------
-        // case 'TextField':
-        //   return Form.textField(data);
-        // -----------
+
+        // ----------- annots
+
         case 'Anchor':
           return Annotation.anchor(
             data,
@@ -405,12 +404,9 @@ class Widget {
             data,
             state,
           );
-        // case 'SquareAnnotation':
-        //   return Annotation.squareAnnotation(
-        //     data,
-        //     state,
-        //   );
-        // -----------
+
+        // ----------- special
+
         case 'Widget':
           return Widget.widget(
             data,
@@ -422,7 +418,6 @@ class Widget {
             data,
             state,
           );
-
 
         // ---------- custom stuff
 
@@ -456,8 +451,8 @@ class Widget {
             data,
             state,
           );
-        // ----------
 
+        // ---------- forms
 
         case 'TextField':
           return Form.textField(data, state,);
@@ -469,7 +464,6 @@ class Widget {
         /*
           TODO not yet implemented widgets
           ----
-
           basic:
             CustomPaint
           forms:

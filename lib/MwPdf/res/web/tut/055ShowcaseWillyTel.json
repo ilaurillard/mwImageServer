@@ -1,0 +1,750 @@
+{
+  "meta": {
+    "headers": {
+      "@header2": {
+        "Container": {
+          "height": 30,
+          "child": {
+            "Row": {
+              "crossAxisAlignment": "start",
+              "mainAxisAlignment": "end",
+              "children": [
+                {
+                  "Container": {
+                    "width": 50,
+                    "child": {
+                      "SvgImage": {
+                        "source": "@willyLogo"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "@header1": {
+        "Container": {
+          "height": 50,
+          "child": {
+            "Row": {
+              "crossAxisAlignment": "start",
+              "mainAxisAlignment": "spaceBetween",
+              "children": [
+                {
+                  "Padding": {
+                    "padding": [
+                      0,
+                      10,
+                      0,
+                      0
+                    ],
+                    "child": {
+                      "Text": {
+                        "text": "Widerrufsbelehrung",
+                        "style": {
+                          "fontWeight": "bold",
+                          "fontSize": 6
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "Padding": {
+                    "padding": [
+                      0,
+                      21.25,
+                      0,
+                      0
+                    ],
+                    "child": {
+                      "Text": {
+                        "text": "TV · INTERNET · TELEFON · MOBILFUNK",
+                        "style": {
+                          "color": "FFFFFF"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "themes": {
+      "@page2": {
+        "format": {
+          "preset": "a4"
+        },
+        "background": {
+          "FullPage": {
+            "ignoreMargins": true,
+            "child": {
+              "Stack": {
+                "children": [
+                  {
+                    "Positioned": {
+                      "left": 0,
+                      "top": 99,
+                      "child": {
+                        "Container": {
+                          "color": "000000",
+                          "height": 0.25,
+                          "width": 4
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "styles": {
+          "paragraph": {
+            "fontSize": 3.2,
+            "color": "005BAA",
+            "lineSpacing": 1.4,
+            "font": "openSansRegular",
+            "fontBold": "openSansBold"
+          },
+          "text": {
+            "fontSize": 3.2,
+            "color": "005BAA",
+            "lineSpacing": 1.4,
+            "font": "openSansRegular",
+            "fontBold": "openSansBold"
+          }
+        }
+      },
+      "@page1": {
+        "format": {
+          "preset": "a4",
+          "marginTop": 0
+        },
+        "background": {
+          "FullPage": {
+            "ignoreMargins": true,
+            "child": {
+              "Stack": {
+                "children": [
+                  {
+                    "Positioned": {
+                      "top": 5,
+                      "right": 10,
+                      "child": {
+                        "Container": {
+                          "width": 40,
+                          "child": {
+                            "SvgImage": {
+                              "source": "@willyLogo"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Positioned": {
+                      "top": 20,
+                      "child": {
+                        "Container": {
+                          "color": "005BAA",
+                          "height": 7,
+                          "width": 300
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Positioned": {
+                      "left": 8,
+                      "bottom": 10,
+                      "child": {
+                        "Transform": {
+                          "alignment": "topLeft",
+                          "transform": {
+                            "RotateZ": {
+                              "angle": 90
+                            }
+                          },
+                          "child": {
+                            "Text": {
+                              "text": "Stand: März 2020",
+                              "style": {
+                                "fontSize": 2.5
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "styles": {
+          "paragraph": {
+            "fontSize": 3.2,
+            "color": "005BAA",
+            "lineSpacing": 1.4,
+            "font": "openSansRegular",
+            "fontBold": "openSansBold"
+          },
+          "text": {
+            "fontSize": 3.2,
+            "color": "005BAA",
+            "lineSpacing": 1.4,
+            "font": "openSansRegular",
+            "fontBold": "openSansBold"
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "theme": "@page1",
+      "header": "@header1",
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Padding": {
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    1
+                  ],
+                  "child": {
+                    "Text": {
+                      "text": "Widerrufsrecht",
+                      "style": {
+                        "fontWeight": "bold"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Sofern Sie als Verbraucher im Sinne des § 13 BGB gemäß § 312b BGB außerhalb von Geschäftsräumen einen Vertrag mit der willy.tel GmbH abschließen, so steht Ihnen das folgende gesetzliche Widerrufsrecht zu:",
+                  "hyphenationLanguage": "de"
+                }
+              },
+              {
+                "Padding": {
+                  "padding": [
+                    0,
+                    5,
+                    0,
+                    5
+                  ],
+                  "child": {
+                    "Text": {
+                      "text": "Widerrufsbelehrung",
+                      "style": {
+                        "fontWeight": "bold",
+                        "fontSize": 6
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Padding": {
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    1
+                  ],
+                  "child": {
+                    "Text": {
+                      "text": "Widerrufsrecht",
+                      "style": {
+                        "fontWeight": "bold"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Partitions": {
+                  "children": [
+                    {
+                      "Partition": {
+                        "flex": 1,
+                        "child": {
+                          "Column": {
+                            "crossAxisAlignment": "start",
+                            "children": [
+                              {
+                                "Paragraph": {
+                                  "text": "Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.",
+                                  "hyphenationLanguage": "de"
+                                }
+                              },
+                              {
+                                "Paragraph": {
+                                  "text": "Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (willy.tel Service-Center, Lesserstraße 73, 22049 Hamburg, Fax: 040 / 69 69 63 - 70, info@willytel.de) mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandterBrief, Telefax oder E-Mail) über Ihren Entschluss, diesenVertrag zu widerrufen, informieren.",
+                                  "hyphenationLanguage": "de"
+                                }
+                              },
+                              {
+                                "Paragraph": {
+                                  "text": "Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.",
+                                  "hyphenationLanguage": "de"
+                                }
+                              },
+                              {
+                                "Paragraph": {
+                                  "text": "Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.",
+                                  "hyphenationLanguage": "de"
+                                }
+                              },
+                              {
+                                "Padding": {
+                                  "padding": [
+                                    0,
+                                    0,
+                                    0,
+                                    1
+                                  ],
+                                  "child": {
+                                    "Text": {
+                                      "text": "Folgen des Widerrufs",
+                                      "style": {
+                                        "fontWeight": "bold"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "Paragraph": {
+                                  "text": "Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, ein-schließlich der Lieferkosten (mit Ausnahme der zusätz-lichen Kosten, die sich daraus ergeben, dass Sie eineandere Art der Lieferung als die von uns angebotene,günstigste Standardlieferung gewählt haben), unver- züglich und spätestens binnen vierzehn Tagen ab demTag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrages bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungs- mittel, das Sie bei der ursprünglichen Transaktion einge- setzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.",
+                                  "hyphenationLanguage": "de"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Partition": {
+                        "width": 5
+                      }
+                    },
+                    {
+                      "Partition": {
+                        "flex": 1,
+                        "child": {
+                          "Column": {
+                            "crossAxisAlignment": "start",
+                            "children": [
+                              {
+                                "Paragraph": {
+                                  "text": "Waren (z.B. Hardware), die Sie von uns im Zusammenhang mit dem Vertrag erhalten haben, haben Sie unverzüglich und in jedem Fall spätestens binnen vierzehn Tagen ab dem Tag, an dem Sie uns über den Widerruf dieses Vertrages unterrichten, an uns zurückzusenden oder zu übergeben. Die Frist ist gewahrt, wenn Sie die Waren vor Ablauf der Frist von vierzehn Tagen absenden. "
+                                }
+                              },
+                              {
+                                "Paragraph": {
+                                  "text": "Sie tragen die unmittelbaren Kosten der Rücksendung der Waren. "
+                                }
+                              },
+                              {
+                                "Paragraph": {
+                                  "text": "Sie müssen für einen etwaigen Wertverlust der Waren nur aufkommen, wenn dieser Wertverlust auf einen zur Prüfung der Beschaffenheit, Eigenschaften und Funktionsweise der Waren nicht notwendigen Umgang mit ihnen zurückzuführen ist. "
+                                }
+                              },
+                              {
+                                "Paragraph": {
+                                  "text": "Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginnen sollen, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Aus- übung des Widerrufsrechts hinsichtlich dieses Vertrages unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen Dienstleistungen entspricht. "
+                                }
+                              },
+                              {
+                                "Text": {
+                                  "text": "- Ende der Widerrufsbelehrung -",
+                                  "style": {
+                                    "fontWeight": "bold"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "theme": "@page2",
+      "header": "@header2",
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Row": {
+                  "crossAxisAlignment": "end",
+                  "mainAxisAlignment": "spaceBetween",
+                  "children": [
+                    {
+                      "Text": {
+                        "text": "Muster-Widerrufsformular",
+                        "style": {
+                          "fontWeight": "bold",
+                          "fontSize": 6
+                        }
+                      }
+                    },
+                    {
+                      "Text": {
+                        "textAlign": "right",
+                        "text": "Fax: 040 / 69 69 63-70\nE-Mail: info@willytel.de"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 10
+                }
+              },
+              {
+                "Text": {
+                  "text": "willy.tel Service-Center\nLesserstraße 73\n22049 Hamburg"
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 20
+                }
+              },
+              {
+                "Text": {
+                  "text": "Hiermit widerrufe/n ich/wir den mit mir/uns abgeschlossenen Vertrag über die Erbringung\nder folgenden Dienstleistung",
+                  "style": {
+                    "fontWeight": "bold",
+                    "fontSize": 3.5
+                  }
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 10
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Expanded": {
+                        "flex": 2,
+                        "child": {
+                          "TextField": {
+                            "name": "field1",
+                            "color": "005BAA",
+                            "bgColor": "FFFFFF",
+                            "textStyle": {
+                              "color": "005BAA"
+                            },
+                            "labelStyle": {
+                              "color": "005BAA"
+                            },
+                            "label": "Produkbezeichnung",
+                            "maxLength": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "SizedBox": {
+                        "width": 2
+                      }
+                    },
+                    {
+                      "Expanded": {
+                        "flex": 1,
+                        "child": {
+                          "TextField": {
+                            "height": 8,
+                            "name": "field0",
+                            "bgColor": "FFFFFF",
+                            "labelStyle": {
+                              "color": "005BAA"
+                            },
+                            "textStyle": {
+                              "color": "005BAA"
+                            },
+                            "color": "005BAA",
+                            "label": "Datum",
+                            "maxLength": 8,
+                            "comb": [
+                              2,
+                              2,
+                              4
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 10
+                }
+              },
+              {
+                "TextField": {
+                  "name": "field3",
+                  "bgColor": "FFFFFF",
+                  "color": "005BAA",
+                  "textStyle": {
+                    "color": "005BAA"
+                  },
+                  "labelStyle": {
+                    "color": "005BAA"
+                  },
+                  "label": "Name, Vorname",
+                  "maxLength": 32
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 10
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Expanded": {
+                        "flex": 4,
+                        "child": {
+                          "TextField": {
+                            "name": "field4",
+                            "color": "005BAA",
+                            "bgColor": "FFFFFF",
+                            "textStyle": {
+                              "color": "005BAA"
+                            },
+                            "labelStyle": {
+                              "color": "005BAA"
+                            },
+                            "label": "Straße, Hausnummer",
+                            "maxLength": 64
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "SizedBox": {
+                        "width": 2
+                      }
+                    },
+                    {
+                      "Expanded": {
+                        "flex": 1,
+                        "child": {
+                          "TextField": {
+                            "height": 8,
+                            "name": "field5",
+                            "bgColor": "FFFFFF",
+                            "labelStyle": {
+                              "color": "005BAA"
+                            },
+                            "textStyle": {
+                              "color": "005BAA"
+                            },
+                            "color": "005BAA",
+                            "label": "PLZ",
+                            "maxLength": 10
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Expanded": {
+                        "flex": 2,
+                        "child": {
+                          "TextField": {
+                            "height": 8,
+                            "name": "field5",
+                            "bgColor": "FFFFFF",
+                            "labelStyle": {
+                              "color": "005BAA"
+                            },
+                            "textStyle": {
+                              "color": "005BAA"
+                            },
+                            "color": "005BAA",
+                            "label": "Ort",
+                            "maxLength": 20
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 20
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Expanded": {
+                        "flex": 1,
+                        "child": {
+                          "Text": {
+                            "text": "Grund des Widerrufs:"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Expanded": {
+                        "flex": 4,
+                        "child": {
+                          "TextField": {
+                            "name": "field7",
+                            "bgColor": "FFFFFF",
+                            "color": "005BAA",
+                            "textStyle": {
+                              "color": "005BAA"
+                            },
+                            "maxLength": 32
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "TextField": {
+                  "name": "field8",
+                  "bgColor": "FFFFFF",
+                  "color": "005BAA",
+                  "textStyle": {
+                    "color": "005BAA"
+                  },
+                  "maxLength": 32
+                }
+              },
+              {
+                "TextField": {
+                  "name": "field9",
+                  "bgColor": "FFFFFF",
+                  "color": "005BAA",
+                  "textStyle": {
+                    "color": "005BAA"
+                  },
+                  "maxLength": 32
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 20
+                }
+              },
+              {
+                "Row": {
+                  "children": [
+                    {
+                      "Expanded": {
+                        "flex": 1,
+                        "child": {
+                          "TextField": {
+                            "name": "field10",
+                            "bgColor": "FFFFFF",
+                            "color": "005BAA",
+                            "textStyle": {
+                              "color": "005BAA"
+                            },
+                            "labelStyle": {
+                              "color": "005BAA"
+                            },
+                            "label": "Ort, Datum",
+                            "maxLength": 32
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "SizedBox": {
+                        "width": 2
+                      }
+                    },
+                    {
+                      "Expanded": {
+                        "flex": 2,
+                        "child": {
+                          "Stack": {
+                            "children": [
+                              {
+                                "TextField": {
+                                  "name": "field11",
+                                  "bgColor": "FFFFFF",
+                                  "color": "005BAA",
+                                  "textStyle": {
+                                    "color": "005BAA"
+                                  },
+                                  "labelStyle": {
+                                    "color": "005BAA"
+                                  },
+                                  "label": "Unterschrift",
+                                  "maxLength": 32
+                                }
+                              },
+                              {
+                                "Icon": {
+                                  "icon": "close",
+                                  "size": 6
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@willyLogo": {
+      "url": "https://www.willytel.de/typo3conf/ext/provider/Resources/Public/Images/willytel-logo.svg"
+    }
+  }
+}
