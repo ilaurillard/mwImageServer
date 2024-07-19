@@ -10,6 +10,11 @@
             "crossAxisAlignment": "start",
             "children": [
               {
+                "Text": {
+                  "text": "Horizontal"
+                }
+              },
+              {
                 "Row": {
                   "children": [
                     {
@@ -44,12 +49,18 @@
           }
         },
         {
-          "Divider": {
+          "SizedBox": {
+            "height": 10
+          }
+        },
+        {
+          "Text": {
+            "text": "Vertikal"
           }
         },
         {
           "Container": {
-            "color": "DDDDDD",
+            "color": "EEEEEE",
             "height": 100,
             "child": {
               "Column": {

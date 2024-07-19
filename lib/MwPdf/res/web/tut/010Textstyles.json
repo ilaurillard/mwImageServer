@@ -13,6 +13,7 @@
                   "text": "Einfacher, fetter Text in Grün",
                   "style": {
                     "color": "006600",
+                    "fontSize": 6,
                     "fontWeight": "bold"
                   }
                 }
@@ -22,6 +23,7 @@
                   "text": "Durchgetrichen und schräger Text in Rot",
                   "style": {
                     "color": "660000",
+                    "fontSize": 6,
                     "fontStyle": "italic",
                     "decoration": "lineThrough"
                   }
@@ -32,6 +34,7 @@
                   "text": "Text mit einem Rand und Hintergrundfarbe",
                   "style": {
                     "color": "000066",
+                    "fontSize": 6,
                     "background": {
                       "color": "FF8800",
                       "border": {
@@ -50,7 +53,30 @@
                     "color": "006666",
                     "fontNormal": "courier",
                     "letterSpacing": 2,
-                    "wordSpacing": 3
+                    "wordSpacing": 3,
+                    "fontSize": 6
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Unterstrichen",
+                  "style": {
+                    "color": "66AAFF",
+                    "fontSize": 6,
+                    "decoration": "underline",
+                    "decorationColor": "FF0000",
+                    "decorationThickness": 3
+                  }
+                }
+              },
+              {
+                "Text": {
+                  "text": "Mehrzeiliger Text mit erhöhtem Zeilenabstand und einer sehr schönen Farbe",
+                  "style": {
+                    "color": "AA66FF",
+                    "fontSize": 6,
+                    "lineSpacing": 6
                   }
                 }
               }

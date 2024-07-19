@@ -24,6 +24,16 @@
             "crossAxisAlignment": "start",
             "children": [
               {
+                "Paragraph": {
+                  "text": "Es gibt drei Arten von Formularfeldern: Text, Checkbox, Auswahl. In vielen PDF-Viewern kann man die Formulare ausfüllen und dann drucken und sogar speichern."
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Teilweise ist die Umsetzung machmal fehlerbehaftet. Achtung, mit nicht Standard-Fonts kommt es schnell zu Anzeige-Problemen!"
+                }
+              },
+              {
                 "Row": {
                   "mainAxisAlignment": "spaceBetween",
                   "children": [
