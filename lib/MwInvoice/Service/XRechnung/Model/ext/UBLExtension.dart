@@ -19,7 +19,7 @@ class UBLExtension {
 
   // The definition of the extension content.
   // ignore: inference_failure_on_uninitialized_variable
-  final extensionContent; // missing type ExtensionContent
+  final dynamic extensionContent; // missing type ExtensionContent
 
   // An identifier for the Extension assigned by the creator of the extension.
   final ID? iD;
