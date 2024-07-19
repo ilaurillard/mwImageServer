@@ -1,7 +1,10 @@
 class QrCode {
+  // ignore: constant_identifier_names
   static const String FILE_FORMAT_PNG = 'png';
+  // ignore: constant_identifier_names
   static const String FILE_FORMAT_SVG = 'svg';
 
+  // ignore: non_constant_identifier_names
   static RegExp UNSUPPORTED_CHARACTERS = RegExp(
     r'[^a-zA-Z0-9.,;:"'
     r"\'+\-\/()?*\[\]"

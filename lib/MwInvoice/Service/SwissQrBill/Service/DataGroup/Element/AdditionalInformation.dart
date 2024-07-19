@@ -5,6 +5,7 @@ final class AdditionalInformation
 {
   // use SelfValidatableTrait;
 
+  // ignore: constant_identifier_names
   static const String TRAILER_EPD = 'EPD';
 
   /// Unstructured information can be used to indicate the payment purpose

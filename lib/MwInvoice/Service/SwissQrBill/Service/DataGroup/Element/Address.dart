@@ -5,6 +5,7 @@ import 'package:mwcdn/MwInvoice/Service/StringModifier.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 
 abstract class Address {
+  // ignore: constant_identifier_names
   static const int MAX_CHARS_PER_LINE_ON_RECEIPT = 40;
 
   static String normalizeString(String? string) {

@@ -216,6 +216,7 @@ class DartClassFromElement {
         } else {
           if (childElement.type == null) {
             _attributes.add(
+              '  // ignore: inference_failure_on_uninitialized_variable\n'
               '  final $elementVarName; // missing type $elementClassName',
             );
           } else {

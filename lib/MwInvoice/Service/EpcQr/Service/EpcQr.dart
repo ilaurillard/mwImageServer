@@ -34,7 +34,7 @@ class EpcQr {
     this.information = '',
     this.purpose = '',
     this.amount = 0.0,
-    this.characterSet = CharacterSet.UTF_8,
+    this.characterSet = CharacterSet.utf8,
     this.currency = 'EUR',
   });
 

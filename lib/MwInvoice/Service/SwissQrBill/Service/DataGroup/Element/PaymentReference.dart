@@ -12,8 +12,11 @@ final class PaymentReference
         SelfValidatableInterface {
   // use SelfValidatableTrait;
 
+  // ignore: constant_identifier_names
   static const String TYPE_QR = 'QRR';
+  // ignore: constant_identifier_names
   static const String TYPE_SCOR = 'SCOR';
+  // ignore: constant_identifier_names
   static const String TYPE_NON = 'NON';
 
   /// Reference type

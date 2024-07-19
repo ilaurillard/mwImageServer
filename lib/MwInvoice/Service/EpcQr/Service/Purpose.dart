@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class Purpose {
   // Bank Debt
   static const String BANK_LOAN_DELAYED_DRAW_FUNDING = 'BKDF';

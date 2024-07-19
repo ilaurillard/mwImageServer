@@ -9,6 +9,7 @@ final class StructuredAddress extends Address
 {
   // use SelfValidatableTrait;
 
+  // ignore: constant_identifier_names
   static const String ADDRESS_TYPE = 'S';
 
   /// Name or company

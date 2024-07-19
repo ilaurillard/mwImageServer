@@ -14,8 +14,11 @@ import '../QrCodeableInterface.dart';
 
 final class Header implements QrCodeableInterface, SelfValidatableInterface {
 
+  // ignore: constant_identifier_names
   static const String QRTYPE_SPC = 'SPC';
+  // ignore: constant_identifier_names
   static const String VERSION_0200 = '0200';
+  // ignore: constant_identifier_names
   static const int CODING_LATIN = 1;
 
   /// Unambiguous indicator for the Swiss QR code.

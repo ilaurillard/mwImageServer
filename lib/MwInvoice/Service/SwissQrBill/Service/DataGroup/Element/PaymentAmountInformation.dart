@@ -8,7 +8,9 @@ final class PaymentAmountInformation
     implements QrCodeableInterface, SelfValidatableInterface {
   // use SelfValidatableTrait;
 
+  // ignore: constant_identifier_names
   static const String CURRENCY_CHF = 'CHF';
+  // ignore: constant_identifier_names
   static const String CURRENCY_EUR = 'EUR';
 
   //
