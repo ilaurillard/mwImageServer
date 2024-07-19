@@ -6,7 +6,17 @@
           "Column": {
             "children": [
               {
+                "Header": {
+                  "child": {
+                    "Text": {
+                      "text": "Partitions"
+                    }
+                  }
+                }
+              },
+              {
                 "Partitions": {
+
                   "children": [
                     {
                       "Partition": {

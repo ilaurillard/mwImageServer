@@ -4,12 +4,13 @@
       "multi": true,
       "content": [
         {
-          "Text": {
-            "text": "Datenquellen für Bilder"
+          "Header": {
+            "child": {
+              "Text": {
+                "text": "Datenquellen für Bilder"
+              }
+            }
           }
-        },
-        {
-          "Divider": {}
         },
         {
           "Row": {
@@ -124,12 +125,13 @@
           }
         },
         {
-          "Text": {
-            "text": "Datenquellen für Widgets"
+          "Header": {
+            "child": {
+              "Text": {
+                "text": "Datenquellen für Widgets"
+              }
+            }
           }
-        },
-        {
-          "Divider": {}
         },
         {
           "Row": {
@@ -162,12 +164,13 @@
           }
         },
         {
-          "Text": {
-            "text": "Datenquellen für Text"
+          "Header": {
+            "child": {
+              "Text": {
+                "text": "Datenquellen für Text"
+              }
+            }
           }
-        },
-        {
-          "Divider": {}
         },
         {
           "Row": {
@@ -187,12 +190,13 @@
           }
         },
         {
-          "Text": {
-            "text": "Datenquellen für Tabellen"
+          "Header": {
+            "child": {
+              "Text": {
+                "text": "Datenquellen für Tabellen"
+              }
+            }
           }
-        },
-        {
-          "Divider": {}
         },
         {
           "TableAuto": {
@@ -251,6 +255,25 @@
               "Wild",
               "Weight"
             ]
+          }
+        },
+        {
+          "SizedBox": {
+            "height": 10
+          }
+        },
+        {
+          "Header": {
+            "child": {
+              "Text": {
+                "text": "Datenquellen für Diagramme"
+              }
+            }
+          }
+        },
+        {
+          "Text": {
+            "text": "Siehe anderes Beispiel"
           }
         }
       ]

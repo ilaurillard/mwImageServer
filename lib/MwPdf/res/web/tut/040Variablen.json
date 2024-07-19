@@ -1,21 +1,42 @@
 {
+  "meta": {
+    "theme": "@def",
+    "themes": {
+      "@def": {
+        "styles": {
+          "text": {
+            "fontSize": 7
+          }
+        }
+      }
+    }
+  },
   "pages": [
     {
       "multi": true,
       "content": [
         {
-          "Paragraph": {
-            "text": "An vielen Stellen können %var3% eigefügt werden. Bool, Integer, Number, Null, String. %var1% %var2%"
+          "Header": {
+            "child": {
+              "Text": {
+                "text": "VARIABLEN"
+              }
+            }
           }
         },
         {
-          "Paragraph": {
-            "text": "Besonders mächtig, wenn die Variablen in einem Template benutzt werden und dann lediglich gefüllt werden müssen, dazu später mehr."
+          "RichText": {
+            "text": "An vielen Stellen können **%var3%** eigefügt werden. Bool, Integer, Number, Null, String. Zb. hier: **%var1%** oder hier **%var2%**"
           }
         },
         {
-          "Paragraph": {
-            "text": "Variablen werden mit %VARIABLE% referenziert. Es gibt eine besondere Variable namens 'value' - diese wird in Tabellenzellen oder Charts benutzt, um sich auf den dynamischen Wert einer Datenquelle zu beziehen."
+          "RichText": {
+            "text": "Besonders *mächtig*, wenn die Variablen in einem Template benutzt werden und dann lediglich gefüllt werden müssen, dazu später mehr."
+          }
+        },
+        {
+          "RichText": {
+            "text": "Variablen werden mit **%variable%** referenziert. Es gibt eine besondere Variable namens '**value**' - diese wird in Tabellenzellen oder Charts benutzt, um sich auf den dynamischen Wert einer Datenquelle zu beziehen."
           }
         }
       ]
@@ -24,6 +45,7 @@
   "variables": {
     "var1": 17.4,
     "var2": true,
-    "var3": "globale Variablen"
+    "var3": "globale Variablen",
+    "variable": "%variable%"
   }
 }

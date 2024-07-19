@@ -4,6 +4,15 @@
       "multi": true,
       "content": [
         {
+          "Header": {
+            "child": {
+              "Text": {
+                "text": "Automatische Summen"
+              }
+            }
+          }
+        },
+        {
           "RichText": {
             "text": "In Tabellenzellen bei Tabellen, die von Datenquellen gespeist werden, gibt es ja den speziellen Platzhalter '**value**' um den (formatierten) Wert in einem Zellen-Widget zu benutzen."
           }
@@ -77,13 +86,19 @@
                     {
                       "Text": {
                         "textAlign": "right",
-                        "text": "%sum%"
+                        "text": "%sum%",
+                        "style": {
+                          "color": "00AA00"
+                        }
                       }
                     },
                     {
                       "Text": {
                         "textAlign": "right",
-                        "text": "%sum% kg"
+                        "text": "%sum% kg",
+                        "style": {
+                          "color": "00AA00"
+                        }
                       }
                     }
                   ]
@@ -136,13 +151,19 @@
                     {
                       "Text": {
                         "textAlign": "right",
-                        "text": "%sum%"
+                        "text": "%sum%",
+                        "style": {
+                          "color": "00AA00"
+                        }
                       }
                     },
                     {
                       "Text": {
                         "textAlign": "right",
-                        "text": "%sum% kg"
+                        "text": "%sum% kg",
+                        "style": {
+                          "color": "00AA00"
+                        }
                       }
                     }
                   ]
@@ -164,7 +185,8 @@
                         "textAlign": "right",
                         "text": "%sumAll%",
                         "style": {
-                          "fontWeight": "bold"
+                          "fontWeight": "bold",
+                          "color": "0000AA"
                         }
                       }
                     },
@@ -173,7 +195,8 @@
                         "textAlign": "right",
                         "text": "%sumAll% kg",
                         "style": {
-                          "fontWeight": "bold"
+                          "fontWeight": "bold",
+                          "color": "0000AA"
                         }
                       }
                     }
@@ -243,17 +266,28 @@
                   "children": [
                     {
                       "Text": {
-                        "text": "SUMME"
+                        "text": "SUMME",
+                        "style": {
+                          "fontWeight": "bold"
+                        }
                       }
                     },
                     {
                       "Text": {
-                        "text": "%sumAll%"
+                        "text": "%sumAll%",
+                        "style": {
+                          "color": "0000AA",
+                          "fontWeight": "bold"
+                        }
                       }
                     },
                     {
                       "Text": {
-                        "text": "%sumAll%"
+                        "text": "%sumAll%",
+                        "style": {
+                          "color": "0000AA",
+                          "fontWeight": "bold"
+                        }
                       }
                     }
                   ]

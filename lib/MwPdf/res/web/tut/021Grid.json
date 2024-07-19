@@ -6,6 +6,15 @@
           "Column": {
             "children": [
               {
+                "Header": {
+                  "child": {
+                    "Text": {
+                      "text": "Grids"
+                    }
+                  }
+                }
+              },
+              {
                 "LimitedBox": {
                   "maxHeight": 100,
                   "child": {
