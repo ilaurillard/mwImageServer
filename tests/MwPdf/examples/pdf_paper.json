@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "theme": "@def1",
+    "themes": {
+      "@def1": {
+        "orientation": "portrait",
+        "format": {
+          "marginAll": 0
+        }
+      },
+      "@def2": {
+        "orientation": "portrait",
+        "format": {
+          "marginAll": 0
+        },
+        "background": {
+          "FullPage": {
+            "ignoreMargins": true,
+            "child": {
+              "Center": {
+                "child": {
+                  "Snip": {
+                    "offset": 10,
+                    "direction": "horizontal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "WritingPaper": {
+            "divisions": [
+              1
+            ],
+            "gap": 5.0,
+            "paddingLines": [
+              10
+            ],
+            "padding": [
+              10
+            ],
+            "amountLines": 16,
+            "top": true,
+            "boxed": true,
+            "lineHeight": 9.0,
+            "lineGap": 5.0,
+            "lineDivisions": [
+              1, 2
+            ],
+            "marginLines": [
+              20
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "DoublePage": {
+            "child1": {
+              "WritingPaper": {
+              }
+            },
+            "child2": {
+              "WritingPaper": {
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

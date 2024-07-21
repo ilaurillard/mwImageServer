@@ -38,8 +38,6 @@ Future<void> main() async {
 
   final theme = pw.ThemeData.withFont(
     base: pw.Font.helvetica(),
-    // base: await PdfGoogleFonts.openSansRegular(),
-    // bold: await PdfGoogleFonts.openSansBold(),
   );
 
   // Top bar chart

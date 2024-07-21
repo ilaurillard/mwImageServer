@@ -10,6 +10,7 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/Snip.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Maze.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Suchsel.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Sudoku.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -148,5 +149,27 @@ class Custom {
         json['mode'] as String? ?? '',
       ),
     ).build();
+  }
+
+  static pw.Widget doublePage(
+      Dict json,
+      State state,
+      ) {
+    return pw.Row(
+      children: [
+        pw.Expanded(
+          child: Widget.parse(
+            json['child1'] as Dict? ?? {},
+            state,
+          ),
+        ),
+        pw.Expanded(
+          child: Widget.parse(
+            json['child2'] as Dict? ?? {},
+            state,
+          ),
+        ),
+      ],
+    );
   }
 }

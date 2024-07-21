@@ -365,6 +365,11 @@ class Widget {
             data,
             state,
           );
+        case 'WritingPaper':
+          return GridPaper.writingPaper(
+            data,
+            state,
+          );
         // -----------
         case 'ClipRect':
           return Clip.clipRect(
@@ -419,8 +424,14 @@ class Widget {
             state,
           );
 
+
         // ---------- custom stuff
 
+        case 'DoublePage':
+          return Custom.doublePage(
+            data,
+            state,
+          );
         case 'Calendar':
           return Custom.calendar(
             data,

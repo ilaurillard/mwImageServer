@@ -1032,6 +1032,12 @@
       "minProperties": 1,
       "maxProperties": 1,
       "properties": {
+        "DoublePage": {
+          "$ref": "#/definitions/Widgets/DoublePage"
+        },
+        "WritingPaper": {
+          "$ref": "#/definitions/Widgets/WritingPaper"
+        },
         "TextField": {
           "$ref": "#/definitions/Widgets/TextField"
         },
@@ -1341,6 +1347,87 @@
       }
     },
     "Widgets": {
+      "DoublePage": {
+        "additionalProperties": false,
+        "properties": {
+          "child1": {
+            "$ref": "#/definitions/Widget"
+          },
+          "child2": {
+            "$ref": "#/definitions/Widget"
+          }
+        },
+        "type": "object"
+      },
+      "WritingPaper": {
+        "additionalProperties": false,
+        "properties": {
+          "amountLines": {
+            "type": "integer"
+          },
+          "paddingLines": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "padding": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "marginLines": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "lineHeight": {
+            "type": "number"
+          },
+          "gap": {
+            "type": "number"
+          },
+          "divisions": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "bgColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "lineColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "lineColorSub": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "lineBgColor": {
+            "$ref": "#/definitions/Style/Color"
+          },
+          "boxed": {
+            "type": "boolean"
+          },
+          "top": {
+            "type": "boolean"
+          },
+          "lineGap": {
+            "type": "number"
+          },
+          "lineDivisions": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "thickness": {
+            "type": "number"
+          },
+          "thicknessSub": {
+            "type": "number"
+          },
+          "thicknessMargin": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
       "TextField": {
         "additionalProperties": false,
         "properties": {

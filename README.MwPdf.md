@@ -40,8 +40,11 @@ https://pdfcrowd.com/inspect-pdf/
 IDEEN:
 
 Digitale Signaturen
-Higher-Level Widgets
-
-Barrierefreiheit:
-https://pdfua.foundation/en/pdf-accessibility-checker-pac/
-
+Higher-Level Widgets -> Briefkopf, Rechnung, Anschrift
+https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/unequal.html
+Mathematik Physik Chemie
+Noten -> lilypond, musicXml
+Turnierpläne
+Barrierefreiheit: https://pdfua.foundation/en/pdf-accessibility-checker-pac/
+Linierungen / WritingPaper -> https://www.rofu.de/blog/heft-lineatur-uebersicht/
+-> https://digitalpapier.com/
