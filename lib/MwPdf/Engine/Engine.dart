@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:mwcdn/MwMs/Etc/Types.dart';
-import 'package:mwcdn/MwInvoice/Service/Invoice.dart';
-import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwInvoice/Service/Invoice.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -64,14 +64,16 @@ class Engine {
   // Create the pdf -------------------
   Future<pw.Document> pdf() async {
 
-    pw.PageTheme? pageTheme;
+    pw.PageTheme? pageDefaultTheme;
     if (meta.theme.isNotEmpty) {
-      pageTheme = meta.themes[meta.theme]?.theme;
+      pageDefaultTheme = meta.themes[meta.theme]?.theme;
     }
 
-    pw.ThemeData? docTheme = Theme.defaultDocumentTheme(state);
-    if (pageTheme != null) {
-      docTheme = pageTheme.theme;
+    pw.ThemeData? docTheme = Theme.defaultDocumentTheme(
+      state,
+    );
+    if (pageDefaultTheme != null) {
+      docTheme = pageDefaultTheme.theme;
     }
 
     // --------------------------------------
@@ -100,7 +102,7 @@ class Engine {
       ),
     );
 
-    // -------------------------
+    // ------------------------- PDF/A 3b
 
     if (meta.pdfa3b) {
       // Needed for PDF/A 3b compliency
@@ -110,9 +112,7 @@ class Engine {
       );
     }
 
-    // -------------------------
-
-    // embedded invoice xml
+    // ------------------------- embedded invoice xml
 
     if (invoice.cii != null) {
       PdfaAttachedFiles(
@@ -185,8 +185,8 @@ class Engine {
 
       // -------------------------
 
-      pageTheme = meta.themes[page.theme]?.theme ??
-          pageTheme ??
+      pw.PageTheme? pageTheme = meta.themes[page.theme]?.theme ??
+          pageDefaultTheme ??
           Theme.defaultPageTheme(
             state,
           );
@@ -237,6 +237,7 @@ class Engine {
         pdf.addPage(pwPage);
       }
     }
+
     if (tocPage != null) {
       // insert "table of contents" page
       pdf.addPage(

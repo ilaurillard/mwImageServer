@@ -1259,6 +1259,9 @@
         },
         "Snip": {
           "$ref": "#/definitions/WidgetsCustom/Snip"
+        },
+        "PunchHoles": {
+          "$ref": "#/definitions/WidgetsCustom/PunchHoles"
         }
       },
       "additionalProperties": false,
@@ -1344,12 +1347,22 @@
           }
         },
         "type": "object"
+      },
+      "PunchHoles": {
+        "additionalProperties": false,
+        "properties": {
+
+        },
+        "type": "object"
       }
     },
     "Widgets": {
       "DoublePage": {
         "additionalProperties": false,
         "properties": {
+          "axis": {
+            "$ref": "#/definitions/Enum/Axis"
+          },
           "child1": {
             "$ref": "#/definitions/Widget"
           },
@@ -1362,16 +1375,34 @@
       "WritingPaper": {
         "additionalProperties": false,
         "properties": {
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "childLine": {
+            "$ref": "#/definitions/Widget"
+          },
+          "preset": {
+            "enum": [
+              "0-a5",
+              "1-a4",
+              "1q-a5",
+              "2-a4",
+              "2W-a5",
+              "3-a4",
+              "3R-a4",
+              "3Rr-a4"
+            ]
+          },
           "amountLines": {
             "type": "integer"
           },
           "paddingLines": {
             "$ref": "#/definitions/Style/EdgeInsets"
           },
-          "padding": {
+          "paddingContent": {
             "$ref": "#/definitions/Style/EdgeInsets"
           },
-          "marginLines": {
+          "marginLinesAt": {
             "type": "array",
             "items": {
               "type": "integer"

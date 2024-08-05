@@ -29,7 +29,7 @@ class Meta {
     this.themes = const {},
     this.headers = const {},
     this.footers = const {},
-    this.theme = '',
+    this.theme = '', // default theme
     this.title,
     this.author,
     this.creator,

@@ -447,6 +447,11 @@ class Widget {
             data,
             state,
           );
+        case 'PunchHoles':
+          return Custom.punchHoles(
+            data,
+            state,
+          );
         case 'SwissInvoiceWidget':
           return SwissInvoice.swissInvoice(
             data,

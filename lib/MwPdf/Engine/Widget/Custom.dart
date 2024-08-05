@@ -6,6 +6,7 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigDay.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigLane.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/CustomCalendar.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Entries.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/PunchHoles.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/Snip.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Maze.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Suchsel.dart';
@@ -25,6 +26,16 @@ enum PuzzleType {
 }
 
 class Custom {
+
+  static pw.Widget punchHoles(
+      Dict json,
+      State state,
+      ) {
+    return PunchHoles.build(
+
+    );
+  }
+
   static pw.Widget snip(
     Dict json,
     State state,
@@ -155,21 +166,28 @@ class Custom {
       Dict json,
       State state,
       ) {
+    List<pw.Expanded> children = [
+      pw.Expanded(
+        child: Widget.parse(
+          json['child1'] as Dict? ?? {},
+          state,
+        ),
+      ),
+      pw.Expanded(
+        child: Widget.parse(
+          json['child2'] as Dict? ?? {},
+          state,
+        ),
+      ),
+    ];
+    pw.Axis axis = Util.axis(json['axis'] as String?) ?? pw.Axis.horizontal;
+    if (axis == pw.Axis.vertical) {
+      return pw.Column(
+        children: children,
+      );
+    }
     return pw.Row(
-      children: [
-        pw.Expanded(
-          child: Widget.parse(
-            json['child1'] as Dict? ?? {},
-            state,
-          ),
-        ),
-        pw.Expanded(
-          child: Widget.parse(
-            json['child2'] as Dict? ?? {},
-            state,
-          ),
-        ),
-      ],
+      children: children,
     );
   }
 }

@@ -208,10 +208,11 @@ class Theme {
     State state,
   ) {
     return pw.ThemeData(
-        iconTheme: iconTheme(
-      {},
-      state,
-    ));
+      iconTheme: iconTheme(
+        {},
+        state,
+      ),
+    );
   }
 
   static pw.PageTheme? defaultPageTheme(
@@ -219,10 +220,11 @@ class Theme {
   ) {
     return pw.PageTheme(
       theme: pw.ThemeData(
-          iconTheme: iconTheme(
-        {},
-        state,
-      )),
+        iconTheme: iconTheme(
+          {},
+          state,
+        ),
+      ),
     );
   }
 }
