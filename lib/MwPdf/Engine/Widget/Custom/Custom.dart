@@ -15,8 +15,8 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Custom/Puzzle/Kakuro.dart';
-import 'Util.dart';
+import 'Puzzle/Kakuro.dart';
+import '../Util.dart';
 
 enum PuzzleType {
   sudoku,

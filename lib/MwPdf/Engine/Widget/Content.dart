@@ -1,6 +1,6 @@
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/Hyphenation.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Hyphenation.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:vector_math/vector_math_64.dart';

@@ -1,7 +1,7 @@
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
-import 'package:mwcdn/MwPdf/Engine/Widget/Custom.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Custom.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/Stamps.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/EpcInvoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/KsaInvoice.dart';
@@ -19,7 +19,7 @@ import 'Clip.dart';
 import 'Container.dart';
 import 'Content.dart';
 import 'Flex.dart';
-import 'GridPaper.dart';
+import 'Custom/Paper.dart';
 import 'GridView.dart';
 import 'Image.dart';
 import 'Partition.dart';
@@ -361,12 +361,12 @@ class Widget {
           return Shape.inkList(data);
         // ----------
         case 'GridPaper':
-          return GridPaper.gridPaper(
+          return Paper.gridPaper(
             data,
             state,
           );
         case 'WritingPaper':
-          return GridPaper.writingPaper(
+          return Paper.writingPaper(
             data,
             state,
           );

@@ -21,23 +21,6 @@ class Pdf {
     required this.fileStorage,
   });
 
-  Future<Results> validate(
-    Dict data,
-  ) async {
-    data = _expandTemplate(data);
-
-    return await _validate(data);
-  }
-
-  Future<XmlDocument?> invoice(
-    Dict data,
-  ) async {
-    data = _expandTemplate(data);
-    Engine engine = await _engine(data);
-    // may be an CII or UBL xml document
-    return engine.invoice.xml();
-  }
-
   Future<Uint8List> build(
     Dict data,
   ) async {
@@ -52,7 +35,9 @@ class Pdf {
       Document pdf = await engine.pdf();
       return await pdf.save();
     } else {
+
       _printErrors(results);
+
       throw ResponseException(
         Util.rBadRequest(
           message: json.encode({
@@ -64,6 +49,30 @@ class Pdf {
     }
   }
 
+  Future<Results> validate(
+      Dict data,
+      ) async {
+    return await _validate(
+      _expandTemplate(
+        data,
+      ),
+    );
+  }
+
+  // create invoice xml
+  Future<XmlDocument?> invoice(
+      Dict data,
+      ) async {
+    Engine engine = await _engine(
+      _expandTemplate(
+        data,
+      ),
+    );
+    // may be an CII or UBL xml document
+    return engine.invoice.xml();
+  }
+
+  // return main (json) schema definition
   Future<String> schema() async {
     return (await Schema.create(
       resDir: _resDir(),
@@ -71,7 +80,7 @@ class Pdf {
         .schemaData;
   }
 
-  // factur x
+  /// factur x / cii
   Future<String> schemaf() async {
     return (await Schema.create(
       resDir: _resDir(),
@@ -79,7 +88,7 @@ class Pdf {
         .schemaDataFacturx;
   }
 
-  // xrechnung
+  /// xrechnung / ubl
   Future<String> schemax() async {
     return (await Schema.create(
       resDir: _resDir(),
@@ -87,6 +96,8 @@ class Pdf {
         .schemaDataXRechnung;
   }
 
+  /// store pdf template data on server
+  /// return a hashkey for later reference
   Future<String> template(
     Dict data,
   ) async {

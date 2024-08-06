@@ -3,10 +3,10 @@ import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Util.dart';
-import 'Widget.dart';
+import '../Util.dart';
+import '../Widget.dart';
 
-class GridPaper {
+class Paper {
   static const lineColor = PdfColor.fromInt(0xffc3e8f3);
 
   static pw.Widget writingPaper(
