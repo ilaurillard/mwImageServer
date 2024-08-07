@@ -5,6 +5,7 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Custom.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/Stamps.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/EpcInvoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/KsaInvoice.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Labels/Labels.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Form.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/MultiPage.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/SwissInvoice.dart';
@@ -427,6 +428,11 @@ class Widget {
 
         // ---------- custom stuff
 
+        case 'Labels':
+          return Labels.labels(
+            data,
+            state,
+          );
         case 'DoublePage':
           return Custom.doublePage(
             data,
@@ -453,17 +459,17 @@ class Widget {
             state,
           );
         case 'SwissInvoiceWidget':
-          return SwissInvoice.swissInvoice(
+          return SwissInvoice.build(
             data,
             state,
           );
         case 'EpcQrWidget':
-          return EpcInvoice.epcInvoice(
+          return EpcInvoice.build(
             data,
             state,
           );
         case 'KsaInvoiceWidget':
-          return KsaInvoice.ksaInvoice(
+          return KsaInvoice.build(
             data,
             state,
           );

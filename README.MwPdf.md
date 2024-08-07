@@ -48,3 +48,4 @@ Turnierpläne
 Barrierefreiheit: https://pdfua.foundation/en/pdf-accessibility-checker-pac/
 Linierungen / WritingPaper -> https://www.rofu.de/blog/heft-lineatur-uebersicht/
 -> https://digitalpapier.com/
+Labels

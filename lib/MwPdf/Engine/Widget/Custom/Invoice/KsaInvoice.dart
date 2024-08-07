@@ -6,7 +6,7 @@ import 'package:pdf/widgets.dart' as pw;
 import '../../Barcode.dart';
 
 class KsaInvoice {
-  static pw.BarcodeWidget ksaInvoice(
+  static pw.BarcodeWidget build(
     Dict json,
     State state,
   ) {

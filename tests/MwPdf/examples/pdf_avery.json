@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "format": {
+          "preset": "a4",
+          "marginAll": 0
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "multi": true,
+      "content": [
+        {
+          "Labels": {
+            "preset": "3422",
+            "source": "@labels",
+            "child": {
+              "Container": {
+                "decoration": {
+                  "border": {
+                    "all": {
+                      "style": "dotted",
+                      "color": "CCCCCC"
+                    }
+                  }
+                },
+                "child": {
+                  "Column": {
+                    "children": [
+                      {
+                        "SizedBox": {
+                          "height": 18,
+                          "child": {
+                            "Padding": {
+                              "padding": [
+                                1
+                              ],
+                              "child": {
+                                "BarcodeWidget": {
+                                  "barcode": "CodeEAN13",
+                                  "value": "%value1%"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "Text": {
+                          "text": "Name: %value0%"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "@labels": {
+      "values": [
+        [
+          "Peter",
+          "1234567890111"
+        ],
+        [
+          "Paul",
+          "2234567890226"
+        ],
+        [
+          "Mary",
+          "2234567890226"
+        ],
+        [
+          "John",
+          "1234567890111"
+        ],
+        [
+          "Jim",
+          "2234567890226"
+        ],
+        [
+          "James",
+          "2234567890226"
+        ],
+        [
+          "Justus",
+          "1234567890111"
+        ],
+        [
+          "Peter",
+          "2234567890226"
+        ],
+        [
+          "Bob",
+          "2234567890226"
+        ]
+      ]
+    }
+  }
+}

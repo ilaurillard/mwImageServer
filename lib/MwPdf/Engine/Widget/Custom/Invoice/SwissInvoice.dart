@@ -6,7 +6,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class SwissInvoice {
-  static pw.Widget swissInvoice(
+  static pw.Widget build(
     Dict json,
     State state,
   ) {

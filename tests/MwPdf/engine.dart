@@ -73,7 +73,8 @@ Future<void> main() async {
   // String jsonFile = 'pdf_puzzle.json';
   // String jsonFile = 'pdf_puzzle2.json';
   // String jsonFile = 'pdf_bates.json';
-  String jsonFile = 'pdf_paper.json';
+  // String jsonFile = 'pdf_paper.json';
+   String jsonFile = 'pdf_avery.json';
 
   String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {

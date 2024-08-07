@@ -15,8 +15,8 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'Puzzle/Kakuro.dart';
 import '../Util.dart';
+import 'Puzzle/Kakuro.dart';
 
 enum PuzzleType {
   sudoku,
@@ -27,27 +27,6 @@ enum PuzzleType {
 
 class Custom {
 
-  static pw.Widget punchHoles(
-      Dict json,
-      State state,
-      ) {
-    return PunchHoles.build(
-
-    );
-  }
-
-  static pw.Widget snip(
-    Dict json,
-    State state,
-  ) {
-    return Snip.build(
-      padding: Util.edgeInsets(
-        json['padding'] as List<dynamic>?,
-      ),
-      offset: double.tryParse(json['offset'].toString()) ?? 20,
-      direction: Util.axis(json['direction'] as String?) ?? pw.Axis.vertical,
-    );
-  }
 
   static pw.Widget puzzle(
     Dict json,
@@ -163,9 +142,9 @@ class Custom {
   }
 
   static pw.Widget doublePage(
-      Dict json,
-      State state,
-      ) {
+    Dict json,
+    State state,
+  ) {
     List<pw.Expanded> children = [
       pw.Expanded(
         child: Widget.parse(
@@ -188,6 +167,26 @@ class Custom {
     }
     return pw.Row(
       children: children,
+    );
+  }
+
+  static pw.Widget punchHoles(
+      Dict json,
+      State state,
+      ) {
+    return PunchHoles.build();
+  }
+
+  static pw.Widget snip(
+      Dict json,
+      State state,
+      ) {
+    return Snip.build(
+      padding: Util.edgeInsets(
+        json['padding'] as List<dynamic>?,
+      ),
+      offset: double.tryParse(json['offset'].toString()) ?? 20,
+      direction: Util.axis(json['direction'] as String?) ?? pw.Axis.vertical,
     );
   }
 }

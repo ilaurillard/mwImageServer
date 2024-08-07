@@ -16,7 +16,9 @@ class Barcode {
     double? textPadding = double.tryParse(json['textPadding'].toString());
 
     return pw.BarcodeWidget(
-      data: json['value'] as String? ?? '',
+      data: state.replaceParameters(
+        json['value'] as String? ?? '',
+      ),
       color: Util.color(json['color'] as String?) ?? PdfColors.black,
       backgroundColor: Util.color(json['backgroundColor'] as String?),
       decoration: Util.boxDecoration(

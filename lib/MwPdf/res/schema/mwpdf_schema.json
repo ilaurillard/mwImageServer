@@ -1032,11 +1032,14 @@
       "minProperties": 1,
       "maxProperties": 1,
       "properties": {
+        "Labels": {
+          "$ref": "#/definitions/WidgetsCustom/Labels"
+        },
         "DoublePage": {
-          "$ref": "#/definitions/Widgets/DoublePage"
+          "$ref": "#/definitions/WidgetsCustom/DoublePage"
         },
         "WritingPaper": {
-          "$ref": "#/definitions/Widgets/WritingPaper"
+          "$ref": "#/definitions/WidgetsCustom/WritingPaper"
         },
         "TextField": {
           "$ref": "#/definitions/Widgets/TextField"
@@ -1048,7 +1051,7 @@
           "$ref": "#/definitions/Widgets/ChoiceField"
         },
         "Bates": {
-          "$ref": "#/definitions/Widgets/Bates"
+          "$ref": "#/definitions/WidgetsCustom/Bates"
         },
         "Calendar": {
           "$ref": "#/definitions/WidgetsCustom/Calendar"
@@ -1069,7 +1072,7 @@
           "$ref": "#/definitions/Widgets/BarcodeWidget"
         },
         "KsaInvoiceWidget": {
-          "$ref": "#/definitions/Widgets/KsaInvoiceWidget"
+          "$ref": "#/definitions/WidgetsCustom/KsaInvoiceWidget"
         },
         "SwissInvoiceWidget": {
           "$ref": "swiss_qr_bill.json"
@@ -1225,7 +1228,7 @@
           "$ref": "#/definitions/Widgets/SvgImage"
         },
         "Switch": {
-          "$ref": "#/definitions/Widgets/Switch"
+          "$ref": "#/definitions/WidgetsCustom/Switch"
         },
         "Table": {
           "$ref": "#/definitions/Widgets/Table"
@@ -1268,6 +1271,52 @@
       "type": "object"
     },
     "WidgetsCustom": {
+      "Labels": {
+        "additionalProperties": false,
+        "properties": {
+          "margin": {
+            "type": "number"
+          },
+          "xNumber": {
+            "type": "integer"
+          },
+          "yNumber": {
+            "type": "integer"
+          },
+          "width": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "padding": {
+            "$ref": "#/definitions/Style/EdgeInsets"
+          },
+          "xSpace": {
+            "type": "number"
+          },
+          "ySpace": {
+            "type": "number"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "preset": {
+            "enum": [
+              "3420",
+              "3422",
+              "L7163"
+            ]
+          },
+          "child": {
+            "$ref": "#/definitions/Widget"
+          },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          }
+        },
+        "type": "object"
+      },
       "Calendar": {
         "additionalProperties": false,
         "properties": {
@@ -1351,12 +1400,9 @@
       "PunchHoles": {
         "additionalProperties": false,
         "properties": {
-
         },
         "type": "object"
-      }
-    },
-    "Widgets": {
+      },
       "DoublePage": {
         "additionalProperties": false,
         "properties": {
@@ -1459,6 +1505,75 @@
         },
         "type": "object"
       },
+      "KsaInvoiceWidget": {
+        "additionalProperties": false,
+        "properties": {
+          "sellerName": {
+            "type": "string"
+          },
+          "sellerTRN": {
+            "type": "string"
+          },
+          "vatPrice": {
+            "type": "string"
+          },
+          "totalWithVat": {
+            "type": "string"
+          },
+          "barcode": {
+            "$ref": "#/definitions/Widgets/BarcodeWidget"
+          }
+        },
+        "required": [
+          "barcode",
+          "sellerName",
+          "sellerTRN",
+          "vatPrice",
+          "totalWithVat"
+        ],
+        "type": "object"
+      },
+      "Switch": {
+        "additionalProperties": false,
+        "properties": {
+          "cases": {
+            "additionalProperties": false,
+            "patternProperties": {
+              "^.*$": {
+                "$ref": "#/definitions/Widget"
+              }
+            },
+            "type": "object"
+          },
+          "default": {
+            "$ref": "#/definitions/Widget"
+          },
+          "subject": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Bates": {
+        "additionalProperties": false,
+        "properties": {
+          "prefix": {
+            "type": "string"
+          },
+          "start": {
+            "type": "integer"
+          },
+          "digits": {
+            "type": "integer"
+          },
+          "child": {
+            "$ref": "#/definitions/Widget"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "Widgets": {
       "TextField": {
         "additionalProperties": false,
         "properties": {
@@ -1567,24 +1682,6 @@
         ],
         "type": "object"
       },
-      "Bates": {
-        "additionalProperties": false,
-        "properties": {
-          "prefix": {
-            "type": "string"
-          },
-          "start": {
-            "type": "integer"
-          },
-          "digits": {
-            "type": "integer"
-          },
-          "child": {
-            "$ref": "#/definitions/Widget"
-          }
-        },
-        "type": "object"
-      },
       "Align": {
         "additionalProperties": false,
         "properties": {
@@ -1640,34 +1737,6 @@
             "$ref": "#/definitions/Widget"
           }
         },
-        "type": "object"
-      },
-      "KsaInvoiceWidget": {
-        "additionalProperties": false,
-        "properties": {
-          "sellerName": {
-            "type": "string"
-          },
-          "sellerTRN": {
-            "type": "string"
-          },
-          "vatPrice": {
-            "type": "string"
-          },
-          "totalWithVat": {
-            "type": "string"
-          },
-          "barcode": {
-            "$ref": "#/definitions/Widgets/BarcodeWidget"
-          }
-        },
-        "required": [
-          "barcode",
-          "sellerName",
-          "sellerTRN",
-          "vatPrice",
-          "totalWithVat"
-        ],
         "type": "object"
       },
       "BarcodeWidget": {
@@ -2764,27 +2833,6 @@
           },
           "width": {
             "type": "number"
-          }
-        },
-        "type": "object"
-      },
-      "Switch": {
-        "additionalProperties": false,
-        "properties": {
-          "cases": {
-            "additionalProperties": false,
-            "patternProperties": {
-              "^.*$": {
-                "$ref": "#/definitions/Widget"
-              }
-            },
-            "type": "object"
-          },
-          "default": {
-            "$ref": "#/definitions/Widget"
-          },
-          "subject": {
-            "type": "string"
           }
         },
         "type": "object"
