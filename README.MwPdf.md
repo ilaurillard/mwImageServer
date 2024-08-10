@@ -39,13 +39,16 @@ https://pdfcrowd.com/inspect-pdf/
 
 IDEEN:
 
-Digitale Signaturen
-Higher-Level Widgets -> Briefkopf, Rechnung, Anschrift
-https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/unequal.html
-Mathematik Physik Chemie
-Noten -> lilypond, musicXml
-Turnierpläne
-Barrierefreiheit: https://pdfua.foundation/en/pdf-accessibility-checker-pac/
-Linierungen / WritingPaper -> https://www.rofu.de/blog/heft-lineatur-uebersicht/
--> https://digitalpapier.com/
-Labels
+- Barrierefreiheit: https://pdfua.foundation/en/pdf-accessibility-checker-pac/
+  https://check.axes4.com/de/
+
+- Digitale Signaturen
+- Higher-Level Widgets -> Briefkopf, Rechnung, Anschrift
+- https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/unequal.html
+  https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/singles.html
+- Mathematik, Physik, Chemie
+- Musik -> Noten -> lilypond, musicXml
+- Turnierpläne
+- Graphs, graphite
+x Linierungen / WritingPaper -> https://www.rofu.de/blog/heft-lineatur-uebersicht/ -> https://digitalpapier.com/
+x Labels/Avery/Zweckform

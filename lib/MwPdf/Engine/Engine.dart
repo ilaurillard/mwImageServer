@@ -92,7 +92,7 @@ class Engine {
       keywords: meta.keywords,
       producer: meta.producer,
 
-      // verbose: true,
+      verbose: meta.verbose,
       compress: meta.compress,
       version: PdfVersion.pdf_1_5,
 

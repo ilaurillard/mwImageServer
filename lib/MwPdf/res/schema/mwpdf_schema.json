@@ -3187,6 +3187,10 @@
           "type": "boolean",
           "description": "Default is true"
         },
+        "verbose": {
+          "type": "boolean",
+          "description": "Default is false"
+        },
         "footers": {
           "additionalProperties": false,
           "patternProperties": {
