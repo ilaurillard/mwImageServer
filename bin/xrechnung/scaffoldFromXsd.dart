@@ -1,6 +1,16 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Etc/Util.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/cac/AccountingSupplierParty.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/cac/InvoiceLine.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/cac/Item.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/cac/LegalMonetaryTotal.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/cbc/ID.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/cbc/IssueDate.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/cbc/LineExtensionAmount.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/cbc/PayableAmount.dart';
+import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/ubl/Invoice.dart';
 import 'package:mwcdn/MwInvoice/Service/XRechnung/Scaffold/DartClasses.dart';
 import 'package:mwcdn/MwInvoice/Service/XRechnung/Scaffold/JsonScheme.dart';
 import 'package:mwcdn/MwInvoice/Service/XRechnung/Scaffold/Schema.dart';
@@ -44,7 +54,7 @@ Future<void> main(List<String> arguments) async {
 
   print('---------------------');
 
-  if (Directory(modelDir).existsSync()) {
+  if (Directory(schemaDir).existsSync()) {
     print('Generating json scheme ...\n');
     JsonScheme(
       rootSchema,
@@ -56,4 +66,29 @@ Future<void> main(List<String> arguments) async {
 
   print('------------------');
   print('THANKYOU\n');
+
+  // Invoice invoice = Invoice(
+  //   iD: ID(value: 'xxx'),
+  //   issueDate: IssueDate(
+  //     value: XsdDate(value: '2024-12-12'),
+  //   ),
+  //   accountingSupplierParty: AccountingSupplierParty(),
+  //   legalMonetaryTotal: LegalMonetaryTotal(
+  //     payableAmount: PayableAmount(
+  //       value: 234.5,
+  //       currencyID: 'EUR',
+  //     ),
+  //   ),
+  //   invoiceLine: [
+  //     InvoiceLine(
+  //       iD: ID(value: 'yyy'),
+  //       lineExtensionAmount: LineExtensionAmount(
+  //         value: 123.4,
+  //         currencyID: 'EUR',
+  //       ),
+  //       item: Item(),
+  //     ),
+  //   ],
+  // );
+  // print(invoice.toXml());
 }
