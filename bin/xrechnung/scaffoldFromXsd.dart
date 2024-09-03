@@ -27,8 +27,6 @@ Future<void> main(List<String> arguments) async {
 
   String schemaUrl =
       'http://docs.oasis-open.org/ubl/os-UBL-2.4/xsd/maindoc/UBL-Invoice-2.4.xsd';
-  // String url =
-  //     'http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-Invoice-2.1.xsd';
 
   await XsdParser(
     schemaUrl,
@@ -64,7 +62,7 @@ Future<void> main(List<String> arguments) async {
     print('Folder $schemaDir not found');
   }
 
-  print('------------------');
+  // print('------------------');
   print('THANKYOU\n');
 
   // Invoice invoice = Invoice(
