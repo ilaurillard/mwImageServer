@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Library:           OASIS Universal Business Language (UBL) 2.3 OS
-                     http://docs.oasis-open.org/ubl/os-UBL-2.3/
-  Release Date:      15 June 2021
-  Module:            xsd/common/UBL-CommonAggregateComponents-2.3.xsd
-  Generated on:      2021-06-18 19:57z
-  Copyright (c) OASIS Open 2021. All Rights Reserved.
+  Library:           OASIS Universal Business Language (UBL) 2.4
+                     http://docs.oasis-open.org/ubl/os-UBL-2.4/
+  Release Date:      20 June 2024
+  Module:            xsd/common/UBL-CommonAggregateComponents-2.4.xsd
+  Generated on:      2024-06-25 15:49z
+  Copyright (c) OASIS Open 2024. All Rights Reserved.
 -->
-<xsd:schema xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ccts="urn:un:unece:uncefact:documentation:2" targetNamespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.3">
+<xsd:schema xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ccts="urn:un:unece:uncefact:documentation:2" targetNamespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.4">
    <!-- ===== Imports ===== -->
-   <xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemaLocation="UBL-CommonBasicComponents-2.3.xsd"/>
-   <xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" schemaLocation="UBL-CommonExtensionComponents-2.3.xsd"/>
+   <xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemaLocation="UBL-CommonBasicComponents-2.4.xsd"/>
+   <xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" schemaLocation="UBL-CommonExtensionComponents-2.4.xsd"/>
    <!-- ===== Element Declarations ===== -->
    <xsd:element name="AcceptanceTransportEvent" type="TransportEventType"/>
    <xsd:element name="AccessoryRelatedItem" type="RelatedItemType"/>
@@ -32,6 +32,7 @@
    <xsd:element name="AdditionalDocumentReference" type="DocumentReferenceType"/>
    <xsd:element name="AdditionalDocumentResponse" type="DocumentResponseType"/>
    <xsd:element name="AdditionalFee" type="FeeType"/>
+   <xsd:element name="AdditionalFuelProperty" type="FuelPropertyType"/>
    <xsd:element name="AdditionalInformationParty" type="PartyType"/>
    <xsd:element name="AdditionalInformationRequestPeriod" type="PeriodType"/>
    <xsd:element name="AdditionalItemIdentification" type="ItemIdentificationType"/>
@@ -60,6 +61,7 @@
    <xsd:element name="AppealReceiverParty" type="PartyType"/>
    <xsd:element name="AppealTerms" type="AppealTermsType"/>
    <xsd:element name="ApplicableAddress" type="AddressType"/>
+   <xsd:element name="ApplicableDeliveryPeriod" type="PeriodType"/>
    <xsd:element name="ApplicablePeriod" type="PeriodType"/>
    <xsd:element name="ApplicableRegulation" type="RegulationType"/>
    <xsd:element name="ApplicableTaxCategory" type="TaxCategoryType"/>
@@ -89,6 +91,7 @@
    <xsd:element name="BillingReference" type="BillingReferenceType"/>
    <xsd:element name="BillingReferenceLine" type="BillingReferenceLineType"/>
    <xsd:element name="BirthplaceLocation" type="LocationType"/>
+   <xsd:element name="BondedWarehouseLocation" type="LocationType"/>
    <xsd:element name="BonusPaymentTerms" type="PaymentTermsType"/>
    <xsd:element name="Branch" type="BranchType"/>
    <xsd:element name="BrochureDocumentReference" type="DocumentReferenceType"/>
@@ -97,6 +100,7 @@
    <xsd:element name="BusinessCapability" type="CapabilityType"/>
    <xsd:element name="BusinessClassificationScheme" type="ClassificationSchemeType"/>
    <xsd:element name="BusinessParty" type="PartyType"/>
+   <xsd:element name="BusinessPartyGroup" type="PartyGroupType"/>
    <xsd:element name="BuyerContact" type="ContactType"/>
    <xsd:element name="BuyerCustomerParty" type="CustomerPartyType"/>
    <xsd:element name="BuyerProposedSubstituteLineItem" type="LineItemType"/>
@@ -108,6 +112,8 @@
    <xsd:element name="Capability" type="CapabilityType"/>
    <xsd:element name="CardAccount" type="CardAccountType"/>
    <xsd:element name="CarrierParty" type="PartyType"/>
+   <xsd:element name="CashRegister" type="CashRegisterType"/>
+   <xsd:element name="CashierContact" type="ContactType"/>
    <xsd:element name="CatalogueDocumentReference" type="DocumentReferenceType"/>
    <xsd:element name="CatalogueItemIdentification" type="ItemIdentificationType"/>
    <xsd:element name="CatalogueItemSpecificationUpdateLine" type="CatalogueItemSpecificationUpdateLineType"/>
@@ -187,6 +193,7 @@
    <xsd:element name="CustomsExitOfficeLocation" type="LocationType"/>
    <xsd:element name="CustomsOfficeLocation" type="LocationType"/>
    <xsd:element name="CustomsParty" type="PartyType"/>
+   <xsd:element name="DamageDocumentationAttachment" type="AttachmentType"/>
    <xsd:element name="DebitNoteDocumentReference" type="DocumentReferenceType"/>
    <xsd:element name="DebitNoteLine" type="DebitNoteLineType"/>
    <xsd:element name="Declaration" type="DeclarationType"/>
@@ -323,6 +330,10 @@
    <xsd:element name="FreightForwarderParty" type="PartyType"/>
    <xsd:element name="FrequencyPeriod" type="PeriodType"/>
    <xsd:element name="FromLocation" type="LocationType"/>
+   <xsd:element name="FuelConsumption" type="FuelConsumptionType"/>
+   <xsd:element name="FuelMetering" type="FuelMeteringType"/>
+   <xsd:element name="FuelProperty" type="FuelPropertyType"/>
+   <xsd:element name="FuelProviderParty" type="PartyType"/>
    <xsd:element name="GoodsItem" type="GoodsItemType"/>
    <xsd:element name="GoodsItemContainer" type="GoodsItemContainerType"/>
    <xsd:element name="GoodsItemPassportAttachment" type="AttachmentType"/>
@@ -363,6 +374,7 @@
    <xsd:element name="InvoiceDocumentReference" type="DocumentReferenceType"/>
    <xsd:element name="InvoiceLine" type="InvoiceLineType"/>
    <xsd:element name="InvoicePeriod" type="PeriodType"/>
+   <xsd:element name="IssueLocation" type="LocationType"/>
    <xsd:element name="IssuerEndorsement" type="EndorsementType"/>
    <xsd:element name="IssuerParty" type="PartyType"/>
    <xsd:element name="IssuingCountry" type="CountryType"/>
@@ -435,6 +447,7 @@
    <xsd:element name="NominationPeriod" type="PeriodType"/>
    <xsd:element name="NotaryParty" type="PartyType"/>
    <xsd:element name="NoticeDocumentReference" type="DocumentReferenceType"/>
+   <xsd:element name="NoticeSubType" type="NoticeSubTypeType"/>
    <xsd:element name="NotificationLocation" type="LocationType"/>
    <xsd:element name="NotificationPeriod" type="PeriodType"/>
    <xsd:element name="NotificationRequirement" type="NotificationRequirementType"/>
@@ -453,6 +466,7 @@
    <xsd:element name="OnCarriageShipmentStage" type="ShipmentStageType"/>
    <xsd:element name="OpenTenderEvent" type="EventType"/>
    <xsd:element name="OperatingParty" type="PartyType"/>
+   <xsd:element name="OperationType" type="OperationTypeType"/>
    <xsd:element name="OptionValidityPeriod" type="PeriodType"/>
    <xsd:element name="OptionalTakeoverTransportEvent" type="TransportEventType"/>
    <xsd:element name="OrderChangeDocumentReference" type="DocumentReferenceType"/>
@@ -484,6 +498,7 @@
    <xsd:element name="ParticipationRequestReceptionPeriod" type="PeriodType"/>
    <xsd:element name="Party" type="PartyType"/>
    <xsd:element name="PartyAuthorization" type="AuthorizationType"/>
+   <xsd:element name="PartyGroup" type="PartyGroupType"/>
    <xsd:element name="PartyIdentification" type="PartyIdentificationType"/>
    <xsd:element name="PartyLegalEntity" type="PartyLegalEntityType"/>
    <xsd:element name="PartyName" type="PartyNameType"/>
@@ -521,6 +536,8 @@
    <xsd:element name="PlannedPeriod" type="PeriodType"/>
    <xsd:element name="PlannedPickupTransportEvent" type="TransportEventType"/>
    <xsd:element name="PlannedWaypointTransportEvent" type="TransportEventType"/>
+   <xsd:element name="PointOfSaleContact" type="ContactType"/>
+   <xsd:element name="PointOfSaleLocation" type="LocationType"/>
    <xsd:element name="PortCall" type="PortCallType"/>
    <xsd:element name="PortCallPurpose" type="PortCallPurposeType"/>
    <xsd:element name="PortCallRecord" type="PortCallRecordType"/>
@@ -562,6 +579,9 @@
    <xsd:element name="PropertyIdentification" type="PropertyIdentificationType"/>
    <xsd:element name="ProvidedDocumentReference" type="DocumentReferenceType"/>
    <xsd:element name="ProviderParty" type="PartyType"/>
+   <xsd:element name="PurchaseLinePeriod" type="PeriodType"/>
+   <xsd:element name="PurchaseReceiptLine" type="PurchaseReceiptLineType"/>
+   <xsd:element name="PurchaseReference" type="PurchaseReferenceType"/>
    <xsd:element name="QualificationRequestRecipientParty" type="PartyType"/>
    <xsd:element name="QualificationResolution" type="QualificationResolutionType"/>
    <xsd:element name="QualifyingParty" type="QualifyingPartyType"/>
@@ -655,6 +675,7 @@
    <xsd:element name="RetailerCustomerParty" type="CustomerPartyType"/>
    <xsd:element name="ReturnAddress" type="AddressType"/>
    <xsd:element name="RoadTransport" type="RoadTransportType"/>
+   <xsd:element name="SalesDocumentReference" type="DocumentReferenceType"/>
    <xsd:element name="SalesItem" type="SalesItemType"/>
    <xsd:element name="SanitaryMeasure" type="SanitaryMeasureType"/>
    <xsd:element name="ScheduledServiceFrequency" type="ServiceFrequencyType"/>
@@ -746,6 +767,7 @@
    <xsd:element name="SupportingDocumentReference" type="DocumentReferenceType"/>
    <xsd:element name="TakeoverTransportEvent" type="TransportEventType"/>
    <xsd:element name="TaxCategory" type="TaxCategoryType"/>
+   <xsd:element name="TaxDueCountry" type="CountryType"/>
    <xsd:element name="TaxExchangeRate" type="ExchangeRateType"/>
    <xsd:element name="TaxExclusivePrice" type="PriceType"/>
    <xsd:element name="TaxInclusivePrice" type="PriceType"/>
@@ -1785,6 +1807,23 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cbc:TaxInclusiveAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Allowance Charge. Tax Inclusive_ Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The monetary amount of this allowance or charge inclusive of all taxes.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Allowance Charge</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Tax Inclusive</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cbc:BaseAmount" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
                <xsd:documentation>
@@ -1974,7 +2013,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Appeal Terms. Appeal Receiver_ Party. Party</ccts:DictionaryEntryName>
-                     <ccts:Definition>The party to whom an appeal should be presented.</ccts:Definition>
+                     <ccts:Definition>The party to whom an appeal will be presented.</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Appeal Terms</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Appeal Receiver</ccts:PropertyTermQualifier>
@@ -2949,7 +2988,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>BBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Awarding Terms. Weighting Algorithm Code. Code</ccts:DictionaryEntryName>
-                     <ccts:Definition>A code signifying the weighting algorithm for awarding criteria. When multiple awarding criteria is used, different weighting and choices management algorithms based upon scores and weights of all award criteria can be used. An algorithm for weighting criteria shall be reported in the call for tenders document. It is used to determine how to perform the final management of tenders based on the results in each of the established award criteria</ccts:Definition>
+                     <ccts:Definition>A code signifying the weighting algorithm for awarding criteria. When multiple awarding criteria is used, different weighting and choices management algorithms based upon scores and weights of all award criteria can be used. An algorithm for weighting criteria will be reported in the call for tenders document. It is used to determine how to perform the final management of tenders based on the results in each of the established award criteria</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Awarding Terms</ccts:ObjectClass>
                      <ccts:PropertyTerm>Weighting Algorithm Code</ccts:PropertyTerm>
@@ -4418,6 +4457,57 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:complexType name="CashRegisterType">
+      <xsd:annotation>
+         <xsd:documentation>
+            <ccts:Component>
+               <ccts:ComponentType>ABIE</ccts:ComponentType>
+               <ccts:DictionaryEntryName>Cash Register. Details</ccts:DictionaryEntryName>
+               <ccts:Definition>A class to define the cash register used in a commercial transaction.</ccts:Definition>
+               <ccts:ObjectClass>Cash Register</ccts:ObjectClass>
+            </ccts:Component>
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="ext:UBLExtensions" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>A container for extensions foreign to the document.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+        <xsd:element ref="cbc:ID" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Cash Register. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>The identifier of this cash register.</ccts:Definition>
+                     <ccts:Cardinality>1</ccts:Cardinality>
+                     <ccts:ObjectClass>Cash Register</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Identifier</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:SerialNumberID" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Cash Register. Serial Number. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>The serial number of this cash register.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Cash Register</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Serial Number</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
    <xsd:complexType name="CatalogueItemSpecificationUpdateLineType">
       <xsd:annotation>
          <xsd:documentation>
@@ -5031,14 +5121,14 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element ref="cac:CallForTendersDocumentReference" minOccurs="0" maxOccurs="1">
+         <xsd:element ref="cac:CallForTendersDocumentReference" minOccurs="0" maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Catalogue Line. Call For Tenders_ Document Reference. Document Reference</ccts:DictionaryEntryName>
-                     <ccts:Definition>A class defining references to a Call For Tenders document.</ccts:Definition>
-                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:Definition>One or more references to Call For Tenders documents.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Catalogue Line</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Call For Tenders</ccts:PropertyTermQualifier>
                      <ccts:PropertyTerm>Document Reference</ccts:PropertyTerm>
@@ -8548,6 +8638,22 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cac:EnvironmentalEmission" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Consignment. Environmental Emission</ccts:DictionaryEntryName>
+                     <ccts:Definition>One or more environmental emissions of this consignment.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Consignment</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Environmental Emission</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Environmental Emission</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Environmental Emission</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ConsumptionType">
@@ -10813,7 +10919,7 @@
             <ccts:Component>
                <ccts:ComponentType>ABIE</ccts:ComponentType>
                <ccts:DictionaryEntryName>Contracting System. Details</ccts:DictionaryEntryName>
-               <ccts:Definition>A class to describe the contracting system. If the procedure is individual (nonrepetitive), this class should not be used.</ccts:Definition>
+               <ccts:Definition>A class to describe the contracting system. If the procedure is individual (nonrepetitive), this class ought not be used.</ccts:Definition>
                <ccts:ObjectClass>Contracting System</ccts:ObjectClass>
             </ccts:Component>
          </xsd:documentation>
@@ -11444,6 +11550,23 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cac:WithholdingTaxTotal" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Credit Note Line. Withholding_ Tax Total. Tax Total</ccts:DictionaryEntryName>
+                     <ccts:Definition>A reference to a TaxTotal class describing the amount that has been withhold by the authorities, e.g. if the creditor is in dept because of non paid taxes.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Credit Note Line</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Withholding</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Tax Total</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Tax Total</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Tax Total</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cac:AllowanceCharge" minOccurs="0" maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>
@@ -11849,6 +11972,22 @@
                      <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
                      <ccts:DataType>Identifier. Type</ccts:DataType>
                      <ccts:Examples>CUST001 3333-44-123 </ccts:Examples>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:FunctionCode" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Customs Declaration. Function Code. Code</ccts:DictionaryEntryName>
+                     <ccts:Definition>A code describing the function of this customs declaration.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Customs Declaration</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Function Code</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                     <ccts:DataType>Code. Type</ccts:DataType>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -12345,6 +12484,23 @@
                      <ccts:Definition>A total amount of taxes of a particular kind applicable to this debit note line.</ccts:Definition>
                      <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Debit Note Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Tax Total</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Tax Total</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Tax Total</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:WithholdingTaxTotal" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Debit Note Line. Withholding_ Tax Total. Tax Total</ccts:DictionaryEntryName>
+                     <ccts:Definition>A reference to a TaxTotal class describing the amount that has been withhold by the authorities, e.g. if the creditor is in dept because of non paid taxes.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Debit Note Line</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Withholding</ccts:PropertyTermQualifier>
                      <ccts:PropertyTerm>Tax Total</ccts:PropertyTerm>
                      <ccts:AssociatedObjectClass>Tax Total</ccts:AssociatedObjectClass>
                      <ccts:RepresentationTerm>Tax Total</ccts:RepresentationTerm>
@@ -12917,6 +13073,22 @@
                      <ccts:PropertyTerm>Shipment</ccts:PropertyTerm>
                      <ccts:AssociatedObjectClass>Shipment</ccts:AssociatedObjectClass>
                      <ccts:RepresentationTerm>Shipment</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:FuelConsumption" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Delivery. Fuel Consumption</ccts:DictionaryEntryName>
+                     <ccts:Definition>One or more fuel consumptions of this delivery.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Delivery</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Fuel Consumption</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Fuel Consumption</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Fuel Consumption</ccts:RepresentationTerm>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -13588,6 +13760,23 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cac:ResponsibleParty" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Despatch. Responsible_ Party. Party</ccts:DictionaryEntryName>
+                     <ccts:Definition>The party responsible for this despatch (pickup).</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Despatch</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Responsible</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Party</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Party</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Party</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cac:Contact" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
                <xsd:documentation>
@@ -13820,6 +14009,38 @@
                      <ccts:PropertyTerm>Quantity</ccts:PropertyTerm>
                      <ccts:RepresentationTerm>Quantity</ccts:RepresentationTerm>
                      <ccts:DataType>Quantity. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:AccountingCostCode" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Despatch Line. Accounting Cost Code. Code</ccts:DictionaryEntryName>
+                     <ccts:Definition>The accounting cost centre, applied to the Despatch Advice Line, expressed as a code.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Despatch Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Accounting Cost Code</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                     <ccts:DataType>Code. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:AccountingCost" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Despatch Line. Accounting Cost. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>The accounting cost centre, applied to the Despatch Advice Line, expressed as text.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Despatch Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Accounting Cost</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -14544,7 +14765,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Document Distribution. Party</ccts:DictionaryEntryName>
-                     <ccts:Definition>The interested party to which the document should be distributed.</ccts:Definition>
+                     <ccts:Definition>The interested party to which the document will be distributed.</ccts:Definition>
                      <ccts:Cardinality>1</ccts:Cardinality>
                      <ccts:ObjectClass>Document Distribution</ccts:ObjectClass>
                      <ccts:PropertyTerm>Party</ccts:PropertyTerm>
@@ -16233,7 +16454,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Evaluation Criterion. Suggested_ Evidence. Evidence</ccts:DictionaryEntryName>
-                     <ccts:Definition>Describes any evidences that should be used to satisfy the criterion. </ccts:Definition>
+                     <ccts:Definition>Describes any evidences that ought to be used to satisfy the criterion. </ccts:Definition>
                      <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Evaluation Criterion</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Suggested</ccts:PropertyTermQualifier>
@@ -16936,7 +17157,7 @@
             <ccts:Component>
                <ccts:ComponentType>ABIE</ccts:ComponentType>
                <ccts:DictionaryEntryName>Exception Criteria Line. Details</ccts:DictionaryEntryName>
-               <ccts:Definition>A class to define a line in an ExceptionCriteria document that specifies a threshold for forecast variance, product activity, or performance history, the exceeding of which should trigger an exception message.</ccts:Definition>
+               <ccts:Definition>A class to define a line in an ExceptionCriteria document that specifies a threshold for forecast variance, product activity, or performance history, the exceeding of which will trigger an exception message.</ccts:Definition>
                <ccts:ObjectClass>Exception Criteria Line</ccts:ObjectClass>
             </ccts:Component>
          </xsd:documentation>
@@ -18866,6 +19087,257 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:complexType name="FuelConsumptionType">
+      <xsd:annotation>
+         <xsd:documentation>
+            <ccts:Component>
+               <ccts:ComponentType>ABIE</ccts:ComponentType>
+               <ccts:DictionaryEntryName>Fuel Consumption. Details</ccts:DictionaryEntryName>
+               <ccts:Definition>A class to describe fuel consumption.</ccts:Definition>
+               <ccts:ObjectClass>Fuel Consumption</ccts:ObjectClass>
+            </ccts:Component>
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="ext:UBLExtensions" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>A container for extensions foreign to the document.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+        <xsd:element ref="cbc:ID" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Consumption. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>An identifier for this fuel consumption.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Consumption</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Identifier</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:FuelTypeCode" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Consumption. Fuel Type. Code</ccts:DictionaryEntryName>
+                     <ccts:Definition>The type of fuel, expressed as a code.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Consumption</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Fuel Type</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                     <ccts:DataType>Code. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:FuelType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Consumption. Fuel Type. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>The type of fuel, expressed as text.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Consumption</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Fuel Type</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:FuelConsumptionMeasure" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Consumption. Fuel Consumption Measure. Measure</ccts:DictionaryEntryName>
+                     <ccts:Definition>The measure of this fuel consumption.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Consumption</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Fuel Consumption Measure</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Measure</ccts:RepresentationTerm>
+                     <ccts:DataType>Measure. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:AdditionalFuelProperty" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Consumption. Additional_ Fuel Property. Fuel Property</ccts:DictionaryEntryName>
+                     <ccts:Definition>One or more additional properties of the fuel being consumed.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Consumption</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Additional</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Fuel Property</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Fuel Property</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Fuel Property</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:FuelMetering" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Consumption. Fuel Metering</ccts:DictionaryEntryName>
+                     <ccts:Definition>One or more meters of the fuel being consumed.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Consumption</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Fuel Metering</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Fuel Metering</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Fuel Metering</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:EnvironmentalEmission" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Consumption. Environmental Emission</ccts:DictionaryEntryName>
+                     <ccts:Definition>One or more environmental emissions of the fuel being measured.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Consumption</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Environmental Emission</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Environmental Emission</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Environmental Emission</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:FuelProviderParty" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Consumption. Fuel Provider_ Party. Party</ccts:DictionaryEntryName>
+                     <ccts:Definition>The party providing the fuel.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Consumption</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Fuel Provider</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Party</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Party</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Party</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="FuelMeteringType">
+      <xsd:annotation>
+         <xsd:documentation>
+            <ccts:Component>
+               <ccts:ComponentType>ABIE</ccts:ComponentType>
+               <ccts:DictionaryEntryName>Fuel Metering. Details</ccts:DictionaryEntryName>
+               <ccts:Definition>A class to describe fuel metering.</ccts:Definition>
+               <ccts:ObjectClass>Fuel Metering</ccts:ObjectClass>
+            </ccts:Component>
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="ext:UBLExtensions" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>A container for extensions foreign to the document.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+        <xsd:element ref="cbc:TypeID" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Metering. Type. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>An identifier for the type of fuel metering.</ccts:Definition>
+                     <ccts:Cardinality>1</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Metering</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Type</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:Value" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Metering. Value. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>The value of this fuel metering.</ccts:Definition>
+                     <ccts:Cardinality>1</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Metering</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Value</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="FuelPropertyType">
+      <xsd:annotation>
+         <xsd:documentation>
+            <ccts:Component>
+               <ccts:ComponentType>ABIE</ccts:ComponentType>
+               <ccts:DictionaryEntryName>Fuel Property. Details</ccts:DictionaryEntryName>
+               <ccts:Definition>A class to describe a fuel property.</ccts:Definition>
+               <ccts:ObjectClass>Fuel Property</ccts:ObjectClass>
+            </ccts:Component>
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="ext:UBLExtensions" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>A container for extensions foreign to the document.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+        <xsd:element ref="cbc:TypeID" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Property. Type. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>An identifier for the type of the fuel property.</ccts:Definition>
+                     <ccts:Cardinality>1</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Property</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Type</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:Value" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Fuel Property. Value. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>The value of this fuel property.</ccts:Definition>
+                     <ccts:Cardinality>1</ccts:Cardinality>
+                     <ccts:ObjectClass>Fuel Property</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Value</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
    <xsd:complexType name="GoodsItemType">
       <xsd:annotation>
          <xsd:documentation>
@@ -19411,6 +19883,40 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cac:DespatchLineReference" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Goods Item. Despatch_ Line Reference. Line Reference</ccts:DictionaryEntryName>
+                     <ccts:Definition>A reference to the despatch line associated with this goods item.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Goods Item</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Despatch</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Line Reference</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Line Reference</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Line Reference</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:ReceiptLineReference" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Goods Item. Receipt_ Line Reference. Line Reference</ccts:DictionaryEntryName>
+                     <ccts:Definition>A reference to the receipt line associated with this goods item.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Goods Item</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Receipt</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Line Reference</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Line Reference</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Line Reference</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cac:Temperature" minOccurs="0" maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>
@@ -19511,6 +20017,23 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cac:BondedWarehouseLocation" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Goods Item. Bonded Warehouse_ Location. Location</ccts:DictionaryEntryName>
+                     <ccts:Definition>The location of the bonded warehouse where this goods item is temporarily stored.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Goods Item</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Bonded Warehouse</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Location</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Location</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Location</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cac:MeasurementDimension" minOccurs="0" maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>
@@ -19555,6 +20078,23 @@
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Goods Item</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Shipment</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Document Reference</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Document Reference</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Document Reference</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:AdditionalDocumentReference" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Goods Item. Additional_ Document Reference. Document Reference</ccts:DictionaryEntryName>
+                     <ccts:Definition>A reference to an additional document associated with this goods item.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Goods Item</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Additional</ccts:PropertyTermQualifier>
                      <ccts:PropertyTerm>Document Reference</ccts:PropertyTerm>
                      <ccts:AssociatedObjectClass>Document Reference</ccts:AssociatedObjectClass>
                      <ccts:RepresentationTerm>Document Reference</ccts:RepresentationTerm>
@@ -21896,6 +22436,23 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cbc:ItemTypeCode" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Item. Item Type_ Code. Code</ccts:DictionaryEntryName>
+                     <ccts:Definition>A code indicating the type of the item (eg., service, product, etc.).</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Item</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Item Type</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Code</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                     <ccts:DataType>Code. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cbc:HazardousRiskIndicator" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
                <xsd:documentation>
@@ -21977,6 +22534,23 @@
                      <ccts:RepresentationTerm>Name</ccts:RepresentationTerm>
                      <ccts:DataType>Name. Type</ccts:DataType>
                      <ccts:Examples>VW Beetle </ccts:Examples>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:WarrantyInformation" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Item. Warranty_ Information. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>Text describing the warranty for this item.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Item</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Warranty</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Information</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -22315,6 +22889,22 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cac:EnvironmentalEmission" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Item. Environmental Emission</ccts:DictionaryEntryName>
+                     <ccts:Definition>One or more environmental emissions of this item.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Item</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Environmental Emission</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Environmental Emission</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Environmental Emission</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ItemComparisonType">
@@ -22529,7 +23119,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>BBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Item Information Request Line. Time Frequency Code. Code</ccts:DictionaryEntryName>
-                     <ccts:Definition>A code signifying the frequency with which item information should be sent to the requester.</ccts:Definition>
+                     <ccts:Definition>A code signifying the frequency with which item information will be sent to the requester.</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Item Information Request Line</ccts:ObjectClass>
                      <ccts:PropertyTerm>Time Frequency Code</ccts:PropertyTerm>
@@ -22561,7 +23151,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>BBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Item Information Request Line. Forecast Type Code. Code</ccts:DictionaryEntryName>
-                     <ccts:Definition>The information request can be either about supply chain activity or about forecasts or about performance metrics, so it should be optional</ccts:Definition>
+                     <ccts:Definition>The information request can be either about supply chain activity or about forecasts or about performance metrics, so it will be optional</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Item Information Request Line</ccts:ObjectClass>
                      <ccts:PropertyTerm>Forecast Type Code</ccts:PropertyTerm>
@@ -22778,7 +23368,7 @@
             <ccts:Component>
                <ccts:ComponentType>ABIE</ccts:ComponentType>
                <ccts:DictionaryEntryName>Item Location Quantity. Details</ccts:DictionaryEntryName>
-               <ccts:Definition>A class for information about pricing structure, lead time, and location associated with an item.</ccts:Definition>
+               <ccts:Definition>A class for information about pricing structure, lead time, delivery, and location associated with an item.</ccts:Definition>
                <ccts:ObjectClass>Item Location Quantity</ccts:ObjectClass>
             </ccts:Component>
          </xsd:documentation>
@@ -22900,7 +23490,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Item Location Quantity. Price</ccts:DictionaryEntryName>
-                     <ccts:Definition>The price associated with the given location.</ccts:Definition>
+                     <ccts:Definition>The price associated with this item location quantity</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Item Location Quantity</ccts:ObjectClass>
                      <ccts:PropertyTerm>Price</ccts:PropertyTerm>
@@ -22991,6 +23581,23 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cac:ApplicableDeliveryPeriod" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Item Location Quantity. Applicable Delivery_ Period. Period</ccts:DictionaryEntryName>
+                     <ccts:Definition>The period during which item must be delivered for the price to apply</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Item Location Quantity</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Applicable Delivery</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Period</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Period</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Period</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ItemManagementProfileType">
@@ -23032,7 +23639,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>BBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Item Management Profile. Minimum_ Inventory Quantity. Quantity</ccts:DictionaryEntryName>
-                     <ccts:Definition>The quantity of the item that should trigger a replenishment order to avoid depleting the safety stock.</ccts:Definition>
+                     <ccts:Definition>The quantity of the item that will trigger a replenishment order to avoid depleting the safety stock.</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Item Management Profile</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Minimum</ccts:PropertyTermQualifier>
@@ -26546,6 +27153,23 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cbc:AllowanceTotalTaxInclusiveAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Monetary Total. Allowance Total_ Tax Inclusive Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The total monetary amount of all allowances, inclusive of all taxes.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Monetary Total</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Allowance Total</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Tax Inclusive Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cbc:ChargeTotalAmount" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
                <xsd:documentation>
@@ -26557,6 +27181,23 @@
                      <ccts:ObjectClass>Monetary Total</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Charge</ccts:PropertyTermQualifier>
                      <ccts:PropertyTerm>Total Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:ChargeTotalTaxInclusiveAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Monetary Total. Charge Total_ Tax Inclusive Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The total monetary amount of all charges, inclusive of all taxes.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Monetary Total</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Charge Total</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Tax Inclusive Amount</ccts:PropertyTerm>
                      <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
                      <ccts:DataType>Amount. Type</ccts:DataType>
                   </ccts:Component>
@@ -26643,6 +27284,57 @@
                      <ccts:PropertyTerm>Alternative Amount</ccts:PropertyTerm>
                      <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
                      <ccts:DataType>Amount. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="NoticeSubTypeType">
+      <xsd:annotation>
+         <xsd:documentation>
+            <ccts:Component>
+               <ccts:ComponentType>ABIE</ccts:ComponentType>
+               <ccts:DictionaryEntryName>Notice Sub Type. Details</ccts:DictionaryEntryName>
+               <ccts:Definition>A class to define a Notice Subtype</ccts:Definition>
+               <ccts:ObjectClass>Notice Sub Type</ccts:ObjectClass>
+            </ccts:Component>
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="ext:UBLExtensions" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>A container for extensions foreign to the document.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+        <xsd:element ref="cbc:SubTypeCode" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Notice Sub Type. Sub Type Code. Code</ccts:DictionaryEntryName>
+                     <ccts:Definition>A code to specify the Subtype of notice</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Notice Sub Type</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Sub Type Code</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                     <ccts:DataType>Code. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:SubTypeDescription" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Notice Sub Type. Sub Type Description. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>Subtype of notice as text</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Notice Sub Type</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Sub Type Description</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -26737,7 +27429,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Notification Requirement. Notification_ Period. Period</ccts:DictionaryEntryName>
-                     <ccts:Definition>A period during which a notification should be issued.</ccts:Definition>
+                     <ccts:Definition>A period during which a notification will be issued.</ccts:Definition>
                      <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Notification Requirement</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Notification</ccts:PropertyTermQualifier>
@@ -26754,7 +27446,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Notification Requirement. Notification_ Location. Location</ccts:DictionaryEntryName>
-                     <ccts:Definition>A location at which a notification should be issued.</ccts:Definition>
+                     <ccts:Definition>A location at which a notification will be issued.</ccts:Definition>
                      <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Notification Requirement</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Notification</ccts:PropertyTermQualifier>
@@ -26830,6 +27522,57 @@
                      <ccts:PropertyTerm>Payment Terms</ccts:PropertyTerm>
                      <ccts:AssociatedObjectClass>Payment Terms</ccts:AssociatedObjectClass>
                      <ccts:RepresentationTerm>Payment Terms</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="OperationTypeType">
+      <xsd:annotation>
+         <xsd:documentation>
+            <ccts:Component>
+               <ccts:ComponentType>ABIE</ccts:ComponentType>
+               <ccts:DictionaryEntryName>Operation Type. Details</ccts:DictionaryEntryName>
+               <ccts:Definition>A class to define the type of operation</ccts:Definition>
+               <ccts:ObjectClass>Operation Type</ccts:ObjectClass>
+            </ccts:Component>
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="ext:UBLExtensions" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>A container for extensions foreign to the document.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+        <xsd:element ref="cbc:Code" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Operation Type. Code</ccts:DictionaryEntryName>
+                     <ccts:Definition>A code to specify the type of operation (e.g. deletion)</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Operation Type</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Code</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                     <ccts:DataType>Code. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:Description" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Operation Type. Description. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>Operation type description as text</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Operation Type</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Description</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -27620,6 +28363,22 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cac:Status" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Package. Status</ccts:DictionaryEntryName>
+                     <ccts:Definition>The status of this transport handling unit.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Package</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Status</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Status</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Status</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ParticipantPartyType">
@@ -28176,6 +28935,74 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:complexType name="PartyGroupType">
+      <xsd:annotation>
+         <xsd:documentation>
+            <ccts:Component>
+               <ccts:ComponentType>ABIE</ccts:ComponentType>
+               <ccts:DictionaryEntryName>Party Group. Details</ccts:DictionaryEntryName>
+               <ccts:Definition>A class to define a Group of Parties</ccts:Definition>
+               <ccts:ObjectClass>Party Group</ccts:ObjectClass>
+            </ccts:Component>
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="ext:UBLExtensions" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>A container for extensions foreign to the document.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+        <xsd:element ref="cbc:GroupTypeCode" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Party Group. Group Type Code. Code</ccts:DictionaryEntryName>
+                     <ccts:Definition>A code to specify the type of grouping (e.g. EEIG)</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Party Group</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Group Type Code</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+                     <ccts:DataType>Code. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:GroupType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Party Group. Group_ Type. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>Type of Grouping as text</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Party Group</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Group</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Type</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:Party" minOccurs="1" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Party Group. Party</ccts:DictionaryEntryName>
+                     <ccts:Definition>A party within the group</ccts:Definition>
+                     <ccts:Cardinality>1..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Party Group</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Party</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Party</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Party</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
    <xsd:complexType name="PartyIdentificationType">
       <xsd:annotation>
          <xsd:documentation>
@@ -28687,6 +29514,40 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cbc:PaidCashAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Payment. Paid Cash_ Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The amount given by the customer in cash or cash equivalents, if different from the payable amount. The Paid Amount = Paid Cash Amount - Cash Change Amount.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Payment</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Paid Cash</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:CashChangeAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Payment. Cash_ Change Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The change returned to the customer when the paid cash amount is more than the payable amount.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Payment</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Cash</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Change Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cbc:ReceivedDate" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
                <xsd:documentation>
@@ -28750,6 +29611,86 @@
                      <ccts:PropertyTerm>Instruction Identifier</ccts:PropertyTerm>
                      <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
                      <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:MerchantID" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Payment. Merchant Identifier. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>An identifier for the merchant who handled the payment.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Payment</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Merchant Identifier</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:AuthorizationID" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Payment. Authorization Identifier. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>The authorization identifier for this payment.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Payment</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Authorization Identifier</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:TransactionID" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Payment. Transaction Identifier. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>The transaction identifier for this payment.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Payment</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Transaction Identifier</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:PaymentTerminalID" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Payment. Payment Terminal Identifier. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>An identifier for the payment terminal used for this payment.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Payment</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Payment Terminal Identifier</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:ExchangeRate" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Payment. Exchange Rate</ccts:DictionaryEntryName>
+                     <ccts:Definition>The exchange rate applicable to this payment, if the payment currency differs from the document currency.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Payment</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Exchange Rate</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Exchange Rate</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Exchange Rate</ccts:RepresentationTerm>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -28990,6 +29931,22 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cbc:PaymentMeansDescription" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Payment Means. Payment Means Description. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>A description of this means of payment.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Payment Means</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Payment Means Description</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cbc:PaymentDueDate" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
                <xsd:documentation>
@@ -29208,7 +30165,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Payment Means. Remittance_ Document Distribution. Document Distribution</ccts:DictionaryEntryName>
-                     <ccts:Definition>A person or entity who shall receive the remittance advice information about the payment associated with this payment means.</ccts:Definition>
+                     <ccts:Definition>A person or entity who will receive the remittance advice information about the payment associated with this payment means.</ccts:Definition>
                      <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Payment Means</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Remittance</ccts:PropertyTermQualifier>
@@ -31059,7 +32016,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>BBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Post Award Process. Electronic Order Usage. Indicator</ccts:DictionaryEntryName>
-                     <ccts:Definition>An indicator on whether electronic ordering shall be used in the post award process.</ccts:Definition>
+                     <ccts:Definition>An indicator on whether electronic ordering will be used in the post award process.</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Post Award Process</ccts:ObjectClass>
                      <ccts:PropertyTerm>Electronic Order Usage</ccts:PropertyTerm>
@@ -31075,7 +32032,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>BBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Post Award Process. Electronic Payment Usage. Indicator</ccts:DictionaryEntryName>
-                     <ccts:Definition>An indicator on whether electronic payment shall be used in the post award process.</ccts:Definition>
+                     <ccts:Definition>An indicator on whether electronic payment will be used in the post award process.</ccts:Definition>
                      <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Post Award Process</ccts:ObjectClass>
                      <ccts:PropertyTerm>Electronic Payment Usage</ccts:PropertyTerm>
@@ -31269,6 +32226,22 @@
                      <ccts:DataType>Amount. Type</ccts:DataType>
                      <ccts:AlternativeBusinessTerms>unit price</ccts:AlternativeBusinessTerms>
                      <ccts:Examples>23.45</ccts:Examples>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:TaxInclusivePriceAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Price. Tax Inclusive Price Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The amount of the price inclusive of all taxes.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Price</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Tax Inclusive Price Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -31469,6 +32442,23 @@
                      <ccts:Definition>The amount of this price extension.</ccts:Definition>
                      <ccts:Cardinality>1</ccts:Cardinality>
                      <ccts:ObjectClass>Price Extension</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:TaxInclusiveAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Price Extension. Tax Inclusive_ Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The amount of this price extension inclusive of all taxes.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Price Extension</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Tax Inclusive</ccts:PropertyTermQualifier>
                      <ccts:PropertyTerm>Amount</ccts:PropertyTerm>
                      <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
                      <ccts:DataType>Amount. Type</ccts:DataType>
@@ -32762,6 +33752,270 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:complexType name="PurchaseReceiptLineType">
+      <xsd:annotation>
+         <xsd:documentation>
+            <ccts:Component>
+               <ccts:ComponentType>ABIE</ccts:ComponentType>
+               <ccts:DictionaryEntryName>Purchase Receipt Line. Details</ccts:DictionaryEntryName>
+               <ccts:Definition>A class to define a line item in a purchase receipt.</ccts:Definition>
+               <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+            </ccts:Component>
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="ext:UBLExtensions" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>A container for extensions foreign to the document.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+        <xsd:element ref="cbc:ID" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>An identifier for this purchase receipt line.</ccts:Definition>
+                     <ccts:Cardinality>1</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Identifier</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:UUID" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. UUID. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>A universally unique identifier for this invoice line.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>UUID</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:Note" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Note. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>Free-form text conveying information that is not contained explicitly in other structures.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Note</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:Quantity" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Quantity</ccts:DictionaryEntryName>
+                     <ccts:Definition>The quantity (of items) on this purchase receipt line.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Quantity</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Quantity</ccts:RepresentationTerm>
+                     <ccts:DataType>Quantity. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:LineExtensionAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Line Extension Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The total amount for this purchase receipt line, including allowances and charges but net of taxes.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Line Extension Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:TaxInclusiveLineExtensionAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Tax Inclusive_ Line Extension Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The total amount for this purchase receipt line, including all allowances, charges and taxes.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Tax Inclusive</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Line Extension Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:PurchaseLinePeriod" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Purchase Line_ Period. Period</ccts:DictionaryEntryName>
+                     <ccts:Definition>A period to which this purchase line applies.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Purchase Line</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Period</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Period</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Period</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:PurchaseReference" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Purchase Reference</ccts:DictionaryEntryName>
+                     <ccts:Definition>A reference to an object, such as a subscription number, telephone number, meter, vehicle, person, etc., to which this purchase line relates.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Purchase Reference</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Purchase Reference</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Purchase Reference</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:AllowanceCharge" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Allowance Charge</ccts:DictionaryEntryName>
+                     <ccts:Definition>An allowance or charge associated with this purchase line.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Allowance Charge</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Allowance Charge</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Allowance Charge</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:TaxTotal" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Tax Total</ccts:DictionaryEntryName>
+                     <ccts:Definition>A total amount of taxes of a particular kind applicable to this invoice line.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Tax Total</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Tax Total</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Tax Total</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:Item" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Item</ccts:DictionaryEntryName>
+                     <ccts:Definition>The item associated with this invoice line.</ccts:Definition>
+                     <ccts:Cardinality>1</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Item</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Item</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Item</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:Price" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Receipt Line. Price</ccts:DictionaryEntryName>
+                     <ccts:Definition>The price of the item associated with this purchase line.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Price</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Price</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Price</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="PurchaseReferenceType">
+      <xsd:annotation>
+         <xsd:documentation>
+            <ccts:Component>
+               <ccts:ComponentType>ABIE</ccts:ComponentType>
+               <ccts:DictionaryEntryName>Purchase Reference. Details</ccts:DictionaryEntryName>
+               <ccts:Definition>A class for referencing an object to which a purchase relates, such as a subscription number, telephone number, meter, vehicle, person, etc.</ccts:Definition>
+               <ccts:ObjectClass>Purchase Reference</ccts:ObjectClass>
+            </ccts:Component>
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="ext:UBLExtensions" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>A container for extensions foreign to the document.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+        <xsd:element ref="cbc:ID" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Reference. Identifier</ccts:DictionaryEntryName>
+                     <ccts:Definition>An Identifier for this purchase reference.</ccts:Definition>
+                     <ccts:Cardinality>1</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Reference</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Identifier</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+                     <ccts:DataType>Identifier. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:Description" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Purchase Reference. Description. Text</ccts:DictionaryEntryName>
+                     <ccts:Definition>A description of this purchase reference.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Purchase Reference</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Description</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
+                     <ccts:DataType>Text. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
    <xsd:complexType name="QualificationResolutionType">
       <xsd:annotation>
          <xsd:documentation>
@@ -33618,6 +34872,23 @@
                      <ccts:PropertyTerm>Date</ccts:PropertyTerm>
                      <ccts:RepresentationTerm>Date</ccts:RepresentationTerm>
                      <ccts:DataType>Date. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:ReceivedTime" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Receipt Line. Received_ Time. Time</ccts:DictionaryEntryName>
+                     <ccts:Definition>The time at which the goods or services were received.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Receipt Line</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Received</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Time</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Time</ccts:RepresentationTerm>
+                     <ccts:DataType>Time. Type</ccts:DataType>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -37319,7 +38590,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Shipment. Return_ Address. Address</ccts:DictionaryEntryName>
-                     <ccts:Definition>The address to which a shipment should be returned.</ccts:Definition>
+                     <ccts:Definition>The address to which a shipment ought to be returned.</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Shipment</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Return</ccts:PropertyTermQualifier>
@@ -38646,6 +39917,22 @@
                      <ccts:PropertyTerm>Maritime Health Declaration</ccts:PropertyTerm>
                      <ccts:AssociatedObjectClass>Maritime Health Declaration</ccts:AssociatedObjectClass>
                      <ccts:RepresentationTerm>Maritime Health Declaration</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:FuelConsumption" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Shipment Stage. Fuel Consumption</ccts:DictionaryEntryName>
+                     <ccts:Definition>One or more fuel consumptions of this shipment stage.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Shipment Stage</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Fuel Consumption</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Fuel Consumption</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Fuel Consumption</ccts:RepresentationTerm>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -40703,14 +41990,14 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element ref="cac:TaxScheme" minOccurs="1" maxOccurs="1">
+         <xsd:element ref="cac:TaxScheme" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
                <xsd:documentation>
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Tax Category. Tax Scheme</ccts:DictionaryEntryName>
                      <ccts:Definition>The taxation scheme within which this tax category is defined.</ccts:Definition>
-                     <ccts:Cardinality>1</ccts:Cardinality>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Tax Category</ccts:ObjectClass>
                      <ccts:PropertyTerm>Tax Scheme</ccts:PropertyTerm>
                      <ccts:AssociatedObjectClass>Tax Scheme</ccts:AssociatedObjectClass>
@@ -40875,6 +42162,23 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cbc:TaxInclusiveAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Tax Subtotal. Tax Inclusive_ Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The total amount after the tax amount has been added to the taxable amount.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Tax Subtotal</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Tax Inclusive</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cbc:CalculationSequenceNumeric" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
                <xsd:documentation>
@@ -41001,6 +42305,23 @@
                      <ccts:PropertyTerm>Tax Category</ccts:PropertyTerm>
                      <ccts:AssociatedObjectClass>Tax Category</ccts:AssociatedObjectClass>
                      <ccts:RepresentationTerm>Tax Category</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:TaxDueCountry" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Tax Subtotal. Tax Due_ Country. Country</ccts:DictionaryEntryName>
+                     <ccts:Definition>The country where this tax is due.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Tax Subtotal</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Tax Due</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Country</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Country</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Country</ccts:RepresentationTerm>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -42238,14 +43559,14 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element ref="cac:CallForTendersDocumentReference" minOccurs="0" maxOccurs="1">
+         <xsd:element ref="cac:CallForTendersDocumentReference" minOccurs="0" maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Tender Line. Call For Tenders_ Document Reference. Document Reference</ccts:DictionaryEntryName>
-                     <ccts:Definition>A class defining references to a Call For Tenders document.</ccts:Definition>
-                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:Definition>One or more references to Call For Tenders documents.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Tender Line</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Call For Tenders</ccts:PropertyTermQualifier>
                      <ccts:PropertyTerm>Document Reference</ccts:PropertyTerm>
@@ -42879,7 +44200,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Tendered Project. Procurement Project Lot</ccts:DictionaryEntryName>
-                     <ccts:Definition>The procurement project lot to which this Tender Line refers to. If there are no lots, this should not be defined.</ccts:Definition>
+                     <ccts:Definition>The procurement project lot to which this Tender Line refers to. If there are no lots, this ought not be defined.</ccts:Definition>
                      <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Tendered Project</ccts:ObjectClass>
                      <ccts:PropertyTerm>Procurement Project Lot</ccts:PropertyTerm>
@@ -43332,7 +44653,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Tenderer Requirement. Suggested_ Evidence. Evidence</ccts:DictionaryEntryName>
-                     <ccts:Definition>An item of evidence that should be submitted to satisfy this requirement.</ccts:Definition>
+                     <ccts:Definition>An item of evidence that ought to be submitted to satisfy this requirement.</ccts:Definition>
                      <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Tenderer Requirement</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Suggested</ccts:PropertyTermQualifier>
@@ -43950,7 +45271,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>BBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Tendering Criterion Property. Translation Type Code. Code</ccts:DictionaryEntryName>
-                     <ccts:Definition>The type of Transation that the requirement shall be translated for example certified translation</ccts:Definition>
+                     <ccts:Definition>The type of Transation that the requirement will be translated for example certified translation</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Tendering Criterion Property</ccts:ObjectClass>
                      <ccts:PropertyTerm>Translation Type Code</ccts:PropertyTerm>
@@ -43998,7 +45319,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Tendering Criterion Property. Applicable_ Period. Period</ccts:DictionaryEntryName>
-                     <ccts:Definition>The period to which this criterion property shall apply.</ccts:Definition>
+                     <ccts:Definition>The period to which this criterion property will apply.</ccts:Definition>
                      <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Tendering Criterion Property</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Applicable</ccts:PropertyTermQualifier>
@@ -44513,7 +45834,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>BBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Tendering Process. Contracting System Code. Code</ccts:DictionaryEntryName>
-                     <ccts:Definition>A code signifying the type of contracting system (e.g., framework agreement, dynamic purchasing system). If the procedure is individual (nonrepetitive), this code should be omitted.</ccts:Definition>
+                     <ccts:Definition>A code signifying the type of contracting system (e.g., framework agreement, dynamic purchasing system). If the procedure is individual (nonrepetitive), this code ought to be omitted.</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Tendering Process</ccts:ObjectClass>
                      <ccts:PropertyTerm>Contracting System Code</ccts:PropertyTerm>
@@ -45537,7 +46858,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Tendering Terms. Tender Recipient_ Party. Party</ccts:DictionaryEntryName>
-                     <ccts:Definition>The party to which tenders should be presented.</ccts:Definition>
+                     <ccts:Definition>The party to which tenders will be presented.</ccts:Definition>
                      <ccts:Cardinality>0..1</ccts:Cardinality>
                      <ccts:ObjectClass>Tendering Terms</ccts:ObjectClass>
                      <ccts:PropertyTermQualifier>Tender Recipient</ccts:PropertyTermQualifier>
@@ -45929,7 +47250,7 @@
                      <ccts:PropertyTerm>Information</ccts:PropertyTerm>
                      <ccts:RepresentationTerm>Text</ccts:RepresentationTerm>
                      <ccts:DataType>Text. Type</ccts:DataType>
-                     <ccts:Examples>Unless credit terms have been expressly agreed by Dell, payment for the products or services shall be made in full before physical delivery of products or services. Customer shall pay for all shipping and handling charges. </ccts:Examples>
+                     <ccts:Examples>Unless credit terms have been expressly agreed by Dell, payment for the products or services will be made in full before physical delivery of products or services. Customer must pay for all shipping and handling charges. </ccts:Examples>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -47364,6 +48685,23 @@
                </xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+         <xsd:element ref="cac:ResponsibleParty" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Transport Event. Responsible_ Party. Party</ccts:DictionaryEntryName>
+                     <ccts:Definition>The party responsible for this transport event.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Transport Event</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Responsible</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Party</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Party</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Party</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element ref="cac:Contact" minOccurs="0" maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>
@@ -47602,7 +48940,7 @@
                   <ccts:Component>
                      <ccts:ComponentType>ASBIE</ccts:ComponentType>
                      <ccts:DictionaryEntryName>Transport Execution Terms. Notification Requirement</ccts:DictionaryEntryName>
-                     <ccts:Definition>A notification requirement related to the transportation service; e.g., a requirement that the transport user should be notified when goods are ready for pickup.</ccts:Definition>
+                     <ccts:Definition>A notification requirement related to the transportation service; e.g., a requirement that the transport user will be notified when goods are ready for pickup.</ccts:Definition>
                      <ccts:Cardinality>0..n</ccts:Cardinality>
                      <ccts:ObjectClass>Transport Execution Terms</ccts:ObjectClass>
                      <ccts:PropertyTerm>Notification Requirement</ccts:PropertyTerm>
@@ -48097,6 +49435,23 @@
                      <ccts:PropertyTerm>Package</ccts:PropertyTerm>
                      <ccts:AssociatedObjectClass>Package</ccts:AssociatedObjectClass>
                      <ccts:RepresentationTerm>Package</ccts:RepresentationTerm>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cac:DamageDocumentationAttachment" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>ASBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Transport Handling Unit. Damage Documentation_ Attachment. Attachment</ccts:DictionaryEntryName>
+                     <ccts:Definition>An attachment, such as a photo, documenting damage associated with this transport handling unit.</ccts:Definition>
+                     <ccts:Cardinality>0..n</ccts:Cardinality>
+                     <ccts:ObjectClass>Transport Handling Unit</ccts:ObjectClass>
+                     <ccts:PropertyTermQualifier>Damage Documentation</ccts:PropertyTermQualifier>
+                     <ccts:PropertyTerm>Attachment</ccts:PropertyTerm>
+                     <ccts:AssociatedObjectClass>Attachment</ccts:AssociatedObjectClass>
+                     <ccts:RepresentationTerm>Attachment</ccts:RepresentationTerm>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
@@ -49105,6 +50460,22 @@
                      <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
                      <ccts:DataType>Amount. Type</ccts:DataType>
                      <ccts:Examples>23.45</ccts:Examples>
+                  </ccts:Component>
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="cbc:TaxInclusivePriceAmount" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  <ccts:Component>
+                     <ccts:ComponentType>BBIE</ccts:ComponentType>
+                     <ccts:DictionaryEntryName>Unstructured Price. Tax Inclusive Price Amount. Amount</ccts:DictionaryEntryName>
+                     <ccts:Definition>The price amount inclusive of all taxes.</ccts:Definition>
+                     <ccts:Cardinality>0..1</ccts:Cardinality>
+                     <ccts:ObjectClass>Unstructured Price</ccts:ObjectClass>
+                     <ccts:PropertyTerm>Tax Inclusive Price Amount</ccts:PropertyTerm>
+                     <ccts:RepresentationTerm>Amount</ccts:RepresentationTerm>
+                     <ccts:DataType>Amount. Type</ccts:DataType>
                   </ccts:Component>
                </xsd:documentation>
             </xsd:annotation>
