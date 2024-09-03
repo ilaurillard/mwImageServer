@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "compress": false,
+    "verbose": true
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Text": {
+            "text": "Hello"
+          }
+        }
+      ]
+    }
+  ]
+}
