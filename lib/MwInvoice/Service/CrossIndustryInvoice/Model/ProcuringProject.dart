@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class ProcuringProject {
@@ -11,20 +11,33 @@ class ProcuringProject {
     required this.name,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
-        Util.stringElement(builder, id, 'ram:ID');
-        Util.stringElement(builder, this.name, 'ram:Name');
+        Util.stringElement(
+          builder,
+          id,
+          'ram:ID',
+        );
+        Util.stringElement(
+          builder,
+          this.name,
+          'ram:Name',
+        );
       },
     );
   }
 
-  static ProcuringProject fromJson(Dict json) {
-    return ProcuringProject(
-      id: json['id'] as String? ?? '?',
-      name: json['name'] as String? ?? '?',
-    );
+  static ProcuringProject? fromJson(Dict json) {
+    return json.isNotEmpty
+        ? ProcuringProject(
+            id: json['id'] as String? ?? '?',
+            name: json['name'] as String? ?? '?',
+          )
+        : null;
   }
 }

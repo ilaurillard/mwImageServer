@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Id.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class UniversalCommunication {
@@ -11,7 +11,10 @@ class UniversalCommunication {
     this.uriid,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
@@ -24,7 +27,10 @@ class UniversalCommunication {
           );
         }
         if (uriid != null) {
-          uriid!.toXml(builder, 'ram:URIID');
+          uriid!.toXml(
+            builder,
+            'ram:URIID',
+          );
         }
       },
     );

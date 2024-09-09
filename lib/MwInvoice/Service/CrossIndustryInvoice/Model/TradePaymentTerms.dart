@@ -1,6 +1,6 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/DateTime.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradePaymentTerms {
@@ -14,20 +14,34 @@ class TradePaymentTerms {
     this.directDebitMandateID,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(name, nest: () {
-      Util.stringElement(builder, description, 'ram:Description');
+      Util.stringElement(
+        builder,
+        description,
+        'ram:Description',
+      );
       if (dueDate != null) {
-        dueDate!.toXml(builder, 'ram:DueDateDateTime');
+        dueDate!.toXml(
+          builder,
+          'ram:DueDateDateTime',
+        );
       }
-      Util.stringElement(builder, directDebitMandateID, 'ram:DirectDebitMandateID');
+      Util.stringElement(
+        builder,
+        directDebitMandateID,
+        'ram:DirectDebitMandateID',
+      );
     });
   }
 
   static TradePaymentTerms fromJson(Dict json) {
     return TradePaymentTerms(
       description: json['description'] as String?,
-      dueDate: DateTime.fromJson(json['dueDate'] as Dict? ??{}),
+      dueDate: DateTime.fromJson(json['dueDate'] as Dict? ?? {}),
       directDebitMandateID: json['directDebitMandateID'] as String?,
     );
   }

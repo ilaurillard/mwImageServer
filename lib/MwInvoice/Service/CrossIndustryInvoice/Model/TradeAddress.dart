@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradeAddress {
@@ -21,17 +21,48 @@ class TradeAddress {
     this.countrySubDivisionName,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
-        Util.stringElement(builder, postcode, 'ram:PostcodeCode');
-        Util.stringElement(builder, lineOne, 'ram:LineOne');
-        Util.stringElement(builder, lineTwo, 'ram:LineTwo');
-        Util.stringElement(builder, lineThree, 'ram:LineThree');
-        Util.stringElement(builder, city, 'ram:CityName');
-        Util.stringElement(builder, countryCode, 'ram:CountryID');
-        Util.stringElement(builder, countrySubDivisionName, 'ram:CountrySubDivisionName');
+        Util.stringElement(
+          builder,
+          postcode,
+          'ram:PostcodeCode',
+        );
+        Util.stringElement(
+          builder,
+          lineOne,
+          'ram:LineOne',
+        );
+        Util.stringElement(
+          builder,
+          lineTwo,
+          'ram:LineTwo',
+        );
+        Util.stringElement(
+          builder,
+          lineThree,
+          'ram:LineThree',
+        );
+        Util.stringElement(
+          builder,
+          city,
+          'ram:CityName',
+        );
+        Util.stringElement(
+          builder,
+          countryCode,
+          'ram:CountryID',
+        );
+        Util.stringElement(
+          builder,
+          countrySubDivisionName,
+          'ram:CountrySubDivisionName',
+        );
       },
     );
   }

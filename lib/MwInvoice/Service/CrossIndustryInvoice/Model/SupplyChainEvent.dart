@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/DateTime.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class SupplyChainEvent {
@@ -9,11 +9,17 @@ class SupplyChainEvent {
     required this.date,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
-        date.toXml(builder, 'ram:OccurrenceDateTime');
+        date.toXml(
+          builder,
+          'ram:OccurrenceDateTime',
+        );
       },
     );
   }

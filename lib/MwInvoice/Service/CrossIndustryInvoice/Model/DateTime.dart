@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/DateTimeString.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class DateTime {
@@ -28,7 +28,7 @@ class DateTime {
     if (json.isNotEmpty) {
       return DateTime(
         dateTimeString:
-        DateTimeString.fromJson(json['dateTimeString'] as Dict? ?? {}),
+            DateTimeString.fromJson(json['dateTimeString'] as Dict? ?? {}),
       );
     }
     return null;
@@ -36,8 +36,7 @@ class DateTime {
 
   static DateTime empty() {
     return DateTime(
-      dateTimeString:
-      DateTimeString.fromJson({}),
+      dateTimeString: DateTimeString.fromJson({}),
     );
   }
 }

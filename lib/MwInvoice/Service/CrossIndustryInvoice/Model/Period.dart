@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/DateTime.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class Period {
@@ -11,12 +11,21 @@ class Period {
     required this.endDatetime,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
-        startDatetime.toXml(builder, 'ram:StartDateTime');
-        endDatetime.toXml(builder, 'ram:EndDateTime');
+        startDatetime.toXml(
+          builder,
+          'ram:StartDateTime',
+        );
+        endDatetime.toXml(
+          builder,
+          'ram:EndDateTime',
+        );
       },
     );
   }

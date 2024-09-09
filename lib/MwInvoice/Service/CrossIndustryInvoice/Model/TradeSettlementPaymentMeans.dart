@@ -1,9 +1,9 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/CreditorFinancialAccount.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/CreditorFinancialInstitution.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/DebtorFinancialAccount.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeSettlementFinancialCard.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradeSettlementPaymentMeans {
@@ -24,27 +24,46 @@ class TradeSettlementPaymentMeans {
     this.applicableTradeSettlementFinancialCard,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
-        Util.stringElement(builder, typeCode, 'ram:TypeCode');
-        Util.stringElement(builder, information, 'ram:Information');
+        Util.stringElement(
+          builder,
+          typeCode,
+          'ram:TypeCode',
+        );
+        Util.stringElement(
+          builder,
+          information,
+          'ram:Information',
+        );
         if (payeePartyCreditorFinancialAccount != null) {
-          payeePartyCreditorFinancialAccount!
-              .toXml(builder, 'ram:PayeePartyCreditorFinancialAccount');
+          payeePartyCreditorFinancialAccount!.toXml(
+            builder,
+            'ram:PayeePartyCreditorFinancialAccount',
+          );
         }
         if (payeeSpecifiedCreditorFinancialInstitution != null) {
-          payeeSpecifiedCreditorFinancialInstitution!
-              .toXml(builder, 'ram:PayeeSpecifiedCreditorFinancialInstitution');
+          payeeSpecifiedCreditorFinancialInstitution!.toXml(
+            builder,
+            'ram:PayeeSpecifiedCreditorFinancialInstitution',
+          );
         }
         if (payerPartyDebtorFinancialAccount != null) {
-          payerPartyDebtorFinancialAccount!
-              .toXml(builder, 'ram:PayerPartyDebtorFinancialAccount');
+          payerPartyDebtorFinancialAccount!.toXml(
+            builder,
+            'ram:PayerPartyDebtorFinancialAccount',
+          );
         }
         if (applicableTradeSettlementFinancialCard != null) {
-          applicableTradeSettlementFinancialCard!
-              .toXml(builder, 'ram:ApplicableTradeSettlementFinancialCard');
+          applicableTradeSettlementFinancialCard!.toXml(
+            builder,
+            'ram:ApplicableTradeSettlementFinancialCard',
+          );
         }
       },
     );

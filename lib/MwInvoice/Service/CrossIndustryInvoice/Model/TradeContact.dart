@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/UniversalCommunication.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradeContact {
@@ -17,7 +17,10 @@ class TradeContact {
     this.emailURIUniversalCommunication,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
@@ -58,9 +61,12 @@ class TradeContact {
       return TradeContact(
         personName: json['personName'] as String?,
         departmentName: json['departmentName'] as String?,
-        telephoneUniversalCommunication: UniversalCommunication.fromJson(json['telephoneUniversalCommunication'] as Dict? ?? {}),
-        faxUniversalCommunication: UniversalCommunication.fromJson(json['faxUniversalCommunication'] as Dict? ?? {}),
-        emailURIUniversalCommunication: UniversalCommunication.fromJson(json['emailURIUniversalCommunication'] as Dict? ?? {}),
+        telephoneUniversalCommunication: UniversalCommunication.fromJson(
+            json['telephoneUniversalCommunication'] as Dict? ?? {}),
+        faxUniversalCommunication: UniversalCommunication.fromJson(
+            json['faxUniversalCommunication'] as Dict? ?? {}),
+        emailURIUniversalCommunication: UniversalCommunication.fromJson(
+            json['emailURIUniversalCommunication'] as Dict? ?? {}),
       );
     }
     return null;

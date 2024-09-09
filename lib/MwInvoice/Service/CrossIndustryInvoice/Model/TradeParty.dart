@@ -1,8 +1,8 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Id.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TaxRegistration.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeAddress.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeContact.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradeParty {
@@ -22,7 +22,10 @@ class TradeParty {
     this.taxRegistrations = const [],
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
@@ -39,13 +42,22 @@ class TradeParty {
           },
         );
         if (definedTradeContact != null) {
-          definedTradeContact!.toXml(builder, 'ram:DefinedTradeContact');
+          definedTradeContact!.toXml(
+            builder,
+            'ram:DefinedTradeContact',
+          );
         }
         if (postalTradeAddress != null) {
-          postalTradeAddress!.toXml(builder, 'ram:PostalTradeAddress');
+          postalTradeAddress!.toXml(
+            builder,
+            'ram:PostalTradeAddress',
+          );
         }
         for (TaxRegistration t in taxRegistrations) {
-          t.toXml(builder, 'ram:SpecifiedTaxRegistration');
+          t.toXml(
+            builder,
+            'ram:SpecifiedTaxRegistration',
+          );
         }
       },
     );

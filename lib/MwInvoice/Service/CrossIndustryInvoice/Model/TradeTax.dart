@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Amount.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradeTax {
@@ -25,12 +25,18 @@ class TradeTax {
     this.rateApplicablePercent,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
         if (calculatedAmount != null) {
-          calculatedAmount!.toXml(builder, 'ram:CalculatedAmount');
+          calculatedAmount!.toXml(
+            builder,
+            'ram:CalculatedAmount',
+          );
         }
         builder.element(
           'ram:TypeCode',
@@ -47,14 +53,22 @@ class TradeTax {
           );
         }
         if (basisAmount != null) {
-          basisAmount!.toXml(builder, 'ram:BasisAmount');
+          basisAmount!.toXml(
+            builder,
+            'ram:BasisAmount',
+          );
         }
         if (lineTotalBasisAmount != null) {
-          lineTotalBasisAmount!.toXml(builder, 'ram:LineTotalBasisAmount');
+          lineTotalBasisAmount!.toXml(
+            builder,
+            'ram:LineTotalBasisAmount',
+          );
         }
         if (allowanceChargeBasisAmount != null) {
-          allowanceChargeBasisAmount!
-              .toXml(builder, 'ram:AllowanceChargeBasisAmount');
+          allowanceChargeBasisAmount!.toXml(
+            builder,
+            'ram:AllowanceChargeBasisAmount',
+          );
         }
         if (applicablePercent != null) {
           builder.element(
@@ -90,8 +104,7 @@ class TradeTax {
           Amount.fromJson(json['calculatedAmount'] as Dict? ?? {}),
       typeCode: json['typeCode'] as String? ?? '?',
       exemptionReason: json['exemptionReason'] as String?,
-      basisAmount:
-          Amount.fromJson(json['basisAmount'] as Dict? ?? {}),
+      basisAmount: Amount.fromJson(json['basisAmount'] as Dict? ?? {}),
       lineTotalBasisAmount:
           Amount.fromJson(json['lineTotalBasisAmount'] as Dict? ?? {}),
       allowanceChargeBasisAmount:

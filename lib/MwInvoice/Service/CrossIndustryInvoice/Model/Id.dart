@@ -14,13 +14,12 @@ class Id {
     XmlBuilder builder,
     String name,
   ) {
-
     builder.element(
       name,
       nest: () {
         builder.text(value);
         if (schemeID != null) {
-          builder.attribute('schemeID', schemeID!);
+          builder.attribute('schemeID', schemeID!,);
         }
       },
     );

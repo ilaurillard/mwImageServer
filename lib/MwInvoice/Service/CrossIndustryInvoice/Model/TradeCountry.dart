@@ -8,7 +8,9 @@ class TradeCountry {
     required this.id,
   });
 
-  void toXml(XmlBuilder builder) {
+  void toXml(
+    XmlBuilder builder,
+  ) {
     builder.element(
       'ram:ID',
       nest: () {
@@ -17,7 +19,9 @@ class TradeCountry {
     );
   }
 
-  static TradeCountry? fromJson(Dict json) {
+  static TradeCountry? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return TradeCountry(
         id: json['id'] as String? ?? '?',

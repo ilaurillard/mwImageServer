@@ -1,7 +1,7 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Amount.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Indicator.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeTax.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradeAllowanceCharge {
@@ -23,12 +23,18 @@ class TradeAllowanceCharge {
     this.tradeTax = const [],
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
         if (indicator != null) {
-          indicator!.toXml(builder, 'ram:ChargeIndicator');
+          indicator!.toXml(
+            builder,
+            'ram:ChargeIndicator',
+          );
         }
         if (calculationPercent != null) {
           builder.element(
@@ -39,9 +45,15 @@ class TradeAllowanceCharge {
           );
         }
         if (basisAmount != null) {
-          basisAmount!.toXml(builder, 'ram:BasisAmount');
+          basisAmount!.toXml(
+            builder,
+            'ram:BasisAmount',
+          );
         }
-        actualAmount.toXml(builder, 'ram:ActualAmount');
+        actualAmount.toXml(
+          builder,
+          'ram:ActualAmount',
+        );
         if (reason != null) {
           builder.element(
             'ram:Reason',
@@ -59,7 +71,10 @@ class TradeAllowanceCharge {
           );
         }
         for (TradeTax t in tradeTax) {
-          t.toXml(builder, 'ram:CategoryTradeTax');
+          t.toXml(
+            builder,
+            'ram:CategoryTradeTax',
+          );
         }
       },
     );
@@ -70,7 +85,8 @@ class TradeAllowanceCharge {
       indicator: Indicator.fromJson(json['indicator'] as Dict? ?? {}),
       calculationPercent: json['calculationPercent'] as String?,
       basisAmount: Amount.fromJson(json['basisAmount'] as Dict? ?? {}),
-      actualAmount: Amount.fromJson(json['actualAmount'] as Dict? ?? {}) ?? Amount.empty(),
+      actualAmount: Amount.fromJson(json['actualAmount'] as Dict? ?? {}) ??
+          Amount.empty(),
       reason: json['reason'] as String?,
       reasonCode: json['reasonCode'] as String?,
       tradeTax: (json['tradeTax'] as List<dynamic>? ?? [])

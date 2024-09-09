@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Id.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class CreditorFinancialInstitution {
@@ -9,9 +9,15 @@ class CreditorFinancialInstitution {
     required this.bicId,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(name, nest: () {
-      bicId.toXml(builder, 'ram:BICID');
+      bicId.toXml(
+        builder,
+        'ram:BICID',
+      );
     });
   }
 

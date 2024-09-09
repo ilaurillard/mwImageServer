@@ -12,19 +12,27 @@ class BinaryObject {
     required this.value,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
-        builder.attribute('mimeCode', mimeCode);
-        builder.attribute('filename', filename);
+        builder.attribute(
+          'mimeCode',
+          mimeCode,
+        );
+        builder.attribute(
+          'filename',
+          filename,
+        );
         builder.text(value);
       },
     );
   }
 
-  static BinaryObject? fromJson(Dict json)
-  {
+  static BinaryObject? fromJson(Dict json) {
     if (json.isNotEmpty) {
       return BinaryObject(
         value: json['value'] as String? ?? '?',

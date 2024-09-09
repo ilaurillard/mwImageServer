@@ -1,8 +1,8 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/HeaderTradeAgreement.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/HeaderTradeDelivery.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/HeaderTradeSettlement.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/SupplyChainTradeLineItem.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class SupplyChainTradeTransaction {
@@ -28,26 +28,37 @@ class SupplyChainTradeTransaction {
           i.toXml(builder);
         }
         applicableHeaderTradeAgreement.toXml(
-            builder, 'ram:ApplicableHeaderTradeAgreement');
+          builder,
+          'ram:ApplicableHeaderTradeAgreement',
+        );
         applicableHeaderTradeDelivery.toXml(
-            builder, 'ram:ApplicableHeaderTradeDelivery');
+          builder,
+          'ram:ApplicableHeaderTradeDelivery',
+        );
         applicableHeaderTradeSettlement.toXml(
-            builder, 'ram:ApplicableHeaderTradeSettlement');
+          builder,
+          'ram:ApplicableHeaderTradeSettlement',
+        );
       },
     );
   }
 
-  static SupplyChainTradeTransaction fromJson(Dict json) {
+  static SupplyChainTradeTransaction fromJson(
+    Dict json,
+  ) {
     return SupplyChainTradeTransaction(
       lineItems: (json['lineItems'] as List<dynamic>? ?? [])
           .map((dynamic e) => SupplyChainTradeLineItem.fromJson(e as Dict))
           .toList(),
       applicableHeaderTradeAgreement: HeaderTradeAgreement.fromJson(
-          json['applicableHeaderTradeAgreement'] as Dict? ?? {}),
+        json['applicableHeaderTradeAgreement'] as Dict? ?? {},
+      ),
       applicableHeaderTradeDelivery: HeaderTradeDelivery.fromJson(
-          json['applicableHeaderTradeDelivery'] as Dict? ?? {}),
+        json['applicableHeaderTradeDelivery'] as Dict? ?? {},
+      ),
       applicableHeaderTradeSettlement: HeaderTradeSettlement.fromJson(
-          json['applicableHeaderTradeSettlement'] as Dict? ?? {}),
+        json['applicableHeaderTradeSettlement'] as Dict? ?? {},
+      ),
     );
   }
 }

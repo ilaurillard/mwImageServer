@@ -1,7 +1,7 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/ReferencedDocument.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/SupplyChainEvent.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeParty.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class HeaderTradeDelivery {
@@ -15,31 +15,48 @@ class HeaderTradeDelivery {
     this.deliveryNoteReferencedDocument,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
         if (shipToTradeParty != null) {
-          shipToTradeParty!.toXml(builder, 'ram:ShipToTradeParty');
+          shipToTradeParty!.toXml(
+            builder,
+            'ram:ShipToTradeParty',
+          );
         }
         if (chainEvent != null) {
-          chainEvent!.toXml(builder, 'ram:ActualDeliverySupplyChainEvent');
+          chainEvent!.toXml(
+            builder,
+            'ram:ActualDeliverySupplyChainEvent',
+          );
         }
         if (deliveryNoteReferencedDocument != null) {
-          deliveryNoteReferencedDocument!
-              .toXml(builder, 'ram:DeliveryNoteReferencedDocument');
+          deliveryNoteReferencedDocument!.toXml(
+            builder,
+            'ram:DeliveryNoteReferencedDocument',
+          );
         }
       },
     );
   }
 
-  static HeaderTradeDelivery fromJson(Dict json) {
+  static HeaderTradeDelivery fromJson(
+    Dict json,
+  ) {
     return HeaderTradeDelivery(
-      shipToTradeParty:
-          TradeParty.fromJson(json['shipToTradeParty'] as Dict? ?? {}),
-      chainEvent: SupplyChainEvent.fromJson(json['chainEvent'] as Dict? ?? {}),
+      shipToTradeParty: TradeParty.fromJson(
+        json['shipToTradeParty'] as Dict? ?? {},
+      ),
+      chainEvent: SupplyChainEvent.fromJson(
+        json['chainEvent'] as Dict? ?? {},
+      ),
       deliveryNoteReferencedDocument: ReferencedDocument.fromJson(
-          json['deliveryNoteReferencedDocument'] as Dict? ?? {}),
+        json['deliveryNoteReferencedDocument'] as Dict? ?? {},
+      ),
     );
   }
 }

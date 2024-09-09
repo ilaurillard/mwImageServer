@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Amount.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradeSettlementHeaderMonetarySummation {
@@ -25,33 +25,63 @@ class TradeSettlementHeaderMonetarySummation {
     required this.duePayableAmount,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(name, nest: () {
       if (lineTotalAmount != null) {
-        lineTotalAmount!.toXml(builder, 'ram:LineTotalAmount');
+        lineTotalAmount!.toXml(
+          builder,
+          'ram:LineTotalAmount',
+        );
       }
       if (chargeTotalAmount != null) {
-        chargeTotalAmount!.toXml(builder, 'ram:ChargeTotalAmount');
+        chargeTotalAmount!.toXml(
+          builder,
+          'ram:ChargeTotalAmount',
+        );
       }
       if (allowanceTotalAmount != null) {
-        allowanceTotalAmount!.toXml(builder, 'ram:AllowanceTotalAmount');
+        allowanceTotalAmount!.toXml(
+          builder,
+          'ram:AllowanceTotalAmount',
+        );
       }
       for (Amount a in taxBasisTotalAmount) {
-        a.toXml(builder, 'ram:TaxBasisTotalAmount');
+        a.toXml(
+          builder,
+          'ram:TaxBasisTotalAmount',
+        );
       }
       for (Amount a in taxTotalAmount) {
-        a.toXml(builder, 'ram:TaxTotalAmount');
+        a.toXml(
+          builder,
+          'ram:TaxTotalAmount',
+        );
       }
       if (roundingAmount != null) {
-        roundingAmount!.toXml(builder, 'ram:RoundingAmount');
+        roundingAmount!.toXml(
+          builder,
+          'ram:RoundingAmount',
+        );
       }
       for (Amount a in grandTotalAmount) {
-        a.toXml(builder, 'ram:GrandTotalAmount');
+        a.toXml(
+          builder,
+          'ram:GrandTotalAmount',
+        );
       }
       if (totalPrepaidAmount != null) {
-        totalPrepaidAmount!.toXml(builder, 'ram:TotalPrepaidAmount');
+        totalPrepaidAmount!.toXml(
+          builder,
+          'ram:TotalPrepaidAmount',
+        );
       }
-      duePayableAmount.toXml(builder, 'ram:DuePayableAmount');
+      duePayableAmount.toXml(
+        builder,
+        'ram:DuePayableAmount',
+      );
     });
   }
 

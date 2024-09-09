@@ -1,4 +1,3 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/LogisticsServiceCharge.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/ReferencedDocument.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeAllowanceCharge.dart';
@@ -8,6 +7,7 @@ import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeSettleme
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeSettlementPaymentMeans.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeTax.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class HeaderTradeSettlement {
@@ -38,40 +38,74 @@ class HeaderTradeSettlement {
     this.invoiceReferencedDocument,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
         Util.stringElement(
-            builder, creditorReferenceID, 'ram:CreditorReferenceID');
-        Util.stringElement(builder, paymentReference, 'ram:PaymentReference');
-        Util.stringElement(builder, currency, 'ram:InvoiceCurrencyCode');
+          builder,
+          creditorReferenceID,
+          'ram:CreditorReferenceID',
+        );
+        Util.stringElement(
+          builder,
+          paymentReference,
+          'ram:PaymentReference',
+        );
+        Util.stringElement(
+          builder,
+          currency,
+          'ram:InvoiceCurrencyCode',
+        );
         if (payeeTradeParty != null) {
-          payeeTradeParty!.toXml(builder, 'ram:PayeeTradeParty');
+          payeeTradeParty!.toXml(
+            builder,
+            'ram:PayeeTradeParty',
+          );
         }
         for (TradeSettlementPaymentMeans t
             in specifiedTradeSettlementPaymentMeans) {
-          t.toXml(builder, 'ram:SpecifiedTradeSettlementPaymentMeans');
+          t.toXml(
+            builder,
+            'ram:SpecifiedTradeSettlementPaymentMeans',
+          );
         }
         for (TradeTax t in tradeTaxes) {
-          t.toXml(builder, 'ram:ApplicableTradeTax');
+          t.toXml(
+            builder,
+            'ram:ApplicableTradeTax',
+          );
         }
         for (TradeAllowanceCharge t in specifiedTradeAllowanceCharge) {
-          t.toXml(builder, 'ram:SpecifiedTradeAllowanceCharge');
+          t.toXml(
+            builder,
+            'ram:SpecifiedTradeAllowanceCharge',
+          );
         }
         for (LogisticsServiceCharge t in specifiedLogisticsServiceCharge) {
-          t.toXml(builder, 'ram:SpecifiedLogisticsServiceCharge');
+          t.toXml(
+            builder,
+            'ram:SpecifiedLogisticsServiceCharge',
+          );
         }
         for (TradePaymentTerms t in specifiedTradePaymentTerms) {
-          t.toXml(builder, 'ram:SpecifiedTradePaymentTerms');
+          t.toXml(
+            builder,
+            'ram:SpecifiedTradePaymentTerms',
+          );
         }
         specifiedTradeSettlementHeaderMonetarySummation.toXml(
           builder,
           'ram:SpecifiedTradeSettlementHeaderMonetarySummation',
         );
         if (invoiceReferencedDocument != null) {
-          invoiceReferencedDocument!
-              .toXml(builder, 'ram:InvoiceReferencedDocument');
+          invoiceReferencedDocument!.toXml(
+            builder,
+            'ram:InvoiceReferencedDocument',
+          );
         }
       },
     );

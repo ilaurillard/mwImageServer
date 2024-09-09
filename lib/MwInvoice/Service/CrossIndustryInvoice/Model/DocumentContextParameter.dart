@@ -24,7 +24,9 @@ class DocumentContextParameter {
     );
   }
 
-  static DocumentContextParameter fromJson(Dict json) {
+  static DocumentContextParameter fromJson(
+    Dict json,
+  ) {
     return DocumentContextParameter(
       id: json['id'] as String? ?? '?',
     );

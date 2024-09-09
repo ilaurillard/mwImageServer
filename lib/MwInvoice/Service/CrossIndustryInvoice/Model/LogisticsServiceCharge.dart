@@ -1,7 +1,7 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Amount.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeTax.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class LogisticsServiceCharge {
@@ -15,12 +15,22 @@ class LogisticsServiceCharge {
     this.tradeTaxes = const [],
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(name, nest: () {
-      Util.stringElement(builder, description, 'ram:Description');
+      Util.stringElement(
+        builder,
+        description,
+        'ram:Description',
+      );
       appliedAmount.toXml(builder, 'ram:AppliedAmount');
       for (TradeTax t in tradeTaxes) {
-        t.toXml(builder, 'ram:AppliedTradeTax');
+        t.toXml(
+          builder,
+          'ram:AppliedTradeTax',
+        );
       }
     });
   }

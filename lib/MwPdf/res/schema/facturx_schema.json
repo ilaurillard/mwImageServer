@@ -3167,6 +3167,9 @@
         },
         "chainEvent": {
           "$ref": "#/definitions/SupplyChainEvent"
+        },
+        "deliveryNoteReferencedDocument": {
+          "$ref": "#/definitions/ReferencedDocument"
         }
       },
       "required": [

@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class Note {
@@ -20,9 +20,21 @@ class Note {
     builder.element(
       name,
       nest: () {
-        Util.stringElement(builder, contentCode, 'ram:ContentCode');
-        Util.stringElement(builder, content, 'ram:Content');
-        Util.stringElement(builder, subjectCode, 'ram:SubjectCode');
+        Util.stringElement(
+          builder,
+          contentCode,
+          'ram:ContentCode',
+        );
+        Util.stringElement(
+          builder,
+          content,
+          'ram:Content',
+        );
+        Util.stringElement(
+          builder,
+          subjectCode,
+          'ram:SubjectCode',
+        );
       },
     );
   }

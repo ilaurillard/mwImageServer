@@ -10,18 +10,22 @@ class Quantity {
     required this.value,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
         builder.text(value);
-        builder.attribute('unitCode', unitCode);
+        if (unitCode.isNotEmpty) {
+          builder.attribute('unitCode', unitCode);
+        }
       },
     );
   }
 
-  static Quantity? fromJson(Dict json)
-  {
+  static Quantity? fromJson(Dict json) {
     if (json.isNotEmpty) {
       return Quantity(
         unitCode: json['unitCode'] as String? ?? '',

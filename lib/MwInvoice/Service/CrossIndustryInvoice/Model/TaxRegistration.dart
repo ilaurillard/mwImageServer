@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Id.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TaxRegistration {
@@ -9,11 +9,17 @@ class TaxRegistration {
     required this.registration,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
-        registration.toXml(builder, 'ram:ID');
+        registration.toXml(
+          builder,
+          'ram:ID',
+        );
       },
     );
   }

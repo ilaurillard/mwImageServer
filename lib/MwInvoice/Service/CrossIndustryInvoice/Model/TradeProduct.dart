@@ -1,6 +1,6 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Id.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeCountry.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradeProduct {
@@ -20,7 +20,10 @@ class TradeProduct {
 
   void toXml(XmlBuilder builder) {
     if (globalID != null) {
-      globalID!.toXml(builder, 'ram:GlobalID');
+      globalID!.toXml(
+        builder,
+        'ram:GlobalID',
+      );
     }
     if (sellerAssignedID != null) {
       builder.element(

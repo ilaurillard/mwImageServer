@@ -1,5 +1,5 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Amount.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradeSettlementLineMonetarySummation {
@@ -11,14 +11,22 @@ class TradeSettlementLineMonetarySummation {
     this.totalAllowanceChargeAmount,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
-        totalAmount.toXml(builder, 'ram:LineTotalAmount');
+        totalAmount.toXml(
+          builder,
+          'ram:LineTotalAmount',
+        );
         if (totalAllowanceChargeAmount != null) {
-          totalAllowanceChargeAmount!
-              .toXml(builder, 'ram:TotalAllowanceChargeAmount');
+          totalAllowanceChargeAmount!.toXml(
+            builder,
+            'ram:TotalAllowanceChargeAmount',
+          );
         }
       },
     );
@@ -26,8 +34,10 @@ class TradeSettlementLineMonetarySummation {
 
   static TradeSettlementLineMonetarySummation fromJson(Dict json) {
     return TradeSettlementLineMonetarySummation(
-      totalAmount: Amount.fromJson(json['totalAmount'] as Dict? ?? {}) ?? Amount.empty(),
-      totalAllowanceChargeAmount: Amount.fromJson(json['totalAllowanceChargeAmount'] as Dict? ?? {}),
+      totalAmount:
+          Amount.fromJson(json['totalAmount'] as Dict? ?? {}) ?? Amount.empty(),
+      totalAllowanceChargeAmount:
+          Amount.fromJson(json['totalAllowanceChargeAmount'] as Dict? ?? {}),
     );
   }
 }

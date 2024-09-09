@@ -10,11 +10,17 @@ class DateTimeString {
     required this.value,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
-        builder.attribute('format', format);
+        builder.attribute(
+          'format',
+          format,
+        );
         builder.text(value);
       },
     );

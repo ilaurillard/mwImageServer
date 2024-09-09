@@ -1,8 +1,8 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/BinaryObject.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/FormattedDateTime.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Id.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class ReferencedDocument {
@@ -22,21 +22,41 @@ class ReferencedDocument {
     this.formattedIssueDateTime,
   });
 
-  void toXml(XmlBuilder builder, String name) {
+  void toXml(
+    XmlBuilder builder,
+    String name,
+  ) {
     builder.element(
       name,
       nest: () {
-        issuerAssignedID.toXml(builder, 'ram:IssuerAssignedID');
+        issuerAssignedID.toXml(
+          builder,
+          'ram:IssuerAssignedID',
+        );
         if (uriid != null) {
           uriid!.toXml(builder, 'ram:URIID');
         }
-        Util.stringElement(builder, typeCode, 'ram:TypeCode');
-        Util.stringElement(builder, this.name, 'ram:Name');
+        Util.stringElement(
+          builder,
+          typeCode,
+          'ram:TypeCode',
+        );
+        Util.stringElement(
+          builder,
+          this.name,
+          'ram:Name',
+        );
         if (attachmentBinaryObject != null) {
-          attachmentBinaryObject!.toXml(builder, 'ram:AttachmentBinaryObject');
+          attachmentBinaryObject!.toXml(
+            builder,
+            'ram:AttachmentBinaryObject',
+          );
         }
         if (formattedIssueDateTime != null) {
-          formattedIssueDateTime!.toXml(builder, 'ram:FormattedIssueDateTime');
+          formattedIssueDateTime!.toXml(
+            builder,
+            'ram:FormattedIssueDateTime',
+          );
         }
       },
     );

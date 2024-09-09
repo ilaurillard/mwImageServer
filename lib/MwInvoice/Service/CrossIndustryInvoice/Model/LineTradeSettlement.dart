@@ -1,9 +1,9 @@
-import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Period.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeAccountingAccount.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeAllowanceCharge.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeSettlementLineMonetarySummation.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeTax.dart';
+import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class LineTradeSettlement {
@@ -23,19 +23,33 @@ class LineTradeSettlement {
 
   void toXml(XmlBuilder builder) {
     for (TradeTax t in tradeTax) {
-      t.toXml(builder, 'ram:ApplicableTradeTax');
+      t.toXml(
+        builder,
+        'ram:ApplicableTradeTax',
+      );
     }
     for (TradeAllowanceCharge t in specifiedTradeAllowanceCharge) {
-      t.toXml(builder, 'ram:SpecifiedTradeAllowanceCharge');
+      t.toXml(
+        builder,
+        'ram:SpecifiedTradeAllowanceCharge',
+      );
     }
     if (billingSpecifiedPeriod != null) {
-      billingSpecifiedPeriod!.toXml(builder, 'ram:BillingSpecifiedPeriod');
+      billingSpecifiedPeriod!.toXml(
+        builder,
+        'ram:BillingSpecifiedPeriod',
+      );
     }
     monetarySummation.toXml(
-        builder, 'ram:SpecifiedTradeSettlementLineMonetarySummation');
+      builder,
+      'ram:SpecifiedTradeSettlementLineMonetarySummation',
+    );
 
     for (TradeAccountingAccount t in tradeAccountingAccount) {
-      t.toXml(builder, 'ram:ReceivableSpecifiedTradeAccountingAccount');
+      t.toXml(
+        builder,
+        'ram:ReceivableSpecifiedTradeAccountingAccount',
+      );
     }
   }
 
