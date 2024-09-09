@@ -40,7 +40,7 @@ class ShipToShipActivityRecord {
     this.period,
     this.location,
   }) {
-    assert(description.isNotEmpty);
+    if (description.isEmpty) { throw Exception('empty description given'); }
   }
 
   static ShipToShipActivityRecord? fromJson(Map<String, dynamic>? json) {

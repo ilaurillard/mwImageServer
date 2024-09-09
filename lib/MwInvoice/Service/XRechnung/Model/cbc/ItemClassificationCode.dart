@@ -48,7 +48,7 @@ class ItemClassificationCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static ItemClassificationCode? fromJson(Map<String, dynamic>? json) {

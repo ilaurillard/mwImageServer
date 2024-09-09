@@ -48,7 +48,7 @@ class FinancingInstrumentCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static FinancingInstrumentCode? fromJson(Map<String, dynamic>? json) {

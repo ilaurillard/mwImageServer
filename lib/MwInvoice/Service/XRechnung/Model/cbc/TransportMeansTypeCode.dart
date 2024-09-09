@@ -48,7 +48,7 @@ class TransportMeansTypeCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static TransportMeansTypeCode? fromJson(Map<String, dynamic>? json) {

@@ -40,7 +40,7 @@ class PrepaidPaymentReferenceID {
     this.schemeDataURI,
     this.schemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static PrepaidPaymentReferenceID? fromJson(Map<String, dynamic>? json) {

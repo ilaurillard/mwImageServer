@@ -40,7 +40,7 @@ class UBLVersionID {
     this.schemeDataURI,
     this.schemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static UBLVersionID? fromJson(Map<String, dynamic>? json) {

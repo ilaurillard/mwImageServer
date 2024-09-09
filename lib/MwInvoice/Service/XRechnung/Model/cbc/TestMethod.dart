@@ -20,7 +20,7 @@ class TestMethod {
     this.languageID,
     this.languageLocaleID,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static TestMethod? fromJson(Map<String, dynamic>? json) {

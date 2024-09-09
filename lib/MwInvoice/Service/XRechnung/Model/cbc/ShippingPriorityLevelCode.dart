@@ -48,7 +48,7 @@ class ShippingPriorityLevelCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static ShippingPriorityLevelCode? fromJson(Map<String, dynamic>? json) {

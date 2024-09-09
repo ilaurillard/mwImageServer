@@ -40,7 +40,7 @@ class UUID {
     this.schemeDataURI,
     this.schemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static UUID? fromJson(Map<String, dynamic>? json) {

@@ -40,7 +40,7 @@ class JourneyID {
     this.schemeDataURI,
     this.schemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static JourneyID? fromJson(Map<String, dynamic>? json) {

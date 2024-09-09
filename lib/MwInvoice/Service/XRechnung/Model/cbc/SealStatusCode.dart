@@ -48,7 +48,7 @@ class SealStatusCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static SealStatusCode? fromJson(Map<String, dynamic>? json) {

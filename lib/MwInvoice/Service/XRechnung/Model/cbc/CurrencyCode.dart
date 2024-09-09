@@ -48,7 +48,7 @@ class CurrencyCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static CurrencyCode? fromJson(Map<String, dynamic>? json) {

@@ -20,7 +20,7 @@ class ModificationReasonDescription {
     this.languageID,
     this.languageLocaleID,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static ModificationReasonDescription? fromJson(Map<String, dynamic>? json) {

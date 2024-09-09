@@ -48,7 +48,7 @@ class ExemptionReasonCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static ExemptionReasonCode? fromJson(Map<String, dynamic>? json) {

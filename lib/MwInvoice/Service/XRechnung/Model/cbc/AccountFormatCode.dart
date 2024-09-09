@@ -48,7 +48,7 @@ class AccountFormatCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static AccountFormatCode? fromJson(Map<String, dynamic>? json) {

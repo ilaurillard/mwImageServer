@@ -48,7 +48,7 @@ class SanitaryMeasureTypeCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static SanitaryMeasureTypeCode? fromJson(Map<String, dynamic>? json) {

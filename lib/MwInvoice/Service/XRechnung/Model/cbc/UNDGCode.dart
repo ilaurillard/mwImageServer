@@ -48,7 +48,7 @@ class UNDGCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static UNDGCode? fromJson(Map<String, dynamic>? json) {

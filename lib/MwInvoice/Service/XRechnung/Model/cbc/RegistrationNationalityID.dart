@@ -40,7 +40,7 @@ class RegistrationNationalityID {
     this.schemeDataURI,
     this.schemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static RegistrationNationalityID? fromJson(Map<String, dynamic>? json) {

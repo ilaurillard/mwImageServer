@@ -15,7 +15,7 @@ class UBLExtensions {
   UBLExtensions ({
     required this.uBLExtension,
   }) {
-    assert(uBLExtension.isNotEmpty);
+    if (uBLExtension.isEmpty) { throw Exception('empty uBLExtension given'); }
   }
 
   static UBLExtensions? fromJson(Map<String, dynamic>? json) {

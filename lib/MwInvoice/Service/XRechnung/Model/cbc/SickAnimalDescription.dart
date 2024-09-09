@@ -20,7 +20,7 @@ class SickAnimalDescription {
     this.languageID,
     this.languageLocaleID,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static SickAnimalDescription? fromJson(Map<String, dynamic>? json) {

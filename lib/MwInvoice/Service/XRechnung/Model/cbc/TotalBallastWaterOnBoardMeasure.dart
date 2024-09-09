@@ -20,7 +20,7 @@ class TotalBallastWaterOnBoardMeasure {
     required this.unitCode,
     this.unitCodeListVersionID,
   }) {
-    assert(unitCode.isNotEmpty);
+    if (unitCode.isEmpty) { throw Exception('empty unitCode given'); }
   }
 
   static TotalBallastWaterOnBoardMeasure? fromJson(Map<String, dynamic>? json) {

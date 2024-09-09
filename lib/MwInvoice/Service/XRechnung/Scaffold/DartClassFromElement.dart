@@ -117,7 +117,7 @@ class DartClassFromElement {
         // TODO assert not empty??
         if (s == 'String') {
           _assertions.add(
-            '    assert(value.isNotEmpty);',
+            "    if (value.isEmpty) { throw Exception('empty value given'); }",
           );
         }
       }
@@ -145,7 +145,7 @@ class DartClassFromElement {
           // TODO assert not empty??
           if (s == 'String' && !o) {
             _assertions.add(
-              '    assert(${a.name}.isNotEmpty);',
+              "    if (${a.name}.isEmpty) { throw Exception('empty ${a.name} given'); }",
             );
           }
         } else {
@@ -206,7 +206,8 @@ class DartClassFromElement {
               '    required this.$elementVarName',
             );
             _assertions.add(
-              '    assert($elementVarName.isNotEmpty);',
+              "    if ($elementVarName.isEmpty) { throw Exception('empty $elementVarName given'); }",
+              // '    assert($elementVarName.isNotEmpty);',
             );
           } else {
             _constructorMembers.add(

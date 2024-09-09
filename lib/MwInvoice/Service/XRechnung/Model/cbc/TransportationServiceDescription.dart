@@ -20,7 +20,7 @@ class TransportationServiceDescription {
     this.languageID,
     this.languageLocaleID,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static TransportationServiceDescription? fromJson(Map<String, dynamic>? json) {

@@ -48,7 +48,7 @@ class DistributionTypeCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static DistributionTypeCode? fromJson(Map<String, dynamic>? json) {

@@ -20,7 +20,7 @@ class PerUnitAmount {
     required this.currencyID,
     this.currencyCodeListVersionID,
   }) {
-    assert(currencyID.isNotEmpty);
+    if (currencyID.isEmpty) { throw Exception('empty currencyID given'); }
   }
 
   static PerUnitAmount? fromJson(Map<String, dynamic>? json) {

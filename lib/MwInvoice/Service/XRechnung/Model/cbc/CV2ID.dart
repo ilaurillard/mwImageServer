@@ -40,7 +40,7 @@ class CV2ID {
     this.schemeDataURI,
     this.schemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static CV2ID? fromJson(Map<String, dynamic>? json) {

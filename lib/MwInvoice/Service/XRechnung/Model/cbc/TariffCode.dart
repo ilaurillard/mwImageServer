@@ -48,7 +48,7 @@ class TariffCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static TariffCode? fromJson(Map<String, dynamic>? json) {

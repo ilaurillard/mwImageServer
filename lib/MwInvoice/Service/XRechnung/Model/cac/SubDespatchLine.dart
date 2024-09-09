@@ -99,7 +99,7 @@ class SubDespatchLine {
     this.shipment = const [],
     this.subDespatchLine = const [],
   }) {
-    assert(orderLineReference.isNotEmpty);
+    if (orderLineReference.isEmpty) { throw Exception('empty orderLineReference given'); }
   }
 
   static SubDespatchLine? fromJson(Map<String, dynamic>? json) {

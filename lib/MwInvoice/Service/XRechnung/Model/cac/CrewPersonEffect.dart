@@ -25,7 +25,7 @@ class CrewPersonEffect {
     this.uBLExtensions,
     this.crewPerson,
   }) {
-    assert(effectDescription.isNotEmpty);
+    if (effectDescription.isEmpty) { throw Exception('empty effectDescription given'); }
   }
 
   static CrewPersonEffect? fromJson(Map<String, dynamic>? json) {

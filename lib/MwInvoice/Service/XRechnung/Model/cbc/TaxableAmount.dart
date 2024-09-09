@@ -20,7 +20,7 @@ class TaxableAmount {
     required this.currencyID,
     this.currencyCodeListVersionID,
   }) {
-    assert(currencyID.isNotEmpty);
+    if (currencyID.isEmpty) { throw Exception('empty currencyID given'); }
   }
 
   static TaxableAmount? fromJson(Map<String, dynamic>? json) {

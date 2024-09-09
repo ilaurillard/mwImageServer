@@ -20,7 +20,7 @@ class TaxInclusivePriceAmount {
     required this.currencyID,
     this.currencyCodeListVersionID,
   }) {
-    assert(currencyID.isNotEmpty);
+    if (currencyID.isEmpty) { throw Exception('empty currencyID given'); }
   }
 
   static TaxInclusivePriceAmount? fromJson(Map<String, dynamic>? json) {

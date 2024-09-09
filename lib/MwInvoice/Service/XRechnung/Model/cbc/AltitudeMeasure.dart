@@ -20,7 +20,7 @@ class AltitudeMeasure {
     required this.unitCode,
     this.unitCodeListVersionID,
   }) {
-    assert(unitCode.isNotEmpty);
+    if (unitCode.isEmpty) { throw Exception('empty unitCode given'); }
   }
 
   static AltitudeMeasure? fromJson(Map<String, dynamic>? json) {

@@ -20,7 +20,7 @@ class CityName {
     this.languageID,
     this.languageLocaleID,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static CityName? fromJson(Map<String, dynamic>? json) {

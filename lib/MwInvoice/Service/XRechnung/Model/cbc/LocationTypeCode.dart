@@ -48,7 +48,7 @@ class LocationTypeCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static LocationTypeCode? fromJson(Map<String, dynamic>? json) {

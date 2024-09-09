@@ -20,7 +20,7 @@ class AllowanceTotalAmount {
     required this.currencyID,
     this.currencyCodeListVersionID,
   }) {
-    assert(currencyID.isNotEmpty);
+    if (currencyID.isEmpty) { throw Exception('empty currencyID given'); }
   }
 
   static AllowanceTotalAmount? fromJson(Map<String, dynamic>? json) {

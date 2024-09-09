@@ -40,7 +40,7 @@ class ExtensionVersionID {
     this.schemeDataURI,
     this.schemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static ExtensionVersionID? fromJson(Map<String, dynamic>? json) {

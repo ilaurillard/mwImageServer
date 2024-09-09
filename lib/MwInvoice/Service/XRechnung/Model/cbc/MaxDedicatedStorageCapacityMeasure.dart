@@ -20,7 +20,7 @@ class MaxDedicatedStorageCapacityMeasure {
     required this.unitCode,
     this.unitCodeListVersionID,
   }) {
-    assert(unitCode.isNotEmpty);
+    if (unitCode.isEmpty) { throw Exception('empty unitCode given'); }
   }
 
   static MaxDedicatedStorageCapacityMeasure? fromJson(Map<String, dynamic>? json) {

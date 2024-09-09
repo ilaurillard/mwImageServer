@@ -20,7 +20,7 @@ class Measure {
     required this.unitCode,
     this.unitCodeListVersionID,
   }) {
-    assert(unitCode.isNotEmpty);
+    if (unitCode.isEmpty) { throw Exception('empty unitCode given'); }
   }
 
   static Measure? fromJson(Map<String, dynamic>? json) {

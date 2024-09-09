@@ -25,7 +25,7 @@ class AppliedSecurityMeasure {
     this.uBLExtensions,
     this.iD,
   }) {
-    assert(description.isNotEmpty);
+    if (description.isEmpty) { throw Exception('empty description given'); }
   }
 
   static AppliedSecurityMeasure? fromJson(Map<String, dynamic>? json) {

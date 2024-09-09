@@ -20,7 +20,7 @@ class ValidateToolVersion {
     this.languageID,
     this.languageLocaleID,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static ValidateToolVersion? fromJson(Map<String, dynamic>? json) {

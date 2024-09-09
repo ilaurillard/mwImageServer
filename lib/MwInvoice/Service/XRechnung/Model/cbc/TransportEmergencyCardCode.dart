@@ -48,7 +48,7 @@ class TransportEmergencyCardCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static TransportEmergencyCardCode? fromJson(Map<String, dynamic>? json) {

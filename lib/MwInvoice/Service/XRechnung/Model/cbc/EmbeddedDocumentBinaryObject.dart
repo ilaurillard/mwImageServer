@@ -36,8 +36,8 @@ class EmbeddedDocumentBinaryObject {
     this.uri,
     this.filename,
   }) {
-    assert(value.isNotEmpty);
-    assert(mimeCode.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
+    if (mimeCode.isEmpty) { throw Exception('empty mimeCode given'); }
   }
 
   static EmbeddedDocumentBinaryObject? fromJson(Map<String, dynamic>? json) {

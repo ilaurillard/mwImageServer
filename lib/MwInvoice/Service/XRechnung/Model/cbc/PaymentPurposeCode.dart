@@ -48,7 +48,7 @@ class PaymentPurposeCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static PaymentPurposeCode? fromJson(Map<String, dynamic>? json) {

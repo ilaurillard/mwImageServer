@@ -20,7 +20,7 @@ class PlannedWorksDescription {
     this.languageID,
     this.languageLocaleID,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static PlannedWorksDescription? fromJson(Map<String, dynamic>? json) {

@@ -48,7 +48,7 @@ class OwnerTypeCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static OwnerTypeCode? fromJson(Map<String, dynamic>? json) {

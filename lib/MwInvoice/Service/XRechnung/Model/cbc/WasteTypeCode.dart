@@ -48,7 +48,7 @@ class WasteTypeCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static WasteTypeCode? fromJson(Map<String, dynamic>? json) {

@@ -48,7 +48,7 @@ class IdentificationCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static IdentificationCode? fromJson(Map<String, dynamic>? json) {

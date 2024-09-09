@@ -70,7 +70,7 @@ class VerifiedGrossMass {
     this.shipperParty,
     this.responsibleParty,
   }) {
-    assert(documentReference.isNotEmpty);
+    if (documentReference.isEmpty) { throw Exception('empty documentReference given'); }
   }
 
   static VerifiedGrossMass? fromJson(Map<String, dynamic>? json) {

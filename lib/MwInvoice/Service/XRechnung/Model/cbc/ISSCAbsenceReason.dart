@@ -20,7 +20,7 @@ class ISSCAbsenceReason {
     this.languageID,
     this.languageLocaleID,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static ISSCAbsenceReason? fromJson(Map<String, dynamic>? json) {

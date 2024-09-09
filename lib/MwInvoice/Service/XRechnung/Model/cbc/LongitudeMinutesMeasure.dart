@@ -20,7 +20,7 @@ class LongitudeMinutesMeasure {
     required this.unitCode,
     this.unitCodeListVersionID,
   }) {
-    assert(unitCode.isNotEmpty);
+    if (unitCode.isEmpty) { throw Exception('empty unitCode given'); }
   }
 
   static LongitudeMinutesMeasure? fromJson(Map<String, dynamic>? json) {

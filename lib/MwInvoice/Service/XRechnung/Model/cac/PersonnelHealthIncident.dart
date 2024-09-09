@@ -80,7 +80,7 @@ class PersonnelHealthIncident {
     this.note = const [],
     this.person,
   }) {
-    assert(natureOfIllnessDescription.isNotEmpty);
+    if (natureOfIllnessDescription.isEmpty) { throw Exception('empty natureOfIllnessDescription given'); }
   }
 
   static PersonnelHealthIncident? fromJson(Map<String, dynamic>? json) {

@@ -40,7 +40,7 @@ class BrokerAssignedID {
     this.schemeDataURI,
     this.schemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static BrokerAssignedID? fromJson(Map<String, dynamic>? json) {

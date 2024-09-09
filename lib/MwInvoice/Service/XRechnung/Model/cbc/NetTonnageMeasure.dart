@@ -20,7 +20,7 @@ class NetTonnageMeasure {
     required this.unitCode,
     this.unitCodeListVersionID,
   }) {
-    assert(unitCode.isNotEmpty);
+    if (unitCode.isEmpty) { throw Exception('empty unitCode given'); }
   }
 
   static NetTonnageMeasure? fromJson(Map<String, dynamic>? json) {

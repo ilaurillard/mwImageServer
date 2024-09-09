@@ -48,7 +48,7 @@ class DirectionCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static DirectionCode? fromJson(Map<String, dynamic>? json) {

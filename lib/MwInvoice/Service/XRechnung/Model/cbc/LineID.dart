@@ -40,7 +40,7 @@ class LineID {
     this.schemeDataURI,
     this.schemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static LineID? fromJson(Map<String, dynamic>? json) {

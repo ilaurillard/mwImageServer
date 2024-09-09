@@ -20,7 +20,7 @@ class PackagingType {
     this.languageID,
     this.languageLocaleID,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static PackagingType? fromJson(Map<String, dynamic>? json) {

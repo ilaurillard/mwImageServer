@@ -48,7 +48,7 @@ class ActionCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static ActionCode? fromJson(Map<String, dynamic>? json) {

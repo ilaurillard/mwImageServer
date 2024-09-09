@@ -48,7 +48,7 @@ class CertificateTypeCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static CertificateTypeCode? fromJson(Map<String, dynamic>? json) {

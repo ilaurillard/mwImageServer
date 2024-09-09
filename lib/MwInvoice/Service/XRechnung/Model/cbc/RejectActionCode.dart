@@ -48,7 +48,7 @@ class RejectActionCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static RejectActionCode? fromJson(Map<String, dynamic>? json) {

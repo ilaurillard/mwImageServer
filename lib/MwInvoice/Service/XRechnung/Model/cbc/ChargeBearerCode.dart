@@ -48,7 +48,7 @@ class ChargeBearerCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static ChargeBearerCode? fromJson(Map<String, dynamic>? json) {

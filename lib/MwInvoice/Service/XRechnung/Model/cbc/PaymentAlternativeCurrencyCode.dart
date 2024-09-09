@@ -48,7 +48,7 @@ class PaymentAlternativeCurrencyCode {
     this.listURI,
     this.listSchemeURI,
   }) {
-    assert(value.isNotEmpty);
+    if (value.isEmpty) { throw Exception('empty value given'); }
   }
 
   static PaymentAlternativeCurrencyCode? fromJson(Map<String, dynamic>? json) {

@@ -280,7 +280,7 @@ class Invoice {
     this.taxTotal = const [],
     this.withholdingTaxTotal = const [],
   }) {
-    assert(invoiceLine.isNotEmpty);
+    if (invoiceLine.isEmpty) { throw Exception('empty invoiceLine given'); }
   }
 
   static Invoice? fromJson(Map<String, dynamic>? json) {
