@@ -235,12 +235,15 @@ class Table {
 
     Dict data = json['TableRow'] as Dict? ?? {};
 
-    // print('W: TableRow');
-
     Datasource source = state.source(
       data['source'] as String?,
     );
+
+    data = {...source.tableRowData, ...data};
+
     state.summarizeValues(source);
+    Dict variables = (data['variables'] as Dict?) ?? {};
+    state.addVariables(variables);
 
     pw.BoxDecoration? decoration = Util.boxDecoration(
       data['decoration'] as Dict? ?? {},
@@ -267,18 +270,22 @@ class Table {
           nr,
           v.length > nr ? v[nr].toString() : '?',
         );
-        children.add(Widget.parse(
-          d as Dict,
-          state,
-        ));
+        children.add(
+          Widget.parse(
+            d as Dict,
+            state,
+          ),
+        );
         nr++;
       }
-      rows.add(pw.TableRow(
-        decoration: decoration,
-        repeat: repeat,
-        verticalAlignment: verticalAlignment,
-        children: children,
-      ));
+      rows.add(
+        pw.TableRow(
+          decoration: decoration,
+          repeat: repeat,
+          verticalAlignment: verticalAlignment,
+          children: children,
+        ),
+      );
     }
 
     return rows;

@@ -513,6 +513,8 @@ class Widget {
     Datasource source = state.source(
       json['source'] as String?,
     );
+    Dict variables = (json['variables'] as Dict?) ?? {};
+    state.addVariables(variables);
     return source.widget(state) ?? pw.SizedBox();
   }
 }

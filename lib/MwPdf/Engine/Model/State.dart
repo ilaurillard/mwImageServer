@@ -120,14 +120,7 @@ class State {
       storage: storage,
     );
 
-    state.variables = variables.map(
-      (key, value) {
-        return MapEntry(
-          key,
-          value,
-        );
-      },
-    );
+    state.addVariables(variables);
 
     state.sources = sources.map(
       (key, value) {
@@ -143,6 +136,20 @@ class State {
     );
 
     return state;
+  }
+
+  void addVariables(
+    Dict variables,
+  ) {
+    for (MapEntry<String, dynamic> entry in variables.entries) {
+      if (entry.value is String) {
+        this.variables[entry.key] = replaceParameters(
+          entry.value as String,
+        );
+      } else {
+        this.variables[entry.key] = entry.value;
+      }
+    }
   }
 
   pw.Font materialFont() {
@@ -270,6 +277,4 @@ class State {
         .replaceAll('%pageNumber%', pageNumber.toString())
         .replaceAll('%pagesCount%', pagesCount.toString());
   }
-
-
 }

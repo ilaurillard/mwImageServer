@@ -1,0 +1,373 @@
+meta:
+  compress: false
+  verbose: true
+  theme: '@def'
+  themes:
+    '@def':
+      format:
+        preset: a5
+      orientation: portrait
+      margin:
+        - 10
+      styles:
+        text:
+          fontSize: 2.5
+          font: openSansRegular
+          fontBold: openSansBold
+          fontBoldItalic: openSansBoldItalic
+pages:
+  - content:
+      - Column:
+          crossAxisAlignment: start
+          children:
+            - Text:
+                text: "Beispiel für referenzierte Widgets mit Variablen"
+                style:
+                  "color": 6666FF
+                  fontSize: 4
+            - Text:
+                text: Yahtzee
+                style:
+                  fontWeight: bold
+                  fontStyle: italic
+                  fontSize: 10
+            - Table:
+                tableWidth: max
+                columnWidths:
+                  '0':
+                    FlexColumnWidth:
+                      flex: 3
+                  '1':
+                    FlexColumnWidth:
+                      flex: 2
+                  '2':
+                    FlexColumnWidth:
+                      flex: 1
+                  '3':
+                    FlexColumnWidth:
+                      flex: 1
+                  '4':
+                    FlexColumnWidth:
+                      flex: 1
+                  '5':
+                    FlexColumnWidth:
+                      flex: 1
+                  '6':
+                    FlexColumnWidth:
+                      flex: 1
+                  '7':
+                    FlexColumnWidth:
+                      flex: 1
+                defaultVerticalAlignment: middle
+                border:
+                  all:
+                    width: 0.5
+                children:
+                  - TableRow:
+                      decoration:
+                        color: DDDDDD
+                      children:
+                        - Widget:
+                            source: '@cellStandard'
+                            variables:
+                              text: UPPER SECTION
+                        - Center:
+                            child:
+                              Text:
+                                text: HOW TO SCORE
+                                style:
+                                  fontWeight: bold
+                  - TableRow:
+                      source: '@row1'
+                      variables:
+                        text1: Aces
+                        text2: |-
+                          Count and Add
+                          Only Aces
+                  - TableRow:
+                      source: '@row1'
+                      variables:
+                        text1: Twos
+                        text2: |-
+                          Count and Add
+                          Only Twos
+                  - TableRow:
+                      source: '@row1'
+                      variables:
+                        text1: Threes
+                        text2: |-
+                          Count and Add
+                          Only Threes
+                  - TableRow:
+                      source: '@row1'
+                      variables:
+                        text1: Fours
+                        text2: |-
+                          Count and Add
+                          Only Fours
+                  - TableRow:
+                      source: '@row1'
+                      variables:
+                        text1: Fives
+                        text2: |-
+                          Count and Add
+                          Only Fives
+                  - TableRow:
+                      source: '@row1'
+                      variables:
+                        text1: Sixes
+                        text2: |-
+                          Count and Add
+                          Only Sixes
+                  - TableRow:
+                      decoration:
+                        color: DDDDDD
+                      source: '@rowArrow'
+                      variables:
+                        text1: TOTAL SCORE
+                        text2: ''
+                  - TableRow:
+                      source: '@rowExtra'
+                      variables:
+                        text1: BONUS
+                        text2: |-
+                          If total score
+                          is 63 or over
+                        text3: SCORE 35
+                  - TableRow:
+                      decoration:
+                        color: DDDDDD
+                      source: '@rowArrow'
+                      variables:
+                        text1: TOTAL
+                        text2: |-
+                          Of Upper
+                          section
+            - Padding:
+                padding:
+                  - 2
+                  - 2
+                  - 0
+                  - 1
+                child:
+                  Text:
+                    text: LOWER SECTION
+                    style:
+                      fontWeight: bold
+                      fontSize: 3
+            - Table:
+                tableWidth: max
+                columnWidths:
+                  '0':
+                    FlexColumnWidth:
+                      flex: 3
+                  '1':
+                    FlexColumnWidth:
+                      flex: 2
+                  '2':
+                    FlexColumnWidth:
+                      flex: 1
+                  '3':
+                    FlexColumnWidth:
+                      flex: 1
+                  '4':
+                    FlexColumnWidth:
+                      flex: 1
+                  '5':
+                    FlexColumnWidth:
+                      flex: 1
+                  '6':
+                    FlexColumnWidth:
+                      flex: 1
+                  '7':
+                    FlexColumnWidth:
+                      flex: 1
+                defaultVerticalAlignment: middle
+                border:
+                  all:
+                    width: 0.5
+                children:
+                  - TableRow:
+                      source: '@row1'
+                      variables:
+                        text1: 3 of a Kind
+                        text2: |-
+                          Add total
+                          of all dices
+                  - TableRow:
+                      source: '@row1'
+                      variables:
+                        text1: 4 of a Kind
+                        text2: |-
+                          Add total
+                          of all dices
+                  - TableRow:
+                      source: '@row1'
+                      variables:
+                        text1: Full House
+                        text2: SCORE 25
+                  - TableRow:
+                      source: '@rowExtra'
+                      variables:
+                        text1: SM Straight
+                        text2: |-
+                          Sequence
+                          of 4
+                        text3: SCORE 30
+                  - TableRow:
+                      source: '@rowExtra'
+                      variables:
+                        text1: LG Straight
+                        text2: |-
+                          Sequence
+                          of 5
+                        text3: SCORE 40
+                  - TableRow:
+                      source: '@rowExtra'
+                      variables:
+                        text1: YAHTZEE
+                        text2: |-
+                          5 of
+                          a Kind
+                        text3: SCORE 50
+                  - TableRow:
+                      source: '@row1'
+                      variables:
+                        text1: Chance
+                        text2: |-
+                          Score total
+                          of all dices
+                  - TableRow:
+                      decoration:
+                        color: DDDDDD
+                      source: '@rowArrow'
+                      variables:
+                        text1: TOTAL
+                        text2: |-
+                          Of Lower
+                          section
+                  - TableRow:
+                      source: '@rowArrow'
+                      variables:
+                        text1: TOTAL
+                        text2: |-
+                          Of Upper
+                          section
+                  - TableRow:
+                      decoration:
+                        color: DDDDDD
+                      source: '@rowArrow'
+                      variables:
+                        text1: GRAND TOTAL
+                        text2: ''
+sources:
+  '@row1':
+    tableRow:
+      children:
+        - Widget:
+            source: '@cellInfo'
+            variables:
+              text: '%text1%'
+        - Widget:
+            source: '@cellNormal'
+            variables:
+              text: '%text2%'
+        - Container: {}
+        - Container: {}
+        - Container: {}
+        - Container: {}
+        - Container: {}
+        - Container: {}
+  '@rowExtra':
+    tableRow:
+      children:
+        - Widget:
+            source: '@cellExtra'
+            variables:
+              text: '%text1%'
+              extra: '%text2%'
+        - Widget:
+            source: '@cellNormal'
+            variables:
+              text: '%text3%'
+  '@rowArrow':
+    tableRow:
+      children:
+        - Widget:
+            source: '@cellExtra'
+            variables:
+              text: '%text1%'
+              extra: '%text2%'
+        - Widget:
+            source: '@arrow'
+  '@arrow':
+    widget:
+      Center:
+        child:
+          Icon:
+            icon: arrow_right_alt
+  '@cellExtra':
+    widget:
+      Container:
+        height: 8
+        padding:
+          - 2
+          - 0
+        child:
+          Row:
+            mainAxisAlignment: spaceBetween
+            children:
+              - Text:
+                  text: '%text%'
+                  style:
+                    fontWeight: bold
+                    fontSize: 3
+              - Text:
+                  text: '%extra%'
+                  textAlign: right
+                  style:
+                    fontSize: 2
+  '@cellStandard':
+    widget:
+      Container:
+        height: 8
+        padding:
+          - 2
+          - 0
+        child:
+          Align:
+            alignment: centerLeft
+            child:
+              Text:
+                text: '%text%'
+                style:
+                  fontWeight: bold
+                  fontSize: 3
+  '@cellInfo':
+    widget:
+      Container:
+        height: 8
+        padding:
+          - 2
+          - 1
+        child:
+          Align:
+            alignment: centerLeft
+            child:
+              Text:
+                text: '%text%'
+                style:
+                  fontWeight: bold
+                  fontSize: 3
+  '@cellNormal':
+    widget:
+      Container:
+        height: 8
+        color: EEEEEE
+        child:
+          Center:
+            child:
+              Text:
+                text: '%text%'
+                textAlign: center
+                style: {}

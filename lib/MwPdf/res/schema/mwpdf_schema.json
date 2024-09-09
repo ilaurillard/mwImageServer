@@ -570,6 +570,10 @@
           "source": {
             "$ref": "#/definitions/Util/Identifier"
           },
+          "variables": {
+            "description": "named values",
+            "$ref": "#/definitions/Util/Variables"
+          },
           "verticalAlignment": {
             "$ref": "#/definitions/Enum/VerticalAlignment"
           },
@@ -1016,6 +1020,21 @@
       }
     },
     "Util": {
+      "Variables": {
+        "additionalProperties": false,
+        "patternProperties": {
+          "^[a-z][a-zA-Z0-9]{1,31}$": {
+            "type": [
+              "boolean",
+              "integer",
+              "null",
+              "number",
+              "string"
+            ]
+          }
+        },
+        "type": "object"
+      },
       "DoubleZeroToOne": {
         "description": "A number between 0 and 1",
         "maximum": 1,
@@ -3145,6 +3164,10 @@
         "properties": {
           "source": {
             "$ref": "#/definitions/Util/Identifier"
+          },
+          "variables": {
+            "description": "named values",
+            "$ref": "#/definitions/Util/Variables"
           }
         },
         "type": "object"
@@ -3397,19 +3420,7 @@
     },
     "variables": {
       "description": "global named values",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^[a-z][a-zA-Z0-9]{1,31}$": {
-          "type": [
-            "boolean",
-            "integer",
-            "null",
-            "number",
-            "string"
-          ]
-        }
-      },
-      "type": "object"
+      "$ref": "#/definitions/Util/Variables"
     },
     "sources": {
       "additionalProperties": false,
@@ -3425,22 +3436,10 @@
             "data": {
               "description": "list of maps (for charts, ..)",
               "items": {
-                "additionalProperties": false,
-                "patternProperties": {
-                  "^[a-z][a-zA-Z0-9]{1,31}$": {
-                    "type": [
-                      "boolean",
-                      "integer",
-                      "null",
-                      "number",
-                      "string"
-                    ]
-                  }
-                },
+                "$ref": "#/definitions/Util/Variables",
                 "required": [
                   "value"
-                ],
-                "type": "object"
+                ]
               },
               "type": "array"
             },
@@ -3490,6 +3489,10 @@
             "widget": {
               "$ref": "#/definitions/Widget",
               "description": "a predefined widget for reuse"
+            },
+            "tableRow": {
+              "$ref": "#/definitions/Other/TableRow",
+              "description": "a predefined table row for reuse"
             }
           },
           "type": "object"

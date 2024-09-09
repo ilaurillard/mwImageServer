@@ -31,6 +31,7 @@ class Datasource {
   final List<Dict> data;
 
   final Dict widgetData;
+  final Dict tableRowData;
 
   // placeholder text
   final String text;
@@ -46,6 +47,7 @@ class Datasource {
     this.valuesFormatted = const [],
     this.data = const [],
     this.widgetData = const {},
+    this.tableRowData = const {},
     this.text = '',
     this.formats = const {},
     this.resourceId = '',
@@ -99,6 +101,7 @@ class Datasource {
           .map((dynamic row) => row as Dict)
           .toList(),
       widgetData: json['widget'] as Dict? ?? {},
+      tableRowData: json['tableRow'] as Dict? ?? {},
       text: json['text'] as String? ?? '',
       formats: formats,
     );
