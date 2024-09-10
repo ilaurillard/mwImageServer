@@ -39,8 +39,8 @@ class Engine {
       resDir: resDir,
       storage: storage,
       invoice: Invoice.fromJson(
-        (json['facturx'] as Dict?) ?? {},
-        (json['xrechnung'] as Dict?) ?? {},
+        (json['invoice_cii'] as Dict?) ?? {},
+        (json['invoice_ubl'] as Dict?) ?? {},
       ),
     );
 

@@ -88,7 +88,7 @@
       ]
     }
   ],
-  "facturx": {
+  "invoice_cii": {
     "documentContext": {
       "parameter": {
         "id": "urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p1:extended"

@@ -59,4 +59,4 @@ IDEEN:
 - TODO, Daily planner
 - Kalenderblaetter
 
-- Rechnungen: Tabellen aus facturx, xrechnung speisen
+- Rechnungen: Tabellen aus invoice_cii/invoice_ubl speisen

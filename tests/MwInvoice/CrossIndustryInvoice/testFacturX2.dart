@@ -314,7 +314,7 @@ Future<void> main() async {
       File(
         'tests/MwPdf/examples/pdf_zugferd1.json',
       ).readAsStringSync(),
-    ) as Dict)['facturx'] as Dict,
+    ) as Dict)['invoice_cii'] as Dict,
   );
 
   XmlDocument xml = i.toXml();

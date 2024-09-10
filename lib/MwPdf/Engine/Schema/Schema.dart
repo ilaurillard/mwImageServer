@@ -14,11 +14,11 @@ class Schema {
   late final JsonSchema schema;
   late final String schemaData;
 
-  late final JsonSchema schemaFacturx;
-  late final String schemaDataFacturx;
+  late final JsonSchema schemaCii;
+  late final String schemaDataCii;
 
-  late final JsonSchema schemaXRechnung;
-  late final String schemaDataXRechnung;
+  late final JsonSchema schemaUbl;
+  late final String schemaDataUbl;
 
   late final JsonSchema schemaSwissQr;
   late final String schemaDataSwissQr;
@@ -56,28 +56,28 @@ class Schema {
 
     // --------------
 
-    schemaDataFacturx = await File(
-      '$resDir/schema/facturx_schema.json',
+    schemaDataCii = await File(
+      '$resDir/schema/invoice_cii_schema.json',
     ).readAsString();
     Console.notice(
-      'Loaded schema [Factur-X] (${schemaDataFacturx.length})',
+      'Loaded schema [CII] (${schemaDataCii.length})',
     );
-    Dict facturx = json.decode(schemaDataFacturx) as Dict;
-    schemaFacturx = JsonSchema.create(
-      schemaDataFacturx,
+    Dict cii = json.decode(schemaDataCii) as Dict;
+    schemaCii = JsonSchema.create(
+      schemaDataCii,
     );
 
     // --------------
 
-    schemaDataXRechnung = await File(
-      '$resDir/schema/xrechnung_schema.json',
+    schemaDataUbl = await File(
+      '$resDir/schema/invoice_ubl_schema.json',
     ).readAsString();
     Console.notice(
-      'Loaded schema [XRechnung] (${schemaDataXRechnung.length})',
+      'Loaded schema [UBL] (${schemaDataUbl.length})',
     );
-    Dict xrechnung = json.decode(schemaDataXRechnung) as Dict;
-    schemaXRechnung = JsonSchema.create(
-      schemaDataXRechnung,
+    Dict ubl = json.decode(schemaDataUbl) as Dict;
+    schemaUbl = JsonSchema.create(
+      schemaDataUbl,
     );
 
     // --------------
@@ -111,11 +111,11 @@ class Schema {
     schema = JsonSchema.create(
       schemaData,
       refProvider: RefProvider.sync((String ref) {
-        if (ref.contains('facturx_schema.json')) {
-          return facturx;
+        if (ref.contains('invoice_cii_schema.json')) {
+          return cii;
         }
-        if (ref.contains('xrechnung_schema.json')) {
-          return xrechnung;
+        if (ref.contains('invoice_ubl_schema.json')) {
+          return ubl;
         }
         if (ref.contains('swiss_qr_bill.json')) {
           return swissQr;

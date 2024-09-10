@@ -3500,11 +3500,11 @@
       },
       "type": "object"
     },
-    "facturx": {
-      "$ref": "facturx_schema.json"
+    "invoice_cii": {
+      "$ref": "invoice_cii_schema.json"
     },
-    "xrechnung": {
-      "$ref": "xrechnung_schema.json"
+    "invoice_ubl": {
+      "$ref": "invoice_ubl_schema.json"
     }
   },
   "type": "object"

@@ -54,7 +54,7 @@ class JsonScheme {
     File f = File(
       join(
         dir,
-        'xrechnung_schema.json',
+        'invoice_ubl_schema.json',
       ),
     );
     if (f.existsSync()) {

@@ -13,7 +13,7 @@ Future<void> main() async {
       File(
         'tests/MwPdf/examples/pdf_reisswolf.json',
       ).readAsStringSync(),
-    ) as Dict)['facturx'] as Dict,
+    ) as Dict)['invoice_cii'] as Dict,
   );
 
   XmlDocument xml = i.toXml();
