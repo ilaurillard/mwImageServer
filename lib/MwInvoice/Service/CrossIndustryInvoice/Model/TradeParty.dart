@@ -9,16 +9,16 @@ class TradeParty {
   final Id? id;
   final List<Id> globalID;
   final String name;
-  final TradeContact? definedTradeContact;
-  final TradeAddress? postalTradeAddress;
+  final TradeContact? tradeContact;
+  final TradeAddress? tradeAddress;
   final List<TaxRegistration> taxRegistrations;
 
   TradeParty({
     this.id,
     this.globalID = const [],
     required this.name,
-    this.definedTradeContact,
-    this.postalTradeAddress,
+    this.tradeContact,
+    this.tradeAddress,
     this.taxRegistrations = const [],
   });
 
@@ -41,14 +41,14 @@ class TradeParty {
             builder.text(this.name);
           },
         );
-        if (definedTradeContact != null) {
-          definedTradeContact!.toXml(
+        if (tradeContact != null) {
+          tradeContact!.toXml(
             builder,
             'ram:DefinedTradeContact',
           );
         }
-        if (postalTradeAddress != null) {
-          postalTradeAddress!.toXml(
+        if (tradeAddress != null) {
+          tradeAddress!.toXml(
             builder,
             'ram:PostalTradeAddress',
           );
@@ -71,10 +71,10 @@ class TradeParty {
             .map((dynamic e) => Id.fromJson(e as Dict) ?? Id.empty())
             .toList(),
         name: json['name'] as String? ?? '?',
-        definedTradeContact:
-            TradeContact.fromJson(json['definedTradeContact'] as Dict? ?? {}),
-        postalTradeAddress:
-            TradeAddress.fromJson(json['postalTradeAddress'] as Dict? ?? {}),
+        tradeContact:
+            TradeContact.fromJson(json['tradeContact'] as Dict? ?? {}),
+        tradeAddress:
+            TradeAddress.fromJson(json['tradeAddress'] as Dict? ?? {}),
         taxRegistrations: (json['taxRegistrations'] as List<dynamic>? ?? [])
             .map((dynamic e) => TaxRegistration.fromJson(e as Dict))
             .toList(),

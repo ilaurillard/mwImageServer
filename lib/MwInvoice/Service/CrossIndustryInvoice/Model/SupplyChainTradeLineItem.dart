@@ -7,18 +7,18 @@ import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class SupplyChainTradeLineItem {
-  final DocumentLineDocument associatedDocumentLineDocument;
+  final DocumentLineDocument documentLineDocument;
   final TradeProduct specifiedTradeProduct;
   final LineTradeAgreement tradeAgreement;
   final LineTradeDelivery? delivery;
-  final LineTradeSettlement specifiedLineTradeSettlement;
+  final LineTradeSettlement lineTradeSettlement;
 
   SupplyChainTradeLineItem({
-    required this.associatedDocumentLineDocument,
+    required this.documentLineDocument,
     required this.specifiedTradeProduct,
     required this.tradeAgreement,
     this.delivery,
-    required this.specifiedLineTradeSettlement,
+    required this.lineTradeSettlement,
   });
 
   void toXml(XmlBuilder builder) {
@@ -28,7 +28,7 @@ class SupplyChainTradeLineItem {
         builder.element(
           'ram:AssociatedDocumentLineDocument',
           nest: () {
-            associatedDocumentLineDocument.toXml(builder);
+            documentLineDocument.toXml(builder);
           },
         );
         builder.element(
@@ -54,7 +54,7 @@ class SupplyChainTradeLineItem {
         builder.element(
           'ram:SpecifiedLineTradeSettlement',
           nest: () {
-            specifiedLineTradeSettlement.toXml(builder);
+            lineTradeSettlement.toXml(builder);
           },
         );
       },
@@ -63,15 +63,15 @@ class SupplyChainTradeLineItem {
 
   static SupplyChainTradeLineItem fromJson(Dict json) {
     return SupplyChainTradeLineItem(
-      associatedDocumentLineDocument: DocumentLineDocument.fromJson(
-          json['associatedDocumentLineDocument'] as Dict? ?? {}),
+      documentLineDocument: DocumentLineDocument.fromJson(
+          json['documentLineDocument'] as Dict? ?? {}),
       specifiedTradeProduct:
           TradeProduct.fromJson(json['specifiedTradeProduct'] as Dict? ?? {}),
       tradeAgreement:
           LineTradeAgreement.fromJson(json['tradeAgreement'] as Dict? ?? {}),
       delivery: LineTradeDelivery.fromJson(json['delivery'] as Dict? ?? {}),
-      specifiedLineTradeSettlement: LineTradeSettlement.fromJson(
-          json['specifiedLineTradeSettlement'] as Dict? ?? {}),
+      lineTradeSettlement: LineTradeSettlement.fromJson(
+          json['lineTradeSettlement'] as Dict? ?? {}),
     );
   }
 }

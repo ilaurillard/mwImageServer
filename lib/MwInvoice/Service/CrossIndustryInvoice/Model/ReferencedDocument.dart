@@ -10,16 +10,16 @@ class ReferencedDocument {
   final Id? uriid;
   final String? typeCode;
   final String? name;
-  final BinaryObject? attachmentBinaryObject;
-  final FormattedDateTime? formattedIssueDateTime;
+  final BinaryObject? binaryObject;
+  final FormattedDateTime? dateTime;
 
   ReferencedDocument({
     required this.issuerAssignedID,
     this.uriid,
     this.typeCode,
     this.name,
-    this.attachmentBinaryObject,
-    this.formattedIssueDateTime,
+    this.binaryObject,
+    this.dateTime,
   });
 
   void toXml(
@@ -46,14 +46,14 @@ class ReferencedDocument {
           this.name,
           'ram:Name',
         );
-        if (attachmentBinaryObject != null) {
-          attachmentBinaryObject!.toXml(
+        if (binaryObject != null) {
+          binaryObject!.toXml(
             builder,
             'ram:AttachmentBinaryObject',
           );
         }
-        if (formattedIssueDateTime != null) {
-          formattedIssueDateTime!.toXml(
+        if (dateTime != null) {
+          dateTime!.toXml(
             builder,
             'ram:FormattedIssueDateTime',
           );
@@ -70,10 +70,10 @@ class ReferencedDocument {
         uriid: Id.fromJson(json['uriid'] as Dict? ?? {}),
         typeCode: json['typeCode'] as String?,
         name: json['name'] as String?,
-        attachmentBinaryObject: BinaryObject.fromJson(
-            json['attachmentBinaryObject'] as Dict? ?? {}),
-        formattedIssueDateTime: FormattedDateTime.fromJson(
-            json['formattedIssueDateTime'] as Dict? ?? {}),
+        binaryObject: BinaryObject.fromJson(
+            json['binaryObject'] as Dict? ?? {}),
+        dateTime: FormattedDateTime.fromJson(
+            json['dateTime'] as Dict? ?? {}),
       );
     }
     return null;

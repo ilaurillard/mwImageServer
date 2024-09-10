@@ -1,0 +1,303 @@
+{
+  "meta": {
+    "title": "Rechnung",
+    "producer": "producer",
+    "author": "author",
+    "subject": "subject",
+    "creator": "creator",
+    "pdfa3b": true
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Paragraph": {
+                  "text": "Invoice"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "facturx": {
+    "documentContext": {
+      "parameter": {
+        "id": "urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended"
+      }
+    },
+    "document": {
+      "id": "RG0524048849",
+      "typeCode": "380",
+      "issueDateTime": {
+        "dateTimeString": {
+          "format": "102",
+          "value": "20240831"
+        }
+      }
+    },
+    "tradeTransaction": {
+      "lineItems": [
+        {
+          "documentLineDocument": {
+            "lineId": "1"
+          },
+          "specifiedTradeProduct": {
+            "sellerAssignedID": "31000",
+            "name": "e.l.sy. Sicherheitsbehälter Systempauschale pro Stück",
+            "description": "Miete 01.08.2024 bis 31.08.2024"
+          },
+          "tradeAgreement": {
+            "grossPrice": {
+              "amount": {
+                "value": "3.50"
+              },
+              "quantity": {
+                "value": "1.0000",
+                "unitCode": ""
+              }
+            },
+            "netPrice": {
+              "amount": {
+                "value": "3.50"
+              },
+              "quantity": {
+                "value": "1.0000",
+                "unitCode": ""
+              }
+            }
+          },
+          "delivery": {
+            "billedQuantity": {
+              "unitCode": "C62",
+              "value": "1.0000"
+            },
+            "chainEvent": {
+              "date": {
+                "dateTimeString": {
+                  "format": "102",
+                  "value": "20240831"
+                }
+              }
+            },
+            "referencedDocument": {
+              "issuerAssignedID": {
+                "value": "LS05240100331"
+              }
+            }
+          },
+          "lineTradeSettlement": {
+            "tradeTax": [
+              {
+                "typeCode": "VAT",
+                "categoryCode": "S",
+                "rateApplicablePercent": "19.0000"
+              }
+            ],
+            "monetarySummation": {
+              "totalAmount": {
+                "value": "3.50"
+              }
+            }
+          }
+        },
+        {
+          "documentLineDocument": {
+            "lineId": "2"
+          },
+          "specifiedTradeProduct": {
+            "sellerAssignedID": "50021",
+            "name": "RW 240 Behältermiete e.l.sy.-Sicherheitsbehälter",
+            "description": "Miete 01.08.2024 bis 31.08.2024"
+          },
+          "tradeAgreement": {
+            "grossPrice": {
+              "amount": {
+                "value": "12.17"
+              },
+              "quantity": {
+                "value": "1.0000",
+                "unitCode": ""
+              }
+            },
+            "netPrice": {
+              "amount": {
+                "value": "12.17"
+              },
+              "quantity": {
+                "value": "1.0000",
+                "unitCode": ""
+              }
+            }
+          },
+          "delivery": {
+            "billedQuantity": {
+              "unitCode": "C62",
+              "value": "1.0000"
+            },
+            "chainEvent": {
+              "date": {
+                "dateTimeString": {
+                  "format": "102",
+                  "value": "20240831"
+                }
+              }
+            },
+            "referencedDocument": {
+              "issuerAssignedID": {
+                "value": "LS05240100331"
+              }
+            }
+          },
+          "lineTradeSettlement": {
+            "tradeTax": [
+              {
+                "typeCode": "VAT",
+                "categoryCode": "S",
+                "rateApplicablePercent": "19.0000"
+              }
+            ],
+            "monetarySummation": {
+              "totalAmount": {
+                "value": "12.17"
+              }
+            }
+          }
+        }
+      ],
+      "headerTradeAgreement": {
+        "sellerTradeParty": {
+          "name": "REISSWOLF Akten- und Datenvernichtung GmbH & Co. KG",
+          "tradeContact": {
+            "departmentName": "REISSWOLF Akten- und Datenvernichtung GmbH & Co. KG",
+            "telephone": {
+              "completeNumber": "+49 800 5890329"
+            },
+            "email": {
+              "uriid": {
+                "value": "info@reisswolf.com"
+              }
+            }
+          },
+          "tradeAddress": {
+            "postcode": "20537",
+            "lineOne": "Wendenstraße 403",
+            "city": "Hamburg",
+            "countryCode": "DE"
+          },
+          "taxRegistrations": [
+            {
+              "registration": {
+                "value": "DE811416840",
+                "schemeID": "VA"
+              }
+            }
+          ]
+        },
+        "buyerTradeParty": {
+          "id": {
+            "value": "1004148"
+          },
+          "name": "mindworks GmbH",
+          "tradeAddress": {
+            "postcode": "22303",
+            "lineOne": "Jarrestraße 42 a",
+            "city": "Hamburg",
+            "countryCode": "DE"
+          }
+        }
+      },
+      "headerTradeDelivery": {
+        "shipToTradeParty": {
+          "name": "mindworks GmbH",
+          "tradeAddress": {
+            "postcode": "22303",
+            "lineOne": "Jarrestraße 42 a",
+            "city": "Hamburg",
+            "countryCode": "DE"
+          }
+        },
+        "chainEvent": {
+          "date": {
+            "dateTimeString": {
+              "format": "102",
+              "value": "20240831"
+            }
+          }
+        }
+      },
+      "headerTradeSettlement": {
+        "tradeSettlementHeaderMonetarySummation": {
+          "lineTotalAmount": {
+            "value": "15.67"
+          },
+          "chargeTotalAmount": {
+            "value": "0.00"
+          },
+          "allowanceTotalAmount": {
+            "value": "0.00"
+          },
+          "taxBasisTotalAmount": [
+            {
+              "value": "15.67"
+            }
+          ],
+          "taxTotalAmount": [
+            {
+              "value": "2.98",
+              "currency": "EUR"
+            }
+          ],
+          "grandTotalAmount": [
+            {
+              "value": "18.65"
+            }
+          ],
+          "totalPrepaidAmount": {
+            "value": "0.00"
+          },
+          "duePayableAmount": {
+            "value": "18.65"
+          }
+        },
+        "paymentReference": "RG0524048849 20240831",
+        "currency": "EUR",
+        "tradePaymentTerms": [
+          {
+            "description": "LAST",
+            "dueDate": {
+              "dateTimeString": {
+                "format": "102",
+                "value": "20240831"
+              }
+            }
+          }
+        ],
+        "tradeTax": [
+          {
+            "typeCode": "VAT",
+            "categoryCode": "S",
+            "basisAmount": {
+              "value": "15.67"
+            },
+            "calculatedAmount": {
+              "value": "2.98"
+            },
+            "rateApplicablePercent": "19.0000"
+          }
+        ],
+        "tradeSettlementPaymentMeans": [
+          {
+            "typeCode": "49",
+            "information": "Einzugsermächtigung"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -5,14 +5,14 @@ import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class CrossIndustryInvoice {
-  final ExchangedDocumentContext exchangedDocumentContext;
-  final ExchangedDocument exchangedDocument;
-  final SupplyChainTradeTransaction supplyChainTradeTransaction;
+  final ExchangedDocumentContext documentContext;
+  final ExchangedDocument document;
+  final SupplyChainTradeTransaction tradeTransaction;
 
   CrossIndustryInvoice({
-    required this.exchangedDocumentContext,
-    required this.exchangedDocument,
-    required this.supplyChainTradeTransaction,
+    required this.documentContext,
+    required this.document,
+    required this.tradeTransaction,
   });
 
   XmlDocument toXml() {
@@ -29,9 +29,9 @@ class CrossIndustryInvoice {
         'urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100': 'rsm',
       },
       nest: () {
-        exchangedDocumentContext.toXml(builder);
-        exchangedDocument.toXml(builder);
-        supplyChainTradeTransaction.toXml(builder);
+        documentContext.toXml(builder);
+        document.toXml(builder);
+        tradeTransaction.toXml(builder);
       },
     );
 
@@ -40,14 +40,14 @@ class CrossIndustryInvoice {
 
   static CrossIndustryInvoice fromJson(Dict json) {
     return CrossIndustryInvoice(
-      exchangedDocumentContext: ExchangedDocumentContext.fromJson(
-        json['exchangedDocumentContext'] as Dict? ?? {},
+      documentContext: ExchangedDocumentContext.fromJson(
+        json['documentContext'] as Dict? ?? {},
       ),
-      exchangedDocument: ExchangedDocument.fromJson(
-        json['exchangedDocument'] as Dict? ?? {},
+      document: ExchangedDocument.fromJson(
+        json['document'] as Dict? ?? {},
       ),
-      supplyChainTradeTransaction: SupplyChainTradeTransaction.fromJson(
-        json['supplyChainTradeTransaction'] as Dict? ?? {},
+      tradeTransaction: SupplyChainTradeTransaction.fromJson(
+        json['tradeTransaction'] as Dict? ?? {},
       ),
     );
   }

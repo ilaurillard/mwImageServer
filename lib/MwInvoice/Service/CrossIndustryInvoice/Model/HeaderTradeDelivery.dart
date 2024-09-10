@@ -7,12 +7,12 @@ import 'package:xml/xml.dart';
 class HeaderTradeDelivery {
   final TradeParty? shipToTradeParty;
   final SupplyChainEvent? chainEvent;
-  final ReferencedDocument? deliveryNoteReferencedDocument;
+  final ReferencedDocument? referencedDocument;
 
   HeaderTradeDelivery({
     this.shipToTradeParty,
     this.chainEvent,
-    this.deliveryNoteReferencedDocument,
+    this.referencedDocument,
   });
 
   void toXml(
@@ -34,8 +34,8 @@ class HeaderTradeDelivery {
             'ram:ActualDeliverySupplyChainEvent',
           );
         }
-        if (deliveryNoteReferencedDocument != null) {
-          deliveryNoteReferencedDocument!.toXml(
+        if (referencedDocument != null) {
+          referencedDocument!.toXml(
             builder,
             'ram:DeliveryNoteReferencedDocument',
           );
@@ -54,8 +54,8 @@ class HeaderTradeDelivery {
       chainEvent: SupplyChainEvent.fromJson(
         json['chainEvent'] as Dict? ?? {},
       ),
-      deliveryNoteReferencedDocument: ReferencedDocument.fromJson(
-        json['deliveryNoteReferencedDocument'] as Dict? ?? {},
+      referencedDocument: ReferencedDocument.fromJson(
+        json['referencedDocument'] as Dict? ?? {},
       ),
     );
   }

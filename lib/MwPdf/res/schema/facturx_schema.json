@@ -2995,7 +2995,7 @@
     "ExchangedDocumentContext": {
       "additionalProperties": false,
       "properties": {
-        "documentContextParameter": {
+        "parameter": {
           "$ref": "#/definitions/DocumentContextParameter"
         }
       },
@@ -3022,7 +3022,7 @@
           },
           "type": "array"
         },
-        "buyerOrderReferencedDocument": {
+        "referencedDocument": {
           "$ref": "#/definitions/ReferencedDocument"
         },
         "buyerReference": {
@@ -3034,7 +3034,7 @@
         "sellerTradeParty": {
           "$ref": "#/definitions/TradeParty"
         },
-        "specifiedProcuringProject": {
+        "procuringProject": {
           "$ref": "#/definitions/ProcuringProject"
         }
       },
@@ -3050,7 +3050,7 @@
         "chainEvent": {
           "$ref": "#/definitions/SupplyChainEvent"
         },
-        "deliveryNoteReferencedDocument": {
+        "referencedDocument": {
           "$ref": "#/definitions/ReferencedDocument"
         },
         "shipToTradeParty": {
@@ -3068,7 +3068,7 @@
         "currency": {
           "$ref": "#/definitions/Enum/Currency"
         },
-        "invoiceReferencedDocument": {
+        "referencedDocument": {
           "$ref": "#/definitions/ReferencedDocument"
         },
         "payeeTradeParty": {
@@ -3077,34 +3077,34 @@
         "paymentReference": {
           "type": "string"
         },
-        "specifiedLogisticsServiceCharge": {
+        "logisticsServiceCharge": {
           "items": {
             "$ref": "#/definitions/LogisticsServiceCharge"
           },
           "type": "array"
         },
-        "specifiedTradeAllowanceCharge": {
+        "tradeAllowanceCharge": {
           "items": {
             "$ref": "#/definitions/TradeAllowanceCharge"
           },
           "type": "array"
         },
-        "specifiedTradePaymentTerms": {
+        "tradePaymentTerms": {
           "items": {
             "$ref": "#/definitions/TradePaymentTerms"
           },
           "type": "array"
         },
-        "specifiedTradeSettlementHeaderMonetarySummation": {
+        "tradeSettlementHeaderMonetarySummation": {
           "$ref": "#/definitions/TradeSettlementHeaderMonetarySummation"
         },
-        "specifiedTradeSettlementPaymentMeans": {
+        "tradeSettlementPaymentMeans": {
           "items": {
             "$ref": "#/definitions/TradeSettlementPaymentMeans"
           },
           "type": "array"
         },
-        "tradeTaxes": {
+        "tradeTax": {
           "items": {
             "$ref": "#/definitions/TradeTax"
           },
@@ -3113,7 +3113,7 @@
       },
       "required": [
         "currency",
-        "specifiedTradeSettlementHeaderMonetarySummation"
+        "tradeSettlementHeaderMonetarySummation"
       ],
       "type": "object"
     },
@@ -3168,7 +3168,7 @@
         "chainEvent": {
           "$ref": "#/definitions/SupplyChainEvent"
         },
-        "deliveryNoteReferencedDocument": {
+        "referencedDocument": {
           "$ref": "#/definitions/ReferencedDocument"
         }
       },
@@ -3180,13 +3180,13 @@
     "LineTradeSettlement": {
       "additionalProperties": false,
       "properties": {
-        "billingSpecifiedPeriod": {
+        "period": {
           "$ref": "#/definitions/Period"
         },
         "monetarySummation": {
           "$ref": "#/definitions/TradeSettlementLineMonetarySummation"
         },
-        "specifiedTradeAllowanceCharge": {
+        "tradeAllowanceCharge": {
           "items": {
             "$ref": "#/definitions/TradeAllowanceCharge"
           },
@@ -3219,7 +3219,7 @@
         "description": {
           "type": "string"
         },
-        "tradeTaxes": {
+        "tradeTax": {
           "items": {
             "$ref": "#/definitions/TradeTax"
           },
@@ -3301,10 +3301,10 @@
     "ReferencedDocument": {
       "additionalProperties": false,
       "properties": {
-        "attachmentBinaryObject": {
+        "binaryObject": {
           "$ref": "#/definitions/BinaryObject"
         },
-        "formattedIssueDateTime": {
+        "dateTime": {
           "$ref": "#/definitions/FormattedDateTime"
         },
         "issuerAssignedID": {
@@ -3340,13 +3340,13 @@
     "SupplyChainTradeLineItem": {
       "additionalProperties": false,
       "properties": {
-        "associatedDocumentLineDocument": {
+        "documentLineDocument": {
           "$ref": "#/definitions/DocumentLineDocument"
         },
         "delivery": {
           "$ref": "#/definitions/LineTradeDelivery"
         },
-        "specifiedLineTradeSettlement": {
+        "lineTradeSettlement": {
           "$ref": "#/definitions/LineTradeSettlement"
         },
         "specifiedTradeProduct": {
@@ -3357,8 +3357,8 @@
         }
       },
       "required": [
-        "associatedDocumentLineDocument",
-        "specifiedLineTradeSettlement",
+        "documentLineDocument",
+        "lineTradeSettlement",
         "specifiedTradeProduct",
         "tradeAgreement"
       ],
@@ -3367,13 +3367,13 @@
     "SupplyChainTradeTransaction": {
       "additionalProperties": false,
       "properties": {
-        "applicableHeaderTradeAgreement": {
+        "headerTradeAgreement": {
           "$ref": "#/definitions/HeaderTradeAgreement"
         },
-        "applicableHeaderTradeDelivery": {
+        "headerTradeDelivery": {
           "$ref": "#/definitions/HeaderTradeDelivery"
         },
-        "applicableHeaderTradeSettlement": {
+        "headerTradeSettlement": {
           "$ref": "#/definitions/HeaderTradeSettlement"
         },
         "lineItems": {
@@ -3384,9 +3384,9 @@
         }
       },
       "required": [
-        "applicableHeaderTradeAgreement",
-        "applicableHeaderTradeDelivery",
-        "applicableHeaderTradeSettlement"
+        "headerTradeAgreement",
+        "headerTradeDelivery",
+        "headerTradeSettlement"
       ],
       "type": "object"
     },
@@ -3483,16 +3483,16 @@
         "departmentName": {
           "type": "string"
         },
-        "emailURIUniversalCommunication": {
+        "email": {
           "$ref": "#/definitions/UniversalCommunication"
         },
-        "faxUniversalCommunication": {
+        "fax": {
           "$ref": "#/definitions/UniversalCommunication"
         },
         "personName": {
           "type": "string"
         },
-        "telephoneUniversalCommunication": {
+        "telephone": {
           "$ref": "#/definitions/UniversalCommunication"
         }
       },
@@ -3513,7 +3513,7 @@
     "TradeParty": {
       "additionalProperties": false,
       "properties": {
-        "definedTradeContact": {
+        "tradeContact": {
           "$ref": "#/definitions/TradeContact"
         },
         "globalID": {
@@ -3528,7 +3528,7 @@
         "name": {
           "type": "string"
         },
-        "postalTradeAddress": {
+        "tradeAddress": {
           "$ref": "#/definitions/TradeAddress"
         },
         "taxRegistrations": {
@@ -3561,15 +3561,15 @@
     "TradePrice": {
       "additionalProperties": false,
       "properties": {
-        "basisQuantity": {
+        "quantity": {
           "$ref": "#/definitions/Quantity"
         },
-        "chargeAmount": {
+        "amount": {
           "$ref": "#/definitions/Amount"
         }
       },
       "required": [
-        "chargeAmount"
+        "amount"
       ],
       "type": "object"
     },
@@ -3750,20 +3750,20 @@
   },
   "description": "factur-x / cii invoice (handmade)",
   "properties": {
-    "exchangedDocument": {
+    "document": {
       "$ref": "#/definitions/ExchangedDocument"
     },
-    "exchangedDocumentContext": {
+    "documentContext": {
       "$ref": "#/definitions/ExchangedDocumentContext"
     },
-    "supplyChainTradeTransaction": {
+    "tradeTransaction": {
       "$ref": "#/definitions/SupplyChainTradeTransaction"
     }
   },
   "required": [
-    "exchangedDocument",
-    "exchangedDocumentContext",
-    "supplyChainTradeTransaction"
+    "document",
+    "documentContext",
+    "tradeTransaction"
   ],
   "type": "object"
 }

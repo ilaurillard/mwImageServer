@@ -5,16 +5,16 @@ import 'package:xml/xml.dart';
 class TradeContact {
   final String? personName;
   final String? departmentName;
-  final UniversalCommunication? telephoneUniversalCommunication;
-  final UniversalCommunication? faxUniversalCommunication;
-  final UniversalCommunication? emailURIUniversalCommunication;
+  final UniversalCommunication? telephone;
+  final UniversalCommunication? fax;
+  final UniversalCommunication? email;
 
   TradeContact({
     this.personName,
     this.departmentName,
-    this.telephoneUniversalCommunication,
-    this.faxUniversalCommunication,
-    this.emailURIUniversalCommunication,
+    this.telephone,
+    this.fax,
+    this.email,
   });
 
   void toXml(
@@ -40,16 +40,16 @@ class TradeContact {
             },
           );
         }
-        if (telephoneUniversalCommunication != null) {
-          telephoneUniversalCommunication!
+        if (telephone != null) {
+          telephone!
               .toXml(builder, 'ram:TelephoneUniversalCommunication');
         }
-        if (faxUniversalCommunication != null) {
-          faxUniversalCommunication!
+        if (fax != null) {
+          fax!
               .toXml(builder, 'ram:FaxUniversalCommunication');
         }
-        if (emailURIUniversalCommunication != null) {
-          emailURIUniversalCommunication!
+        if (email != null) {
+          email!
               .toXml(builder, 'ram:EmailURIUniversalCommunication');
         }
       },
@@ -61,12 +61,12 @@ class TradeContact {
       return TradeContact(
         personName: json['personName'] as String?,
         departmentName: json['departmentName'] as String?,
-        telephoneUniversalCommunication: UniversalCommunication.fromJson(
-            json['telephoneUniversalCommunication'] as Dict? ?? {}),
-        faxUniversalCommunication: UniversalCommunication.fromJson(
-            json['faxUniversalCommunication'] as Dict? ?? {}),
-        emailURIUniversalCommunication: UniversalCommunication.fromJson(
-            json['emailURIUniversalCommunication'] as Dict? ?? {}),
+        telephone: UniversalCommunication.fromJson(
+            json['telephone'] as Dict? ?? {}),
+        fax: UniversalCommunication.fromJson(
+            json['fax'] as Dict? ?? {}),
+        email: UniversalCommunication.fromJson(
+            json['email'] as Dict? ?? {}),
       );
     }
     return null;

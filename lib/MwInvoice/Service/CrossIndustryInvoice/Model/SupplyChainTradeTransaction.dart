@@ -7,15 +7,15 @@ import 'package:xml/xml.dart';
 
 class SupplyChainTradeTransaction {
   final List<SupplyChainTradeLineItem> lineItems;
-  final HeaderTradeAgreement applicableHeaderTradeAgreement;
-  final HeaderTradeDelivery applicableHeaderTradeDelivery;
-  final HeaderTradeSettlement applicableHeaderTradeSettlement;
+  final HeaderTradeAgreement headerTradeAgreement;
+  final HeaderTradeDelivery headerTradeDelivery;
+  final HeaderTradeSettlement headerTradeSettlement;
 
   SupplyChainTradeTransaction({
     this.lineItems = const [],
-    required this.applicableHeaderTradeAgreement,
-    required this.applicableHeaderTradeDelivery,
-    required this.applicableHeaderTradeSettlement,
+    required this.headerTradeAgreement,
+    required this.headerTradeDelivery,
+    required this.headerTradeSettlement,
   });
 
   void toXml(
@@ -27,15 +27,15 @@ class SupplyChainTradeTransaction {
         for (SupplyChainTradeLineItem i in lineItems) {
           i.toXml(builder);
         }
-        applicableHeaderTradeAgreement.toXml(
+        headerTradeAgreement.toXml(
           builder,
           'ram:ApplicableHeaderTradeAgreement',
         );
-        applicableHeaderTradeDelivery.toXml(
+        headerTradeDelivery.toXml(
           builder,
           'ram:ApplicableHeaderTradeDelivery',
         );
-        applicableHeaderTradeSettlement.toXml(
+        headerTradeSettlement.toXml(
           builder,
           'ram:ApplicableHeaderTradeSettlement',
         );
@@ -50,14 +50,14 @@ class SupplyChainTradeTransaction {
       lineItems: (json['lineItems'] as List<dynamic>? ?? [])
           .map((dynamic e) => SupplyChainTradeLineItem.fromJson(e as Dict))
           .toList(),
-      applicableHeaderTradeAgreement: HeaderTradeAgreement.fromJson(
-        json['applicableHeaderTradeAgreement'] as Dict? ?? {},
+      headerTradeAgreement: HeaderTradeAgreement.fromJson(
+        json['headerTradeAgreement'] as Dict? ?? {},
       ),
-      applicableHeaderTradeDelivery: HeaderTradeDelivery.fromJson(
-        json['applicableHeaderTradeDelivery'] as Dict? ?? {},
+      headerTradeDelivery: HeaderTradeDelivery.fromJson(
+        json['headerTradeDelivery'] as Dict? ?? {},
       ),
-      applicableHeaderTradeSettlement: HeaderTradeSettlement.fromJson(
-        json['applicableHeaderTradeSettlement'] as Dict? ?? {},
+      headerTradeSettlement: HeaderTradeSettlement.fromJson(
+        json['headerTradeSettlement'] as Dict? ?? {},
       ),
     );
   }

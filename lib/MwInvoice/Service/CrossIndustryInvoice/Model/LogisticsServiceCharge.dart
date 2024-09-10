@@ -7,12 +7,12 @@ import 'package:xml/xml.dart';
 class LogisticsServiceCharge {
   final String description;
   final Amount appliedAmount;
-  final List<TradeTax> tradeTaxes;
+  final List<TradeTax> tradeTax;
 
   LogisticsServiceCharge({
     required this.description,
     required this.appliedAmount,
-    this.tradeTaxes = const [],
+    this.tradeTax = const [],
   });
 
   void toXml(
@@ -26,7 +26,7 @@ class LogisticsServiceCharge {
         'ram:Description',
       );
       appliedAmount.toXml(builder, 'ram:AppliedAmount');
-      for (TradeTax t in tradeTaxes) {
+      for (TradeTax t in tradeTax) {
         t.toXml(
           builder,
           'ram:AppliedTradeTax',
@@ -40,7 +40,7 @@ class LogisticsServiceCharge {
       description: json['description'] as String? ?? '?',
       appliedAmount: Amount.fromJson(json['appliedAmount'] as Dict? ?? {}) ??
           Amount.empty(),
-      tradeTaxes: (json['tradeTaxes'] as List<dynamic>? ?? [])
+      tradeTax: (json['tradeTax'] as List<dynamic>? ?? [])
           .map((dynamic e) => TradeTax.fromJson(e as Dict))
           .toList(),
     );

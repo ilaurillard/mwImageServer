@@ -15,27 +15,27 @@ class HeaderTradeSettlement {
   final String? paymentReference;
   final String currency;
   final TradeParty? payeeTradeParty;
-  final List<TradeSettlementPaymentMeans> specifiedTradeSettlementPaymentMeans;
-  final List<TradeTax> tradeTaxes;
-  final List<TradeAllowanceCharge> specifiedTradeAllowanceCharge;
-  final List<LogisticsServiceCharge> specifiedLogisticsServiceCharge;
-  final List<TradePaymentTerms> specifiedTradePaymentTerms;
+  final List<TradeSettlementPaymentMeans> tradeSettlementPaymentMeans;
+  final List<TradeTax> tradeTax;
+  final List<TradeAllowanceCharge> tradeAllowanceCharge;
+  final List<LogisticsServiceCharge> logisticsServiceCharge;
+  final List<TradePaymentTerms> tradePaymentTerms;
   final TradeSettlementHeaderMonetarySummation
-      specifiedTradeSettlementHeaderMonetarySummation;
-  final ReferencedDocument? invoiceReferencedDocument;
+      tradeSettlementHeaderMonetarySummation;
+  final ReferencedDocument? referencedDocument;
 
   HeaderTradeSettlement({
     this.creditorReferenceID,
     this.paymentReference,
     required this.currency,
     this.payeeTradeParty,
-    this.specifiedTradeSettlementPaymentMeans = const [],
-    this.tradeTaxes = const [],
-    this.specifiedTradeAllowanceCharge = const [],
-    this.specifiedLogisticsServiceCharge = const [],
-    this.specifiedTradePaymentTerms = const [],
-    required this.specifiedTradeSettlementHeaderMonetarySummation,
-    this.invoiceReferencedDocument,
+    this.tradeSettlementPaymentMeans = const [],
+    this.tradeTax = const [],
+    this.tradeAllowanceCharge = const [],
+    this.logisticsServiceCharge = const [],
+    this.tradePaymentTerms = const [],
+    required this.tradeSettlementHeaderMonetarySummation,
+    this.referencedDocument,
   });
 
   void toXml(
@@ -67,42 +67,42 @@ class HeaderTradeSettlement {
           );
         }
         for (TradeSettlementPaymentMeans t
-            in specifiedTradeSettlementPaymentMeans) {
+            in tradeSettlementPaymentMeans) {
           t.toXml(
             builder,
             'ram:SpecifiedTradeSettlementPaymentMeans',
           );
         }
-        for (TradeTax t in tradeTaxes) {
+        for (TradeTax t in tradeTax) {
           t.toXml(
             builder,
             'ram:ApplicableTradeTax',
           );
         }
-        for (TradeAllowanceCharge t in specifiedTradeAllowanceCharge) {
+        for (TradeAllowanceCharge t in tradeAllowanceCharge) {
           t.toXml(
             builder,
             'ram:SpecifiedTradeAllowanceCharge',
           );
         }
-        for (LogisticsServiceCharge t in specifiedLogisticsServiceCharge) {
+        for (LogisticsServiceCharge t in logisticsServiceCharge) {
           t.toXml(
             builder,
             'ram:SpecifiedLogisticsServiceCharge',
           );
         }
-        for (TradePaymentTerms t in specifiedTradePaymentTerms) {
+        for (TradePaymentTerms t in tradePaymentTerms) {
           t.toXml(
             builder,
             'ram:SpecifiedTradePaymentTerms',
           );
         }
-        specifiedTradeSettlementHeaderMonetarySummation.toXml(
+        tradeSettlementHeaderMonetarySummation.toXml(
           builder,
           'ram:SpecifiedTradeSettlementHeaderMonetarySummation',
         );
-        if (invoiceReferencedDocument != null) {
-          invoiceReferencedDocument!.toXml(
+        if (referencedDocument != null) {
+          referencedDocument!.toXml(
             builder,
             'ram:InvoiceReferencedDocument',
           );
@@ -118,32 +118,32 @@ class HeaderTradeSettlement {
       currency: json['currency'] as String? ?? '?',
       payeeTradeParty:
           TradeParty.fromJson(json['payeeTradeParty'] as Dict? ?? {}),
-      specifiedTradeSettlementPaymentMeans:
-          (json['specifiedTradeSettlementPaymentMeans'] as List<dynamic>? ?? [])
+      tradeSettlementPaymentMeans:
+          (json['tradeSettlementPaymentMeans'] as List<dynamic>? ?? [])
               .map((dynamic e) =>
                   TradeSettlementPaymentMeans.fromJson(e as Dict))
               .toList(),
-      tradeTaxes: (json['tradeTaxes'] as List<dynamic>? ?? [])
+      tradeTax: (json['tradeTax'] as List<dynamic>? ?? [])
           .map((dynamic e) => TradeTax.fromJson(e as Dict))
           .toList(),
-      specifiedTradeAllowanceCharge:
-          (json['specifiedTradeAllowanceCharge'] as List<dynamic>? ?? [])
+      tradeAllowanceCharge:
+          (json['tradeAllowanceCharge'] as List<dynamic>? ?? [])
               .map((dynamic e) => TradeAllowanceCharge.fromJson(e as Dict))
               .toList(),
-      specifiedLogisticsServiceCharge:
-          (json['specifiedLogisticsServiceCharge'] as List<dynamic>? ?? [])
+      logisticsServiceCharge:
+          (json['logisticsServiceCharge'] as List<dynamic>? ?? [])
               .map((dynamic e) => LogisticsServiceCharge.fromJson(e as Dict))
               .toList(),
-      specifiedTradePaymentTerms:
-          (json['specifiedTradePaymentTerms'] as List<dynamic>? ?? [])
+      tradePaymentTerms:
+          (json['tradePaymentTerms'] as List<dynamic>? ?? [])
               .map((dynamic e) => TradePaymentTerms.fromJson(e as Dict))
               .toList(),
-      specifiedTradeSettlementHeaderMonetarySummation:
+      tradeSettlementHeaderMonetarySummation:
           TradeSettlementHeaderMonetarySummation.fromJson(
-        json['specifiedTradeSettlementHeaderMonetarySummation'] as Dict? ?? {},
+        json['tradeSettlementHeaderMonetarySummation'] as Dict? ?? {},
       ),
-      invoiceReferencedDocument: ReferencedDocument.fromJson(
-          json['invoiceReferencedDocument'] as Dict? ?? {}),
+      referencedDocument: ReferencedDocument.fromJson(
+          json['referencedDocument'] as Dict? ?? {}),
     );
   }
 }

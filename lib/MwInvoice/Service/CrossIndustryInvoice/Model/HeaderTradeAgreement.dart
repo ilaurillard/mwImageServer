@@ -8,17 +8,17 @@ class HeaderTradeAgreement {
   final String? buyerReference;
   final TradeParty sellerTradeParty;
   final TradeParty buyerTradeParty;
-  final ReferencedDocument? buyerOrderReferencedDocument;
+  final ReferencedDocument? referencedDocument;
   final List<ReferencedDocument> additionalReferencedDocuments;
-  final ProcuringProject? specifiedProcuringProject;
+  final ProcuringProject? procuringProject;
 
   HeaderTradeAgreement({
     this.buyerReference,
     required this.sellerTradeParty,
     required this.buyerTradeParty,
-    this.buyerOrderReferencedDocument,
+    this.referencedDocument,
     this.additionalReferencedDocuments = const [],
-    this.specifiedProcuringProject,
+    this.procuringProject,
   });
 
   void toXml(
@@ -44,8 +44,8 @@ class HeaderTradeAgreement {
           builder,
           'ram:BuyerTradeParty',
         );
-        if (buyerOrderReferencedDocument != null) {
-          buyerOrderReferencedDocument!.toXml(
+        if (referencedDocument != null) {
+          referencedDocument!.toXml(
             builder,
             'ram:BuyerOrderReferencedDocument',
           );
@@ -56,8 +56,8 @@ class HeaderTradeAgreement {
             'ram:AdditionalReferencedDocument',
           );
         }
-        if (specifiedProcuringProject != null) {
-          specifiedProcuringProject!.toXml(
+        if (procuringProject != null) {
+          procuringProject!.toXml(
             builder,
             'ram:SpecifiedProcuringProject',
           );
@@ -76,16 +76,16 @@ class HeaderTradeAgreement {
       sellerTradeParty:
           TradeParty.fromJson(json['sellerTradeParty'] as Dict? ?? {}) ??
               TradeParty.empty(),
-      buyerOrderReferencedDocument: ReferencedDocument.fromJson(
-          json['buyerOrderReferencedDocument'] as Dict? ?? {}),
+      referencedDocument: ReferencedDocument.fromJson(
+          json['referencedDocument'] as Dict? ?? {}),
       additionalReferencedDocuments:
           (json['additionalReferencedDocuments'] as List<dynamic>? ?? [])
               .map((dynamic e) =>
                   ReferencedDocument.fromJson(e as Dict) ??
                   ReferencedDocument.empty())
               .toList(),
-      specifiedProcuringProject: ProcuringProject.fromJson(
-          json['specifiedProcuringProject'] as Dict? ?? {}),
+      procuringProject: ProcuringProject.fromJson(
+          json['procuringProject'] as Dict? ?? {}),
     );
   }
 }

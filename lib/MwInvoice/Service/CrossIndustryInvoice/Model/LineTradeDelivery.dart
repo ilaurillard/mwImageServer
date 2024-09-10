@@ -7,12 +7,12 @@ import 'package:xml/xml.dart';
 class LineTradeDelivery {
   final Quantity billedQuantity;
   final SupplyChainEvent? chainEvent;
-  final ReferencedDocument? deliveryNoteReferencedDocument;
+  final ReferencedDocument? referencedDocument;
 
   LineTradeDelivery({
     required this.billedQuantity,
     this.chainEvent,
-    this.deliveryNoteReferencedDocument,
+    this.referencedDocument,
   });
 
   void toXml(
@@ -28,8 +28,8 @@ class LineTradeDelivery {
         'ram:ActualDeliverySupplyChainEvent',
       );
     }
-    if (deliveryNoteReferencedDocument != null) {
-      deliveryNoteReferencedDocument!.toXml(
+    if (referencedDocument != null) {
+      referencedDocument!.toXml(
         builder,
         'ram:DeliveryNoteReferencedDocument',
       );
@@ -48,8 +48,8 @@ class LineTradeDelivery {
         chainEvent: SupplyChainEvent.fromJson(
           json['chainEvent'] as Dict? ?? {},
         ),
-        deliveryNoteReferencedDocument: ReferencedDocument.fromJson(
-          json['deliveryNoteReferencedDocument'] as Dict? ?? {},
+        referencedDocument: ReferencedDocument.fromJson(
+          json['referencedDocument'] as Dict? ?? {},
         ),
       );
     }

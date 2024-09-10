@@ -89,12 +89,12 @@
     }
   ],
   "facturx": {
-    "exchangedDocumentContext": {
-      "documentContextParameter": {
+    "documentContext": {
+      "parameter": {
         "id": "urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p1:extended"
       }
     },
-    "exchangedDocument": {
+    "document": {
       "id": "471102",
       "name": "Rechnung",
       "typeCode": "380",
@@ -117,10 +117,10 @@
         }
       ]
     },
-    "supplyChainTradeTransaction": {
+    "tradeTransaction": {
       "lineItems": [
         {
-          "associatedDocumentLineDocument": {
+          "documentLineDocument": {
             "lineId": "1",
             "notes": [
               {
@@ -143,15 +143,15 @@
           },
           "tradeAgreement": {
             "grossPrice": {
-              "chargeAmount": {
+              "amount": {
                 "value": "9.9000"
               }
             },
             "netPrice": {
-              "chargeAmount": {
+              "amount": {
                 "value": "9.9000"
               },
-              "basisQuantity": {
+              "quantity": {
                 "unitCode": "C62",
                 "value": "1"
               }
@@ -171,7 +171,7 @@
               }
             }
           },
-          "specifiedLineTradeSettlement": {
+          "lineTradeSettlement": {
             "tradeTax": [
               {
                 "typeCode": "VAT",
@@ -187,7 +187,7 @@
                 "value": "8.00"
               }
             },
-            "specifiedTradeAllowanceCharge": [
+            "tradeAllowanceCharge": [
               {
                 "actualAmount": {
                   "value": "8.00"
@@ -204,7 +204,7 @@
           }
         },
         {
-          "associatedDocumentLineDocument": {
+          "documentLineDocument": {
             "lineId": "2"
           },
           "specifiedTradeProduct": {
@@ -217,12 +217,12 @@
           },
           "tradeAgreement": {
             "grossPrice": {
-              "chargeAmount": {
+              "amount": {
                 "value": "5.5000"
               }
             },
             "netPrice": {
-              "chargeAmount": {
+              "amount": {
                 "value": "5.5000"
               }
             }
@@ -233,7 +233,7 @@
               "value": "50.0000"
             }
           },
-          "specifiedLineTradeSettlement": {
+          "lineTradeSettlement": {
             "tradeTax": [
               {
                 "typeCode": "VAT",
@@ -249,7 +249,7 @@
           }
         }
       ],
-      "applicableHeaderTradeAgreement": {
+      "headerTradeAgreement": {
         "sellerTradeParty": {
           "globalID": [
             {
@@ -258,19 +258,19 @@
             }
           ],
           "name": "Lieferant GmbH",
-          "definedTradeContact": {
+          "tradeContact": {
             "personName": "Max Mustermann",
             "departmentName": "Muster-Einkauf",
-            "telephoneUniversalCommunication": {
+            "telephone": {
               "completeNumber": "+49891234567"
             },
-            "emailURIUniversalCommunication": {
+            "email": {
               "uriid": {
                 "value": "Max@Mustermann.de"
               }
             }
           },
-          "postalTradeAddress": {
+          "tradeAddress": {
             "postcode": "80333",
             "lineOne": "Lieferantenstraße 20",
             "city": "München",
@@ -296,7 +296,7 @@
             "value": "GE2020211"
           },
           "name": "Kunden AG Mitte",
-          "postalTradeAddress": {
+          "tradeAddress": {
             "postcode": "69876",
             "lineOne": "Kundenstraße 15",
             "city": "Frankfurt",
@@ -304,18 +304,18 @@
           }
         },
         "buyerReference": "04011000-12345-34",
-        "specifiedProcuringProject": {
+        "procuringProject": {
           "id": "1234",
           "name": "Projekt"
         }
       },
-      "applicableHeaderTradeDelivery": {
+      "headerTradeDelivery": {
         "shipToTradeParty": {
           "id": {
             "value": "GE2020211"
           },
           "name": "Kunden AG Mitte",
-          "postalTradeAddress": {
+          "tradeAddress": {
             "postcode": "69876",
             "lineOne": "Kundenstraße 15",
             "city": "Frankfurt",
@@ -330,11 +330,11 @@
             }
           }
         },
-        "deliveryNoteReferencedDocument": {
+        "referencedDocument": {
           "issuerAssignedID": {
             "value": "123456"
           },
-          "formattedIssueDateTime": {
+          "dateTime": {
             "dateTimeString": {
               "format": "102",
               "value": "20180305"
@@ -342,8 +342,8 @@
           }
         }
       },
-      "applicableHeaderTradeSettlement": {
-        "specifiedTradeSettlementHeaderMonetarySummation": {
+      "headerTradeSettlement": {
+        "tradeSettlementHeaderMonetarySummation": {
           "lineTotalAmount": {
             "value": "465.00"
           },
@@ -387,19 +387,19 @@
             }
           ],
           "name": "Lieferant GmbH",
-          "definedTradeContact": {
+          "tradeContact": {
             "personName": "Max Mustermann",
             "departmentName": "Muster-Einkauf",
-            "telephoneUniversalCommunication": {
+            "telephone": {
               "completeNumber": "+49891234567"
             },
-            "emailURIUniversalCommunication": {
+            "email": {
               "uriid": {
                 "value": "Max@Mustermann.de"
               }
             }
           },
-          "postalTradeAddress": {
+          "tradeAddress": {
             "postcode": "80333",
             "lineOne": "Lieferantenstraße 20",
             "city": "München",
@@ -420,19 +420,19 @@
             }
           ]
         },
-        "specifiedTradePaymentTerms": [
+        "tradePaymentTerms": [
           {
             "description": "Zahlbar innerhalb 30 Tagen netto bis 04.04.2018, 3% Skonto innerhalb 10 Tagen bis 15.03.2018",
             "directDebitMandateID": "Mandate Reference"
           }
         ],
-        "specifiedLogisticsServiceCharge": [
+        "logisticsServiceCharge": [
           {
             "description": "Versandkosten",
             "appliedAmount": {
               "value": "0"
             },
-            "tradeTaxes": [
+            "tradeTax": [
               {
                 "typeCode": "VAT",
                 "categoryCode": "S",
@@ -441,7 +441,7 @@
             ]
           }
         ],
-        "tradeTaxes": [
+        "tradeTax": [
           {
             "typeCode": "VAT",
             "categoryCode": "S",
@@ -465,7 +465,7 @@
             "rateApplicablePercent": "19.00"
           }
         ],
-        "specifiedTradeSettlementPaymentMeans": [
+        "tradeSettlementPaymentMeans": [
           {
             "typeCode": "58",
             "information": "Zahlung per SEPA Überweisung.",

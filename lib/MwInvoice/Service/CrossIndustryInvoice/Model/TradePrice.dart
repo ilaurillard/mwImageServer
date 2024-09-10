@@ -4,12 +4,12 @@ import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
 class TradePrice {
-  final Amount chargeAmount;
-  final Quantity? basisQuantity;
+  final Amount amount;
+  final Quantity? quantity;
 
   TradePrice({
-    required this.chargeAmount,
-    this.basisQuantity,
+    required this.amount,
+    this.quantity,
   });
 
   void toXml(
@@ -19,12 +19,12 @@ class TradePrice {
     builder.element(
       name,
       nest: () {
-        chargeAmount.toXml(
+        amount.toXml(
           builder,
           'ram:ChargeAmount',
         );
-        if (basisQuantity != null) {
-          basisQuantity!.toXml(
+        if (quantity != null) {
+          quantity!.toXml(
             builder,
             'ram:BasisQuantity',
           );
@@ -36,9 +36,9 @@ class TradePrice {
   static TradePrice? fromJson(Dict json) {
     if (json.isNotEmpty) {
       return TradePrice(
-        chargeAmount: Amount.fromJson(json['chargeAmount'] as Dict? ?? {}) ??
+        amount: Amount.fromJson(json['amount'] as Dict? ?? {}) ??
             Amount.empty(),
-        basisQuantity: Quantity.fromJson(json['basisQuantity'] as Dict? ?? {}),
+        quantity: Quantity.fromJson(json['quantity'] as Dict? ?? {}),
       );
     }
     return null;
@@ -46,7 +46,7 @@ class TradePrice {
 
   static TradePrice empty() {
     return TradePrice(
-      chargeAmount: Amount.empty(),
+      amount: Amount.empty(),
     );
   }
 }

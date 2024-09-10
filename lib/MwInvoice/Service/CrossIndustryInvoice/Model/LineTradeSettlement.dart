@@ -8,15 +8,15 @@ import 'package:xml/xml.dart';
 
 class LineTradeSettlement {
   final List<TradeTax> tradeTax;
-  final List<TradeAllowanceCharge> specifiedTradeAllowanceCharge;
-  final Period? billingSpecifiedPeriod;
+  final List<TradeAllowanceCharge> tradeAllowanceCharge;
+  final Period? period;
   final TradeSettlementLineMonetarySummation monetarySummation;
   final List<TradeAccountingAccount> tradeAccountingAccount;
 
   LineTradeSettlement({
     this.tradeTax = const [],
-    this.specifiedTradeAllowanceCharge = const [],
-    this.billingSpecifiedPeriod,
+    this.tradeAllowanceCharge = const [],
+    this.period,
     required this.monetarySummation,
     this.tradeAccountingAccount = const [],
   });
@@ -28,14 +28,14 @@ class LineTradeSettlement {
         'ram:ApplicableTradeTax',
       );
     }
-    for (TradeAllowanceCharge t in specifiedTradeAllowanceCharge) {
+    for (TradeAllowanceCharge t in tradeAllowanceCharge) {
       t.toXml(
         builder,
         'ram:SpecifiedTradeAllowanceCharge',
       );
     }
-    if (billingSpecifiedPeriod != null) {
-      billingSpecifiedPeriod!.toXml(
+    if (period != null) {
+      period!.toXml(
         builder,
         'ram:BillingSpecifiedPeriod',
       );
@@ -58,12 +58,12 @@ class LineTradeSettlement {
       tradeTax: (json['tradeTax'] as List<dynamic>? ?? [])
           .map((dynamic e) => TradeTax.fromJson(e as Dict))
           .toList(),
-      specifiedTradeAllowanceCharge:
-          (json['specifiedTradeAllowanceCharge'] as List<dynamic>? ?? [])
+      tradeAllowanceCharge:
+          (json['tradeAllowanceCharge'] as List<dynamic>? ?? [])
               .map((dynamic e) => TradeAllowanceCharge.fromJson(e as Dict))
               .toList(),
-      billingSpecifiedPeriod:
-          Period.fromJson(json['billingSpecifiedPeriod'] as Dict? ?? {}),
+      period:
+          Period.fromJson(json['period'] as Dict? ?? {}),
       monetarySummation: TradeSettlementLineMonetarySummation.fromJson(
           json['monetarySummation'] as Dict? ?? {}),
       tradeAccountingAccount:

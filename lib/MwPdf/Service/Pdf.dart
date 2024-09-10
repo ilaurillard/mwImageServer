@@ -69,7 +69,7 @@ class Pdf {
       ),
     );
     // may be an CII or UBL xml document
-    return engine.invoice.xml();
+    return engine.state.invoice.xml();
   }
 
   // return main (json) schema definition

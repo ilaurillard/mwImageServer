@@ -10,19 +10,19 @@ Future<void> main() async {
 //   TradeParty tp1 = TradeParty(
 //     globalID: [Id(value: '4000001123452', schemeID: '0088')],
 //     name: 'Lieferant GmbH',
-//     definedTradeContact: TradeContact(
+//     tradeContact: TradeContact(
 //       personName: 'Max Mustermann',
 //       departmentName: 'Muster-Einkauf',
-//       telephoneUniversalCommunication: UniversalCommunication(
+//       telephone: UniversalCommunication(
 //         completeNumber: '+49891234567',
 //       ),
-//       emailURIUniversalCommunication: UniversalCommunication(
+//       email: UniversalCommunication(
 //         uriid: Id(
 //           value: 'Max@Mustermann.de',
 //         ),
 //       ),
 //     ),
-//     postalTradeAddress: TradeAddress(
+//     tradeAddress: TradeAddress(
 //       postcode: '80333',
 //       lineOne: 'Lieferantenstraße 20',
 //       city: 'München',
@@ -45,12 +45,12 @@ Future<void> main() async {
 //   );
 //
 //   CrossIndustryInvoice i = CrossIndustryInvoice(
-//     exchangedDocumentContext: ExchangedDocumentContext(
-//       documentContextParameter: DocumentContextParameter(
+//     documentContext: ExchangedDocumentContext(
+//       parameter: DocumentContextParameter(
 //         id: 'urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p1:extended',
 //       ),
 //     ),
-//     exchangedDocument: ExchangedDocument(
+//     document: ExchangedDocument(
 //       id: '471102',
 //       name: 'Rechnung',
 //       typeCode: '380',
@@ -78,10 +78,10 @@ Future<void> main() async {
 //         ),
 //       ],
 //     ),
-//     supplyChainTradeTransaction: SupplyChainTradeTransaction(
+//     tradeTransaction: SupplyChainTradeTransaction(
 //       lineItems: [
 //         SupplyChainTradeLineItem(
-//           associatedDocumentLineDocument: DocumentLineDocument(
+//           documentLineDocument: DocumentLineDocument(
 //             lineId: '1',
 //             notes: [
 //               Note(
@@ -102,15 +102,15 @@ Future<void> main() async {
 //           ),
 //           tradeAgreement: LineTradeAgreement(
 //             grossPrice: TradePrice(
-//               chargeAmount: Amount(
+//               amount: Amount(
 //                 value: '9.9000',
 //               ),
 //             ),
 //             netPrice: TradePrice(
-//               chargeAmount: Amount(
+//               amount: Amount(
 //                 value: '9.9000',
 //               ),
-//               basisQuantity: Quantity(unitCode: 'C62', value: '1'),
+//               quantity: Quantity(unitCode: 'C62', value: '1'),
 //             ),
 //           ),
 //           delivery: LineTradeDelivery(
@@ -127,7 +127,7 @@ Future<void> main() async {
 //               ),
 //             ),
 //           ),
-//           specifiedLineTradeSettlement: LineTradeSettlement(
+//           lineTradeSettlement: LineTradeSettlement(
 //             tradeTax: [
 //               TradeTax(
 //                 typeCode: 'VAT',
@@ -139,7 +139,7 @@ Future<void> main() async {
 //               totalAmount: Amount(value: '190.00'),
 //               totalAllowanceChargeAmount: Amount(value: '8.00'),
 //             ),
-//             specifiedTradeAllowanceCharge: [
+//             tradeAllowanceCharge: [
 //               TradeAllowanceCharge(
 //                 actualAmount: Amount(value: '8.00'),
 //                 indicator: Indicator(indicator: false),
@@ -151,7 +151,7 @@ Future<void> main() async {
 //           ),
 //         ),
 //         SupplyChainTradeLineItem(
-//           associatedDocumentLineDocument: DocumentLineDocument(
+//           documentLineDocument: DocumentLineDocument(
 //             lineId: '2',
 //           ),
 //           specifiedTradeProduct: TradeProduct(
@@ -164,12 +164,12 @@ Future<void> main() async {
 //           ),
 //           tradeAgreement: LineTradeAgreement(
 //             grossPrice: TradePrice(
-//               chargeAmount: Amount(
+//               amount: Amount(
 //                 value: '5.5000',
 //               ),
 //             ),
 //             netPrice: TradePrice(
-//               chargeAmount: Amount(
+//               amount: Amount(
 //                 value: '5.5000',
 //               ),
 //             ),
@@ -180,7 +180,7 @@ Future<void> main() async {
 //               unitCode: 'H87',
 //             ),
 //           ),
-//           specifiedLineTradeSettlement: LineTradeSettlement(
+//           lineTradeSettlement: LineTradeSettlement(
 //             tradeTax: [
 //               TradeTax(
 //                 typeCode: 'VAT',
@@ -194,12 +194,12 @@ Future<void> main() async {
 //           ),
 //         ),
 //       ],
-//       applicableHeaderTradeAgreement: HeaderTradeAgreement(
+//       headerTradeAgreement: HeaderTradeAgreement(
 //         sellerTradeParty: tp1,
 //         buyerTradeParty: TradeParty(
 //           id: Id(value: 'GE2020211'),
 //           name: 'Kunden AG Mitte',
-//           postalTradeAddress: TradeAddress(
+//           tradeAddress: TradeAddress(
 //             postcode: '69876',
 //             lineOne: 'Kundenstraße 15',
 //             city: 'Frankfurt',
@@ -207,16 +207,16 @@ Future<void> main() async {
 //           ),
 //         ),
 //         buyerReference: '04011000-12345-34',
-//         specifiedProcuringProject: ProcuringProject(
+//         procuringProject: ProcuringProject(
 //           id: '1234',
 //           name: 'Projekt',
 //         ),
 //       ),
-//       applicableHeaderTradeDelivery: HeaderTradeDelivery(
+//       headerTradeDelivery: HeaderTradeDelivery(
 //         shipToTradeParty: TradeParty(
 //           id: Id(value: 'GE2020211'),
 //           name: 'Kunden AG Mitte',
-//           postalTradeAddress: TradeAddress(
+//           tradeAddress: TradeAddress(
 //             postcode: '69876',
 //             lineOne: 'Kundenstraße 15',
 //             city: 'Frankfurt',
@@ -231,14 +231,14 @@ Future<void> main() async {
 //             ),
 //           ),
 //         ),
-//         deliveryNoteReferencedDocument: ReferencedDocument(
+//         referencedDocument: ReferencedDocument(
 //           issuerAssignedID: Id(value: '123456'),
-//           formattedIssueDateTime: FormattedDateTime(
+//           dateTime: FormattedDateTime(
 //               dateTimeString: DateTimeString(format: 102, value: '20180305')),
 //         ),
 //       ),
-//       applicableHeaderTradeSettlement: HeaderTradeSettlement(
-//         specifiedTradeSettlementHeaderMonetarySummation:
+//       headerTradeSettlement: HeaderTradeSettlement(
+//         tradeSettlementHeaderMonetarySummation:
 //             TradeSettlementHeaderMonetarySummation(
 //           lineTotalAmount: Amount(value: '465.00'),
 //           chargeTotalAmount: Amount(value: '0.00'),
@@ -249,7 +249,7 @@ Future<void> main() async {
 //           totalPrepaidAmount: Amount(value: '0.00'),
 //           duePayableAmount: Amount(value: '520.35'),
 //         ),
-//         specifiedTradePaymentTerms: [
+//         tradePaymentTerms: [
 //           TradePaymentTerms(
 //               description:
 //                   'Zahlbar innerhalb 30 Tagen netto bis 04.04.2018, 3% Skonto innerhalb 10 Tagen bis 15.03.2018',
@@ -258,11 +258,11 @@ Future<void> main() async {
 //         payeeTradeParty: tp1,
 //         creditorReferenceID: 'TEST1234',
 //         paymentReference: '421102',
-//         specifiedLogisticsServiceCharge: [
+//         logisticsServiceCharge: [
 //           LogisticsServiceCharge(
 //             description: 'Versandkosten',
 //             appliedAmount: Amount(value: '0'),
-//             tradeTaxes: [
+//             tradeTax: [
 //               TradeTax(
 //                 typeCode: 'VAT',
 //                 categoryCode: 'S',
@@ -272,7 +272,7 @@ Future<void> main() async {
 //             ],
 //           ),
 //         ],
-//         tradeTaxes: [
+//         tradeTax: [
 //           TradeTax(
 //             typeCode: 'VAT',
 //             categoryCode: 'S',
@@ -289,7 +289,7 @@ Future<void> main() async {
 //           ),
 //         ],
 //         currency: 'EUR',
-//         specifiedTradeSettlementPaymentMeans: [
+//         tradeSettlementPaymentMeans: [
 //           TradeSettlementPaymentMeans(
 //             typeCode: '58',
 //             information: 'Zahlung per SEPA Überweisung.',

@@ -36,12 +36,12 @@ import 'package:xml/xml.dart';
 
 Future<void> main() async {
   CrossIndustryInvoice i = CrossIndustryInvoice(
-    exchangedDocumentContext: ExchangedDocumentContext(
-      documentContextParameter: DocumentContextParameter(
+    documentContext: ExchangedDocumentContext(
+      parameter: DocumentContextParameter(
         id: 'urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2',
       ),
     ),
-    exchangedDocument: ExchangedDocument(
+    document: ExchangedDocument(
       id: '471102',
       typeCode: '380',
       issueDateTime: DateTime(
@@ -65,10 +65,10 @@ Handelsregisternummer: H A 123
         ),
       ],
     ),
-    supplyChainTradeTransaction: SupplyChainTradeTransaction(
+    tradeTransaction: SupplyChainTradeTransaction(
       lineItems: [
         SupplyChainTradeLineItem(
-          associatedDocumentLineDocument: DocumentLineDocument(
+          documentLineDocument: DocumentLineDocument(
             lineId: '1',
             // notes: [Note(content: 'xxx')],
           ),
@@ -84,12 +84,12 @@ Handelsregisternummer: H A 123
           ),
           tradeAgreement: LineTradeAgreement(
             grossPrice: TradePrice(
-              chargeAmount: Amount(
+              amount: Amount(
                 value: '9.9000',
               ),
             ),
             netPrice: TradePrice(
-              chargeAmount: Amount(
+              amount: Amount(
                 value: '9.9000',
               ),
             ),
@@ -108,7 +108,7 @@ Handelsregisternummer: H A 123
             //   ),
             // ),
           ),
-          specifiedLineTradeSettlement: LineTradeSettlement(
+          lineTradeSettlement: LineTradeSettlement(
             tradeTax: [
               TradeTax(
                 typeCode: 'VAT',
@@ -119,7 +119,7 @@ Handelsregisternummer: H A 123
             monetarySummation: TradeSettlementLineMonetarySummation(
               totalAmount: Amount(value: '198.00'),
             ),
-            // specifiedTradeAllowanceCharge: [
+            // tradeAllowanceCharge: [
             //   TradeAllowanceCharge(
             //     actualAmount: Amount(value: 'xxx'),
             //     indicator: Indicator(indicator: true),
@@ -128,7 +128,7 @@ Handelsregisternummer: H A 123
           ),
         ),
         SupplyChainTradeLineItem(
-          associatedDocumentLineDocument: DocumentLineDocument(
+          documentLineDocument: DocumentLineDocument(
             lineId: '2',
           ),
           specifiedTradeProduct: TradeProduct(
@@ -141,12 +141,12 @@ Handelsregisternummer: H A 123
           ),
           tradeAgreement: LineTradeAgreement(
             grossPrice: TradePrice(
-              chargeAmount: Amount(
+              amount: Amount(
                 value: '5.5000',
               ),
             ),
             netPrice: TradePrice(
-              chargeAmount: Amount(
+              amount: Amount(
                 value: '5.5000',
               ),
             ),
@@ -157,7 +157,7 @@ Handelsregisternummer: H A 123
               unitCode: 'H87',
             ),
           ),
-          specifiedLineTradeSettlement: LineTradeSettlement(
+          lineTradeSettlement: LineTradeSettlement(
             tradeTax: [
               TradeTax(
                 typeCode: 'VAT',
@@ -171,23 +171,23 @@ Handelsregisternummer: H A 123
           ),
         ),
       ],
-      applicableHeaderTradeAgreement: HeaderTradeAgreement(
+      headerTradeAgreement: HeaderTradeAgreement(
         sellerTradeParty: TradeParty(
           globalID: [Id(value: '4000001123452', schemeID: '0088')],
           name: 'Lieferant GmbH',
-          definedTradeContact: TradeContact(
+          tradeContact: TradeContact(
             personName: 'Max Mustermann',
             departmentName: 'Muster-Einkauf',
-            telephoneUniversalCommunication: UniversalCommunication(
+            telephone: UniversalCommunication(
               completeNumber: '+49891234567',
             ),
-            emailURIUniversalCommunication: UniversalCommunication(
+            email: UniversalCommunication(
               uriid: Id(
                 value: 'Max@Mustermann.de',
               ),
             ),
           ),
-          postalTradeAddress: TradeAddress(
+          tradeAddress: TradeAddress(
             postcode: '80333',
             lineOne: 'Lieferantenstraße 20',
             city: 'München',
@@ -211,7 +211,7 @@ Handelsregisternummer: H A 123
         buyerTradeParty: TradeParty(
           id: Id(value: 'GE2020211'),
           name: 'Kunden AG Mitte',
-          postalTradeAddress: TradeAddress(
+          tradeAddress: TradeAddress(
             postcode: '69876',
             lineOne: 'Kundenstraße 15',
             city: 'Frankfurt',
@@ -220,7 +220,7 @@ Handelsregisternummer: H A 123
         ),
         buyerReference: '04011000-12345-34',
       ),
-      applicableHeaderTradeDelivery: HeaderTradeDelivery(
+      headerTradeDelivery: HeaderTradeDelivery(
         chainEvent: SupplyChainEvent(
           date: DateTime(
             dateTimeString: DateTimeString(
@@ -230,8 +230,8 @@ Handelsregisternummer: H A 123
           ),
         ),
       ),
-      applicableHeaderTradeSettlement: HeaderTradeSettlement(
-        specifiedTradeSettlementHeaderMonetarySummation:
+      headerTradeSettlement: HeaderTradeSettlement(
+        tradeSettlementHeaderMonetarySummation:
             TradeSettlementHeaderMonetarySummation(
           lineTotalAmount: Amount(value: '473.00'),
           chargeTotalAmount: Amount(value: '0.00'),
@@ -242,13 +242,13 @@ Handelsregisternummer: H A 123
           totalPrepaidAmount: Amount(value: '0.00'),
           duePayableAmount: Amount(value: '529.87'),
         ),
-        specifiedTradePaymentTerms: [
+        tradePaymentTerms: [
           TradePaymentTerms(
             description:
                 'Zahlbar innerhalb 30 Tagen netto bis 04.04.2018, 3% Skonto innerhalb 10 Tagen bis 15.03.2018',
           )
         ],
-        tradeTaxes: [
+        tradeTax: [
           TradeTax(
             typeCode: 'VAT',
             categoryCode: 'S',
@@ -265,7 +265,7 @@ Handelsregisternummer: H A 123
           ),
         ],
         currency: 'EUR',
-        specifiedTradeSettlementPaymentMeans: [
+        tradeSettlementPaymentMeans: [
           TradeSettlementPaymentMeans(
             typeCode: '58',
             information: 'Zahlung per SEPA Überweisung.',

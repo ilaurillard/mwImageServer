@@ -76,8 +76,8 @@ Future<void> main() async {
   // String jsonFile = 'pdf_paper.json';
   //  String jsonFile = 'pdf_avery.json';
   // String jsonFile = 'pdf_hello.json';
-
-  String jsonFile = 'pdf_gadgets.yaml';
+  // String jsonFile = 'pdf_gadgets.yaml';
+  String jsonFile = 'pdf_reisswolf.json';
 
   String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {
@@ -90,7 +90,7 @@ Future<void> main() async {
     '$examplesDir/$jsonFile',
   ).readAsString();
 
-  // try {
+  try {
     if (jsonFile.endsWith('.yaml')) {
       pdfJson = json.encode(loadYaml(pdfJson));
     }
@@ -104,12 +104,12 @@ Future<void> main() async {
     );
 
     if (results.valid) {
-      // try {
-        SqliteStorage sqliteStorage = SqliteStorage(
+      try {
+        SqliteStorage sqliteStorage = await SqliteStorage.create(
           dataDir: dataDir,
         );
-        await sqliteStorage.init();
 
+        // prepare engine
         Engine engine = await Engine.create(
           pdfData,
           resDir: resDir,
@@ -124,8 +124,11 @@ Future<void> main() async {
           ),
         );
 
-        String name = '$examplesDir/output/$jsonFile.pdf';
+        // build pdf
         Document pdf = await engine.pdf();
+
+        // store pdf
+        String name = '$examplesDir/output/$jsonFile.pdf';
         await File(name).writeAsBytes(
           await pdf.save(),
         );
@@ -133,10 +136,10 @@ Future<void> main() async {
         Console.info(
           '\nThank you, rendered "$jsonFile" into "output/$jsonFile.pdf"\nwrote "$name"\n${engine.pages.length} pages)\n\n',
         );
-      // } catch (e) {
-      //   Console.error('Fatal error: $e');
+      } catch (e) {
+        Console.error('Fatal error, exception: $e');
         // throw e;
-      // }
+      }
     } else {
       Console.warning('Document does not validate!');
       if (results.errors.isNotEmpty) {
@@ -152,8 +155,8 @@ Future<void> main() async {
         }
       }
     }
-  // } catch (e) {
-  //   Console.error('Parse error: $e');
+  } catch (e) {
+    Console.error('Parse error, exception: $e');
     // throw e;
-  // }
+  }
 }
