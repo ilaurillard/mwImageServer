@@ -1051,6 +1051,12 @@
       "minProperties": 1,
       "maxProperties": 1,
       "properties": {
+        "Date": {
+          "$ref": "#/definitions/WidgetsCustom/Date"
+        },
+        "NumberFormat": {
+          "$ref": "#/definitions/WidgetsCustom/NumberFormat"
+        },
         "Labels": {
           "$ref": "#/definitions/WidgetsCustom/Labels"
         },
@@ -1290,6 +1296,41 @@
       "type": "object"
     },
     "WidgetsCustom": {
+      "Date": {
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "format": {
+            "description": "Numberformats (f.e. dd.MM.yyyy)",
+            "type": "string"
+          },
+          "child": {
+            "$ref": "#/definitions/Widget"
+          }
+        }
+      },
+      "NumberFormat": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "locale": {
+            "description": "de_DE, en_US, ..",
+            "type": "string"
+          },
+          "format": {
+            "description": "Numberformats (f.e. #,##0.00)",
+            "type": "string"
+          },
+          "child": {
+            "$ref": "#/definitions/Widget"
+          }
+        }
+      },
       "Labels": {
         "additionalProperties": false,
         "properties": {

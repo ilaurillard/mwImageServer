@@ -61,16 +61,22 @@ class Text {
     Dict json,
     State state,
   ) {
-    String text = state.replaceParameters(
-      json['text'] as String? ?? '',
-    );
-    if (text.isEmpty) {
+    String text = json['text'] as String? ?? '';
+    String source = json['source'] as String? ?? '';
+    if (source.isNotEmpty) {
       text = state
           .source(
             json['source'] as String?,
           )
           .text;
     }
+
+    // if (text.isEmpty) {
+    //   text = '%value%';
+    // }
+
+    text = state.replaceParameters(text);
+
     String hyphLang = json['hyphenationLanguage'] as String? ?? '';
 
     return HyphenatedText(

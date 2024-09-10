@@ -1,0 +1,95 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Header": {
+                  "text": "Number formatting"
+                }
+              },
+              {
+                "NumberFormat": {
+                  "value": "1234567",
+                  "format": "#,##0.00",
+                  "locale": "de_DE",
+                  "child": {
+                    "Text": {
+                      "text": "Nummer %value%"
+                    }
+                  }
+                }
+              },
+              {
+                "SizedBox": {
+                  "height": 20
+                }
+              },
+              {
+                "Header": {
+                  "text": "Date formatting"
+                }
+              },
+              {
+                "Date": {
+                  "value": "%dt%",
+                  "format": "dd.MM.yyyy",
+                  "child": {
+                    "Text": {
+                      "text": "Datum %value%",
+                      "style": {
+                        "fontStyle": "italic"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Date": {
+                  "format": "dd.MM.yyyy HH:mm:ss"
+                }
+              },
+              {
+                "Table": {
+                  "children": [
+                    {
+                      "TableRow": {
+                        "source": "@items",
+                        "children": [
+                          {
+                            "Date": {
+                              "format": "dd.MM.yyyy"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "%value%"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "dt": "2004-05-19"
+  },
+  "sources": {
+    "@items": {
+      "values": [
+        ["2004-05-06", "bbb"],
+        ["2004-05-07", "eee"]
+      ]
+    }
+  }
+}
