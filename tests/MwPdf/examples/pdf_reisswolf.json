@@ -5,7 +5,20 @@
     "author": "author",
     "subject": "subject",
     "creator": "creator",
-    "pdfa3b": true
+    "pdfa3b": true,
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "styles": {
+          "text": {
+            "font": "ptSerifRegular"
+          },
+          "paragraph": {
+            "font": "ptSerifRegular"
+          }
+        }
+      }
+    }
   },
   "pages": [
     {
