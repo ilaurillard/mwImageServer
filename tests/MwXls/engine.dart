@@ -76,10 +76,9 @@ Future<void> main() async {
 
     if (results.valid) {
       try {
-        SqliteStorage sqliteStorage = SqliteStorage(
+        SqliteStorage sqliteStorage = await SqliteStorage.create(
           dataDir: dataDir,
         );
-        await sqliteStorage.init();
 
         Engine engine = await Engine.create(
           xlsJsonDict,

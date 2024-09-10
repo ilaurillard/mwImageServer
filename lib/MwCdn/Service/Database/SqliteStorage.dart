@@ -25,6 +25,16 @@ class SqliteStorage {
 
   // ---------------------
 
+  static Future<SqliteStorage> create({
+    required String dataDir,
+  }) async {
+    SqliteStorage sqliteStorage = SqliteStorage(
+      dataDir: dataDir,
+    );
+    await sqliteStorage.init();
+    return sqliteStorage;
+  }
+
   Future<void> init() async {
     sqfliteFfiInit();
     db = await databaseFactoryFfi.openDatabase(

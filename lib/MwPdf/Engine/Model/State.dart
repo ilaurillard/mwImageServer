@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:mwcdn/MwInvoice/Service/Invoice.dart';
 import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
@@ -49,11 +50,14 @@ class State {
   int pageNumber = 0;
   int pagesCount = 0;
 
+  final Invoice invoice;
+
   // ------------------------------
 
   State({
     required this.resDir,
     required this.storage,
+    required this.invoice,
   });
 
   Future<void> init() async {
@@ -114,10 +118,12 @@ class State {
     required Dict variables,
     required String resDir,
     required Storage storage,
+    required Invoice invoice,
   }) {
     State state = State(
       resDir: resDir,
       storage: storage,
+      invoice: invoice,
     );
 
     state.addVariables(variables);

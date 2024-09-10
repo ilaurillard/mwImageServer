@@ -26,10 +26,7 @@ class Engine {
     required this.resDir,
     required this.pages,
     required this.meta,
-    required this.invoice,
   });
-
-  final Invoice invoice;
 
   static Future<Engine> create(
     Dict json, {
@@ -41,7 +38,13 @@ class Engine {
       variables: (json['variables'] as Dict?) ?? {},
       resDir: resDir,
       storage: storage,
+      invoice: Invoice.fromJson(
+        (json['facturx'] as Dict?) ?? {},
+        (json['xrechnung'] as Dict?) ?? {},
+      ),
     );
+
+    // load fonts, etc
     await state.init();
 
     return Engine(
@@ -54,16 +57,11 @@ class Engine {
         (json['meta'] as Dict?) ?? {},
         state,
       ),
-      invoice: Invoice.fromJson(
-        (json['facturx'] as Dict?) ?? {},
-        (json['xrechnung'] as Dict?) ?? {},
-      ),
     );
   }
 
   // Create the pdf -------------------
   Future<pw.Document> pdf() async {
-
     pw.PageTheme? pageDefaultTheme;
     if (meta.theme.isNotEmpty) {
       pageDefaultTheme = meta.themes[meta.theme]?.theme;
@@ -84,21 +82,18 @@ class Engine {
     pw.Document pdf = pw.Document(
       pageMode: meta.pageMode,
       theme: docTheme,
-
       title: meta.title,
       author: meta.author,
       creator: meta.creator,
       subject: meta.subject,
       keywords: meta.keywords,
       producer: meta.producer,
-
       verbose: meta.verbose,
       compress: meta.compress,
       version: PdfVersion.pdf_1_5,
-
       metadata: meta.pdfaRdf(
-        cii: invoice.cii != null,
-        ubl: invoice.ubl != null,
+        cii: state.invoice.cii != null,
+        ubl: state.invoice.ubl != null,
       ),
     );
 
@@ -114,24 +109,24 @@ class Engine {
 
     // ------------------------- embedded invoice xml
 
-    if (invoice.cii != null) {
+    if (state.invoice.cii != null) {
       PdfaAttachedFiles(
         pdf.document,
         {
           'factur-x.xml': Util.prettyXml(
-            invoice.cii!,
+            state.invoice.cii!,
           ),
         },
       );
     }
 
-    if (invoice.ubl != null) {
+    if (state.invoice.ubl != null) {
       PdfaAttachedFiles(
         pdf.document,
         {
           // TODO xxx?
           'xrechnung.xml': Util.prettyXml(
-            invoice.ubl!,
+            state.invoice.ubl!,
           ),
         },
       );
