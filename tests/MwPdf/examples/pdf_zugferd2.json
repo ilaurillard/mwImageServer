@@ -130,7 +130,7 @@
               }
             ]
           },
-          "specifiedTradeProduct": {
+          "product": {
             "globalID": {
               "value": "4012345001235",
               "schemeID": "0160"
@@ -207,7 +207,7 @@
           "documentLineDocument": {
             "lineId": "2"
           },
-          "specifiedTradeProduct": {
+          "product": {
             "globalID": {
               "value": "4000050986428",
               "schemeID": "0160"
@@ -343,7 +343,7 @@
         }
       },
       "headerTradeSettlement": {
-        "tradeSettlementHeaderMonetarySummation": {
+        "summation": {
           "lineTotalAmount": {
             "value": "465.00"
           },

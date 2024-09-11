@@ -23,7 +23,22 @@ class DebtorFinancialAccount {
     });
   }
 
-  static DebtorFinancialAccount? fromJson(Dict json) {
+  static DebtorFinancialAccount? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return DebtorFinancialAccount(
+      ibanId: Id.fromXml(
+        xml.findElements('ram:IBANID').singleOrNull,
+      ),
+    );
+  }
+
+  static DebtorFinancialAccount? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return DebtorFinancialAccount(
         ibanId: Id.fromJson(json['ibanId'] as Dict? ?? {}),

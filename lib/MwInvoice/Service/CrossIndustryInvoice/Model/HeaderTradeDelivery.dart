@@ -44,6 +44,25 @@ class HeaderTradeDelivery {
     );
   }
 
+  static HeaderTradeDelivery? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return HeaderTradeDelivery(
+      shipToTradeParty: TradeParty.fromXml(
+        xml.findElements('ram:ShipToTradeParty').singleOrNull,
+      ),
+      chainEvent: SupplyChainEvent.fromXml(
+        xml.findElements('ram:ActualDeliverySupplyChainEvent').singleOrNull,
+      ),
+      referencedDocument: ReferencedDocument.fromXml(
+        xml.findElements('ram:DeliveryNoteReferencedDocument').singleOrNull,
+      ),
+    );
+  }
+
   static HeaderTradeDelivery fromJson(
     Dict json,
   ) {

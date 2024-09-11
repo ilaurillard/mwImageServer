@@ -26,7 +26,25 @@ class TradeSettlementFinancialCard {
     });
   }
 
-  static TradeSettlementFinancialCard? fromJson(Dict json) {
+  static TradeSettlementFinancialCard? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return TradeSettlementFinancialCard(
+      id: Id.fromXml(
+            xml.findElements('ram:ID').singleOrNull,
+          ) ??
+          Id.empty(),
+      cardholderName: Util.innerTextOf(xml, 'ram:CardholderName'),
+    );
+  }
+
+  static TradeSettlementFinancialCard? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return TradeSettlementFinancialCard(
         id: Id.fromJson(json['id'] as Dict? ?? {}) ?? Id.empty(),

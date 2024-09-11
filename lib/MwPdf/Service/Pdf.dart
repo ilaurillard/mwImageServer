@@ -59,17 +59,34 @@ class Pdf {
     );
   }
 
-  // create invoice xml
+  // extract invoice -> create invoice xml
   Future<XmlDocument?> invoice(
       Dict data,
       ) async {
-    Engine engine = await _engine(
-      _expandTemplate(
-        data,
-      ),
-    );
-    // may be an CII or UBL xml document
-    return engine.state.invoice.xml();
+
+    data = _expandTemplate(data);
+
+    // validate incoming data via json-scheme
+    Results results = await _validate(data);
+
+    if (results.valid) {
+      Engine engine = await _engine(data);
+
+      // may be an CII or UBL xml document
+      return engine.state.invoice.xml();
+    } else {
+
+      _printErrors(results);
+
+      throw ResponseException(
+        Util.rBadRequest(
+          message: json.encode({
+            'errors': results.errors,
+            'warnings': results.warnings,
+          }),
+        ),
+      );
+    }
   }
 
   // return main (json) schema definition

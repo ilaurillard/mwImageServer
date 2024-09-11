@@ -1,4 +1,5 @@
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Id.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
@@ -36,7 +37,26 @@ class UniversalCommunication {
     );
   }
 
-  static UniversalCommunication? fromJson(Dict json) {
+  static UniversalCommunication? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return UniversalCommunication(
+      completeNumber: Util.innerTextOf(
+        xml,
+        'ram:CompleteNumber',
+      ),
+      uriid: Id.fromXml(
+        xml.findElements('ram:URIID').singleOrNull,
+      ),
+    );
+  }
+
+  static UniversalCommunication? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return UniversalCommunication(
         completeNumber: json['completeNumber'] as String?,

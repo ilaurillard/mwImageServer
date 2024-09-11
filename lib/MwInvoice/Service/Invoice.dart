@@ -8,6 +8,7 @@ import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeSettleme
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeTax.dart';
 import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/ubl/Invoice.dart'
     as x_invoice;
+import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
@@ -38,18 +39,24 @@ class Invoice {
     Dict jsonCII = const {},
     Dict jsonUBL = const {},
   }) {
-    return Invoice(
-      cii: jsonCII.isNotEmpty
-          ? CrossIndustryInvoice.fromJson(
-              jsonCII,
-            )
-          : null,
-      ubl: jsonUBL.isNotEmpty
-          ? x_invoice.Invoice.fromJson(
-              jsonUBL,
-            )
-          : null,
-    );
+    try {
+      return Invoice(
+        cii: jsonCII.isNotEmpty
+            ? CrossIndustryInvoice.fromJson(
+          jsonCII,
+        )
+            : null,
+        ubl: jsonUBL.isNotEmpty
+            ? x_invoice.Invoice.fromJson(
+          jsonUBL,
+        )
+            : null,
+      );
+    }
+    catch (e) {
+      Console.warning('Parsing invoice data failed: $e');
+    }
+    return Invoice();
   }
 
   XmlDocument xml() {
@@ -90,7 +97,6 @@ class Invoice {
       // find UST-Ident.Nr. ...
       List<TaxRegistration> taxReg = sellerTradeParty?.taxRegistrations ?? [];
 
-
       List<Amount> tax = settlement?.summation.taxTotalAmount ?? [];
 
       // es gibt ggf mehrere summen ihr (währungen?)
@@ -107,7 +113,6 @@ class Invoice {
         'invoice.buyer.zipcode': buyerTradeParty?.tradeAddress?.postcode ?? '',
         'invoice.buyer.city': buyerTradeParty?.tradeAddress?.city ?? '',
         'invoice.buyer.id': buyerTradeParty?.id?.value ?? '',
-
         'invoice.seller.taxNr':
             taxReg.isNotEmpty ? taxReg.first.registration.value : '',
         'invoice.seller.contact': sellerTradeParty?.tradeContact?.personName ??
@@ -139,7 +144,7 @@ class Invoice {
     if (itemsCache.isEmpty) {
       itemsCache = [];
       for (SupplyChainTradeLineItem item
-      in cii?.tradeTransaction.lineItems ?? []) {
+          in cii?.tradeTransaction.lineItems ?? []) {
         List<TradeTax> tax = item.lineTradeSettlement.tradeTax;
 
         itemsCache.add({
@@ -148,9 +153,9 @@ class Invoice {
           'invoice.item.description': item.product.description ?? '',
           'invoice.item.price': item.tradeAgreement.netPrice.amount.value,
           'invoice.item.quantity':
-          item.tradeAgreement.netPrice.quantity?.value ?? '',
+              item.tradeAgreement.netPrice.quantity?.value ?? '',
           'invoice.item.tax':
-          tax.isNotEmpty ? tax.first.rateApplicablePercent ?? '' : '',
+              tax.isNotEmpty ? tax.first.rateApplicablePercent ?? '' : '',
         });
       }
     }
@@ -160,14 +165,10 @@ class Invoice {
   Map<String, String> _simplifiedUbl() {
     // TODO
     if (paramsCache.isEmpty) {
-      paramsCache = {
-
-      };
+      paramsCache = {};
     }
     return paramsCache;
   }
-
-
 
   List<Map<String, String>> _simplifiedItemsUbl() {
     // TODO

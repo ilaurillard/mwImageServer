@@ -1,5 +1,7 @@
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Id.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/ProductClassification.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeCountry.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
@@ -9,6 +11,7 @@ class TradeProduct {
   final String name;
   final String? description;
   final TradeCountry? tradeCountry;
+  final ProductClassification? classification;
 
   TradeProduct({
     this.globalID,
@@ -16,9 +19,12 @@ class TradeProduct {
     required this.name,
     this.description,
     this.tradeCountry,
+    this.classification,
   });
 
-  void toXml(XmlBuilder builder) {
+  void toXml(
+    XmlBuilder builder,
+  ) {
     if (globalID != null) {
       globalID!.toXml(
         builder,
@@ -47,6 +53,12 @@ class TradeProduct {
         },
       );
     }
+    if (classification != null) {
+      classification!.toXml(
+        builder,
+        'ram:DesignatedProductClassification',
+      );
+    }
     if (tradeCountry != null) {
       builder.element(
         'ram:OriginTradeCountry',
@@ -57,13 +69,47 @@ class TradeProduct {
     }
   }
 
-  static TradeProduct fromJson(Dict json) {
+  static TradeProduct? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return TradeProduct(
+      globalID: Id.fromXml(
+        xml.findElements('ram:GlobalID').singleOrNull,
+      ),
+      sellerAssignedID: Util.innerTextOf(
+        xml,
+        'ram:SellerAssignedID',
+      ),
+      name: Util.innerTextOf(xml, 'ram:Name') ?? '',
+      description: Util.innerTextOf(
+        xml,
+        'ram:Description',
+      ),
+      tradeCountry: TradeCountry.fromXml(
+        xml.findElements('ram:OriginTradeCountry').singleOrNull,
+      ),
+      classification: ProductClassification.fromXml(
+        xml.findElements('ram:DesignatedProductClassification').singleOrNull,
+      ),
+    );
+  }
+
+  static TradeProduct fromJson(
+    Dict json,
+  ) {
     return TradeProduct(
       globalID: Id.fromJson(json['globalID'] as Dict? ?? {}),
       sellerAssignedID: json['sellerAssignedID'] as String?,
       name: json['name'] as String? ?? '?',
       description: json['description'] as String?,
       tradeCountry: TradeCountry.fromJson(json['tradeCountry'] as Dict? ?? {}),
+      classification: ProductClassification.fromJson(
+        json['classification'] as Dict? ?? {},
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Amount.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
@@ -98,7 +99,37 @@ class TradeTax {
     );
   }
 
-  static TradeTax fromJson(Dict json) {
+  static TradeTax? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return TradeTax(
+      calculatedAmount: Amount.fromXml(
+        xml.findElements('ram:CalculatedAmount').singleOrNull,
+      ),
+      typeCode: Util.innerTextOf(xml, 'ram:TypeCode') ?? '',
+      exemptionReason: Util.innerTextOf(xml, 'ram:ExemptionReason'),
+      basisAmount: Amount.fromXml(
+        xml.findElements('ram:BasisAmount').singleOrNull,
+      ),
+      lineTotalBasisAmount: Amount.fromXml(
+        xml.findElements('ram:LineTotalBasisAmount').singleOrNull,
+      ),
+      allowanceChargeBasisAmount: Amount.fromXml(
+        xml.findElements('ram:AllowanceChargeBasisAmount').singleOrNull,
+      ),
+      applicablePercent: Util.innerTextOf(xml, 'ram:ApplicablePercent'),
+      categoryCode: Util.innerTextOf(xml, 'ram:CategoryCode'),
+      rateApplicablePercent: Util.innerTextOf(xml, 'ram:RateApplicablePercent'),
+    );
+  }
+
+  static TradeTax fromJson(
+    Dict json,
+  ) {
     return TradeTax(
       calculatedAmount:
           Amount.fromJson(json['calculatedAmount'] as Dict? ?? {}),

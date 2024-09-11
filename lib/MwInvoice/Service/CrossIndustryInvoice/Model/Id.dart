@@ -18,10 +18,25 @@ class Id {
       name,
       nest: () {
         builder.text(value);
-        if (schemeID != null) {
-          builder.attribute('schemeID', schemeID!,);
+        if (schemeID != null && schemeID!.isNotEmpty) {
+          builder.attribute(
+            'schemeID',
+            schemeID!,
+          );
         }
       },
+    );
+  }
+
+  static Id? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return Id(
+      value: xml.innerText,
+      schemeID: xml.getAttribute('schemeID'),
     );
   }
 

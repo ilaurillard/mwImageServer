@@ -33,11 +33,30 @@ class TradePrice {
     );
   }
 
-  static TradePrice? fromJson(Dict json) {
+  static TradePrice? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return TradePrice(
+      amount: Amount.fromXml(
+            xml.findElements('ram:ChargeAmount').singleOrNull,
+          ) ??
+          Amount.empty(),
+      quantity: Quantity.fromXml(
+        xml.findElements('ram:BasisQuantity').singleOrNull,
+      ),
+    );
+  }
+
+  static TradePrice? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return TradePrice(
-        amount: Amount.fromJson(json['amount'] as Dict? ?? {}) ??
-            Amount.empty(),
+        amount:
+            Amount.fromJson(json['amount'] as Dict? ?? {}) ?? Amount.empty(),
         quantity: Quantity.fromJson(json['quantity'] as Dict? ?? {}),
       );
     }

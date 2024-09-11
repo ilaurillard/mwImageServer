@@ -21,7 +21,9 @@ class LineTradeSettlement {
     this.tradeAccountingAccount = const [],
   });
 
-  void toXml(XmlBuilder builder) {
+  void toXml(
+    XmlBuilder builder,
+  ) {
     for (TradeTax t in tradeTax) {
       t.toXml(
         builder,
@@ -53,7 +55,44 @@ class LineTradeSettlement {
     }
   }
 
-  static LineTradeSettlement fromJson(Dict json) {
+  static LineTradeSettlement? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return LineTradeSettlement(
+      tradeTax: xml
+          .findElements('ram:ApplicableTradeTax')
+          .map((XmlElement e) => TradeTax.fromXml(e)!)
+          .toList(),
+      tradeAllowanceCharge: xml
+          .findElements('ram:SpecifiedTradeAllowanceCharge')
+          .map(
+            (XmlElement e) => TradeAllowanceCharge.fromXml(e)!,
+          )
+          .toList(),
+      period: Period.fromXml(
+        xml.findElements('ram:BillingSpecifiedPeriod').singleOrNull,
+      ),
+      monetarySummation: TradeSettlementLineMonetarySummation.fromXml(
+        xml
+            .findElements('ram:SpecifiedTradeSettlementLineMonetarySummation')
+            .singleOrNull,
+      )!,
+      tradeAccountingAccount: xml
+          .findElements('ram:ReceivableSpecifiedTradeAccountingAccount')
+          .map(
+            (XmlElement e) => TradeAccountingAccount.fromXml(e)!,
+          )
+          .toList(),
+    );
+  }
+
+  static LineTradeSettlement fromJson(
+    Dict json,
+  ) {
     return LineTradeSettlement(
       tradeTax: (json['tradeTax'] as List<dynamic>? ?? [])
           .map((dynamic e) => TradeTax.fromJson(e as Dict))
@@ -62,8 +101,7 @@ class LineTradeSettlement {
           (json['tradeAllowanceCharge'] as List<dynamic>? ?? [])
               .map((dynamic e) => TradeAllowanceCharge.fromJson(e as Dict))
               .toList(),
-      period:
-          Period.fromJson(json['period'] as Dict? ?? {}),
+      period: Period.fromJson(json['period'] as Dict? ?? {}),
       monetarySummation: TradeSettlementLineMonetarySummation.fromJson(
           json['monetarySummation'] as Dict? ?? {}),
       tradeAccountingAccount:

@@ -24,6 +24,17 @@ class DocumentContextParameter {
     );
   }
 
+  static DocumentContextParameter? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return DocumentContextParameter(
+      id: xml.findElements('ram:ID').singleOrNull?.innerText ?? '',
+    );
+  }
+
   static DocumentContextParameter fromJson(
     Dict json,
   ) {

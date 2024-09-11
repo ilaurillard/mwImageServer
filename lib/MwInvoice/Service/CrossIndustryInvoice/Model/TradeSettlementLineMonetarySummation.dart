@@ -32,7 +32,27 @@ class TradeSettlementLineMonetarySummation {
     );
   }
 
-  static TradeSettlementLineMonetarySummation fromJson(Dict json) {
+  static TradeSettlementLineMonetarySummation? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return TradeSettlementLineMonetarySummation(
+      totalAmount: Amount.fromXml(
+            xml.findElements('ram:LineTotalAmount').singleOrNull,
+          ) ??
+          Amount.empty(),
+      totalAllowanceChargeAmount: Amount.fromXml(
+        xml.findElements('ram:TotalAllowanceChargeAmount').singleOrNull,
+      ),
+    );
+  }
+
+  static TradeSettlementLineMonetarySummation fromJson(
+    Dict json,
+  ) {
     return TradeSettlementLineMonetarySummation(
       totalAmount:
           Amount.fromJson(json['totalAmount'] as Dict? ?? {}) ?? Amount.empty(),

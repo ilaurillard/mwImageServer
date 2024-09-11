@@ -20,8 +20,7 @@ class HeaderTradeSettlement {
   final List<TradeAllowanceCharge> tradeAllowanceCharge;
   final List<LogisticsServiceCharge> logisticsServiceCharge;
   final List<TradePaymentTerms> tradePaymentTerms;
-  final TradeSettlementHeaderMonetarySummation
-      summation;
+  final TradeSettlementHeaderMonetarySummation summation;
   final ReferencedDocument? referencedDocument;
 
   HeaderTradeSettlement({
@@ -66,8 +65,7 @@ class HeaderTradeSettlement {
             'ram:PayeeTradeParty',
           );
         }
-        for (TradeSettlementPaymentMeans t
-            in tradeSettlementPaymentMeans) {
+        for (TradeSettlementPaymentMeans t in tradeSettlementPaymentMeans) {
           t.toXml(
             builder,
             'ram:SpecifiedTradeSettlementPaymentMeans',
@@ -111,18 +109,68 @@ class HeaderTradeSettlement {
     );
   }
 
-  static HeaderTradeSettlement fromJson(Dict json) {
+  static HeaderTradeSettlement? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return HeaderTradeSettlement(
+      creditorReferenceID:
+          xml.findElements('ram:CreditorReferenceID').singleOrNull?.innerText,
+      paymentReference:
+          xml.findElements('ram:PaymentReference').singleOrNull?.innerText,
+      currency:
+          xml.findElements('ram:InvoiceCurrencyCode').singleOrNull?.innerText ??
+              '',
+      payeeTradeParty: TradeParty.fromXml(
+          xml.findElements('ram:PayeeTradeParty').singleOrNull),
+      summation: TradeSettlementHeaderMonetarySummation.fromXml(
+        xml
+            .findElements('ram:SpecifiedTradeSettlementHeaderMonetarySummation')
+            .singleOrNull,
+      )!,
+      referencedDocument: ReferencedDocument.fromXml(
+        xml.findElements('ram:InvoiceReferencedDocument').singleOrNull,
+      ),
+      tradeSettlementPaymentMeans: xml
+          .findElements('ram:SpecifiedTradeSettlementPaymentMeans')
+          .map((XmlElement e) => TradeSettlementPaymentMeans.fromXml(e)!)
+          .toList(),
+      tradeTax: xml
+          .findElements('ram:ApplicableTradeTax')
+          .map((XmlElement e) => TradeTax.fromXml(e)!)
+          .toList(),
+      tradeAllowanceCharge: xml
+          .findElements('ram:SpecifiedTradeAllowanceCharge')
+          .map((XmlElement e) => TradeAllowanceCharge.fromXml(e)!)
+          .toList(),
+      logisticsServiceCharge: xml
+          .findElements('ram:SpecifiedLogisticsServiceCharge')
+          .map((XmlElement e) => LogisticsServiceCharge.fromXml(e)!)
+          .toList(),
+      tradePaymentTerms: xml
+          .findElements('ram:SpecifiedTradePaymentTerms')
+          .map((XmlElement e) => TradePaymentTerms.fromXml(e)!)
+          .toList(),
+    );
+  }
+
+  static HeaderTradeSettlement fromJson(
+    Dict json,
+  ) {
     return HeaderTradeSettlement(
       creditorReferenceID: json['creditorReferenceID'] as String?,
       paymentReference: json['paymentReference'] as String?,
       currency: json['currency'] as String? ?? '?',
       payeeTradeParty:
           TradeParty.fromJson(json['payeeTradeParty'] as Dict? ?? {}),
-      tradeSettlementPaymentMeans:
-          (json['tradeSettlementPaymentMeans'] as List<dynamic>? ?? [])
-              .map((dynamic e) =>
-                  TradeSettlementPaymentMeans.fromJson(e as Dict))
-              .toList(),
+      tradeSettlementPaymentMeans: (json['tradeSettlementPaymentMeans']
+                  as List<dynamic>? ??
+              [])
+          .map((dynamic e) => TradeSettlementPaymentMeans.fromJson(e as Dict))
+          .toList(),
       tradeTax: (json['tradeTax'] as List<dynamic>? ?? [])
           .map((dynamic e) => TradeTax.fromJson(e as Dict))
           .toList(),
@@ -134,12 +182,10 @@ class HeaderTradeSettlement {
           (json['logisticsServiceCharge'] as List<dynamic>? ?? [])
               .map((dynamic e) => LogisticsServiceCharge.fromJson(e as Dict))
               .toList(),
-      tradePaymentTerms:
-          (json['tradePaymentTerms'] as List<dynamic>? ?? [])
-              .map((dynamic e) => TradePaymentTerms.fromJson(e as Dict))
-              .toList(),
-      summation:
-          TradeSettlementHeaderMonetarySummation.fromJson(
+      tradePaymentTerms: (json['tradePaymentTerms'] as List<dynamic>? ?? [])
+          .map((dynamic e) => TradePaymentTerms.fromJson(e as Dict))
+          .toList(),
+      summation: TradeSettlementHeaderMonetarySummation.fromJson(
         json['summation'] as Dict? ?? {},
       ),
       referencedDocument: ReferencedDocument.fromJson(

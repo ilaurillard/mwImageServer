@@ -43,6 +43,27 @@ class SupplyChainTradeTransaction {
     );
   }
 
+  static SupplyChainTradeTransaction? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return SupplyChainTradeTransaction(
+      headerTradeAgreement: HeaderTradeAgreement.fromXml(
+          xml.findElements('ram:ApplicableHeaderTradeAgreement').singleOrNull)!,
+      headerTradeDelivery: HeaderTradeDelivery.fromXml(
+          xml.findElements('ram:ApplicableHeaderTradeDelivery').singleOrNull)!,
+      headerTradeSettlement: HeaderTradeSettlement.fromXml(xml
+          .findElements('ram:ApplicableHeaderTradeSettlement')
+          .singleOrNull)!,
+      lineItems: xml.findElements(
+          'ram:IncludedSupplyChainTradeLineItem').map(
+              (XmlElement e) => SupplyChainTradeLineItem.fromXml(e)!
+      ).toList(),
+    );
+  }
+
   static SupplyChainTradeTransaction fromJson(
     Dict json,
   ) {

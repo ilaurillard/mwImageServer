@@ -38,7 +38,28 @@ class CrossIndustryInvoice {
     return builder.buildDocument();
   }
 
-  static CrossIndustryInvoice fromJson(Dict json) {
+  static CrossIndustryInvoice? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return CrossIndustryInvoice(
+      documentContext: ExchangedDocumentContext.fromXml(
+        xml.findElements('rsm:ExchangedDocumentContext').singleOrNull,
+      )!,
+      document: ExchangedDocument.fromXml(
+        xml.findElements('rsm:ExchangedDocument').singleOrNull,
+      )!,
+      tradeTransaction: SupplyChainTradeTransaction.fromXml(
+        xml.findElements('rsm:SupplyChainTradeTransaction').singleOrNull,
+      )!,
+    );
+  }
+
+  static CrossIndustryInvoice fromJson(
+    Dict json,
+  ) {
     return CrossIndustryInvoice(
       documentContext: ExchangedDocumentContext.fromJson(
         json['documentContext'] as Dict? ?? {},

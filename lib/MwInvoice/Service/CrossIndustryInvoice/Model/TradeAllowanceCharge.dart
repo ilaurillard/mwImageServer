@@ -1,6 +1,7 @@
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Amount.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Indicator.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeTax.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
@@ -80,7 +81,37 @@ class TradeAllowanceCharge {
     );
   }
 
-  static TradeAllowanceCharge fromJson(Dict json) {
+  static TradeAllowanceCharge? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return TradeAllowanceCharge(
+      indicator: Indicator.fromXml(
+        xml.findElements('ram:ChargeIndicator').singleOrNull,
+      ),
+      calculationPercent: Util.innerTextOf(xml, 'ram:CalculationPercent'),
+      basisAmount: Amount.fromXml(
+        xml.findElements('ram:BasisAmount').singleOrNull,
+      ),
+      actualAmount: Amount.fromXml(
+            xml.findElements('ram:ActualAmount').singleOrNull,
+          ) ??
+          Amount.empty(),
+      reason: Util.innerTextOf(xml, 'ram:Reason'),
+      reasonCode: Util.innerTextOf(xml, 'ram:ReasonCode'),
+      tradeTax: xml
+          .findElements('ram:CategoryTradeTax')
+          .map((XmlElement e) => TradeTax.fromXml(e)!)
+          .toList(),
+    );
+  }
+
+  static TradeAllowanceCharge fromJson(
+    Dict json,
+  ) {
     return TradeAllowanceCharge(
       indicator: Indicator.fromJson(json['indicator'] as Dict? ?? {}),
       calculationPercent: json['calculationPercent'] as String?,

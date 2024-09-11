@@ -31,7 +31,24 @@ class CreditorFinancialAccount {
     });
   }
 
-  static CreditorFinancialAccount? fromJson(Dict json) {
+  static CreditorFinancialAccount? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return CreditorFinancialAccount(
+      ibanId: Id.fromXml(
+        xml.findElements('ram:IBANID').singleOrNull,
+      ),
+      accountName: Util.innerTextOf(xml, 'ram:AccountName'),
+    );
+  }
+
+  static CreditorFinancialAccount? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return CreditorFinancialAccount(
         ibanId: Id.fromJson(json['ibanId'] as Dict? ?? {}),

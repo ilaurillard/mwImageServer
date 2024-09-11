@@ -27,7 +27,20 @@ class Indicator {
     );
   }
 
-  static Indicator? fromJson(Dict json) {
+  static Indicator? fromXml(
+      XmlElement? xml,
+      ) {
+    if (xml == null) {
+      return null;
+    }
+    return Indicator(
+      indicator: xml.innerText == 'true',
+    );
+  }
+
+  static Indicator? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return Indicator(
         indicator: json['indicator'] as bool? ?? false,

@@ -1,4 +1,5 @@
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/UniversalCommunication.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
@@ -41,32 +42,50 @@ class TradeContact {
           );
         }
         if (telephone != null) {
-          telephone!
-              .toXml(builder, 'ram:TelephoneUniversalCommunication');
+          telephone!.toXml(builder, 'ram:TelephoneUniversalCommunication');
         }
         if (fax != null) {
-          fax!
-              .toXml(builder, 'ram:FaxUniversalCommunication');
+          fax!.toXml(builder, 'ram:FaxUniversalCommunication');
         }
         if (email != null) {
-          email!
-              .toXml(builder, 'ram:EmailURIUniversalCommunication');
+          email!.toXml(builder, 'ram:EmailURIUniversalCommunication');
         }
       },
     );
   }
 
-  static TradeContact? fromJson(Dict json) {
+  static TradeContact? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return TradeContact(
+      personName: Util.innerTextOf(xml, 'ram:PersonName'),
+      departmentName: Util.innerTextOf(xml, 'ram:DepartmentName'),
+      telephone: UniversalCommunication.fromXml(
+        xml.findElements('ram:TelephoneUniversalCommunication').singleOrNull,
+      ),
+      fax: UniversalCommunication.fromXml(
+        xml.findElements('ram:FaxUniversalCommunication').singleOrNull,
+      ),
+      email: UniversalCommunication.fromXml(
+        xml.findElements('ram:EmailURIUniversalCommunication').singleOrNull,
+      ),
+    );
+  }
+
+  static TradeContact? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return TradeContact(
         personName: json['personName'] as String?,
         departmentName: json['departmentName'] as String?,
-        telephone: UniversalCommunication.fromJson(
-            json['telephone'] as Dict? ?? {}),
-        fax: UniversalCommunication.fromJson(
-            json['fax'] as Dict? ?? {}),
-        email: UniversalCommunication.fromJson(
-            json['email'] as Dict? ?? {}),
+        telephone:
+            UniversalCommunication.fromJson(json['telephone'] as Dict? ?? {}),
+        fax: UniversalCommunication.fromJson(json['fax'] as Dict? ?? {}),
+        email: UniversalCommunication.fromJson(json['email'] as Dict? ?? {}),
       );
     }
     return null;

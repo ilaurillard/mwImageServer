@@ -36,6 +36,26 @@ class LineTradeDelivery {
     }
   }
 
+  static LineTradeDelivery? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return LineTradeDelivery(
+      billedQuantity: Quantity.fromXml(
+            xml.findElements('ram:BilledQuantity').singleOrNull,
+          ) ??
+          Quantity.empty(),
+      chainEvent: SupplyChainEvent.fromXml(
+        xml.findElements('ram:ActualDeliverySupplyChainEvent').singleOrNull,
+      ),
+      referencedDocument: ReferencedDocument.fromXml(
+        xml.findElements('ram:DeliveryNoteReferencedDocument').singleOrNull,
+      ),
+    );
+  }
+
   static LineTradeDelivery? fromJson(
     Dict json,
   ) {

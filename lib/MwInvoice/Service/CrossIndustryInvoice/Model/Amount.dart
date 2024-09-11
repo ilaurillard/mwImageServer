@@ -18,15 +18,31 @@ class Amount {
       name,
       nest: () {
         builder.text(value);
-        builder.attribute(
-          'currencyID',
-          currency,
-        );
+        if (currency != null && currency!.isNotEmpty) {
+          builder.attribute(
+            'currencyID',
+            currency,
+          );
+        }
       },
     );
   }
 
-  static Amount? fromJson(Dict json) {
+  static Amount? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return Amount(
+      currency: xml.getAttribute('currencyID'),
+      value: xml.innerText,
+    );
+  }
+
+  static Amount? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return Amount(
         value: json['value'] as String? ?? '0',

@@ -20,10 +20,28 @@ class ExchangedDocumentContext {
     );
   }
 
-  static ExchangedDocumentContext fromJson(Dict json) {
+  static ExchangedDocumentContext? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return ExchangedDocumentContext(
+      parameter: DocumentContextParameter.fromXml(
+        xml
+            .findElements('ram:GuidelineSpecifiedDocumentContextParameter')
+            .singleOrNull,
+      )!,
+    );
+  }
+
+  static ExchangedDocumentContext fromJson(
+    Dict json,
+  ) {
     return ExchangedDocumentContext(
       parameter: DocumentContextParameter.fromJson(
-          json['parameter'] as Dict? ?? {}),
+        json['parameter'] as Dict? ?? {},
+      ),
     );
   }
 }

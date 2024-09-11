@@ -2,10 +2,10 @@ import 'package:xml/xml.dart';
 
 class Util {
   static void stringElement(
-      XmlBuilder builder,
-      String? value,
-      String name,
-      ) {
+    XmlBuilder builder,
+    String? value,
+    String name,
+  ) {
     if (value != null) {
       builder.element(
         name,
@@ -16,8 +16,7 @@ class Util {
     }
   }
 
-  static String prettyXml(XmlDocument xml)
-  {
+  static String prettyXml(XmlDocument xml) {
     return xml.toXmlString(
       pretty: true,
       preserveWhitespace: (XmlNode n) {
@@ -32,5 +31,19 @@ class Util {
         return false;
       },
     );
+  }
+
+  static String? innerTextOf(
+    XmlElement xml,
+    String name,
+  ) {
+    return xml.findElements(name).singleOrNull?.innerText;
+  }
+
+  static XmlElement? findElement(
+    XmlElement xml,
+    String name,
+  ) {
+    return xml.findElements(name).singleOrNull;
   }
 }

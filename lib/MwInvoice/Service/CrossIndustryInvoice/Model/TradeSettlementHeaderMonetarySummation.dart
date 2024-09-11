@@ -85,7 +85,50 @@ class TradeSettlementHeaderMonetarySummation {
     });
   }
 
-  static TradeSettlementHeaderMonetarySummation fromJson(Dict json) {
+  static TradeSettlementHeaderMonetarySummation? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return TradeSettlementHeaderMonetarySummation(
+      lineTotalAmount: Amount.fromXml(
+        xml.findElements('ram:LineTotalAmount').singleOrNull,
+      ),
+      chargeTotalAmount: Amount.fromXml(
+        xml.findElements('ram:ChargeTotalAmount').singleOrNull,
+      ),
+      allowanceTotalAmount: Amount.fromXml(
+        xml.findElements('ram:AllowanceTotalAmount').singleOrNull,
+      ),
+      taxBasisTotalAmount: xml
+          .findElements('ram:TaxBasisTotalAmount')
+          .map((XmlElement e) => Amount.fromXml(e) ?? Amount.empty())
+          .toList(),
+      taxTotalAmount: xml
+          .findElements('ram:TaxTotalAmount')
+          .map((XmlElement e) => Amount.fromXml(e) ?? Amount.empty())
+          .toList(),
+      roundingAmount: Amount.fromXml(
+        xml.findElements('ram:RoundingAmount').singleOrNull,
+      ),
+      grandTotalAmount: xml
+          .findElements('ram:GrandTotalAmount')
+          .map((XmlElement e) => Amount.fromXml(e) ?? Amount.empty())
+          .toList(),
+      totalPrepaidAmount: Amount.fromXml(
+        xml.findElements('ram:TotalPrepaidAmount').singleOrNull,
+      ),
+      duePayableAmount: Amount.fromXml(
+              xml.findElements('ram:DuePayableAmount').singleOrNull) ??
+          Amount.empty(),
+    );
+  }
+
+  static TradeSettlementHeaderMonetarySummation fromJson(
+    Dict json,
+  ) {
     return TradeSettlementHeaderMonetarySummation(
       lineTotalAmount: Amount.fromJson(json['lineTotalAmount'] as Dict? ?? {}),
       chargeTotalAmount:

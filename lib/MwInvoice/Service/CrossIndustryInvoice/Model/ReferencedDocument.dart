@@ -34,7 +34,10 @@ class ReferencedDocument {
           'ram:IssuerAssignedID',
         );
         if (uriid != null) {
-          uriid!.toXml(builder, 'ram:URIID');
+          uriid!.toXml(
+            builder,
+            'ram:URIID',
+          );
         }
         Util.stringElement(
           builder,
@@ -62,7 +65,35 @@ class ReferencedDocument {
     );
   }
 
-  static ReferencedDocument? fromJson(Dict json) {
+  static ReferencedDocument? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return ReferencedDocument(
+      issuerAssignedID: Id.fromXml(
+            xml.findElements('ram:IssuerAssignedID').singleOrNull,
+          ) ??
+          Id.empty(),
+      uriid: Id.fromXml(
+        xml.findElements('ram:URIID').singleOrNull,
+      ),
+      typeCode: xml.findElements('ram:TypeCode').singleOrNull?.innerText,
+      name: xml.findElements('ram:Name').singleOrNull?.innerText,
+      binaryObject: BinaryObject.fromXml(
+        xml.findElements('ram:AttachmentBinaryObject').singleOrNull,
+      ),
+      dateTime: FormattedDateTime.fromXml(
+        xml.findElements('ram:FormattedIssueDateTime').singleOrNull,
+      ),
+    );
+  }
+
+  static ReferencedDocument? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return ReferencedDocument(
         issuerAssignedID:
@@ -70,10 +101,9 @@ class ReferencedDocument {
         uriid: Id.fromJson(json['uriid'] as Dict? ?? {}),
         typeCode: json['typeCode'] as String?,
         name: json['name'] as String?,
-        binaryObject: BinaryObject.fromJson(
-            json['binaryObject'] as Dict? ?? {}),
-        dateTime: FormattedDateTime.fromJson(
-            json['dateTime'] as Dict? ?? {}),
+        binaryObject:
+            BinaryObject.fromJson(json['binaryObject'] as Dict? ?? {}),
+        dateTime: FormattedDateTime.fromJson(json['dateTime'] as Dict? ?? {}),
       );
     }
     return null;

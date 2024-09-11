@@ -24,11 +24,25 @@ class DateTime {
     );
   }
 
+  static DateTime? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return DateTime(
+      dateTimeString: DateTimeString.fromXml(
+        xml.findElements('udt:DateTimeString').singleOrNull,
+      )!,
+    );
+  }
+
   static DateTime? fromJson(Dict json) {
     if (json.isNotEmpty) {
       return DateTime(
-        dateTimeString:
-            DateTimeString.fromJson(json['dateTimeString'] as Dict? ?? {}),
+        dateTimeString: DateTimeString.fromJson(
+          json['dateTimeString'] as Dict? ?? {},
+        ),
       );
     }
     return null;

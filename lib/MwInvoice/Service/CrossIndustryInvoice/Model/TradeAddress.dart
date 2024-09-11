@@ -67,7 +67,27 @@ class TradeAddress {
     );
   }
 
-  static TradeAddress? fromJson(Dict json) {
+  static TradeAddress? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return TradeAddress(
+      postcode: Util.innerTextOf(xml, 'ram:PostcodeCode'),
+      lineOne: Util.innerTextOf(xml, 'ram:LineOne'),
+      lineTwo: Util.innerTextOf(xml, 'ram:LineTwo'),
+      lineThree: Util.innerTextOf(xml, 'ram:LineThree'),
+      city: Util.innerTextOf(xml, 'ram:CityName'),
+      countryCode: Util.innerTextOf(xml, 'ram:CountryID'),
+      countrySubDivisionName:
+          Util.innerTextOf(xml, 'ram:CountrySubDivisionName'),
+    );
+  }
+
+  static TradeAddress? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return TradeAddress(
         postcode: json['postcode'] as String?,

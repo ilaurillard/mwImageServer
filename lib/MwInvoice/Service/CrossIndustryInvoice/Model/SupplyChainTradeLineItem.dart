@@ -21,7 +21,9 @@ class SupplyChainTradeLineItem {
     required this.lineTradeSettlement,
   });
 
-  void toXml(XmlBuilder builder) {
+  void toXml(
+    XmlBuilder builder,
+  ) {
     builder.element(
       'ram:IncludedSupplyChainTradeLineItem',
       nest: () {
@@ -61,12 +63,39 @@ class SupplyChainTradeLineItem {
     );
   }
 
-  static SupplyChainTradeLineItem fromJson(Dict json) {
+  static SupplyChainTradeLineItem? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return SupplyChainTradeLineItem(
+      documentLineDocument: DocumentLineDocument.fromXml(
+        xml.findElements('ram:AssociatedDocumentLineDocument').singleOrNull,
+      )!,
+      product: TradeProduct.fromXml(
+        xml.findElements('ram:SpecifiedTradeProduct').singleOrNull,
+      )!,
+      tradeAgreement: LineTradeAgreement.fromXml(
+        xml.findElements('ram:SpecifiedLineTradeAgreement').singleOrNull,
+      )!,
+      lineTradeSettlement: LineTradeSettlement.fromXml(
+        xml.findElements('ram:SpecifiedLineTradeSettlement').singleOrNull,
+      )!,
+      delivery: LineTradeDelivery.fromXml(
+        xml.findElements('ram:SpecifiedLineTradeDelivery').singleOrNull,
+      ),
+    );
+  }
+
+  static SupplyChainTradeLineItem fromJson(
+    Dict json,
+  ) {
     return SupplyChainTradeLineItem(
       documentLineDocument: DocumentLineDocument.fromJson(
-          json['documentLineDocument'] as Dict? ?? {}),
-      product:
-          TradeProduct.fromJson(json['product'] as Dict? ?? {}),
+          json['documentLineDocument'] as Dict? ?? {})!,
+      product: TradeProduct.fromJson(json['product'] as Dict? ?? {}),
       tradeAgreement:
           LineTradeAgreement.fromJson(json['tradeAgreement'] as Dict? ?? {}),
       delivery: LineTradeDelivery.fromJson(json['delivery'] as Dict? ?? {}),

@@ -69,7 +69,39 @@ class TradeSettlementPaymentMeans {
     );
   }
 
-  static TradeSettlementPaymentMeans fromJson(Dict json) {
+  static TradeSettlementPaymentMeans? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return TradeSettlementPaymentMeans(
+      typeCode: Util.innerTextOf(xml, 'ram:TypeCode') ?? '',
+      information: Util.innerTextOf(xml, 'ram:Information'),
+      payeePartyCreditorFinancialAccount: CreditorFinancialAccount.fromXml(
+        xml.findElements('ram:PayeePartyCreditorFinancialAccount').singleOrNull,
+      ),
+      payeeSpecifiedCreditorFinancialInstitution:
+          CreditorFinancialInstitution.fromXml(
+        xml
+            .findElements('ram:PayeeSpecifiedCreditorFinancialInstitution')
+            .singleOrNull,
+      ),
+      payerPartyDebtorFinancialAccount: DebtorFinancialAccount.fromXml(
+        xml.findElements('ram:PayerPartyDebtorFinancialAccount').singleOrNull,
+      ),
+      applicableTradeSettlementFinancialCard:
+          TradeSettlementFinancialCard.fromXml(
+        xml
+            .findElements('ram:ApplicableTradeSettlementFinancialCard')
+            .singleOrNull,
+      ),
+    );
+  }
+
+  static TradeSettlementPaymentMeans fromJson(
+    Dict json,
+  ) {
     return TradeSettlementPaymentMeans(
       typeCode: json['typeCode'] as String? ?? '?',
       information: json['information'] as String?,

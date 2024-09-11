@@ -3036,6 +3036,9 @@
         },
         "procuringProject": {
           "$ref": "#/definitions/ProcuringProject"
+        },
+        "contractReferencedDocument": {
+          "$ref": "#/definitions/ReferencedDocument"
         }
       },
       "required": [
@@ -3152,6 +3155,9 @@
         },
         "netPrice": {
           "$ref": "#/definitions/TradePrice"
+        },
+        "referencedDocument": {
+          "$ref": "#/definitions/ReferencedDocument"
         }
       },
       "required": [
@@ -3267,6 +3273,22 @@
       "type": "object"
     },
     "ProcuringProject": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "type": "object"
+    },
+    "LegalOrganization": {
       "additionalProperties": false,
       "properties": {
         "id": {
@@ -3510,6 +3532,18 @@
       ],
       "type": "object"
     },
+    "ProductClassification": {
+      "additionalProperties": false,
+      "properties": {
+        "classCode": {
+          "$ref": "#/definitions/CodeType"
+        }
+      },
+      "required": [
+        "classCode"
+      ],
+      "type": "object"
+    },
     "TradeParty": {
       "additionalProperties": false,
       "properties": {
@@ -3528,6 +3562,9 @@
         "name": {
           "type": "string"
         },
+        "description": {
+          "type": "string"
+        },
         "tradeAddress": {
           "$ref": "#/definitions/TradeAddress"
         },
@@ -3536,6 +3573,9 @@
             "$ref": "#/definitions/TaxRegistration"
           },
           "type": "array"
+        },
+        "legalOrganization": {
+          "$ref": "#/definitions/LegalOrganization"
         }
       },
       "required": [
@@ -3590,6 +3630,9 @@
         },
         "tradeCountry": {
           "$ref": "#/definitions/TradeCountry"
+        },
+        "classification": {
+          "$ref": "#/definitions/ProductClassification"
         }
       },
       "required": [
@@ -3745,6 +3788,24 @@
           "$ref": "#/definitions/Id"
         }
       },
+      "type": "object"
+    },
+    "CodeType": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "listId": {
+          "type": "string"
+        },
+        "listVersion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
       "type": "object"
     }
   },

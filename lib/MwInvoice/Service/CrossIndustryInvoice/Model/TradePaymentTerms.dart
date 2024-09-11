@@ -38,7 +38,24 @@ class TradePaymentTerms {
     });
   }
 
-  static TradePaymentTerms fromJson(Dict json) {
+  static TradePaymentTerms? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return TradePaymentTerms(
+      description: Util.innerTextOf(xml, 'ram:Description'),
+      dueDate: DateTime.fromXml(
+        xml.findElements('ram:DueDateDateTime').singleOrNull,
+      ),
+      directDebitMandateID: Util.innerTextOf(xml, 'ram:DirectDebitMandateID'),
+    );
+  }
+
+  static TradePaymentTerms fromJson(
+    Dict json,
+  ) {
     return TradePaymentTerms(
       description: json['description'] as String?,
       dueDate: DateTime.fromJson(json['dueDate'] as Dict? ?? {}),

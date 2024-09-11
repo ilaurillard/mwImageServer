@@ -11,6 +11,7 @@ class HeaderTradeAgreement {
   final ReferencedDocument? referencedDocument;
   final List<ReferencedDocument> additionalReferencedDocuments;
   final ProcuringProject? procuringProject;
+  final ReferencedDocument? contractReferencedDocument;
 
   HeaderTradeAgreement({
     this.buyerReference,
@@ -19,6 +20,7 @@ class HeaderTradeAgreement {
     this.referencedDocument,
     this.additionalReferencedDocuments = const [],
     this.procuringProject,
+    this.contractReferencedDocument,
   });
 
   void toXml(
@@ -56,6 +58,12 @@ class HeaderTradeAgreement {
             'ram:AdditionalReferencedDocument',
           );
         }
+        if (contractReferencedDocument != null) {
+          contractReferencedDocument!.toXml(
+            builder,
+            'ram:ContractReferencedDocument',
+          );
+        }
         if (procuringProject != null) {
           procuringProject!.toXml(
             builder,
@@ -63,6 +71,39 @@ class HeaderTradeAgreement {
           );
         }
       },
+    );
+  }
+
+  static HeaderTradeAgreement? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return HeaderTradeAgreement(
+      sellerTradeParty: TradeParty.fromXml(
+        xml.findElements('ram:SellerTradeParty').singleOrNull,
+      )!,
+      buyerTradeParty: TradeParty.fromXml(
+        xml.findElements('ram:BuyerTradeParty').singleOrNull,
+      )!,
+      buyerReference:
+          xml.findElements('ram:BuyerReference').singleOrNull?.innerText,
+      referencedDocument: ReferencedDocument.fromXml(
+        xml.findElements('ram:BuyerOrderReferencedDocument').singleOrNull,
+      ),
+      additionalReferencedDocuments: xml
+          .findElements('ram:AdditionalReferencedDocument')
+          .map(
+            (XmlElement e) => ReferencedDocument.fromXml(e)!,
+          )
+          .toList(),
+      contractReferencedDocument: ReferencedDocument.fromXml(
+        xml.findElements('ram:ContractReferencedDocument').singleOrNull,
+      ),
+      procuringProject: ProcuringProject.fromXml(
+        xml.findElements('ram:SpecifiedProcuringProject').singleOrNull,
+      ),
     );
   }
 
@@ -84,8 +125,10 @@ class HeaderTradeAgreement {
                   ReferencedDocument.fromJson(e as Dict) ??
                   ReferencedDocument.empty())
               .toList(),
-      procuringProject: ProcuringProject.fromJson(
-          json['procuringProject'] as Dict? ?? {}),
+      procuringProject:
+          ProcuringProject.fromJson(json['procuringProject'] as Dict? ?? {}),
+      contractReferencedDocument: ReferencedDocument.fromJson(
+          json['contractReferencedDocument'] as Dict? ?? {}),
     );
   }
 }

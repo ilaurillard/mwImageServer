@@ -11,10 +11,8 @@
       "@default": {
         "styles": {
           "text": {
-            "font": "ptSerifRegular"
-          },
-          "paragraph": {
-            "font": "ptSerifRegular"
+            "font": "ptSerifRegular",
+            "fontSize": 3
           }
         }
       }
@@ -28,8 +26,171 @@
             "crossAxisAlignment": "start",
             "children": [
               {
-                "Paragraph": {
-                  "text": "Invoice"
+                "Text": {
+                  "text": "Kunde: %invoice.buyer.name%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "%invoice.buyer.address1%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "%invoice.buyer.zipcode% %invoice.buyer.city%"
+                }
+              },
+              {
+                "Divider": {
+
+                }
+              },
+              {
+                "Text": {
+                  "text": "Kunden-Nr.: %invoice.buyer.id%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Rechnungs-Nr.: %invoice.id%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Datum: %invoice.date%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "UST-Ident.Nr.: %invoice.seller.taxNr%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Ansprechpartner: %invoice.seller.contact%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Telefon: %invoice.seller.phone%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Email: %invoice.seller.email%"
+                }
+              },
+              {
+                "Divider": {
+
+                }
+              },
+              {
+                "Text": {
+                  "text": "Verkäufer: %invoice.seller.name%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "%invoice.seller.address1%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "%invoice.seller.zipcode% %invoice.seller.city%"
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Text": {
+                  "text": "Total: %invoice.total%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Steuern: %invoice.taxTotal%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Grand Total: %invoice.grandTotal%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Währung: %invoice.currency%"
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Text": {
+                  "text": "Ref.: %invoice.payment.ref%"
+                }
+              },
+              {
+                "Text": {
+                  "text": "Typ.: %invoice.payment.type%"
+                }
+              },
+
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Table": {
+                  "children": [
+                    {
+                      "TableRow": {
+                        "source": "@invoice",
+                        "children": [
+                          {
+                            "Text": {
+                              "text": "%invoice.item.id%"
+                            }
+                          },
+                          {
+                            "Column": {
+                              "crossAxisAlignment": "start",
+                              "children": [
+                                {
+                                  "Text": {
+                                    "text": "%invoice.item.name%"
+                                  }
+                                },
+                                {
+                                  "Text": {
+                                    "text": "%invoice.item.description%"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "%invoice.item.price%"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "%invoice.item.tax%"
+                            }
+                          },
+                          {
+                            "Text": {
+                              "text": "%invoice.item.quantity%"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -60,7 +221,7 @@
           "documentLineDocument": {
             "lineId": "1"
           },
-          "specifiedTradeProduct": {
+          "product": {
             "sellerAssignedID": "31000",
             "name": "e.l.sy. Sicherheitsbehälter Systempauschale pro Stück",
             "description": "Miete 01.08.2024 bis 31.08.2024"
@@ -123,7 +284,7 @@
           "documentLineDocument": {
             "lineId": "2"
           },
-          "specifiedTradeProduct": {
+          "product": {
             "sellerAssignedID": "50021",
             "name": "RW 240 Behältermiete e.l.sy.-Sicherheitsbehälter",
             "description": "Miete 01.08.2024 bis 31.08.2024"
@@ -245,7 +406,7 @@
         }
       },
       "headerTradeSettlement": {
-        "tradeSettlementHeaderMonetarySummation": {
+        "summation": {
           "lineTotalAmount": {
             "value": "15.67"
           },

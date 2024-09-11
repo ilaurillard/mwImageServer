@@ -24,7 +24,23 @@ class SupplyChainEvent {
     );
   }
 
-  static SupplyChainEvent? fromJson(Dict json) {
+  static SupplyChainEvent? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return SupplyChainEvent(
+      date: DateTime.fromXml(
+            xml.findElements('ram:OccurrenceDateTime').singleOrNull,
+          ) ??
+          DateTime.empty(),
+    );
+  }
+
+  static SupplyChainEvent? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return SupplyChainEvent(
         date:

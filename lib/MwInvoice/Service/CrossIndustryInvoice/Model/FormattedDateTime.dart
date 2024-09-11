@@ -24,7 +24,22 @@ class FormattedDateTime {
     );
   }
 
-  static FormattedDateTime? fromJson(Dict json) {
+  static FormattedDateTime? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return FormattedDateTime(
+      dateTimeString: DateTimeString.fromXml(
+        xml.findElements('qdt:DateTimeString').singleOrNull,
+      )!,
+    );
+  }
+
+  static FormattedDateTime? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return FormattedDateTime(
         dateTimeString: DateTimeString.fromJson(

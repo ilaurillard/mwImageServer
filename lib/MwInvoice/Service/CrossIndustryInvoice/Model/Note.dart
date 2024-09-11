@@ -39,6 +39,19 @@ class Note {
     );
   }
 
+  static Note? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return Note(
+      contentCode: xml.findElements('ram:ContentCode').singleOrNull?.innerText,
+      content: xml.findElements('ram:Content').singleOrNull?.innerText ?? '',
+      subjectCode: xml.findElements('ram:SubjectCode').singleOrNull?.innerText,
+    );
+  }
+
   static Note fromJson(Dict json) {
     return Note(
       contentCode: json['contentCode'] as String?,

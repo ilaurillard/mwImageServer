@@ -2,11 +2,11 @@ import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
-class ProcuringProject {
+class LegalOrganization {
   final String id;
   final String name;
 
-  ProcuringProject({
+  LegalOrganization({
     required this.id,
     required this.name,
   });
@@ -26,31 +26,31 @@ class ProcuringProject {
         Util.stringElement(
           builder,
           this.name,
-          'ram:Name',
+          'ram:TradingBusinessName',
         );
       },
     );
   }
 
-  static ProcuringProject? fromXml(
+  static LegalOrganization? fromXml(
     XmlElement? xml,
   ) {
     if (xml == null) {
       return null;
     }
 
-    return ProcuringProject(
+    return LegalOrganization(
       id: xml.findElements('ram:ID').singleOrNull?.innerText ?? '',
-      name: xml.findElements('ram:Name').singleOrNull?.innerText ?? '',
+      name: xml.findElements('ram:TradingBusinessName').singleOrNull?.innerText ?? '',
     );
 
   }
 
-  static ProcuringProject? fromJson(
+  static LegalOrganization? fromJson(
     Dict json,
   ) {
     return json.isNotEmpty
-        ? ProcuringProject(
+        ? LegalOrganization(
             id: json['id'] as String? ?? '?',
             name: json['name'] as String? ?? '?',
           )

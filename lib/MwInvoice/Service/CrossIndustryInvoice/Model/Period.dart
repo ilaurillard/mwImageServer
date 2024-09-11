@@ -30,7 +30,27 @@ class Period {
     );
   }
 
-  static Period? fromJson(Dict json) {
+  static Period? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return Period(
+      startDatetime: DateTime.fromXml(
+            xml.findElements('ram:StartDateTime').singleOrNull,
+          ) ??
+          DateTime.empty(),
+      endDatetime: DateTime.fromXml(
+            xml.findElements('ram:EndDateTime').singleOrNull,
+          ) ??
+          DateTime.empty(),
+    );
+  }
+
+  static Period? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return Period(
         startDatetime:

@@ -1,3 +1,4 @@
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
@@ -19,20 +20,41 @@ class BinaryObject {
     builder.element(
       name,
       nest: () {
-        builder.attribute(
-          'mimeCode',
-          mimeCode,
-        );
-        builder.attribute(
-          'filename',
-          filename,
-        );
+        if (mimeCode.isNotEmpty) {
+          builder.attribute(
+            'mimeCode',
+            mimeCode,
+          );
+        }
+        if (filename.isNotEmpty) {
+          builder.attribute(
+            'filename',
+            filename,
+          );
+        }
         builder.text(value);
       },
     );
   }
 
-  static BinaryObject? fromJson(Dict json) {
+  static BinaryObject? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return BinaryObject(
+      value: xml.innerText,
+      mimeCode: xml.getAttribute('mimeCode') ?? '',
+      filename: xml.getAttribute('filename') ?? '',
+    );
+
+  }
+
+  static BinaryObject? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return BinaryObject(
         value: json['value'] as String? ?? '?',

@@ -19,13 +19,30 @@ class Quantity {
       nest: () {
         builder.text(value);
         if (unitCode.isNotEmpty) {
-          builder.attribute('unitCode', unitCode);
+          builder.attribute(
+            'unitCode',
+            unitCode,
+          );
         }
       },
     );
   }
 
-  static Quantity? fromJson(Dict json) {
+  static Quantity? fromXml(
+      XmlElement? xml,
+      ) {
+    if (xml == null) {
+      return null;
+    }
+    return Quantity(
+      unitCode: xml.getAttribute('unitCode') ?? '',
+      value: xml.innerText,
+    );
+  }
+
+  static Quantity? fromJson(
+    Dict json,
+  ) {
     if (json.isNotEmpty) {
       return Quantity(
         unitCode: json['unitCode'] as String? ?? '',

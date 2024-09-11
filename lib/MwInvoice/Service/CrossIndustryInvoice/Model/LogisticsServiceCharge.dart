@@ -25,7 +25,10 @@ class LogisticsServiceCharge {
         description,
         'ram:Description',
       );
-      appliedAmount.toXml(builder, 'ram:AppliedAmount');
+      appliedAmount.toXml(
+        builder,
+        'ram:AppliedAmount',
+      );
       for (TradeTax t in tradeTax) {
         t.toXml(
           builder,
@@ -35,7 +38,29 @@ class LogisticsServiceCharge {
     });
   }
 
-  static LogisticsServiceCharge fromJson(Dict json) {
+  static LogisticsServiceCharge? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+
+    return LogisticsServiceCharge(
+      description: Util.innerTextOf(xml, 'ram:Description') ?? '',
+      appliedAmount: Amount.fromXml(
+            xml.findElements('ram:AppliedAmount').singleOrNull,
+          ) ??
+          Amount.empty(),
+      tradeTax: xml
+          .findElements('ram:AppliedTradeTax')
+          .map((XmlElement e) => TradeTax.fromXml(e)!)
+          .toList(),
+    );
+  }
+
+  static LogisticsServiceCharge fromJson(
+    Dict json,
+  ) {
     return LogisticsServiceCharge(
       description: json['description'] as String? ?? '?',
       appliedAmount: Amount.fromJson(json['appliedAmount'] as Dict? ?? {}) ??

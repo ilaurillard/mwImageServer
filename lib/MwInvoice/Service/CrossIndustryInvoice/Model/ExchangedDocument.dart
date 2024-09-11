@@ -71,7 +71,32 @@ class ExchangedDocument {
     );
   }
 
-  static ExchangedDocument fromJson(Dict json) {
+  static ExchangedDocument? fromXml(
+    XmlElement? xml,
+  ) {
+    if (xml == null) {
+      return null;
+    }
+    return ExchangedDocument(
+      id: xml.findElements('ram:ID').singleOrNull?.innerText ?? '',
+      typeCode: xml.findElements('ram:TypeCode').singleOrNull?.innerText ?? '',
+      issueDateTime:
+          DateTime.fromXml(xml.findElements('ram:IssueDateTime').singleOrNull)!,
+      name: xml.findElements('ram:Name').singleOrNull?.innerText,
+      languageId: xml
+          .findElements('ram:LanguageID')
+          .map((XmlElement e) => e.innerText)
+          .toList(),
+      notes: xml
+          .findElements('ram:IncludedNote')
+          .map((XmlElement e) => Note.fromXml(e)!)
+          .toList(),
+    );
+  }
+
+  static ExchangedDocument fromJson(
+    Dict json,
+  ) {
     return ExchangedDocument(
       id: json['id'] as String? ?? '?',
       name: json['name'] as String?,
