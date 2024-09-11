@@ -1023,7 +1023,7 @@
       "Variables": {
         "additionalProperties": false,
         "patternProperties": {
-          "^[a-z][a-zA-Z0-9]{1,31}$": {
+          "^[a-z][a-zA-Z0-9\\.]{1,31}$": {
             "type": [
               "boolean",
               "integer",
@@ -1043,7 +1043,7 @@
       },
       "Identifier": {
         "description": "@identifier (1 to 24 characters)",
-        "pattern": "^@[a-zA-Z][a-zA-Z0-9]{1,23}$",
+        "pattern": "^@[a-zA-Z][a-zA-Z0-9\\.]{1,23}$",
         "type": "string"
       }
     },
@@ -3258,7 +3258,7 @@
         "footers": {
           "additionalProperties": false,
           "patternProperties": {
-            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
+            "^@[a-zA-Z][a-zA-Z0-9\\.]{1,23}$": {
               "$ref": "#/definitions/Widget"
             }
           },
@@ -3267,7 +3267,7 @@
         "headers": {
           "additionalProperties": false,
           "patternProperties": {
-            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
+            "^@[a-zA-Z][a-zA-Z0-9\\.]{1,23}$": {
               "$ref": "#/definitions/Widget"
             }
           },
@@ -3291,7 +3291,7 @@
         "themes": {
           "additionalProperties": false,
           "patternProperties": {
-            "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
+            "^@[a-zA-Z][a-zA-Z0-9\\.]{1,23}$": {
               "additionalProperties": false,
               "properties": {
                 "background": {
@@ -3467,7 +3467,7 @@
       "additionalProperties": false,
       "description": "resources like image, svg, .. also table data, etc",
       "patternProperties": {
-        "^@[a-zA-Z][a-zA-Z0-9]{1,23}$": {
+        "^@[a-zA-Z][a-zA-Z0-9\\.]{1,23}$": {
           "additionalProperties": false,
           "properties": {
             "binary": {

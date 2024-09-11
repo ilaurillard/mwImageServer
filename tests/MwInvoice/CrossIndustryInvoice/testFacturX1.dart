@@ -72,7 +72,7 @@ Handelsregisternummer: H A 123
             lineId: '1',
             // notes: [Note(content: 'xxx')],
           ),
-          specifiedTradeProduct: TradeProduct(
+          product: TradeProduct(
             name: 'Trennblätter A4',
             sellerAssignedID: 'TB100A4',
             globalID: Id(
@@ -131,7 +131,7 @@ Handelsregisternummer: H A 123
           documentLineDocument: DocumentLineDocument(
             lineId: '2',
           ),
-          specifiedTradeProduct: TradeProduct(
+          product: TradeProduct(
             name: 'Joghurt Banane',
             sellerAssignedID: 'ARNR2',
             globalID: Id(
@@ -231,7 +231,7 @@ Handelsregisternummer: H A 123
         ),
       ),
       headerTradeSettlement: HeaderTradeSettlement(
-        tradeSettlementHeaderMonetarySummation:
+        summation:
             TradeSettlementHeaderMonetarySummation(
           lineTotalAmount: Amount(value: '473.00'),
           chargeTotalAmount: Amount(value: '0.00'),

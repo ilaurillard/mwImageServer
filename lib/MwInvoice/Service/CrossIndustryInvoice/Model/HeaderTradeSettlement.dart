@@ -21,7 +21,7 @@ class HeaderTradeSettlement {
   final List<LogisticsServiceCharge> logisticsServiceCharge;
   final List<TradePaymentTerms> tradePaymentTerms;
   final TradeSettlementHeaderMonetarySummation
-      tradeSettlementHeaderMonetarySummation;
+      summation;
   final ReferencedDocument? referencedDocument;
 
   HeaderTradeSettlement({
@@ -34,7 +34,7 @@ class HeaderTradeSettlement {
     this.tradeAllowanceCharge = const [],
     this.logisticsServiceCharge = const [],
     this.tradePaymentTerms = const [],
-    required this.tradeSettlementHeaderMonetarySummation,
+    required this.summation,
     this.referencedDocument,
   });
 
@@ -97,7 +97,7 @@ class HeaderTradeSettlement {
             'ram:SpecifiedTradePaymentTerms',
           );
         }
-        tradeSettlementHeaderMonetarySummation.toXml(
+        summation.toXml(
           builder,
           'ram:SpecifiedTradeSettlementHeaderMonetarySummation',
         );
@@ -138,9 +138,9 @@ class HeaderTradeSettlement {
           (json['tradePaymentTerms'] as List<dynamic>? ?? [])
               .map((dynamic e) => TradePaymentTerms.fromJson(e as Dict))
               .toList(),
-      tradeSettlementHeaderMonetarySummation:
+      summation:
           TradeSettlementHeaderMonetarySummation.fromJson(
-        json['tradeSettlementHeaderMonetarySummation'] as Dict? ?? {},
+        json['summation'] as Dict? ?? {},
       ),
       referencedDocument: ReferencedDocument.fromJson(
           json['referencedDocument'] as Dict? ?? {}),

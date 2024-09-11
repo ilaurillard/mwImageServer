@@ -239,7 +239,10 @@ class Table {
       data['source'] as String?,
     );
 
-    data = {...source.tableRowData, ...data};
+    data = {
+      ...source.tableRowData,
+      ...data,
+    };
 
     state.summarizeValues(source);
     Dict variables = (data['variables'] as Dict?) ?? {};
@@ -262,7 +265,11 @@ class Table {
       values = [[]]; // assume just one row
     }
 
+    int rowNr = 0;
     for (List<dynamic> v in values) {
+
+      state.invoiceRow(rowNr);
+
       List<pw.Widget> children = [];
       int nr = 0;
       for (dynamic d in data['children'] as List<dynamic>? ?? []) {
@@ -286,6 +293,7 @@ class Table {
           children: children,
         ),
       );
+      rowNr++;
     }
 
     return rows;

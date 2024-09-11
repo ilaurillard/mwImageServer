@@ -8,14 +8,14 @@ import 'package:xml/xml.dart';
 
 class SupplyChainTradeLineItem {
   final DocumentLineDocument documentLineDocument;
-  final TradeProduct specifiedTradeProduct;
+  final TradeProduct product;
   final LineTradeAgreement tradeAgreement;
   final LineTradeDelivery? delivery;
   final LineTradeSettlement lineTradeSettlement;
 
   SupplyChainTradeLineItem({
     required this.documentLineDocument,
-    required this.specifiedTradeProduct,
+    required this.product,
     required this.tradeAgreement,
     this.delivery,
     required this.lineTradeSettlement,
@@ -34,7 +34,7 @@ class SupplyChainTradeLineItem {
         builder.element(
           'ram:SpecifiedTradeProduct',
           nest: () {
-            specifiedTradeProduct.toXml(builder);
+            product.toXml(builder);
           },
         );
         builder.element(
@@ -65,8 +65,8 @@ class SupplyChainTradeLineItem {
     return SupplyChainTradeLineItem(
       documentLineDocument: DocumentLineDocument.fromJson(
           json['documentLineDocument'] as Dict? ?? {}),
-      specifiedTradeProduct:
-          TradeProduct.fromJson(json['specifiedTradeProduct'] as Dict? ?? {}),
+      product:
+          TradeProduct.fromJson(json['product'] as Dict? ?? {}),
       tradeAgreement:
           LineTradeAgreement.fromJson(json['tradeAgreement'] as Dict? ?? {}),
       delivery: LineTradeDelivery.fromJson(json['delivery'] as Dict? ?? {}),

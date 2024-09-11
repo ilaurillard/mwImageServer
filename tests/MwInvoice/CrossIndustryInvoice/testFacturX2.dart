@@ -90,7 +90,7 @@ Future<void> main() async {
 //                   subjectCode: 'AAI')
 //             ],
 //           ),
-//           specifiedTradeProduct: TradeProduct(
+//           product: TradeProduct(
 //             name: 'Trennblätter A4',
 //             sellerAssignedID: 'TB100A4',
 //             globalID: Id(
@@ -154,7 +154,7 @@ Future<void> main() async {
 //           documentLineDocument: DocumentLineDocument(
 //             lineId: '2',
 //           ),
-//           specifiedTradeProduct: TradeProduct(
+//           product: TradeProduct(
 //             name: 'Joghurt Banane',
 //             sellerAssignedID: 'ARNR2',
 //             globalID: Id(
@@ -238,7 +238,7 @@ Future<void> main() async {
 //         ),
 //       ),
 //       headerTradeSettlement: HeaderTradeSettlement(
-//         tradeSettlementHeaderMonetarySummation:
+//         summation:
 //             TradeSettlementHeaderMonetarySummation(
 //           lineTotalAmount: Amount(value: '465.00'),
 //           chargeTotalAmount: Amount(value: '0.00'),

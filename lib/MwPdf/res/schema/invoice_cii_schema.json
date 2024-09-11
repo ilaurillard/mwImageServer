@@ -3095,7 +3095,7 @@
           },
           "type": "array"
         },
-        "tradeSettlementHeaderMonetarySummation": {
+        "summation": {
           "$ref": "#/definitions/TradeSettlementHeaderMonetarySummation"
         },
         "tradeSettlementPaymentMeans": {
@@ -3113,7 +3113,7 @@
       },
       "required": [
         "currency",
-        "tradeSettlementHeaderMonetarySummation"
+        "summation"
       ],
       "type": "object"
     },
@@ -3349,7 +3349,7 @@
         "lineTradeSettlement": {
           "$ref": "#/definitions/LineTradeSettlement"
         },
-        "specifiedTradeProduct": {
+        "product": {
           "$ref": "#/definitions/TradeProduct"
         },
         "tradeAgreement": {
@@ -3359,7 +3359,7 @@
       "required": [
         "documentLineDocument",
         "lineTradeSettlement",
-        "specifiedTradeProduct",
+        "product",
         "tradeAgreement"
       ],
       "type": "object"

@@ -50,6 +50,7 @@ class State {
   int pageNumber = 0;
   int pagesCount = 0;
 
+  // embedded invoice
   final Invoice invoice;
 
   // ------------------------------
@@ -166,9 +167,36 @@ class State {
     String? key,
   ) {
     if (key != null && key.isNotEmpty && sources[key] == null) {
-      Console.notice('No resource available for "$key"');
+
+      // special handling for magic "@invoice" source
+      // maps to embedded invoice (CII/UBL)
+      if (key == '@invoice' && invoice.isNotEmpty) {
+        return Datasource(
+          '@invoice',
+          valuesFormatted: List.filled(
+            invoice.simplifiedItems().length,
+            [],
+          ),
+        );
+      }
+
+      Console.notice(
+        'No resource available for "$key"',
+      );
     }
     return sources[key ?? ''] ?? Datasource(key ?? '');
+  }
+
+  // magic invoice data
+  void invoiceRow(
+    int rowNr,
+  ) {
+    if (invoice.isNotEmpty) {
+      List<Map<String, String>> items = invoice.simplifiedItems();
+      if (items.length > rowNr) {
+        variables = {...variables, ...items[rowNr]};
+      }
+    }
   }
 
   pw.Hyphenation hyphenator({
@@ -275,6 +303,15 @@ class State {
         '%$key%',
         v.toString(),
       );
+    }
+    if (text.contains('%invoice.')) {
+      Map<String, String> invoiceData = invoice.simplified();
+      for (String key in invoiceData.keys) {
+        text = text.replaceAll(
+          '%$key%',
+          invoiceData[key].toString(),
+        );
+      }
     }
     return text
         .replaceAll('%value%', value)

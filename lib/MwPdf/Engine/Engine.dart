@@ -39,8 +39,8 @@ class Engine {
       resDir: resDir,
       storage: storage,
       invoice: Invoice.fromJson(
-        (json['invoice_cii'] as Dict?) ?? {},
-        (json['invoice_ubl'] as Dict?) ?? {},
+        jsonCII: (json['invoice_cii'] as Dict?) ?? {},
+        jsonUBL: (json['invoice_ubl'] as Dict?) ?? {},
       ),
     );
 
@@ -114,7 +114,7 @@ class Engine {
         pdf.document,
         {
           'factur-x.xml': Util.prettyXml(
-            state.invoice.cii!,
+            state.invoice.xml(),
           ),
         },
       );
@@ -126,7 +126,7 @@ class Engine {
         {
           // TODO xxx?
           'xrechnung.xml': Util.prettyXml(
-            state.invoice.ubl!,
+            state.invoice.xml(),
           ),
         },
       );
