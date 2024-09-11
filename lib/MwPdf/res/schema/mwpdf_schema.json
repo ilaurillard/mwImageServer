@@ -1051,6 +1051,9 @@
       "minProperties": 1,
       "maxProperties": 1,
       "properties": {
+        "DefinitionList": {
+          "$ref": "#/definitions/WidgetsCustom/DefinitionList"
+        },
         "Date": {
           "$ref": "#/definitions/WidgetsCustom/Date"
         },
@@ -1296,8 +1299,41 @@
       "type": "object"
     },
     "WidgetsCustom": {
+      "DefinitionList": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "values": {
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "minItems": 2,
+              "maxItems": 2,
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "source": {
+            "$ref": "#/definitions/Util/Identifier"
+          },
+          "flexType": {
+            "type": "number"
+          },
+          "flexData": {
+            "type": "number"
+          },
+          "childType": {
+            "$ref": "#/definitions/Widget"
+          },
+          "childData": {
+            "$ref": "#/definitions/Widget"
+          }
+        }
+      },
       "Date": {
         "additionalProperties": false,
+        "type": "object",
         "properties": {
           "value": {
             "type": "string"

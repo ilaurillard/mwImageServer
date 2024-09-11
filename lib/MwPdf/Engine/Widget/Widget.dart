@@ -2,6 +2,7 @@ import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:mwcdn/MwPdf/Engine/Model/State.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Custom.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/DefinitionList.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/Stamps.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Helpers.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/EpcInvoice.dart';
@@ -264,6 +265,8 @@ class Widget {
 
         // ---------- custom stuff
 
+        case 'DefinitionList':
+          return DefinitionList.list(data, state);
         case 'Labels':
           return Labels.labels(data, state);
         case 'DoublePage':

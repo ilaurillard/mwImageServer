@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "styles": {
+          "text": {
+            "font": "openSansRegular",
+            "fontBold": "openSansBold",
+            "fontSize": 4
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Header": {
+                  "text": "DefinitionLists"
+                }
+              },
+              {
+                "Container": {
+                  "width": 150,
+                  "child": {
+                    "DefinitionList": {
+                      "values": [
+                        ["Fruit", "Apple"],
+                        ["Vegetable", "%test%"],
+                        ["Drink", "Milk"]
+                      ],
+                      "flexType": 1.5,
+                      "flexData": 3.0,
+                      "childType": {
+                        "Container": {
+                          "child": {
+                            "Padding": {
+                              "padding": [0,0,2,0],
+                              "child": {
+                                "Text": {
+                                  "text": "%value% %test%:",
+                                  "textAlign": "right"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "childData": {
+                        "Widget": {
+                          "source": "@child2"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Container": {
+                  "width": 100,
+                  "child": {
+                    "DefinitionList": {
+                      "source": "@data"
+                    }
+                  }
+                }
+              },
+              {
+                "Divider": {
+                }
+              },
+              {
+                "Partitions": {
+                  "children": [
+                    {
+                      "Partition": {
+                        "child": {
+                          "DefinitionList": {
+                            "source": "@data",
+                            "childType": {
+                              "Text": {
+                                "text": "%value%",
+                                "textAlign": "right"
+                              }
+                            },
+                            "childData": {
+                              "Text": {
+                                "text": "%value%",
+                                "textAlign": "left",
+                                "style": {
+                                  "fontWeight": "bold"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Partition": {
+                        "child": {
+                          "DefinitionList": {
+                            "source": "@data"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "test": "Pumpkin"
+  },
+  "sources": {
+    "@data": {
+      "values": [
+        ["Hello: ", "You\nhappy\npeople"],
+        ["Hi: ", "There"],
+        ["Its: ", "Me, %test%"]
+      ]
+    },
+    "@child2": {
+      "widget": {
+        "Container": {
+          "child": {
+            "Text": {
+              "text": "%value%",
+              "style": {
+                "fontWeight": "bold"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

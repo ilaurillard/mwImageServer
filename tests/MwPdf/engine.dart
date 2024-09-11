@@ -78,8 +78,9 @@ Future<void> main() async {
   // String jsonFile = 'pdf_hello.json';
   // String jsonFile = 'pdf_gadgets.yaml';
   // String jsonFile = 'pdf_reisswolf.json';
-  String jsonFile = 'pdf_reisswolf2.json';
+  // String jsonFile = 'pdf_reisswolf2.json';
   // String jsonFile = 'pdf_helpers.json';
+  String jsonFile = 'pdf_definitionList.json';
 
   String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {

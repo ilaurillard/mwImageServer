@@ -26,8 +26,6 @@ enum PuzzleType {
 }
 
 class Custom {
-
-
   static pw.Widget puzzle(
     Dict json,
     State state,
@@ -85,6 +83,7 @@ class Custom {
           textStyle: ts,
         ).build();
       case PuzzleType.kakuro:
+        // TODO seed!
         return Kakuro(
           size: size,
           solve: solve,

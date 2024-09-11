@@ -282,7 +282,7 @@ class State {
     int nr,
     String value,
   ) {
-    this.value = value;
+    this.value = replaceParameters(value);
     sum = sumsFormatted.length > nr ? sumsFormatted[nr].toString() : '';
     sumAll =
         sumsAllFormatted.length > nr ? sumsAllFormatted[nr].toString() : '';

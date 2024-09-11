@@ -27,7 +27,11 @@ class Kakuro {
   }
 
   pw.Widget build() {
-    Board board = makeBoard(size - 2, size - 2, 0.3);
+    Board board = makeBoard(
+      size - 2,
+      size - 2,
+      0.3,
+    );
 
     List<pw.Widget> cellWidgets = [];
 
