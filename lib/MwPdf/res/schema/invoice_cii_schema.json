@@ -3811,6 +3811,10 @@
   },
   "description": "factur-x / cii invoice (handmade)",
   "properties": {
+    "raw_xml": {
+      "description": "Raw invoice XML in cii format",
+      "type": "string"
+    },
     "document": {
       "$ref": "#/definitions/ExchangedDocument"
     },
@@ -3821,10 +3825,18 @@
       "$ref": "#/definitions/SupplyChainTradeTransaction"
     }
   },
-  "required": [
-    "document",
-    "documentContext",
-    "tradeTransaction"
+  "oneOf": [
+    {
+      "required": ["raw_xml"]
+    },
+    {
+      "required": [
+        "document",
+        "documentContext",
+        "tradeTransaction"
+      ]
+    }
   ],
+
   "type": "object"
 }

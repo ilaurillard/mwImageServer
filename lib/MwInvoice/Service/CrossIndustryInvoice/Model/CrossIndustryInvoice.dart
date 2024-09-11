@@ -38,6 +38,13 @@ class CrossIndustryInvoice {
     return builder.buildDocument();
   }
 
+  static CrossIndustryInvoice? fromXmlString(
+    String xmlString,
+  ) {
+    XmlDocument doc = XmlDocument.parse(xmlString);
+    return fromXml(doc.rootElement);
+  }
+
   static CrossIndustryInvoice? fromXml(
     XmlElement? xml,
   ) {

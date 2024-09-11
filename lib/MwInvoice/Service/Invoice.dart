@@ -42,28 +42,42 @@ class Invoice {
     try {
       return Invoice(
         cii: jsonCII.isNotEmpty
-            ? CrossIndustryInvoice.fromJson(
-          jsonCII,
-        )
+            ? jsonCII['raw_xml'] != null
+                ? CrossIndustryInvoice.fromXmlString(
+                    jsonCII['raw_xml'] as String,
+                  )
+                : CrossIndustryInvoice.fromJson(
+                    jsonCII,
+                  )
             : null,
         ubl: jsonUBL.isNotEmpty
             ? x_invoice.Invoice.fromJson(
-          jsonUBL,
-        )
+                jsonUBL,
+              )
             : null,
       );
+    } catch (e) {
+      // Console.warning(
+      //   'Parsing invoice data failed: $e',
+      // );
+      throw e;
     }
-    catch (e) {
-      Console.warning('Parsing invoice data failed: $e');
-    }
-    return Invoice();
   }
 
   XmlDocument xml() {
-    if (cii != null) {
-      return cii?.toXml() ?? XmlDocument();
+    try {
+      if (cii != null) {
+        return cii!.toXml();
+      }
+      else if (ubl != null) {
+        return ubl!.toXml();
+      }
+      else {
+        throw Exception('No valid invoice data found!');
+      }
+    } catch (e) {
+      throw e;
     }
-    return ubl?.toXml() ?? XmlDocument();
   }
 
   Map<String, String> simplified() {

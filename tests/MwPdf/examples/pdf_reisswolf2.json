@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "title": "Rechnung",
+    "producer": "producer",
+    "author": "author",
+    "subject": "subject",
+    "creator": "creator",
+    "pdfa3b": true,
+    "theme": "@default",
+    "themes": {
+      "@default": {
+        "styles": {
+          "text": {
+            "font": "ptSerifRegular",
+            "fontSize": 3
+          }
+        }
+      }
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Header": {
+                  "text": "CII als XML"
+                }
+              },
+              {
+                "Paragraph": {
+                  "text": "Hier wird eine bestehende CII in xml-Form an das System gesendet."
+                }
+              },
+              {
+                "Text": {
+                  "text": "Kunde: %invoice.buyer.name%"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "invoice_cii": {
+    "raw_xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<rsm:CrossIndustryInvoice xmlns:ram=\"urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:udt=\"urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100\" xmlns:qdt=\"urn:un:unece:uncefact:data:standard:QualifiedDataType:100\" xmlns:rsm=\"urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100\">\n  <rsm:ExchangedDocumentContext>\n    <ram:GuidelineSpecifiedDocumentContextParameter>\n      <ram:ID>urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended</ram:ID>\n    </ram:GuidelineSpecifiedDocumentContextParameter>\n  </rsm:ExchangedDocumentContext>\n  <rsm:ExchangedDocument>\n    <ram:ID>RG0524048849</ram:ID>\n    <ram:TypeCode>380</ram:TypeCode>\n    <ram:IssueDateTime>\n      <udt:DateTimeString format=\"102\">20240831</udt:DateTimeString>\n    </ram:IssueDateTime>\n  </rsm:ExchangedDocument>\n  <rsm:SupplyChainTradeTransaction>\n    <ram:IncludedSupplyChainTradeLineItem>\n      <ram:AssociatedDocumentLineDocument>\n        <ram:LineID>1</ram:LineID>\n      </ram:AssociatedDocumentLineDocument>\n      <ram:SpecifiedTradeProduct>\n        <ram:SellerAssignedID>31000</ram:SellerAssignedID>\n        <ram:Name>e.l.sy. Sicherheitsbehälter Systempauschale pro Stück</ram:Name>\n        <ram:Description>Miete 01.08.2024 bis 31.08.2024</ram:Description>\n      </ram:SpecifiedTradeProduct>\n      <ram:SpecifiedLineTradeAgreement>\n        <ram:GrossPriceProductTradePrice>\n          <ram:ChargeAmount>3.50</ram:ChargeAmount>\n          <ram:BasisQuantity>1.0000</ram:BasisQuantity>\n        </ram:GrossPriceProductTradePrice>\n        <ram:NetPriceProductTradePrice>\n          <ram:ChargeAmount>3.50</ram:ChargeAmount>\n          <ram:BasisQuantity>1.0000</ram:BasisQuantity>\n        </ram:NetPriceProductTradePrice>\n      </ram:SpecifiedLineTradeAgreement>\n      <ram:SpecifiedLineTradeDelivery>\n        <ram:BilledQuantity unitCode=\"C62\">1.0000</ram:BilledQuantity>\n        <ram:ActualDeliverySupplyChainEvent>\n          <ram:OccurrenceDateTime>\n            <udt:DateTimeString format=\"102\">20240831</udt:DateTimeString>\n          </ram:OccurrenceDateTime>\n        </ram:ActualDeliverySupplyChainEvent>\n        <ram:DeliveryNoteReferencedDocument>\n          <ram:IssuerAssignedID>LS05240100331</ram:IssuerAssignedID>\n        </ram:DeliveryNoteReferencedDocument>\n      </ram:SpecifiedLineTradeDelivery>\n      <ram:SpecifiedLineTradeSettlement>\n        <ram:ApplicableTradeTax>\n          <ram:TypeCode>VAT</ram:TypeCode>\n          <ram:CategoryCode>S</ram:CategoryCode>\n          <ram:RateApplicablePercent>19.0000</ram:RateApplicablePercent>\n        </ram:ApplicableTradeTax>\n        <ram:SpecifiedTradeSettlementLineMonetarySummation>\n          <ram:LineTotalAmount>3.50</ram:LineTotalAmount>\n        </ram:SpecifiedTradeSettlementLineMonetarySummation>\n      </ram:SpecifiedLineTradeSettlement>\n    </ram:IncludedSupplyChainTradeLineItem>\n    <ram:IncludedSupplyChainTradeLineItem>\n      <ram:AssociatedDocumentLineDocument>\n        <ram:LineID>2</ram:LineID>\n      </ram:AssociatedDocumentLineDocument>\n      <ram:SpecifiedTradeProduct>\n        <ram:SellerAssignedID>50021</ram:SellerAssignedID>\n        <ram:Name>RW 240 Behältermiete e.l.sy.-Sicherheitsbehälter</ram:Name>\n        <ram:Description>Miete 01.08.2024 bis 31.08.2024</ram:Description>\n      </ram:SpecifiedTradeProduct>\n      <ram:SpecifiedLineTradeAgreement>\n        <ram:GrossPriceProductTradePrice>\n          <ram:ChargeAmount>12.17</ram:ChargeAmount>\n          <ram:BasisQuantity>1.0000</ram:BasisQuantity>\n        </ram:GrossPriceProductTradePrice>\n        <ram:NetPriceProductTradePrice>\n          <ram:ChargeAmount>12.17</ram:ChargeAmount>\n          <ram:BasisQuantity>1.0000</ram:BasisQuantity>\n        </ram:NetPriceProductTradePrice>\n      </ram:SpecifiedLineTradeAgreement>\n      <ram:SpecifiedLineTradeDelivery>\n        <ram:BilledQuantity unitCode=\"C62\">1.0000</ram:BilledQuantity>\n        <ram:ActualDeliverySupplyChainEvent>\n          <ram:OccurrenceDateTime>\n            <udt:DateTimeString format=\"102\">20240831</udt:DateTimeString>\n          </ram:OccurrenceDateTime>\n        </ram:ActualDeliverySupplyChainEvent>\n        <ram:DeliveryNoteReferencedDocument>\n          <ram:IssuerAssignedID>LS05240100331</ram:IssuerAssignedID>\n        </ram:DeliveryNoteReferencedDocument>\n      </ram:SpecifiedLineTradeDelivery>\n      <ram:SpecifiedLineTradeSettlement>\n        <ram:ApplicableTradeTax>\n          <ram:TypeCode>VAT</ram:TypeCode>\n          <ram:CategoryCode>S</ram:CategoryCode>\n          <ram:RateApplicablePercent>19.0000</ram:RateApplicablePercent>\n        </ram:ApplicableTradeTax>\n        <ram:SpecifiedTradeSettlementLineMonetarySummation>\n          <ram:LineTotalAmount>12.17</ram:LineTotalAmount>\n        </ram:SpecifiedTradeSettlementLineMonetarySummation>\n      </ram:SpecifiedLineTradeSettlement>\n    </ram:IncludedSupplyChainTradeLineItem>\n    <ram:ApplicableHeaderTradeAgreement>\n      <ram:SellerTradeParty>\n        <ram:Name>REISSWOLF Akten- und Datenvernichtung GmbH &amp; Co. KG</ram:Name>\n        <ram:DefinedTradeContact>\n          <ram:DepartmentName>REISSWOLF Akten- und Datenvernichtung GmbH &amp; Co. KG</ram:DepartmentName>\n          <ram:TelephoneUniversalCommunication>\n            <ram:CompleteNumber>+49 800 5890329</ram:CompleteNumber>\n          </ram:TelephoneUniversalCommunication>\n          <ram:EmailURIUniversalCommunication>\n            <ram:URIID>info@reisswolf.com</ram:URIID>\n          </ram:EmailURIUniversalCommunication>\n        </ram:DefinedTradeContact>\n        <ram:PostalTradeAddress>\n          <ram:PostcodeCode>20537</ram:PostcodeCode>\n          <ram:LineOne>Wendenstraße 403</ram:LineOne>\n          <ram:CityName>Hamburg</ram:CityName>\n          <ram:CountryID>DE</ram:CountryID>\n        </ram:PostalTradeAddress>\n        <ram:SpecifiedTaxRegistration>\n          <ram:ID schemeID=\"VA\">DE811416840</ram:ID>\n        </ram:SpecifiedTaxRegistration>\n      </ram:SellerTradeParty>\n      <ram:BuyerTradeParty>\n        <ram:ID>1004148</ram:ID>\n        <ram:Name>mindworks GmbH</ram:Name>\n        <ram:PostalTradeAddress>\n          <ram:PostcodeCode>22303</ram:PostcodeCode>\n          <ram:LineOne>Jarrestraße 42 a</ram:LineOne>\n          <ram:CityName>Hamburg</ram:CityName>\n          <ram:CountryID>DE</ram:CountryID>\n        </ram:PostalTradeAddress>\n      </ram:BuyerTradeParty>\n    </ram:ApplicableHeaderTradeAgreement>\n    <ram:ApplicableHeaderTradeDelivery>\n      <ram:ShipToTradeParty>\n        <ram:Name>mindworks GmbH</ram:Name>\n        <ram:PostalTradeAddress>\n          <ram:PostcodeCode>22303</ram:PostcodeCode>\n          <ram:LineOne>Jarrestraße 42 a</ram:LineOne>\n          <ram:CityName>Hamburg</ram:CityName>\n          <ram:CountryID>DE</ram:CountryID>\n        </ram:PostalTradeAddress>\n      </ram:ShipToTradeParty>\n      <ram:ActualDeliverySupplyChainEvent>\n        <ram:OccurrenceDateTime>\n          <udt:DateTimeString format=\"102\">20240831</udt:DateTimeString>\n        </ram:OccurrenceDateTime>\n      </ram:ActualDeliverySupplyChainEvent>\n    </ram:ApplicableHeaderTradeDelivery>\n    <ram:ApplicableHeaderTradeSettlement>\n      <ram:PaymentReference>RG0524048849 20240831</ram:PaymentReference>\n      <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>\n      <ram:SpecifiedTradeSettlementPaymentMeans>\n        <ram:TypeCode>49</ram:TypeCode>\n        <ram:Information>Einzugsermächtigung</ram:Information>\n      </ram:SpecifiedTradeSettlementPaymentMeans>\n      <ram:ApplicableTradeTax>\n        <ram:CalculatedAmount>2.98</ram:CalculatedAmount>\n        <ram:TypeCode>VAT</ram:TypeCode>\n        <ram:BasisAmount>15.67</ram:BasisAmount>\n        <ram:CategoryCode>S</ram:CategoryCode>\n        <ram:RateApplicablePercent>19.0000</ram:RateApplicablePercent>\n      </ram:ApplicableTradeTax>\n      <ram:SpecifiedTradePaymentTerms>\n        <ram:Description>LAST</ram:Description>\n        <ram:DueDateDateTime>\n          <udt:DateTimeString format=\"102\">20240831</udt:DateTimeString>\n        </ram:DueDateDateTime>\n      </ram:SpecifiedTradePaymentTerms>\n      <ram:SpecifiedTradeSettlementHeaderMonetarySummation>\n        <ram:LineTotalAmount>15.67</ram:LineTotalAmount>\n        <ram:ChargeTotalAmount>0.00</ram:ChargeTotalAmount>\n        <ram:AllowanceTotalAmount>0.00</ram:AllowanceTotalAmount>\n        <ram:TaxBasisTotalAmount>15.67</ram:TaxBasisTotalAmount>\n        <ram:TaxTotalAmount currencyID=\"EUR\">2.98</ram:TaxTotalAmount>\n        <ram:GrandTotalAmount>18.65</ram:GrandTotalAmount>\n        <ram:TotalPrepaidAmount>0.00</ram:TotalPrepaidAmount>\n        <ram:DuePayableAmount>18.65</ram:DuePayableAmount>\n      </ram:SpecifiedTradeSettlementHeaderMonetarySummation>\n    </ram:ApplicableHeaderTradeSettlement>\n  </rsm:SupplyChainTradeTransaction>\n</rsm:CrossIndustryInvoice>"
+  }
+}
