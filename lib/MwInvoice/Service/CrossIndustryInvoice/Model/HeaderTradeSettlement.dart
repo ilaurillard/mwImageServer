@@ -1,4 +1,5 @@
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/LogisticsServiceCharge.dart';
+import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/Period.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/ReferencedDocument.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeAllowanceCharge.dart';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeParty.dart';
@@ -22,6 +23,7 @@ class HeaderTradeSettlement {
   final List<TradePaymentTerms> tradePaymentTerms;
   final TradeSettlementHeaderMonetarySummation summation;
   final ReferencedDocument? referencedDocument;
+  final Period? period;
 
   HeaderTradeSettlement({
     this.creditorReferenceID,
@@ -35,6 +37,7 @@ class HeaderTradeSettlement {
     this.tradePaymentTerms = const [],
     required this.summation,
     this.referencedDocument,
+    this.period,
   });
 
   void toXml(
@@ -75,6 +78,12 @@ class HeaderTradeSettlement {
           t.toXml(
             builder,
             'ram:ApplicableTradeTax',
+          );
+        }
+        if (period != null) {
+          period!.toXml(
+            builder,
+            'ram:BillingSpecifiedPeriod',
           );
         }
         for (TradeAllowanceCharge t in tradeAllowanceCharge) {
@@ -154,6 +163,9 @@ class HeaderTradeSettlement {
           .findElements('ram:SpecifiedTradePaymentTerms')
           .map((XmlElement e) => TradePaymentTerms.fromXml(e)!)
           .toList(),
+      period: Period.fromXml(
+        xml.findElements('ram:BillingSpecifiedPeriod').singleOrNull,
+      ),
     );
   }
 
@@ -190,6 +202,7 @@ class HeaderTradeSettlement {
       ),
       referencedDocument: ReferencedDocument.fromJson(
           json['referencedDocument'] as Dict? ?? {}),
+      period: Period.fromJson(json['period'] as Dict? ?? {}),
     );
   }
 }

@@ -52,16 +52,16 @@ class HeaderTradeAgreement {
             'ram:BuyerOrderReferencedDocument',
           );
         }
-        for (ReferencedDocument d in additionalReferencedDocuments) {
-          d.toXml(
-            builder,
-            'ram:AdditionalReferencedDocument',
-          );
-        }
         if (contractReferencedDocument != null) {
           contractReferencedDocument!.toXml(
             builder,
             'ram:ContractReferencedDocument',
+          );
+        }
+        for (ReferencedDocument d in additionalReferencedDocuments) {
+          d.toXml(
+            builder,
+            'ram:AdditionalReferencedDocument',
           );
         }
         if (procuringProject != null) {

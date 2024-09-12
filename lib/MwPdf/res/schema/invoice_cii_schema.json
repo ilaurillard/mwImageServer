@@ -3112,6 +3112,9 @@
             "$ref": "#/definitions/TradeTax"
           },
           "type": "array"
+        },
+        "period": {
+          "$ref": "#/definitions/Period"
         }
       },
       "required": [

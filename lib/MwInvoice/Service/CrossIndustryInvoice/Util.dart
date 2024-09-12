@@ -18,6 +18,7 @@ class Util {
 
   static String prettyXml(XmlDocument xml) {
     return xml.toXmlString(
+      indent: '    ',
       pretty: true,
       preserveWhitespace: (XmlNode n) {
         if (n is XmlElement) {

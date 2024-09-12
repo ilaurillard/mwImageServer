@@ -1,0 +1,126 @@
+{
+  "pages": [
+    {
+      "multi": true,
+      "content": [
+        {
+          "DefinitionList": {
+            "flexType": 3,
+            "flexData": 7,
+            "childType": {
+              "Text": {
+                "text": "%value%",
+                "style": {
+                  "fontWeight": "bold"
+                }
+              }
+            },
+            "childData": {
+              "Padding": {
+                "padding": [0,0,3,0],
+                "child": {
+                  "Paragraph": {
+                    "textAlign": "left",
+                    "text": "%value%"
+                  }
+                }
+              }
+            },
+            "values": [
+              ["Align", "TBD"],
+              ["Anchor", "TBD"],
+              ["AspectRatio", "TBD"],
+              ["BarcodeWidget", "TBD"],
+              ["KsaInvoiceWidget", "TBD"],
+              ["SwissInvoiceWidget", "TBD"],
+              ["EpcQrWidget", "Konstruiert und zeigt einen EPC-QR-Code. Ein EPC-QR-Code ist ein vom European Payments Council (EPC) standardisierter QR-Code, der alle Daten für eine SEPA-Überweisung enthält."],
+              ["Puzzle", "TBD"],
+              ["Bates", "TBD"],
+              ["Bullet", "TBD"],
+              ["Center", "TBD"],
+              ["Chart", "TBD"],
+              ["ChartLegend", "TBD"],
+              ["Checkbox", "Dies ist eine klassische Checkbox für PDF-Formulare."],
+              ["ChoiceField", "Ein Formular-Element, welches einem klassischem Drop-Down entspricht."],
+              ["Circle", "TBD"],
+              ["ClipOval", "TBD"],
+              ["ClipRect", "TBD"],
+              ["ClipRRect", "TBD"],
+              ["Calendar", "TBD"],
+              ["Column", "TBD"],
+              ["Comment", "TBD"],
+              ["ConstrainedBox", "TBD"],
+              ["Container", "TBD"],
+              ["Date", "TBD"],
+              ["DecoratedBox", "TBD"],
+              ["DefinitionList", "TBD"],
+              ["Divider", "TBD"],
+              ["DoublePage", "TBD"],
+              ["Expanded", "TBD"],
+              ["FittedBox", "TBD"],
+              ["Flexible", "TBD"],
+              ["Footer", "TBD"],
+              ["FullPage", "TBD"],
+              ["GridPaper", "TBD"],
+              ["GridView", "TBD"],
+              ["Header", "TBD"],
+              ["Icon", "TBD"],
+              ["Image", "TBD"],
+              ["InkList", "TBD"],
+              ["Labels", "TBD"],
+              ["LimitedBox", "TBD"],
+              ["Link", "TBD"],
+              ["ListView", "TBD"],
+              ["LoremParagraph", "TBD"],
+              ["LoremText", "TBD"],
+              ["NewPage", "TBD"],
+              ["NumberFormat", "TBD"],
+              ["Opacity", "TBD"],
+              ["Outline", "TBD"],
+              ["Padding", "TBD"],
+              ["Paragraph", "TBD"],
+              ["Partitions", "TBD"],
+              ["PdfLogo", "TBD"],
+              ["Placeholder", "TBD"],
+              ["Polygon", "TBD"],
+              ["Positioned", "TBD"],
+              ["PunchHoles", "TBD"],
+              ["Rectangle", "TBD"],
+              ["RichText", "TBD"],
+              ["Row", "TBD"],
+              ["Shape", "TBD"],
+              ["ShowIf", "TBD"],
+              ["SizedBox", "TBD"],
+              ["Snip", "TBD"],
+              ["Spacer", "TBD"],
+              ["Stack", "TBD"],
+              ["SvgImage", "TBD"],
+              ["Switch", "TBD"],
+              ["Table", "TBD"],
+              ["TableAuto", "TBD"],
+              ["TableOfContent", "TBD"],
+              ["Text", "TBD"],
+              ["TextField", "Ein weiteres Formular-Element für die Eingabe von Text-Angaben. Es gibt auch eine Funktion für eine strukturierte Zahlen-Eingabe."],
+              ["Transform", "TBD"],
+              ["UrlLink", "TBD"],
+              ["VerticalDivider", "TBD"],
+              ["Watermark", "TBD"],
+              ["Widget", "TBD"],
+              ["Wrap", "TBD"],
+              ["WritingPaper", "TBD"]
+
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+
+
+
+
+
+
+
+
