@@ -30,7 +30,7 @@
               ["Align", "TBD"],
               ["Anchor", "TBD"],
               ["AspectRatio", "TBD"],
-              ["BarcodeWidget", "TBD"],
+              ["BarcodeWidget", "Zum Darstellen von diversen Barcodes."],
               ["KsaInvoiceWidget", "TBD"],
               ["SwissInvoiceWidget", "TBD"],
               ["EpcQrWidget", "Konstruiert und zeigt einen EPC-QR-Code. Ein EPC-QR-Code ist ein vom European Payments Council (EPC) standardisierter QR-Code, der alle Daten für eine SEPA-Überweisung enthält."],

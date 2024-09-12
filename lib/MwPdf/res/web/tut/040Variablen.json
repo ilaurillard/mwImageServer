@@ -36,7 +36,26 @@
         },
         {
           "RichText": {
-            "text": "Variablen werden mit **%variable%** referenziert. Es gibt eine besondere Variable namens '**value**' - diese wird in Tabellenzellen oder Charts benutzt, um sich auf den dynamischen Wert einer Datenquelle zu beziehen."
+            "text": "Variablen werden mit **%variable%** referenziert. Es gibt eine besondere Variable namens '*value*' - diese wird in Tabellenzellen, Charts und DefinitionLists benutzt, um sich auf den dynamischen Wert einer Datenquelle zu beziehen."
+          }
+        },
+        {
+          "Widget": {
+            "source": "@refWidget",
+            "variables": {
+              "ref1": "%var1%",
+              "ref2": "Triceratops"
+            }
+          }
+        },
+        {
+          "DefinitionList": {
+            "source": "@data",
+            "childData": {
+              "Text": {
+                "text": "%value%"
+              }
+            }
           }
         }
       ]
@@ -47,5 +66,26 @@
     "var2": true,
     "var3": "globale Variablen",
     "variable": "%variable%"
+  },
+  "sources": {
+    "@data": {
+      "values": [
+        [
+          "var1:",
+          "%var1%"
+        ],
+        [
+          "var2:",
+          "%var2%"
+        ]
+      ]
+    },
+    "@refWidget": {
+      "widget": {
+        "RichText": {
+          "text": "Referenziertes Widget mit individuellen Variablen **%ref1%** **%ref2%** **%var2%**"
+        }
+      }
+    }
   }
 }
