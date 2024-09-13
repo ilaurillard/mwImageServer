@@ -6,6 +6,7 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigDay.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/ConfigLane.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/CustomCalendar.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Calendar/Entries.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/FoldingMarks.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/PunchHoles.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Etc/Snip.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Puzzle/Maze.dart';
@@ -174,6 +175,13 @@ class Custom {
       State state,
       ) {
     return PunchHoles.build();
+  }
+
+  static pw.Widget foldingMarks(
+      Dict json,
+      State state,
+      ) {
+    return FoldingMarks.build();
   }
 
   static pw.Widget snip(

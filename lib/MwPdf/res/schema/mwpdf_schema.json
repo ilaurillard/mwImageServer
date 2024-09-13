@@ -1293,6 +1293,9 @@
         },
         "PunchHoles": {
           "$ref": "#/definitions/WidgetsCustom/PunchHoles"
+        },
+        "FoldingMarks": {
+          "$ref": "#/definitions/WidgetsCustom/FoldingMarks"
         }
       },
       "additionalProperties": false,
@@ -1494,6 +1497,12 @@
         "type": "object"
       },
       "PunchHoles": {
+        "additionalProperties": false,
+        "properties": {
+        },
+        "type": "object"
+      },
+      "FoldingMarks": {
         "additionalProperties": false,
         "properties": {
         },

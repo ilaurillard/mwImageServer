@@ -84,22 +84,8 @@
           "FullPage": {
             "ignoreMargins": true,
             "child": {
-              "Stack": {
-                "children": [
-                  {
-                    "Positioned": {
-                      "left": 0,
-                      "top": 99,
-                      "child": {
-                        "Container": {
-                          "color": "000000",
-                          "height": 0.25,
-                          "width": 4
-                        }
-                      }
-                    }
-                  }
-                ]
+              "FoldingMarks": {
+
               }
             }
           }

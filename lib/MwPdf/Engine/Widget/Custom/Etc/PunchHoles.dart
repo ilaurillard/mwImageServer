@@ -2,11 +2,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PunchHoles {
-  static pw.Widget build({
-    pw.Axis direction = pw.Axis.horizontal,
-    double offset = 20,
-    pw.EdgeInsets? padding,
-  }) {
+  static pw.Widget build() {
     // TODO define options
     double holeSize = 5.6 * PdfPageFormat.mm;
     double holeSizeHalf = holeSize / 2;
@@ -30,7 +26,7 @@ class PunchHoles {
   }
 
   static pw.Widget _hole({
-    double margin = (12 - 2.8 * PdfPageFormat.mm),
+    double margin = (12 - 2.8) * PdfPageFormat.mm,
     required double firstHole,
     double holeSize = 5.6 * PdfPageFormat.mm,
     double dist = 80 * PdfPageFormat.mm,

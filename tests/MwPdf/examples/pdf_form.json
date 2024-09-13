@@ -11,6 +11,15 @@
           "text": {
             "font": "helvetica"
           }
+        },
+        "background": {
+          "FullPage": {
+            "ignoreMargins": true,
+            "child": {
+              "FoldingMarks": {
+              }
+            }
+          }
         }
       }
     }
@@ -107,7 +116,9 @@
                   "name": "field3",
                   "label": "Bitte wählen",
                   "items": [
-                    "Ja", "Nein", "Vielleicht"
+                    "Ja",
+                    "Nein",
+                    "Vielleicht"
                   ]
                 }
               }

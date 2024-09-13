@@ -279,6 +279,8 @@ class Widget {
           return Custom.snip(data, state);
         case 'PunchHoles':
           return Custom.punchHoles(data, state);
+        case 'FoldingMarks':
+          return Custom.foldingMarks(data, state);
         case 'SwissInvoiceWidget':
           return SwissInvoice.build(data, state);
         case 'EpcQrWidget':
