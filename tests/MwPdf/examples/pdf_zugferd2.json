@@ -91,7 +91,7 @@
   "invoice_cii": {
     "documentContext": {
       "parameter": {
-        "id": "urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p1:extended"
+        "id": "urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended"
       }
     },
     "document": {
@@ -279,12 +279,6 @@
           "taxRegistrations": [
             {
               "registration": {
-                "value": "201/113/40209",
-                "schemeID": "FC"
-              }
-            },
-            {
-              "registration": {
                 "value": "DE123456789",
                 "schemeID": "VA"
               }
@@ -406,12 +400,6 @@
             "countryCode": "DE"
           },
           "taxRegistrations": [
-            {
-              "registration": {
-                "value": "201/113/40209",
-                "schemeID": "FC"
-              }
-            },
             {
               "registration": {
                 "value": "DE123456789",

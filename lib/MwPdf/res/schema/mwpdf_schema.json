@@ -1072,6 +1072,9 @@
         "TextField": {
           "$ref": "#/definitions/Widgets/TextField"
         },
+        "Signature": {
+          "$ref": "#/definitions/Widgets/Signature"
+        },
         "Checkbox": {
           "$ref": "#/definitions/Widgets/Checkbox"
         },
@@ -1679,6 +1682,18 @@
       }
     },
     "Widgets": {
+      "Signature": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
       "TextField": {
         "additionalProperties": false,
         "properties": {

@@ -37,25 +37,36 @@ $ sudo docker run ... siehe oben
 https://pdfcrowd.com/inspect-pdf/
 
 
-IDEEN:
+IDEEN/TODO:
+
+- Passwords
+
+- Higher-Level Widgets -> Briefkopf, Rechnung, Anschrift
 
 - Barrierefreiheit: https://pdfua.foundation/en/pdf-accessibility-checker-pac/
   https://check.axes4.com/de/
   >> sehr komplexes thema
 - Digitale Signaturen
+  >> komplexes thema
 
-- https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/unequal.html
-  https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/singles.html
-- Mathematik, Physik, Chemie
-- Elektronik
 - Musik -> Noten -> lilypond, musicXml
+  >> sehr komplexes thema
 - Graphs, graphite
+  >> komplexes thema
+- Mathematik, Physik, Chemie
+  >> ?
+- Elektronik (Spice/netlist)
+  >> recht komplexes thema
 
-- Higher-Level Widgets -> Briefkopf, Rechnung, Anschrift
+- Fussball Trainings-Schema
+
+- Puzzle https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/unequal.html
+- Puzzle https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/singles.html
+
 - Turnierpläne
 - Schmuckrahmen, etc...
 - Urkunden, Certificates
 - Menus, Speisekarten
-- TODO, Daily planner
+- TODO, Shoplist, Daily planner
 - Kalenderblaetter
 

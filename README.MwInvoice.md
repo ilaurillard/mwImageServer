@@ -15,9 +15,9 @@ ZUGFERD/CII:
 
 https://www.mustangproject.org/commandline/
 
-java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.11.0.jar --action extract --source invoice.pdf
+java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.14.0.jar --action extract --source invoice.pdf
 
-java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.11.0.jar --action validate --source invoice.pdf
+java -Xmx1G -Dfile.encoding=UTF-8 -jar Mustang-CLI-2.14.0.jar --action validate --source invoice.pdf
 
 (pdf/a)
 https://www.pdf-tools.com/

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:mwcdn/MwInvoice/Service/Invoice.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
+import 'package:mwcdn/MwPdf/Engine/Encryption/ProtectionRC4.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -90,12 +91,18 @@ class Engine {
       producer: meta.producer,
       verbose: meta.verbose,
       compress: meta.compress,
-      version: PdfVersion.pdf_1_5,
+      version: PdfVersion.pdf_1_4,
       metadata: meta.pdfaRdf(
         cii: state.invoice.cii != null,
         ubl: state.invoice.ubl != null,
       ),
     );
+
+    // pdf.document.encryption = ProtectionRC4.create(
+    //     pdf.document,
+    //     userPass: 'xxx',
+    //     ownerPass: 'xxx'
+    // );
 
     // ------------------------- PDF/A 3b
 
@@ -240,6 +247,8 @@ class Engine {
         index: tocPageNr - 1,
       );
     }
+
+
 
     return pdf;
   }
