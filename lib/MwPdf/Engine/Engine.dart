@@ -98,6 +98,8 @@ class Engine {
       ),
     );
 
+    // ----- Testing encryption, but not working for now
+
     // pdf.document.encryption = ProtectionRC4.create(
     //     pdf.document,
     //     userPass: 'xxx',
@@ -126,7 +128,6 @@ class Engine {
         },
       );
     }
-
     if (state.invoice.ubl != null) {
       PdfaAttachedFiles(
         pdf.document,
