@@ -37,8 +37,7 @@ dependency_overrides:
 #      url: https://github.com/DavBfr/dart_pdf.git
       url: https://github.com/ilaurillard/dart_pdf
       path: pdf
-      ref: pdfa_3b_ilja
-
+      ref: pdfa_3b
 
 dev_dependencies:
   lints: ^3.0.0
