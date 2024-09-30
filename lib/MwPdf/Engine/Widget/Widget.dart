@@ -296,6 +296,8 @@ class Widget {
           return Form.checkbox(data, state);
         case 'ChoiceField':
           return Form.choiceField(data, state);
+        case 'Signature':
+          return Form.signature(data, state);
 
         /*
           TODO not yet implemented widgets

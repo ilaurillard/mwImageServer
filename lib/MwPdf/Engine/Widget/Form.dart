@@ -5,12 +5,12 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class Form {
-
   static pw.Widget choiceField(
-      Dict json,
-      State state,
-      ) {
-    double height = (double.tryParse(json['height'].toString()) ?? 8.0) * PdfPageFormat.mm;
+    Dict json,
+    State state,
+  ) {
+    double height =
+        (double.tryParse(json['height'].toString()) ?? 8.0) * PdfPageFormat.mm;
 
     String name = json['name'] as String? ?? '';
     String label = json['label'] as String? ?? '';
@@ -110,11 +110,28 @@ class Form {
     );
   }
 
+  static pw.Widget signature(
+    Dict json,
+    State state,
+  ) {
+    // TODO/WIP
+    // also see (commercial) https://pub.nfet.net/pdf_crypto/
+    String name = json['name'] as String? ?? '';
+    return pw.Signature(
+      name: name,
+      child: pw.Text('SIGNATURE'),
+      // date: DateTime.now(),
+      // color: PdfColors.red,
+
+    );
+  }
+
   static pw.Widget textField(
     Dict json,
     State state,
   ) {
-    double height = (double.tryParse(json['height'].toString()) ?? 8.0) * PdfPageFormat.mm;
+    double height =
+        (double.tryParse(json['height'].toString()) ?? 8.0) * PdfPageFormat.mm;
 
     String name = json['name'] as String? ?? '';
     String label = json['label'] as String? ?? '';
