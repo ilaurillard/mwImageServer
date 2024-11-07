@@ -12,14 +12,14 @@ class Schema {
   final String resDir;
 
   late final JsonSchema schema;
-  late final String schemaData;
+  late final String data;
 
-  // externals
-  late final String schemaDataCii;
-  late final String schemaDataUbl;
-  late final String schemaDataSwissQr;
-  late final String schemaDataEpcQr;
-  late final String schemaDataSoccerTactic;
+  // externals (for downloads)
+  late final String dataCii;
+  late final String dataUbl;
+  late final String dataSwissQr;
+  late final String dataEpcQr;
+  late final String dataSoccerTactic;
 
   static Schema? instance;
 
@@ -41,82 +41,82 @@ class Schema {
 
   Future<void> load() async {
 
-    schemaData = await File(
+    data = await File(
       '$resDir/schema/mwpdf_schema.json',
     ).readAsString();
     Console.notice(
-      'Loaded main schema (${schemaData.length})',
-    );
-
-    // -------------- external schema
-
-    schemaDataCii = await File(
-      '$resDir/schema/invoice_cii_schema.json',
-    ).readAsString();
-    Console.notice(
-      'Loaded schema [CII] (${schemaDataCii.length})',
-    );
-    Dict cii = json.decode(schemaDataCii) as Dict;
-    JsonSchema.create(
-      schemaDataCii,
-    );
-
-    // -------------- external schema
-
-    schemaDataUbl = await File(
-      '$resDir/schema/invoice_ubl_schema.json',
-    ).readAsString();
-    Console.notice(
-      'Loaded schema [UBL] (${schemaDataUbl.length})',
-    );
-    Dict ubl = json.decode(schemaDataUbl) as Dict;
-    JsonSchema.create(
-      schemaDataUbl,
-    );
-
-    // -------------- external schema
-
-    schemaDataSwissQr = await File(
-      '$resDir/schema/swiss_qr_bill.json',
-    ).readAsString();
-    Console.notice(
-      'Loaded schema [SWISS-QR] (${schemaDataSwissQr.length})',
-    );
-    Dict swissQr = json.decode(schemaDataSwissQr) as Dict;
-    JsonSchema.create(
-      schemaDataSwissQr,
-    );
-
-    // -------------- external schema
-
-    schemaDataEpcQr = await File(
-      '$resDir/schema/epc_qr_bill.json',
-    ).readAsString();
-    Console.notice(
-      'Loaded schema [EPC] (${schemaDataEpcQr.length})',
-    );
-    Dict epcQr = json.decode(schemaDataEpcQr) as Dict;
-    JsonSchema.create(
-      schemaDataEpcQr,
-    );
-
-    // -------------- external schema
-
-    schemaDataSoccerTactic = await File(
-      '$resDir/schema/soccer_tactic.json',
-    ).readAsString();
-    Console.notice(
-      'Loaded schema [SoccerTactic] (${schemaDataSoccerTactic.length})',
-    );
-    Dict soccerTactic = json.decode(schemaDataSoccerTactic) as Dict;
-    JsonSchema.create(
-      schemaDataSoccerTactic,
+      'Loaded main schema (${data.length})',
     );
 
     // --------------
 
+    dataCii = await File(
+      '$resDir/schema/invoice_cii_schema.json',
+    ).readAsString();
+    Console.notice(
+      'Loaded schema [CII] (${dataCii.length})',
+    );
+    JsonSchema.create(
+      dataCii,
+    );
+    Dict cii = json.decode(dataCii) as Dict;
+
+    // --------------
+
+    dataUbl = await File(
+      '$resDir/schema/invoice_ubl_schema.json',
+    ).readAsString();
+    Console.notice(
+      'Loaded schema [UBL] (${dataUbl.length})',
+    );
+    JsonSchema.create(
+      dataUbl,
+    );
+    Dict ubl = json.decode(dataUbl) as Dict;
+
+    // --------------
+
+    dataSwissQr = await File(
+      '$resDir/schema/swiss_qr_bill.json',
+    ).readAsString();
+    Console.notice(
+      'Loaded schema [SWISS-QR] (${dataSwissQr.length})',
+    );
+    JsonSchema.create(
+      dataSwissQr,
+    );
+    Dict swissQr = json.decode(dataSwissQr) as Dict;
+
+    // --------------
+
+    dataEpcQr = await File(
+      '$resDir/schema/epc_qr_bill.json',
+    ).readAsString();
+    Console.notice(
+      'Loaded schema [EPC] (${dataEpcQr.length})',
+    );
+    JsonSchema.create(
+      dataEpcQr,
+    );
+    Dict epcQr = json.decode(dataEpcQr) as Dict;
+
+    // --------------
+
+    dataSoccerTactic = await File(
+      '$resDir/schema/soccer_tactic.json',
+    ).readAsString();
+    Console.notice(
+      'Loaded schema [SoccerTactic] (${dataSoccerTactic.length})',
+    );
+    JsonSchema.create(
+      dataSoccerTactic,
+    );
+    Dict soccerTactic = json.decode(dataSoccerTactic) as Dict;
+
+    // --------------
+
     schema = JsonSchema.create(
-      schemaData,
+      data,
       refProvider: RefProvider.sync((String ref) {
         if (ref.contains('invoice_cii_schema.json')) {
           return cii;

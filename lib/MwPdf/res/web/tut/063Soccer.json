@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "theme": "@def",
+    "themes": {
+      "@def": {
+        "orientation": "portrait",
+        "margin": [
+          0
+        ]
+      }
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "Column": {
+            "crossAxisAlignment": "start",
+            "children": [
+              {
+                "Container": {
+
+                  "padding": [
+                    10
+                  ],
+                  "color": "EEEEEE",
+                  "child": {
+                    "Column": {
+                      "crossAxisAlignment": "start",
+                      "children": [
+                        {
+                          "Paragraph": {
+                            "text": "Toolset um Fußball-Taktiktafeln zu bauen. Nächste Schritte wären: Mehr presets (9v9, ...), Figuren, Linien, Symbole, ..."
+                          }
+                        },
+                        {
+                          "Paragraph": {
+                            "text": "Alle Maße sind in m (Meter). Die Linien sind hier aus Gestaltungsgründen 0.5m statt 0.12m. Es können auch Feld-Teile dargestellt werden."
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "Expanded": {
+                  "child": {
+                    "SoccerTactic": {
+                      "field": {
+                        "orientation": "east",
+                        "lineWidth": 0.50,
+                        "penaltySpot": 0.50,
+                        "centerSpot": 0.50,
+                        "marginLength": 5,
+                        "marginWidth": 5,
+                        "lawnColor1": "66CC66",
+                        "lawnColor2": "70D470",
+                        "lineColor": "CCFFFFFF",
+                        "length": 105.0,
+                        "width": 68.0,
+                        "mowerLanes": 17,
+                        "goalWidth": 7.32,
+                        "goalLength": 1.0,
+                        "centerCirle": 9.15,
+                        "penaltyAreaWidth": 40.3,
+                        "penaltyAreaLength": 16.5,
+                        "goalAreaWidth": 18.32,
+                        "goalAreaLength": 5.5,
+                        "penaltyArc": 9.15,
+                        "cornerArc": 1.0
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

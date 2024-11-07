@@ -16,7 +16,7 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "rotation": {
+        "orientation": {
           "enum": [
             "north",
             "east",
@@ -51,13 +51,13 @@
         "lineWidth": {
           "type": "number"
         },
-        "color1": {
+        "lawnColor1": {
           "$ref": "#/definitions/Color"
         },
-        "color2": {
+        "lawnColor2": {
           "$ref": "#/definitions/Color"
         },
-        "color3": {
+        "lineColor": {
           "$ref": "#/definitions/Color"
         },
         "goalWidth": {

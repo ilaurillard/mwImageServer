@@ -11,7 +11,7 @@ class SoccerTactic {
   ) {
     fieldJson = fieldPreset(fieldJson['field'] as Dict? ?? {});
 
-    String rot = fieldJson['rotation'] as String? ?? 'east';
+    String rot = fieldJson['orientation'] as String? ?? 'east';
     int rotation = 0;
     switch (rot) {
       case 'east':
@@ -29,15 +29,15 @@ class SoccerTactic {
     }
 
     double lineOpacity = 1.0;
-    String lineColor = (fieldJson['color3'] as String? ?? 'CCFFFFFF');
+    String lineColor = (fieldJson['lineColor'] as String? ?? 'CCFFFFFF');
     if (lineColor.length > 6) {
       lineOpacity = int.parse(lineColor.substring(0, 2), radix: 16) / 255.0;
     }
     lineColor = lineColor.substring(lineColor.length - 6);
 
-    String col1 = (fieldJson['color1'] as String? ?? '66CC66');
+    String col1 = (fieldJson['lawnColor1'] as String? ?? '66CC66');
     col1 = col1.substring(col1.length - 6);
-    String col2 = (fieldJson['color2'] as String? ?? '77DD77');
+    String col2 = (fieldJson['lawnColor2'] as String? ?? '77DD77');
     col2 = col2.substring(col2.length - 6);
 
     double marginLength =
@@ -156,7 +156,7 @@ class SoccerTactic {
     // --------------
 
     pw.Widget field = pw.Container(
-      color: PdfColors.amber,
+      // color: PdfColors.amber,
       width: double.infinity,
       height: double.infinity,
       child: pw.FittedBox(
@@ -196,9 +196,9 @@ class SoccerTactic {
       '11v11': {
         'marginLength': 5,
         'marginWidth': 5,
-        'color1': '66CC66',
-        'color2': '70D470',
-        'color3': 'CCFFFFFF',
+        'lawnColor1': '66CC66',
+        'lawnColor2': '70D470',
+        'lineColor': 'CCFFFFFF',
         'length': 105.0,
         'width': 68.0,
         'mowerLanes': 17,

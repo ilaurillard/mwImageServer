@@ -94,7 +94,7 @@ class Pdf {
     return (await Schema.create(
       resDir: _resDir(),
     ))
-        .schemaData;
+        .data;
   }
 
   /// factur x / cii
@@ -102,7 +102,7 @@ class Pdf {
     return (await Schema.create(
       resDir: _resDir(),
     ))
-        .schemaDataCii;
+        .dataCii;
   }
 
   /// xrechnung / ubl
@@ -110,7 +110,7 @@ class Pdf {
     return (await Schema.create(
       resDir: _resDir(),
     ))
-        .schemaDataUbl;
+        .dataUbl;
   }
 
   /// store pdf template data on server

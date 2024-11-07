@@ -3,8 +3,10 @@
     "theme": "@def",
     "themes": {
       "@def": {
-        "orientation": "landscape",
-        "margin": [0]
+        "orientation": "portrait",
+        "margin": [
+          0
+        ]
       }
     }
   },
@@ -14,10 +16,7 @@
         {
           "SoccerTactic": {
             "field": {
-              "preset": "11v11",
-              "lineWidth": 0.50,
-              "penaltySpot": 0.50,
-              "centerSpot": 0.50
+              "preset": "11v11"
             }
           }
         }
