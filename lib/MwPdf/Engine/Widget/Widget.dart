@@ -9,6 +9,7 @@ import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/EpcInvoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/KsaInvoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Invoice/SwissInvoice.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Custom/Labels/Labels.dart';
+import 'package:mwcdn/MwPdf/Engine/Widget/Custom/SoccerTactic/SoccerTactic.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/Form.dart';
 import 'package:mwcdn/MwPdf/Engine/Widget/MultiPage.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -268,7 +269,7 @@ class Widget {
         case 'DefinitionList':
           return DefinitionList.list(data, state);
         case 'Labels':
-          return Labels.labels(data, state);
+          return Labels.build(data, state);
         case 'DoublePage':
           return Custom.doublePage(data, state);
         case 'Calendar':
@@ -287,6 +288,8 @@ class Widget {
           return EpcInvoice.build(data, state);
         case 'KsaInvoiceWidget':
           return KsaInvoice.build(data, state);
+        case 'SoccerTactic':
+          return SoccerTactic.build(data, state);
 
         // ---------- forms
 

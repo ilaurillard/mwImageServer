@@ -1111,6 +1111,9 @@
         "EpcQrWidget": {
           "$ref": "epc_qr_bill.json"
         },
+        "SoccerTactic": {
+          "$ref": "soccer_tactic.json"
+        },
         "Puzzle": {
           "$ref": "#/definitions/WidgetsCustom/Puzzle"
         },

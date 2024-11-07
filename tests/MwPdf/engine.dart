@@ -62,7 +62,7 @@ Future<void> main() async {
   // String jsonFile = 'pdf_template1_data.json';
   // String jsonFile = 'pdf_a.json';
   // String jsonFile = 'pdf_zugferd1.json';
-  String jsonFile = 'pdf_zugferd2.json';
+  //String jsonFile = 'pdf_zugferd2.json';
   // String jsonFile = 'pdf_xrechnung1.json';
   // String jsonFile = 'pdf_invoice1.json';
   // String jsonFile = 'pdf_energie.json';
@@ -83,6 +83,8 @@ Future<void> main() async {
   // String jsonFile = 'pdf_definitionList.json';
   // String jsonFile = 'pdf_signature.json';
   // String jsonFile = 'pdf_encryption.json';
+  String jsonFile = 'pdf_soccer.json';
+  // String jsonFile = 'pdf_crass.json';
 
   String pdfTplJson = '{}';
   if (templateFile.isNotEmpty) {

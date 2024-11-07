@@ -49,6 +49,8 @@ IDEEN/TODO:
 - Digitale Signaturen
   >> komplexes thema
 
+- Geo-PDFs
+
 - Musik -> Noten -> lilypond, musicXml
   >> sehr komplexes thema
 - Graphs, graphite

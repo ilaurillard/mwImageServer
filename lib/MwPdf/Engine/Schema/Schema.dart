@@ -14,19 +14,12 @@ class Schema {
   late final JsonSchema schema;
   late final String schemaData;
 
-  late final JsonSchema schemaCii;
+  // externals
   late final String schemaDataCii;
-
-  late final JsonSchema schemaUbl;
   late final String schemaDataUbl;
-
-  late final JsonSchema schemaSwissQr;
   late final String schemaDataSwissQr;
-
-  late final JsonSchema schemaEpcQr;
   late final String schemaDataEpcQr;
-
-
+  late final String schemaDataSoccerTactic;
 
   static Schema? instance;
 
@@ -47,14 +40,15 @@ class Schema {
   }
 
   Future<void> load() async {
+
     schemaData = await File(
       '$resDir/schema/mwpdf_schema.json',
     ).readAsString();
     Console.notice(
-      'Loaded schema (${schemaData.length})',
+      'Loaded main schema (${schemaData.length})',
     );
 
-    // --------------
+    // -------------- external schema
 
     schemaDataCii = await File(
       '$resDir/schema/invoice_cii_schema.json',
@@ -63,11 +57,11 @@ class Schema {
       'Loaded schema [CII] (${schemaDataCii.length})',
     );
     Dict cii = json.decode(schemaDataCii) as Dict;
-    schemaCii = JsonSchema.create(
+    JsonSchema.create(
       schemaDataCii,
     );
 
-    // --------------
+    // -------------- external schema
 
     schemaDataUbl = await File(
       '$resDir/schema/invoice_ubl_schema.json',
@@ -76,11 +70,11 @@ class Schema {
       'Loaded schema [UBL] (${schemaDataUbl.length})',
     );
     Dict ubl = json.decode(schemaDataUbl) as Dict;
-    schemaUbl = JsonSchema.create(
+    JsonSchema.create(
       schemaDataUbl,
     );
 
-    // --------------
+    // -------------- external schema
 
     schemaDataSwissQr = await File(
       '$resDir/schema/swiss_qr_bill.json',
@@ -89,11 +83,11 @@ class Schema {
       'Loaded schema [SWISS-QR] (${schemaDataSwissQr.length})',
     );
     Dict swissQr = json.decode(schemaDataSwissQr) as Dict;
-    schemaSwissQr = JsonSchema.create(
+    JsonSchema.create(
       schemaDataSwissQr,
     );
 
-    // --------------
+    // -------------- external schema
 
     schemaDataEpcQr = await File(
       '$resDir/schema/epc_qr_bill.json',
@@ -102,8 +96,21 @@ class Schema {
       'Loaded schema [EPC] (${schemaDataEpcQr.length})',
     );
     Dict epcQr = json.decode(schemaDataEpcQr) as Dict;
-    schemaEpcQr = JsonSchema.create(
+    JsonSchema.create(
       schemaDataEpcQr,
+    );
+
+    // -------------- external schema
+
+    schemaDataSoccerTactic = await File(
+      '$resDir/schema/soccer_tactic.json',
+    ).readAsString();
+    Console.notice(
+      'Loaded schema [SoccerTactic] (${schemaDataSoccerTactic.length})',
+    );
+    Dict soccerTactic = json.decode(schemaDataSoccerTactic) as Dict;
+    JsonSchema.create(
+      schemaDataSoccerTactic,
     );
 
     // --------------
@@ -122,6 +129,9 @@ class Schema {
         }
         if (ref.contains('epc_qr_bill.json')) {
           return epcQr;
+        }
+        if (ref.contains('soccer_tactic.json')) {
+          return soccerTactic;
         }
         return {};
       }),

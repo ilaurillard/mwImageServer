@@ -1,0 +1,104 @@
+{
+  "additionalProperties": false,
+  "definitions": {
+    "Color": {
+      "description": "Hex Colors: [AA]RRGGBB",
+      "maxLength": 8,
+      "minLength": 6,
+      "pattern": "^[A-F0-9]{6,8}$",
+      "type": "string"
+    }
+  },
+  "description": "...",
+  "properties": {
+
+    "field": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "rotation": {
+          "enum": [
+            "north",
+            "east",
+            "south",
+            "west"
+          ]
+        },
+        "preset": {
+          "enum": [
+            "9v9",
+            "11v11"
+          ]
+        },
+        "clip": {
+          "type": "number"
+        },
+        "marginLength": {
+          "type": "number"
+        },
+        "marginWidth": {
+          "type": "number"
+        },
+        "length": {
+          "type": "number"
+        },
+        "width": {
+          "type": "number"
+        },
+        "mowerLanes": {
+          "type": "integer"
+        },
+        "lineWidth": {
+          "type": "number"
+        },
+        "color1": {
+          "$ref": "#/definitions/Color"
+        },
+        "color2": {
+          "$ref": "#/definitions/Color"
+        },
+        "color3": {
+          "$ref": "#/definitions/Color"
+        },
+        "goalWidth": {
+          "type": "number"
+        },
+        "goalLength": {
+          "type": "number"
+        },
+        "centerCirle": {
+          "type": "number"
+        },
+        "centerSpot": {
+          "type": "number"
+        },
+        "penaltyLength": {
+          "type": "number"
+        },
+        "penaltyAreaWidth": {
+          "type": "number"
+        },
+        "penaltyAreaLength": {
+          "type": "number"
+        },
+        "goalAreaWidth": {
+          "type": "number"
+        },
+        "goalAreaLength": {
+          "type": "number"
+        },
+        "penaltyArc": {
+          "type": "number"
+        },
+        "penaltySpot": {
+          "type": "number"
+        },
+        "cornerArc": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "required": ["field"],
+  "type": "object"
+}

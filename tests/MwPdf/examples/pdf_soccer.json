@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "theme": "@def",
+    "themes": {
+      "@def": {
+        "orientation": "landscape",
+        "margin": [0]
+      }
+    }
+  },
+  "pages": [
+    {
+      "content": [
+        {
+          "SoccerTactic": {
+            "field": {
+              "preset": "11v11",
+              "lineWidth": 0.50,
+              "penaltySpot": 0.50,
+              "centerSpot": 0.50
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

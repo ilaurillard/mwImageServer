@@ -7,7 +7,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class Labels {
-  static pw.Widget labels(
+  static pw.Widget build(
     Dict json,
     State state,
   ) {
