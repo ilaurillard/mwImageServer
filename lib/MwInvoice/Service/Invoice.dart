@@ -8,7 +8,6 @@ import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeSettleme
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Model/TradeTax.dart';
 import 'package:mwcdn/MwInvoice/Service/XRechnung/Model/ubl/Invoice.dart'
     as x_invoice;
-import 'package:mwcdn/MwMs/Etc/Console.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
@@ -60,7 +59,7 @@ class Invoice {
       // Console.warning(
       //   'Parsing invoice data failed: $e',
       // );
-      throw e;
+      rethrow;
     }
   }
 
@@ -68,15 +67,13 @@ class Invoice {
     try {
       if (cii != null) {
         return cii!.toXml();
-      }
-      else if (ubl != null) {
+      } else if (ubl != null) {
         return ubl!.toXml();
-      }
-      else {
+      } else {
         throw Exception('No valid invoice data found!');
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 

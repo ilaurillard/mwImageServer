@@ -40,5 +40,5 @@ dependency_overrides:
       ref: pdfa_3b
 
 dev_dependencies:
-  lints: ^3.0.0
+  lints: ^5.0.0
   test: ^1.15.0

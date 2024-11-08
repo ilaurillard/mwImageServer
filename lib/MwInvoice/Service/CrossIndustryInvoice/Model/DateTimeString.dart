@@ -34,7 +34,7 @@ class DateTimeString {
     }
     return DateTimeString(
       format: int.tryParse(xml.getAttribute('format') ?? '') ?? 0,
-      value: xml.innerText ?? '',
+      value: xml.innerText,
     );
   }
 

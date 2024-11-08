@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:mwcdn/MwInvoice/Service/Invoice.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
-import 'package:mwcdn/MwPdf/Engine/Encryption/ProtectionRC4.dart';
 import 'package:mwcdn/MwPdf/Engine/Storage.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -248,8 +247,6 @@ class Engine {
         index: tocPageNr - 1,
       );
     }
-
-
 
     return pdf;
   }

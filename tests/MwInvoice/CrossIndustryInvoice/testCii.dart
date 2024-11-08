@@ -14,7 +14,7 @@ Future<void> main(
   }
 
   if (source.isNotEmpty) {
-    String dest = source + '.xxx';
+    String dest = '$source.xxx';
 
     String xml = File(
       source,

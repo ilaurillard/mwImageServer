@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -7,7 +9,6 @@ import 'package:pdf/src/pdf/format/base.dart';
 import 'package:pdf/src/pdf/format/name.dart';
 import 'package:pdf/src/pdf/format/num.dart';
 import 'package:pdf/src/pdf/format/object_base.dart';
-import 'package:pdf/src/pdf/format/string.dart';
 import 'package:pdf/src/pdf/format/stream.dart';
 import 'package:pdf/src/pdf/obj/encryption.dart';
 
@@ -18,14 +19,14 @@ class EscapedKey extends PdfDataType {
 
   @override
   void output(
-      PdfObjectBase o,
-      PdfStream s,
-      [int? indent,]
-      ) {
+    PdfObjectBase o,
+    PdfStream s, [
+    int? indent,
+  ]) {
     s.putByte(0x20);
     s.putByte(40);
     s.putBytes(
-        _escape(key),
+      _escape(key),
     );
     s.putByte(41);
   }
@@ -48,7 +49,6 @@ class EscapedKey extends PdfDataType {
     return Uint8List.fromList(result);
   }
 }
-
 
 // BROKEN!!!!
 

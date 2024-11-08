@@ -1,4 +1,3 @@
-import 'package:mwcdn/MwInvoice/Service/CrossIndustryInvoice/Util.dart';
 import 'package:mwcdn/MwMs/Etc/Types.dart';
 import 'package:xml/xml.dart';
 
@@ -49,7 +48,6 @@ class BinaryObject {
       mimeCode: xml.getAttribute('mimeCode') ?? '',
       filename: xml.getAttribute('filename') ?? '',
     );
-
   }
 
   static BinaryObject? fromJson(
