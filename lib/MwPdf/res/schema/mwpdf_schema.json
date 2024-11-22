@@ -2979,8 +2979,7 @@
               },
               "minProperties": 1,
               "maxProperties": 1,
-              "type": "object",
-              "additionalProperties": false
+              "type": "object"
             },
             "type": "array"
           },
@@ -3134,8 +3133,7 @@
               },
               "minProperties": 1,
               "maxProperties": 1,
-              "type": "object",
-              "additionalProperties": false
+              "type": "object"
             },
             "type": "array"
           }
